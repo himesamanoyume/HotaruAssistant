@@ -25,13 +25,33 @@ def main(action=None):
         logger.error(_("您尚未同意《免责声明》"))
         input(_("按回车键关闭窗口. . ."))
         sys.exit(0)
+    if config.multi_login:
+        # 多账号
+        logger.info(_("开始多账号运行"))
+        for index in range(len(config.multi_login_accounts)):
+            logger.info(_(config.multi_login_accounts[index]))
+            logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=config.multi_login_accounts[index]))
+            if os.system(f"cmd /C REG IMPORT {config.multi_login_accounts[index]}"):
+                return False
+            logger.info(action)
+            run(index, action)
+    else:
+        logger.info(action)
+        run(-1, action)
+
+def run(index, action=None):
     # 完整运行
     if action is None or action == "main":
-        while True:
-            Version.start()
-            Game.start()
-            Daily.start()
-            Game.stop(True)
+        logger.info(_("序列为{_index}的账号即将启动").format(_index= index))
+        Version.start()
+        Game.start()
+        Daily.start()
+        Game.stop(index ,True)
+        # while True:
+        #     Version.start()
+        #     Game.start()
+        #     Daily.start()
+        #     Game.stop(index ,True)
     # 子任务
     elif action in ["fight", "universe", "forgottenhall"]:
         Version.start()
@@ -42,7 +62,7 @@ def main(action=None):
             Universe.start()
         elif action == "forgottenhall":
             ForgottenHall.start()
-        Game.stop(False)
+        Game.stop(index ,False)
     # 子任务 原生图形界面
     elif action in ["universe_gui", "fight_gui"]:
         if action == "universe_gui" and not Universe.gui():

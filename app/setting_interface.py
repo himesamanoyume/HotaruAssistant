@@ -64,6 +64,12 @@ class SettingInterface(ScrollArea):
             "新版本将更加稳定并拥有更多功能（建议启用）",
             "check_update"
         )
+        self.multiLoginCard = SwitchSettingCard1(
+            FIF.GAME,
+            self.tr('是否多账号登录'),
+            "是否多账号登录,需要在config中填写注册表位置",
+            "multi_login"
+        )
         self.afterFinishCard = ComboBoxSettingCard2(
             "after_finish",
             FIF.POWER_BUTTON,
@@ -479,6 +485,7 @@ class SettingInterface(ScrollArea):
         self.ProgramGroup.addSettingCard(self.importConfigCard)
         self.ProgramGroup.addSettingCard(self.gameScreenshotCard)
         self.ProgramGroup.addSettingCard(self.checkUpdateCard)
+        self.ProgramGroup.addSettingCard(self.multiLoginCard)
         self.ProgramGroup.addSettingCard(self.afterFinishCard)
         self.ProgramGroup.addSettingCard(self.playAudioCard)
         self.ProgramGroup.addSettingCard(self.powerLimitCard)

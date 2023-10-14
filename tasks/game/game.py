@@ -31,10 +31,22 @@ class Game:
         logger.hr(_("完成"), 2)
 
     @staticmethod
-    def stop(detect_loop=False):
-        logger.hr(_("停止运行"), 0)
-        Stop.play_audio()
-        if detect_loop and config.after_finish == "Loop":
-            Stop.after_finish_is_loop()
+    def stop(index, detect_loop=False):
+        if config.multi_login:
+            logger.hr(_("多账号结束运行一个账号"), 0)
+            if index == len(config.multi_login_accounts) - 1:
+                logger.hr(_("停止运行"), 0)
+                Stop.play_audio()
+                if detect_loop and config.after_finish == "Loop":
+                    Stop.after_finish_is_loop()
+                else:
+                    Stop.after_finish_not_loop()
+            else:
+                Stop.stop_game()
         else:
-            Stop.after_finish_not_loop()
+            logger.hr(_("单账号停止运行"), 0)
+            Stop.play_audio()
+            if detect_loop and config.after_finish == "Loop":
+                Stop.after_finish_is_loop()
+            else:
+                Stop.after_finish_not_loop()
