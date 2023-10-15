@@ -229,12 +229,12 @@ class SettingInterface(ScrollArea):
             self.tr("今日实训"),
             "daily_tasks"
         )
-        self.lastRunTimeCard = PushSettingCardDate(
-            self.tr('修改'),
-            FIF.DATE_TIME,
-            self.tr("上次检测日常的时间"),
-            "last_run_timestamp"
-        )
+        # self.lastRunTimeCard = PushSettingCardDate(
+        #     self.tr('修改'),
+        #     FIF.DATE_TIME,
+        #     self.tr("上次检测日常的时间"),
+        #     "last_run_timestamp"
+        # )
 
         self.FightGroup = SettingCardGroup(self.tr("锄大地 (Fhoe-Rail)"), self.scrollWidget)
         self.fightEnableCard = SwitchSettingCard1(
@@ -513,7 +513,7 @@ class SettingInterface(ScrollArea):
         # self.DailyGroup.addSettingCard(self.srpassEnableCard)
         self.DailyGroup.addSettingCard(self.dailyForgottenhallEnableCard)
         self.DailyGroup.addSettingCard(self.dailyTasksCard)
-        self.DailyGroup.addSettingCard(self.lastRunTimeCard)
+        # self.DailyGroup.addSettingCard(self.lastRunTimeCard)
 
         self.FightGroup.addSettingCard(self.fightEnableCard)
         self.FightGroup.addSettingCard(self.fightOperationModeCard)

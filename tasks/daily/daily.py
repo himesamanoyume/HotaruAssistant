@@ -60,15 +60,20 @@ class Daily:
     def start(uid):
         if config.multi_login:
             logger.hr(_("多账号下开始日常任务"), 0)
+            if Date.is_next_4_am(config.last_run_timestamp[uid]):
 
-            Activity.start()
-            screen.change_to("guide2")
+                # 活动
+                Activity.start()
 
-            tasks = Tasks("./assets/config/task_mappings.json")
-            tasks.start(uid)
+                screen.change_to("guide2")
 
-            config.set_value("daily_tasks", tasks.daily_tasks)
-            config.save_timestamp(uid)
+                tasks = Tasks("./assets/config/task_mappings.json")
+                tasks.start(uid)
+
+                config.set_value("daily_tasks", tasks.daily_tasks)
+                config.save_timestamp(uid)
+            else:
+                logger.info(_("日常任务尚未刷新"))
 
             if len(config.daily_tasks[uid]) > 0:
                 task_functions = {
@@ -103,7 +108,7 @@ class Daily:
             sub()
         else:
             logger.hr(_("开始日常任务"), 0)
-            if Date.is_next_4_am(config.last_run_timestamp[uid]):
+            if Date.is_next_4_am(config.last_run_timestamp[1]):
 
                 # 活动
                 Activity.start()
@@ -114,7 +119,9 @@ class Daily:
                 tasks.start()
 
                 config.set_value("daily_tasks", tasks.daily_tasks)
-                config.save_timestamp(uid)
+                # 此处的单人状态下不对应config 需修复
+                config.save_timestamp(1)
+                # end
             else:
                 logger.info(_("日常任务尚未刷新"))
 

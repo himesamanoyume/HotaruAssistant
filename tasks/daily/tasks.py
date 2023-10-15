@@ -3,6 +3,7 @@ from managers.translate_manager import _
 from managers.automation_manager import auto
 from managers.config_manager import config
 from managers.ocr_manager import ocr
+from tasks.base.date import Date
 import time
 import json
 import sys
@@ -12,6 +13,7 @@ class Tasks:
     def __init__(self, config_example_path):
         self.crop = (243.0 / 1920, 377.0 / 1080, 1428.0 / 1920, 528.0 / 1080)
         self.task_mappings = self._load_config(config_example_path)
+        # self.daily_tasks = {}
         if config.daily_tasks == {}:
             self.daily_tasks = {}
         else:
@@ -37,10 +39,16 @@ class Tasks:
         self.daily_tasks[uid] = {}
         for box in result:
             text = box[1][0]
+            # logger.info(_("text:{_text}").format(_text = text))
             for keyword, task_name in self.task_mappings.items():
                 if keyword in text:
-                    self.daily_tasks[uid][task_name] = True
-                    # self.daily_tasks[task_name] = True
+                    logger.info(_("task_name:{_task_name}").format(_task_name = task_name))
+                    if Date.is_next_4_am(config.last_run_timestamp[uid]) == False and self.daily_tasks[uid][task_name] == False:
+                        continue
+                    else:
+                        self.daily_tasks[uid][task_name] = True
+                    # self.daily_tasks[uid][task_name] = True
+                    # logger.info(_("already set:{_task_name}").format(_task_name = self.daily_tasks[uid][task_name]))
                     break
 
     def scroll(self):
