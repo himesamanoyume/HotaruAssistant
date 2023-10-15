@@ -459,7 +459,7 @@ class SettingInterface(ScrollArea):
             self.tr('关于'),
             self.tr('当前版本：') + " " + config.version
         )
-
+        
         self.__initWidget()
 
     def __initWidget(self):
