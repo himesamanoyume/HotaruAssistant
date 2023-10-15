@@ -7,7 +7,7 @@ after_finish: None # 任务完成后: "None"（无）"Exit"（退出）"Loop"（
 power_limit: 160 # 循环运行所需开拓力
 play_audio: false # 任务完成后播放提示音
 multi_login: false # 是否多账号登录
-multi_login_accounts: '' # 多账号注册表位置
+multi_login_accounts: {} # 多账号注册表位置
 
 python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
 pypi_mirror_urls: # pypi 镜像列表
@@ -18,6 +18,8 @@ pypi_mirror_urls: # pypi 镜像列表
 game_title_name: 崩坏：星穹铁道 # 窗口标题
 game_process_name: StarRail # 进程名
 game_path: C:\Program Files\Star Rail\Game\StarRail.exe # 游戏路径
+
+test: {}
 
 instance_type: 拟造花萼（金） # 副本类型: 侵蚀隧洞、凝滞虚影、拟造花萼（金）、拟造花萼（赤）
 instance_names: # 副本名称
