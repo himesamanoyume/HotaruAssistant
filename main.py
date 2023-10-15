@@ -33,16 +33,16 @@ def main(action=None):
             # sys.exit(0)
         else:
             logger.info(_("开始多账号运行"))
-            # config.set_value("test", {})
-            # temp = "D:\MihoyoLogin\starrail-100193509.reg"
-            # test = {temp[24:33]:{'prop1':True,'prop2':False}}
-            # config.set_value("test", test)
-            # config.test[temp[24:33]]['prop1'] = False
-            # config.set_value(config.test[temp[24:33]]['prop2'], True)
-            # config.save_config()
+            config.set_value("test", {})
+            temp = "D:\MihoyoLogin\starrail-100193509.reg"
+            test = {temp[24:33]:{'prop1':True,'prop2':False}}
+            config.set_value("test", test)
+            config.test[temp[24:33]]['prop1'] = False
+            config.set_value(config.test[temp[24:33]]['prop2'], True)
+            config.save_config()
 
-            # input(_("按回车键关闭窗口. . ."))
-            # sys.exit(0)
+            input(_("按回车键关闭窗口. . ."))
+            sys.exit(0)
 
             # for index in range(len(config.multi_login_accounts)):
             #     indexStr = config.multi_login_accounts[index]
@@ -55,7 +55,7 @@ def main(action=None):
             #     run(index, uid, action)
     else:
         logger.info(action)
-        run(-1, -1, action)
+        run(-1, action)
 
 def run(index, action=None):
     # 完整运行

@@ -15,6 +15,7 @@ QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setAttribute(Qt.AA_DontCreateNativeWidgetSiblings)
+
     w = MainWindow()
 
     sys.exit(app.exec_())
