@@ -29,6 +29,8 @@ class Tasks:
             sys.exit(1)
 
     def start(self, uid):
+        # 此为获取今日每日任务的函数
+        self.daily_tasks[uid] = {}
         self.detect(uid)
         self.scroll()
         self.detect(uid)
@@ -36,10 +38,8 @@ class Tasks:
     def detect(self, uid):
         auto.take_screenshot(crop=self.crop)
         result = ocr.recognize_multi_lines(auto.screenshot)
-        self.daily_tasks[uid] = {}
         for box in result:
             text = box[1][0]
-            # logger.info(_("text:{_text}").format(_text = text))
             for keyword, task_name in self.task_mappings.items():
                 if keyword in text:
                     logger.info(_("task_name:{_task_name}").format(_task_name = task_name))
@@ -47,8 +47,8 @@ class Tasks:
                         continue
                     else:
                         self.daily_tasks[uid][task_name] = True
+                        config.save_config()
                     # self.daily_tasks[uid][task_name] = True
-                    # logger.info(_("already set:{_task_name}").format(_task_name = self.daily_tasks[uid][task_name]))
                     break
 
     def scroll(self):

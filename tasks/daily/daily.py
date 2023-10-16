@@ -1,6 +1,7 @@
 from managers.logger_manager import logger
 from managers.config_manager import config
 from managers.screen_manager import screen
+import time
 from managers.translate_manager import _
 from tasks.base.date import Date
 from tasks.daily.photo import Photo
@@ -60,8 +61,14 @@ class Daily:
     def start(uid):
         if config.multi_login:
             logger.hr(_("多账号下开始日常任务"), 0)
-            if Date.is_next_4_am(config.last_run_timestamp[uid]):
+            if config.last_run_timestamp == {}:
+                config.last_run_timestamp[uid] = 0
 
+            if uid in config.last_run_timestamp.keys():
+                config.last_run_timestamp[uid] = 0
+
+            if Date.is_next_4_am(config.last_run_timestamp[uid]):
+                logger.info(_("已是新的一天,开始每日"))
                 # 活动
                 Activity.start()
 
@@ -71,7 +78,8 @@ class Daily:
                 tasks.start(uid)
 
                 config.set_value("daily_tasks", tasks.daily_tasks)
-                config.save_timestamp(uid)
+                if config.save_timestamp(uid):
+                    logger.info(_("已更新时间戳:{time}".format(time=time.time())))
             else:
                 logger.info(_("日常任务尚未刷新"))
 
@@ -98,11 +106,38 @@ class Daily:
                 # logger.info(_("已完成：{count}/{total}").format(count=count, total=len(config.daily_tasks)))
                 logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[uid])}\033[0m"))
 
-                for task_name, task_function in task_functions.items():
-                    if task_name in config.daily_tasks[uid] and config.daily_tasks[uid][task_name]:
-                        if task_function():
+                
+                for task_name, task_value in config.daily_tasks[uid].items():
+                    if "{_task_name}".format(_task_name = task_name) in task_functions.keys():
+                        if task_functions["{_task_name}".format(_task_name = task_name)]():
+                            logger.info(_("{_task_name}已完成").format(_task_name=task_name))
                             config.daily_tasks[uid][task_name] = False
                             config.save_config()
+                        else:
+                            logger.warning(_("【{_task_name}】可能对应选项{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("未开启") + "\033[0m"))
+                    else:
+                        logger.warning(_("【{_task_name}】可能该任务{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("暂不支持") + "\033[0m"))                                              
+
+                # logger.info(_("进入task_functions.items()循环"))
+                # for task_name, task_function in task_functions.items():
+                #     if task_name in config.daily_tasks[uid] and config.daily_tasks[uid][task_name]:
+                #         if task_function():
+                #             logger.info(_("{_task_name}已完成").format(_task_name=task_name))
+                #             config.daily_tasks[uid][task_name] = False
+                #             config.save_config()
+                #         else:
+                #             logger.warning(_("{_task_name}可能选项未开启,请自行解决").format(_task_name=task_name))
+
+                logger.hr(_("每日部分结束"), 2)
+
+                count = 0
+                for key, value in config.daily_tasks[uid].items():
+                    state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
+                    logger.info(f"{key}: {state}")
+                    count = count + 1 if not value else count
+                # logger.info(_("已完成：{count}/{total}").format(count=count, total=len(config.daily_tasks)))
+                logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[uid])}\033[0m"))
+
 
                 logger.hr(_("完成"), 2)
             sub()

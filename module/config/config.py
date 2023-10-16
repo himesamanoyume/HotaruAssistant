@@ -79,7 +79,11 @@ class Config:
             self.last_run_timestamp[uid] = time.time()
         else:
             self.last_run_timestamp[uid] = time.time()
+        
+        self.save_config()
+        return True
         # self.set_value(key, time.time())
+        
 
     def __getattr__(self, attr):
         if attr in self.config:
