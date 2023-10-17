@@ -16,7 +16,9 @@ class Synthesis:
                 # 等待筛选界面弹出
                 time.sleep(1)
                 if auto.click_element("防御类消耗品", "text", max_retries=10, crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
+                    time.sleep(1)
                     if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
+                        time.sleep(1)
                         # 多次重试避免选中没反应
                         for i in range(10):
                             auto.click_element("./assets/images/synthesis/defensive_medicine.png", "image", 0.9, max_retries=10)
@@ -41,7 +43,9 @@ class Synthesis:
                 # 等待筛选界面弹出
                 time.sleep(1)
                 if auto.click_element("通用培养材料", "text", max_retries=10, crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
+                    time.sleep(1)
                     if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
+                        time.sleep(1)
                         # 多次重试避免选中没反应
                         for i in range(10):
                             auto.click_element("./assets/images/synthesis/nuclear.png", "image", 0.9, max_retries=10)
@@ -66,7 +70,9 @@ class Synthesis:
                 # 等待筛选界面弹出
                 time.sleep(1)
                 if auto.click_element("防御类消耗品", "text", max_retries=10, crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
+                    time.sleep(1)
                     if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
+                        time.sleep(1)
                         # 多次重试避免选中没反应
                         for i in range(10):
                             if auto.click_element("./assets/images/synthesis/defensive_medicine.png", "image", 0.8, max_retries=10):

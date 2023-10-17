@@ -42,7 +42,7 @@ class Tasks:
             text = box[1][0]
             for keyword, task_name in self.task_mappings.items():
                 if keyword in text:
-                    logger.info(_("task_name:{_task_name}").format(_task_name = task_name))
+                    # logger.info(_("task_name:{_task_name}").format(_task_name = task_name))
                     if Date.is_next_4_am(config.last_run_timestamp[uid]) == False and self.daily_tasks[uid][task_name] == False:
                         continue
                     else:

@@ -9,65 +9,73 @@ from tasks.daily.fight import Fight
 from tasks.weekly.universe import Universe
 from tasks.reward.reward import Reward
 from tasks.daily.synthesis import Synthesis
+from tasks.daily.utils import Utils
 from tasks.weekly.forgottenhall import ForgottenHall
 from tasks.weekly.echoofwar import Echoofwar
 from tasks.power.power import Power
 from tasks.daily.tasks import Tasks
 from tasks.activity.activity import Activity
 
-def sub():
-    if Date.is_next_mon_4_am(config.echo_of_war_timestamp):
-        if config.echo_of_war_enable:
-            Echoofwar.start()
-        else:
-            logger.info(_("历战余响未开启"))
-    else:
-        logger.info(_("历战余响尚未刷新"))
-
-    Power.start()
-
-    if Date.is_next_4_am(config.fight_timestamp):
-        if config.fight_enable:
-            Fight.start()
-        else:
-            logger.info(_("锄大地未开启"))
-    else:
-        logger.info(_("锄大地尚未刷新"))
-
-    if Date.is_next_mon_4_am(config.universe_timestamp):
-        if config.universe_enable:
-            Power.start()
-            Reward.start()
-            Universe.start(get_reward=True)
-            Power.start()
-        else:
-            logger.info(_("模拟宇宙未开启"))
-    else:
-        logger.info(_("模拟宇宙尚未刷新"))
-
-    if Date.is_next_mon_4_am(config.forgottenhall_timestamp):
-        if config.forgottenhall_enable:
-            ForgottenHall.start()
-        else:
-            logger.info(_("忘却之庭未开启"))
-    else:
-        logger.info(_("忘却之庭尚未刷新"))
-
-    Reward.start()
 
 
 class Daily:
+
+
+    def sub(uid):
+
+        Utils.detectTimestamp(config.echo_of_war_timestamp, uid)
+
+        if Date.is_next_mon_4_am(config.echo_of_war_timestamp[uid]):
+            if config.echo_of_war_enable:
+                Echoofwar.start(uid)
+            else:
+                logger.info(_("历战余响未开启"))
+        else:
+            logger.info(_("历战余响尚未刷新"))
+
+        Power.start()
+
+        Utils.detectTimestamp(config.fight_timestamp, uid)
+
+        if Date.is_next_4_am(config.fight_timestamp[uid]):
+            if config.fight_enable:
+                Fight.start(uid)
+            else:
+                logger.info(_("锄大地未开启"))
+        else:
+            logger.info(_("锄大地尚未刷新"))
+
+        Utils.detectTimestamp(config.universe_timestamp, uid)
+
+        if Date.is_next_mon_4_am(config.universe_timestamp[uid]):
+            if config.universe_enable:
+                Power.start()
+                Reward.start()
+                Universe.start(uid, get_reward=True)
+                Power.start()
+            else:
+                logger.info(_("模拟宇宙未开启"))
+        else:
+            logger.info(_("模拟宇宙尚未刷新"))
+
+        Utils.detectTimestamp(config.forgottenhall_timestamp, uid)
+
+        if Date.is_next_mon_4_am(config.forgottenhall_timestamp[uid]):
+            if config.forgottenhall_enable:
+                ForgottenHall.start(uid)
+            else:
+                logger.info(_("忘却之庭未开启"))
+        else:
+            logger.info(_("忘却之庭尚未刷新"))
+
+        Reward.start()
+
     @staticmethod
     def start(uid):
         if config.multi_login:
             logger.hr(_("多账号下开始日常任务"), 0)
-            if config.last_run_timestamp == {}:
-                config.last_run_timestamp[uid] = 0
-                config.save_config()
 
-            if uid not in config.last_run_timestamp.keys():
-                config.last_run_timestamp[uid] = 0
-                config.save_config()
+            Utils.detectTimestamp(config.last_run_timestamp, uid)
 
             if Date.is_next_4_am(config.last_run_timestamp[uid]):
                 logger.info(_("已是新的一天,开始每日"))
@@ -80,10 +88,8 @@ class Daily:
                 tasks.start(uid)
 
                 config.set_value("daily_tasks", tasks.daily_tasks)
-                if config.save_timestamp(uid):
-                    logger.info(_("已更新时间戳"))
-                else:
-                    logger.info(_("更新时间戳出错"))
+                Utils.saveTimestamp(config.last_run_timestamp, uid)
+
             else:
                 logger.info(_("日常任务尚未刷新"))
 
@@ -113,12 +119,15 @@ class Daily:
                 
                 for task_name, task_value in config.daily_tasks[uid].items():
                     if "{_task_name}".format(_task_name = task_name) in task_functions.keys():
-                        if task_functions["{_task_name}".format(_task_name = task_name)]():
-                            logger.info(_("{_task_name}已完成").format(_task_name=task_name))
-                            config.daily_tasks[uid][task_name] = False
-                            config.save_config()
+                        if config.daily_tasks[uid][task_name]:
+                            if task_functions["{_task_name}".format(_task_name = task_name)]():
+                                logger.info(_("{_task_name}已完成").format(_task_name=task_name))
+                                config.daily_tasks[uid][task_name] = False
+                                config.save_config()
+                            else:
+                                logger.warning(_("【{_task_name}】可能对应选项{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("未开启") + "\033[0m"))
                         else:
-                            logger.warning(_("【{_task_name}】可能对应选项{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("未开启") + "\033[0m"))
+                            logger.warning(_("【{_task_name}】该任务{green},跳过").format(_task_name=task_name, green="\033[92m" + _("已完成") + "\033[0m"))
                     else:
                         logger.warning(_("【{_task_name}】可能该任务{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("暂不支持") + "\033[0m"))                                              
 
@@ -144,9 +153,12 @@ class Daily:
 
 
                 logger.hr(_("完成"), 2)
-            sub()
+            Daily.sub(uid)
         else:
             logger.hr(_("开始日常任务"), 0)
+
+            Utils.detectTimestamp(config.last_run_timestamp, 1)
+
             if Date.is_next_4_am(config.last_run_timestamp[1]):
 
                 # 活动
@@ -158,9 +170,8 @@ class Daily:
                 tasks.start()
 
                 config.set_value("daily_tasks", tasks.daily_tasks)
-                # 此处的单人状态下不对应config 需修复
-                config.save_timestamp(1)
-                # end
+
+                Utils.saveTimestamp(config.last_run_timestamp, 1)
             else:
                 logger.info(_("日常任务尚未刷新"))
 
@@ -194,4 +205,6 @@ class Daily:
                             config.save_config()
 
                 logger.hr(_("完成"), 2)
-            sub()
+            Daily.sub(1)
+
+    

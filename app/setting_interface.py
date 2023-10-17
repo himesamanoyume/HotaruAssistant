@@ -164,12 +164,7 @@ class SettingInterface(ScrollArea):
             "每周体力优先完成三次「历战余响」",
             "echo_of_war_enable"
         )
-        self.echoofwarRunTimeCard = PushSettingCardDate(
-            self.tr('修改'),
-            FIF.DATE_TIME,
-            self.tr("上次完成历战余响的时间"),
-            "echo_of_war_timestamp"
-        )
+
 
         self.BorrowGroup = SettingCardGroup(self.tr("支援设置"), self.scrollWidget)
         self.borrowCharacterEnableCard = SwitchSettingCard1(
@@ -283,12 +278,12 @@ class SettingInterface(ScrollArea):
             None,
             texts=['1', '2', '3', '4', '5', '6']
         )
-        self.FightRunTimeCard = PushSettingCardDate(
-            self.tr('修改'),
-            FIF.DATE_TIME,
-            self.tr("上次运行锄大地的时间"),
-            "fight_timestamp"
-        )
+        # self.FightRunTimeCard = PushSettingCardDate(
+        #     self.tr('修改'),
+        #     FIF.DATE_TIME,
+        #     self.tr("上次运行锄大地的时间"),
+        #     "fight_timestamp"
+        # )
         self.guiFightCard = PrimaryPushSettingCard(
             self.tr('启动'),
             FIF.SETTING,
@@ -336,12 +331,12 @@ class SettingInterface(ScrollArea):
             self.tr("模拟宇宙超时"),
             self.tr("超过设定时间强制停止（单位小时）"),
         )
-        self.universeRunTimeCard = PushSettingCardDate(
-            self.tr('修改'),
-            FIF.DATE_TIME,
-            self.tr("上次运行模拟宇宙的时间"),
-            "universe_timestamp"
-        )
+        # self.universeRunTimeCard = PushSettingCardDate(
+        #     self.tr('修改'),
+        #     FIF.DATE_TIME,
+        #     self.tr("上次运行模拟宇宙的时间"),
+        #     "universe_timestamp"
+        # )
         self.universeBonusEnableCard = SwitchSettingCard1(
             FIF.IOT,
             self.tr('领取沉浸奖励'),
@@ -405,12 +400,12 @@ class SettingInterface(ScrollArea):
             self.tr("混沌回忆队伍2"),
             "forgottenhall_team2"
         )
-        self.forgottenhallRunTimeCard = PushSettingCardDate(
-            self.tr('修改'),
-            FIF.DATE_TIME,
-            self.tr("上次运行混沌回忆的时间"),
-            "forgottenhall_timestamp"
-        )
+        # self.forgottenhallRunTimeCard = PushSettingCardDate(
+        #     self.tr('修改'),
+        #     FIF.DATE_TIME,
+        #     self.tr("上次运行混沌回忆的时间"),
+        #     "forgottenhall_timestamp"
+        # )
 
         self.NotifyGroup = SettingCardGroup(self.tr("消息推送"), self.scrollWidget)
         self.testNotifyCard = PrimaryPushSettingCard(
@@ -501,7 +496,7 @@ class SettingInterface(ScrollArea):
         self.PowerGroup.addSettingCard(self.useReservedTrailblazePowerEnableCard)
         self.PowerGroup.addSettingCard(self.useFuelEnableCard)
         self.PowerGroup.addSettingCard(self.echoofwarEnableCard)
-        self.PowerGroup.addSettingCard(self.echoofwarRunTimeCard)
+        # self.PowerGroup.addSettingCard(self.echoofwarRunTimeCard)
 
         self.BorrowGroup.addSettingCard(self.borrowCharacterEnableCard)
         self.BorrowGroup.addSettingCard(self.borrowCharacterFromCard)
@@ -521,7 +516,7 @@ class SettingInterface(ScrollArea):
         self.FightGroup.addSettingCard(self.fightTimeoutCard)
         self.FightGroup.addSettingCard(self.fightTeamEnableCard)
         self.FightGroup.addSettingCard(self.fightTeamNumberCard)
-        self.FightGroup.addSettingCard(self.FightRunTimeCard)
+        # self.FightGroup.addSettingCard(self.FightRunTimeCard)
         self.FightGroup.addSettingCard(self.guiFightCard)
         self.FightGroup.addSettingCard(self.updateFightCard)
 
@@ -530,7 +525,7 @@ class SettingInterface(ScrollArea):
         # self.UniverseGroup.addSettingCard(self.universePathCard)
         self.UniverseGroup.addSettingCard(self.universeTimeoutCard)
         self.UniverseGroup.addSettingCard(self.universeBonusEnableCard)
-        self.UniverseGroup.addSettingCard(self.universeRunTimeCard)
+        # self.UniverseGroup.addSettingCard(self.universeRunTimeCard)
         self.UniverseGroup.addSettingCard(self.guiUniverseCard)
         self.UniverseGroup.addSettingCard(self.updateUniverseCard)
 
@@ -540,7 +535,7 @@ class SettingInterface(ScrollArea):
         self.ForgottenhallGroup.addSettingCard(self.forgottenhallTeamInfoCard)
         self.ForgottenhallGroup.addSettingCard(self.forgottenhallTeam1Card)
         self.ForgottenhallGroup.addSettingCard(self.forgottenhallTeam2Card)
-        self.ForgottenhallGroup.addSettingCard(self.forgottenhallRunTimeCard)
+        # self.ForgottenhallGroup.addSettingCard(self.forgottenhallRunTimeCard)
 
         self.NotifyGroup.addSettingCard(self.testNotifyCard)
         self.NotifyGroup.addSettingCard(self.winotifyEnableCard)

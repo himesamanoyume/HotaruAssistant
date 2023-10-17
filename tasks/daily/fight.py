@@ -4,6 +4,7 @@ from managers.logger_manager import logger
 from managers.translate_manager import _
 from tasks.base.base import Base
 from tasks.base.pythonchecker import PythonChecker
+from tasks.daily.utils import Utils
 from tasks.base.command import subprocess_with_timeout
 import subprocess
 import os
@@ -66,7 +67,7 @@ class Fight:
         return True
 
     @staticmethod
-    def start():
+    def start(uid):
         logger.hr(_("准备锄大地"), 2)
         if Fight.before_start():
             # 切换队伍
@@ -85,7 +86,10 @@ class Fight:
                 if subprocess_with_timeout([config.python_exe_path, "Fast_Star_Rail.py"], config.fight_timeout * 3600, config.fight_path, config.env):
                     status = True
             if status:
-                config.save_timestamp("fight_timestamp")
+                # config.save_timestamp("fight_timestamp")
+                
+                Utils.saveTimestamp(config.fight_timestamp, uid)
+
                 Base.send_notification_with_screenshot(_("🎉锄大地已完成🎉"))
                 return
 

@@ -5,6 +5,7 @@ from managers.automation_manager import auto
 from managers.translate_manager import _
 from tasks.base.base import Base
 from tasks.base.pythonchecker import PythonChecker
+from tasks.daily.utils import Utils
 from tasks.base.command import subprocess_with_timeout
 import subprocess
 import os
@@ -46,7 +47,7 @@ class Universe:
         return True
 
     @staticmethod
-    def start(get_reward=False):
+    def start(uid, get_reward=False):
         logger.hr(_("准备模拟宇宙"), 2)
 
         if Universe.before_start():
@@ -59,7 +60,10 @@ class Universe:
                 if config.universe_bonus_enable:
                     command.append("--bonus=1")
                 if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
-                    config.save_timestamp("universe_timestamp")
+                    
+                    Utils.saveTimestamp(config.universe_timestamp, uid)
+
+                    # config.save_timestamp("universe_timestamp")
                     if get_reward:
                         Universe.get_reward()
                     else:

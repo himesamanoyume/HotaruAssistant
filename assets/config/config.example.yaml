@@ -37,7 +37,7 @@ instance_team_number: '1' # 队伍编号
 use_reserved_trailblaze_power: False # 使用后备开拓力
 use_fuel: False # 使用燃料
 echo_of_war_enable: false # 体力优先完成3次「历战余响」
-echo_of_war_timestamp: 0 # 上次完成3次「历战余响」的时间戳（每周运行）
+echo_of_war_timestamp: {} # 上次完成3次「历战余响」的时间戳（每周运行）
 
 borrow_character_enable: false # 强制使用支援角色
 borrow_character_from: # 使用指定好友的支援角色
@@ -72,7 +72,7 @@ fight_timeout: 6 # 锄大地超时（单位小时）
 fight_team_enable: false # 锄大地时自动切换队伍
 fight_team_number: '2' # 队伍编号
 fight_requirements: false # 是否安装过依赖（更新后会重置为false）
-fight_timestamp: 0 # 上次运行锄大地的时间戳（每天运行）
+fight_timestamp: {} # 上次运行锄大地的时间戳（每天运行）
 
 universe_enable: false # 启用模拟宇宙
 # universe_operation_mode: exe # 运行方式 源码: source 集成: exe
@@ -80,7 +80,7 @@ universe_bonus_enable: false # 领取沉浸奖励
 universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
 universe_timeout: 20 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）
-universe_timestamp: 0 # 上次运行模拟宇宙的时间戳（每周运行）
+universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
 
 forgottenhall_enable: false # 启用忘却之庭
 forgottenhall_level: # 混沌回忆关卡范围
@@ -110,7 +110,7 @@ forgottenhall_team2: # 队伍2
   - -1
 - - Qingque
   - 1
-forgottenhall_timestamp: 0 # 上次运行混沌回忆的时间戳（每周运行，如已经满星则跳过）
+forgottenhall_timestamp: {} # 上次运行混沌回忆的时间戳（每周运行，如已经满星则跳过）
 
 hotkey_technique: e # 游戏内设置的秘技按键
 

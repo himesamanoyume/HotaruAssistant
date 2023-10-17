@@ -65,12 +65,12 @@ class MainWindow(MSFluentWindow):
             self.toggleTheme,
             NavigationItemPosition.BOTTOM)
 
-        self.navigationInterface.addWidget(
-            'avatar',
-            NavigationBarPushButton(FIF.HEART, '赞赏', isSelectable=False),
-            self.onSupport,
-            NavigationItemPosition.BOTTOM
-        )
+        # self.navigationInterface.addWidget(
+        #     'avatar',
+        #     NavigationBarPushButton(FIF.HEART, '赞赏', isSelectable=False),
+        #     self.onSupport,
+        #     NavigationItemPosition.BOTTOM
+        # )
 
         self.addSubInterface(self.settingInterface, FIF.SETTING, self.tr('设置'), position=NavigationItemPosition.BOTTOM)
 
@@ -99,16 +99,16 @@ class MainWindow(MSFluentWindow):
         self.show()
         QApplication.processEvents()
 
-    def onSupport(self):
-        w = MessageBoxSupport(
-            '支持作者🥰',
-            '此程序为免费开源项目，如果你付了钱请立刻退款\n如果喜欢本项目，可以微信赞赏送作者一杯咖啡☕\n您的支持就是作者开发和维护项目的动力🚀',
-            './assets/app/images/sponsor.jpg',
-            self
-        )
-        w.yesButton.setText('下次一定')
-        w.cancelButton.setHidden(True)
-        w.exec()
+    # def onSupport(self):
+    #     w = MessageBoxSupport(
+    #         '支持作者🥰',
+    #         '此程序为免费开源项目，如果你付了钱请立刻退款\n如果喜欢本项目，可以微信赞赏送作者一杯咖啡☕\n您的支持就是作者开发和维护项目的动力🚀',
+    #         './assets/app/images/sponsor.jpg',
+    #         self
+    #     )
+    #     w.yesButton.setText('下次一定')
+    #     w.cancelButton.setHidden(True)
+    #     w.exec()
 
     def handleUpdate(self, status):
         if status == 2:

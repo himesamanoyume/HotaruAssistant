@@ -25,8 +25,8 @@ March7thAssistant
 
 ## TODO
 
-- 清除原作者的一些信息
-- is_next_mon_4_am未做修改
+- ~~模拟宇宙时间戳修改~~
+- ~~历战余响时间戳修改~~
 - 历战余响每周检测未做修改
 - 使用消耗品时似乎没有尝试重试
 - **针对多账号存储不同的配置和记录**
@@ -88,14 +88,6 @@ python main.py 后面支持参数 fight/universe/forgottenhall 等
 
 ---
 
-如果喜欢本项目，可以微信赞赏送作者一杯咖啡☕
-
-您的支持就是作者开发和维护项目的动力🚀
-
-![sponsor](assets/screenshot/sponsor.jpg)
-
----
-
 ## 相关项目
 
 March7thAssistant 离不开以下开源项目的帮助：
@@ -108,14 +100,3 @@ March7thAssistant 离不开以下开源项目的帮助：
 
 - 图形界面组件库 [https://github.com/zhiyiYo/PyQt-Fluent-Widgets](https://github.com/zhiyiYo/PyQt-Fluent-Widgets)
 
-
-## Contributors
-<a href="https://github.com/moesnow/March7thAssistant/graphs/contributors">
-
-  <img src="https://contrib.rocks/image?repo=moesnow/March7thAssistant" />
-
-</a>
-
-## Stargazers over time
-
-[![Star History](https://starchart.cc/moesnow/March7thAssistant.svg)](https://starchart.cc/moesnow/March7thAssistant)

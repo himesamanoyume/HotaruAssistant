@@ -3,6 +3,7 @@ from managers.automation_manager import auto
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from tasks.daily.utils import Utils
 from module.automation.screenshot import Screenshot
 from tasks.base.base import Base
 import time
@@ -269,11 +270,13 @@ class ForgottenHall:
         return True
 
     @staticmethod
-    def start():
+    def start(uid):
         logger.hr(_("准备混沌回忆"), 2)
 
         if ForgottenHall.prepare():
-            config.save_timestamp("forgottenhall_timestamp")
+            Utils.detectTimestamp(config.forgottenhall_timestamp, uid)
+            # config.save_timestamp("forgottenhall_timestamp")
+            Utils.saveTimestamp(config.forgottenhall_timestamp, uid)
             logger.info(_("混沌回忆完成"))
 
     @staticmethod

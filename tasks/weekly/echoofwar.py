@@ -3,6 +3,7 @@ from managers.automation_manager import auto
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from tasks.daily.utils import Utils
 from tasks.power.power import Power
 from module.automation.screenshot import Screenshot
 from tasks.base.base import Base
@@ -11,7 +12,7 @@ import time
 
 class Echoofwar:
     @staticmethod
-    def start():
+    def start(uid):
         try:
             logger.hr(_("准备历战余响"), 2)
             screen.change_to('guide3')
@@ -28,7 +29,10 @@ class Echoofwar:
                             reward_count = int(text.split("/")[0])
                             if reward_count == 0:
                                 logger.info(_("历战余响已完成"))
-                                config.save_timestamp("echo_of_war_timestamp")
+                                # config.save_timestamp("echo_of_war_timestamp")
+
+                                Utils.saveTimestamp(config.echo_of_war_timestamp, uid)
+
                                 screen.change_to('menu')
                                 return True
                             else:
@@ -38,7 +42,8 @@ class Echoofwar:
                                     logger.info(_("🟣开拓力 < 30"))
                                     return
                                 elif reward_count <= max_count:
-                                    config.save_timestamp("echo_of_war_timestamp")
+                                    Utils.saveTimestamp(config.echo_of_war_timestamp, uid)
+
                                 return Power.run_instances("历战余响", config.instance_names["历战余响"], 30, min(reward_count, max_count))
             return False
         except Exception as e:

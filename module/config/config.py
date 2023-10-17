@@ -73,12 +73,12 @@ class Config:
         self.config[key] = value
         self.save_config()
 
-    def save_timestamp(self, uid):
-        if self.last_run_timestamp == {}:
-            self.last_run_timestamp[uid] = {}
-            self.last_run_timestamp[uid] = time.time()
+    def save_timestamp(self, timestamp, uid):
+        if self.timestamp == {}:
+            self.timestamp[uid] = {}
+            self.timestamp[uid] = time.time()
         else:
-            self.last_run_timestamp[uid] = time.time()
+            self.timestamp[uid] = time.time()
         
         self.save_config()
         return True
