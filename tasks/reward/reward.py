@@ -11,7 +11,7 @@ from tasks.reward.srpass import SRPass
 
 class Reward:
     @staticmethod
-    def start():
+    def start(uid):
         logger.hr(_("开始领奖励"), 0)
         screen.change_to('menu')
 
@@ -40,7 +40,7 @@ class Reward:
                 logger.info(_("支援奖励完成"))
             if "dispatch" in reward_list:
                 logger.hr(_("检测到委托奖励"), 2)
-                Dispatch.get_reward()
+                Dispatch.get_reward(uid)
                 logger.info(_("委托奖励完成"))
             if "quest" in reward_list:
                 logger.hr(_("检测到每日实训奖励"), 2)

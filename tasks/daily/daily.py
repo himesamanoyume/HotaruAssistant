@@ -50,7 +50,7 @@ class Daily:
         if Date.is_next_mon_4_am(config.universe_timestamp[uid]):
             if config.universe_enable:
                 Power.start()
-                Reward.start()
+                Reward.start(uid)
                 Universe.start(uid, get_reward=True)
                 Power.start()
             else:
@@ -68,7 +68,7 @@ class Daily:
         else:
             logger.info(_("忘却之庭尚未刷新"))
 
-        Reward.start()
+        Reward.start(uid)
 
     @staticmethod
     def start(uid):
@@ -88,7 +88,7 @@ class Daily:
                 tasks.start(uid)
 
                 config.set_value("daily_tasks", tasks.daily_tasks)
-                Utils.saveTimestamp(config.last_run_timestamp, uid)
+                Utils.saveTimestamp('last_run_timestamp', uid)
 
             else:
                 logger.info(_("日常任务尚未刷新"))
@@ -171,7 +171,7 @@ class Daily:
 
                 config.set_value("daily_tasks", tasks.daily_tasks)
 
-                Utils.saveTimestamp(config.last_run_timestamp, 1)
+                Utils.saveTimestamp('last_run_timestamp', 1)
             else:
                 logger.info(_("日常任务尚未刷新"))
 

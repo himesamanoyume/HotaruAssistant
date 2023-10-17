@@ -61,7 +61,7 @@ class Universe:
                     command.append("--bonus=1")
                 if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
                     
-                    Utils.saveTimestamp(config.universe_timestamp, uid)
+                    Utils.saveTimestamp('universe_timestamp', uid)
 
                     # config.save_timestamp("universe_timestamp")
                     if get_reward:

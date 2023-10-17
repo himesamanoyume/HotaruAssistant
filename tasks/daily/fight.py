@@ -88,7 +88,7 @@ class Fight:
             if status:
                 # config.save_timestamp("fight_timestamp")
                 
-                Utils.saveTimestamp(config.fight_timestamp, uid)
+                Utils.saveTimestamp('fight_timestamp', uid)
 
                 Base.send_notification_with_screenshot(_("🎉锄大地已完成🎉"))
                 return

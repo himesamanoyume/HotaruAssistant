@@ -8,15 +8,15 @@ import time
 
 class Dispatch:
     @staticmethod
-    def get_reward():
+    def get_reward(uid):
         if not config.dispatch_enable:
             logger.info(_("委托未开启"))
             return False
 
         screen.change_to('dispatch')
         Dispatch._perform_dispatches()
-        if "派遣1次委托" in config.daily_tasks and config.daily_tasks["派遣1次委托"]:
-            config.daily_tasks["派遣1次委托"] = False
+        if "派遣1次委托" in config.daily_tasks[uid] and config.daily_tasks[uid]["派遣1次委托"]:
+            config.daily_tasks[uid]["派遣1次委托"] = False
             config.save_config()
 
     @staticmethod
