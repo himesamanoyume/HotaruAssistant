@@ -63,9 +63,11 @@ class Daily:
             logger.hr(_("多账号下开始日常任务"), 0)
             if config.last_run_timestamp == {}:
                 config.last_run_timestamp[uid] = 0
+                config.save_config()
 
-            if uid in config.last_run_timestamp.keys():
+            if uid not in config.last_run_timestamp.keys():
                 config.last_run_timestamp[uid] = 0
+                config.save_config()
 
             if Date.is_next_4_am(config.last_run_timestamp[uid]):
                 logger.info(_("已是新的一天,开始每日"))
@@ -79,7 +81,9 @@ class Daily:
 
                 config.set_value("daily_tasks", tasks.daily_tasks)
                 if config.save_timestamp(uid):
-                    logger.info(_("已更新时间戳:{time}".format(time=time.time())))
+                    logger.info(_("已更新时间戳"))
+                else:
+                    logger.info(_("更新时间戳出错"))
             else:
                 logger.info(_("日常任务尚未刷新"))
 

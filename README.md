@@ -25,7 +25,6 @@ March7thAssistant
 
 ## TODO
 
-- 时间戳检测有问题,永远判断为新的一天
 - 清除原作者的一些信息
 - is_next_mon_4_am未做修改
 - 历战余响每周检测未做修改
