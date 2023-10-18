@@ -75,8 +75,8 @@ class Fight:
                 Base.change_team(config.fight_team_number)
 
             logger.info(_("开始锄大地"))
-            screen.change_to('universe_main')
-            screen.change_to('main')
+            # screen.change_to('universe_main')
+            # screen.change_to('main')
 
             status = False
             if config.fight_operation_mode == "exe":

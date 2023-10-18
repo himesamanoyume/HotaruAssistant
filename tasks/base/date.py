@@ -12,6 +12,8 @@ class Date:
         else:
             next_4am = dt_object.replace(
                 hour=4, minute=0, second=0, microsecond=0) + timedelta(days=1)
+        
+        logger.info("时间戳记录日期为{time}".format(time=dt_object))
         if current_time >= next_4am:
             return True
         return False
@@ -28,6 +30,8 @@ class Date:
                 7 - dt_object.weekday()) % 7 if dt_object.weekday() != 0 else 7
             next_monday_4am = dt_object.replace(
                 hour=4, minute=0, second=0, microsecond=0) + timedelta(days=days_until_next_monday)
+        
+        logger.info("时间戳记录日期为{time}".format(time=dt_object))
         if current_time >= next_monday_4am:
             return True
         return False

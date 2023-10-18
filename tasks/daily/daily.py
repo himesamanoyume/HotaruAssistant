@@ -29,9 +29,9 @@ class Daily:
             if config.echo_of_war_enable:
                 Echoofwar.start(uid)
             else:
-                logger.info(_("历战余响未开启"))
+                logger.info(_("历战余响{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
         else:
-            logger.info(_("历战余响尚未刷新"))
+            logger.info(_("历战余响尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
         Power.start()
 
@@ -41,9 +41,9 @@ class Daily:
             if config.fight_enable:
                 Fight.start(uid)
             else:
-                logger.info(_("锄大地未开启"))
+                logger.info(_("锄大地{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
         else:
-            logger.info(_("锄大地尚未刷新"))
+            logger.info(_("锄大地尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
         Utils.detectTimestamp(config.universe_timestamp, uid)
 
@@ -54,9 +54,9 @@ class Daily:
                 Universe.start(uid, get_reward=True)
                 Power.start()
             else:
-                logger.info(_("模拟宇宙未开启"))
+                logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
         else:
-            logger.info(_("模拟宇宙尚未刷新"))
+            logger.info(_("模拟宇宙尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
         Utils.detectTimestamp(config.forgottenhall_timestamp, uid)
 
@@ -64,9 +64,9 @@ class Daily:
             if config.forgottenhall_enable:
                 ForgottenHall.start(uid)
             else:
-                logger.info(_("忘却之庭未开启"))
+                logger.info(_("忘却之庭{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
         else:
-            logger.info(_("忘却之庭尚未刷新"))
+            logger.info(_("忘却之庭尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
         Reward.start(uid)
 
@@ -91,7 +91,7 @@ class Daily:
                 Utils.saveTimestamp('last_run_timestamp', uid)
 
             else:
-                logger.info(_("日常任务尚未刷新"))
+                logger.info(_("日常任务{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
             if len(config.daily_tasks[uid]) > 0:
                 task_functions = {
@@ -145,8 +145,8 @@ class Daily:
 
                 count = 0
                 for key, value in config.daily_tasks[uid].items():
-                    state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
-                    logger.info(f"{key}: {state}")
+                    # state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
+                    # logger.info(f"{key}: {state}")
                     count = count + 1 if not value else count
                 # logger.info(_("已完成：{count}/{total}").format(count=count, total=len(config.daily_tasks)))
                 logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[uid])}\033[0m"))
