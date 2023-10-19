@@ -186,4 +186,4 @@ pyrightconfig.json
 /*config.yaml
 /logs
 /screenshots
-/3rdparty
+/3rdparty/PaddleOCR-json_*
