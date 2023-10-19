@@ -1,5 +1,6 @@
 from managers.logger_manager import logger
 from managers.config_manager import config
+from managers.automation_manager import auto
 from managers.screen_manager import screen
 import time
 from managers.translate_manager import _
@@ -70,8 +71,21 @@ class Daily:
 
         Reward.start(uid)
 
+    def get_uid(crop):
+        try:
+            uid = auto.get_single_line_text(crop=crop, blacklist=[], max_retries=9)
+            logger.info(_(f"识别到UID为:{uid}"))
+            return uid
+        except Exception as e:
+            logger.error(_("识别UID失败: {error}").format(error=e))
+            return -1
+
     @staticmethod
-    def start(uid):
+    def start():
+        uid_crop = (68.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
+        uid = Daily.get_uid(uid_crop)
+        if uid == -1:
+            return
         if config.multi_login:
             logger.hr(_("多账号下开始日常任务"), 0)
 

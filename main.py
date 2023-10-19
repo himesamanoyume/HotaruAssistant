@@ -33,18 +33,6 @@ def main(action=None):
             sys.exit(0)
         else:
             logger.info(_("开始多账号运行"))
-            # config.set_value("test", {})
-            # temp = "D:\MihoyoLogin\starrail-100193509.reg"
-            # tempUid = temp[24:33]
-            # test = {tempUid:{'prop1':True,'prop2':False}}
-            # config.set_value("test", test)
-            # config.test[tempUid]['prop1'] = False
-            # config.test[tempUid]['prop2'] = True
-            # config.save_config()
-
-            # input(_("按回车键关闭窗口. . ."))
-            # sys.exit(0)
-
             for index in range(len(config.multi_login_accounts)):
                 indexStr = config.multi_login_accounts[index]
                 uid = indexStr[24:33]
@@ -64,7 +52,7 @@ def run(index, uid, action=None):
         logger.info(_("序列为{_index}的账号即将启动").format(_index= index))
         Version.start()
         Game.start()
-        Daily.start(uid)
+        Daily.start()
         Game.stop(index ,True)
     # 子任务
     elif action in ["fight", "universe", "forgottenhall"]:
