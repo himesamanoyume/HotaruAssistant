@@ -17,6 +17,7 @@ from tasks.weekly.echoofwar import Echoofwar
 from tasks.power.power import Power
 from tasks.daily.tasks import Tasks
 from tasks.activity.activity import Activity
+from tasks.daily.himekotry import HimekoTry
 
 
 
@@ -121,7 +122,6 @@ class Daily:
                 "完成1次「侵蚀隧洞」": lambda: Power.instance("侵蚀隧洞", config.instance_names["侵蚀隧洞"], 40, 1),
                 "完成1次「历战余响」": lambda: Power.instance("历战余响", config.instance_names["历战余响"], 30, 1),
                 "完成1次「忘却之庭」": lambda: ForgottenHall.start_daily(),
-                "派遣1次委托": lambda: Dispatch.get_reward(),
             }
 
             logger.hr(_("今日实训"), 2)
