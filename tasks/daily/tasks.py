@@ -43,12 +43,10 @@ class Tasks:
             for keyword, task_name in self.task_mappings.items():
                 if keyword in text:
                     # logger.info(_("task_name:{_task_name}").format(_task_name = task_name))
-                    if Date.is_next_4_am(config.last_run_timestamp[uid]) == False and self.daily_tasks[uid][task_name] == False:
+                    if task_name in self.daily_tasks[uid] and self.daily_tasks[uid][task_name] == False:
                         continue
                     else:
                         self.daily_tasks[uid][task_name] = True
-                        config.save_config()
-                    # self.daily_tasks[uid][task_name] = True
                     break
 
     def scroll(self):

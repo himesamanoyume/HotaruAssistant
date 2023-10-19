@@ -127,19 +127,9 @@ class Daily:
                             else:
                                 logger.warning(_("【{_task_name}】可能对应选项{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("未开启") + "\033[0m"))
                         else:
-                            logger.warning(_("【{_task_name}】该任务{green},跳过").format(_task_name=task_name, green="\033[92m" + _("已完成") + "\033[0m"))
+                            logger.info(_("【{_task_name}】该任务{green},跳过").format(_task_name=task_name, green="\033[92m" + _("已完成") + "\033[0m"))
                     else:
-                        logger.warning(_("【{_task_name}】可能该任务{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("暂不支持") + "\033[0m"))                                              
-
-                # logger.info(_("进入task_functions.items()循环"))
-                # for task_name, task_function in task_functions.items():
-                #     if task_name in config.daily_tasks[uid] and config.daily_tasks[uid][task_name]:
-                #         if task_function():
-                #             logger.info(_("{_task_name}已完成").format(_task_name=task_name))
-                #             config.daily_tasks[uid][task_name] = False
-                #             config.save_config()
-                #         else:
-                #             logger.warning(_("{_task_name}可能选项未开启,请自行解决").format(_task_name=task_name))
+                        logger.warning(_("【{_task_name}】可能该任务{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("暂不直接支持") + "\033[0m"))                                              
 
                 logger.hr(_("每日部分结束"), 2)
 
