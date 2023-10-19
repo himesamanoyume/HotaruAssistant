@@ -9,6 +9,7 @@ from tasks.daily.photo import Photo
 from tasks.daily.fight import Fight
 from tasks.weekly.universe import Universe
 from tasks.reward.reward import Reward
+from tasks.reward.dispatch import Dispatch
 from tasks.daily.synthesis import Synthesis
 from tasks.daily.utils import Utils
 from tasks.weekly.forgottenhall import ForgottenHall
@@ -119,6 +120,7 @@ class Daily:
                     "完成1次「侵蚀隧洞」": lambda: Power.instance("侵蚀隧洞", config.instance_names["侵蚀隧洞"], 40, 1),
                     "完成1次「历战余响」": lambda: Power.instance("历战余响", config.instance_names["历战余响"], 30, 1),
                     "完成1次「忘却之庭」": lambda: ForgottenHall.start_daily(),
+                    "派遣1次委托": lambda: Dispatch.get_reward(),
                 }
 
                 logger.hr(_("今日实训"), 2)
@@ -127,7 +129,6 @@ class Daily:
                     state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
                     logger.info(f"{key}: {state}")
                     count = count + 1 if not value else count
-                # logger.info(_("已完成：{count}/{total}").format(count=count, total=len(config.daily_tasks)))
                 logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[uid])}\033[0m"))
 
                 
@@ -143,16 +144,13 @@ class Daily:
                         else:
                             logger.info(_("【{_task_name}】该任务{green},跳过").format(_task_name=task_name, green="\033[92m" + _("已完成") + "\033[0m"))
                     else:
-                        logger.warning(_("【{_task_name}】可能该任务{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("暂不直接支持") + "\033[0m"))                                              
+                        logger.warning(_("【{_task_name}】可能该任务{red},或需要锄大地时顺带完成,请检查锄大地是否开启和根据情况自行解决").format(_task_name=task_name, red="\033[91m" + _("暂不直接支持") + "\033[0m"))                                              
 
                 logger.hr(_("每日部分结束"), 2)
 
                 count = 0
                 for key, value in config.daily_tasks[uid].items():
-                    # state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
-                    # logger.info(f"{key}: {state}")
                     count = count + 1 if not value else count
-                # logger.info(_("已完成：{count}/{total}").format(count=count, total=len(config.daily_tasks)))
                 logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[uid])}\033[0m"))
 
 
@@ -191,6 +189,7 @@ class Daily:
                     "完成1次「侵蚀隧洞」": lambda: Power.instance("侵蚀隧洞", config.instance_names["侵蚀隧洞"], 40, 1),
                     "完成1次「历战余响」": lambda: Power.instance("历战余响", config.instance_names["历战余响"], 30, 1),
                     "完成1次「忘却之庭」": lambda: ForgottenHall.start_daily(),
+                    "派遣1次委托": lambda: Dispatch.get_reward(),
                 }
 
                 logger.hr(_("今日实训"), 2)
@@ -199,7 +198,6 @@ class Daily:
                     state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
                     logger.info(f"{key}: {state}")
                     count = count + 1 if not value else count
-                # logger.info(_("已完成：{count}/{total}").format(count=count, total=len(config.daily_tasks)))
                 logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks)}\033[0m"))
 
                 for task_name, task_function in task_functions.items():
