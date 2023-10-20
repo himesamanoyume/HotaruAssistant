@@ -108,7 +108,7 @@ class Daily:
                 state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
                 logger.info(f"{key}: {state}")
                 count = count + 1 if not value else count
-            logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[uid])}\033[0m"))
+            logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
 
             for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():
                 if "{_task_name}".format(_task_name = task_name) in task_functions.keys():
@@ -130,7 +130,7 @@ class Daily:
             for key, value in config.daily_tasks[Utils.get_uid()].items():
                 count = count + 1 if not value else count
 
-            logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[uid])}\033[0m"))
+            logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
         
         logger.hr(_("完成"), 2)
         Daily.sub()
