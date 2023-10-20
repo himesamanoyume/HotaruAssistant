@@ -287,9 +287,9 @@ class ForgottenHall:
         logger.hr(_("准备混沌回忆"), 2)
 
         if ForgottenHall.prepare():
-            Utils.detectTimestamp(config.forgottenhall_timestamp, Utils.uid)
+            Utils.detectTimestamp(config.forgottenhall_timestamp, Utils.get_uid())
             # config.save_timestamp("forgottenhall_timestamp")
-            Utils.saveTimestamp('forgottenhall_timestamp', Utils.uid)
+            Utils.saveTimestamp('forgottenhall_timestamp', Utils.get_uid())
             logger.info(_("混沌回忆完成"))
 
     @staticmethod

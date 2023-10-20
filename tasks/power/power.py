@@ -108,7 +108,7 @@ class Power:
 
     @staticmethod
     def borrow_character():
-        if not (("使用支援角色并获得战斗胜利1次" in config.daily_tasks[Utils.uid] and config.daily_tasks[Utils.uid]["使用支援角色并获得战斗胜利1次"]) or config.borrow_character_enable):
+        if not (("使用支援角色并获得战斗胜利1次" in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()]["使用支援角色并获得战斗胜利1次"]) or config.borrow_character_enable):
             return True
         if not auto.click_element("支援", "text", max_retries=10, crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
             logger.error(_("找不到支援按钮"))

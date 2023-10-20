@@ -41,7 +41,7 @@ class Reward:
                 logger.info(_("支援奖励完成"))
             if "dispatch" in reward_list:
                 logger.hr(_("检测到委托奖励"), 2)
-                Dispatch.get_reward(Utils.uid)
+                Dispatch.get_reward(Utils.get_uid())
                 logger.info(_("委托奖励完成"))
             if "quest" in reward_list:
                 logger.hr(_("检测到每日实训奖励"), 2)

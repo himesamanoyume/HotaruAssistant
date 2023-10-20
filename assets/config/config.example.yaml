@@ -92,8 +92,6 @@ universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
 universe_timeout: 20 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）
 universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
-universe_timestamp_1st: {} # 第一次完成模拟宇宙的时间戳
-universe_timestamp_2rd: {} # 第二次完成模拟宇宙的时间戳
 
 forgottenhall_enable: false # 启用忘却之庭
 forgottenhall_level: # 混沌回忆关卡范围

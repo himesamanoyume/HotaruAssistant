@@ -67,7 +67,7 @@ class Universe:
                 if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
                     
                     # 此时保存为第一次运行的时间戳
-                    Utils.saveTimestamp('universe_timestamp', Utils.uid)
+                    Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
                     # end
 
                     if get_reward:
@@ -95,7 +95,7 @@ class Universe:
                 # end
                 
                     # 此时保存为第二次运行的时间戳
-                    Utils.saveTimestamp('universe_timestamp', Utils.uid)
+                    Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
                     # end
 
                     if get_reward:
