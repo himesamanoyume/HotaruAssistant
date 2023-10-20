@@ -24,6 +24,20 @@ class Utils:
     def saveConfigByUid():
         return
     
+    def get_universe_score():
+        max_crop = (298.0 / 1920, 924.0 / 1080, 91.0 / 1920, 40.0 / 1080)
+        current_crop = (154.0 / 1920, 912.0 / 1080, 134.0 / 1920, 48.0 / 1080)
+        try:
+            max_score = auto.get_single_line_text(crop=max_crop, blacklist=[], max_retries=5)
+            current_score = auto.get_single_line_text(crop=current_crop, blacklist=[], max_retries=5)
+            logger.info(_(f"识别到当前积分为:{max_score}"))
+            logger.info(_(f"识别到积分上限为:{current_score}"))
+            return int(current_score), int(max_score)
+        except Exception as e:
+            logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
+            logger.warning(_("因读取模拟宇宙积分失败,程序中止"))
+
+    
     def get_new_uid():
         uid_crop = (68.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
         try:

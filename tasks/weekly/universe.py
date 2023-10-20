@@ -47,7 +47,7 @@ class Universe:
         return True
 
     @staticmethod
-    def start(get_reward=False):
+    def start(get_reward=True):
         logger.hr(_("准备模拟宇宙"), 2)
 
         if Universe.before_start():
@@ -56,71 +56,56 @@ class Universe:
             if subprocess_with_timeout([config.python_exe_path, "align_angle.py"], 60, config.universe_path, config.env):
                 screen.change_to('universe_main')
                 logger.info(_("开始模拟宇宙"))
-                # 判断第一次运行的时间戳是否为上周
-
-                # end
-                # 若此时为新的一周，则开始第一次模拟宇宙,bonus=0
-                command = [config.python_exe_path, "states.py"]
-                if config.universe_bonus_enable:
-                    command.append("--bonus=0")
-                # end
-                if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
+                current_score, max_score = Utils.get_universe_score()
+                logger.info(_("当前积分为:{current},最大积分为:{max}").format(current=current_score, max=max_score))
+                # for循环2次,每次开始时都检测一遍积分
+                for i in range(2):
+                    logger.info(_("将开始第{index}次进行模拟宇宙").format(index=i+1))
+                    # 若为0,则设置bonus=0,则既不为0也不为最大积分,则bonus=1,若为最大积分,则只根据universe_bonus_enable决定是否领取
+                    if current_score == 0:
+                        logger.info(_("积分为0,鉴定为首次进行模拟宇宙,本次将不领取沉浸奖励"))
+                        command = [config.python_exe_path, "states.py"]
+                        command.append(" --bonus=0 --nums=1")
+                    elif current_score == max_score:
+                        logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙,本次将根据config决定是否领取沉浸奖励"))
+                        command = [config.python_exe_path, "states.py"]
+                        if config.universe_bonus_enable:
+                            command.append(" --bonus=1 --nums=1")
+                    else:
+                        logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙,本次将领取沉浸奖励"))
+                        command = [config.python_exe_path, "states.py"]
+                        command.append(" --bonus=1 --nums=1")
+                    # end
+                    if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
                     
-                    # 此时保存为第一次运行的时间戳
-                    Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
-                    # end
-
-                    if get_reward:
-                        # 此时领取7500奖励
-                        Universe.get_reward()
+                        # 此时保存运行的时间戳
+                        Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
                         # end
+
+                        if get_reward:
+                            # 此时领取积分奖励
+                            Universe.get_reward()
+                            # end
+                        else:
+                            # 改成第一/二次模拟宇宙已完成
+                            Base.send_notification_with_screenshot(_("🎉第{index}次模拟宇宙已完成🎉").format(index=i+1))
+                            # end
+                        return
                     else:
-                        # 改成第一次模拟宇宙已完成
-                        Base.send_notification_with_screenshot(_("🎉模拟宇宙已完成🎉"))
-                        # end
-                    return
-                else:
-                    logger.error(_("模拟宇宙失败"))
-
-                # 判断第二次运行的时间戳是否为上周
-
-                # end
-                # 若此时为新的一周，则开始第二次模拟宇宙,bonus=1
-                command = [config.python_exe_path, "states.py"]
-                if config.universe_bonus_enable:
-                    command.append("--bonus=1")
-                # end
-                # 保证第二次运行时领取沉浸奖励的成功
-                if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
-                # end
-                
-                    # 此时保存为第二次运行的时间戳
-                    Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
+                        logger.error(_("模拟宇宙失败"))
                     # end
-
-                    if get_reward:
-                        # 此时领取15000奖励
-                        Universe.get_reward()
-                        # end
-                    else:
-                        # 改成第二次模拟宇宙已完成
-                        Base.send_notification_with_screenshot(_("🎉模拟宇宙已完成🎉"))
-                        # end
-                    return
-                else:
-                    logger.error(_("模拟宇宙失败"))
             else:
                 logger.error(_("校准失败"))
         Base.send_notification_with_screenshot(_("⚠️模拟宇宙未完成⚠️"))
 
     @staticmethod
     def get_reward():
-        logger.info(_("开始领取奖励"))
+        logger.info(_("开始领取模拟宇宙积分奖励"))
         screen.change_to('universe_main')
         if auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
             if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
                 if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                    Base.send_notification_with_screenshot(_("🎉模拟宇宙奖励已领取🎉"))
+                    Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
 
     @staticmethod

@@ -61,7 +61,7 @@ def run(index, uid, action=None):
         if action == "fight":
             Fight.start()
         elif action == "universe":
-            Universe.start()
+            Universe.start(get_reward=True)
         elif action == "forgottenhall":
             ForgottenHall.start()
         Game.stop(index ,False)
