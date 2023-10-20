@@ -16,34 +16,42 @@ class Fight:
     def update():
         from module.update.update_handler import UpdateHandler
         from tasks.base.fastest_mirror import FastestMirror
-        if config.fight_operation_mode == "exe":
-            import requests
-            import json
-            response = requests.get(FastestMirror.get_github_api_mirror("moesnow", "Fhoe-Rail", "fight-latest.json", 1), timeout=3)
-            if response.status_code == 200:
-                data = json.loads(response.text)
-                for asset in data["assets"]:
-                    url = FastestMirror.get_github_mirror(asset["browser_download_url"])
-                    break
-                update_handler = UpdateHandler(url, config.fight_path, "Fhoe-Rail")
-                update_handler.run()
-        elif config.fight_operation_mode == "source":
-            config.set_value("fight_requirements", False)
-            url = FastestMirror.get_github_mirror("https://github.com/linruowuyin/Fhoe-Rail/archive/master.zip")
-            update_handler = UpdateHandler(url, config.fight_path, "Fhoe-Rail-master")
-            update_handler.run()
+        # if config.fight_operation_mode == "exe":
+        #     import requests
+        #     import json
+        #     response = requests.get(FastestMirror.get_github_api_mirror("moesnow", "Fhoe-Rail", "fight-latest.json", 1), timeout=3)
+        #     if response.status_code == 200:
+        #         data = json.loads(response.text)
+        #         for asset in data["assets"]:
+        #             url = FastestMirror.get_github_mirror(asset["browser_download_url"])
+        #             break
+        #         update_handler = UpdateHandler(url, config.fight_path, "Fhoe-Rail")
+        #         update_handler.run()
+        # elif config.fight_operation_mode == "source":
+        #     config.set_value("fight_requirements", False)
+        #     url = FastestMirror.get_github_mirror("https://github.com/linruowuyin/Fhoe-Rail/archive/master.zip")
+        #     update_handler = UpdateHandler(url, config.fight_path, "Fhoe-Rail-master")
+        #     update_handler.run()
+        config.set_value("fight_requirements", False)
+        url = FastestMirror.get_github_mirror("https://github.com/linruowuyin/Fhoe-Rail/archive/master.zip")
+        update_handler = UpdateHandler(url, config.fight_path, "Fhoe-Rail-master")
+        update_handler.run()
 
     @staticmethod
     def check_path():
         status = False
-        if config.fight_operation_mode == "exe":
-            if not os.path.exists(os.path.join(config.fight_path, "Fhoe-Rail.exe")):
-                status = True
-        elif config.fight_operation_mode == "source":
-            if not os.path.exists(os.path.join(config.fight_path, "Honkai_Star_Rail.py")):
-                status = True
-            if not os.path.exists(os.path.join(config.fight_path, "点这里啦.exe")):
-                status = True
+        # if config.fight_operation_mode == "exe":
+        #     if not os.path.exists(os.path.join(config.fight_path, "Fhoe-Rail.exe")):
+        #         status = True
+        # elif config.fight_operation_mode == "source":
+        #     if not os.path.exists(os.path.join(config.fight_path, "Honkai_Star_Rail.py")):
+        #         status = True
+        #     if not os.path.exists(os.path.join(config.fight_path, "点这里啦.exe")):
+        #         status = True
+        if not os.path.exists(os.path.join(config.fight_path, "Honkai_Star_Rail.py")):
+            status = True
+        if not os.path.exists(os.path.join(config.fight_path, "点这里啦.exe")):
+            status = True
         if status:
             logger.warning(_("锄大地路径不存在: {path}").format(path=config.fight_path))
             Fight.update()
@@ -63,13 +71,15 @@ class Fight:
     @staticmethod
     def before_start():
         Fight.check_path()
-        if config.fight_operation_mode == "source":
-            PythonChecker.run()
-            Fight.check_requirements()
+        # if config.fight_operation_mode == "source":
+        #     PythonChecker.run()
+        #     Fight.check_requirements()
+        PythonChecker.run()
+        Fight.check_requirements()
         return True
 
     @staticmethod
-    def start(uid):
+    def start():
         logger.hr(_("准备锄大地"), 2)
         if Fight.before_start():
             # 切换队伍
@@ -81,16 +91,18 @@ class Fight:
             # screen.change_to('main')
 
             status = False
-            if config.fight_operation_mode == "exe":
-                if subprocess_with_timeout([os.path.join(config.fight_path, "Fhoe-Rail.exe")], config.fight_timeout * 3600, config.fight_path):
-                    status = True
-            elif config.fight_operation_mode == "source":
-                if subprocess_with_timeout([config.python_exe_path, "Honkai_Star_Rail.py"], config.fight_timeout * 3600, config.fight_path, config.env):
-                    status = True
+            # if config.fight_operation_mode == "exe":
+            #     if subprocess_with_timeout([os.path.join(config.fight_path, "Fhoe-Rail.exe")], config.fight_timeout * 3600, config.fight_path):
+            #         status = True
+            # elif config.fight_operation_mode == "source":
+            #     if subprocess_with_timeout([config.python_exe_path, "Honkai_Star_Rail.py"], config.fight_timeout * 3600, config.fight_path, config.env):
+            #         status = True
+            if subprocess_with_timeout([config.python_exe_path, "Honkai_Star_Rail.py"], config.fight_timeout * 3600, config.fight_path, config.env):
+                status = True
             if status:
                 # config.save_timestamp("fight_timestamp")
                 
-                Utils.saveTimestamp('fight_timestamp', uid)
+                Utils.saveTimestamp('fight_timestamp', Utils.uid)
 
                 Base.send_notification_with_screenshot(_("🎉锄大地已完成🎉"))
                 return
@@ -101,10 +113,12 @@ class Fight:
     @staticmethod
     def gui():
         if Fight.before_start():
-            if config.fight_operation_mode == "exe":
-                if subprocess.run(["start", "Fhoe-Rail.exe", "--debug"], shell=True, check=True, cwd=config.fight_path):
-                    return True
-            elif config.fight_operation_mode == "source":
-                if subprocess.run(["start", "点这里啦.exe"], shell=True, check=True, cwd=config.fight_path, env=config.env):
-                    return True
+            # if config.fight_operation_mode == "exe":
+            #     if subprocess.run(["start", "Fhoe-Rail.exe", "--debug"], shell=True, check=True, cwd=config.fight_path):
+            #         return True
+            # elif config.fight_operation_mode == "source":
+            #     if subprocess.run(["start", "点这里啦.exe"], shell=True, check=True, cwd=config.fight_path, env=config.env):
+            #         return True
+            if subprocess.run(["start", "点这里啦.exe"], shell=True, check=True, cwd=config.fight_path, env=config.env):
+                return True
         return False

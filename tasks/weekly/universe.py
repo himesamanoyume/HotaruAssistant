@@ -47,7 +47,7 @@ class Universe:
         return True
 
     @staticmethod
-    def start(uid, get_reward=False):
+    def start(get_reward=False):
         logger.hr(_("准备模拟宇宙"), 2)
 
         if Universe.before_start():
@@ -56,18 +56,56 @@ class Universe:
             if subprocess_with_timeout([config.python_exe_path, "align_angle.py"], 60, config.universe_path, config.env):
                 screen.change_to('universe_main')
                 logger.info(_("开始模拟宇宙"))
+                # 判断第一次运行的时间戳是否为上周
+
+                # end
+                # 若此时为新的一周，则开始第一次模拟宇宙,bonus=0
+                command = [config.python_exe_path, "states.py"]
+                if config.universe_bonus_enable:
+                    command.append("--bonus=0")
+                # end
+                if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
+                    
+                    # 此时保存为第一次运行的时间戳
+                    Utils.saveTimestamp('universe_timestamp', Utils.uid)
+                    # end
+
+                    if get_reward:
+                        # 此时领取7500奖励
+                        Universe.get_reward()
+                        # end
+                    else:
+                        # 改成第一次模拟宇宙已完成
+                        Base.send_notification_with_screenshot(_("🎉模拟宇宙已完成🎉"))
+                        # end
+                    return
+                else:
+                    logger.error(_("模拟宇宙失败"))
+
+                # 判断第二次运行的时间戳是否为上周
+
+                # end
+                # 若此时为新的一周，则开始第二次模拟宇宙,bonus=1
                 command = [config.python_exe_path, "states.py"]
                 if config.universe_bonus_enable:
                     command.append("--bonus=1")
+                # end
+                # 保证第二次运行时领取沉浸奖励的成功
                 if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
-                    
-                    Utils.saveTimestamp('universe_timestamp', uid)
+                # end
+                
+                    # 此时保存为第二次运行的时间戳
+                    Utils.saveTimestamp('universe_timestamp', Utils.uid)
+                    # end
 
-                    # config.save_timestamp("universe_timestamp")
                     if get_reward:
+                        # 此时领取15000奖励
                         Universe.get_reward()
+                        # end
                     else:
+                        # 改成第二次模拟宇宙已完成
                         Base.send_notification_with_screenshot(_("🎉模拟宇宙已完成🎉"))
+                        # end
                     return
                 else:
                     logger.error(_("模拟宇宙失败"))

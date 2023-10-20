@@ -12,7 +12,7 @@ import time
 
 class Echoofwar:
     @staticmethod
-    def start(uid):
+    def start():
         try:
             logger.hr(_("准备历战余响"), 2)
             screen.change_to('guide3')
@@ -31,7 +31,7 @@ class Echoofwar:
                                 logger.info(_("历战余响已完成"))
                                 # config.save_timestamp("echo_of_war_timestamp")
 
-                                Utils.saveTimestamp('echo_of_war_timestamp', uid)
+                                Utils.saveTimestamp('echo_of_war_timestamp', Utils.uid)
 
                                 screen.change_to('menu')
                                 return True
@@ -42,7 +42,7 @@ class Echoofwar:
                                     logger.info(_("🟣开拓力 < 30"))
                                     return
                                 elif reward_count <= max_count:
-                                    Utils.saveTimestamp('echo_of_war_timestamp', uid)
+                                    Utils.saveTimestamp('echo_of_war_timestamp', Utils.uid)
 
                                 return Power.run_instances("历战余响", config.instance_names["历战余响"], 30, min(reward_count, max_count))
             return False

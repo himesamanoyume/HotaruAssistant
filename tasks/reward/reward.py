@@ -4,6 +4,7 @@ from managers.automation_manager import auto
 from managers.translate_manager import _
 from tasks.reward.mail import Mail
 from tasks.reward.assist import Assist
+from tasks.daily.utils import Utils
 from tasks.reward.dispatch import Dispatch
 from tasks.reward.quest import Quest
 from tasks.reward.srpass import SRPass
@@ -11,7 +12,7 @@ from tasks.reward.srpass import SRPass
 
 class Reward:
     @staticmethod
-    def start(uid):
+    def start():
         logger.hr(_("开始领奖励"), 0)
         screen.change_to('menu')
 
@@ -40,7 +41,7 @@ class Reward:
                 logger.info(_("支援奖励完成"))
             if "dispatch" in reward_list:
                 logger.hr(_("检测到委托奖励"), 2)
-                Dispatch.get_reward(uid)
+                Dispatch.get_reward(Utils.uid)
                 logger.info(_("委托奖励完成"))
             if "quest" in reward_list:
                 logger.hr(_("检测到每日实训奖励"), 2)

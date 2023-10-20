@@ -283,13 +283,13 @@ class ForgottenHall:
         return True
 
     @staticmethod
-    def start(uid):
+    def start():
         logger.hr(_("准备混沌回忆"), 2)
 
         if ForgottenHall.prepare():
-            Utils.detectTimestamp(config.forgottenhall_timestamp, uid)
+            Utils.detectTimestamp(config.forgottenhall_timestamp, Utils.uid)
             # config.save_timestamp("forgottenhall_timestamp")
-            Utils.saveTimestamp('forgottenhall_timestamp', uid)
+            Utils.saveTimestamp('forgottenhall_timestamp', Utils.uid)
             logger.info(_("混沌回忆完成"))
 
     @staticmethod

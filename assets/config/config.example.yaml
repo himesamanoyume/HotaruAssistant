@@ -77,7 +77,7 @@ daily_tasks: {} # 每日实训
 last_run_timestamp: {} # 上次运行日常的时间戳
 
 fight_enable: false # 启用锄大地
-fight_operation_mode: exe # 运行方式 源码: source 集成: exe
+# fight_operation_mode: exe # 运行方式 源码: source 集成: exe
 fight_path: .\3rdparty\Fhoe-Rail # 锄大地路径
 fight_timeout: 6 # 锄大地超时（单位小时）
 fight_team_enable: false # 锄大地时自动切换队伍
@@ -92,6 +92,8 @@ universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
 universe_timeout: 20 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）
 universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
+universe_timestamp_1st: {} # 第一次完成模拟宇宙的时间戳
+universe_timestamp_2rd: {} # 第二次完成模拟宇宙的时间戳
 
 forgottenhall_enable: false # 启用忘却之庭
 forgottenhall_level: # 混沌回忆关卡范围

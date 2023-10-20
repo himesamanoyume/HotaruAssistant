@@ -257,13 +257,13 @@ class SettingInterface(ScrollArea):
             # self.tr('仅限完整运行生效'),
             "fight_enable"
         )
-        self.fightOperationModeCard = ComboBoxSettingCard2(
-            "fight_operation_mode",
-            FIF.COMMAND_PROMPT,
-            self.tr('运行模式'),
-            self.tr('集成模式适合开箱即用。源码模式适合自定义，依赖 Python 环境。'),
-            texts={'集成': 'exe', '源码': 'source'}
-        )
+        # self.fightOperationModeCard = ComboBoxSettingCard2(
+        #     "fight_operation_mode",
+        #     FIF.COMMAND_PROMPT,
+        #     self.tr('运行模式'),
+        #     self.tr('集成模式适合开箱即用。源码模式适合自定义，依赖 Python 环境。'),
+        #     texts={'集成': 'exe', '源码': 'source'}
+        # )
         # self.fightPathCard = PushSettingCardStr(
         #     self.tr('修改'),
         #     FIF.COMMAND_PROMPT,
@@ -532,7 +532,7 @@ class SettingInterface(ScrollArea):
         # self.DailyGroup.addSettingCard(self.lastRunTimeCard)
 
         self.FightGroup.addSettingCard(self.fightEnableCard)
-        self.FightGroup.addSettingCard(self.fightOperationModeCard)
+        # self.FightGroup.addSettingCard(self.fightOperationModeCard)
         # self.FightGroup.addSettingCard(self.fightPathCard)
         self.FightGroup.addSettingCard(self.fightTimeoutCard)
         self.FightGroup.addSettingCard(self.fightTeamEnableCard)
