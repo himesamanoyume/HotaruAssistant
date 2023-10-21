@@ -69,7 +69,7 @@ class Daily:
         if config.multi_login:
             logger.hr(_("多账号下开始日常任务"), 0)
 
-        if Utils.is_next_4_am(config.last_run_timestamp[Utils.get_uid()]):
+        if Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
             logger.info(_("已是新的一天,开始每日"))
             # 活动
             Activity.start()

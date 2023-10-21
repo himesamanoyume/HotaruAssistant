@@ -5,7 +5,7 @@ from tasks.base.date import Date
 from managers.translate_manager import _
 
 class Utils:
-    _uid = -1
+    _uid = '-1'
     def detectTimestamp(timestamp, uid):
         if timestamp == {}:
             timestamp[uid] = 0
@@ -41,14 +41,14 @@ class Utils:
     def get_new_uid():
         uid_crop = (68.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
         try:
-            uid = auto.get_single_line_text(crop=uid_crop, blacklist=[], max_retries=9)
-            logger.info(_(f"识别到UID为:{uid}"))
+            Utils._uid = auto.get_single_line_text(crop=uid_crop, blacklist=[], max_retries=9)
+            logger.info(_(f"识别到UID为:{Utils._uid}"))
         except Exception as e:
             logger.error(_("识别UID失败: {error}").format(error=e))
             logger.warning(_("因读取UID失败,程序中止"))
         
     def get_uid():
-        if Utils._uid == -1:
+        if Utils._uid == '-1':
             Utils.get_new_uid()
             return Utils._uid
         else:
