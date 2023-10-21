@@ -57,7 +57,7 @@ class Universe:
         return check_result
 
     @staticmethod
-    def start(get_reward=False, nums=None, save=True, daily=True):
+    def start(get_reward=False, nums=config.universe_count, save=True, daily=True):
         logger.hr(_("准备模拟宇宙"), 2)
         if Universe.before_start():
 
@@ -86,11 +86,11 @@ class Universe:
                             return True
                         command = [config.python_exe_path, "states.py"]
                         if config.universe_bonus_enable:
-                            command.append(" --bonus=1")
-                        if not nums==None:
-                            command.append(f"--nums={nums}")
+                            command.append("--bonus=1")
+                        if nums==config.universe_count:
+                            command.append(f"--nums={config.universe_count}")
                         else:
-                            command.append(f" --nums=1")
+                            command.append(f"--nums={nums}")
                     else:
                         logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙,本次将领取沉浸奖励"))
                         command = [config.python_exe_path, "states.py"]
