@@ -57,7 +57,7 @@ class Universe:
         return check_result
 
     @staticmethod
-    def start(get_reward=True, nums=None, save=True):
+    def start(get_reward=False, nums=None, save=True, daily=True):
         logger.hr(_("准备模拟宇宙"), 2)
         if Universe.before_start():
 
@@ -81,11 +81,16 @@ class Universe:
                         command.append(" --bonus=0 --nums=1")
                     elif current_score == max_score:
                         logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙,本次将根据config决定是否领取沉浸奖励"))
+                        if daily:
+                            logger.info(_("鉴定为正在每日任务中,最大积分情况下将直接跳过"))
+                            return True
                         command = [config.python_exe_path, "states.py"]
                         if config.universe_bonus_enable:
                             command.append(" --bonus=1")
-                        if nums:
+                        if not nums==None:
                             command.append(f"--nums={nums}")
+                        else:
+                            command.append(f" --nums=1")
                     else:
                         logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙,本次将领取沉浸奖励"))
                         command = [config.python_exe_path, "states.py"]
