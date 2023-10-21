@@ -26,9 +26,14 @@ class Universe:
         if not os.path.exists(config.universe_path):
             logger.warning(_("模拟宇宙路径不存在: {path}").format(path=config.universe_path))
             Universe.update()
-        elif not os.path.exists(os.path.join(config.universe_path,'gui.exe')):
-            logger.warning(_("模拟宇宙缺失核心文件"))
+        elif not os.path.exists(os.path.join(config.universe_path, 'gui.exe')):
+            logger.error(_("模拟宇宙缺失核心文件，请尝试更新"))
             return False
+        # 日常任务需要能够自定义次数的模拟宇宙版本，检测是否存在 nums 参数
+        with open(os.path.join(config.universe_path, 'states.py'), 'r', encoding='utf-8') as f:
+            if "nums" not in f.read():
+                logger.warning(_("模拟宇宙版本过低"))
+                Universe.update()
         return True
 
     @staticmethod
@@ -52,14 +57,17 @@ class Universe:
         return check_result
 
     @staticmethod
-    def start(get_reward=True):
+    def start(get_reward=True, nums=None, save=True):
         logger.hr(_("准备模拟宇宙"), 2)
-
         if Universe.before_start():
+
             screen.change_to('main')
+
             logger.info(_("开始校准"))
             if subprocess_with_timeout([config.python_exe_path, "align_angle.py"], 60, config.universe_path, config.env):
+
                 screen.change_to('universe_main')
+
                 logger.info(_("开始模拟宇宙"))
                 current_score, max_score = Utils.get_universe_score()
                 logger.info(_("当前积分为:{current},最大积分为:{max}").format(current=current_score, max=max_score))
@@ -75,7 +83,9 @@ class Universe:
                         logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙,本次将根据config决定是否领取沉浸奖励"))
                         command = [config.python_exe_path, "states.py"]
                         if config.universe_bonus_enable:
-                            command.append(" --bonus=1 --nums=1")
+                            command.append(" --bonus=1")
+                        if nums:
+                            command.append(f"--nums={nums}")
                     else:
                         logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙,本次将领取沉浸奖励"))
                         command = [config.python_exe_path, "states.py"]
@@ -83,8 +93,10 @@ class Universe:
                     # end
                     if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
                     
+                        screen.change_to('main')
                         # 此时保存运行的时间戳
-                        Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
+                        if save:
+                            Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
                         # end
 
                         if get_reward:
@@ -95,13 +107,14 @@ class Universe:
                             # 改成第一/二次模拟宇宙已完成
                             Base.send_notification_with_screenshot(_("🎉第{index}次模拟宇宙已完成🎉").format(index=i+1))
                             # end
-                        return
+                        return True
                     else:
                         logger.error(_("模拟宇宙失败"))
                     # end
             else:
                 logger.error(_("校准失败"))
         Base.send_notification_with_screenshot(_("⚠️模拟宇宙未完成⚠️"))
+        return False
 
     @staticmethod
     def get_reward():
