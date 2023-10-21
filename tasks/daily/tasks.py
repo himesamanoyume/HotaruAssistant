@@ -1,9 +1,9 @@
 from managers.logger_manager import logger
 from managers.translate_manager import _
 from managers.automation_manager import auto
+from tasks.daily.utils import Utils
 from managers.config_manager import config
 from managers.ocr_manager import ocr
-from tasks.base.date import Date
 import time
 import json
 import sys
@@ -18,6 +18,7 @@ class Tasks:
             self.daily_tasks = {}
         else:
             self.daily_tasks = config.daily_tasks
+        Utils._daily_tasks = self.daily_tasks
 
     def _load_config(self, config_example_path):
         try:

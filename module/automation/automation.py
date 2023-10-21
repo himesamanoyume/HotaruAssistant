@@ -1,6 +1,9 @@
 from managers.ocr_manager import ocr
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from managers.ocr_manager import ocr
+from tasks.daily.tasks import Tasks
+from tasks.daily.utils import Utils
 
 import numpy as np
 import time
@@ -231,6 +234,35 @@ class Automation:
         if coordinates:
             return self.click_element_with_pos(coordinates, offset)
         return False
+    
+    def click_element_quest(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
+        coordinates = self.find_element(target, find_type, threshold, max_retries, crop, take_screenshot,
+                                        relative, scale_range, include, need_ocr, source)
+        if coordinates:
+            return self.click_element_with_pos_quest(coordinates, offset)
+        return False
+    
+    def click_element_with_pos_quest(self, coordinates, offset=(0, 0), action="click"):
+        self.take_screenshot(crop=(297.0 / 1920, 478.0 / 1080, 246.0 / 1920, 186.0 / 1080))
+        result = ocr.recognize_multi_lines(self.screenshot)
+        text = result[1][0]
+        for keyword, task_name in Tasks.task_mappings.items():
+            if keyword in text:
+                if task_name in Utils.daily_tasks[Utils.get_uid()] and Utils.daily_tasks[Utils.get_uid()][task_name] == False:
+                    continue
+                else:
+                    Utils.daily_tasks[Utils.get_uid()][task_name] = True
+                break
+        (left, top), (right, bottom) = coordinates
+        x = (left + right) // 2 + offset[0]
+        y = (top + bottom) // 2 + offset[1]
+        if action == "click":
+            self.mouse_click(x, y)
+        elif action == "down":
+            self.mouse_down(x, y)
+        elif action == "move":
+            self.mouse_move(x, y)
+        return True
 
     def get_single_line_text(self, crop=(0, 0, 0, 0), blacklist=None, max_retries=3):
         for i in range(max_retries):

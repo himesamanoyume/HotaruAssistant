@@ -12,7 +12,7 @@ class Quest:
         screen.change_to('guide2')
         time.sleep(1)
         # 领取活跃度
-        while auto.click_element("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
+        while auto.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
             time.sleep(1)
         # 领取奖励
         if auto.click_element("./assets/images/quest/gift.png", "image", 0.9, max_retries=10, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):

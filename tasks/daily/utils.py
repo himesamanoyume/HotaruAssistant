@@ -6,6 +6,7 @@ from managers.translate_manager import _
 
 class Utils:
     _uid = '-1'
+    _daily_tasks = {}
     def detectTimestamp(timestamp, uid):
         if timestamp == {}:
             timestamp[uid] = 0

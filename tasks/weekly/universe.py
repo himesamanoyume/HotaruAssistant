@@ -87,9 +87,7 @@ class Universe:
                         command = [config.python_exe_path, "states.py"]
                         if config.universe_bonus_enable:
                             command.append("--bonus=1")
-                        if nums==config.universe_count:
-                            command.append(f"--nums={config.universe_count}")
-                        else:
+                        if nums:
                             command.append(f"--nums={nums}")
                     else:
                         logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙,本次将领取沉浸奖励"))
