@@ -1,12 +1,14 @@
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.automation_manager import auto
+from managers.ocr_manager import ocr
 from tasks.base.date import Date
 from managers.translate_manager import _
 
 class Utils:
     _uid = '-1'
     _daily_tasks = {}
+    _task_mappings = {}
     def detectTimestamp(timestamp, uid):
         if timestamp == {}:
             timestamp[uid] = 0
@@ -62,3 +64,33 @@ class Utils:
     def is_next_mon_4_am(timestamp, uid):
         Utils.detectTimestamp(timestamp, uid)
         return Date.is_next_mon_4_am(timestamp[uid])
+    
+    def click_element_quest(auto, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
+        coordinates = auto.find_element(target, find_type, threshold, max_retries, crop, take_screenshot,
+                                        relative, scale_range, include, need_ocr, source)
+        if coordinates:
+            return Utils.click_element_with_pos_quest(auto, coordinates, offset)
+        return False
+    
+    def click_element_with_pos_quest(coordinates, offset=(0, 0), action="click"):
+        auto.take_screenshot(crop=(297.0 / 1920, 478.0 / 1080, 246.0 / 1920, 186.0 / 1080))
+        result = ocr.recognize_multi_lines(auto.screenshot)
+        text = result[1][0]
+        for keyword, task_name in Utils._task_mappings.items():
+            if keyword in text:
+                if task_name in Utils._daily_tasks[Utils.get_uid()] and Utils._daily_tasks[Utils.get_uid()][task_name] == False:
+                    continue
+                else:
+                    Utils._daily_tasks[Utils.get_uid()][task_name] = True
+                break
+        
+        (left, top), (right, bottom) = coordinates
+        x = (left + right) // 2 + offset[0]
+        y = (top + bottom) // 2 + offset[1]
+        if action == "click":
+            auto.mouse_click(x, y)
+        elif action == "down":
+            auto.mouse_down(x, y)
+        elif action == "move":
+            auto.mouse_move(x, y)
+        return True
