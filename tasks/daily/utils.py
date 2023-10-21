@@ -4,6 +4,8 @@ from managers.automation_manager import auto
 from managers.ocr_manager import ocr
 from tasks.base.date import Date
 from managers.translate_manager import _
+import json
+import sys
 
 class Utils:
     _uid = '-1'
@@ -65,25 +67,37 @@ class Utils:
         Utils.detectTimestamp(timestamp, uid)
         return Date.is_next_mon_4_am(timestamp[uid])
     
-    def click_element_quest(auto, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
+    def click_element_quest(target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
         coordinates = auto.find_element(target, find_type, threshold, max_retries, crop, take_screenshot,
                                         relative, scale_range, include, need_ocr, source)
         if coordinates:
-            return Utils.click_element_with_pos_quest(auto, coordinates, offset)
+            return Utils.click_element_with_pos_quest(coordinates, offset)
         return False
+    
+    def _load_config(config_example_path):
+        try:
+            with open(config_example_path, 'r', encoding='utf-8') as file:
+                return json.load(file)
+        except FileNotFoundError:
+            logger.error(_("配置文件不存在：{path}").format(path=config_example_path))
+            input(_("按回车键关闭窗口. . ."))
+            sys.exit(1)
     
     def click_element_with_pos_quest(coordinates, offset=(0, 0), action="click"):
         auto.take_screenshot(crop=(297.0 / 1920, 478.0 / 1080, 246.0 / 1920, 186.0 / 1080))
         result = ocr.recognize_multi_lines(auto.screenshot)
-        text = result[1][0]
+        text = result[0][1][0]
+        Utils._task_mappings = Utils._load_config("./assets/config/task_mappings.json")
+        # logger.info(_(f'{Utils._task_mappings}'))
         for keyword, task_name in Utils._task_mappings.items():
+            # logger.info(_(f'进入到循环当中'))
             if keyword in text:
-                if task_name in Utils._daily_tasks[Utils.get_uid()] and Utils._daily_tasks[Utils.get_uid()][task_name] == False:
-                    continue
-                else:
-                    Utils._daily_tasks[Utils.get_uid()][task_name] = True
+                logger.info(_(f'进入到判断keyword in text当中'))
+                if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
+                    logger.info(_(f'进入到判断_daily_tasks当中,成辣！'))
+                    config.daily_tasks[Utils.get_uid()][task_name] = False
+                    config.save_config()
                 break
-        
         (left, top), (right, bottom) = coordinates
         x = (left + right) // 2 + offset[0]
         y = (top + bottom) // 2 + offset[1]

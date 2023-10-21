@@ -19,7 +19,6 @@ class Tasks:
         else:
             self.daily_tasks = config.daily_tasks
         Utils._daily_tasks = self.daily_tasks
-        Utils._task_mappings = self.task_mappings
 
     def _load_config(self, config_example_path):
         try:

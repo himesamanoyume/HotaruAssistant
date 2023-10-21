@@ -65,7 +65,7 @@ daily_himeko_try_enable: false # 通过 “姬子试用” 完成任务
 daily_memory_one_enable: false # 通过 “回忆一” 完成任务
 daily_memory_one_team: # 用于回忆一的队伍
 - -
-    DanHeng
+    Bronya
   - -1
 - - Natasha
   - 0
