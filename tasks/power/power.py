@@ -135,8 +135,8 @@ class Power:
                         result = auto.find_element(("解除支援", "取消"), "text", max_retries=10, include=True)
                         if result:
                             if auto.matched_text == "解除支援":
-                                if "使用支援角色并获得战斗胜利1次" in config.daily_tasks:
-                                    config.daily_tasks["使用支援角色并获得战斗胜利1次"] = False
+                                if "使用支援角色并获得战斗胜利1次" in config.daily_tasks[Utils.get_uid()]:
+                                    config.daily_tasks[Utils.get_uid()]["使用支援角色并获得战斗胜利1次"] = False
                                 config.save_config()
                                 return True
                             elif auto.matched_text == "取消":
@@ -172,7 +172,7 @@ class Power:
                     result = auto.find_element(("解除支援", "取消"), "text", max_retries=10, include=True)
                     if result:
                         if auto.matched_text == "解除支援":
-                            config.daily_tasks["使用支援角色并获得战斗胜利1次"] = False
+                            config.daily_tasks[Utils.get_uid()]["使用支援角色并获得战斗胜利1次"] = False
                             config.save_config()
                             return True
                         elif auto.matched_text == "取消":

@@ -25,8 +25,12 @@ March7thAssistant
 
 ## TODO
 
-- ~~模拟宇宙结束时应先结算再领取积分~~(待下周验证)
-- ~~实现setValueByUid~~
+- bug：领取每日奖励时检测最左侧识别后false
+- 完整运行时输入从哪个序列开始启动 将序列号以及uid值都展示出来
+- 优化模拟宇宙领取积分奖励与每周第一次打开模拟宇宙界面时的逻辑
+- saveTimestamp自带detectTimestamp
+- 获取开拓力后拿到当前时间戳,加上回复体力所需时间戳得到满体力时间
+- ~~回忆一当中的dailytask完成后不直接设为false~~
 
 ## 功能简介
 

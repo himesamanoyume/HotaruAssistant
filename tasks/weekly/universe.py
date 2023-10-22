@@ -9,6 +9,7 @@ from tasks.daily.utils import Utils
 from tasks.base.command import subprocess_with_timeout
 import subprocess
 import os
+import time
 
 
 class Universe:
@@ -55,43 +56,50 @@ class Universe:
         check_result &= Universe.check_path()
         Universe.check_requirements()
         return check_result
+    
 
     @staticmethod
     def start(get_reward=False, nums=config.universe_count, save=True, daily=True):
         logger.hr(_("准备模拟宇宙"), 2)
         if Universe.before_start():
-
+            command = [config.python_exe_path, "states.py"]
             screen.change_to('main')
 
             logger.info(_("开始校准"))
             if subprocess_with_timeout([config.python_exe_path, "align_angle.py"], 60, config.universe_path, config.env):
-
+                
                 screen.change_to('universe_main')
-
+                time.sleep(1)
+                if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                    current_score, max_score = Utils.get_universe_score()
+                elif auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
+                    current_score, max_score = Utils.get_universe_score()
+                time.sleep(0.5)
+                screen.change_to('universe_main')
                 logger.info(_("开始模拟宇宙"))
-                current_score, max_score = Utils.get_universe_score()
-                logger.info(_("当前积分为:{current},最大积分为:{max}").format(current=current_score, max=max_score))
+                
                 # for循环2次,每次开始时都检测一遍积分
                 for i in range(2):
+                    
                     # 若为0,则设置bonus=0,则既不为0也不为最大积分,则bonus=1,若为最大积分,则只根据universe_bonus_enable决定是否领取
                     if current_score == 0:
                         logger.info(_("积分为0,鉴定为首次进行模拟宇宙,本次将不领取沉浸奖励"))
-                        command = [config.python_exe_path, "states.py"]
-                        command.append(" --bonus=0 --nums=1")
+                        command.append("--bonus=0")
+                        command.append("--nums=1")
                     elif current_score == max_score:
                         logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙,本次将根据config决定是否领取沉浸奖励"))
                         if daily:
                             logger.info(_("鉴定为正在每日任务中,最大积分情况下将直接跳过"))
                             return True
-                        command = [config.python_exe_path, "states.py"]
                         if config.universe_bonus_enable:
                             command.append("--bonus=1")
                         if nums:
                             command.append(f"--nums={nums}")
                     else:
                         logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙,本次将领取沉浸奖励"))
-                        command = [config.python_exe_path, "states.py"]
-                        command.append(" --bonus=1 --nums=1")
+                        Universe.get_reward()
+                        command.append("--bonus=1")
+                        command.append("--nums=1")
                     # end
                     logger.info(_("将开始第{index}次进行模拟宇宙").format(index=i+1))
                     if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
@@ -123,11 +131,17 @@ class Universe:
     def get_reward():
         logger.info(_("开始领取模拟宇宙积分奖励"))
         screen.change_to('universe_main')
+        time.sleep(0.5)
         if auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
+            time.sleep(0.5)
             if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
+                time.sleep(0.5)
                 if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                    time.sleep(0.5)
                     Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+        screen.change_to('universe_main')
+        time.sleep(0.5)
 
     @staticmethod
     def gui():

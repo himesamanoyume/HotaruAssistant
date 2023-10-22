@@ -1,6 +1,7 @@
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.automation_manager import auto
+import time
 from managers.ocr_manager import ocr
 from tasks.base.date import Date
 from managers.translate_manager import _
@@ -30,13 +31,22 @@ class Utils:
         return
     
     def get_universe_score():
-        max_crop = (298.0 / 1920, 924.0 / 1080, 91.0 / 1920, 40.0 / 1080)
-        current_crop = (154.0 / 1920, 912.0 / 1080, 134.0 / 1920, 48.0 / 1080)
+        # max_crop = (298.0 / 1920, 924.0 / 1080, 91.0 / 1920, 40.0 / 1080)
+        # current_crop = (154.0 / 1920, 912.0 / 1080, 134.0 / 1920, 48.0 / 1080)
+        # score_crop = (153.0 / 1920, 911.0 / 1080, 242.0 / 1920, 52.0 / 1080)
+        score_crop = (267.0 / 1920, 738.0 / 1080, 271.0 / 1920, 57.0 / 1080)
+        time.sleep(1)
         try:
-            max_score = auto.get_single_line_text(crop=max_crop, blacklist=[], max_retries=5)
-            current_score = auto.get_single_line_text(crop=current_crop, blacklist=[], max_retries=5)
-            logger.info(_(f"识别到当前积分为:{max_score}"))
-            logger.info(_(f"识别到积分上限为:{current_score}"))
+            # max_score = auto.get_single_line_text(crop=max_crop, blacklist=[], max_retries=5)
+            # current_score = auto.get_single_line_text(crop=current_crop, blacklist=[], max_retries=5)
+            scoreAndMaxScore = auto.get_single_line_text(crop=score_crop, blacklist=[], max_retries=5)
+            logger.info(_(f"识别到文字为:{scoreAndMaxScore}"))
+            current_score = scoreAndMaxScore.split('/')[0]
+            max_score = scoreAndMaxScore.split('/')[1]
+            logger.info(_(f"识别到当前积分为:{current_score}"))
+            logger.info(_(f"识别到积分上限为:{max_score}"))
+            if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
             return int(current_score), int(max_score)
         except Exception as e:
             logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
@@ -92,10 +102,10 @@ class Utils:
         for keyword, task_name in Utils._task_mappings.items():
             # logger.info(_(f'进入到循环当中'))
             if keyword in text:
-                logger.info(_(f'进入到判断keyword in text当中'))
-                if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
+                logger.info(_(f'进入到判断keyword in text当中。text为:{text}'))
+                if text in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][text] == True:
                     logger.info(_(f'进入到判断_daily_tasks当中,成辣！'))
-                    config.daily_tasks[Utils.get_uid()][task_name] = False
+                    config.daily_tasks[Utils.get_uid()][text] = False
                     config.save_config()
                 break
         (left, top), (right, bottom) = coordinates
