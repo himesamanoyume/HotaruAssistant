@@ -51,17 +51,6 @@ class Daily:
         else:
             logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
 
-        # if Utils.is_next_mon_4_am(config.universe_timestamp, Utils.get_uid()):
-        #     if config.universe_enable:
-        #         Power.start()
-        #         Reward.start()
-        #         Universe.start(get_reward=True, daily=True)
-        #         Power.start()
-        #     else:
-        #         logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
-        # else:
-        #     logger.info(_("模拟宇宙尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
-
         if Utils.is_next_mon_4_am(config.forgottenhall_timestamp, Utils.get_uid()):
             if config.forgottenhall_enable:
                 ForgottenHall.start(Utils.get_uid())

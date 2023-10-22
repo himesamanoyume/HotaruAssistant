@@ -73,7 +73,6 @@ class Universe:
                 logger.info(_("当前积分为:{current},最大积分为:{max}").format(current=current_score, max=max_score))
                 # for循环2次,每次开始时都检测一遍积分
                 for i in range(2):
-                    logger.info(_("将开始第{index}次进行模拟宇宙").format(index=i+1))
                     # 若为0,则设置bonus=0,则既不为0也不为最大积分,则bonus=1,若为最大积分,则只根据universe_bonus_enable决定是否领取
                     if current_score == 0:
                         logger.info(_("积分为0,鉴定为首次进行模拟宇宙,本次将不领取沉浸奖励"))
@@ -94,6 +93,7 @@ class Universe:
                         command = [config.python_exe_path, "states.py"]
                         command.append(" --bonus=1 --nums=1")
                     # end
+                    logger.info(_("将开始第{index}次进行模拟宇宙").format(index=i+1))
                     if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
                     
                         screen.change_to('main')
