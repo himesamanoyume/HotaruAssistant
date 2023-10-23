@@ -1,6 +1,7 @@
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.automation_manager import auto
+from datetime import datetime
 import time
 from managers.ocr_manager import ocr
 from tasks.base.date import Date
@@ -27,6 +28,12 @@ class Utils:
         else:
             logger.info(_("更新时间戳出错"))
 
+    def getFullPowerTime(power):
+        remainingPower = 240 - power
+        timestamp = remainingPower * 360 + time.time()
+        time = datetime.fromtimestamp(timestamp)
+        return time
+
     def saveConfigByUid():
         return
     
@@ -45,8 +52,6 @@ class Utils:
             max_score = scoreAndMaxScore.split('/')[1]
             logger.info(_(f"识别到当前积分为:{current_score}"))
             logger.info(_(f"识别到积分上限为:{max_score}"))
-            if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
             return int(current_score), int(max_score)
         except Exception as e:
             logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
@@ -103,9 +108,9 @@ class Utils:
             # logger.info(_(f'进入到循环当中'))
             if keyword in text:
                 logger.info(_(f'进入到判断keyword in text当中。text为:{text}'))
-                if text in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][text] == True:
-                    logger.info(_(f'进入到判断_daily_tasks当中,成辣！'))
-                    config.daily_tasks[Utils.get_uid()][text] = False
+                if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
+                    logger.info(_(f'进入到判断daily_tasks当中,成辣！'))
+                    config.daily_tasks[Utils.get_uid()][task_name] = False
                     config.save_config()
                 break
         (left, top), (right, bottom) = coordinates

@@ -69,17 +69,29 @@ class Universe:
             if subprocess_with_timeout([config.python_exe_path, "align_angle.py"], 60, config.universe_path, config.env):
                 
                 screen.change_to('universe_main')
-                time.sleep(1)
-                if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                    current_score, max_score = Utils.get_universe_score()
-                elif auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
-                    current_score, max_score = Utils.get_universe_score()
-                time.sleep(0.5)
-                screen.change_to('universe_main')
                 logger.info(_("开始模拟宇宙"))
                 
                 # for循环2次,每次开始时都检测一遍积分
                 for i in range(2):
+
+                    time.sleep(1)
+
+                    # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
+                    if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                        current_score, max_score = Utils.get_universe_score()
+                        auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+
+                    elif auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
+                        current_score, max_score = Utils.get_universe_score()
+                        if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
+                            time.sleep(0.5)
+                            if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                                time.sleep(0.5)
+                                Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
+                                auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+                    
+                    time.sleep(0.5)
+                    screen.change_to('universe_main')
                     
                     # 若为0,则设置bonus=0,则既不为0也不为最大积分,则bonus=1,若为最大积分,则只根据universe_bonus_enable决定是否领取
                     if current_score == 0:
@@ -97,7 +109,6 @@ class Universe:
                             command.append(f"--nums={nums}")
                     else:
                         logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙,本次将领取沉浸奖励"))
-                        Universe.get_reward()
                         command.append("--bonus=1")
                         command.append("--nums=1")
                     # end

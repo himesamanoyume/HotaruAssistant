@@ -83,6 +83,7 @@ class Power:
         trailblaze_power = get_power(trailblaze_power_crop)
 
         logger.info(_("🟣开拓力: {power}").format(power=trailblaze_power))
+        logger.info(_("开拓力回满时间为:{time}").format(time=Utils.getFullPowerTime(trailblaze_power)))
         return trailblaze_power
 
     @staticmethod

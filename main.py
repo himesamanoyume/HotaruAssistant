@@ -11,6 +11,7 @@ from tasks.game.game import Game
 from tasks.game.stop import Stop
 from tasks.daily.daily import Daily
 from tasks.daily.fight import Fight
+import questionary
 from tasks.version.version import Version
 from tasks.weekly.universe import Universe
 from tasks.weekly.forgottenhall import ForgottenHall
@@ -33,20 +34,28 @@ def main(action=None):
             sys.exit(0)
         else:
             logger.info(_("开始多账号运行"))
+            options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
+                options_reg.update({config.multi_login_accounts[index][24:33]: index})
+                
+            title_ = "请选择UID进行作为首位启动游戏:"
+            option_ = questionary.select(title_, list(options_reg.keys())).ask()
+            first_reg = options_reg.get(option_)
+
+            for index in range(len(config.multi_login_accounts)):
+                index = first_reg
                 indexStr = config.multi_login_accounts[index]
-                uid = indexStr[24:33]
                 logger.info(_(indexStr))
                 logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=indexStr))
                 if os.system(f"cmd /C REG IMPORT {indexStr}"):
                     return False
                 logger.info(action)
-                run(index, uid, action)
+                run(index, action)
     else:
         logger.info(action)
-        run(1, 1, action)
+        run(1, action)
 
-def run(index, uid, action=None):
+def run(index, action=None):
     # 完整运行
     if action is None or action == "main":
         logger.info(_("序列为{_index}的账号即将启动").format(_index= index))

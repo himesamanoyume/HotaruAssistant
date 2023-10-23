@@ -91,7 +91,7 @@ class Config:
 
     def save_timestamp(self, timestamp, uid):
         if timestamp == {}:
-            self.config[timestamp][uid] = {}
+            self.config[timestamp][uid] = 0
             self.config[timestamp][uid] = time.time()
         else:
             self.config[timestamp][uid] = time.time()
