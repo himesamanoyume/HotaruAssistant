@@ -26,11 +26,10 @@ March7thAssistant
 ## TODO
 
 - ~~模拟宇宙新增universe_fin,根据此项在daily=true时跳过~~
-- 开始时新增一个选项,全清,每日专清,模拟宇宙专清,体力专清
-- - 全清为正常完整运行(适合新的一天)
-- - 每日专清：如果该uid的每日已完成,则多账号运行时跳过启动该uid的账号
-- - 模拟宇宙专清：如果该uid的模拟宇宙已满分,则多账号运行时跳过启动该uid的账号
-- - 体力专清:全部账号上线,但只检测开拓力后清体力
+- daily_memory_one_team测试是否能写入超出4个角色的候补
+- ~~instance_names, instance_type的uid之下二级选项~~
+- instance_names, instance_type加上[Utils.get_uid()]是否有bug：待验证
+- **gui动态显示多个选项?**
 
 ## 功能简介
 

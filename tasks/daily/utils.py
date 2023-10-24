@@ -15,13 +15,10 @@ class Utils:
     _task_mappings = {}
     _task_score_mappings = {}
     def detectIsNone(configName, uid, defaultValue=0):
-        if configName == {}:
+        if configName == {} or uid not in configName.keys():
             configName[uid] = defaultValue
-            config.save_config()
 
-        if uid not in configName.keys():
-            configName[uid] = defaultValue
-            config.save_config()
+        config.save_config()
 
     def saveTimestamp(timestamp, uid):
         if config.save_timestamp(timestamp, uid):
@@ -62,7 +59,20 @@ class Utils:
             logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
             logger.warning(_("因读取模拟宇宙积分失败,程序中止"))
 
-    
+    def init_instance(uid):
+        if config.instance_type == {} or uid not in config.instance_type.keys():
+            config.instance_type[uid] = '拟造花萼（金）'
+
+        if config.instance_names == {} or uid not in config.instance_names.keys():
+            config.instance_names[uid] = {}
+            config.instance_names[uid]['拟造花萼（金）'] = '回忆之蕾'
+            config.instance_names[uid]['拟造花萼（赤）'] = '毁灭之蕾'
+            config.instance_names[uid]['凝滞虚影'] = '无'
+            config.instance_names[uid]['侵蚀隧洞'] = '睿治之径'
+            config.instance_names[uid]['历战余响'] = '毁灭的开端'
+
+        config.save_config()
+
     def get_new_uid():
         uid_crop = (68.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
         try:

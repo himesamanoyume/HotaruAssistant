@@ -118,21 +118,21 @@ class SettingInterface(ScrollArea):
 
         self.PowerGroup = SettingCardGroup(self.tr("体力设置"), self.scrollWidget)
 
-        self.instanceTypeCard = ComboBoxSettingCard1(
-            "instance_type",
-            FIF.ALIGNMENT,
-            self.tr('副本类型'),
-            None,
-            texts=['拟造花萼（金）', '拟造花萼（赤）', '凝滞虚影', '侵蚀隧洞']
-        )
-        self.instanceNameCard = PushSettingCardDictInstanceNames(
-            self.tr('修改'),
-            FIF.PALETTE,
-            # self.tr("副本名称\n保证唯一即可，例如“孽兽之形”可以填写“兽之形”，低概率下复杂文字会识别错误"),
-            # self.tr("副本名称（也会用于完成每日实训，“无”代表不启用）"),
-            self.tr("副本名称"),
-            "instance_names"
-        )
+        # self.instanceTypeCard = ComboBoxSettingCard1(
+        #     "instance_type",
+        #     FIF.ALIGNMENT,
+        #     self.tr('副本类型'),
+        #     None,
+        #     texts=['拟造花萼（金）', '拟造花萼（赤）', '凝滞虚影', '侵蚀隧洞']
+        # )
+        # self.instanceNameCard = PushSettingCardDictInstanceNames(
+        #     self.tr('修改'),
+        #     FIF.PALETTE,
+        #     # self.tr("副本名称\n保证唯一即可，例如“孽兽之形”可以填写“兽之形”，低概率下复杂文字会识别错误"),
+        #     # self.tr("副本名称（也会用于完成每日实训，“无”代表不启用）"),
+        #     self.tr("副本名称"),
+        #     "instance_names"
+        # )
         self.instanceTeamEnableCard = SwitchSettingCard1(
             FIF.EDIT,
             self.tr('自动切换队伍'),
@@ -514,8 +514,8 @@ class SettingInterface(ScrollArea):
 
         # self.GameGroup.addSettingCard(self.gamePathCard)
 
-        self.PowerGroup.addSettingCard(self.instanceTypeCard)
-        self.PowerGroup.addSettingCard(self.instanceNameCard)
+        # self.PowerGroup.addSettingCard(self.instanceTypeCard)
+        # self.PowerGroup.addSettingCard(self.instanceNameCard)
         self.PowerGroup.addSettingCard(self.instanceTeamEnableCard)
         self.PowerGroup.addSettingCard(self.instanceTeamNumberCard)
         self.PowerGroup.addSettingCard(self.useReservedTrailblazePowerEnableCard)

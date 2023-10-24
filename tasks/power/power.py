@@ -11,9 +11,9 @@ import time
 class Power:
     @staticmethod
     def start():
-        instance_name = config.instance_names[config.instance_type]
+        instance_name = config.instance_names[Utils.get_uid()][config.instance_type[Utils.get_uid()]]
         if instance_name == "无":
-            logger.info(_("跳过清体力 {type}未开启").format(type=config.instance_type))
+            logger.info(_("跳过清体力 {type}未开启").format(type=config.instance_type[Utils.get_uid()]))
             return False
 
         logger.hr(_("开始清体力"), 0)
@@ -22,7 +22,7 @@ class Power:
         if "·" in instance_name:
             instance_name = instance_name.split("·")[0]
 
-        Power.instance(config.instance_type, instance_name, config.power_needs[config.instance_type])
+        Power.instance(config.instance_type[Utils.get_uid()], instance_name, config.power_needs[config.instance_type[Utils.get_uid()]])
         logger.hr(_("完成"), 2)
 
     @staticmethod
