@@ -89,6 +89,12 @@ class Config:
             self.config[key][uid] = value
         self.save_config()
 
+    def getValueByUid(self, key, uid):
+        self._load_config()
+        if key == {}:
+            self.config[key][uid] = {}
+        return self.config[key][uid]
+
     def save_timestamp(self, timestamp, uid):
         if timestamp == {}:
             self.config[timestamp][uid] = 0

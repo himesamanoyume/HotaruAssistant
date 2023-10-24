@@ -68,6 +68,7 @@ class Daily:
             logger.hr(_("多账号下开始日常任务"), 0)
 
         Utils.get_new_uid()
+        Utils.getDailyScoreMappings()
         if Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
             logger.info(_("已是新的一天,开始每日"))
             # 活动
@@ -125,7 +126,8 @@ class Daily:
                                 continue
                             logger.info(_("{_task_name}已完成").format(_task_name=task_name))
                             config.daily_tasks[Utils.get_uid()][task_name] = False
-                            config.save_config()
+                            Utils.setDailyTasksScore(task_name, Utils.get_uid())
+                            # config.save_config()
                         else:
                             logger.warning(_("【{_task_name}】可能对应选项{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("未开启") + "\033[0m"))
                     else:

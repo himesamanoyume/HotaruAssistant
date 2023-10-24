@@ -13,13 +13,14 @@ class Utils:
     _uid = '-1'
     _daily_tasks = {}
     _task_mappings = {}
-    def detectTimestamp(timestamp, uid):
-        if timestamp == {}:
-            timestamp[uid] = 0
+    _task_score_mappings = {}
+    def detectIsNone(configName, uid):
+        if configName == {}:
+            configName[uid] = 0
             config.save_config()
 
-        if uid not in timestamp.keys():
-            timestamp[uid] = 0
+        if uid not in configName.keys():
+            configName[uid] = 0
             config.save_config()
 
     def saveTimestamp(timestamp, uid):
@@ -33,21 +34,17 @@ class Utils:
         timestamp = remainingPower * 360 + time.time()
         _datetime = datetime.fromtimestamp(timestamp)
         return _datetime
-
-    def saveConfigByUid():
-        return
     
     def get_universe_score():
-        # max_crop = (298.0 / 1920, 924.0 / 1080, 91.0 / 1920, 40.0 / 1080)
-        # current_crop = (154.0 / 1920, 912.0 / 1080, 134.0 / 1920, 48.0 / 1080)
-        # score_crop = (153.0 / 1920, 911.0 / 1080, 242.0 / 1920, 52.0 / 1080)
         score_crop = (267.0 / 1920, 738.0 / 1080, 271.0 / 1920, 57.0 / 1080)
         time.sleep(1)
         try:
-            # max_score = auto.get_single_line_text(crop=max_crop, blacklist=[], max_retries=5)
-            # current_score = auto.get_single_line_text(crop=current_crop, blacklist=[], max_retries=5)
             scoreAndMaxScore = auto.get_single_line_text(crop=score_crop, blacklist=[], max_retries=5)
             logger.info(_(f"识别到文字为:{scoreAndMaxScore}"))
+            Utils.detectIsNone(config.universe_score, Utils.get_uid())
+            config.universe_score[Utils.get_uid()] = scoreAndMaxScore
+            config.save_config()
+
             current_score = scoreAndMaxScore.split('/')[0]
             max_score = scoreAndMaxScore.split('/')[1]
             logger.info(_(f"识别到当前积分为:{current_score}"))
@@ -74,12 +71,52 @@ class Utils:
         else:
             return Utils._uid
         
+    def setDailyTasksScore(task_name, uid):
+        Utils.detectIsNone(config.daily_tasks_score, uid)
+        # config.daily_tasks_score[uid] = score
+        if task_name in Utils._task_score_mappings.keys():
+            logger.info(_(f"{task_name}的活跃度为{Utils._task_score_mappings[task_name]}"))
+            config.daily_tasks_score[uid] = config.daily_tasks_score[uid] + Utils._task_score_mappings[task_name]
+            logger.info(_(f"现在总活跃度为{config.daily_tasks_score[uid]}"))
+
+            if config.daily_tasks_score[uid] >= 500:
+                config.daily_tasks_fin[uid] = True
+                logger.info(_("该账号今日500活跃度已达成"))
+            elif config.daily_tasks_fin[uid]:
+                config.daily_tasks_fin[uid] = False
+                logger.info(_("该账号今日500活跃度未达成"))
+
+            config.save_config()
+
+    def getUniverseScore(uid):
+        if Utils.is_next_mon_4_am(config.universe_score, uid):
+            logger.info(_(f"test"))
+            config.universe_score[uid] = '0/1'
+            return False
+        else:
+            scoreAndMaxScore = str(config.universe_score[uid])
+            current_score = scoreAndMaxScore.split('/')[0]
+            max_score = scoreAndMaxScore.split('/')[1]
+            logger.info(_(f"获取到当前积分为:{current_score}"))
+            logger.info(_(f"获取到积分上限为:{max_score}"))
+            if current_score == max_score:
+                return True
+            else:
+                return False
+    
+    def getDailyScoreMappings():
+        Utils._task_score_mappings = Utils._load_config("./assets/config/task_score_mappings.json")
+        
+    def getConfigValue(configKey, uid):
+        Utils.detectIsNone(configKey, uid)
+        return configKey[uid]
+        
     def is_next_4_am(timestamp, uid):
-        Utils.detectTimestamp(timestamp, uid)
+        Utils.detectIsNone(timestamp, uid)
         return Date.is_next_4_am(timestamp[uid])
     
     def is_next_mon_4_am(timestamp, uid):
-        Utils.detectTimestamp(timestamp, uid)
+        Utils.detectIsNone(timestamp, uid)
         return Date.is_next_mon_4_am(timestamp[uid])
     
     def click_element_quest(target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
@@ -107,6 +144,7 @@ class Utils:
             if keyword in text:
                 if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
                     config.daily_tasks[Utils.get_uid()][task_name] = False
+                    Utils.setDailyTasksScore(task_name, Utils.get_uid())
                     config.save_config()
                 break
         (left, top), (right, bottom) = coordinates

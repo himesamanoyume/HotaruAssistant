@@ -11,6 +11,7 @@ from tasks.game.game import Game
 from tasks.game.stop import Stop
 from tasks.daily.daily import Daily
 from tasks.daily.fight import Fight
+from tasks.daily.utils import Utils
 import questionary
 from tasks.version.version import Version
 from tasks.weekly.universe import Universe
@@ -36,7 +37,17 @@ def main(action=None):
             logger.info(_("开始多账号运行"))
             options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
-                options_reg.update({str(config.multi_login_accounts[index]).split('-')[1][:9]: index})
+                uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
+                # 最开始时就检测isNextDay 把所有daily_tasks_score daily_tasks_fin设为默认
+                if Utils.is_next_4_am(config.last_run_timestamp, uidStr):
+                    config.daily_tasks_score[uidStr] = 0
+                    config.daily_tasks_fin[uidStr] = False
+                    config.save_config()
+                # end
+                options_reg.update({"Fin:" + uidStr + f":{Utils.getConfigValue(config.daily_tasks_score, uidStr)}:{Utils.getConfigValue(config.universe_score, uidStr)}" 
+                                    if config.daily_tasks_fin[uidStr] 
+                                    else 
+                                    uidStr + f":{Utils.getConfigValue(config.daily_tasks_score, uidStr)}:{Utils.getConfigValue(config.universe_score, uidStr)}": index})
                 
             title_ = "请选择UID进行作为首位启动游戏:"
             firstTimeLogin = True
