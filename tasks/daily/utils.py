@@ -31,8 +31,8 @@ class Utils:
     def getFullPowerTime(power):
         remainingPower = 240 - power
         timestamp = remainingPower * 360 + time.time()
-        time = datetime.fromtimestamp(timestamp)
-        return time
+        _datetime = datetime.fromtimestamp(timestamp)
+        return _datetime
 
     def saveConfigByUid():
         return
@@ -103,13 +103,9 @@ class Utils:
         result = ocr.recognize_multi_lines(auto.screenshot)
         text = result[0][1][0]
         Utils._task_mappings = Utils._load_config("./assets/config/task_mappings.json")
-        # logger.info(_(f'{Utils._task_mappings}'))
         for keyword, task_name in Utils._task_mappings.items():
-            # logger.info(_(f'进入到循环当中'))
             if keyword in text:
-                logger.info(_(f'进入到判断keyword in text当中。text为:{text}'))
                 if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
-                    logger.info(_(f'进入到判断daily_tasks当中,成辣！'))
                     config.daily_tasks[Utils.get_uid()][task_name] = False
                     config.save_config()
                 break

@@ -39,11 +39,14 @@ def main(action=None):
                 options_reg.update({config.multi_login_accounts[index][24:33]: index})
                 
             title_ = "请选择UID进行作为首位启动游戏:"
+            firstTimeLogin = True
             option_ = questionary.select(title_, list(options_reg.keys())).ask()
             first_reg = options_reg.get(option_)
 
             for index in range(len(config.multi_login_accounts)):
-                index = first_reg
+                if firstTimeLogin:
+                    index = first_reg
+                    firstTimeLogin = False
                 indexStr = config.multi_login_accounts[index]
                 logger.info(_(indexStr))
                 logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=indexStr))
