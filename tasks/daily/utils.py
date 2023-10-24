@@ -14,13 +14,13 @@ class Utils:
     _daily_tasks = {}
     _task_mappings = {}
     _task_score_mappings = {}
-    def detectIsNone(configName, uid):
+    def detectIsNone(configName, uid, defaultValue=0):
         if configName == {}:
-            configName[uid] = 0
+            configName[uid] = defaultValue
             config.save_config()
 
         if uid not in configName.keys():
-            configName[uid] = 0
+            configName[uid] = defaultValue
             config.save_config()
 
     def saveTimestamp(timestamp, uid):
@@ -49,6 +49,14 @@ class Utils:
             max_score = scoreAndMaxScore.split('/')[1]
             logger.info(_(f"识别到当前积分为:{current_score}"))
             logger.info(_(f"识别到积分上限为:{max_score}"))
+            if int(current_score) == int(max_score):
+                logger.info(_(f"模拟宇宙积分已满"))
+                config.universe_fin[Utils.get_uid()] = True
+            else:
+                logger.info(_(f"模拟宇宙积分未满"))
+                config.universe_fin[Utils.get_uid()] = False
+                
+            config.save_config()
             return int(current_score), int(max_score)
         except Exception as e:
             logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
@@ -87,22 +95,6 @@ class Utils:
                 logger.info(_("该账号今日500活跃度未达成"))
 
             config.save_config()
-
-    def getUniverseScore(uid):
-        if Utils.is_next_mon_4_am(config.universe_score, uid):
-            logger.info(_(f"test"))
-            config.universe_score[uid] = '0/1'
-            return False
-        else:
-            scoreAndMaxScore = str(config.universe_score[uid])
-            current_score = scoreAndMaxScore.split('/')[0]
-            max_score = scoreAndMaxScore.split('/')[1]
-            logger.info(_(f"获取到当前积分为:{current_score}"))
-            logger.info(_(f"获取到积分上限为:{max_score}"))
-            if current_score == max_score:
-                return True
-            else:
-                return False
     
     def getDailyScoreMappings():
         Utils._task_score_mappings = Utils._load_config("./assets/config/task_score_mappings.json")
@@ -111,9 +103,9 @@ class Utils:
         Utils.detectIsNone(configKey, uid)
         return configKey[uid]
         
-    def is_next_4_am(timestamp, uid):
+    def is_next_4_am(timestamp, uid, isLog=True):
         Utils.detectIsNone(timestamp, uid)
-        return Date.is_next_4_am(timestamp[uid])
+        return Date.is_next_4_am(timestamp[uid], isLog)
     
     def is_next_mon_4_am(timestamp, uid):
         Utils.detectIsNone(timestamp, uid)

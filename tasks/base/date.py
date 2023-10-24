@@ -3,7 +3,7 @@ from managers.logger_manager import logger
 
 class Date:
     @staticmethod
-    def is_next_4_am(timestamp):
+    def is_next_4_am(timestamp, isLog = True):
         dt_object = datetime.fromtimestamp(timestamp)
         current_time = datetime.now()
         if dt_object.hour < 4:
@@ -12,8 +12,8 @@ class Date:
         else:
             next_4am = dt_object.replace(
                 hour=4, minute=0, second=0, microsecond=0) + timedelta(days=1)
-        
-        logger.info("时间戳记录日期为{time}".format(time=dt_object))
+        if isLog:
+            logger.info("时间戳记录日期为{time}".format(time=dt_object))
         if current_time >= next_4am:
             return True
         return False
