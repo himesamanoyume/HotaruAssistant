@@ -36,7 +36,7 @@ def main(action=None):
             logger.info(_("开始多账号运行"))
             options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
-                options_reg.update({config.multi_login_accounts[index][24:33]: index})
+                options_reg.update({str(config.multi_login_accounts[index]).split('-')[1][:9]: index})
                 
             title_ = "请选择UID进行作为首位启动游戏:"
             firstTimeLogin = True

@@ -325,24 +325,29 @@ class ForgottenHall:
     @staticmethod
     def weakness_to_fight():
         if config.daily_memory_one_enable:
+            logger.info(_("进行利用弱点进入战斗并获胜3次"))
             return ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one()
 
     @staticmethod
     def weakness_3():
         if config.daily_memory_one_enable:
+            logger.info(_("进行单场战斗中，触发3种不同属性的弱点击破"))
             return ForgottenHall.start_memory_one()
 
     @staticmethod
     def weakness_5():
         if config.daily_memory_one_enable:
+            logger.info(_("进行累计触发弱点击破效果5次"))
             return ForgottenHall.start_memory_one()
 
     @staticmethod
     def enemy_20():
         if config.daily_memory_one_enable:
+            logger.info(_("进行累计消灭20个敌人"))
             return ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one()
 
     @staticmethod
     def ultimate():
         if config.daily_memory_one_enable:
+            logger.info(_("进行施放终结技造成制胜一击1次"))
             return ForgottenHall.start_memory_one()
