@@ -74,7 +74,7 @@ class Utils:
         config.save_config()
 
     def get_new_uid():
-        uid_crop = (68.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
+        uid_crop = (70.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
         try:
             Utils._uid = auto.get_single_line_text(crop=uid_crop, blacklist=[], max_retries=9)
             logger.info(_(f"识别到UID为:{Utils._uid}"))

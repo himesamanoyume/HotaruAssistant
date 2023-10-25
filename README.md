@@ -25,12 +25,11 @@ March7thAssistant
 
 ## TODO
 
+- 不要每次非得60体力才清体力
 - ~~daily_tasks_score改成根据True从0开始算总账,而不是一直加~~(待验证)
-- ~~模拟宇宙新增universe_fin,根据此项在daily=true时跳过~~
 - daily_memory_one_team测试是否能写入超出4个角色的候补
-- ~~instance_names, instance_type的uid之下二级选项~~
 - ~~instance_names, instance_type加上[Utils.get_uid()]是否有bug~~(待验证)
-- **gui动态显示多个选项?**
+- **gui动态显示多个选项?**基本搁置
 
 ## 功能简介
 

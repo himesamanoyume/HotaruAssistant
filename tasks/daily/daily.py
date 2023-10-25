@@ -129,7 +129,8 @@ class Daily:
                             Utils.setDailyTasksScore(task_name, Utils.get_uid())
                             # config.save_config()
                         else:
-                            logger.warning(_("【{_task_name}】可能对应选项{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("未开启") + "\033[0m"))
+                            if not config.daily_tasks_fin[Utils.get_uid()]:
+                                logger.warning(_("【{_task_name}】可能对应选项{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("未开启") + "\033[0m"))
                     else:
                         logger.info(_("【{_task_name}】该任务{green},跳过").format(_task_name=task_name, green="\033[92m" + _("已完成") + "\033[0m"))
                 else:
