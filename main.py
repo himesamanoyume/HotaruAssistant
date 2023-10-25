@@ -36,11 +36,6 @@ def main(action=None):
         else:
             logger.info(_("开始多账号运行"))
 
-            # config.test['100593155'] = {}
-            # config.test['100593155']['拟造花萼（金）'] = '藏珍之蕾'
-            # config.test['100593155']['拟造花萼（赤）'] = '毁灭之蕾'
-            # config.save_config()
-
             options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]

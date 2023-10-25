@@ -91,10 +91,16 @@ class Utils:
         
     def setDailyTasksScore(task_name, uid):
         Utils.detectIsNone(config.daily_tasks_score, uid)
-        # config.daily_tasks_score[uid] = score
         if task_name in Utils._task_score_mappings.keys():
             logger.info(_(f"{task_name}的活跃度为{Utils._task_score_mappings[task_name]}"))
-            config.daily_tasks_score[uid] = config.daily_tasks_score[uid] + Utils._task_score_mappings[task_name]
+            config.daily_tasks_score[uid] = 0
+            temp_score = 0
+            # config.daily_tasks_score[uid] = config.daily_tasks_score[uid] + Utils._task_score_mappings[task_name]
+            for key, value in config.daily_tasks[uid].items():
+                if value:
+                    temp_score += Utils._task_score_mappings[key]
+            
+            config.daily_tasks_score[uid] = temp_score
             logger.info(_(f"现在总活跃度为{config.daily_tasks_score[uid]}"))
 
             if config.daily_tasks_score[uid] >= 500:
