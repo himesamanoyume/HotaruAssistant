@@ -39,21 +39,32 @@ def main(action=None):
             options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
-                Utils.init_instance(uidStr)
+                Utils.init_instanceButNoSave(uidStr)
 
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
+                    Utils.detectIsNoneButNoSave(config.daily_tasks_score, uidStr)
+                    Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
                     config.daily_tasks_score[uidStr] = 0
                     config.daily_tasks_fin[uidStr] = False
-                    config.save_config()
-                
-                options_reg.update({"Fin:" + uidStr + f":{Utils.getConfigValue(config.daily_tasks_score, uidStr)}:{Utils.getConfigValue(config.universe_score, uidStr)}" 
+                    
+
+                if Utils.is_next_mon_4_am(config.universe_timestamp, uidStr, False):
+                    Utils.detectIsNoneButNoSave(config.universe_score, uidStr, '0/1')
+                    Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
+                    maxScore = str(config.universe_score[uidStr]).split('/')[1]
+                    config.universe_score[uidStr] = f'0/{maxScore}'
+                    config.universe_fin[uidStr] = False
+                temp_text = f":活跃度:{Utils.getConfigValue(config.daily_tasks_score, uidStr)},模拟宇宙积分:{Utils.getConfigValue(config.universe_score, uidStr)}"
+                options_reg.update({"<每日已完成>" + uidStr + temp_text
                                     if config.daily_tasks_fin[uidStr] 
                                     else 
-                                    uidStr + f":{Utils.getConfigValue(config.daily_tasks_score, uidStr)}:{Utils.getConfigValue(config.universe_score, uidStr)}": index})
-                
+                                    uidStr + temp_text: index})
+            
+            config.save_config()
+
             title_ = "请选择UID进行作为首位启动游戏:"
             firstTimeLogin = True
-            option_ = questionary.rawselect(title_, list(options_reg.keys())).ask()
+            option_ = questionary.select(title_, list(options_reg.keys())).ask()
             first_reg = options_reg.get(option_)
 
             for index in range(len(config.multi_login_accounts)):

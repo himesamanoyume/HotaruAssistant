@@ -25,6 +25,7 @@ class Daily:
     def sub():
 
         if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
+            config.save_config()
             if config.echo_of_war_enable:
                 Echoofwar.start()
             else:
@@ -35,6 +36,7 @@ class Daily:
         Power.start()
 
         if Utils.is_next_4_am(config.fight_timestamp, Utils.get_uid()):
+            config.save_config()
             if config.fight_enable:
                 Fight.start()
             else:
@@ -52,6 +54,7 @@ class Daily:
             logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
 
         if Utils.is_next_mon_4_am(config.forgottenhall_timestamp, Utils.get_uid()):
+            config.save_config()
             if config.forgottenhall_enable:
                 ForgottenHall.start(Utils.get_uid())
             else:
@@ -70,6 +73,7 @@ class Daily:
         Utils.get_new_uid()
         Utils.getDailyScoreMappings()
         if Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
+            config.save_config()
             logger.info(_("已是新的一天,开始每日"))
             # 活动
             Activity.start()
@@ -85,6 +89,7 @@ class Daily:
         else:
             logger.info(_("日常任务{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
+        Utils.calcDailyTasksScore(Utils.get_uid())
         if len(config.daily_tasks[Utils.get_uid()]) > 0:
             task_functions = {
                 "拍照1次": lambda: Photo.photograph(),
@@ -126,7 +131,7 @@ class Daily:
                                 continue
                             logger.info(_("{_task_name}已完成").format(_task_name=task_name))
                             config.daily_tasks[Utils.get_uid()][task_name] = False
-                            Utils.setDailyTasksScore(task_name, Utils.get_uid())
+                            Utils.showDailyTasksScore(task_name, Utils.get_uid())
                             # config.save_config()
                         else:
                             if not config.daily_tasks_fin[Utils.get_uid()]:

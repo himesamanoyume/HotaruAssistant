@@ -14,11 +14,9 @@ class Utils:
     _daily_tasks = {}
     _task_mappings = {}
     _task_score_mappings = {}
-    def detectIsNone(configName, uid, defaultValue=0):
+    def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
             configName[uid] = defaultValue
-
-        config.save_config()
 
     def saveTimestamp(timestamp, uid):
         if config.save_timestamp(timestamp, uid):
@@ -38,7 +36,7 @@ class Utils:
         try:
             scoreAndMaxScore = auto.get_single_line_text(crop=score_crop, blacklist=[], max_retries=5)
             logger.info(_(f"识别到文字为:{scoreAndMaxScore}"))
-            Utils.detectIsNone(config.universe_score, Utils.get_uid())
+            Utils.detectIsNoneButNoSave(config.universe_score, Utils.get_uid())
             config.universe_score[Utils.get_uid()] = scoreAndMaxScore
             config.save_config()
 
@@ -59,7 +57,7 @@ class Utils:
             logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
             logger.warning(_("因读取模拟宇宙积分失败,程序中止"))
 
-    def init_instance(uid):
+    def init_instanceButNoSave(uid):
         if config.instance_type == {} or uid not in config.instance_type.keys():
             config.instance_type[uid] = '拟造花萼（金）'
 
@@ -70,8 +68,6 @@ class Utils:
             config.instance_names[uid]['凝滞虚影'] = '无'
             config.instance_names[uid]['侵蚀隧洞'] = '睿治之径'
             config.instance_names[uid]['历战余响'] = '毁灭的开端'
-
-        config.save_config()
 
     def get_new_uid():
         uid_crop = (70.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
@@ -89,43 +85,48 @@ class Utils:
         else:
             return Utils._uid
         
-    def setDailyTasksScore(task_name, uid):
-        Utils.detectIsNone(config.daily_tasks_score, uid)
+    def showDailyTasksScore(task_name, uid):
+        Utils.detectIsNoneButNoSave(config.daily_tasks_score, uid)
+        config.save_config()
         if task_name in Utils._task_score_mappings.keys():
             logger.info(_(f"{task_name}的活跃度为{Utils._task_score_mappings[task_name]}"))
-            config.daily_tasks_score[uid] = 0
-            temp_score = 0
-            # config.daily_tasks_score[uid] = config.daily_tasks_score[uid] + Utils._task_score_mappings[task_name]
-            for key, value in config.daily_tasks[uid].items():
-                if value:
-                    temp_score += Utils._task_score_mappings[key]
-            
-            config.daily_tasks_score[uid] = temp_score
-            logger.info(_(f"现在总活跃度为{config.daily_tasks_score[uid]}"))
+            Utils.calcDailyTasksScore(uid)
 
-            if config.daily_tasks_score[uid] >= 500:
-                config.daily_tasks_fin[uid] = True
-                logger.info(_("该账号今日500活跃度已达成"))
-            elif config.daily_tasks_fin[uid]:
-                config.daily_tasks_fin[uid] = False
-                logger.info(_("该账号今日500活跃度未达成"))
+    def calcDailyTasksScore(uid):
+        config.daily_tasks_score[uid] = 0
+        temp_score = 0
+        for key, value in config.daily_tasks[uid].items():
+            if not value:
+                temp_score += Utils._task_score_mappings[key]
+        
+        config.daily_tasks_score[uid] = temp_score
+        config.save_config()
+        logger.info(_(f"现在总活跃度为{config.daily_tasks_score[uid]}"))
 
-            config.save_config()
+        if config.daily_tasks_score[uid] >= 500:
+            config.daily_tasks_fin[uid] = True
+            logger.info(_("该账号今日500活跃度已达成"))
+        elif config.daily_tasks_fin[uid]:
+            config.daily_tasks_fin[uid] = False
+            logger.info(_("该账号今日500活跃度未达成"))
+
+        config.save_config()
     
     def getDailyScoreMappings():
         Utils._task_score_mappings = Utils._load_config("./assets/config/task_score_mappings.json")
         
     def getConfigValue(configKey, uid):
-        Utils.detectIsNone(configKey, uid)
+        Utils.detectIsNoneButNoSave(configKey, uid)
+        config.save_config()
         return configKey[uid]
         
     def is_next_4_am(timestamp, uid, isLog=True):
-        Utils.detectIsNone(timestamp, uid)
+        Utils.detectIsNoneButNoSave(timestamp, uid)
         return Date.is_next_4_am(timestamp[uid], isLog)
     
-    def is_next_mon_4_am(timestamp, uid):
-        Utils.detectIsNone(timestamp, uid)
-        return Date.is_next_mon_4_am(timestamp[uid])
+    def is_next_mon_4_am(timestamp, uid, isLog=True):
+        Utils.detectIsNoneButNoSave(timestamp, uid)
+        return Date.is_next_mon_4_am(timestamp[uid], isLog)
     
     def click_element_quest(target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
         coordinates = auto.find_element(target, find_type, threshold, max_retries, crop, take_screenshot,
@@ -152,7 +153,7 @@ class Utils:
             if keyword in text:
                 if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
                     config.daily_tasks[Utils.get_uid()][task_name] = False
-                    Utils.setDailyTasksScore(task_name, Utils.get_uid())
+                    Utils.showDailyTasksScore(task_name, Utils.get_uid())
                     config.save_config()
                 break
         (left, top), (right, bottom) = coordinates

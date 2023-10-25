@@ -61,7 +61,8 @@ class Universe:
     @staticmethod
     def start(get_reward=False, nums=config.universe_count, save=True, daily=True):
         logger.hr(_("准备模拟宇宙"), 2)
-        Utils.detectIsNone(config.universe_fin, Utils.get_uid(), False)
+        Utils.detectIsNoneButNoSave(config.universe_fin, Utils.get_uid(), False)
+        config.save_config()
         if config.universe_fin[Utils.get_uid()] and daily:
             logger.info(_("鉴定为正在每日任务中且分数已满,跳过"))
             return True
