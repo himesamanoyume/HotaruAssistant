@@ -75,12 +75,12 @@ class Universe:
                 
                 screen.change_to('universe_main')
                 logger.info(_("开始模拟宇宙"))
-                
+                config._load_config()
                 # for循环2次,每次开始时都检测一遍积分
                 for i in range(2):
 
                     time.sleep(1)
-
+                    
                     # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
                     if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
                         current_score, max_score = Utils.get_universe_score()

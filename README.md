@@ -23,18 +23,6 @@ March7thAssistant
 
 </div>
 
-## TODO
-
-- bug:清体力时挑战2次将会耗费20体力同时再点击2次挑战,应该只挑战1次,当体力为90时应该第一次消耗60,第二次消耗30
-- 循环测试完善
-- 研究多账号分别通知，用outlook邮件发。
-- 新增激活天数时间戳，距离时间戳未超30天时才会启动，选择账号启动时显示剩余激活天数，如果过期则显示已过期天数(方便我管理)
-- 研究国服国际服切换。
-- 研究mirai机器人与脚本整合
-- ~~测试60多个账号时如何选择~~
-- ~~优化清体力~~(待验证)
-- daily_memory_one_team测试是否能写入超出4个角色的候补
-
 ## 功能简介
 
 - **日常**：清体力、每日实训、领奖励、委托、锄大地
@@ -100,4 +88,34 @@ March7thAssistant 离不开以下开源项目的帮助：
 - OCR文字识别 [https://github.com/hiroi-sora/PaddleOCR-json](https://github.com/hiroi-sora/PaddleOCR-json)
 
 - 图形界面组件库 [https://github.com/zhiyiYo/PyQt-Fluent-Widgets](https://github.com/zhiyiYo/PyQt-Fluent-Widgets)
+
+## TODO
+
+- 检测到遗器时识别信息词条,加入需求词条,当检测到需求词条时锁上并通知
+- main.py中的注册表循环列表可实时更新,当运行中新加入的最后排reg也能一起运行
+- 研究多账号分别通知，用outlook邮件发
+- 新增激活config
+```yaml
+account_active:
+    '100593155':
+        isExpired: true # 是否过期,如果过期,启动列表跳过该项
+        # if ExpirationDate >= time.time() >= ExpirationDate - 3*86400:
+        #   完成上号的邮件当中加入即将过期提醒
+        # if time.time() >= ExpirationDate or ActiveDay == 0:
+        #   isExpired=true,ActiveDate=0,ActiveDay=0,ExpirationDate=0,
+        isWantActive: false # 只有在此项为true时才会重新计算过期时间戳
+        # if isWantActive:
+        #   if isExpired==true:
+        #      ActiveDate=time.time(),isExpired=false
+        #   ExpirationDate=ActiveDate+ActiveDay*86400,isWantActive=false
+        ActiveDate: 0 # 激活时刻的时间戳
+        ActiveDay: 0 # 激活的天数:每次is next day都会减1
+        ExpirationDate: 0 # 激活时刻过指定天数的时间戳,代表着过期时刻的时间戳
+        BindEmail: '' # 绑定的邮箱
+
+```
+- 研究国服国际服切换
+- 循环测试完善
+- daily_memory_one_team测试是否能写入超出4个角色的候补
+
 

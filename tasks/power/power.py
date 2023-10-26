@@ -192,7 +192,7 @@ class Power:
             return False
 
     @staticmethod
-    def run_instances(instance_type, instance_name, power_need, number):
+    def run_instances(instance_type, instance_name, a_times_need_power, total_count):
         if instance_name == "无":
             logger.debug(_("{type}未开启").format(type=instance_type))
             return False
@@ -239,16 +239,21 @@ class Power:
             return False
 
         if "拟造花萼" in instance_type:
-            count = power_need // 10 - 1
-            if not 0 <= count <= 5:
+            full_count = total_count // 6
+            incomplete_count = total_count - full_count * 6
+            if not 0 <= full_count or not 0 <= incomplete_count <= 6:
                 Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
                 return False
             result = auto.find_element("./assets/images/screen/guide/plus.png", "image", 0.9, max_retries=10,
                                        crop=(1174.0 / 1920, 775.0 / 1080, 738.0 / 1920, 174.0 / 1080))
-            for i in range(count):
-                auto.click_element_with_pos(result)
-                time.sleep(0.5)
-            # time.sleep(1)
+            if full_count == 0:
+                for i in range(incomplete_count - 1):
+                    auto.click_element_with_pos(result)
+                    time.sleep(0.5)
+            else:
+                for i in range(5):
+                    auto.click_element_with_pos(result)
+                    time.sleep(0.5)
 
         if auto.click_element("挑战", "text", max_retries=10, need_ocr=True):
             if instance_type == "历战余响":
@@ -260,22 +265,30 @@ class Power:
                     time.sleep(2)
                     for i in range(3):
                         auto.press_mouse()
-                for i in range(number - 1):
+                
+                for i in range(full_count - 1):
                     Power.wait_fight()
-                    logger.info(_("第{number}次副本完成").format(number=i + 1))
+                    logger.info(_("第{number}次副本完成").format(number=i+1))
                     auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
                     if instance_type == "历战余响":
                         time.sleep(1)
                         auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
+                
                 Power.wait_fight()
-                logger.info(_("第{number}次副本完成").format(number=number))
-
+                if full_count > 0:
+                    logger.info(_("{number}次副本完成").format(number=full_count*6))
+                else:
+                    logger.info(_("{number}次副本完成").format(number=incomplete_count))
                 # 速度太快，点击按钮无效
                 time.sleep(1)
                 auto.click_element("./assets/images/fight/fight_exit.png", "image", 0.9, max_retries=10)
                 time.sleep(2)
-                logger.info(_("副本任务完成"))
-                return True
+                if full_count > 0 and incomplete_count > 0:
+                    Power.run_instances(instance_type, instance_name, a_times_need_power, incomplete_count)
+                else:
+                    logger.info(_("副本任务完成"))
+                    return True
+                
 
     @staticmethod
     def instance(instance_type, instance_name, power_need, number=None):
@@ -285,6 +298,7 @@ class Power:
         logger.hr(_("准备{type}").format(type=instance_type), 2)
         power = Power.power()
         if number is None:
+            # number刷的次数
             number = power // power_need
             if number < 1:
                 logger.info(_("🟣开拓力 < {power_need}").format(power_need=power_need))
@@ -295,4 +309,4 @@ class Power:
                 return False
 
         logger.hr(_("开始刷{type} - {name}，总计{number}次").format(type=instance_type, name=instance_name, number=number), 2)
-        return Power.run_instances(instance_type, instance_name, power_need * number, number)
+        return Power.run_instances(instance_type, instance_name, power_need, number)
