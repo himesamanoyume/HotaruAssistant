@@ -356,7 +356,7 @@ class ForgottenHall:
                 logger.info(_("每日活跃度已满,跳过"))
                 return False
             logger.info(_("进行[累计消灭20个敌人]"))
-            return ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one()
+            return ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one()
 
     @staticmethod
     def ultimate():

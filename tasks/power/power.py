@@ -238,9 +238,10 @@ class Power:
             Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 传送可能失败⚠️"))
             return False
 
+        full_count = total_count // 6
+        incomplete_count = total_count - full_count * 6
         if "拟造花萼" in instance_type:
-            full_count = total_count // 6
-            incomplete_count = total_count - full_count * 6
+            
             if not 0 <= full_count or not 0 <= incomplete_count <= 6:
                 Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
                 return False
@@ -265,7 +266,7 @@ class Power:
                     time.sleep(2)
                     for i in range(3):
                         auto.press_mouse()
-                
+
                 for i in range(full_count - 1):
                     Power.wait_fight()
                     logger.info(_("第{number}次副本完成").format(number=i+1))
@@ -273,6 +274,7 @@ class Power:
                     if instance_type == "历战余响":
                         time.sleep(1)
                         auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
+                
                 
                 Power.wait_fight()
                 if full_count > 0:
