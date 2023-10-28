@@ -36,11 +36,8 @@ def main(action=None):
             sys.exit(0)
         else:
             logger.info(_("开始多账号运行"))
-            # test_content = dict()
-            # test_content.update({'old_power':'10'})
-            # content_json = json.dumps(test_content)
  
-            notify.notify(_("普罗丢瑟代练"), _("haha"))
+            # notify.notify(_("普罗丢瑟代练"), _("haha"))
             options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
@@ -51,7 +48,7 @@ def main(action=None):
                     Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
                     config.daily_tasks_score[uidStr] = 0
                     config.daily_tasks_fin[uidStr] = False
-                    
+                    config.daily_tasks[uidStr] = {}
 
                 if Utils.is_next_mon_4_am(config.universe_timestamp, uidStr, False):
                     Utils.detectIsNoneButNoSave(config.universe_score, uidStr, '0/1')

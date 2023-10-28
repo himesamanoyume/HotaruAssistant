@@ -14,6 +14,8 @@ class Utils:
     _daily_tasks = {}
     _task_mappings = {}
     _task_score_mappings = {}
+    _content = dict()
+    _temp = ''
     def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
             configName[uid] = defaultValue
@@ -42,6 +44,7 @@ class Utils:
 
             current_score = scoreAndMaxScore.split('/')[0]
             max_score = scoreAndMaxScore.split('/')[1]
+
             logger.info(_(f"识别到当前积分为:{current_score}"))
             logger.info(_(f"识别到积分上限为:{max_score}"))
             if int(current_score) == int(max_score):
@@ -73,6 +76,8 @@ class Utils:
         uid_crop = (70.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
         try:
             Utils._uid = auto.get_single_line_text(crop=uid_crop, blacklist=[], max_retries=9)
+            Utils._content = dict()
+            Utils._temp = ''
             logger.info(_(f"识别到UID为:{Utils._uid}"))
         except Exception as e:
             logger.error(_("识别UID失败: {error}").format(error=e))

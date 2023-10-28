@@ -4,6 +4,8 @@ from managers.automation_manager import auto
 from managers.translate_manager import _
 from managers.config_manager import config
 from managers.notify_manager import notify
+from tasks.daily.utils import Utils
+from datetime import datetime
 from tasks.game.start import Start
 from tasks.game.stop import Stop
 import sys
@@ -32,6 +34,26 @@ class Game:
 
     @staticmethod
     def stop(index, detect_loop=False):
+        Utils._content.update({'uid':Utils._uid})
+        Utils._content.update({'date':f'{datetime.now()}'})
+        i =0
+        for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():
+            Utils._content.update({f'daily_0{i}':f'{task_name}'})
+            Utils._content.update({f'daily_0{i}_value':task_value})
+            i+=1
+
+        scoreAndMaxScore = config.universe_score[Utils.get_uid()]
+
+        current_score = scoreAndMaxScore.split('/')[0]
+        max_score = scoreAndMaxScore.split('/')[1]
+        Utils._content.update({'current_universe_score':f'{current_score}'})
+        Utils._content.update({'max_universe_score':f'{max_score}'})
+
+        Utils._content.update({'daily_tasks_score':f'{config.daily_tasks_score[Utils.get_uid()]}'})
+        Utils._content.update({'multi_content':f"{Utils._temp}"})
+
+        notify.notify(_("普罗丢瑟代练"), _(f'UID:{Utils.get_uid()},上号刚刚结束!'))
+
         if config.multi_login:
             logger.hr(_("多账号结束运行一个账号"), 0)
             if index == len(config.multi_login_accounts) - 1:

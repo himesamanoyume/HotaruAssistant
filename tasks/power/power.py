@@ -83,7 +83,9 @@ class Power:
         trailblaze_power = get_power(trailblaze_power_crop)
 
         logger.info(_("🟣开拓力: {power}").format(power=trailblaze_power))
+        Utils._content.update({'new_power':f'{trailblaze_power}'})
         logger.info(_("开拓力回满时间为:{time}").format(time=Utils.getFullPowerTime(trailblaze_power)))
+        Utils._content.update({'full_power_time':f'{Utils.getFullPowerTime(trailblaze_power)}'})
         return trailblaze_power
 
     @staticmethod
@@ -309,6 +311,9 @@ class Power:
             if power_need * number > power:
                 logger.info(_("🟣开拓力 < {power_need}*{number}").format(power_need=power_need, number=number))
                 return False
+
+        
+        Utils._temp += f'<p>{instance_type} - {number}次</p>'
 
         logger.hr(_("开始刷{type} - {name}，总计{number}次").format(type=instance_type, name=instance_name, number=number), 2)
         return Power.run_instances(instance_type, instance_name, power_need, number)
