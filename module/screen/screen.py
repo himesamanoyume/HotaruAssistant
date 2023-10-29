@@ -1,6 +1,7 @@
 from managers.automation_manager import auto
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from tasks.daily.utils import Utils
 from collections import deque
 import threading
 import time
@@ -144,7 +145,11 @@ class Screen:
                 thread.join()
 
             if self.current_screen:
-                logger.info(_("当前界面：{screen_name}").format(screen_name=self.green + self.get_name(self.current_screen) + self.reset))
+                screen_name=self.green + self.get_name(self.current_screen) + self.reset
+                logger.info(_("当前界面：{_screen_name}").format(_screen_name = screen_name))
+                if screen_name == "星际和平指南-每日实训":
+                    while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
+                        time.sleep(1)
                 return True
 
             if autotry:

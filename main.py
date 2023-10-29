@@ -41,6 +41,8 @@ def main(action=None):
             options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
+                if uidStr in config.blacklist_uid:
+                    continue
                 Utils.init_instanceButNoSave(uidStr)
 
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
@@ -57,10 +59,11 @@ def main(action=None):
                     config.universe_score[uidStr] = f'0/{maxScore}'
                     config.universe_fin[uidStr] = False
                 temp_text = f":活跃度:{Utils.getConfigValue(config.daily_tasks_score, uidStr)},模拟宇宙积分:{Utils.getConfigValue(config.universe_score, uidStr)}"
-                options_reg.update({"<每日已完成>" + uidStr + temp_text
+                last_run_uidText = "【最后运行的账号】" if config.last_running_uid == uidStr else '' 
+                options_reg.update({"<每日已完成>" + uidStr + temp_text + last_run_uidText
                                     if config.daily_tasks_fin[uidStr] 
                                     else 
-                                    uidStr + temp_text: index})
+                                    uidStr + temp_text + last_run_uidText: index})
             
             config.save_config()
 

@@ -79,6 +79,7 @@ class Utils:
             Utils._content = dict()
             Utils._temp = ''
             logger.info(_(f"识别到UID为:{Utils._uid}"))
+            config.set_value('last_running_uid', Utils._uid)
         except Exception as e:
             logger.error(_("识别UID失败: {error}").format(error=e))
             logger.warning(_("因读取UID失败,程序中止"))
@@ -160,6 +161,8 @@ class Utils:
                     config.daily_tasks[Utils.get_uid()][task_name] = False
                     Utils.showDailyTasksScore(task_name, Utils.get_uid())
                     config.save_config()
+                else:
+                    logger.warning(_(f"keyword:{keyword},{task_name}:进行了点击但似乎已经完成或未识别成功"))
                 break
         (left, top), (right, bottom) = coordinates
         x = (left + right) // 2 + offset[0]

@@ -3,11 +3,16 @@ log_level: INFO # 日志等级: INFO、DEBUG
 check_update: true # 检测更新
 agreed_to_disclaimer: false
 
+last_running_uid: 0 # 最后运行的UID
+blacklist_uid: # UID黑名单
+- '111111111'
+- '222222222'
 after_finish: None # 任务完成后: "None"（无）"Exit"（退出）"Loop"（循环）"Shutdown"（关机）"Hibernate"（休眠）"Sleep"（睡眠）
 power_limit: 60 # 循环运行所需开拓力
 play_audio: false # 任务完成后播放提示音
 multi_login: false # 是否多账号登录
 multi_login_accounts: {} # 多账号注册表位置
+want_add_accounts: {} # 启动游戏前先加载的注册表位置
 
 python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
 pypi_mirror_urls: # pypi 镜像列表
