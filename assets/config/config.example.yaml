@@ -3,7 +3,7 @@ log_level: INFO # 日志等级: INFO、DEBUG
 check_update: true # 检测更新
 agreed_to_disclaimer: false
 
-last_running_uid: 0 # 最后运行的UID
+last_running_uid: '111111111' # 最后运行的UID
 blacklist_uid: # UID黑名单
 - '111111111'
 - '222222222'

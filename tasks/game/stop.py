@@ -99,7 +99,7 @@ class Stop:
             wait_time = Stop.get_wait_time(current_power)
             future_time = Date.calculate_future_time(wait_time)
             logger.info(_("📅将在{future_time}继续运行").format(future_time=future_time))
-            notify.notify(_("📅将在{future_time}继续运行").format(future_time=future_time))
+            # notify.notify(_("📅将在{future_time}继续运行").format(future_time=future_time))
             logger.hr(_("完成"), 2)
             # 等待状态退出OCR避免内存占用
             ocr.exit_ocr()

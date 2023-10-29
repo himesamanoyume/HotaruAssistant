@@ -234,7 +234,8 @@ class ForgottenHall:
                 while auto.click_element("./assets/images/forgottenhall/receive.png", "image", 0.9, crop=(1081.0 / 1920, 171.0 / 1080, 500.0 / 1920, 736.0 / 1080)):
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
                     time.sleep(1)
-            Base.send_notification_with_screenshot(_("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level))
+            logger.info("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level)
+            # Base.send_notification_with_screenshot(_("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level))
             auto.press_key("esc")
             time.sleep(1)
 

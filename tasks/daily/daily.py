@@ -71,6 +71,7 @@ class Daily:
             logger.hr(_("多账号下开始日常任务"), 0)
 
         Utils.get_new_uid()
+        Utils._content.update({'uid':Utils.get_uid()})
         Utils.getDailyScoreMappings()
         if Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
             config.save_config()

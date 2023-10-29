@@ -17,7 +17,7 @@ class Game:
         logger.hr(_("开始运行"), 0)
         logger.info(_("开始启动游戏"))
         if not auto.retry_with_timeout(lambda: Start.start_game(), 1200, 1):
-            notify.notify(_("⚠️启动游戏超时，退出程序⚠️"))
+            # notify.notify(_("⚠️启动游戏超时，退出程序⚠️"))
             logger.error(_("⚠️启动游戏超时，退出程序⚠️"))
             input(_("按回车键关闭窗口. . ."))
             sys.exit(1)
@@ -34,7 +34,6 @@ class Game:
 
     @staticmethod
     def stop(index, detect_loop=False):
-        Utils._content.update({'uid':Utils._uid})
         Utils._content.update({'date':f'{datetime.now()}'})
         i =0
         for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():

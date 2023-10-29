@@ -147,7 +147,7 @@ class Screen:
             if self.current_screen:
                 screen_name=self.green + self.get_name(self.current_screen) + self.reset
                 logger.info(_("当前界面：{_screen_name}").format(_screen_name = screen_name))
-                if screen_name == "星际和平指南-每日实训":
+                if self.get_name(self.current_screen) == "星际和平指南-每日实训":
                     while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
                         time.sleep(1)
                 return True

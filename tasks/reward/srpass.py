@@ -1,5 +1,6 @@
 from managers.screen_manager import screen
 from managers.automation_manager import auto
+from managers.logger_manager import logger
 from managers.translate_manager import _
 from tasks.base.base import Base
 import time
@@ -28,4 +29,5 @@ class SRPass:
         time.sleep(1)
         # 判断是否满级
         if auto.find_element("./assets/images/pass/50.png", "image", 0.9):
-            Base.send_notification_with_screenshot(_("🎉当前版本无名勋礼已满级🎉"))
+            logger.info("🎉当前版本无名勋礼已满级🎉")
+            # Base.send_notification_with_screenshot(_("🎉当前版本无名勋礼已满级🎉"))

@@ -233,11 +233,13 @@ class Power:
             # 等待界面完全停止
             time.sleep(0.5)
         if not Flag:
-            Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+            logger.error(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+            # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
             return False
         # 验证传送是否成功
         if not auto.find_element(instance_name, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
-            Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 传送可能失败⚠️"))
+            logger.error(_("⚠️刷副本未完成 - 传送可能失败⚠️"))
+            # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 传送可能失败⚠️"))
             return False
 
         full_count = total_count // 6
@@ -245,7 +247,8 @@ class Power:
         if "拟造花萼" in instance_type:
             
             if not 0 <= full_count or not 0 <= incomplete_count <= 6:
-                Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
+                logger.error(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
+                # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
                 return False
             result = auto.find_element("./assets/images/screen/guide/plus.png", "image", 0.9, max_retries=10,
                                        crop=(1174.0 / 1920, 775.0 / 1080, 738.0 / 1920, 174.0 / 1080))
@@ -264,23 +267,29 @@ class Power:
                 auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
             Power.borrow_character()
             if auto.click_element("开始挑战", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
-                if instance_type == "凝滞虚影":
+                if instance_type == "凝滞虚影" or "侵蚀隧洞":
                     time.sleep(2)
                     for i in range(3):
                         auto.press_mouse()
 
-                for i in range(full_count - 1):
-                    Power.wait_fight()
-                    logger.info(_("第{number}次副本完成").format(number=i+1))
-                    auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
-                    if instance_type == "历战余响":
-                        time.sleep(1)
-                        auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
-                
+                    for i in range(total_count - 1):
+                        Power.wait_fight()
+                        logger.info(_("第{number}次副本完成").format(number=i+1))
+                        auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
+                else:
+                    for i in range(full_count - 1):
+                        Power.wait_fight()
+                        logger.info(_("第{number}次副本完成").format(number=i+1))
+                        auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
+                        if instance_type == "历战余响":
+                            time.sleep(1)
+                            auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
                 
                 Power.wait_fight()
                 if full_count > 0:
                     logger.info(_("{number}次副本完成").format(number=full_count*6))
+                elif instance_type == "凝滞虚影" or "侵蚀隧洞" :
+                    logger.info(_("{number}次副本完成").format(number=total_count))
                 else:
                     logger.info(_("{number}次副本完成").format(number=incomplete_count))
                 # 速度太快，点击按钮无效

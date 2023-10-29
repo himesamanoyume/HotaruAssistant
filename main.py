@@ -21,6 +21,8 @@ import pyuac
 import sys
 import json
 
+loginDict = dict()
+loginList = list()
 
 def main(action=None):
     # 免责申明
@@ -58,6 +60,9 @@ def main(action=None):
                     maxScore = str(config.universe_score[uidStr]).split('/')[1]
                     config.universe_score[uidStr] = f'0/{maxScore}'
                     config.universe_fin[uidStr] = False
+                
+                loginDict.update({f'{uidStr}' : f'{str(config.multi_login_accounts[index])}'})
+                loginList.append(f'{str(config.multi_login_accounts[index])}')
                 temp_text = f":活跃度:{Utils.getConfigValue(config.daily_tasks_score, uidStr)},模拟宇宙积分:{Utils.getConfigValue(config.universe_score, uidStr)}"
                 last_run_uidText = "【最后运行的账号】" if config.last_running_uid == uidStr else '' 
                 options_reg.update({"<每日已完成>" + uidStr + temp_text + last_run_uidText
@@ -71,26 +76,49 @@ def main(action=None):
             firstTimeLogin = True
             option_ = questionary.select(title_, list(options_reg.keys())).ask()
             first_reg = options_reg.get(option_)
-
-            for index in range(len(config.multi_login_accounts)):
+            for value in loginList:
                 if firstTimeLogin:
-                    index = first_reg
+                    value = loginList[first_reg]
                     firstTimeLogin = False
-                indexStr = config.multi_login_accounts[index]
-                logger.info(_(indexStr))
-                logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=indexStr))
-                if os.system(f"cmd /C REG IMPORT {indexStr}"):
+                logger.info(_(value))
+                run_new_accounts()
+                logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
+                if os.system(f"cmd /C REG IMPORT {value}"):
                     return False
                 logger.info(action)
                 run(index, action)
+            # for index, value in loginDict.items():
+            #     if firstTimeLogin:
+            #         index = first_reg
+            #         firstTimeLogin = False
+            #     logger.info(_(value))
+            #     run_new_accounts()
+            #     logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
+            #     if os.system(f"cmd /C REG IMPORT {value}"):
+            #         return False
+            #     logger.info(action)
+            #     run(index, action)
     else:
         logger.info(action)
         run(action)
 
+def run_new_accounts():
+    logger.info("正在检测是否有新注册表加入")
+    if not config.want_add_accounts == {}:
+        logger.info("检测到有新注册表加入")
+        for index in range(len(config.want_add_accounts)):
+            config.multi_login_accounts.append(config.want_add_accounts[index])
+            loginList.append(f'{str(config.want_add_accounts[index])}')
+
+        config.save_config()
+        config.set_value('want_add_accounts',{})
+        logger.info("新注册表加入完成")
+    else:
+        logger.info("未检测到有新注册表加入")
+
 def run(index=-1, action=None):
     # 完整运行
     if action is None or action == "main":
-        logger.info(_("序列为{_index}的账号即将启动").format(_index= index))
         Version.start()
         Game.start()
         Daily.start()
@@ -126,7 +154,7 @@ def run(index=-1, action=None):
         from PIL import Image
         image_io = BytesIO()
         Image.open("./assets/app/images/March7th.jpg").save(image_io, format='JPEG')
-        notify.notify(_("三月七小助手|･ω･)"), _("这是一条测试消息"),image_io)
+        # notify.notify(_("三月七小助手|･ω･)"), _("这是一条测试消息"),image_io)
         input(_("按回车键关闭窗口. . ."))
         sys.exit(0)
     else:
@@ -156,9 +184,9 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             logger.error(_("发生错误: {e}").format(e=_("手动强制停止")))
             input(_("按回车键关闭窗口. . ."))
-            sys.exit(1)
+            sys.exit(0)
         except Exception as e:
             logger.error(_("发生错误: {e}").format(e=e))
-            notify.notify(_("发生错误: {e}").format(e=e))
+            # notify.notify(_("发生错误: {e}").format(e=e))
             input(_("按回车键关闭窗口. . ."))
-            sys.exit(1)
+            sys.exit(0)

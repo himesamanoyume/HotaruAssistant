@@ -162,7 +162,7 @@ class Utils:
                     Utils.showDailyTasksScore(task_name, Utils.get_uid())
                     config.save_config()
                 else:
-                    logger.warning(_(f"keyword:{keyword},{task_name}:进行了点击但似乎已经完成或未识别成功"))
+                    logger.warning(_(f"keyword:{keyword}----->{task_name}:进行了点击但似乎已经完成或未识别成功"))
                 break
         (left, top), (right, bottom) = coordinates
         x = (left + right) // 2 + offset[0]

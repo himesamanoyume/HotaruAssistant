@@ -92,7 +92,9 @@ class Universe:
                             time.sleep(0.5)
                             if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
                                 time.sleep(0.5)
-                                Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
+                                Utils.get_universe_score()
+                                logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
+                                # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                                 auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
                     
                     time.sleep(0.5)
@@ -132,7 +134,9 @@ class Universe:
                             # end
                         else:
                             # 改成第一/二次模拟宇宙已完成
-                            Base.send_notification_with_screenshot(_("🎉第{index}次模拟宇宙已完成🎉").format(index=i+1))
+                            logger.info(_("🎉第{index}次模拟宇宙已完成🎉").format(index=i+1))
+                            Utils._temp += f'<p>模拟宇宙已完成{i+1}次</p>'
+
                             # end
                         return True
                     else:
@@ -140,7 +144,7 @@ class Universe:
                     # end
             else:
                 logger.error(_("校准失败"))
-        Base.send_notification_with_screenshot(_("⚠️模拟宇宙未完成⚠️"))
+        logger.warning(_("⚠️模拟宇宙未完成⚠️"))
         return False
 
     @staticmethod
@@ -154,7 +158,9 @@ class Universe:
                 time.sleep(0.5)
                 if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
                     time.sleep(0.5)
-                    Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
+                    Utils.get_universe_score()
+                    logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
+                    # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
         screen.change_to('universe_main')
         time.sleep(0.5)
