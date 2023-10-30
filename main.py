@@ -19,7 +19,6 @@ from tasks.weekly.forgottenhall import ForgottenHall
 import atexit
 import pyuac
 import sys
-import json
 
 loginDict = dict()
 loginList = list()
@@ -71,7 +70,7 @@ def main(action=None):
                                     uidStr + temp_text + last_run_uidText: index})
             
             config.save_config()
-
+            
             title_ = "请选择UID进行作为首位启动游戏:"
             firstTimeLogin = True
             option_ = questionary.select(title_, list(options_reg.keys())).ask()
@@ -87,17 +86,6 @@ def main(action=None):
                     return False
                 logger.info(action)
                 run(index, action)
-            # for index, value in loginDict.items():
-            #     if firstTimeLogin:
-            #         index = first_reg
-            #         firstTimeLogin = False
-            #     logger.info(_(value))
-            #     run_new_accounts()
-            #     logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
-            #     if os.system(f"cmd /C REG IMPORT {value}"):
-            #         return False
-            #     logger.info(action)
-            #     run(index, action)
     else:
         logger.info(action)
         run(action)
@@ -119,6 +107,7 @@ def run_new_accounts():
 def run(index=-1, action=None):
     # 完整运行
     if action is None or action == "main":
+        # logger.info("run")
         Version.start()
         Game.start()
         Daily.start()
@@ -184,9 +173,9 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             logger.error(_("发生错误: {e}").format(e=_("手动强制停止")))
             input(_("按回车键关闭窗口. . ."))
-            sys.exit(0)
+            sys.exit(1)
         except Exception as e:
             logger.error(_("发生错误: {e}").format(e=e))
             # notify.notify(_("发生错误: {e}").format(e=e))
             input(_("按回车键关闭窗口. . ."))
-            sys.exit(0)
+            sys.exit(1)

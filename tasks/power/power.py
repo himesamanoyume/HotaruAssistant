@@ -277,14 +277,15 @@ class Power:
                         logger.info(_("第{number}次副本完成").format(number=i+1))
                         auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
                 else:
-                    for i in range(full_count - 1):
-                        Power.wait_fight()
-                        logger.info(_("第{number}次副本完成").format(number=i+1))
-                        auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
-                        if instance_type == "历战余响":
-                            time.sleep(1)
-                            auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
-                
+                    if full_count > 0:
+                        for i in range(full_count - 1):
+                            Power.wait_fight()
+                            logger.info(_("第{number}次副本完成").format(number=i+1))
+                            if not (full_count == 1 and incomplete_count == 0):
+                                auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
+                                if instance_type == "历战余响":
+                                    time.sleep(1)
+                                    auto.click_element("./assets/images/base/confirm.png", "image", 0.9)             
                 Power.wait_fight()
                 if full_count > 0:
                     logger.info(_("{number}次副本完成").format(number=full_count*6))
@@ -322,7 +323,7 @@ class Power:
                 return False
 
         
-        Utils._temp += f'<p>{instance_type} - {number}次</p>'
+        Utils._temp += f'<p>{instance_type} - {instance_name} - {number}次</p>'
 
         logger.hr(_("开始刷{type} - {name}，总计{number}次").format(type=instance_type, name=instance_name, number=number), 2)
         return Power.run_instances(instance_type, instance_name, power_need, number)

@@ -78,21 +78,19 @@ class Universe:
                 config._load_config()
                 # for循环2次,每次开始时都检测一遍积分
                 for i in range(2):
-
-                    time.sleep(1)
-                    
+                    time.sleep(0.5)
                     # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
                     if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
                         current_score, max_score = Utils.get_universe_score()
                         auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
 
                     elif auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
+                        time.sleep(1)
                         current_score, max_score = Utils.get_universe_score()
                         if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
                             time.sleep(0.5)
                             if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
                                 time.sleep(0.5)
-                                Utils.get_universe_score()
                                 logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
                                 # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                                 auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
@@ -162,6 +160,7 @@ class Universe:
                     logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
                     # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+        time.sleep(0.5)
         screen.change_to('universe_main')
         time.sleep(0.5)
 

@@ -181,7 +181,7 @@ notify_smtp_user: ''
 notify_smtp_password: ''
 notify_smtp_From: '' # 可选参数
 notify_smtp_To: '' # 可选参数
-notify_smtp_port: '' # 可选参数
+notify_smtp_port: '587' # 可选参数
 notify_smtp_ssl: '' # 可选参数
 
 # 钉钉通知
