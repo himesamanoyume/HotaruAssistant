@@ -51,7 +51,7 @@ class Game:
         Utils._content.update({'daily_tasks_score':f'{config.daily_tasks_score[Utils.get_uid()]}'})
         Utils._content.update({'multi_content':f"{Utils._temp}"})
 
-        notify.notify(_("普罗丢瑟代练"), _(f'UID:{Utils.get_uid()},上号刚刚结束!'))
+        notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _("普罗丢瑟代练"))
 
         if config.multi_login:
             logger.hr(_("多账号结束运行一个账号"), 0)

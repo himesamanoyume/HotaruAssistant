@@ -244,6 +244,7 @@ class Power:
 
         full_count = total_count // 6
         incomplete_count = total_count - full_count * 6
+        logger.info(f"按单次体力需求计算次数:{total_count},按6次为完整一次计算:{full_count},按扣除完整次数剩下次数计算:{incomplete_count}")
         if "拟造花萼" in instance_type:
             
             if not 0 <= full_count or not 0 <= incomplete_count <= 6:
@@ -267,7 +268,7 @@ class Power:
                 auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
             Power.borrow_character()
             if auto.click_element("开始挑战", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
-                if instance_type == "凝滞虚影" or "侵蚀隧洞":
+                if instance_type == ("凝滞虚影" or "侵蚀隧洞"):
                     time.sleep(2)
                     for i in range(3):
                         auto.press_mouse()

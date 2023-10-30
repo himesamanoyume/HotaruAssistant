@@ -46,10 +46,11 @@ class Daily:
 
         
         if config.universe_enable:
-            Power.start()
+            # Power.start()
             Reward.start()
-            Universe.start(get_reward=True, daily=True, nums=1)
-            Power.start()
+            isTrue = Universe.start(get_reward=True, daily=True, nums=1)
+            if isTrue:
+                Power.start()
         else:
             logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
 
@@ -150,5 +151,6 @@ class Daily:
 
             logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
         
+        Utils.calcDailyTasksScore(Utils.get_uid())
         logger.hr(_("完成"), 2)
         Daily.sub()

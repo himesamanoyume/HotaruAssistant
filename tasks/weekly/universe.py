@@ -107,7 +107,7 @@ class Universe:
                         logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙,本次将根据config决定是否领取沉浸奖励"))
                         if daily:
                             logger.info(_("鉴定为正在每日任务中,最大积分情况下将直接跳过"))
-                            return True
+                            return False
                         if config.universe_bonus_enable:
                             command.append("--bonus=1")
                         if nums:
