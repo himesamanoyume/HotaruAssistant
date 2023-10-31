@@ -38,7 +38,7 @@ def main(action=None):
         else:
             logger.info(_("开始多账号运行"))
  
-            notify.notify(_("普罗丢瑟代练"), _("haha"))
+            # notify.notify(_("普罗丢瑟代练"), _("haha"))
             options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
