@@ -80,6 +80,11 @@ class Config:
         self.config[key] = value
         self.save_config()
 
+    def del_value(self, key, uid):
+        self._load_config()
+        del self.config[key][uid]
+        self.save_config()
+
     def setValueByUid(self, key, value, uid):
         self._load_config()
         if key == {}:

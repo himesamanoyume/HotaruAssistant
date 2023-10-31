@@ -138,9 +138,9 @@ class Notify:
         for i in range(6):
             multi_content += f"<p><ruby>{Utils._content[f'daily_0{i}']}<rt class='ttt' data-rt='{Utils._content[f'daily_0{i}_score']}'></rt></ruby>:"+(f"未完成</p>" if Utils._content[f'daily_0{i}_value'] else "<span class=important style=background-color:#40405f;color:#66ccff>已完成</span></p>")
 
-        multi_content += f"<p><strong>当前活跃度</strong></p>"+f"<blockquote>" if config.daily_tasks_fin else f"<blockquote style=color:#5f4040>"+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
+        multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin else f"<blockquote style=color:#5f4040>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
 
-        multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+f"<blockquote>" if config.universe_fin else f"<blockquote style=color:#5f4040>"+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
+        multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin else f"<blockquote style=color:#5f4040>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
 
         multi_content += f"<p><strong>预计满开拓力时间</strong></p><blockquote><p>{full_power_time}</p></blockquote>"
 
@@ -167,7 +167,7 @@ class Notify:
         html=f"{htmlStr}"
         emailObject.attach(MIMEText(html,'html','utf-8'))
 
-        sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_To, str(emailObject))
+        sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_To[uid], str(emailObject))
         sendHostEmail.quit()
         logger.info(_("{notifier_name} 通知发送完成").format(notifier_name="smtp"))
 

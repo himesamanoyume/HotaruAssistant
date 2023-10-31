@@ -12,10 +12,8 @@ power_limit: 60 # 循环运行所需开拓力
 play_audio: false # 任务完成后播放提示音
 multi_login: false # 是否多账号登录
 multi_login_accounts: {} # 多账号注册表位置
-want_add_accounts: {} # 启动游戏前先加载的注册表位置
 want_register_accounts: # 启动游戏前先进行注册
-  '111':
-    uid: ''
+  '111111111':
     email: ''
     reg_path: ''
 

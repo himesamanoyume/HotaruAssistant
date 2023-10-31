@@ -154,3 +154,4 @@ class Daily:
         Utils.calcDailyTasksScore(Utils.get_uid())
         logger.hr(_("完成"), 2)
         Daily.sub()
+        Utils.calcDailyTasksScore(Utils.get_uid())

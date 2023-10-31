@@ -138,10 +138,10 @@ class Utils:
         return Date.is_next_mon_4_am(timestamp[uid], isLog)
     
     def click_element_quest(target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
-        logger.warning("检测到每日任务待领取")
         coordinates = auto.find_element(target, find_type, threshold, max_retries, crop, take_screenshot,
                                         relative, scale_range, include, need_ocr, source)
         if coordinates:
+            logger.warning("检测到每日任务待领取")
             return Utils.click_element_with_pos_quest(coordinates, offset)
         return False
     
@@ -163,6 +163,7 @@ class Utils:
         time.sleep(0.1)
         Utils._task_mappings = Utils._load_config("./assets/config/task_mappings.json")
         for keyword, task_name in Utils._task_mappings.items():
+            logger.info(f"keyword:{keyword}")
             if keyword in text:
                 if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
                     config.daily_tasks[Utils.get_uid()][task_name] = False
@@ -170,7 +171,7 @@ class Utils:
                     Utils.showDailyTasksScore(task_name, Utils.get_uid())
                     config.save_config()
                 else:
-                    logger.warning(_(f"keyword:{keyword}----->{task_name}:进行了点击但似乎已经完成或未识别成功"))
+                    logger.warning(_(f"keyword:{keyword}----->{task_name}:进行了点击,但可能配置项中之前已完成修改或未识别成功"))
                 break
         (left, top), (right, bottom) = coordinates
         x = (left + right) // 2 + offset[0]

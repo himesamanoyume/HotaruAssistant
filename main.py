@@ -72,38 +72,56 @@ def main(action=None):
             config.save_config()
             
             title_ = "请选择UID进行作为首位启动游戏:"
-            firstTimeLogin = True
             option_ = questionary.select(title_, list(options_reg.keys())).ask()
             first_reg = options_reg.get(option_)
+
+            firstTimeLogin = True
+            jumpValue = ''
+            jumpFin = False
             for value in loginList:
-                if firstTimeLogin:
-                    value = loginList[first_reg]
-                    firstTimeLogin = False
-                logger.info(_(value))
+                if not firstTimeLogin and not jumpFin:
+                    if not value == jumpValue:
+                        continue
+                    else:
+                        jumpFin = True
+
                 run_new_accounts()
+
+                if firstTimeLogin:
+                    firstTimeLogin = False
+                    jumpValue = loginList[first_reg]
+                    if jumpValue == value:
+                        jumpFin = True
+                    else:
+                        continue
+
+                logger.info(_(value))
                 logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
                 if os.system(f"cmd /C REG IMPORT {value}"):
                     return False
                 logger.info(action)
                 run(index, action)
+            
     else:
         logger.info(action)
         run(action)
 
 def run_new_accounts():
     logger.info("正在检测是否有新注册表加入")
-    if not config.want_add_accounts == {}:
+    if len(config.want_register_accounts) > 1:
         logger.info("检测到有新注册表加入")
-        for index in range(len(config.want_add_accounts)):
-            config.multi_login_accounts.append(config.want_add_accounts[index])
-            loginList.append(f'{str(config.want_add_accounts[index])}')
-
-        config.save_config()
-        config.set_value('want_add_accounts',{})
+        for uid, item in config.want_register_accounts.items():
+            if uid == '111111111': continue
+            config.multi_login_accounts.append(item['reg_path'])
+            loginList.append(f"{str(item['reg_path'])}")
+            config.notify_smtp_To[uid] = item['email']
+            config.save_config()
+            config.del_value('want_register_accounts', uid)
         logger.info("新注册表加入完成")
     else:
         logger.info("未检测到有新注册表加入")
 
+        
 def run(index=-1, action=None):
     # 完整运行
     if action is None or action == "main":
