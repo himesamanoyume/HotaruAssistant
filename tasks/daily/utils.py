@@ -135,6 +135,7 @@ class Utils:
         return Date.is_next_mon_4_am(timestamp[uid], isLog)
     
     def click_element_quest(target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
+        logger.warning("检测到每日任务待领取")
         coordinates = auto.find_element(target, find_type, threshold, max_retries, crop, take_screenshot,
                                         relative, scale_range, include, need_ocr, source)
         if coordinates:
@@ -151,14 +152,18 @@ class Utils:
             sys.exit(1)
     
     def click_element_with_pos_quest(coordinates, offset=(0, 0), action="click"):
+        time.sleep(0.1)
         auto.take_screenshot(crop=(297.0 / 1920, 478.0 / 1080, 246.0 / 1920, 186.0 / 1080))
+        time.sleep(0.5)
         result = ocr.recognize_multi_lines(auto.screenshot)
         text = result[0][1][0]
+        time.sleep(0.1)
         Utils._task_mappings = Utils._load_config("./assets/config/task_mappings.json")
         for keyword, task_name in Utils._task_mappings.items():
             if keyword in text:
                 if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
                     config.daily_tasks[Utils.get_uid()][task_name] = False
+                    logger.warning(_(f"keyword:{keyword}----->{task_name}:进行了点击,任务已经完成"))
                     Utils.showDailyTasksScore(task_name, Utils.get_uid())
                     config.save_config()
                 else:

@@ -147,6 +147,11 @@ class Screen:
             if self.current_screen:
                 screen_name=self.green + self.get_name(self.current_screen) + self.reset
                 logger.info(_("当前界面：{_screen_name}").format(_screen_name = screen_name))
+                if self.get_name(self.current_screen) == "星际和平指南-每日实训":
+                    logger.warning("进入到星际和平指南-每日实训的判断")
+                    time.sleep(0.5)
+                    while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
+                        time.sleep(1)
                 return True
 
             if autotry:
@@ -212,13 +217,14 @@ class Screen:
 
                 
                 logger.info(_("切换到：{next_screen}").format(next_screen=self.green + self.get_name(next_screen) + self.reset))
+                if self.get_name(next_screen) == "星际和平指南-每日实训":
+                    logger.warning("进入到星际和平指南-每日实训的判断")
+                    time.sleep(0.5)
+                    while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
+                        time.sleep(1)
+
                 time.sleep(1)
             self.current_screen = target_screen  # 更新当前界面
-            if self.get_name(self.current_screen) == "星际和平指南-每日实训":
-                logger.info("进入到星际和平指南-每日实训的判断")
-                time.sleep(0.5)
-                while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
-                    time.sleep(1)
             return
 
         logger.debug(_("无法从 {current_screen} 切换到 {target_screen}").format(
