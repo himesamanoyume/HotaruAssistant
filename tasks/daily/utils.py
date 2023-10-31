@@ -101,7 +101,10 @@ class Utils:
     def calcDailyTasksScore(uid):
         config.daily_tasks_score[uid] = 0
         temp_score = 0
+        i=0
         for key, value in config.daily_tasks[uid].items():
+            Utils._content.update({f'daily_0{i}_score':f'{Utils._task_score_mappings[key]}'})
+            i+=1
             if not value:
                 temp_score += Utils._task_score_mappings[key]
         
