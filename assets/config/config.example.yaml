@@ -13,6 +13,11 @@ play_audio: false # 任务完成后播放提示音
 multi_login: false # 是否多账号登录
 multi_login_accounts: {} # 多账号注册表位置
 want_add_accounts: {} # 启动游戏前先加载的注册表位置
+want_register_accounts: # 启动游戏前先进行注册
+  '111':
+    uid: ''
+    email: ''
+    reg_path: ''
 
 python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
 pypi_mirror_urls: # pypi 镜像列表
@@ -180,7 +185,7 @@ notify_smtp_host: ''
 notify_smtp_user: ''
 notify_smtp_password: ''
 notify_smtp_From: '' # 可选参数
-notify_smtp_To: '' # 可选参数
+notify_smtp_To: {} # 可选参数
 notify_smtp_port: '587' # 可选参数
 notify_smtp_ssl: '' # 可选参数
 

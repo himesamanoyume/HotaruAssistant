@@ -38,7 +38,7 @@ def main(action=None):
         else:
             logger.info(_("开始多账号运行"))
  
-            # notify.notify(_("普罗丢瑟代练"), _("haha"))
+            # notify.announcement(_("普罗丢瑟代练 - 公告"), _("我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数"))
             options_reg = dict()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
