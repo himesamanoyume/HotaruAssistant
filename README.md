@@ -91,7 +91,6 @@ March7thAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
-- **邮箱样式完全内嵌**
 - ~~新增检测忘却之庭的剩余时间和进度,星数~~
 - ~~want_register_accounts和want_add_accounts功能合并~~
 - 新注册表加入后是否有初始化配置项？

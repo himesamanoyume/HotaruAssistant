@@ -11,6 +11,8 @@ import time
 class Power:
     @staticmethod
     def start():
+        if Utils._power<=8:
+            return
         instance_name = config.instance_names[Utils.get_uid()][config.instance_type[Utils.get_uid()]]
         if instance_name == "无":
             logger.info(_("跳过清体力 {type}未开启").format(type=config.instance_type[Utils.get_uid()]))
@@ -81,7 +83,7 @@ class Power:
 
         screen.change_to('map')
         trailblaze_power = get_power(trailblaze_power_crop)
-
+        Utils._power = trailblaze_power
         logger.info(_("🟣开拓力: {power}").format(power=trailblaze_power))
         Utils._content.update({'new_power':f'{trailblaze_power}'})
         logger.info(_("开拓力回满时间为:{time}").format(time=Utils.getFullPowerTime(trailblaze_power)))
@@ -324,7 +326,7 @@ class Power:
                 return False
 
         
-        Utils._temp += f'<p>{instance_type} - {instance_name} - {number}次</p>'
+        Utils._temp += "<p style='margin-left: 20px;margin-right: 20px;margin-top: 0;margin: 10px;line-height: 170%;color: #d9d9d9;'>"+f'{instance_type} - {instance_name} - {number}次</p>'
 
         logger.hr(_("开始刷{type} - {name}，总计{number}次").format(type=instance_type, name=instance_name, number=number), 2)
         return Power.run_instances(instance_type, instance_name, power_need, number)

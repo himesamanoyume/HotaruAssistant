@@ -15,6 +15,7 @@ class Utils:
     _task_mappings = {}
     _task_score_mappings = {}
     _content = dict()
+    _power = 250
     _temp = ''
     def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
@@ -78,6 +79,7 @@ class Utils:
             Utils._uid = auto.get_single_line_text(crop=uid_crop, blacklist=[], max_retries=9)
             Utils._content = dict()
             Utils._temp = ''
+            Utils._power = 250
             logger.info(_(f"识别到UID为:{Utils._uid}"))
             config.set_value('last_running_uid', Utils._uid)
         except Exception as e:
