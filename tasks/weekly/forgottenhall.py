@@ -282,6 +282,34 @@ class ForgottenHall:
 
         screen.change_to('main')
         return True
+    
+    def get_star_and_level():
+        screen.change_to('guide3')
+        guide3_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
+        if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=guide3_crop):
+            auto.mouse_scroll(12, -1)
+            if auto.click_element("忘却之庭", "text", max_retries=10, crop=guide3_crop):
+                time.sleep(1)
+                countdownTextCrop=(1478.0 / 1920, 318.0 / 1080, 166.0 / 1920, 42.0 / 1080)
+                levelTextCrop=(1346.0 / 1920, 646.0 / 1080, 67.0 / 1920, 37.0 / 1080)
+                starTextCrop = (1345.0 / 1920, 693.0 / 1080, 68.0 / 1920, 29.0 / 1080)
+                try:
+                    countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=7)
+                    levelText = auto.get_single_line_text(crop=levelTextCrop, blacklist=[], max_retries=5)
+                    starText = auto.get_single_line_text(crop=starTextCrop, blacklist=[], max_retries=5)
+                    logger.info(f"忘却之庭刷新倒计时:{countdownText},层数:{levelText},星数:{starText}")
+                    Utils._content['countdownText'] = countdownText
+                    level = levelText.split('/')[0]
+                    star = starText.split('/')[0]
+                    config.forgottenhall_levels[Utils.get_uid()] = int(level)
+                    config.forgottenhall_stars[Utils.get_uid()] = int(star)
+                    config.save_config()
+                except Exception as e:
+                    logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
+                    logger.warning(_("因读取模拟宇宙积分失败,程序中止"))
+
+        screen.change_to('main')
+        return True
 
     @staticmethod
     def start():

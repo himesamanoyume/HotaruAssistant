@@ -133,14 +133,20 @@ class Notify:
         full_power_time = Utils._content['full_power_time']
         full_power_time = str(full_power_time).split('.')[0]
         multi_content = Utils._content['multi_content']
-        multi_content += f"<p><strong>每日完成情况</strong></p>"
+        multi_content += f"<p><strong>每日完成情况</strong></p><div class=post-txt-container-datetime>注意,该信息由文字识别得来,因此活跃度和完成的每日任务不一定准确,尽可能自行上号检查</div>"
 
         for i in range(6):
             multi_content += f"<p><ruby>{Utils._content[f'daily_0{i}']}<rt class='ttt' data-rt='{Utils._content[f'daily_0{i}_score']}'></rt></ruby>:"+(f"未完成</p>" if Utils._content[f'daily_0{i}_value'] else "<span class=important style=background-color:#40405f;color:#66ccff>已完成</span></p>")
 
-        multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin else f"<blockquote style=color:#5f4040>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
+        multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
 
-        multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin else f"<blockquote style=color:#5f4040>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
+        multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
+
+        multi_content += f"<p><strong>当前忘却之庭</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{Utils._content['countdownText']}</p>"
+
+        multi_content += (f"<blockquote>" if config.forgottenhall_level == 10 else f"<blockquote style=background-color:#5f4040>")+f"<p>{config.forgottenhall_levels[uid]}/10</p></blockquote>"
+
+        multi_content += (f"<blockquote>" if config.forgottenhall_stars == 30 else f"<blockquote style=background-color:#5f4040>")+f"<p>{config.forgottenhall_stars[uid]}/30</p></blockquote>"
 
         multi_content += f"<p><strong>预计满开拓力时间</strong></p><blockquote><p>{full_power_time}</p></blockquote>"
 
@@ -152,6 +158,8 @@ class Notify:
         multi_content += f"<p>凝滞虚影:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['凝滞虚影']}</span></p>"
         multi_content += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['侵蚀隧洞']}</span></p>"
         multi_content += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['历战余响']}</span></p><hr style=background:#d9d9d9>"
+
+        multi_content += f"<div class=post-txt-container-datetime>此项请一定要配置准确,会影响模拟宇宙的通关效率</div><p>模拟宇宙队伍成员选择:<span class=important style=background-color:#40405f;color:#66ccff>未实现此处</span></p><hr style=background:#d9d9d9>"
 
         multi_content += f"<blockquote><strong>查表</strong>"
         multi_content += f"<p>拟造花萼（金）:</p><p>无,回忆之蕾（角色经验）,以太之蕾（武器经验）,藏珍之蕾（信用点）</p>"

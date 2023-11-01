@@ -56,6 +56,7 @@ class Daily:
 
         if Utils.is_next_mon_4_am(config.forgottenhall_timestamp, Utils.get_uid()):
             config.save_config()
+            ForgottenHall.get_star_and_level()
             if config.forgottenhall_enable:
                 ForgottenHall.start(Utils.get_uid())
             else:

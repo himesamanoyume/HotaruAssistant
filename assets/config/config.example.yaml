@@ -4,9 +4,9 @@ check_update: true # 检测更新
 agreed_to_disclaimer: false
 
 last_running_uid: '111111111' # 最后运行的UID
-blacklist_uid: # UID黑名单
-- '111111111'
-- '222222222'
+blacklist_uid: # UID黑名单,uid后为黑名单原因
+- '111111111' # 太帅
+- '222222222' # 太帅
 after_finish: None # 任务完成后: "None"（无）"Exit"（退出）"Loop"（循环）"Shutdown"（关机）"Hibernate"（休眠）"Sleep"（睡眠）
 power_limit: 60 # 循环运行所需开拓力
 play_audio: false # 任务完成后播放提示音
@@ -111,6 +111,8 @@ universe_timeout: 20 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）
 universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
 
+forgottenhall_stars: {} # 忘却之庭星数
+forgottenhall_levels: {} # 忘却之庭通过层数
 forgottenhall_enable: false # 启用忘却之庭
 forgottenhall_level: # 混沌回忆关卡范围
 - 1
