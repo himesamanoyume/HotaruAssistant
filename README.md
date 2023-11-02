@@ -91,6 +91,8 @@ March7thAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
+- ~~新增检测忘却之庭的剩余时间和进度,星数~~
+- ~~want_register_accounts和want_add_accounts功能合并~~
 - 新注册表加入后是否有初始化配置项？
 - 邮件中写入剩余激活天数相关信息
 - 剩余天数少于3天发送提醒
