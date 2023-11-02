@@ -58,7 +58,6 @@ def main(action=None):
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
                     Utils.detectIsNoneButNoSave(config.daily_tasks_score, uidStr)
                     Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
-                    config.account_active[uidStr]['ActiveDay'] -= 1
                     config.daily_tasks_score[uidStr] = 0
                     config.daily_tasks_fin[uidStr] = False
                     config.daily_tasks[uidStr] = {}
@@ -95,7 +94,9 @@ def main(action=None):
                     else:
                         jumpFin = True
 
+                uidStr2 = str(value).split('-')[1][:9]
                 run_new_accounts()
+                account_active_fun(uidStr2)
 
                 if firstTimeLogin:
                     firstTimeLogin = False
@@ -111,7 +112,6 @@ def main(action=None):
                     return False
                 logger.info(action)
                 run(index, action)
-                
         input(_("按回车键关闭窗口. . ."))
         sys.exit(0)
     else:
@@ -207,7 +207,16 @@ def account_active_fun(uid):
             config.account_active[uid]['isExpired'] = False
 
         config.account_active[uid]['ExpirationDate'] = config.account_active[uid]['ActiveDate'] + config.account_active[uid]['ActiveDay'] * 86400
-        config.account_active[uid]['isWantActive'] = False   
+        config.account_active[uid]['isWantActive'] = False  
+
+    if config.account_active[uid]['ActiveDay'] >= 0:
+        temp = int((config.account_active[uid]['ExpirationDate'] - time.time()) // 86400)
+        if temp < 0:
+            config.account_active[uid]['ActiveDay'] = 0
+        else:
+            config.account_active[uid]['ActiveDay'] = temp
+    elif config.account_active[uid]['ActiveDay'] < 0:
+        config.account_active[uid]['ActiveDay'] = 0
 
     if config.account_active[uid]['ExpirationDate'] >= time.time() >= config.account_active[uid]['ExpirationDate'] - 3*86400:
         logger.warning(f"提醒:{uid}激活天数已不足3天")

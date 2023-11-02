@@ -2,6 +2,7 @@ from managers.logger_manager import logger
 from managers.config_manager import config
 from managers.screen_manager import screen
 import time
+from datetime import datetime
 from managers.translate_manager import _
 from tasks.base.date import Date
 from tasks.daily.photo import Photo
@@ -155,4 +156,11 @@ class Daily:
         Utils.calcDailyTasksScore(Utils.get_uid())
         logger.hr(_("完成"), 2)
         Daily.sub()
+        totalTime = time.time() - Utils._start_timestamp
+        _day = int(totalTime // 86400)
+        _hour = int((totalTime - _day * 86400) // 3600)
+        _minute = int(((totalTime - _day *86400) - _hour * 3600) // 60)
+        _second = int(((totalTime - _day *86400) - _hour * 3600) - _minute * 60)
+        Utils._content['running_time'] = (f"{_day}天" if not _day == 0 else '') + (f"{_hour}时" if not _hour == 0 else '') + (f"{_minute}分" if not _minute == 0 else '') + f"{_second}秒"
+        logger.info(f"本次运行时长:{Utils._content['running_time']}")
         Utils.calcDailyTasksScore(Utils.get_uid())
