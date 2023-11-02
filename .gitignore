@@ -183,7 +183,6 @@ pyrightconfig.json
 /test.py
 
 # March7thAssistant
-/*config.yaml
 /logs
 /screenshots
 /3rdparty/PaddleOCR-json_*

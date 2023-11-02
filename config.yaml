@@ -1,24 +1,25 @@
 locales: zh_CN # 语言
 log_level: INFO # 日志等级: INFO、DEBUG
 check_update: true # 检测更新
-agreed_to_disclaimer: false
+agreed_to_disclaimer: true
 
-last_running_uid: '111111111' # 最后运行的UID
+last_running_uid: '108766004' # 最后运行的UID
 blacklist_uid: # UID黑名单,uid后为黑名单原因
 - '111111111' # 太帅
 - '222222222' # 太帅
-after_finish: None # 任务完成后: "None"（无）"Exit"（退出）"Loop"（循环）"Shutdown"（关机）"Hibernate"（休眠）"Sleep"（睡眠）
-power_limit: 60 # 循环运行所需开拓力
+after_finish: Exit # 任务完成后: "None"（无）"Exit"（退出）"Loop"（循环）"Shutdown"（关机）"Hibernate"（休眠）"Sleep"（睡眠）
+power_limit: 10 # 循环运行所需开拓力
 play_audio: false # 任务完成后播放提示音
-multi_login: false # 是否多账号登录
-multi_login_accounts: {} # 多账号注册表位置
+multi_login: true  # 是否多账号登录
+multi_login_accounts:    # 多账号注册表位置
+- D:\MihoyoLogin\starrail-100193509.reg
+- D:\MihoyoLogin\starrail-108766004.reg
 want_register_accounts: # 启动游戏前先进行注册
   '111111111':
     email: ''
     reg_path: ''
     active_day: 0
-
-python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
+python_exe_path: C:\Users\28583\AppData\Local\Programs\Python\Python311\python.exe # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
 pypi_mirror_urls: # pypi 镜像列表
 - https://mirrors.cloud.tencent.com/pypi/simple/
 - https://mirrors.aliyun.com/pypi/simple/
@@ -37,9 +38,23 @@ game_path: D:\Star Rail\Game\StarRail.exe # 游戏路径
 #   侵蚀隧洞:      无,霜风之径,迅拳之径,漂泊之径,睿治之径,圣颂之径,野焰之径,药使之径
 #   历战余响:      无,毁灭的开端,寒潮的落幕,不死的神实
 
-instance_type: {} # 副本类型: 侵蚀隧洞、凝滞虚影、拟造花萼（金）、拟造花萼（赤）
-instance_names: {} # 副本名称
+instance_type:    # 副本类型: 侵蚀隧洞、凝滞虚影、拟造花萼（金）、拟造花萼（赤）
+  '100193509': 拟造花萼（赤）
+  '108766004': 拟造花萼（赤）
+instance_names:    # 副本名称
 
+  '100193509':
+    拟造花萼（金）: 以太之蕾
+    拟造花萼（赤）: 丰饶之蕾
+    凝滞虚影: 燔灼之形
+    侵蚀隧洞: 睿治之径
+    历战余响: 毁灭的开端
+  '108766004':
+    拟造花萼（金）: 回忆之蕾
+    拟造花萼（赤）: 虚无之蕾
+    凝滞虚影: 燔灼之形
+    侵蚀隧洞: 睿治之径
+    历战余响: 毁灭的开端
 power_needs: # 副本所需开拓力
   拟造花萼（金）: 10
   拟造花萼（赤）: 10
@@ -48,16 +63,17 @@ power_needs: # 副本所需开拓力
   历战余响: 30
 instance_team_enable: false # 打副本时自动切换队伍
 instance_team_number: '1' # 队伍编号
-use_reserved_trailblaze_power: False # 使用后备开拓力
-use_fuel: False # 使用燃料
+use_reserved_trailblaze_power: false # 使用后备开拓力
+use_fuel: false # 使用燃料
 echo_of_war_enable: false # 体力优先完成3次「历战余响」
-echo_of_war_timestamp: {} # 上次完成3次「历战余响」的时间戳（每周运行）
+echo_of_war_timestamp:    # 上次完成3次「历战余响」的时间戳（每周运行）
 
+  '100193509': 0
+  '108766004': 0
 borrow_character_enable: false # 强制使用支援角色
 borrow_character_from: # 使用指定好友的支援角色
-- 好友1
-- 好友2
-- 好友3
+- 姫様の夢
+
 borrow_character: # 支援角色优先级
 - Bronya
 - Blade
@@ -75,8 +91,8 @@ dispatch_enable: true # 领取委托奖励
 mail_enable: true # 领取邮件奖励
 assist_enable: true # 领取支援奖励
 
-daily_himeko_try_enable: false # 通过 “姬子试用” 完成任务
-daily_memory_one_enable: false # 通过 “回忆一” 完成任务
+daily_himeko_try_enable: true  # 通过 “姬子试用” 完成任务
+daily_memory_one_enable: true  # 通过 “回忆一” 完成任务
 daily_memory_one_team: # 用于回忆一的队伍
 - -
     Bronya
@@ -87,33 +103,66 @@ daily_memory_one_team: # 用于回忆一的队伍
   - 0
 - - Asta
   - 0
-daily_tasks: {} # 每日实训
-daily_tasks_score: {} # 活跃度
-daily_tasks_fin: {} # 是否完成实训
-last_run_timestamp: {} # 上次运行日常的时间戳
+daily_tasks:    # 每日实训
+  '100193509':
+    完成1次「凝滞虚影」: false
+    完成1个日常任务: true
+    合成1次消耗品: false
+    派遣1次委托: false
+    累计触发弱点击破效果5次: false
+    使用支援角色并获得战斗胜利1次: false
+  '108766004':
+    完成1次「凝滞虚影」: false
+    完成1个日常任务: true
+    合成1次消耗品: false
+    派遣1次委托: false
+    累计触发弱点击破效果5次: false
+    使用支援角色并获得战斗胜利1次: false
+daily_tasks_score:    # 活跃度
+  '100193509': 600
+  '108766004': 600
+daily_tasks_fin:    # 是否完成实训
+  '100193509': true
+  '108766004': true
+last_run_timestamp:    # 上次运行日常的时间戳
 
+  '100193509': 1698869184.2500718
+  '108766004': 1698869184.2500718
 fight_enable: false # 启用锄大地
 # fight_operation_mode: exe # 运行方式 源码: source 集成: exe
 fight_path: .\3rdparty\Fhoe-Rail # 锄大地路径
 fight_timeout: 6 # 锄大地超时（单位小时）
 fight_team_enable: false # 锄大地时自动切换队伍
 fight_team_number: '2' # 队伍编号
-fight_requirements: false # 是否安装过依赖（更新后会重置为false）
-fight_timestamp: {} # 上次运行锄大地的时间戳（每天运行）
+fight_requirements: true  # 是否安装过依赖（更新后会重置为false）
+fight_timestamp:    # 上次运行锄大地的时间戳（每天运行）
 
-universe_enable: false # 启用模拟宇宙
+  '100193509': 1697756172.7866943
+  '108766004': 1697756967.1292214
+universe_enable: true  # 启用模拟宇宙
 # universe_operation_mode: exe # 运行方式 源码: source 集成: exe
-universe_bonus_enable: false # 领取沉浸奖励
-universe_fin: {} # 是否模拟宇宙满分
-universe_score: {} # 模拟宇宙积分
-universe_count: 34 # 运行次数
+universe_bonus_enable: true  # 领取沉浸奖励
+universe_fin:    # 是否模拟宇宙满分
+  '100193509': true
+  '108766004': true
+universe_score:    # 模拟宇宙积分
+  '100193509': 14000/14000
+  '108766004': 14000/14000
+universe_count: 2  # 运行次数
 universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
-universe_timeout: 20 # 模拟宇宙超时（单位小时）
-universe_requirements: false # 是否安装过依赖（更新后会重置为false）
-universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
+universe_timeout: 1  # 模拟宇宙超时（单位小时）
+universe_requirements: true  # 是否安装过依赖（更新后会重置为false）
+universe_timestamp:    # 上次运行模拟宇宙的时间戳（每周运行）
 
-forgottenhall_stars: {} # 忘却之庭星数
-forgottenhall_levels: {} # 忘却之庭通过层数
+  '100193509': 1698614648.4688659
+  '108766004': 1698651899.0277839
+
+forgottenhall_stars:    # 忘却之庭星数
+  '100193509': 0
+  '108766004': 0
+forgottenhall_levels:    # 忘却之庭通过层数
+  '100193509': 0
+  '108766004': 0
 forgottenhall_enable: false # 启用忘却之庭
 forgottenhall_level: # 混沌回忆关卡范围
 - 1
@@ -142,8 +191,10 @@ forgottenhall_team2: # 队伍2
   - -1
 - - Qingque
   - 1
-forgottenhall_timestamp: {} # 上次运行混沌回忆的时间戳（每周运行，如已经满星则跳过）
+forgottenhall_timestamp:    # 上次运行混沌回忆的时间戳（每周运行，如已经满星则跳过）
 
+  '100193509': 0
+  '108766004': 0
 hotkey_technique: e # 游戏内设置的秘技按键
 
 # 消息通知
@@ -173,20 +224,23 @@ notify_bark_enable: false
 notify_bark_key: ''
 notify_bark_sound: '' # 可选参数
 notify_bark_isarchive: '1' # 可选参数
-notify_bark_icon: 'https://cdn.jsdelivr.net/gh/moesnow/March7thAssistant@main/assets/app/images/March7th.jpg' # 可选参数
-notify_bark_group: 'March7thAssistant' # 可选参数
+notify_bark_icon: 
+  https://cdn.jsdelivr.net/gh/moesnow/March7thAssistant@main/assets/app/images/March7th.jpg                   # 可选参数
+notify_bark_group: March7thAssistant   # 可选参数
 notify_bark_url: '' # 可选参数
 notify_bark_copy: '' # 可选参数
 notify_bark_autocopy: '' # 可选参数
 
 # 邮箱 smtp 通知
 # 注意部分邮箱密码部分需要填写授权码（比如QQ邮箱）
-notify_smtp_enable: false
-notify_smtp_host: ''
-notify_smtp_user: ''
-notify_smtp_password: ''
-notify_smtp_From: '' # 可选参数
-notify_smtp_To: {} # 可选参数
+notify_smtp_enable: true
+notify_smtp_host: smtp.qq.com
+notify_smtp_user: himeproducer@qq.com
+notify_smtp_password: yngysyycapnsdiaj
+notify_smtp_From: himeproducer@qq.com # 可选参数
+notify_smtp_To:    # 可选参数
+  '100193509': 285835609@qq.com
+  '108766004': 285835609@qq.com
 notify_smtp_port: '587' # 可选参数
 notify_smtp_ssl: '' # 可选参数
 
@@ -240,17 +294,23 @@ notify_lark_keyword: '' # 可选参数
 notify_lark_sign: '' # 可选参数
 
 account_active:
-    '100193509':
-        isExpired: false # 是否过期,如果过期,启动列表跳过该项
+  '100193509':
+    isExpired: false     # 是否过期,如果过期,启动列表跳过该项
         # if ExpirationDate >= time.time() >= ExpirationDate - 3*86400:
         #   完成上号的邮件当中加入即将过期提醒
         # if time.time() >= ExpirationDate or ActiveDay == 0:
         #   isExpired=true,ActiveDate=0,ActiveDay=0,ExpirationDate=0,
-        isWantActive: false # 只有在此项为true时才会重新计算过期时间戳
+    isWantActive: false   # 只有在此项为true时才会重新计算过期时间戳
         # if isWantActive:
         #   if isExpired==true:
         #      ActiveDate=time.time(),isExpired=false
         #   ExpirationDate=ActiveDate+ActiveDay*86400,isWantActive=false
-        ActiveDate: 0 # 激活时刻的时间戳
-        ActiveDay: 0 # 激活的天数:每次is next day都会减1
-        ExpirationDate: 0 # 激活时刻过指定天数的时间戳,代表着过期时刻的时间戳
+    ActiveDate: 1698907746.928311 # 激活时刻的时间戳
+    ActiveDay: 999     # 激活的天数:每次is next day都会减1
+    ExpirationDate: 1785221346.928311 # 激活时刻过指定天数的时间戳,代表着过期时刻的时间戳
+  '108766004':
+    isExpired: false
+    isWantActive: false
+    ActiveDate: 1698907670.2382631
+    ActiveDay: 1
+    ExpirationDate: 1699080470.2382631
