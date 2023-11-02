@@ -326,7 +326,7 @@ class Power:
                 return False
 
         
-        Utils._temp += "<p style='margin-left: 20px;margin-right: 20px;margin-top: 0;margin: 10px;line-height: 170%;color: #d9d9d9;'>"+f'{instance_type} - {instance_name} - {number}次</p>'
+        Utils._temp += "<p>"+f'{instance_type} - {instance_name} - {number}次</p>'
 
         logger.hr(_("开始刷{type} - {name}，总计{number}次").format(type=instance_type, name=instance_name, number=number), 2)
         return Power.run_instances(instance_type, instance_name, power_need, number)

@@ -45,6 +45,13 @@ def main(action=None):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
                 account_active_fun(uidStr)
                 if uidStr in config.blacklist_uid:
+                    logger.warning(f"{uidStr}【正在黑名单中】")
+                    continue
+                if config.account_active[uidStr]['isExpired']:
+                    logger.warning(f"{uidStr}【已过期】")
+                    continue
+                if not (config.account_active[uidStr]['ActiveDate'] <= config.account_active[uidStr]['ExpirationDate'] and config.account_active[uidStr]['ActiveDate'] != config.account_active[uidStr]['ExpirationDate']):
+                    logger.error(f"{uidStr}【激活信息有异常】")
                     continue
                 Utils.init_instanceButNoSave(uidStr)
 
@@ -70,7 +77,7 @@ def main(action=None):
                 options_reg.update({("<每日已完成>" + uidStr + temp_text + last_run_uidText
                                     if config.daily_tasks_fin[uidStr] 
                                     else 
-                                    uidStr + temp_text + last_run_uidText)+ ("【已过期】" if config.account_active[uidStr]['isExpired'] else f"【剩余{config.account_active[uidStr]['ActiveDay']}天】"): index})
+                                    uidStr + temp_text + last_run_uidText)+ (f"【剩余{config.account_active[uidStr]['ActiveDay']}天】"): index})
             
             config.save_config()
             
@@ -104,7 +111,9 @@ def main(action=None):
                     return False
                 logger.info(action)
                 run(index, action)
-            
+                
+        input(_("按回车键关闭窗口. . ."))
+        sys.exit(0)
     else:
         logger.info(action)
         run(action)
@@ -191,19 +200,23 @@ def account_active_fun(uid):
     # from datetime import datetime
     import time
     if config.account_active[uid]['isWantActive']:
-        logger.info("正在激活")
+        logger.info(f"{uid}:正在激活,新的激活天数为{config.account_active[uid]['ActiveDay']}天")
         if config.account_active[uid]['isExpired']:
-            logger.info("已过期用户正在重新激活")
+            logger.info(f"{uid}:已过期用户正在重新激活")
             config.account_active[uid]['ActiveDate'] = time.time()
             config.account_active[uid]['isExpired'] = False
+
         config.account_active[uid]['ExpirationDate'] = config.account_active[uid]['ActiveDate'] + config.account_active[uid]['ActiveDay'] * 86400
         config.account_active[uid]['isWantActive'] = False   
 
     if config.account_active[uid]['ExpirationDate'] >= time.time() >= config.account_active[uid]['ExpirationDate'] - 3*86400:
-        logger.info(f"提醒:{uid}激活天数已不足3天")
+        logger.warning(f"提醒:{uid}激活天数已不足3天")
+
+    if config.account_active[uid]['ActiveDay'] >= 0 and config.account_active[uid]['ExpirationDate'] == 0 and config.account_active[uid]['ActiveDate']:
+        logger.error(f"{uid}的激活信息异常")
 
     if time.time() >= config.account_active[uid]['ExpirationDate'] and config.account_active[uid]['ActiveDay'] == 0:
-        logger.info("已过期")
+        logger.info(f"{uid}已过期,正在执行信息清除")
         config.account_active[uid]['isExpired'] = True
         config.account_active[uid]['ActiveDate'] = 0
         config.account_active[uid]['ActiveDay'] = 0
