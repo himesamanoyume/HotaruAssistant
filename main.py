@@ -40,8 +40,10 @@ def main(action=None):
  
             # notify.announcement(_("普罗丢瑟代练 - 公告"), _("我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数"))
             options_reg = dict()
+            run_new_accounts()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
+                account_active_fun(uidStr)
                 if uidStr in config.blacklist_uid:
                     continue
                 Utils.init_instanceButNoSave(uidStr)
@@ -49,6 +51,7 @@ def main(action=None):
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
                     Utils.detectIsNoneButNoSave(config.daily_tasks_score, uidStr)
                     Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
+                    config.account_active[uidStr]['ActiveDay'] -= 1
                     config.daily_tasks_score[uidStr] = 0
                     config.daily_tasks_fin[uidStr] = False
                     config.daily_tasks[uidStr] = {}
@@ -64,10 +67,10 @@ def main(action=None):
                 loginList.append(f'{str(config.multi_login_accounts[index])}')
                 temp_text = f":活跃度:{Utils.getConfigValue(config.daily_tasks_score, uidStr)},模拟宇宙积分:{Utils.getConfigValue(config.universe_score, uidStr)}"
                 last_run_uidText = "【最后运行的账号】" if config.last_running_uid == uidStr else '' 
-                options_reg.update({"<每日已完成>" + uidStr + temp_text + last_run_uidText
+                options_reg.update({("<每日已完成>" + uidStr + temp_text + last_run_uidText
                                     if config.daily_tasks_fin[uidStr] 
                                     else 
-                                    uidStr + temp_text + last_run_uidText: index})
+                                    uidStr + temp_text + last_run_uidText)+ ("【已过期】" if config.account_active[uidStr]['isExpired'] else f"【剩余{config.account_active[uidStr]['ActiveDay']}天】"): index})
             
             config.save_config()
             
@@ -112,9 +115,19 @@ def run_new_accounts():
         logger.info("检测到有新注册表加入")
         for uid, item in config.want_register_accounts.items():
             if uid == '111111111': continue
+            if item['reg_path']=='' or item['email']=='' or item['active_day'] == 0:
+                logger.error(f"{uid}:新的注册信息未完整填写")
+                input("按下回车跳过该次注册")
+                return
             config.multi_login_accounts.append(item['reg_path'])
             loginList.append(f"{str(item['reg_path'])}")
             config.notify_smtp_To[uid] = item['email']
+            config.account_active[uid] = {}
+            config.account_active[uid]['isExpired'] = True
+            config.account_active[uid]['isWantActive'] = True
+            config.account_active[uid]['ActiveDate'] = 0
+            config.account_active[uid]['ActiveDay'] = item['active_day']
+            config.account_active[uid]['ExpirationDate'] = 0
             config.save_config()
             config.del_value('want_register_accounts', uid)
         logger.info("新注册表加入完成")
@@ -173,6 +186,30 @@ def run(index=-1, action=None):
 def exit_handler():
     # 退出 OCR
     ocr.exit_ocr()
+
+def account_active_fun(uid):
+    # from datetime import datetime
+    import time
+    if config.account_active[uid]['isWantActive']:
+        logger.info("正在激活")
+        if config.account_active[uid]['isExpired']:
+            logger.info("已过期用户正在重新激活")
+            config.account_active[uid]['ActiveDate'] = time.time()
+            config.account_active[uid]['isExpired'] = False
+        config.account_active[uid]['ExpirationDate'] = config.account_active[uid]['ActiveDate'] + config.account_active[uid]['ActiveDay'] * 86400
+        config.account_active[uid]['isWantActive'] = False   
+
+    if config.account_active[uid]['ExpirationDate'] >= time.time() >= config.account_active[uid]['ExpirationDate'] - 3*86400:
+        logger.info(f"提醒:{uid}激活天数已不足3天")
+
+    if time.time() >= config.account_active[uid]['ExpirationDate'] and config.account_active[uid]['ActiveDay'] == 0:
+        logger.info("已过期")
+        config.account_active[uid]['isExpired'] = True
+        config.account_active[uid]['ActiveDate'] = 0
+        config.account_active[uid]['ActiveDay'] = 0
+        config.account_active[uid]['ExpirationDate'] = 0
+            
+    config.save_config()
 
 
 if __name__ == "__main__":

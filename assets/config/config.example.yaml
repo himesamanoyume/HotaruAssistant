@@ -16,6 +16,7 @@ want_register_accounts: # 启动游戏前先进行注册
   '111111111':
     email: ''
     reg_path: ''
+    active_day: 0
 
 python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
 pypi_mirror_urls: # pypi 镜像列表
@@ -237,3 +238,19 @@ notify_lark_webhook: ''
 notify_lark_content: ''
 notify_lark_keyword: '' # 可选参数
 notify_lark_sign: '' # 可选参数
+
+account_active:
+    '100193509':
+        isExpired: false # 是否过期,如果过期,启动列表跳过该项
+        # if ExpirationDate >= time.time() >= ExpirationDate - 3*86400:
+        #   完成上号的邮件当中加入即将过期提醒
+        # if time.time() >= ExpirationDate or ActiveDay == 0:
+        #   isExpired=true,ActiveDate=0,ActiveDay=0,ExpirationDate=0,
+        isWantActive: false # 只有在此项为true时才会重新计算过期时间戳
+        # if isWantActive:
+        #   if isExpired==true:
+        #      ActiveDate=time.time(),isExpired=false
+        #   ExpirationDate=ActiveDate+ActiveDay*86400,isWantActive=false
+        ActiveDate: 0 # 激活时刻的时间戳
+        ActiveDay: 0 # 激活的天数:每次is next day都会减1
+        ExpirationDate: 0 # 激活时刻过指定天数的时间戳,代表着过期时刻的时间戳
