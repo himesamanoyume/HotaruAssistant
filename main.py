@@ -23,6 +23,58 @@ import sys
 loginDict = dict()
 loginList = list()
 
+def temp_find():
+    from managers.automation_manager import auto
+    import time
+    crop1=(534.0 / 1920, 373.0 / 1080, 845.0 / 1920, 267.0 / 1080) # 成功奖励下的遗器布局
+    # crop2=(526.0 / 1920, 628.0 / 1080, 133.0 / 1920, 33.0 / 1080) # 遗器星级数
+    crop3=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
+    crop4=(834.0 / 1920, 400.0 / 1080, 645.0 / 1920, 168.0 / 1080) # 遗器属性
+    crop4_1=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性2
+
+    # crop5=(545.0 / 1920, 381.0 / 1080, 114.0 / 1920, 119.0 / 1080) # 一行第一格
+    # crop5_1=(664.0 / 1920, 505.0 / 1080, 0.0 / 1920, 0.0 / 1080) # 一行第一格大
+    # crop6=(665.0 / 1920, 381.0 / 1080, 114.0 / 1920, 119.0 / 1080) # 一行第二格
+    # crop7=(1265.0 / 1920, 381.0 / 1080, 114.0 / 1920, 119.0 / 1080) # 一行第七格,最后一格 x=120距离
+    # crop8=(545.0 / 1920, 504.0 / 1080, 114.0 / 1920, 119.0 / 1080) # 二行第一格
+    input(_("按回车键开始. . ."))
+    # logger.info("找到遗器?")
+    # if auto.find_element("./assets/images/fight/relic_long.png", "image", 0.9, max_retries=1, crop=crop5):
+    #     logger.info("找到遗器")
+    for i in range(2):
+        for j in range(7):
+            # logger.info(j)
+            if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((545.0 + j*120.0 )/ 1920, (381.0 + i*120) / 1080, 114.0 / 1920, 119.0 / 1080)):
+                time.sleep(0.5)
+                relic_name = auto.get_single_line_text(crop3, blacklist=[], max_retries=5)
+                logger.info(relic_name)
+                
+                auto.take_screenshot(crop=crop4_1)
+                time.sleep(0.5)
+                result = ocr.recognize_multi_lines(auto.screenshot)
+                isProp = False
+                tempPropName = ''
+                tempPropValue = ''
+                for box in result:
+                    text = box[1][0]
+                    # 如果text处于['暴击率','暴击伤害',...]等之中,则下一次isProp=true,意味着下一次的text将会是属性值,获取后isProp=false
+                    if text in ['暴击率','暴击伤害','生命值','攻击力','防御力','能量恢复效率','效果命中','效果抵抗','速度','击破特攻','治疗量加成','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成']:
+                        tempPropName = text
+                        isProp = True
+                        continue
+                    elif isProp:
+                        tempPropValue = text
+                        isProp = False
+
+                    logger.info(f"PropName:{tempPropName},PropValue:{tempPropValue}")
+
+                # logger.warning("找到遗器")
+                time.sleep(0.2)
+                if auto.click_element("./assets/images/fight/relic_info_close.png", "image", 0.9, max_retries=3):
+                    time.sleep(0.5)
+
+
+
 def main(action=None):
     # 免责申明
     if not config.agreed_to_disclaimer:
@@ -37,7 +89,11 @@ def main(action=None):
             sys.exit(0)
         else:
             logger.info(_("开始多账号运行"))
- 
+            
+            temp_find()
+
+            input(_("按回车键关闭窗口. . ."))
+            return
             # notify.announcement(_("普罗丢瑟代练 - 公告"), _("我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数"))
             options_reg = dict()
             run_new_accounts()

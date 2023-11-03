@@ -91,8 +91,7 @@ March7thAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
-- 备份config信息
-- [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:992)
+- 备份config信息(每天都复制一份config到别处并用日期命名)
 - 新注册表加入后是否有初始化配置项？
 - **长期评估account_active正确性**
 - ~~新增运行单账号本次运行总时长,邮件中也写入本次运行时长~~
@@ -106,5 +105,6 @@ March7thAssistant 离不开以下开源项目的帮助：
 - 研究国服国际服切换
 - 测试循环开关打开时是否符合需求
 - daily_memory_one_team测试是否能写入超出4个角色的候补
+- 远程桌面多开，一个用户打完了会关闭其他用户进程
 
 

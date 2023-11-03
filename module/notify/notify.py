@@ -118,7 +118,7 @@ class Notify:
                     logger.error(f"{e}")
 
     def _send_notification_by_smtp(self, title, content):
-        sendHostEmail = smtplib.SMTP_SSL(config.notify_smtp_host, config.notify_smtp_port)
+        sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
         sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
         emailObject = MIMEMultipart()
         themeObject = Header(title, 'utf-8').encode()
@@ -303,7 +303,7 @@ class Notify:
                 return
             
     def _send_announcement_by_smtp(self, title, content):
-        sendHostEmail = smtplib.SMTP_SSL(config.notify_smtp_host, config.notify_smtp_port)
+        sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
         sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
         emailObject = MIMEMultipart()
         themeObject = Header(title, 'utf-8').encode()
