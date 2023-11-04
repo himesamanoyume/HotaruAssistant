@@ -200,11 +200,15 @@ class Power:
     def instance_get_relic():
         relic_name_crop=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
         relic_prop_crop=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性
+        logger.info("开始检测遗器")
+        point = auto.find_element("./assets/images/fight/fight_reward.png", "image", 0.9, max_retries=2)
+        success_reward_top_left_x = point[0][0]
+        success_reward_top_left_y = point[0][1]
 
         for i in range(2):
             for j in range(7):
-                # logger.info(j)
-                if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((545.0 + j*120.0 )/ 1920, (381.0 + i*120) / 1080, 114.0 / 1920, 119.0 / 1080)):
+                
+                if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((success_reward_top_left_x - 380 + j*120.0 )/ 1920, (success_reward_top_left_y + 40 + i*120) / 1080, 120.0 / 1920, 120.0 / 1080)):
                     time.sleep(0.5)
                     relic_name = auto.get_single_line_text(relic_name_crop, blacklist=[], max_retries=5)
                     logger.info(relic_name)
@@ -246,15 +250,16 @@ class Power:
                         relicDict.update({tempPropName:tempPropValue})
                     if (propCount == 3 and usefulPropCount >= 1) or (propCount == 4 and usefulPropCount == 2) or (tempMainPropName in ['暴击率','暴击伤害','速度','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','能量恢复效率'] and propCount == 3 and usefulPropCount>=1):
                         logger.info(f"发现胚子")
-                        Utils._temp += f"<p><strong>{relic_name}</strong></p>"
+                        Utils._content['relic_content'] += f"<div class=relic><p><strong>{relic_name}</strong></p>"
                         isMain = True
                         for propName, propValue in relicDict.items():
                             if isMain:
-                                Utils._temp += f"<p>主属性/{propName}:{propValue}</p>"
+                                Utils._content['relic_content'] += f"<div class=relicPropContainer><p><span class=important>{propName}:{propValue}</span></p>"
                                 isMain = False
                             else:
-                                Utils._temp += f"<p>{propName}:{propValue}</p>"
+                                Utils._content['relic_content'] += f"<p>{propName}:{propValue}</p>"
 
+                        Utils._content['relic_content'] += "</div></div>"
                         if auto.click_element("./assets/images/fight/relic_lock.png", "image", 0.9, max_retries=3):
                             time.sleep(1)
 
@@ -345,15 +350,17 @@ class Power:
 
                     for i in range(total_count - 1):
                         Power.wait_fight()
-                        logger.info(_("第{number}次副本完成").format(number=i+1))
+                        logger.info(_(f"第{i+1}次{instance_type}副本完成"))
                         if instance_type == "侵蚀隧洞":
                             Power.instance_get_relic()
+                        time.sleep(1)
                         auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
+                        time.sleep(1)
                 else:
                     if full_count > 0:
                         for i in range(full_count - 1):
                             Power.wait_fight()
-                            logger.info(_("第{number}次副本完成").format(number=i+1))
+                            logger.info(_(f"第{i+1}次{instance_type}副本完成"))
                             if not (full_count == 1 and incomplete_count == 0):
                                 auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
                                 if instance_type == "历战余响":
@@ -363,11 +370,11 @@ class Power:
                 if instance_type == "侵蚀隧洞":
                     Power.instance_get_relic()
                 if full_count > 0:
-                    logger.info(_("{number}次副本完成").format(number=full_count*6))
+                    logger.info(_(f"{full_count*6}次{instance_type}副本完成"))
                 elif instance_type == "凝滞虚影" or "侵蚀隧洞" :
-                    logger.info(_("{number}次副本完成").format(number=total_count))
+                    logger.info(_(f"{total_count}次{instance_type}副本完成"))
                 else:
-                    logger.info(_("{number}次副本完成").format(number=incomplete_count))
+                    logger.info(_(f"{incomplete_count}次{instance_type}副本完成"))
                 # 速度太快，点击按钮无效
                 time.sleep(1)
                 auto.click_element("./assets/images/fight/fight_exit.png", "image", 0.9, max_retries=10)

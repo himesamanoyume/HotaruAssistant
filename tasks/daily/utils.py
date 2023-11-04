@@ -17,7 +17,6 @@ class Utils:
     _content = dict()
     _power = 250
     _temp = ''
-    _isDetect = False
     _start_timestamp = 0
     def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
@@ -82,8 +81,8 @@ class Utils:
             Utils._content = dict()
             Utils._temp = ''
             Utils._power = 250
+            Utils._content['relic_content'] = ''
             Utils._start_timestamp = time.time()
-            Utils._isDetect = False
             logger.info(_(f"识别到UID为:{Utils._uid}"))
             config.set_value('last_running_uid', Utils._uid)
         except Exception as e:

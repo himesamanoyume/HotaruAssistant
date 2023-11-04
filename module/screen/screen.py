@@ -1,5 +1,6 @@
 from managers.automation_manager import auto
 from managers.logger_manager import logger
+from managers.config_manager import config
 from managers.translate_manager import _
 from tasks.daily.utils import Utils
 from collections import deque
@@ -150,8 +151,9 @@ class Screen:
                 if self.get_name(self.current_screen) == "星际和平指南-每日实训":
                     logger.warning("进入到星际和平指南-每日实训的判断")
                     time.sleep(0.5)
-                    while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
-                        time.sleep(1)
+                    if not Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
+                        while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
+                            time.sleep(1)
                 return True
 
             if autotry:
@@ -220,7 +222,7 @@ class Screen:
                 if self.get_name(next_screen) == "星际和平指南-每日实训":
                     logger.warning("进入到星际和平指南-每日实训的判断")
                     time.sleep(0.5)
-                    if Utils._isDetect:
+                    if not Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
                         while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
                             time.sleep(1)
 
