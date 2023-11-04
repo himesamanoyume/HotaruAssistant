@@ -148,7 +148,10 @@ def main(action=None):
             # temp_fun()
             # input(_("按回车键关闭窗口. . ."))
             # return
-            # notify.announcement(_("普罗丢瑟代练 - 公告"), _("我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数"))
+            notify.announcement(_("普罗丢瑟代练 - 公告"), _("<p>我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数</p>"))
+            input(_("按回车键关闭窗口. . ."))
+            sys.exit(0)
+
             options_reg = dict()
             run_new_accounts()
             for index in range(len(config.multi_login_accounts)):

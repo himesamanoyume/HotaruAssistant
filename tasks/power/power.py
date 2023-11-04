@@ -254,7 +254,7 @@ class Power:
                         isMain = True
                         for propName, propValue in relicDict.items():
                             if isMain:
-                                Utils._content['relic_content'] += f"<div class=relicPropContainer><p><span class=important style=color:#d97d22>{propName}:{propValue}</span></p>"
+                                Utils._content['relic_content'] += f"<div class=relicPropContainer><p><span class=important style=color:#d97d22;background-color:#40405f;font-size:14px><strong>{propName}:{propValue}</strong></span></p>"
                                 isMain = False
                             else:
                                 Utils._content['relic_content'] += f"<p>{propName}:{propValue}</p>"
