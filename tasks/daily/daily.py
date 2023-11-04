@@ -126,7 +126,7 @@ class Daily:
                 count = count + 1 if not value else count
             logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
 
-            blacklist = {"单场战斗中，触发3种不同属性的弱点击破","累计触发弱点击破效果5次","利用弱点进入战斗并获胜3次","施放终结技造成制胜一击1次","累计消灭20个敌人"}
+            blacklist = {"单场战斗中，触发3种不同属性的弱点击破","累计触发弱点击破效果5次","利用弱点进入战斗并获胜3次","施放终结技造成制胜一击1次"}
 
             for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():
                 if "{_task_name}".format(_task_name = task_name) in task_functions.keys():

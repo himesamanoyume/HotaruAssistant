@@ -295,8 +295,11 @@ class ForgottenHall:
                 starTextCrop = (1345.0 / 1920, 693.0 / 1080, 68.0 / 1920, 29.0 / 1080)
                 try:
                     time.sleep(0.5)
-                    countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=3)
+                    countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=6)
                     countdownText = countdownText.replace('）','')
+                    countdownText = countdownText.replace('①','')
+                    if countdownText == '?':
+                        countdownText = '识别出错'
                     levelText = auto.get_single_line_text(crop=levelTextCrop, blacklist=[], max_retries=3)
                     starText = auto.get_single_line_text(crop=starTextCrop, blacklist=[], max_retries=3)
                     logger.info(f"忘却之庭刷新倒计时:{countdownText},层数:{levelText},星数:{starText}")
