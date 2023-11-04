@@ -294,9 +294,11 @@ class ForgottenHall:
                 levelTextCrop=(1346.0 / 1920, 646.0 / 1080, 67.0 / 1920, 37.0 / 1080)
                 starTextCrop = (1345.0 / 1920, 693.0 / 1080, 68.0 / 1920, 29.0 / 1080)
                 try:
-                    countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=7)
-                    levelText = auto.get_single_line_text(crop=levelTextCrop, blacklist=[], max_retries=5)
-                    starText = auto.get_single_line_text(crop=starTextCrop, blacklist=[], max_retries=5)
+                    time.sleep(0.5)
+                    countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=3)
+                    countdownText = countdownText.replace('）','')
+                    levelText = auto.get_single_line_text(crop=levelTextCrop, blacklist=[], max_retries=3)
+                    starText = auto.get_single_line_text(crop=starTextCrop, blacklist=[], max_retries=3)
                     logger.info(f"忘却之庭刷新倒计时:{countdownText},层数:{levelText},星数:{starText}")
                     Utils._content['countdownText'] = countdownText
                     level = levelText.split('/')[0]
@@ -305,8 +307,8 @@ class ForgottenHall:
                     config.forgottenhall_stars[Utils.get_uid()] = int(star)
                     config.save_config()
                 except Exception as e:
-                    logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
-                    logger.warning(_("因读取模拟宇宙积分失败,程序中止"))
+                    logger.error(_("识别忘却之庭失败: {error}").format(error=e))
+                    logger.warning(_("因读取忘却之庭失败,程序中止"))
 
         screen.change_to('main')
         return True

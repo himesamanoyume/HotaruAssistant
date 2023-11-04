@@ -2,6 +2,7 @@ from managers.screen_manager import screen
 from managers.automation_manager import auto
 from managers.logger_manager import logger
 from managers.config_manager import config
+from managers.ocr_manager import ocr
 from tasks.daily.utils import Utils
 from managers.translate_manager import _
 from tasks.base.base import Base
@@ -194,6 +195,73 @@ class Power:
             return True
         else:
             return False
+    
+    @staticmethod
+    def instance_get_relic():
+        relic_name_crop=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
+        relic_prop_crop=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性
+
+        for i in range(2):
+            for j in range(7):
+                # logger.info(j)
+                if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((545.0 + j*120.0 )/ 1920, (381.0 + i*120) / 1080, 114.0 / 1920, 119.0 / 1080)):
+                    time.sleep(0.5)
+                    relic_name = auto.get_single_line_text(relic_name_crop, blacklist=[], max_retries=5)
+                    logger.info(relic_name)
+                    
+                    auto.take_screenshot(crop=relic_prop_crop)
+                    time.sleep(0.5)
+                    result = ocr.recognize_multi_lines(auto.screenshot)
+
+                    isProp = False
+                    tempPropName = ''
+                    tempMainPropName = ''
+                    tempPropValue = ''
+                    propCount = -1
+                    usefulPropCount = 0
+                    relicDict = dict()
+                    isMainProp = True
+
+                    for box in result:
+                        text = box[1][0]
+                        if text in ['暴击率','暴击伤害','生命值','攻击力','防御力','能量恢复效率','效果命中','效果抵抗','速度','击破特攻','治疗量加成','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成']:
+                            if isMainProp:
+                                tempMainPropName = text
+                            tempPropName = text
+                            isProp = True
+                            if text in ['暴击率','暴击伤害']:
+                                usefulPropCount += 1
+                            continue
+                        elif isProp:
+                            if isMainProp:
+                                isMainProp = False
+
+                            tempPropValue = text
+                            isProp = False
+                            propCount += 1
+                        else:
+                            continue
+
+                        logger.info(f"{tempPropName}:{tempPropValue}")
+                        relicDict.update({tempPropName:tempPropValue})
+                    if (propCount == 3 and usefulPropCount >= 1) or (propCount == 4 and usefulPropCount == 2) or (tempMainPropName in ['暴击率','暴击伤害','速度','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','能量恢复效率'] and propCount == 3 and usefulPropCount>=1):
+                        logger.info(f"发现胚子")
+                        Utils._temp += f"<p><strong>{relic_name}</strong></p>"
+                        isMain = True
+                        for propName, propValue in relicDict.items():
+                            if isMain:
+                                Utils._temp += f"<p>主属性/{propName}:{propValue}</p>"
+                                isMain = False
+                            else:
+                                Utils._temp += f"<p>{propName}:{propValue}</p>"
+
+                        if auto.click_element("./assets/images/fight/relic_lock.png", "image", 0.9, max_retries=3):
+                            time.sleep(1)
+
+                    
+                    time.sleep(0.5)
+                    if auto.click_element("./assets/images/fight/relic_info_close.png", "image", 0.9, max_retries=3):
+                        time.sleep(0.5)
 
     @staticmethod
     def run_instances(instance_type, instance_name, a_times_need_power, total_count):
@@ -278,6 +346,8 @@ class Power:
                     for i in range(total_count - 1):
                         Power.wait_fight()
                         logger.info(_("第{number}次副本完成").format(number=i+1))
+                        if instance_type == "侵蚀隧洞":
+                            Power.instance_get_relic()
                         auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
                 else:
                     if full_count > 0:
@@ -290,6 +360,8 @@ class Power:
                                     time.sleep(1)
                                     auto.click_element("./assets/images/base/confirm.png", "image", 0.9)             
                 Power.wait_fight()
+                if instance_type == "侵蚀隧洞":
+                    Power.instance_get_relic()
                 if full_count > 0:
                     logger.info(_("{number}次副本完成").format(number=full_count*6))
                 elif instance_type == "凝滞虚影" or "侵蚀隧洞" :
@@ -305,7 +377,6 @@ class Power:
                 else:
                     logger.info(_("副本任务完成"))
                     return True
-                
 
     @staticmethod
     def instance(instance_type, instance_name, power_need, number=None):

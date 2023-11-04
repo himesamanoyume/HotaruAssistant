@@ -136,7 +136,7 @@ class Notify:
         full_power_time = str(full_power_time).split('.')[0]
         running_time = f"<p>本次上号总计花费时长:{Utils._content['running_time']}</p>"
         multi_content = Utils._content['multi_content']
-        multi_content += f"<p><strong>每日完成情况</strong></p><div class=post-txt-container-datetime>注意,该信息由文字识别得来,因此活跃度和完成的每日任务不一定准确,尽可能自行上号检查</div>"
+        multi_content += f"<p><strong>每日完成情况</strong></p>"
 
         for i in range(6):
             multi_content += f"<p><ruby>{Utils._content[f'daily_0{i}']}<rt class='ttt' data-rt='{Utils._content[f'daily_0{i}_score']}'></rt></ruby>:"+(f"未完成</p>" if Utils._content[f'daily_0{i}_value'] else "<span class=important style=background-color:#40405f;color:#66ccff>已完成</span></p>")
@@ -147,7 +147,7 @@ class Notify:
 
         multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
 
-        multi_content += f"<p><strong>当前忘却之庭</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{Utils._content['countdownText']}</p>"
+        multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{Utils._content['countdownText']}</p>"
 
         multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 10 else f"<blockquote style=background-color:#5f4040>")+f"<p>层数:{config.forgottenhall_levels[uid]}/10</p></blockquote>"
 
@@ -201,6 +201,9 @@ class Notify:
                                 <section class=post-detail-txt style=color:#d9d9d9>
                                     {account_active_content}
                                     {running_time}
+                                    <div class=post-txt-container-datetime>
+                                        注意,邮件所有信息都由文字识别得来,因此如果出现某些奇怪文本属于正常情况,如有需要请尽可能自行上号检查
+                                    </div>
                                     <p>
                                         <strong>开拓力去向:</strong>
                                         <p>

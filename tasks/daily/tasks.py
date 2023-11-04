@@ -35,6 +35,7 @@ class Tasks:
         self.detect(uid)
         self.scroll()
         self.detect(uid)
+        Utils._isDetect = True
 
     def detect(self, uid):
         auto.take_screenshot(crop=self.crop)

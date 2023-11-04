@@ -76,6 +76,7 @@ class Daily:
         Utils.get_new_uid()
         Utils._content.update({'uid':Utils.get_uid()})
         Utils.getDailyScoreMappings()
+        Tasks._isDetect = False
         if Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
             config.save_config()
             logger.info(_("已是新的一天,开始每日"))

@@ -220,8 +220,9 @@ class Screen:
                 if self.get_name(next_screen) == "星际和平指南-每日实训":
                     logger.warning("进入到星际和平指南-每日实训的判断")
                     time.sleep(0.5)
-                    while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
-                        time.sleep(1)
+                    if Utils._isDetect:
+                        while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
+                            time.sleep(1)
 
                 time.sleep(1)
             self.current_screen = target_screen  # 更新当前界面
