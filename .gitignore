@@ -184,6 +184,7 @@ pyrightconfig.json
 
 # March7thAssistant
 /*config.yaml
+/backup/*
 /logs
 /screenshots
 /3rdparty/PaddleOCR-json_*

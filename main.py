@@ -12,20 +12,22 @@ from tasks.game.stop import Stop
 from tasks.daily.daily import Daily
 from tasks.daily.fight import Fight
 from tasks.daily.utils import Utils
+from datetime import datetime
 import questionary
+from managers.automation_manager import auto
+import time
 from tasks.version.version import Version
 from tasks.weekly.universe import Universe
 from tasks.weekly.forgottenhall import ForgottenHall
 import atexit
 import pyuac
+import shutil
 import sys
 
 loginDict = dict()
 loginList = list()
 
 def temp_fun():
-    from managers.automation_manager import auto
-    import time
 
     # countdownTextCrop=(1478.0 / 1920, 318.0 / 1080, 166.0 / 1920, 42.0 / 1080)
     # countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=7)
@@ -192,7 +194,11 @@ def main(action=None):
                                     uidStr + temp_text + last_run_uidText)+ (f"【剩余{config.account_active[uidStr]['ActiveDay']}天】"): index})
             
             config.save_config()
-            
+
+            if not os.path.exists("./backup"):
+                os.makedirs("./backup")
+            shutil.copy("./config.yaml",f"./backup/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")
+      
             title_ = "请选择UID进行作为首位启动游戏:"
             option_ = questionary.select(title_, list(options_reg.keys())).ask()
             first_reg = options_reg.get(option_)

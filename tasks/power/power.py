@@ -94,7 +94,12 @@ class Power:
     @staticmethod
     def wait_fight():
         logger.info(_("进入战斗"))
-
+        for i in range(20):
+            auto.press_key("b")
+            if auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+                logger.info(_("二倍速已开启"))
+                break
+            time.sleep(0.5)
         for i in range(20):
             if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):
                 logger.info(_("尝试开启自动战斗"))
