@@ -156,6 +156,7 @@ def main(action=None):
 
             options_reg = dict()
             run_new_accounts()
+            add_all_account_active_day()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
                 account_active_fun(uidStr)
@@ -215,6 +216,7 @@ def main(action=None):
 
                 uidStr2 = str(value).split('-')[1][:9]
                 run_new_accounts()
+                add_all_account_active_day()
                 account_active_fun(uidStr2)
 
                 if firstTimeLogin:
@@ -315,9 +317,22 @@ def exit_handler():
     # 退出 OCR
     ocr.exit_ocr()
 
+def add_all_account_active_day():
+    if config.all_account_active_day > 0:
+        for index in range(len(config.multi_login_accounts)):
+            uidStr3 = str(config.multi_login_accounts[index]).split('-')[1][:9]
+            if not config.account_active[uidStr3]['isExpired']:
+                config.account_active[uidStr3]['isWantActive'] = True
+                config.account_active[uidStr3]['ActiveDay'] += config.all_account_active_day
+        config.save_config()
+        logger.info(f"为所有未过期账号延长{config.all_account_active_day}天时间")
+        config.set_value('all_account_active_day', 0)
+    else:
+        config.set_value('all_account_active_day', 0)
+    config.save_config()
+
 def account_active_fun(uid):
     # from datetime import datetime
-    import time
     if config.account_active[uid]['isWantActive']:
         logger.info(f"{uid}:正在激活,新的激活天数为{config.account_active[uid]['ActiveDay']}天")
         if config.account_active[uid]['isExpired']:

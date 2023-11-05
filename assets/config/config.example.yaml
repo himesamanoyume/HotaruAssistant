@@ -239,6 +239,7 @@ notify_lark_content: ''
 notify_lark_keyword: '' # 可选参数
 notify_lark_sign: '' # 可选参数
 
+all_account_active_day: 0 # 给所有账号增加天数
 account_active:
     '100193509':
         isExpired: false # 是否过期,如果过期,启动列表跳过该项
