@@ -360,32 +360,6 @@ class Notify:
                                 </div>
                                 <section class=post-detail-txt style=color:#d9d9d9>
                                     {multi_content}
-                                <p><strong>遗器胚子</strong></p>
-                                <div class=post-txt-container-datetime style=color:#d9d9d9>
-                                    识别为胚子的遗器都会上锁
-                                </div>
-                                <div class=relicContainer>
-                                    <div class=relic>
-                                        <p><strong>天才的天才的天才天才的天才的天才</strong></p>
-                                        <div class=relicPropContainer>
-                                            <p><span class=important style=color:#d97d22;background-color:#40405f;font-size:14px><strong>生命值:225</strong></span></p>
-                                            <p>暴击率:3.6%</p>
-                                            <p>暴击率:3.6%</p>
-                                            <p>暴击率:3.6%</p>
-                                            <p>暴击率:3.6%</p>
-                                        </div>
-                                    </div>
-                                    <div class=relic>
-                                        <p><strong>天才的天才的天才天才的天才的天才</strong></p>
-                                        <div class=relicPropContainer>
-                                            <p><span class=important style=color:#d97d22;background-color:#40405f;font-size:14px><strong>生命值:225</strong></span></p>
-                                            <p>暴击率:3.6%</p>
-                                            <p>暴击率:3.6%</p>
-                                            <p>暴击率:3.6%</p>
-                                            <p>暴击率:3.6%</p>
-                                        </div>
-                                    </div>
-                                </div>
                                 </section>
                                 <p>
                                     <div class=post-txt-container-datetime style=color:#d9d9d9>
