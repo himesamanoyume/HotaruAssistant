@@ -26,6 +26,7 @@ import sys
 
 loginDict = dict()
 loginList = list()
+lastUID = ''
 
 def main(action=None):
     # 免责申明
@@ -97,45 +98,54 @@ def main(action=None):
             
             config.save_config()
 
-            if not os.path.exists("./backup"):
-                os.makedirs("./backup")
-            shutil.copy("./config.yaml",f"./backup/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")
-      
             title_ = "请选择UID进行作为首位启动游戏:"
             option_ = questionary.select(title_, list(options_reg.keys())).ask()
             first_reg = options_reg.get(option_)
 
-            firstTimeLogin = True
-            jumpValue = ''
-            jumpFin = False
-            for value in loginList:
-                if not firstTimeLogin and not jumpFin:
-                    if not value == jumpValue:
-                        continue
-                    else:
-                        jumpFin = True
+            isFirstTimeLoop = True
 
-                uidStr2 = str(value).split('-')[1][:9]
-                run_new_accounts()
-                modify_all_account_active_day()
-                account_active_fun(uidStr2)
+            while True:
 
-                if firstTimeLogin:
-                    firstTimeLogin = False
-                    jumpValue = loginList[first_reg]
-                    if jumpValue == value:
-                        jumpFin = True
-                    else:
-                        continue
+                if not os.path.exists("./backup"):
+                    os.makedirs("./backup")
+                shutil.copy("./config.yaml",f"./backup/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")
 
-                logger.info(_(value))
-                logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
-                if os.system(f"cmd /C REG IMPORT {value}"):
-                    return False
-                # logger.info(action)
-                run(index, action)
-        input(_("按回车键关闭窗口. . ."))
-        sys.exit(0)
+                lastUID = str(loginList[len(loginList) - 1]).split('-')[1][:9]
+                logger.info(f"当前列表最后一个账号UID为:{lastUID}")
+
+                firstTimeLogin = True
+                jumpValue = ''
+                jumpFin = False
+                for value in loginList:
+                    if not firstTimeLogin and not jumpFin:
+                        if not value == jumpValue:
+                            continue
+                        else:
+                            jumpFin = True
+
+                    uidStr2 = str(value).split('-')[1][:9]
+                    run_new_accounts()
+                    modify_all_account_active_day()
+                    account_active_fun(uidStr2)
+
+                    if isFirstTimeLoop:
+                        if firstTimeLogin:
+                            firstTimeLogin = False
+                            jumpValue = loginList[first_reg]
+                            if jumpValue == value:
+                                jumpFin = True
+                            else:
+                                continue
+
+                    logger.info(_(value))
+                    logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
+                    if os.system(f"cmd /C REG IMPORT {value}"):
+                        return False
+                    # logger.info(action)
+                    run(index, action, uidStr2, lastUID)
+                    isFirstTimeLoop = False
+        # input(_("按回车键关闭窗口. . ."))
+        # sys.exit(0)
     else:
         logger.info(action)
         run(action)
@@ -166,14 +176,14 @@ def run_new_accounts():
     else:
         logger.info("未检测到有新注册表加入")
 
-def run(index=-1, action=None):
+def run(index=-1, action=None, currentUID=0, _lastUID=-1):
     # 完整运行
     if action is None or action == "main":
         # logger.info("run")
         # Version.start()
         Game.start()
         Daily.start()
-        Game.stop(index ,True)
+        Game.stop(index ,True, currentUID, _lastUID)
     # 子任务
     elif action in ["fight", "universe", "forgottenhall"]:
         Version.start()

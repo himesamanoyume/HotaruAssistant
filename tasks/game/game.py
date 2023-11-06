@@ -33,7 +33,7 @@ class Game:
         logger.hr(_("完成"), 2)
 
     @staticmethod
-    def stop(index, detect_loop=False):
+    def stop(index, detect_loop=False, currentUID = 0, lastUID=-1):
         Utils._content.update({'date':f'{datetime.now()}'})
         i =0
         for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():
@@ -51,7 +51,7 @@ class Game:
         Utils._content.update({'daily_tasks_score':f'{config.daily_tasks_score[Utils.get_uid()]}'})
         Utils._content.update({'multi_content':f"{Utils._temp}"})
 
-        notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _("普罗丢瑟代练"))
+        notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _("Producer代练"))
 
         if config.multi_login:
             logger.hr(_("多账号结束运行一个账号"), 0)
@@ -59,7 +59,10 @@ class Game:
                 logger.hr(_("停止运行"), 0)
                 # Stop.play_audio()
                 if detect_loop and config.after_finish == "Loop":
-                    Stop.after_finish_is_loop()
+                    if lastUID == currentUID:
+                        Stop.after_finish_is_loop()
+                    else:
+                        Stop.stop_game()
                 else:
                     Stop.after_finish_not_loop()
             else:

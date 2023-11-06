@@ -31,32 +31,32 @@ jobs:
         run: |
           pyinstaller -D --distpath .\dist\ -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n "March7th Assistant" main.py -y
           pyinstaller -D --distpath .\dist\ -i .\assets\logo\March7th.ico --contents-directory libraries --exclude-module cv2 --exclude-module numpy --uac-admin -n "March7th Launcher" app.py -y -w
-          pyinstaller -F --distpath .\dist\March7thAssistant\ -i .\assets\logo\Update.ico -n "Update" update.py -y
+          pyinstaller -F --distpath .\dist\March7thAssistantPrivate\ -i .\assets\logo\Update.ico -n "Update" update.py -y
 
       - name: Move assets to dist directory
         run: |
-          xcopy /E /Y ".\dist\March7th Assistant\*" ".\dist\March7thAssistant\"
-          xcopy /E /Y ".\dist\March7th Launcher\*" ".\dist\March7thAssistant\"
-          xcopy /E /I /Y .\assets\ .\dist\March7thAssistant\assets\
-          xcopy /Y .\README.md .\dist\March7thAssistant\
+          xcopy /E /Y ".\dist\March7th Assistant\*" ".\dist\March7thAssistantPrivate\"
+          xcopy /E /Y ".\dist\March7th Launcher\*" ".\dist\March7thAssistantPrivate\"
+          xcopy /E /I /Y .\assets\ .\dist\March7thAssistantPrivate\assets\
+          xcopy /Y .\README.md .\dist\March7thAssistantPrivate\
 
       - name: Create zip archive
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          ren .\dist\March7thAssistant March7thAssistant_${{ github.ref_name }}
-          powershell Compress-Archive -Path .\dist\March7thAssistant_${{ github.ref_name }}\ -DestinationPath .\dist\March7thAssistant_${{ github.ref_name }}.zip -Force
+          ren .\dist\March7thAssistant March7thAssistantPrivate_${{ github.ref_name }}
+          powershell Compress-Archive -Path .\dist\March7thAssistantPrivate_${{ github.ref_name }}\ -DestinationPath .\dist\March7thAssistantPrivate_${{ github.ref_name }}.zip -Force
 
       - name: Move 3rdparty to dist directory
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           python build.py github-actions
-          xcopy .\3rdparty\ .\dist\March7thAssistant_${{ github.ref_name }}\3rdparty\ /E /I /Y
-          powershell Copy-Item -Path .\assets\config\config.example.yaml -Destination .\dist\March7thAssistant_${{ github.ref_name }}\config.yaml -Force
+          xcopy .\3rdparty\ .\dist\March7thAssistantPrivate_${{ github.ref_name }}\3rdparty\ /E /I /Y
+          powershell Copy-Item -Path .\assets\config\config.example.yaml -Destination .\dist\March7thAssistantPrivate_${{ github.ref_name }}\config.yaml -Force
 
       - name: Create full zip archive
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          powershell Compress-Archive -Path .\dist\March7thAssistant_${{ github.ref_name }}\ -DestinationPath .\dist\March7thAssistant_${{ github.ref_name }}_full.zip -Force
+          powershell Compress-Archive -Path .\dist\March7thAssistantPrivate_${{ github.ref_name }}\ -DestinationPath .\dist\March7thAssistantPrivate_${{ github.ref_name }}_full.zip -Force
 
       - name: Create release
         if: startsWith(github.ref, 'refs/tags/')
@@ -64,6 +64,6 @@ jobs:
         with:
           name: March7thAssistant ${{ github.ref_name }}
           files: |
-           ./dist/March7thAssistant_${{ github.ref_name }}_full.zip
-           ./dist/March7thAssistant_${{ github.ref_name }}.zip
+           ./dist/March7thAssistantPrivate_${{ github.ref_name }}_full.zip
+           ./dist/March7thAssistantPrivate_${{ github.ref_name }}.zip
           prerelease: true

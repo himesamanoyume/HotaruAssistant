@@ -292,7 +292,7 @@ class Power:
                             propCount += 1
                         else:
                             continue
-                        logger.info(f"{tempListValue}")
+                        # logger.info(f"{tempListValue}")
                         relicList.append(tempListValue)
                     
                     # logger.info(f"{propCount}")
@@ -301,7 +301,7 @@ class Power:
                     for key in relicList:
                         allPropText += f'{key},'
                     logger.info(allPropText)
-                    
+
                     Power.is_good_relic(relic_name, relic_part, relicList, propCount, usefulPropCount, tempMainPropName)
                     
                     time.sleep(0.5)

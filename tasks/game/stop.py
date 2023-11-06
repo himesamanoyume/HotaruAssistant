@@ -93,8 +93,8 @@ class Stop:
         logger.hr(_("完成"), 2)
         # 等待状态退出OCR避免内存占用
         ocr.exit_ocr()
-        logger.info(_(f"将在12小时后继续运行"))
-        time.sleep(12 * 3600)
+        logger.info(_(f"将在20秒后继续运行"))
+        time.sleep(20)
         # current_power = Power.power()
         # if current_power >= config.power_limit:
         #     logger.info(_("🟣开拓力 >= {limit}").format(limit=config.power_limit))
