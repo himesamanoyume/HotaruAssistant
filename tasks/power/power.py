@@ -201,7 +201,46 @@ class Power:
             return True
         else:
             return False
+    def create_relic_content(relicName, relicPart, relicList):
+        Utils._content['relic_content'] += f"<div class=relic><p><strong>{relicName}</strong><span style=font-size:10px>{relicPart}</span></p>"
+        isMain = True
+        for prop in relicList:
+            if isMain:
+                Utils._content['relic_content'] += f"<div class=relicPropContainer><p><span class=important style=color:#d97d22;background-color:#40405f;font-size:14px><strong>{prop}</strong></span></p>"
+                isMain = False
+            else:
+                Utils._content['relic_content'] += f"<p>{prop}</p>"
+        Utils._content['relic_content'] += "</div></div>"
+        if auto.click_element("./assets/images/fight/relic_lock.png", "image", 0.9, max_retries=3):
+            time.sleep(1)
+        return
     
+    @staticmethod
+    def is_good_relic(relicName, relicPart, relicList, propCount, usefulPropCount, mainPropName):
+        logger.info("开始检测遗器")
+        if relicPart in ['头部' or '手部']:
+            if propCount >= 3 and usefulPropCount >= 1:
+                logger.info(f"发现头部/手部胚子")
+                Power.create_relic_content(relicName, relicPart, relicList)
+        elif relicPart in '躯干':
+            if ((propCount >= 3 and usefulPropCount >= 1) and (mainPropName in ['暴击率','暴击伤害'])) or (propCount == 4 and usefulPropCount == 2):
+                logger.info(f"发现躯干胚子")
+                Power.create_relic_content(relicName, relicPart, relicList)
+        elif relicPart in '脚部':
+            if ((propCount >= 3 and usefulPropCount >= 1) and (mainPropName in ['速度','攻击力'])) or (propCount == 4 and usefulPropCount == 2):
+                logger.info(f"发现脚部胚子")
+                Power.create_relic_content(relicName, relicPart, relicList)
+        elif relicPart in '位面球':
+            if ((propCount >= 3 and usefulPropCount >= 1) and (mainPropName in ['量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','攻击力'])) or (propCount == 4 and usefulPropCount == 2):
+                logger.info(f"发现位面球胚子")
+                Power.create_relic_content(relicName, relicPart, relicList)
+        elif relicPart in '连结绳':
+            if (propCount >= 3 and usefulPropCount >= 1) and (mainPropName not in ['防御力']):
+                logger.info(f"发现连结绳胚子")
+                Power.create_relic_content(relicName, relicPart, relicList)
+        else:
+            return
+
     @staticmethod
     def instance_get_relic():
         relic_name_crop=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
@@ -210,35 +249,36 @@ class Power:
         point = auto.find_element("./assets/images/fight/fight_reward.png", "image", 0.9, max_retries=2)
         success_reward_top_left_x = point[0][0]
         success_reward_top_left_y = point[0][1]
-
         for i in range(2):
             for j in range(7):
-                
                 if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((success_reward_top_left_x - 380 + j*120.0 )/ 1920, (success_reward_top_left_y + 40 + i*120) / 1080, 120.0 / 1920, 120.0 / 1080)):
                     time.sleep(0.5)
                     relic_name = auto.get_single_line_text(relic_name_crop, blacklist=[], max_retries=5)
                     logger.info(relic_name)
-                    
+                    relic_part = auto.get_single_line_text(crop=(515.0 / 1920, 726.0 / 1080, 91.0 / 1920, 35.0 / 1080),blacklist=['+','0'],max_retries=3)
+                    logger.info(relic_part)
+
                     auto.take_screenshot(crop=relic_prop_crop)
                     time.sleep(0.5)
-                    relic_part = auto.get_single_line_text(crop=(515.0 / 1920, 726.0 / 1080, 91.0 / 1920, 35.0 / 1080),blacklist=['+','0'],max_retries=3)
-                    result = ocr.recognize_multi_lines(auto.screenshot)
-
+                    
                     isProp = False
-                    tempPropName = ''
                     tempMainPropName = ''
-                    tempPropValue = ''
                     propCount = -1
                     usefulPropCount = 0
-                    relicDict = dict()
+                    relicList = list()
                     isMainProp = True
+
+                    result = ocr.recognize_multi_lines(auto.screenshot)
+                    time.sleep(0.5)
+
+                    tempListValue = ''
 
                     for box in result:
                         text = box[1][0]
                         if text in ['暴击率','暴击伤害','生命值','攻击力','防御力','能量恢复效率','效果命中','效果抵抗','速度','击破特攻','治疗量加成','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成']:
                             if isMainProp:
                                 tempMainPropName = text
-                            tempPropName = text
+                            tempListValue = f'{text}:'
                             isProp = True
                             if text in ['暴击率','暴击伤害']:
                                 usefulPropCount += 1
@@ -246,30 +286,23 @@ class Power:
                         elif isProp:
                             if isMainProp:
                                 isMainProp = False
-
-                            tempPropValue = text
+                            # tempPropValue = text
+                            tempListValue += f'{text}'
                             isProp = False
                             propCount += 1
                         else:
                             continue
-
-                        # logger.info(f"{tempPropName}:{tempPropValue}")
-                        relicDict.update({tempPropName:tempPropValue})
-                    if (propCount == 3 and usefulPropCount == 2) or (propCount == 3 and usefulPropCount == 1 and tempMainPropName not in ['防御力']) or (propCount == 4 and usefulPropCount == 2) or (tempMainPropName in ['暴击率','暴击伤害','速度','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','能量恢复效率'] and propCount == 3 and usefulPropCount>=1):
-                        logger.info(f"发现胚子")
-                        Utils._content['relic_content'] += f"<div class=relic><p><strong>{relic_name}</strong><span style=font-size:10px>{relic_part}</span></p>"
-                        isMain = True
-                        for propName, propValue in relicDict.items():
-                            if isMain:
-                                Utils._content['relic_content'] += f"<div class=relicPropContainer><p><span class=important style=color:#d97d22;background-color:#40405f;font-size:14px><strong>{propName}:{propValue}</strong></span></p>"
-                                isMain = False
-                            else:
-                                Utils._content['relic_content'] += f"<p>{propName}:{propValue}</p>"
-
-                        Utils._content['relic_content'] += "</div></div>"
-                        if auto.click_element("./assets/images/fight/relic_lock.png", "image", 0.9, max_retries=3):
-                            time.sleep(1)
-
+                        logger.info(f"{tempListValue}")
+                        relicList.append(tempListValue)
+                    
+                    # logger.info(f"{propCount}")
+                    # logger.info(f"{usefulPropCount}")
+                    allPropText = '词条:'
+                    for key in relicList:
+                        allPropText += f'{key},'
+                    logger.info(allPropText)
+                    
+                    Power.is_good_relic(relic_name, relic_part, relicList, propCount, usefulPropCount, tempMainPropName)
                     
                     time.sleep(0.5)
                     if auto.click_element("./assets/images/fight/relic_info_close.png", "image", 0.9, max_retries=3):

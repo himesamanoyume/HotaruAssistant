@@ -27,11 +27,6 @@ import sys
 loginDict = dict()
 loginList = list()
 
-def temp_fun():
-    # logger.info(countdownText)
-    input(_("按回车键开始. . ."))
-    # return
-
 def main(action=None):
     # 免责申明
     # if not config.agreed_to_disclaimer:
@@ -47,7 +42,7 @@ def main(action=None):
         else:
             logger.info(_("开始多账号运行"))
             
-            # temp_fun()
+            # input(_("按回车键关闭窗口. . ."))
             # logger.info(_(relic_part))
             # input(_("按回车键关闭窗口. . ."))
             # return
@@ -98,7 +93,7 @@ def main(action=None):
                 options_reg.update({("<每日已完成>" + uidStr + temp_text + last_run_uidText
                                     if config.daily_tasks_fin[uidStr] 
                                     else 
-                                    uidStr + temp_text + last_run_uidText)+ (f"【剩余{config.account_active[uidStr]['ActiveDay'] - config.account_active[uidStr]['CostDay']}天】"): index})
+                                    uidStr + temp_text + last_run_uidText)+ (f"【剩余{round((config.account_active[uidStr]['ActiveDay'] - config.account_active[uidStr]['CostDay']), 3)}天】"): index})
             
             config.save_config()
 
