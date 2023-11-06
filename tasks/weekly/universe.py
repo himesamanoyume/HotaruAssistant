@@ -152,11 +152,11 @@ class Universe:
         time.sleep(0.5)
         if auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
             time.sleep(0.5)
+            Utils.get_universe_score()
             if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
                 time.sleep(0.5)
                 if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
                     time.sleep(0.5)
-                    Utils.get_universe_score()
                     logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
                     # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)

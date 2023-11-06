@@ -21,6 +21,8 @@ class Utils:
     def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
             configName[uid] = defaultValue
+        elif configName[uid] == None:
+            configName[uid] = defaultValue
 
     def saveTimestamp(timestamp, uid):
         if config.save_timestamp(timestamp, uid):
@@ -60,6 +62,8 @@ class Utils:
             return int(current_score), int(max_score)
         except Exception as e:
             logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
+            config.universe_score[Utils.get_uid()] = '0/1'
+            config.save_config()
             logger.warning(_("因读取模拟宇宙积分失败,程序中止"))
 
     def init_instanceButNoSave(uid):

@@ -57,7 +57,7 @@ class Game:
             logger.hr(_("多账号结束运行一个账号"), 0)
             if index == len(config.multi_login_accounts) - 1:
                 logger.hr(_("停止运行"), 0)
-                Stop.play_audio()
+                # Stop.play_audio()
                 if detect_loop and config.after_finish == "Loop":
                     Stop.after_finish_is_loop()
                 else:

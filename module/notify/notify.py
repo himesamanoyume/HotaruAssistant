@@ -144,7 +144,7 @@ class Notify:
         for i in range(6):
             multi_content += f"<p><ruby>{Utils._content[f'daily_0{i}']}<rt class='ttt' data-rt='{Utils._content[f'daily_0{i}_score']}'></rt></ruby>:"+(f"未完成</p>" if Utils._content[f'daily_0{i}_value'] else "<span class=important style=background-color:#40405f;color:#66ccff>已完成</span></p>")
 
-        account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040><p>")+f"激活天数剩余:{config.account_active[uid]['ActiveDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
+        account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040><p>")+f"激活天数剩余:{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
 
         multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
 
@@ -220,7 +220,7 @@ class Notify:
                                     <hr style=background:#d9d9d9>
                                     <p><strong>遗器胚子</strong></p>
                                     <div class=post-txt-container-datetime style=color:#d9d9d9>
-                                        识别为胚子的遗器都会上锁
+                                        识别为胚子的遗器都会上锁,模拟宇宙获取的遗器不支持识别
                                     </div>
                                     <div class=relicContainer>
                                         {relic_content}
@@ -325,90 +325,95 @@ class Notify:
     def _send_announcement_by_smtp(self, title, content):
         sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
         sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
-        emailObject = MIMEMultipart()
-        themeObject = Header(title, 'utf-8').encode()
-
-        emailObject['subject'] = themeObject
-        emailObject['From'] = config.notify_smtp_From
         
         multi_content = content
 
-        randomNumber = random.randint(0,4)
-        
-        htmlStr=f"""
-        <div class=body style=background-color:#3a3a3a>
-        <style>{htmlStyle}</style>
-            <header class=header style=position:sticky>
-                <nav class=nav style='margin:0 15px;justify-content:center;background-color:#2b2b2b'>
-                    <span class=blogName style=color:#d9d9d9 id=nav-index>
-                        HIMEPRODUCER
-                    </span>
-                </nav>
-            </header>
-            <main class=main>
-                <div class=home-container>
-                    <div class=post-container style=margin:0;box-sizing:border-box;max-width:100%;width:100%;height:100%;border:0>
-                        <div class=post style=background-color:#2b2b2b>
-                            <div class=post-Img-container>
-                                <img id=_index loading=lazy src=https://blog.princessdreamland.top/_index{randomNumber}.webp data-zoomable/>
-                            </div>
-                            <div class=post-txt-container>
-                                <div class=post-txt-container-title style=color:#d9d9d9>
-                                    <h4 style=color:#66ccff>
-                                        Producer代练/公告
-                                    </h4>
+        for index, value in config.notify_smtp_To.items():
+            emailObject = MIMEMultipart()
+            themeObject = Header(title, 'utf-8').encode()
+
+            emailObject['subject'] = themeObject
+            emailObject['From'] = config.notify_smtp_From
+            randomNumber = random.randint(0,4)
+
+            account_active_content = ("<blockquote><p>" if not config.account_active[index]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040><p>")+f"激活天数剩余:{config.account_active[index]['ActiveDay'] - config.account_active[index]['CostDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[index]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
+
+            htmlStr=f"""
+            <div class=body style=background-color:#3a3a3a>
+            <style>{htmlStyle}</style>
+                <header class=header style=position:sticky>
+                    <nav class=nav style='margin:0 15px;justify-content:center;background-color:#2b2b2b'>
+                        <span class=blogName style=color:#d9d9d9 id=nav-index>
+                            HIMEPRODUCER
+                        </span>
+                    </nav>
+                </header>
+                <main class=main>
+                    <div class=home-container>
+                        <div class=post-container style=margin:0;box-sizing:border-box;max-width:100%;width:100%;height:100%;border:0>
+                            <div class=post style=background-color:#2b2b2b>
+                                <div class=post-Img-container>
+                                    <img id=_index loading=lazy src=https://blog.princessdreamland.top/_index{randomNumber}.webp data-zoomable/>
                                 </div>
-                                <section class=post-detail-txt style=color:#d9d9d9>
-                                    {multi_content}
-                                </section>
-                                <p>
+                                <div class=post-txt-container>
+                                    <div class=post-txt-container-title style=color:#d9d9d9>
+                                        <h4 style=color:#66ccff>
+                                            Producer代练/公告
+                                        </h4>
+                                    </div>
+                                    <section class=post-detail-txt style=color:#d9d9d9>
+                                        {account_active_content}
+                                        {multi_content}
+                                    </section>
+                                    <p>
+                                        <div class=post-txt-container-datetime style=color:#d9d9d9>
+                                            请尽量不要绑定qq邮箱以外的邮箱,会使邮件的页面非常错乱!
+                                        </div>
+                                    </p>
                                     <div class=post-txt-container-datetime style=color:#d9d9d9>
-                                        请尽量不要绑定qq邮箱以外的邮箱,会使邮件的页面非常错乱!
-                                    </div>
-                                </p>
+                                    {str(datetime.now()).split('.')[0]}
+                                    <span class=important style=background-color:#40405f;color:#66ccff>
+                                        [{index}]
+                                    </span>
+                                </div>
+                                </div>
                             </div>
                         </div>
+                        <aside class=info-container>
+                            <div class=info-container-inner id=info-container-inner>
+                                <div class=info style=background-color:#2b2b2b>
+                                    <div class=fiximg style=width:100%;border-bottom-left-radius:0;border-bottom-right-radius:0;display:block>
+                                        <div class=fiximg__container style=display:block;margin:0>
+                                            <img class=info-icon loading=lazy src=https://blog.princessdreamland.top/usericon.webp style=margin-top:20px;max-height:185px;border-radius:3px;max-width:185px;width:100%;border:0;background-color:#66ccff>
+                                        </div>
+                                    </div>
+                                    <div class=info-name style=color:#d9d9d9>
+                                        <ruby>姫様の夢<rt class='ttt' data-rt='Ginka可爱捏'></rt></ruby>
+                                    </div>
+                                    <div class=info-txt style=color:#d9d9d9>
+                                        Princess Dreamland
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
                     </div>
-                    <aside class=info-container>
-                        <div class=info-container-inner id=info-container-inner>
-                            <div class=info style=background-color:#2b2b2b>
-                                <div class=fiximg style=width:100%;border-bottom-left-radius:0;border-bottom-right-radius:0;display:block>
-                                    <div class=fiximg__container style=display:block;margin:0>
-                                        <img class=info-icon loading=lazy src=https://blog.princessdreamland.top/usericon.webp style=margin-top:20px;max-height:185px;border-radius:3px;max-width:185px;width:100%;border:0;background-color:#66ccff>
-                                    </div>
-                                </div>
-                                <div class=info-name style=color:#d9d9d9>
-                                    <ruby>姫様の夢<rt class='ttt' data-rt='Ginka可爱捏'></rt></ruby>
-                                </div>
-                                <div class=info-txt style=color:#d9d9d9>
-                                    Princess Dreamland
-                                </div>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-            </main>
-            <footer class=footer style=color:#d9d9d9>
-                <div class=footer-content>
-                    Copyright © 2021-2023 @姫様の夢/公主殿下的梦境
-                </div>
-                <div class=footer-content>
-                    <a>HIMEPRODUCER</a> Ver{version}
-                </div>
-            </footer>
-        </div>
-        """
-
-        html=f"{htmlStr}"
-        emailObject.attach(MIMEText(html,'html','utf-8'))
-
-        # for index, value in config.notify_smtp_To.items():
-        #     emailObject['To'] = value
-        #     sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_To[index], str(emailObject))
+                </main>
+                <footer class=footer style=color:#d9d9d9>
+                    <div class=footer-content>
+                        Copyright © 2021-2023 @姫様の夢/公主殿下的梦境
+                    </div>
+                    <div class=footer-content>
+                        <a>HIMEPRODUCER</a> Ver{version}
+                    </div>
+                </footer>
+            </div>
+            """
+            html = f"{htmlStr}"
+            emailObject.attach(MIMEText(html,'html','utf-8'))
+            emailObject['To'] = value
+            sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_To[index], str(emailObject))
         
-        sendHostEmail.sendmail(config.notify_smtp_From, '285835609@qq.com', str(emailObject))
-        # sendHostEmail.sendmail(config.notify_smtp_From, 'himeproducer@qq.com', str(emailObject))
-        
+        sendHostEmail.sendmail(config.notify_smtp_From, 'himeproducer@qq.com', str(emailObject))
         sendHostEmail.quit()
         logger.info(_("{notifier_name} 公告发送完成").format(notifier_name="smtp"))
 

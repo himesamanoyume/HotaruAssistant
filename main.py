@@ -28,116 +28,16 @@ loginDict = dict()
 loginList = list()
 
 def temp_fun():
-
-    # countdownTextCrop=(1478.0 / 1920, 318.0 / 1080, 166.0 / 1920, 42.0 / 1080)
-    # countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=7)
-    # countdownText = countdownText.replace('）','')
     # logger.info(countdownText)
     input(_("按回车键开始. . ."))
     # return
 
-    crop1=(534.0 / 1920, 373.0 / 1080, 845.0 / 1920, 267.0 / 1080) # 成功奖励下的遗器布局
-    # crop2=(526.0 / 1920, 628.0 / 1080, 133.0 / 1920, 33.0 / 1080) # 遗器星级数
-    crop3=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
-    crop4=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性2
-
-    crop9=(239.0 / 1920, 445.0 / 1080, 133.0 / 1920, 151.0 / 1080) # 宇宙第一行第一格 x=180
-    crop10=(424.0 / 1920, 445.0 / 1080, 133.0 / 1920, 151.0 / 1080) # 宇宙第一行第2格
-    crop11=(604.0 / 1920, 445.0 / 1080, 133.0 / 1920, 151.0 / 1080)  # 宇宙第一行第3格
-
-
-    # crop5=(545.0 / 1920, 381.0 / 1080, 114.0 / 1920, 119.0 / 1080) # 一行第一格
-    # crop5_1=(664.0 / 1920, 505.0 / 1080, 0.0 / 1920, 0.0 / 1080) # 一行第一格大
-    # crop6=(665.0 / 1920, 381.0 / 1080, 114.0 / 1920, 119.0 / 1080) # 一行第二格
-    # crop7=(1265.0 / 1920, 381.0 / 1080, 114.0 / 1920, 119.0 / 1080) # 一行第七格,最后一格 x=120距离
-    # crop8=(545.0 / 1920, 504.0 / 1080, 114.0 / 1920, 119.0 / 1080) # 二行第一格
-
-    relic_name_crop=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
-    relic_prop_crop=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性
-    crop=(538.0 / 1920, 427.0 / 1080, 124.0 / 1920, 122.0 / 1080)
-    logger.info("开始检测遗器")
-
-    # top left,   bottom right
-    # ((915, 388), (1002, 414))
-    point = auto.find_element("./assets/images/fight/fight_reward.png", "image", 0.9, max_retries=2)
-    success_reward_top_left_x = point[0][0]
-    success_reward_top_left_y = point[0][1]
-    # auto.click_element_with_pos(((915-380, 388+40), (915-380+144, 388+40+119)))
-    # auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((success_reward_top_left_x - 380)/ 1920, (success_reward_top_left_y + 40) / 1080, 120.0 / 1920, 120.0 / 1080))
-
-    # return
-
-    for i in range(2):
-        for j in range(7):
-            
-            if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((success_reward_top_left_x - 380 + j*120.0 )/ 1920, (success_reward_top_left_y + 40 + i*120) / 1080, 120.0 / 1920, 120.0 / 1080)):
-                time.sleep(0.5)
-
-                relic_name = auto.get_single_line_text(relic_name_crop, blacklist=[], max_retries=5)
-                logger.info(relic_name)
-                
-                auto.take_screenshot(crop=relic_prop_crop)
-                time.sleep(0.5)
-                result = ocr.recognize_multi_lines(auto.screenshot)
-
-                isProp = False
-                tempPropName = ''
-                tempMainPropName = ''
-                tempPropValue = ''
-                propCount = -1
-                usefulPropCount = 0
-                relicDict = dict()
-                isMainProp = True
-
-                for box in result:
-                    text = box[1][0]
-                    if text in ['暴击率','暴击伤害','生命值','攻击力','防御力','能量恢复效率','效果命中','效果抵抗','速度','击破特攻','治疗量加成','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成']:
-                        if isMainProp:
-                            tempMainPropName = text
-                        tempPropName = text
-                        isProp = True
-                        if text in ['暴击率','暴击伤害']:
-                            usefulPropCount += 1
-                        continue
-                    elif isProp:
-                        if isMainProp:
-                            isMainProp = False
-
-                        tempPropValue = text
-                        isProp = False
-                        propCount += 1
-                    else:
-                        continue
-
-                    logger.info(f"{tempPropName}:{tempPropValue}")
-                    relicDict.update({tempPropName:tempPropValue})
-                if (propCount == 3 and usefulPropCount >= 1) or (propCount == 4 and usefulPropCount == 2) or (tempMainPropName in ['暴击率','暴击伤害','速度','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','能量恢复效率'] and propCount == 3 and usefulPropCount>=1):
-                    logger.info(f"发现胚子")
-                    Utils._content['relic_content'] += f"<div class=relic><p><strong>{relic_name}</strong></p>"
-                    isMain = True
-                    for propName, propValue in relicDict.items():
-                        if isMain:
-                            Utils._content['relic_content'] += f"<div class=relicPropContainer><p><span class=important>{propName}:{propValue}</span></p>"
-                            isMain = False
-                        else:
-                            Utils._content['relic_content'] += f"<p>{propName}:{propValue}</p>"
-
-                    Utils._content['relic_content'] += "</div></div>"
-                    if auto.click_element("./assets/images/fight/relic_lock.png", "image", 0.9, max_retries=3):
-                        time.sleep(1)
-
-                
-                time.sleep(0.5)
-                if auto.click_element("./assets/images/fight/relic_info_close.png", "image", 0.9, max_retries=3):
-                    time.sleep(0.5)
-
-
 def main(action=None):
     # 免责申明
-    if not config.agreed_to_disclaimer:
-        logger.error(_("您尚未同意《免责声明》"))
-        input(_("按回车键关闭窗口. . ."))
-        sys.exit(0)
+    # if not config.agreed_to_disclaimer:
+    #     logger.error(_("您尚未同意《免责声明》"))
+    #     input(_("按回车键关闭窗口. . ."))
+    #     sys.exit(0)
     if config.multi_login:
         # 多账号
         if len(config.multi_login_accounts) == 0:
@@ -148,15 +48,18 @@ def main(action=None):
             logger.info(_("开始多账号运行"))
             
             # temp_fun()
+            # logger.info(_(relic_part))
             # input(_("按回车键关闭窗口. . ."))
             # return
+
+            options_reg = dict()
+            run_new_accounts()
+            modify_all_account_active_day()
+
             # notify.announcement(_("普罗丢瑟代练 - 公告"), _("<p>我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数</p>"))
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(0)
 
-            options_reg = dict()
-            run_new_accounts()
-            add_all_account_active_day()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
                 account_active_fun(uidStr)
@@ -171,16 +74,19 @@ def main(action=None):
                     continue
                 Utils.init_instanceButNoSave(uidStr)
 
+                Utils.detectIsNoneButNoSave(config.daily_tasks_score, uidStr, '0/1')
+                Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
-                    Utils.detectIsNoneButNoSave(config.daily_tasks_score, uidStr)
-                    Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
+                    
                     config.daily_tasks_score[uidStr] = 0
                     config.daily_tasks_fin[uidStr] = False
                     config.daily_tasks[uidStr] = {}
 
+                Utils.detectIsNoneButNoSave(config.universe_score, uidStr, '0/1')
+                Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
+
                 if Utils.is_next_mon_4_am(config.universe_timestamp, uidStr, False):
-                    Utils.detectIsNoneButNoSave(config.universe_score, uidStr, '0/1')
-                    Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
+                    
                     maxScore = str(config.universe_score[uidStr]).split('/')[1]
                     config.universe_score[uidStr] = f'0/{maxScore}'
                     config.universe_fin[uidStr] = False
@@ -192,7 +98,7 @@ def main(action=None):
                 options_reg.update({("<每日已完成>" + uidStr + temp_text + last_run_uidText
                                     if config.daily_tasks_fin[uidStr] 
                                     else 
-                                    uidStr + temp_text + last_run_uidText)+ (f"【剩余{config.account_active[uidStr]['ActiveDay']}天】"): index})
+                                    uidStr + temp_text + last_run_uidText)+ (f"【剩余{config.account_active[uidStr]['ActiveDay'] - config.account_active[uidStr]['CostDay']}天】"): index})
             
             config.save_config()
 
@@ -216,7 +122,7 @@ def main(action=None):
 
                 uidStr2 = str(value).split('-')[1][:9]
                 run_new_accounts()
-                add_all_account_active_day()
+                modify_all_account_active_day()
                 account_active_fun(uidStr2)
 
                 if firstTimeLogin:
@@ -231,7 +137,7 @@ def main(action=None):
                 logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
                 if os.system(f"cmd /C REG IMPORT {value}"):
                     return False
-                logger.info(action)
+                # logger.info(action)
                 run(index, action)
         input(_("按回车键关闭窗口. . ."))
         sys.exit(0)
@@ -258,18 +164,18 @@ def run_new_accounts():
             config.account_active[uid]['ActiveDate'] = 0
             config.account_active[uid]['ActiveDay'] = item['active_day']
             config.account_active[uid]['ExpirationDate'] = 0
+            config.account_active[uid]['CostDay'] = 0
             config.save_config()
             config.del_value('want_register_accounts', uid)
         logger.info("新注册表加入完成")
     else:
         logger.info("未检测到有新注册表加入")
 
-        
 def run(index=-1, action=None):
     # 完整运行
     if action is None or action == "main":
         # logger.info("run")
-        Version.start()
+        # Version.start()
         Game.start()
         Daily.start()
         Game.stop(index ,True)
@@ -312,12 +218,11 @@ def run(index=-1, action=None):
         input(_("按回车键关闭窗口. . ."))
         sys.exit(1)
 
-
 def exit_handler():
     # 退出 OCR
     ocr.exit_ocr()
 
-def add_all_account_active_day():
+def modify_all_account_active_day():
     if config.all_account_active_day > 0:
         for index in range(len(config.multi_login_accounts)):
             uidStr3 = str(config.multi_login_accounts[index]).split('-')[1][:9]
@@ -326,30 +231,35 @@ def add_all_account_active_day():
                 config.account_active[uidStr3]['ActiveDay'] += config.all_account_active_day
         config.save_config()
         logger.info(f"为所有未过期账号延长{config.all_account_active_day}天时间")
+        notify.announcement(_("普罗丢瑟代练 - 通知"), _(f"<p>为所有未过期账号延长{config.all_account_active_day}天时间</p>"))
         config.set_value('all_account_active_day', 0)
+    elif config.all_account_active_day == 0:
+        return
     else:
+        logger.error(f"延长账号时间不合法,已取消")
         config.set_value('all_account_active_day', 0)
-    config.save_config()
 
 def account_active_fun(uid):
-    # from datetime import datetime
     if config.account_active[uid]['isWantActive']:
         logger.info(f"{uid}:正在激活,新的激活天数为{config.account_active[uid]['ActiveDay']}天")
         if config.account_active[uid]['isExpired']:
             logger.info(f"{uid}:已过期用户正在重新激活")
             config.account_active[uid]['ActiveDate'] = time.time()
+            config.account_active[uid]['CostDay'] = 0
             config.account_active[uid]['isExpired'] = False
 
-        config.account_active[uid]['ExpirationDate'] = config.account_active[uid]['ActiveDate'] + config.account_active[uid]['ActiveDay'] * 86400
-        config.account_active[uid]['isWantActive'] = False  
+        config.account_active[uid]['ExpirationDate'] = (config.account_active[uid]['ActiveDate'] + (config.account_active[uid]['ActiveDay'] * 86400))
+        config.account_active[uid]['isWantActive'] = False 
 
     if config.account_active[uid]['ActiveDay'] >= 0:
-        temp = int((config.account_active[uid]['ExpirationDate'] - time.time()) // 86400)
-        if temp < 0:
-            config.account_active[uid]['ActiveDay'] = 0
+        costDay = (time.time() - config.account_active[uid]['ActiveDate']) / 86400
+        if costDay > 0:
+            config.account_active[uid]['CostDay'] = round(costDay, 3)
         else:
-            config.account_active[uid]['ActiveDay'] = temp
+            config.account_active[uid]['CostDay'] = 0
+
     elif config.account_active[uid]['ActiveDay'] < 0:
+        logger.error(f"{uid}激活时间不合法,已设为0")
         config.account_active[uid]['ActiveDay'] = 0
 
     if config.account_active[uid]['ExpirationDate'] >= time.time() >= config.account_active[uid]['ExpirationDate'] - 3*86400:
@@ -358,15 +268,15 @@ def account_active_fun(uid):
     if config.account_active[uid]['ActiveDay'] >= 0 and config.account_active[uid]['ExpirationDate'] == 0 and config.account_active[uid]['ActiveDate']:
         logger.error(f"{uid}的激活信息异常")
 
-    if time.time() >= config.account_active[uid]['ExpirationDate'] and config.account_active[uid]['ActiveDay'] == 0:
+    if time.time() >= config.account_active[uid]['ExpirationDate'] and (config.account_active[uid]['CostDay'] >= config.account_active[uid]['ActiveDay']):
         logger.info(f"{uid}已过期,正在执行信息清除")
         config.account_active[uid]['isExpired'] = True
         config.account_active[uid]['ActiveDate'] = 0
         config.account_active[uid]['ActiveDay'] = 0
         config.account_active[uid]['ExpirationDate'] = 0
+        config.account_active[uid]['CostDay'] = 0
             
     config.save_config()
-
 
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():

@@ -221,6 +221,7 @@ class Power:
                     
                     auto.take_screenshot(crop=relic_prop_crop)
                     time.sleep(0.5)
+                    relic_part = auto.get_single_line_text(crop=(515.0 / 1920, 726.0 / 1080, 91.0 / 1920, 35.0 / 1080),blacklist=['+','0'],max_retries=3)
                     result = ocr.recognize_multi_lines(auto.screenshot)
 
                     isProp = False
@@ -254,9 +255,9 @@ class Power:
 
                         # logger.info(f"{tempPropName}:{tempPropValue}")
                         relicDict.update({tempPropName:tempPropValue})
-                    if (propCount == 3 and usefulPropCount == 2) or (propCount == 3 and usefulPropCount == 1 and tempMainPropName not in ['防御力','生命值']) or (propCount == 4 and usefulPropCount == 2) or (tempMainPropName in ['暴击率','暴击伤害','速度','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','能量恢复效率'] and propCount == 3 and usefulPropCount>=1):
+                    if (propCount == 3 and usefulPropCount == 2) or (propCount == 3 and usefulPropCount == 1 and tempMainPropName not in ['防御力']) or (propCount == 4 and usefulPropCount == 2) or (tempMainPropName in ['暴击率','暴击伤害','速度','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','能量恢复效率'] and propCount == 3 and usefulPropCount>=1):
                         logger.info(f"发现胚子")
-                        Utils._content['relic_content'] += f"<div class=relic><p><strong>{relic_name}</strong></p>"
+                        Utils._content['relic_content'] += f"<div class=relic><p><strong>{relic_name}</strong><span style=font-size:10px>{relic_part}</span></p>"
                         isMain = True
                         for propName, propValue in relicDict.items():
                             if isMain:
