@@ -16,13 +16,11 @@ from datetime import datetime
 import questionary
 from managers.automation_manager import auto
 import time
-from tasks.version.version import Version
 from tasks.weekly.universe import Universe
 from tasks.weekly.forgottenhall import ForgottenHall
 import atexit
 import pyuac
 import shutil
-import sys
 
 loginDict = dict()
 loginList = list()
@@ -187,7 +185,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
         Game.stop(index ,True, currentUID, _lastUID)
     # 子任务
     elif action in ["fight", "universe", "forgottenhall"]:
-        Version.start()
+        # Version.start()
         Game.start()
         if action == "fight":
             Fight.start()
@@ -291,7 +289,7 @@ if __name__ == "__main__":
             sys.exit(0)
         except Exception:
             logger.error(_("管理员权限获取失败"))
-            input(_("按回车键关闭窗口. . ."))
+            input(("按回车键关闭窗口. . ."))
             sys.exit(1)
     else:
         try:
@@ -299,7 +297,7 @@ if __name__ == "__main__":
             main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
             logger.error(_("发生错误: {e}").format(e=_("手动强制停止")))
-            input(_("按回车键关闭窗口. . ."))
+            input(("按回车键关闭窗口. . ."))
             sys.exit(1)
         except Exception as e:
             logger.error(_("发生错误: {e}").format(e=e))
