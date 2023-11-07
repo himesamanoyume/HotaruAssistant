@@ -113,14 +113,17 @@ class Stop:
 
     @staticmethod
     def after_finish_not_loop():
-        if config.after_finish in ["Exit", "Loop", "Shutdown", "Hibernate", "Sleep"]:
-            Stop.stop_game()
+        if config.after_finish in ["Loop", "Shutdown", "Hibernate", "Sleep"]:
             if config.after_finish == "Shutdown":
                 Stop.shutdown()
             elif config.after_finish == "Hibernate":
                 Stop.hibernate()
             elif config.after_finish == "Sleep":
                 Stop.sleep()
+        elif config.after_finish in  ["Exit"]:
+            Stop.stop_game()
+            input(_("按回车键关闭窗口. . ."))
+            sys.exit(0)
         logger.hr(_("完成"), 2)
 
         # if config.after_finish not in ["Shutdown", "Hibernate", "Sleep"]:

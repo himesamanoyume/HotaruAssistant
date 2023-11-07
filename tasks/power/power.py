@@ -201,6 +201,7 @@ class Power:
             return True
         else:
             return False
+        
     def create_relic_content(relicName, relicPart, relicList):
         Utils._content['relic_content'] += f"<div class=relic><p><strong>{relicName}</strong><span style=font-size:10px>{relicPart}</span></p>"
         isMain = True
@@ -218,28 +219,40 @@ class Power:
     @staticmethod
     def is_good_relic(relicName, relicPart, relicList, propCount, usefulPropCount, mainPropName):
         logger.info("开始检测遗器")
-        if relicPart in ['头部' or '手部']:
-            if propCount >= 3 and usefulPropCount >= 1:
-                logger.info(f"发现头部/手部胚子")
+        if (propCount >= 3 and usefulPropCount == 2):
+            if relicPart in ['头部' or '手部']:
+                logger.warning(f"发现头部/手部胚子")
+            elif relicPart in '躯干':
+                logger.warning(f"发现躯干胚子")
+            elif relicPart in '脚部':
+                logger.warning(f"发现脚部胚子")
+            elif relicPart in '位面球':
+                logger.warning(f"发现位面球胚子")
+            elif relicPart in '连结绳':
+                logger.warning(f"发现连结绳胚子")
+
+            Power.create_relic_content(relicName, relicPart, relicList)
+
+        elif (propCount == 3 and usefulPropCount == 1):
+            if relicPart in ['头部' or '手部']:
+                logger.warning(f"发现头部/手部胚子")
                 Power.create_relic_content(relicName, relicPart, relicList)
-        elif relicPart in '躯干':
-            if ((propCount >= 3 and usefulPropCount >= 1) and (mainPropName in ['暴击率','暴击伤害'])) or (propCount == 4 and usefulPropCount == 2):
-                logger.info(f"发现躯干胚子")
+
+            elif relicPart in '躯干' and mainPropName in ['暴击率','暴击伤害','攻击力']:
+                logger.warning(f"发现躯干胚子")
                 Power.create_relic_content(relicName, relicPart, relicList)
-        elif relicPart in '脚部':
-            if ((propCount >= 3 and usefulPropCount >= 1) and (mainPropName in ['速度','攻击力'])) or (propCount == 4 and usefulPropCount == 2):
-                logger.info(f"发现脚部胚子")
+
+            elif relicPart in '脚部' and mainPropName in ['速度','攻击力']:
+                logger.warning(f"发现脚部胚子")
                 Power.create_relic_content(relicName, relicPart, relicList)
-        elif relicPart in '位面球':
-            if ((propCount >= 3 and usefulPropCount >= 1) and (mainPropName in ['量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','攻击力'])) or (propCount == 4 and usefulPropCount == 2):
-                logger.info(f"发现位面球胚子")
+
+            elif relicPart in '位面球' and mainPropName in ['量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','攻击力']:
+                logger.warning(f"发现位面球胚子")
                 Power.create_relic_content(relicName, relicPart, relicList)
-        elif relicPart in '连结绳':
-            if (propCount >= 3 and usefulPropCount >= 1) and (mainPropName not in ['防御力']):
-                logger.info(f"发现连结绳胚子")
+
+            elif relicPart in '连结绳' and mainPropName not in ['防御力']:
+                logger.warning(f"发现连结绳胚子")
                 Power.create_relic_content(relicName, relicPart, relicList)
-        else:
-            return
 
     @staticmethod
     def instance_get_relic():
@@ -301,6 +314,7 @@ class Power:
                     for key in relicList:
                         allPropText += f'{key},'
                     logger.info(allPropText)
+                    logger.info(f"总词条数:{propCount},有效词条:{usefulPropCount}")
 
                     Power.is_good_relic(relic_name, relic_part, relicList, propCount, usefulPropCount, tempMainPropName)
                     
