@@ -37,12 +37,17 @@ class Stop:
 
     @staticmethod
     def stop_game():
+        import pyautogui
         logger.info(_("开始退出游戏"))
         time.sleep(2)
         if WindowSwitcher.check_and_switch(config.game_title_name):
-            if not auto.retry_with_timeout(lambda: Stop.terminate_process(config.game_process_name), 10, 1):
-                logger.error(_("游戏退出失败"))
-                return False
+            # if not auto.retry_with_timeout(lambda: Stop.terminate_process(config.game_process_name), 10, 1):
+            #     logger.error(_("游戏退出失败"))
+            #     return False
+            time.sleep(1)
+            pyautogui.hotkey('alt', 'f4')
+            # 新增检查是否还在的判断
+            time.sleep(2)
             logger.info(_("游戏退出成功"))
         else:
             logger.warning(_("游戏已经退出了"))
@@ -116,7 +121,7 @@ class Stop:
 
         wait_time = Stop.get_wait_time_with_total_time(total_time)
         future_time = Date.calculate_future_time(wait_time)
-        logger.info(_(f"将在{future_time}秒后继续运行"))
+        logger.info(_(f"将在{future_time}后继续运行"))
 
         time.sleep(wait_time)
         # current_power = Power.power()

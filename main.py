@@ -44,7 +44,7 @@ def main(action=None):
             logger.info(_("开始多账号运行"))
             
             # input(_("按回车键关闭窗口. . ."))
-            # logger.info(_(relic_part))
+            # Stop.stop_game()
             # input(_("按回车键关闭窗口. . ."))
             # return
 

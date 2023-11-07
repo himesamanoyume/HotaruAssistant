@@ -133,7 +133,7 @@ class Universe:
                         else:
                             # 改成第一/二次模拟宇宙已完成
                             logger.info(_("🎉第{index}次模拟宇宙已完成🎉").format(index=i+1))
-                            Utils._temp += "<p>"+f'模拟宇宙已完成{i+1}次</p>'
+                            Utils._temp += f'<p>模拟宇宙已完成{i+1}次</p>'
 
                             # end
                         return True
