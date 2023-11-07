@@ -6,6 +6,7 @@ from datetime import datetime
 from managers.translate_manager import _
 from tasks.base.date import Date
 from tasks.daily.photo import Photo
+from managers.notify_manager import notify
 from tasks.daily.fight import Fight
 from tasks.weekly.universe import Universe
 from tasks.reward.reward import Reward
@@ -158,6 +159,8 @@ class Daily:
         logger.hr(_("完成"), 2)
         Daily.sub()
         totalTime = time.time() - Utils._start_timestamp
+        if totalTime >= 2400:
+            notify.announcement(f"{Utils.get_uid()}运行时长超时警告!","该UID运行总时长超40分钟,不健康,请立即检查优化", isSingle=True)
         _day = int(totalTime // 86400)
         _hour = int((totalTime - _day * 86400) // 3600)
         _minute = int(((totalTime - _day *86400) - _hour * 3600) // 60)

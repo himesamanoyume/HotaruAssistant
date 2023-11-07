@@ -52,7 +52,8 @@ def main(action=None):
             run_new_accounts()
             modify_all_account_active_day()
 
-            # notify.announcement(_("普罗丢瑟代练 - 公告"), _("<p>我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数</p>"))
+            # notify.announcement(_("HimeProducer - 公告"), _("<p>我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数</p>"))
+            # notify.announcement("某UID运行时长超时警告!", "<p>有某UID玩家运行时长超40分钟!这得治!</p>", isSingle=True)
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(0)
 

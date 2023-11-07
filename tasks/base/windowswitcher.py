@@ -37,6 +37,7 @@ class WindowSwitcher:
                         except Exception as e:
                             logger.warning(e)
                     logger.warning(_("切换窗口失败，尝试ALT+TAB"))
+                    # 此处使用了组合键
                     pyautogui.hotkey('alt', 'tab')
                     time.sleep(2)
                     continue

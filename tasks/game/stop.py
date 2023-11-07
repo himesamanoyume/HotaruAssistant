@@ -5,6 +5,7 @@ from managers.config_manager import config
 from managers.notify_manager import notify
 from managers.ocr_manager import ocr
 from tasks.power.power import Power
+from tasks.daily.utils import Utils
 from tasks.base.date import Date
 from tasks.base.windowswitcher import WindowSwitcher
 import psutil
@@ -28,10 +29,16 @@ class Stop:
                 except (psutil.NoSuchProcess, psutil.TimeoutExpired, psutil.AccessDenied):
                     pass
         return False
+    
+    @staticmethod
+    def altF4_process():
+        # 确定为对应游戏窗口后alt+f4
+        return
 
     @staticmethod
     def stop_game():
         logger.info(_("开始退出游戏"))
+        time.sleep(2)
         if WindowSwitcher.check_and_switch(config.game_title_name):
             if not auto.retry_with_timeout(lambda: Stop.terminate_process(config.game_process_name), 10, 1):
                 logger.error(_("游戏退出失败"))
@@ -49,6 +56,18 @@ class Stop:
         wait_time_next_day = Date.get_time_next_4am() + random.randint(30, 600)
         # 取最小值
         wait_time = min(wait_time_power_limit, wait_time_next_day)
+        return wait_time
+    
+    @staticmethod
+    def get_wait_time_with_total_time(total_time):
+        # 距离体力到达配置文件指定的上限剩余秒数
+        wait_time = 12 * 3600 - total_time
+        if wait_time < 0:
+            wait_time = 0
+        # 距离第二天凌晨4点剩余秒数，+30避免显示3点59分不美观，#7
+        wait_time_next_day = Date.get_time_next_4am() + random.randint(30, 600)
+        # 取最小值
+        wait_time = min(wait_time, wait_time_next_day)
         return wait_time
 
     @staticmethod
@@ -90,11 +109,16 @@ class Stop:
     @staticmethod
     def after_finish_is_loop():
         Stop.stop_game()
-        logger.hr(_("完成"), 2)
         # 等待状态退出OCR避免内存占用
         ocr.exit_ocr()
-        logger.info(_(f"将在20秒后继续运行"))
-        time.sleep(20)
+        logger.hr(_("完成"), 2)
+        total_time = time.time() - Utils._start_timestamp
+
+        wait_time = Stop.get_wait_time_with_total_time(total_time)
+        future_time = Date.calculate_future_time(wait_time)
+        logger.info(_(f"将在{future_time}秒后继续运行"))
+
+        time.sleep(wait_time)
         # current_power = Power.power()
         # if current_power >= config.power_limit:
         #     logger.info(_("🟣开拓力 >= {limit}").format(limit=config.power_limit))
