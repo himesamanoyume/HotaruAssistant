@@ -220,7 +220,7 @@ class Power:
     def is_good_relic(relicName, relicPart, relicList, propCount, usefulPropCount, mainPropName):
         logger.info("开始检测遗器")
         if (propCount >= 3 and usefulPropCount == 2):
-            if relicPart in ['头部' or '手部']:
+            if relicPart in ['头部', '手部']:
                 logger.warning(f"发现头部/手部胚子")
             elif relicPart in '躯干':
                 logger.warning(f"发现躯干胚子")
@@ -234,7 +234,7 @@ class Power:
             Power.create_relic_content(relicName, relicPart, relicList)
 
         elif (propCount == 3 and usefulPropCount == 1):
-            if relicPart in ['头部' or '手部']:
+            if relicPart in ['头部', '手部']:
                 logger.warning(f"发现头部/手部胚子")
                 Power.create_relic_content(relicName, relicPart, relicList)
 

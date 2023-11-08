@@ -1,6 +1,7 @@
 from managers.logger_manager import logger
 from managers.config_manager import config
 from managers.screen_manager import screen
+from managers.automation_manager import auto
 import time
 from datetime import datetime
 from managers.translate_manager import _
@@ -28,6 +29,7 @@ class Daily:
 
         if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
             config.save_config()
+            Echoofwar.echoofwar_get_times()
             if config.echo_of_war_enable[Utils.get_uid()]:
                 Echoofwar.start()
             else:

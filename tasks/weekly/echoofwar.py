@@ -12,6 +12,24 @@ import time
 
 class Echoofwar:
     @staticmethod
+    def echoofwar_get_times():
+        screen.change_to('guide3')
+        guide3_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
+        if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=guide3_crop):
+            auto.mouse_scroll(12, -1)
+            if auto.click_element("历战余响", "text", max_retries=10, crop=guide3_crop):
+                auto.find_element("历战余响", "text", max_retries=10, crop=(
+                    682.0 / 1920, 275.0 / 1080, 1002.0 / 1920, 184.0 / 1080), include=True)
+                for box in auto.ocr_result:
+                    text = box[1][0]
+                    if "/3" in text:
+                        logger.info(_("历战余响本周可领取奖励次数：{text}").format(text=text))
+                        reward_count = int(text.split("/")[0])
+
+                        config.echo_of_war_times[Utils.get_uid()] = reward_count
+                        config.save_config()
+
+    @staticmethod
     def start():
         try:
             logger.hr(_("准备历战余响"), 2)

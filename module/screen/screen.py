@@ -103,6 +103,9 @@ class Screen:
             function_name = operation["action"]
             args = operation["args"]
             parsed_args, kwargs = parse_args(args)
+
+            self.get_current_screen()
+
             if hasattr(self, function_name):
                 func = getattr(self, function_name)
                 func(*parsed_args, **kwargs)
@@ -219,13 +222,6 @@ class Screen:
 
                 
                 logger.info(_("切换到：{next_screen}").format(next_screen=self.green + self.get_name(next_screen) + self.reset))
-                if self.get_name(next_screen) == "星际和平指南-每日实训":
-                    logger.warning("进入到星际和平指南-每日实训的判断")
-                    time.sleep(0.5)
-                    if not Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
-                        while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
-                            time.sleep(1)
-
                 time.sleep(1)
             self.current_screen = target_screen  # 更新当前界面
             return

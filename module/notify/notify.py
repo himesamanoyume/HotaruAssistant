@@ -150,7 +150,7 @@ class Notify:
 
         multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin[uid] else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
 
-        multi_content += f"<p><strong>当前历战余响次数</strong></p>{'<blockquote>' if not config.echo_of_war_times[uid] == 0 else f'<blockquote style=background-color:#5f4040>'}<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
+        multi_content += f"<p><strong>当前历战余响次数</strong></p>{'<blockquote>' if config.echo_of_war_times[uid] == 0 else f'<blockquote style=background-color:#5f4040>'}<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
 
         multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示,且时间识别有大概率出错,不过影响不大</div><p>距离刷新:{Utils._content['countdownText']}</p>"
 
@@ -167,7 +167,7 @@ class Notify:
         multi_content += f"<p>拟造花萼（赤）:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['拟造花萼（赤）']}</span></p>"
         multi_content += f"<p>凝滞虚影:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['凝滞虚影']}</span></p>"
         multi_content += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['侵蚀隧洞']}</span></p>"
-        multi_content += f"<p>是否优先清空3次历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{'已开启' if config.echo_of_war_enable[uid] else '已关闭'}</span></p>"
+        multi_content += f"<p>是否清空3次历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.echo_of_war_enable[uid] else '否'}</span></p>"
         multi_content += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['历战余响']}</span></p><hr style=background:#d9d9d9>"
 
         multi_content += f"<div class=post-txt-container-datetime>此项请一定要配置准确,会影响模拟宇宙的通关效率</div><p>模拟宇宙队伍成员选择:<span class=important style=background-color:#40405f;color:#66ccff>未实现此处</span></p>"
@@ -209,7 +209,7 @@ class Notify:
                                     {account_active_content}
                                     {running_time}
                                     <div class=post-txt-container-datetime>
-                                        注意,邮件所有信息都由<span class=important style=background-color:#40405f;color:#66ccff>文字识别</span>得来,因此如果出现某些奇怪文本属于正常情况,如有需要请尽可能自行上号检查
+                                        注意：邮件所有信息都由<span class=important style=background-color:#40405f;color:#66ccff>文字识别</span>得来,因此如果出现某些奇怪文本属于正常情况,每日有些任务脚本很难完成,如<span class=important style=background-color:#40405f;color:#66ccff>遗器等级提升1次,触发3种不同属性的弱点击破</span>,因此如果发现活跃度未满500时,有需要请尽可能自行上号检查
                                     </div>
                                     <p>
                                         <strong>开拓力去向:</strong>
