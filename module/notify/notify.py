@@ -144,7 +144,7 @@ class Notify:
         for i in range(6):
             multi_content += f"<p><ruby>{Utils._content[f'daily_0{i}']}<rt class='ttt' data-rt='{Utils._content[f'daily_0{i}_score']}'></rt></ruby>:"+(f"未完成</p>" if Utils._content[f'daily_0{i}_value'] else "<span class=important style=background-color:#40405f;color:#66ccff>已完成</span></p>")
 
-        account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040><p>")+f"激活天数剩余:{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
+        account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040><p>")+f"激活天数剩余:{round((config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']),3)}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
 
         multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin[uid] else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
 
@@ -220,7 +220,7 @@ class Notify:
                                             </span>
                                         </p>
                                     </p>
-                                    {multi_content}
+                                    <p>{multi_content}</p>
                                     <hr style=background:#d9d9d9>
                                     <p><strong>遗器胚子</strong></p>
                                     <div class=post-txt-container-datetime style=color:#d9d9d9>

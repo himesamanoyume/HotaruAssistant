@@ -24,8 +24,9 @@ class OCR:
                 logger.info(_("请尝试重新下载或解压"))
                 logger.info(_("若 Win7 报错计算机中丢失 VCOMP140.DLL，请安装 VC运行库"))
                 logger.info("https://aka.ms/vs/17/release/vc_redist.x64.exe")
-                input(_("按回车键关闭窗口. . ."))
-                sys.exit(1)
+                raise Exception (f"初始化OCR失败：{e}")
+                # input(_("按回车键关闭窗口. . ."))
+                # sys.exit(1)
 
     def exit_ocr(self):
         if self.ocr is not None:

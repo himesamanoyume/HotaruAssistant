@@ -8,7 +8,6 @@ from managers.config_manager import config
 from managers.ocr_manager import ocr
 from managers.translate_manager import _
 from tasks.game.game import Game
-from tasks.game.stop import Stop
 from tasks.daily.daily import Daily
 from tasks.daily.fight import Fight
 from tasks.daily.utils import Utils
@@ -50,8 +49,8 @@ def main(action=None):
             run_new_accounts()
             modify_all_account_active_day()
 
-            # notify.announcement(_("HimeProducer - 公告"), _("<p>我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数</p>"))
-            # notify.announcement("某UID运行时长超时警告!", "<p>有某UID玩家运行时长超40分钟!这得治!</p>", isSingle=True)
+            # notify.announcement(_("HimeProducer - 公告"), _("我tm电脑炸了,脚本被迫停止,请大家暂时自行解决日常吧,1天内恢复的话会尽快重刷,1天以上恢复则补偿对应天数"))
+            # notify.announcement("某UID运行时长超时警告!", "有某UID玩家运行时长超40分钟!这得治!", isSingle=True)
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(0)
 
@@ -184,9 +183,15 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
     if action is None or action == "main":
         # logger.info("run")
         # Version.start()
-        Game.start()
-        Daily.start()
-        Game.stop(index ,True, currentUID, _lastUID)
+        try:
+            Game.start()
+            Daily.start()
+            Game.stop(index ,True, currentUID, _lastUID)
+        except Exception as e:
+            logger.error(f"{e}")
+            notify.announcement((f'运行流程异常'), (f"{e}"), isSingle=True)
+            Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
+        
     # 子任务
     elif action in ["fight", "universe", "forgottenhall"]:
         # Version.start()

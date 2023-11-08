@@ -61,8 +61,9 @@ class ForgottenHall:
             return False
         result = auto.retry_with_timeout(lambda: check_fight(), 30 * 60, 1)
         if not result:
-            logger.error(_("战斗超时"))
-            raise Exception(_("战斗超时"))
+            nowtime = time.time()
+            logger.error(_(f"{nowtime},战斗超时"))
+            raise Exception(_(f"{nowtime},战斗超时"))
         return result
 
     @staticmethod

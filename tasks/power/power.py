@@ -114,8 +114,9 @@ class Power:
         def check_fight():
             return auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9)
         if not auto.retry_with_timeout(lambda: check_fight(), 30 * 60, 1):
-            logger.error(_("战斗超时"))
-            raise Exception(_("战斗超时"))
+            nowtime = time.time()
+            logger.error(_(f"{nowtime},战斗超时"))
+            raise Exception(_(f"{nowtime},战斗超时"))
         logger.info(_("战斗完成"))
 
     @staticmethod

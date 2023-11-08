@@ -44,13 +44,17 @@ class Screen:
                     actions = config["actions"]
                     add_screen(self, id, name, image_path, actions)
         except FileNotFoundError:
-            logger.error(_("配置文件不存在：{path}").format(path=config_path))
-            input(_("按回车键关闭窗口. . ."))
-            sys.exit(1)
+            nowtime = time.time()
+            logger.error(_(f"{nowtime}配置文件不存在：{config_path}"))
+            raise Exception (f"{nowtime},配置文件不存在：{config_path}")
+            # input(_("按回车键关闭窗口. . ."))
+            # sys.exit(1)
         except Exception as e:
-            logger.error(_("配置文件解析失败：{e}").format(e=e))
-            input(_("按回车键关闭窗口. . ."))
-            sys.exit(1)
+            nowtime = time.time()
+            logger.error(_(f"{nowtime},配置文件解析失败：{e}"))
+            raise Exception (f"{nowtime},配置文件解析失败：{e}")
+            # input(_("按回车键关闭窗口. . ."))
+            # sys.exit(1)
 
     def get_name(self, id):
         return self.screen_map[id]["name"]
@@ -104,8 +108,6 @@ class Screen:
             args = operation["args"]
             parsed_args, kwargs = parse_args(args)
 
-            self.get_current_screen()
-
             if hasattr(self, function_name):
                 func = getattr(self, function_name)
                 func(*parsed_args, **kwargs)
@@ -120,7 +122,7 @@ class Screen:
                 else:
                     logger.debug(_("未知的操作: {function_name}").format(function_name=function_name))
 
-    def get_current_screen(self, autotry=True, max_retries=10):
+    def get_current_screen(self, autotry=True, max_retries=5):
         """
         获取当前界面
         :param autotry: 未识别出任何界面自动按ESC
@@ -186,10 +188,12 @@ class Screen:
             return
 
         if not self.get_current_screen():
-            logger.info(_("请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
+            nowtime = time.time()
+            logger.info(_(f"{nowtime},请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
             logger.info(_("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
-            input(_("按回车键关闭窗口. . ."))
-            sys.exit(1)
+            raise Exception (f"{nowtime},检测画面失败")
+            # input(_("按回车键关闭窗口. . ."))
+            # sys.exit(1)
 
         path = self.find_shortest_path(self.current_screen, target_screen)
         if path:
@@ -214,19 +218,30 @@ class Screen:
                         logger.warning(_("切换到 {next_screen} 超时，准备重试").format(next_screen=self.get_name(next_screen)))
                         self.change_to(next_screen, max_recursion=max_recursion - 1)
                     else:
-                        logger.error(_("无法切换到 {next_screen}").format(next_screen=self.get_name(next_screen)))
+                        nowtime = time.time()
+                        logger.error(_(f"{nowtime},无法切换到 {self.get_name(next_screen)}"))
                         logger.info(_("请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
                         logger.info(_("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
-                        input(_("按回车键关闭窗口. . ."))
-                        sys.exit(1)
+                        raise Exception (f"{nowtime},无法切换到 {self.get_name(next_screen)}")
+                        # input(_("按回车键关闭窗口. . ."))
+                        # sys.exit(1)
 
                 
                 logger.info(_("切换到：{next_screen}").format(next_screen=self.green + self.get_name(next_screen) + self.reset))
+                if self.get_name(next_screen) == "星际和平指南-每日实训":
+                    logger.warning("进入到星际和平指南-每日实训的判断")
+                    time.sleep(0.5)
+                    if not Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
+                        while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
+                            time.sleep(1)
                 time.sleep(1)
             self.current_screen = target_screen  # 更新当前界面
             return
 
         logger.debug(_("无法从 {current_screen} 切换到 {target_screen}").format(
             current_screen=self.get_name(self.current_screen), target_screen=self.get_name(target_screen)))
-        input(_("按回车键关闭窗口. . ."))
-        sys.exit(1)
+        nowtime = time.time()
+        logger.error(f"{nowtime},无法从 {self.get_name(self.current_screen)} 切换到 {self.get_name(target_screen)}")
+        raise Exception (f"{nowtime},无法从 {self.get_name(self.current_screen)} 切换到 {self.get_name(target_screen)}")
+        # input(_("按回车键关闭窗口. . ."))
+        # sys.exit(1)

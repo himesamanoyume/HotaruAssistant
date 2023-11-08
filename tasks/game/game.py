@@ -33,25 +33,26 @@ class Game:
         logger.hr(_("完成"), 2)
 
     @staticmethod
-    def stop(index, detect_loop=False, currentUID = 0, lastUID=-1):
-        Utils._content.update({'date':f'{datetime.now()}'})
-        i =0
-        for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():
-            Utils._content.update({f'daily_0{i}':f'{task_name}'})
-            Utils._content.update({f'daily_0{i}_value':task_value})
-            i+=1
+    def stop(index, detect_loop=False, currentUID = 0, lastUID=-1, isAbnormalExit = False):
+        if not isAbnormalExit:
+            Utils._content.update({'date':f'{datetime.now()}'})
+            i =0
+            for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():
+                Utils._content.update({f'daily_0{i}':f'{task_name}'})
+                Utils._content.update({f'daily_0{i}_value':task_value})
+                i+=1
 
-        scoreAndMaxScore = config.universe_score[Utils.get_uid()]
+            scoreAndMaxScore = config.universe_score[Utils.get_uid()]
 
-        current_score = scoreAndMaxScore.split('/')[0]
-        max_score = scoreAndMaxScore.split('/')[1]
-        Utils._content.update({'current_universe_score':f'{current_score}'})
-        Utils._content.update({'max_universe_score':f'{max_score}'})
+            current_score = scoreAndMaxScore.split('/')[0]
+            max_score = scoreAndMaxScore.split('/')[1]
+            Utils._content.update({'current_universe_score':f'{current_score}'})
+            Utils._content.update({'max_universe_score':f'{max_score}'})
 
-        Utils._content.update({'daily_tasks_score':f'{config.daily_tasks_score[Utils.get_uid()]}'})
-        Utils._content.update({'multi_content':f"{Utils._temp}"})
+            Utils._content.update({'daily_tasks_score':f'{config.daily_tasks_score[Utils.get_uid()]}'})
+            Utils._content.update({'multi_content':f"{Utils._temp}"})
 
-        notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _("上号详细情况"))
+            notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _("上号详细情况"))
 
         if config.multi_login:
             logger.hr(_("多账号结束运行一个账号"), 0)
