@@ -18,6 +18,7 @@ class Utils:
     _power = 250
     _temp = ''
     _start_timestamp = 0
+    _loop_start_timestamp = 0
     def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
             configName[uid] = defaultValue

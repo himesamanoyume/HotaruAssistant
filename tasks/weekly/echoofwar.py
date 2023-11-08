@@ -27,6 +27,10 @@ class Echoofwar:
                         if "/3" in text:
                             logger.info(_("历战余响本周可领取奖励次数：{text}").format(text=text))
                             reward_count = int(text.split("/")[0])
+
+                            config.echo_of_war_times[Utils.get_uid()] = reward_count
+                            config.save_config()
+                            
                             if reward_count == 0:
                                 logger.info(_("历战余响已完成"))
                                 # config.save_timestamp("echo_of_war_timestamp")

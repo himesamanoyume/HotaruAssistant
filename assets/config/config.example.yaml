@@ -50,8 +50,9 @@ instance_team_enable: false # 打副本时自动切换队伍
 instance_team_number: '1' # 队伍编号
 use_reserved_trailblaze_power: False # 使用后备开拓力
 use_fuel: False # 使用燃料
-echo_of_war_enable: false # 体力优先完成3次「历战余响」
+echo_of_war_enable: {} # 体力优先完成3次「历战余响」
 echo_of_war_timestamp: {} # 上次完成3次「历战余响」的时间戳（每周运行）
+echo_of_war_times: {} # 历战余响次数
 
 borrow_character_enable: false # 强制使用支援角色
 borrow_character_from: # 使用指定好友的支援角色

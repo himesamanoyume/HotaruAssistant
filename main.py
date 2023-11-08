@@ -69,6 +69,9 @@ def main(action=None):
                     continue
                 Utils.init_instanceButNoSave(uidStr)
 
+                Utils.detectIsNoneButNoSave(config.echo_of_war_enable, uidStr, False)
+                Utils.detectIsNoneButNoSave(config.echo_of_war_times, uidStr, 0)
+
                 Utils.detectIsNoneButNoSave(config.daily_tasks_score, uidStr, '0/1')
                 Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
@@ -111,6 +114,7 @@ def main(action=None):
 
                 lastUID = str(loginList[len(loginList) - 1]).split('-')[1][:9]
                 logger.info(f"当前列表最后一个账号UID为:{lastUID}")
+                Utils._loop_start_timestamp = time.time()
 
                 firstTimeLogin = True
                 jumpValue = ''

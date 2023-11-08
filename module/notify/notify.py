@@ -146,9 +146,11 @@ class Notify:
 
         account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040><p>")+f"激活天数剩余:{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
 
-        multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
+        multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin[uid] else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
 
-        multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
+        multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin[uid] else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
+
+        multi_content += f"<p><strong>当前历战余响次数</strong></p>{'<blockquote>' if not config.echo_of_war_times[uid] == 0 else f'<blockquote style=background-color:#5f4040>'}<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
 
         multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示,且时间识别有大概率出错,不过影响不大</div><p>距离刷新:{Utils._content['countdownText']}</p>"
 
@@ -165,16 +167,18 @@ class Notify:
         multi_content += f"<p>拟造花萼（赤）:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['拟造花萼（赤）']}</span></p>"
         multi_content += f"<p>凝滞虚影:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['凝滞虚影']}</span></p>"
         multi_content += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['侵蚀隧洞']}</span></p>"
+        multi_content += f"<p>是否优先清空3次历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{'已开启' if config.echo_of_war_enable[uid] else '已关闭'}</span></p>"
         multi_content += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['历战余响']}</span></p><hr style=background:#d9d9d9>"
 
         multi_content += f"<div class=post-txt-container-datetime>此项请一定要配置准确,会影响模拟宇宙的通关效率</div><p>模拟宇宙队伍成员选择:<span class=important style=background-color:#40405f;color:#66ccff>未实现此处</span></p>"
 
-        table_content = f"<hr style=background:#d9d9d9><blockquote><strong>查表</strong>"
-        table_content += f"<p>拟造花萼（金）:</p><p>无,回忆之蕾（角色经验）,以太之蕾（武器经验）,藏珍之蕾（信用点）</p>"
-        table_content += f"<p>拟造花萼（赤）:</p><p>无,毁灭之蕾,存护之蕾,巡猎之蕾,丰饶之蕾,智识之蕾,同谐之蕾,虚无之蕾</p>"
-        table_content += f"<p>凝滞虚影:</p><p>无,空海之形,巽风之形,鸣雷之形,炎华之形,锋芒之形,霜晶之形,幻光之形,冰棱之形,震厄之形,偃偶之形,孽兽之形,天人之形,燔灼之形</p>"
-        table_content += f"<p><p>侵蚀隧洞:</p><p>无,霜风之径,迅拳之径,漂泊之径,睿治之径,圣颂之径,野焰之径,药使之径</p>"
-        table_content += f"<p>历战余响:</p><p>无,毁灭的开端,寒潮的落幕,不死的神实</p></blockquote>"
+        table_content = ""
+        # table_content = f"<hr style=background:#d9d9d9><blockquote><strong>查表</strong>"
+        # table_content += f"<p>拟造花萼（金）:</p><p>无,回忆之蕾（角色经验）,以太之蕾（武器经验）,藏珍之蕾（信用点）</p>"
+        # table_content += f"<p>拟造花萼（赤）:</p><p>无,毁灭之蕾,存护之蕾,巡猎之蕾,丰饶之蕾,智识之蕾,同谐之蕾,虚无之蕾</p>"
+        # table_content += f"<p>凝滞虚影:</p><p>无,空海之形,巽风之形,鸣雷之形,炎华之形,锋芒之形,霜晶之形,幻光之形,冰棱之形,震厄之形,偃偶之形,孽兽之形,天人之形,燔灼之形</p>"
+        # table_content += f"<p><p>侵蚀隧洞:</p><p>无,霜风之径,迅拳之径,漂泊之径,睿治之径,圣颂之径,野焰之径,药使之径</p>"
+        # table_content += f"<p>历战余响:</p><p>无,毁灭的开端,寒潮的落幕,不死的神实</p></blockquote>"
         
         randomNumber = random.randint(0,4)
         

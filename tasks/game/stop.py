@@ -117,28 +117,13 @@ class Stop:
         # 等待状态退出OCR避免内存占用
         ocr.exit_ocr()
         logger.hr(_("完成"), 2)
-        total_time = time.time() - Utils._start_timestamp
+        total_time = time.time() - Utils._loop_start_timestamp
 
         wait_time = Stop.get_wait_time_with_total_time(total_time)
         future_time = Date.calculate_future_time(wait_time)
         logger.info(_(f"将在{future_time}后继续运行"))
 
         time.sleep(wait_time)
-        # current_power = Power.power()
-        # if current_power >= config.power_limit:
-        #     logger.info(_("🟣开拓力 >= {limit}").format(limit=config.power_limit))
-        #     logger.info(_("即将再次运行"))
-        #     logger.hr(_("完成"), 2)
-        # else:
-        #     Stop.stop_game()
-        #     wait_time = Stop.get_wait_time(current_power)
-        #     future_time = Date.calculate_future_time(wait_time)
-        #     logger.info(_("📅将在{future_time}继续运行").format(future_time=future_time))
-        #     # notify.notify(_("📅将在{future_time}继续运行").format(future_time=future_time))
-        #     logger.hr(_("完成"), 2)
-        #     # 等待状态退出OCR避免内存占用
-        #     ocr.exit_ocr()
-        #     time.sleep(wait_time)
 
     @staticmethod
     def after_finish_not_loop():

@@ -28,7 +28,7 @@ class Daily:
 
         if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
             config.save_config()
-            if config.echo_of_war_enable:
+            if config.echo_of_war_enable[Utils.get_uid()]:
                 Echoofwar.start()
             else:
                 logger.info(_("历战余响{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
