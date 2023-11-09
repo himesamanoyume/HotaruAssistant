@@ -144,19 +144,19 @@ class Notify:
         for i in range(6):
             multi_content += f"<p><ruby>{Utils._content[f'daily_0{i}']}<rt class='ttt' data-rt='{Utils._content[f'daily_0{i}_score']}'></rt></ruby>:"+(f"未完成</p>" if Utils._content[f'daily_0{i}_value'] else "<span class=important style=background-color:#40405f;color:#66ccff>已完成</span></p>")
 
-        account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040><p>")+f"激活天数剩余:{round((config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']),3)}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
+        account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;><p>")+f"激活天数剩余:{round((config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']),3)}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
 
-        multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin[uid] else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
+        multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin[uid] else f"<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
 
-        multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin[uid] else f"<blockquote style=background-color:#5f4040>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
+        multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin[uid] else f"<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
 
-        multi_content += f"<p><strong>当前历战余响次数</strong></p>{'<blockquote>' if config.echo_of_war_times[uid] == 0 else f'<blockquote style=background-color:#5f4040>'}<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
+        multi_content += f"<p><strong>当前历战余响次数</strong></p>{'<blockquote>' if config.echo_of_war_times[uid] == 0 else f'<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;>'}<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
 
         multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示,且时间识别有大概率出错,不过影响不大</div><p>距离刷新:{Utils._content['countdownText']}</p>"
 
-        multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 10 else f"<blockquote style=background-color:#5f4040>")+f"<p>层数:{config.forgottenhall_levels[uid]}/10</p></blockquote>"
+        multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 10 else f"<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;>")+f"<p>层数:{config.forgottenhall_levels[uid]}/10</p></blockquote>"
 
-        multi_content += (f"<blockquote>" if config.forgottenhall_stars[uid] == 30 else f"<blockquote style=background-color:#5f4040>")+f"<p>星数:{config.forgottenhall_stars[uid]}/30</p></blockquote>"
+        multi_content += (f"<blockquote>" if config.forgottenhall_stars[uid] == 30 else f"<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;>")+f"<p>星数:{config.forgottenhall_stars[uid]}/30</p></blockquote>"
 
         multi_content += f"<p><strong>预计满开拓力时间</strong></p><blockquote><p>{full_power_time}</p></blockquote>"
 
@@ -343,7 +343,7 @@ class Notify:
             emailObject['From'] = config.notify_smtp_From
             randomNumber = random.randint(0,4)
 
-            account_active_content = ("<blockquote><p>" if not config.account_active[index]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040><p>")+f"激活天数剩余:{config.account_active[index]['ActiveDay'] - config.account_active[index]['CostDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[index]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
+            account_active_content = ("<blockquote><p>" if not config.account_active[index]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;><p>")+f"激活天数剩余:{config.account_active[index]['ActiveDay'] - config.account_active[index]['CostDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[index]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
 
             htmlStr=f"""
             <div class=body style=background-color:#3a3a3a>

@@ -158,12 +158,12 @@ class SettingInterface(ScrollArea):
             "",
             "use_fuel"
         )
-        self.echoofwarEnableCard = SwitchSettingCard1(
-            FIF.ROBOT,
-            self.tr('启用历战余响'),
-            "每周体力优先完成三次「历战余响」",
-            "echo_of_war_enable"
-        )
+        # self.echoofwarEnableCard = SwitchSettingCard1(
+        #     FIF.ROBOT,
+        #     self.tr('启用历战余响'),
+        #     "每周体力优先完成三次「历战余响」",
+        #     "echo_of_war_enable"
+        # )
 
 
         self.BorrowGroup = SettingCardGroup(self.tr("支援设置"), self.scrollWidget)
@@ -520,7 +520,7 @@ class SettingInterface(ScrollArea):
         self.PowerGroup.addSettingCard(self.instanceTeamNumberCard)
         self.PowerGroup.addSettingCard(self.useReservedTrailblazePowerEnableCard)
         self.PowerGroup.addSettingCard(self.useFuelEnableCard)
-        self.PowerGroup.addSettingCard(self.echoofwarEnableCard)
+        # self.PowerGroup.addSettingCard(self.echoofwarEnableCard)
         # self.PowerGroup.addSettingCard(self.echoofwarRunTimeCard)
 
         self.BorrowGroup.addSettingCard(self.borrowCharacterEnableCard)

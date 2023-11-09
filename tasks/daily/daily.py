@@ -12,6 +12,7 @@ from tasks.daily.fight import Fight
 from tasks.weekly.universe import Universe
 from tasks.reward.reward import Reward
 from tasks.daily.synthesis import Synthesis
+from tasks.daily.relics import Relics
 from tasks.daily.utils import Utils
 from tasks.weekly.forgottenhall import ForgottenHall
 from tasks.weekly.echoofwar import Echoofwar
@@ -80,6 +81,12 @@ class Daily:
         Utils._content.update({'uid':Utils.get_uid()})
         Utils.getDailyScoreMappings()
         Tasks._isDetect = False
+        
+        # input(_("按回车键关闭窗口. . ."))
+        # Relics.salvage()
+        # input(_("按回车键关闭窗口. . ."))
+        # return
+
         if Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
             config.save_config()
             logger.info(_("已是新的一天,开始每日"))
@@ -118,6 +125,7 @@ class Daily:
                 "利用弱点进入战斗并获胜3次": lambda: ForgottenHall.weakness_to_fight(),
                 "施放终结技造成制胜一击1次": lambda: ForgottenHall.ultimate(),
                 "通关「模拟宇宙」（任意世界）的1个区域": lambda: Universe.start(get_reward=False, nums=1, save=False),
+                "分解任意1件遗器": lambda: Relics.salvage()
             }
 
             logger.hr(_("今日实训"), 2)
@@ -132,8 +140,12 @@ class Daily:
             blacklist = {"单场战斗中，触发3种不同属性的弱点击破","累计触发弱点击破效果5次","利用弱点进入战斗并获胜3次","施放终结技造成制胜一击1次"}
 
             for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():
+                
                 if "{_task_name}".format(_task_name = task_name) in task_functions.keys():
                     if config.daily_tasks[Utils.get_uid()][task_name]:
+                        if config.daily_tasks_fin[Utils.get_uid()]:
+                            logger.info(("因每日任务已完成,【{_task_name}】{green}").format(_task_name=task_name,green ="\033[92m" + _("跳过") + "\033[0m"))
+                            continue
                         if task_functions["{_task_name}".format(_task_name = task_name)]():
                             if task_name in blacklist:
                                 continue
@@ -147,7 +159,7 @@ class Daily:
                     else:
                         logger.info(_("【{_task_name}】该任务{green},跳过").format(_task_name=task_name, green="\033[92m" + _("已完成") + "\033[0m"))
                 else:
-                    logger.warning(_("【{_task_name}】可能该任务{red},或需要锄大地时顺带完成,请检查锄大地是否开启和根据情况自行解决").format(_task_name=task_name, red="\033[91m" + _("暂不直接支持") + "\033[0m"))                                              
+                    logger.warning(_("【{_task_name}】可能该任务{red},跳过").format(_task_name=task_name, red="\033[91m" + _("暂不支持") + "\033[0m"))                                              
 
             logger.hr(_("每日部分结束"), 2)
 

@@ -39,9 +39,7 @@ def main(action=None):
             sys.exit(0)
         else:
             logger.info(_("开始多账号运行"))
-            
             # input(_("按回车键关闭窗口. . ."))
-            # Stop.stop_game()
             # input(_("按回车键关闭窗口. . ."))
             # return
 
