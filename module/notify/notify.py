@@ -336,6 +336,9 @@ class Notify:
         multi_content = content
 
         for index, value in config.notify_smtp_To.items():
+            if config.account_active[index]['ExpirationDate'] < time.time():
+                logger.warning(f"{index},已过期,跳过发送公告")
+                continue
             emailObject = MIMEMultipart()
             themeObject = Header(title, 'utf-8').encode()
 

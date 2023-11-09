@@ -342,11 +342,23 @@ class ForgottenHall:
             time.sleep(2)
             if auto.click_element("01", "text", max_retries=20, crop=(18.0 / 1920, 226.0 / 1080, 1896.0 / 1920, 656.0 / 1080)):
                 if auto.find_element("./assets/images/forgottenhall/team1.png", "image", 0.8, max_retries=10, crop=(610 / 1920, 670 / 1080, 118 / 1920, 218 / 1080)):
-                    auto.take_screenshot(crop=(30 / 1920, 115 / 1080, 530 / 1920, 810 / 1080))
+                    # auto.take_screenshot(crop=(30 / 1920, 115 / 1080, 530 / 1920, 810 / 1080))
+                    char_count=0
                     for character in config.daily_memory_one_team:
-                        if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.8, max_retries=10, take_screenshot=False):
-                            return False
-                        time.sleep(1)
+                        time.sleep(0.5)
+                        if char_count == 4:
+                            break
+                        logger.info(f"{character[0]}")
+                        if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.9, max_retries=10, take_screenshot=True):
+                            auto.mouse_scroll(15, -1)
+                            if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.9, max_retries=10, take_screenshot=True):
+                                continue
+                            else:
+                                char_count+=1
+                            auto.mouse_scroll(15, 1)
+                        else:
+                            char_count+=1
+                        time.sleep(0.5)
                     if auto.click_element("回忆", "text", max_retries=10, crop=(1546 / 1920, 962 / 1080, 343 / 1920, 62 / 1080), include=True):
                         ForgottenHall.click_message_box()
                         if ForgottenHall.start_fight(1, 1, 0, config.daily_memory_one_team):
