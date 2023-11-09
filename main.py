@@ -40,6 +40,13 @@ def main(action=None):
         else:
             logger.info(_("开始多账号运行"))
             # input(_("按回车键关闭窗口. . ."))
+            # from tasks.base.command import subprocess_with_timeout
+            # if Universe.before_start():
+            #     command = [config.python_exe_path, "states.py"]
+            #     command.append("--bonus=0")
+            #     command.append("--nums=1")
+            #     command.append("--fate=7")
+            #     subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env)
             # input(_("按回车键关闭窗口. . ."))
             # return
 
@@ -66,19 +73,31 @@ def main(action=None):
                     continue
                 Utils.init_instanceButNoSave(uidStr)
 
+                # echo of war历战余响
                 Utils.detectIsNoneButNoSave(config.echo_of_war_enable, uidStr, False)
                 Utils.detectIsNoneButNoSave(config.echo_of_war_times, uidStr, 0)
 
+                #daily每日
                 Utils.detectIsNoneButNoSave(config.daily_tasks_score, uidStr, '0/1')
                 Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
+                
+
+                # universe模拟宇宙
+                Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
+                Utils.detectIsNoneButNoSave(config.universe_number, uidStr, 1)
+                Utils.detectIsNoneButNoSave(config.universe_difficulty, uidStr, 1)
+                Utils.detectIsNoneButNoSave(config.universe_fate, uidStr, '巡猎')
+                Utils.detectIsNoneButNoSave(config.universe_team, uidStr, 1)
+                Utils.detectIsNoneButNoSave(config.universe_score, uidStr, '0/1')
+                Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
+
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
                     
                     config.daily_tasks_score[uidStr] = 0
                     config.daily_tasks_fin[uidStr] = False
                     config.daily_tasks[uidStr] = {}
 
-                Utils.detectIsNoneButNoSave(config.universe_score, uidStr, '0/1')
-                Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
+                
 
                 if Utils.is_next_mon_4_am(config.universe_timestamp, uidStr, False):
                     

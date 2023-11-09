@@ -61,7 +61,7 @@ class Universe:
     @staticmethod
     def start(get_reward=False, nums=config.universe_count, save=True, daily=True):
         logger.hr(_("准备模拟宇宙"), 2)
-        Utils.detectIsNoneButNoSave(config.universe_fin, Utils.get_uid(), False)
+        
         config.save_config()
         if config.universe_fin[Utils.get_uid()] and daily:
             logger.info(_("鉴定为正在每日任务中且分数已满,跳过"))
@@ -96,6 +96,9 @@ class Universe:
                                 auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
                     
                     time.sleep(0.5)
+                    # 实现先选择
+
+                    # end
                     screen.change_to('universe_main')
                     
                     # 若为0,则设置bonus=0,则既不为0也不为最大积分,则bonus=1,若为最大积分,则只根据universe_bonus_enable决定是否领取

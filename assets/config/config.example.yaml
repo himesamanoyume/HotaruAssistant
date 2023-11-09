@@ -79,8 +79,7 @@ assist_enable: true # 领取支援奖励
 daily_himeko_try_enable: false # 通过 “姬子试用” 完成任务
 daily_memory_one_enable: false # 通过 “回忆一” 完成任务
 daily_memory_one_team: # 用于回忆一的队伍
-- -
-    Bronya
+- - Bronya
   - -1
 - - Natasha
   - 0
@@ -112,6 +111,10 @@ universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
 universe_timeout: 20 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）
 universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
+universe_number: {} # 第几宇宙
+universe_difficulty: {} # 什么难度
+universe_fate: {} # 什么命途 0存护1记忆2虚无3丰饶4巡猎5毁灭6欢愉7繁育
+universe_team: {} # 阵容
 
 forgottenhall_stars: {} # 忘却之庭星数
 forgottenhall_levels: {} # 忘却之庭通过层数
@@ -124,8 +127,7 @@ forgottenhall_retries: 1 # 混沌回忆挑战失败后的重试次数
 # 数字代表秘技使用次数，其中 -1 代表最后一个放秘技和普攻的角色
 # 角色对应的英文名字可以在 "March7thAssistant\assets\images\character" 中查看
 forgottenhall_team1: # 队伍1
-- -
-    Asta
+- - Asta
   - -1
 - - Natasha
   - 0
