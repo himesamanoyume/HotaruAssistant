@@ -240,9 +240,35 @@ class Notify:
         multi_content += f"<p>凝滞虚影:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['凝滞虚影']}<rt class='ttt' style='background-color: unset;' data-rt='{ningzhixuying_text}'></rt></ruby></span></p>"
         multi_content += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['侵蚀隧洞']}<rt class='ttt' style='background-color: unset;' data-rt='{qinshisuidong_text}'></rt></ruby></span></p>"
         multi_content += f"<p>是否清空3次历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.echo_of_war_enable[uid] else '否'}</span></p>"
-        multi_content += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['历战余响']}<rt class='ttt' style='background-color: unset;' data-rt='{lizhanyuxiang_text}'></rt></ruby></span></p><hr style=background:#d9d9d9>"
+        multi_content += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['历战余响']}<rt class='ttt' style='background-color: unset;' data-rt='{lizhanyuxiang_text}'></rt></ruby></span></p>"
 
-        multi_content += f"<div class=post-txt-container-datetime>此项请一定要配置准确,会影响模拟宇宙的通关效率</div><p>模拟宇宙队伍成员选择:<span class=important style=background-color:#40405f;color:#66ccff>未实现此处</span></p>"
+        match config.universe_number[uid]:
+            case 3:
+                world_number = '第三世界'
+            case 4:
+                world_number = '第四世界'
+            case 5:
+                world_number = '第五世界'
+            case 6:
+                world_number = '第六世界'
+            case 7:
+                world_number = '第七世界'
+
+        universe_content = ''
+        universe_content += f"<div class=post-txt-container-datetime>此项请一定要配置准确,会影响模拟宇宙的通关效率</div><p><strong>模拟宇宙:</strong><span class=important style=background-color:#40405f;color:#66ccff>{world_number}</span></p>{Utils._content['universe_number']}"
+
+        universe_content += f"<p><strong>模拟宇宙难度:</strong><span class=important style=background-color:#40405f;color:#66ccff>难度{config.universe_difficulty[uid]}</span></p>{Utils._content['universe_difficulty']}"
+        
+        universe_content += f"<p><strong>模拟宇宙命途:</strong><span class=important style=background-color:#40405f;color:#66ccff>{config.universe_fate[uid]}</span></p>{Utils._content['universe_fate']}"
+
+
+        if not len(config.universe_team[uid]) == 4:
+            universe_team_error = "<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>模拟宇宙队伍成员选择有误,请告知我检查配置</p></blockquote>"
+        else:
+            universe_team_error = ''
+
+
+        universe_content += f"<p><strong>模拟宇宙队伍选择:</strong><span class=important style=background-color:#40405f;color:#66ccff>{config.char_chs[config.universe_team[uid][0]]}, {config.char_chs[config.universe_team[uid][1]]}, {config.char_chs[config.universe_team[uid][2]]}, {config.char_chs[config.universe_team[uid][3]]}</span></p>{universe_team_error}"
 
         table_content = ""
         # table_content = f"<hr style=background:#d9d9d9><blockquote><strong>查表</strong>"
@@ -292,7 +318,7 @@ class Notify:
                                             </span>
                                         </p>
                                     </p>
-                                    <p>{multi_content}</p>
+                                    <p>{multi_content}{universe_content}</p>
                                     <hr style=background:#d9d9d9>
                                     <p><strong>遗器胚子</strong></p>
                                     <div class=post-txt-container-datetime style=color:#d9d9d9>
@@ -539,7 +565,7 @@ class Notify:
                                     </div>
                                     <section class=post-detail-txt style=color:#d9d9d9>
                                         {account_active_content}
-                                        {multi_content}
+                                        <p>{multi_content}</p>
                                     </section>
                                     <p>
                                         <div class=post-txt-container-datetime style=color:#d9d9d9>

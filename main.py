@@ -40,7 +40,7 @@ def main(action=None):
         else:
             logger.info(_("开始多账号运行"))
             # input(_("按回车键关闭窗口. . ."))
-
+            # Universe.start(True, 1, daily=False)
             # input(_("按回车键关闭窗口. . ."))
             # return
 
@@ -206,7 +206,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
             Game.stop(index ,True, currentUID, _lastUID)
         except Exception as e:
             logger.error(f"{e}")
-            notify.announcement((f'运行流程异常'), (f"{e}"), isSingle=True)
+            notify.announcement((f'运行流程异常'), (f"<p>{e}</p>"), isSingle=True)
             Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
         
     # 子任务

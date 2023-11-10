@@ -475,6 +475,24 @@
         ]
     },
     {
+        "name": "模拟宇宙-积分奖励",
+        "id": "universe_score",
+        "image_path": "./assets/images/screen/universe/universe_score.png",
+        "actions": [
+            {
+                "target_screen": "universe_main",
+                "actions_list": [
+                    {
+                        "action": "auto.press_key",
+                        "args": [
+                            "esc"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "退出「模拟宇宙」",
         "id": "leave_temporarily",
         "image_path": "./assets/images/screen/universe/leave_temporarily.png",

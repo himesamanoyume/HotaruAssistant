@@ -87,6 +87,9 @@ class Utils:
             Utils._temp = ''
             Utils._power = 250
             Utils._content['relic_content'] = ''
+            Utils._content['universe_number'] = ''
+            Utils._content['universe_difficulty'] = ''
+            Utils._content['universe_fate'] = ''
             Utils._start_timestamp = time.time()
             logger.info(_(f"识别到UID为:{Utils._uid}"))
             config.set_value('last_running_uid', Utils._uid)
