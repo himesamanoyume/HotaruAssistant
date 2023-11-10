@@ -102,6 +102,24 @@ class Universe:
                         isFirstTimeSelectTeam = Universe.select_universe()
 
                     # screen.change_to('universe_main')
+
+                    match config.universe_fate[Utils.get_uid()]:
+                        case '存护':
+                            fate = 0
+                        case '记忆':
+                            fate = 1
+                        case '虚无':
+                            fate = 2
+                        case '丰饶':
+                            fate = 3
+                        case '巡猎':
+                            fate = 4
+                        case '毁灭':
+                            fate = 5
+                        case '欢愉':
+                            fate = 6
+                        case '繁育':
+                            fate = 7
                     
                     # 若为0,则设置bonus=0,则既不为0也不为最大积分,则bonus=1,若为最大积分,则只根据universe_bonus_enable决定是否领取
                     if current_score == 0:
@@ -123,6 +141,7 @@ class Universe:
                         command.append("--nums=1")
                     # end
                     logger.info(_("将开始第{index}次进行模拟宇宙").format(index=i+1))
+                    command.append(f"--fate={fate}")
                     if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
                     
                         screen.change_to('main')
@@ -183,8 +202,22 @@ class Universe:
         instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)
         Flag = False
+        match config.universe_number[Utils.get_uid()]:
+            case 3:
+                world_number = '第三世界'
+            case 4:
+                world_number = '第四世界'
+            case 5:
+                world_number = '第五世界'
+            case 6:
+                world_number = '第六世界'
+            case 7:
+                world_number = '第七世界'
+            case _:
+                world_number = '第三世界'
+
         for i in range(5):
-            if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source="第七世界"):
+            if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=world_number):
                 Flag = True
                 break
             auto.mouse_scroll(20, -1)
@@ -197,42 +230,85 @@ class Universe:
         time.sleep(3)
         
         # 选择难度,0不是难度
-        i = 4
-        if i == 0:
-            i = 4
-        auto.click_element_with_pos((( 135, 160+(i-1)*110),(135, 160+(i-1)*110)))
-        time.sleep(0.5)
+        d = config.universe_difficulty[Utils.get_uid()]
+        if not d in [1,2,3,4,5]:
+            logger.warning("难度设置不合法,进行难度5")
+            d = 5
+        if config.universe_number[Utils.get_uid()] in [5,6,7] and d > 4:
+            logger.warning("第五、第六、第七世界暂不支持难度4以上,进行难度4")
+            d = 4
+        
+        # 用嵌套函数
+        Universe.select_universe_difficulty(d)
 
-        if auto.click_element("下载初始角色", "text", max_retries=10, crop=(1550.0 / 1920, 9500 / 1080, 330.0 / 1920, 67.0 / 1080)):
+        time.sleep(1)
+
+        if auto.click_element("./assets/images/universe/download_char.png", "image", 0.9,max_retries=10):
             time.sleep(1)
-            for i in range(4):
-                auto.click_element_with_pos(((663+i*105, 837),(663+i*105, 837)))
-                time.sleep(1)
+            j = 1
+            Universe.clear_team(j)
 
-        char_count=0
-        auto.click_element_with_pos(((70, 300),(70, 300)), action="move")
-        for character in config.daily_memory_one_team:
-            time.sleep(0.5)
-            if char_count == 4:
-                break
-            logger.info(f"{character[0]}")
-            if not auto.click_element(f"./assets/images/character/{character[0]}.png","image", 0.9, max_retries=10, take_screenshot=True):
-                auto.mouse_scroll(30, -1)
-                if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.9, max_retries=10, take_screenshot=True):
-                    auto.mouse_scroll(30, 1)
-                    continue
+            char_count=0
+            auto.click_element_with_pos(((70, 300),(70, 300)), action="move")
+            for character in config.universe_team[Utils.get_uid()]:
+                time.sleep(0.5)
+                if char_count == 4:
+                    break
+                logger.info(f"{character}")
+                if not auto.click_element(f"./assets/images/character/{character}.png","image", 0.9, max_retries=10, take_screenshot=True):
+                    auto.mouse_scroll(30, -1)
+                    if not auto.click_element(f"./assets/images/character/{character}.png", "image", 0.9, max_retries=10, take_screenshot=True):
+                        auto.mouse_scroll(30, 1)
+                        continue
+                    else:
+                        logger.info("该角色已选中")
+                        auto.mouse_scroll(30, 1)
+                        char_count+=1
                 else:
                     logger.info("该角色已选中")
-                    auto.mouse_scroll(30, 1)
                     char_count+=1
+                time.sleep(0.5)
+            if char_count == 4:
+                return False
             else:
-                logger.info("该角色已选中")
-                char_count+=1
-            time.sleep(0.5)
-        if char_count == 4:
-            return False
+                return True
         else:
-            return True
+            nowtime = time.time()
+            logger.error(f"{nowtime}模拟宇宙未找到下载角色按钮")
+            raise Exception(f"{nowtime}模拟宇宙未找到下载角色按钮")
+              
+    def select_universe_difficulty(d):
+        difficulty_crop=(85.0 / 1920, 108.0 / 1080, 94.0 / 1920, 836.0 / 1080)
+        if d==0:
+            logger.error(f"难度{d}不合法")
+            return
+
+        if not auto.click_element(f"./assets/images/universe/on_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
+                logger.info(f"未选中难度{d}")
+                if not auto.click_element(f"./assets/images/universe/off_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
+                    logger.info(f"仍未选中难度{d}")
+                    auto.click_element_with_pos(((135, 160+(d-1)*110),(135, 160+(d-1)*110)))
+                    if not auto.click_element(f"./assets/images/universe/on_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
+                        Universe.select_universe_difficulty(d-1)
+        
+        logger.info(f"已选中难度{d}")
+        return
+    
+    def clear_team(j):
+        if j == 10:
+            nowtime = time.time()
+            logger.error(f"{nowtime},模拟宇宙清理队伍失败")
+            raise Exception(f"{nowtime},模拟宇宙清理队伍失败")
+        
+        for i in range(4):
+            auto.click_element_with_pos(((663+i*105, 837),(663+i*105, 837)))
+            time.sleep(1)
+        if auto.find_element("./assets/images/universe/all_clear_team.png", "image", 0.95, take_screenshot=True):
+            logger.info("队伍已清空")
+            return
+        else:
+            Universe.clear_team(j+1)
+
 
     @staticmethod
     def gui():

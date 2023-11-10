@@ -17,6 +17,15 @@ want_register_accounts: # 启动游戏前先进行注册
     email: ''
     reg_path: ''
     active_day: 0
+    universe_team:
+    - Bronya
+    - Blade
+    - JingLiu
+    - JingYuan
+    universe_fate: '巡猎'
+    universe_number: 1
+    universe_difficulty: 1
+
 
 python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
 pypi_mirror_urls: # pypi 镜像列表
@@ -114,7 +123,7 @@ universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
 universe_number: {} # 第几宇宙
 universe_difficulty: {} # 什么难度
 universe_fate: {} # 什么命途 0存护1记忆2虚无3丰饶4巡猎5毁灭6欢愉7繁育
-universe_team: {} # 阵容
+universe_team: {} # 阵容 用templist append角色名后整个赋值到此
 
 forgottenhall_stars: {} # 忘却之庭星数
 forgottenhall_levels: {} # 忘却之庭通过层数

@@ -39,12 +39,10 @@ def main(action=None):
             sys.exit(0)
         else:
             logger.info(_("开始多账号运行"))
-            input(_("按回车键关闭窗口. . ."))
-            
-            Universe.start(get_reward=True, daily=False, nums=1)
+            # input(_("按回车键关闭窗口. . ."))
 
-            input(_("按回车键关闭窗口. . ."))
-            return
+            # input(_("按回车键关闭窗口. . ."))
+            # return
 
             options_reg = dict()
             run_new_accounts()
@@ -80,10 +78,10 @@ def main(action=None):
 
                 # universe模拟宇宙
                 Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
-                Utils.detectIsNoneButNoSave(config.universe_number, uidStr, 1)
+                Utils.detectIsNoneButNoSave(config.universe_number, uidStr, 3)
                 Utils.detectIsNoneButNoSave(config.universe_difficulty, uidStr, 1)
                 Utils.detectIsNoneButNoSave(config.universe_fate, uidStr, '巡猎')
-                Utils.detectIsNoneButNoSave(config.universe_team, uidStr, 1)
+                Utils.detectIsNoneButNoSave(config.universe_team, uidStr, {})
                 Utils.detectIsNoneButNoSave(config.universe_score, uidStr, '0/1')
                 Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
 
@@ -171,7 +169,7 @@ def run_new_accounts():
         logger.info("检测到有新注册表加入")
         for uid, item in config.want_register_accounts.items():
             if uid == '111111111': continue
-            if item['reg_path']=='' or item['email']=='' or item['active_day'] == 0:
+            if item['reg_path']=='' or item['email']=='' or item['active_day'] == 0 or not len(item['universe_team']) == 4 or not item['universe_fate'] in ['存护','记忆','虚无','丰饶','巡猎','毁灭','欢愉','繁育'] or not item['universe_number'] in [3,4,5,6,7] or not item['universe_difficulty'] in [1,2,3,4,5]:
                 logger.error(f"{uid}:新的注册信息未完整填写")
                 input("按下回车跳过该次注册")
                 return
@@ -185,6 +183,12 @@ def run_new_accounts():
             config.account_active[uid]['ActiveDay'] = item['active_day']
             config.account_active[uid]['ExpirationDate'] = 0
             config.account_active[uid]['CostDay'] = 0
+
+            config.universe_number[uid] = item['universe_number']
+            config.universe_difficulty[uid] = item['universe_difficulty']
+            config.universe_fate[uid] = item['universe_fate']
+            config.universe_team[uid] = item['universe_team']
+
             config.save_config()
             config.del_value('want_register_accounts', uid)
         logger.info("新注册表加入完成")
