@@ -39,16 +39,12 @@ def main(action=None):
             sys.exit(0)
         else:
             logger.info(_("开始多账号运行"))
-            # input(_("按回车键关闭窗口. . ."))
-            # from tasks.base.command import subprocess_with_timeout
-            # if Universe.before_start():
-            #     command = [config.python_exe_path, "states.py"]
-            #     command.append("--bonus=0")
-            #     command.append("--nums=1")
-            #     command.append("--fate=7")
-            #     subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env)
-            # input(_("按回车键关闭窗口. . ."))
-            # return
+            input(_("按回车键关闭窗口. . ."))
+            
+            Universe.start(get_reward=True, daily=False, nums=1)
+
+            input(_("按回车键关闭窗口. . ."))
+            return
 
             options_reg = dict()
             run_new_accounts()

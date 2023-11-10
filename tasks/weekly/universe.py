@@ -96,10 +96,12 @@ class Universe:
                                 auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
                     
                     time.sleep(0.5)
-                    # 实现先选择
+                    
+                    isFirstTimeSelectTeam = True
+                    if isFirstTimeSelectTeam:
+                        isFirstTimeSelectTeam = Universe.select_universe()
 
-                    # end
-                    screen.change_to('universe_main')
+                    # screen.change_to('universe_main')
                     
                     # 若为0,则设置bonus=0,则既不为0也不为最大积分,则bonus=1,若为最大积分,则只根据universe_bonus_enable决定是否领取
                     if current_score == 0:
@@ -166,6 +168,71 @@ class Universe:
         time.sleep(0.5)
         screen.change_to('universe_main')
         time.sleep(0.5)
+
+    @staticmethod
+    def select_universe():
+        screen.change_to('guide3')
+        instance_type_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
+        if not auto.click_element("模拟宇宙", "text", crop=instance_type_crop):
+            if auto.click_element("凝滞虚影", "text", max_retries=10, crop=instance_type_crop):
+                auto.mouse_scroll(12, 1)
+                auto.click_element("模拟宇宙", "text", crop=instance_type_crop)
+        # 截图过快会导致结果不可信
+        time.sleep(1)
+        # 传送
+        instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
+        auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)
+        Flag = False
+        for i in range(5):
+            if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source="第七世界"):
+                Flag = True
+                break
+            auto.mouse_scroll(20, -1)
+            # 等待界面完全停止
+            time.sleep(1)
+        if not Flag:
+            logger.error(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+            return False
+
+        time.sleep(3)
+        
+        # 选择难度,0不是难度
+        i = 4
+        if i == 0:
+            i = 4
+        auto.click_element_with_pos((( 135, 160+(i-1)*110),(135, 160+(i-1)*110)))
+        time.sleep(0.5)
+
+        if auto.click_element("下载初始角色", "text", max_retries=10, crop=(1550.0 / 1920, 9500 / 1080, 330.0 / 1920, 67.0 / 1080)):
+            time.sleep(1)
+            for i in range(4):
+                auto.click_element_with_pos(((663+i*105, 837),(663+i*105, 837)))
+                time.sleep(1)
+
+        char_count=0
+        auto.click_element_with_pos(((70, 300),(70, 300)), action="move")
+        for character in config.daily_memory_one_team:
+            time.sleep(0.5)
+            if char_count == 4:
+                break
+            logger.info(f"{character[0]}")
+            if not auto.click_element(f"./assets/images/character/{character[0]}.png","image", 0.9, max_retries=10, take_screenshot=True):
+                auto.mouse_scroll(30, -1)
+                if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.9, max_retries=10, take_screenshot=True):
+                    auto.mouse_scroll(30, 1)
+                    continue
+                else:
+                    logger.info("该角色已选中")
+                    auto.mouse_scroll(30, 1)
+                    char_count+=1
+            else:
+                logger.info("该角色已选中")
+                char_count+=1
+            time.sleep(0.5)
+        if char_count == 4:
+            return False
+        else:
+            return True
 
     @staticmethod
     def gui():

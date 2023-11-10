@@ -304,6 +304,7 @@ class ForgottenHall:
                     time.sleep(0.5)
                     countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=6)
                     countdownText = countdownText.replace('）','')
+                    countdownText = countdownText.replace(')','')
                     countdownText = countdownText.replace('①','')
                     if countdownText == '?':
                         countdownText = '识别出错'
@@ -344,6 +345,7 @@ class ForgottenHall:
                 if auto.find_element("./assets/images/forgottenhall/team1.png", "image", 0.8, max_retries=10, crop=(610 / 1920, 670 / 1080, 118 / 1920, 218 / 1080)):
                     # auto.take_screenshot(crop=(30 / 1920, 115 / 1080, 530 / 1920, 810 / 1080))
                     char_count=0
+                    auto.click_element_with_pos(((70, 300),(70, 300)), action="move")
                     for character in config.daily_memory_one_team:
                         time.sleep(0.5)
                         if char_count == 4:
@@ -352,11 +354,14 @@ class ForgottenHall:
                         if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.9, max_retries=10, take_screenshot=True):
                             auto.mouse_scroll(15, -1)
                             if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.9, max_retries=10, take_screenshot=True):
+                                auto.mouse_scroll(15, 1)
                                 continue
                             else:
+                                logger.info("该角色已选中")
+                                auto.mouse_scroll(15, 1)
                                 char_count+=1
-                            auto.mouse_scroll(15, 1)
                         else:
+                            logger.info("该角色已选中")
                             char_count+=1
                         time.sleep(0.5)
                     if auto.click_element("回忆", "text", max_retries=10, crop=(1546 / 1920, 962 / 1080, 343 / 1920, 62 / 1080), include=True):
