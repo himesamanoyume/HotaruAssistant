@@ -1,7 +1,7 @@
 locales: zh_CN # 语言
 log_level: INFO # 日志等级: INFO、DEBUG
 check_update: true # 检测更新
-agreed_to_disclaimer: false
+agreed_to_disclaimer: false # false为未接受
 
 char_chs:
   Arlan: 阿兰
@@ -155,7 +155,7 @@ universe_enable: false # 启用模拟宇宙
 universe_bonus_enable: false # 领取沉浸奖励
 universe_fin: {} # 是否模拟宇宙满分
 universe_score: {} # 模拟宇宙积分
-universe_count: 34 # 运行次数
+universe_count: 2 # 运行次数
 universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
 universe_timeout: 20 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）

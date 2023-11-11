@@ -44,8 +44,8 @@ class MainWindow(MSFluentWindow):
         self.splashScreen.finish()
 
         # 免责申明
-        if not config.agreed_to_disclaimer:
-            disclaimer(self)
+        # if not config.agreed_to_disclaimer:
+        #     disclaimer(self)
 
         # 检查更新
         if config.check_update:

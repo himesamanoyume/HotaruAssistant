@@ -40,7 +40,7 @@ def main(action=None):
         else:
             logger.info(_("开始多账号运行"))
             # input(_("按回车键关闭窗口. . ."))
-            # Universe.start(True, 1, daily=False)
+            # Universe.start(True, 2, daily=False)
             # input(_("按回车键关闭窗口. . ."))
             # return
 

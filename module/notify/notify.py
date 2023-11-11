@@ -152,7 +152,7 @@ class Notify:
 
         multi_content += f"<p><strong>当前历战余响次数</strong></p>"+(f"<blockquote>" if config.echo_of_war_times[uid] == 0 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
 
-        multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示,且时间识别有大概率出错,不过影响不大</div><p>距离刷新:{Utils._content['countdownText']}</p>"
+        multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{Utils._content['countdownText']}</p>"
 
         multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 10 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{config.forgottenhall_levels[uid]}/10</p></blockquote>"
 
@@ -253,9 +253,11 @@ class Notify:
                 world_number = '第六世界'
             case 7:
                 world_number = '第七世界'
+            case _:
+                world_number = '世界选择有误'
 
         universe_content = ''
-        universe_content += f"<div class=post-txt-container-datetime>此项请一定要配置准确,会影响模拟宇宙的通关效率</div><p><strong>模拟宇宙:</strong><span class=important style=background-color:#40405f;color:#66ccff>{world_number}</span></p>{Utils._content['universe_number']}"
+        universe_content += f"<div class=post-txt-container-datetime>此项请一定要配置准确,会影响模拟宇宙的通关效率,若运行超40分钟则会被加入黑名单,修改配置到正常为止才会释放</div><p><strong>模拟宇宙:</strong><span class=important style=background-color:#40405f;color:#66ccff>{world_number}</span></p>{Utils._content['universe_number']}"
 
         universe_content += f"<p><strong>模拟宇宙难度:</strong><span class=important style=background-color:#40405f;color:#66ccff>难度{config.universe_difficulty[uid]}</span></p>{Utils._content['universe_difficulty']}"
         
@@ -475,7 +477,7 @@ class Notify:
                                     </section>
                                     <p>
                                         <div class=post-txt-container-datetime style=color:#d9d9d9>
-                                            请尽量不要绑定qq邮箱以外的邮箱,会使邮件的页面非常错乱!
+                                            请不要绑定qq邮箱以外的邮箱,会使邮件的页面非常错乱!
                                         </div>
                                     </p>
                                     <div class=post-txt-container-datetime style=color:#d9d9d9>
@@ -569,7 +571,7 @@ class Notify:
                                     </section>
                                     <p>
                                         <div class=post-txt-container-datetime style=color:#d9d9d9>
-                                            请尽量不要绑定qq邮箱以外的邮箱,会使邮件的页面非常错乱!
+                                            请不要绑定qq邮箱以外的邮箱,会使邮件的页面非常错乱!
                                         </div>
                                     </p>
                                     <div class=post-txt-container-datetime style=color:#d9d9d9>

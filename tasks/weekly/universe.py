@@ -13,6 +13,8 @@ import time
 
 
 class Universe:
+    immersifiers = 0
+
     @staticmethod
     def update():
         config.set_value("universe_requirements", False)
@@ -77,7 +79,7 @@ class Universe:
                 logger.info(_("开始模拟宇宙"))
                 config._load_config()
                 # for循环2次,每次开始时都检测一遍积分
-                for i in range(2):
+                for i in range(nums):
                     time.sleep(0.5)
                     # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
                     if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
@@ -100,6 +102,8 @@ class Universe:
                     isFirstTimeSelectTeam = True
                     if isFirstTimeSelectTeam:
                         isFirstTimeSelectTeam = Universe.select_universe()
+                    else:
+                        Universe.get_immersifier()
 
                     # screen.change_to('universe_main')
 
@@ -121,24 +125,23 @@ class Universe:
                         case '繁育':
                             fate = 7
                     
-                    # 若为0,则设置bonus=0,则既不为0也不为最大积分,则bonus=1,若为最大积分,则只根据universe_bonus_enable决定是否领取
                     if current_score == 0:
-                        logger.info(_("积分为0,鉴定为首次进行模拟宇宙,本次将不领取沉浸奖励"))
-                        command.append("--bonus=0")
-                        command.append("--nums=1")
+                        logger.info(_("积分为0,鉴定为首次进行模拟宇宙"))
+                        if Universe.immersifiers > 0:
+                            command.append("--bonus=1")
                     elif current_score == max_score:
-                        logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙,本次将根据config决定是否领取沉浸奖励"))
+                        logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
+                        if Universe.immersifiers > 0:
+                            command.append("--bonus=1")
                         if daily:
                             logger.info(_("鉴定为正在每日任务中,最大积分情况下将直接跳过"))
                             return False
-                        if config.universe_bonus_enable:
-                            command.append("--bonus=1")
-                        if nums:
-                            command.append(f"--nums={nums}")
                     else:
-                        logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙,本次将领取沉浸奖励"))
+                        logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
                         command.append("--bonus=1")
-                        command.append("--nums=1")
+                    
+                    command.append(f"--nums=1")
+                        
                     # end
                     logger.info(_("将开始第{index}次进行模拟宇宙").format(index=i+1))
                     command.append(f"--fate={fate}")
@@ -178,26 +181,41 @@ class Universe:
             time.sleep(0.5)
             Utils.get_universe_score()
             if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
-                time.sleep(0.5)
+                time.sleep(0.3)
                 if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                    time.sleep(0.5)
+                    time.sleep(0.3)
                     logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
                     # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
-        time.sleep(0.5)
         screen.change_to('universe_main')
-        time.sleep(0.5)
 
     @staticmethod
-    def select_universe():
+    def get_immersifier():
         screen.change_to('guide3')
         instance_type_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
         if not auto.click_element("模拟宇宙", "text", crop=instance_type_crop):
             if auto.click_element("凝滞虚影", "text", max_retries=10, crop=instance_type_crop):
                 auto.mouse_scroll(12, 1)
                 auto.click_element("模拟宇宙", "text", crop=instance_type_crop)
+
+        time.sleep(0.5)
+        try:
+            result = auto.get_single_line_text(crop=(1673.0 / 1920, 50.0 / 1080, 71.0 / 1920, 31.0 / 1080),max_retries=5)
+            count = result.split("/")[0]
+            logger.info(f"识别到沉浸器数量为:{count}")
+            Universe.immersifiers = int(count)
+        except Exception as e:
+            logger.error(_("识别沉浸器数量失败: {error}").format(error=e))
+            Universe.immersifiers = 0
+
+    @staticmethod
+    def select_universe():
+        
+        Universe.get_immersifier()
+
         # 截图过快会导致结果不可信
         time.sleep(1)
+
         # 传送
         instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)

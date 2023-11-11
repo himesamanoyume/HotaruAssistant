@@ -53,7 +53,7 @@ class Daily:
         if config.universe_enable:
             # Power.start()
             # Reward.start()
-            isTrue = Universe.start(get_reward=True, daily=True, nums=1)
+            isTrue = Universe.start(get_reward=True, daily=True, nums=2)
             if isTrue:
                 Power.start()
         else:

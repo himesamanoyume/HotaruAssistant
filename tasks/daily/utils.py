@@ -94,8 +94,9 @@ class Utils:
             logger.info(_(f"识别到UID为:{Utils._uid}"))
             config.set_value('last_running_uid', Utils._uid)
         except Exception as e:
-            logger.error(_("识别UID失败: {error}").format(error=e))
-            logger.warning(_("因读取UID失败,程序中止"))
+            nowtime = time.time()
+            logger.error(f"{nowtime},识别UID失败: {e}")
+            raise Exception(f"{nowtime},识别UID失败: {e}")
         
     def get_uid():
         if Utils._uid == '-1':
@@ -168,23 +169,22 @@ class Utils:
             sys.exit(1)
     
     def click_element_with_pos_quest(coordinates, offset=(0, 0), action="click"):
-        time.sleep(0.1)
         auto.take_screenshot(crop=(297.0 / 1920, 478.0 / 1080, 246.0 / 1920, 186.0 / 1080))
-        time.sleep(0.5)
+        time.sleep(2)
         result = ocr.recognize_multi_lines(auto.screenshot)
-        text = result[0][1][0]
-        time.sleep(0.1)
+        result_keyword = result[0][1][0]
+        time.sleep(0.5)
         Utils._task_mappings = Utils._load_config("./assets/config/task_mappings.json")
-        for keyword, task_name in Utils._task_mappings.items():
-            logger.info(f"keyword:{keyword}")
-            if keyword in text:
+        for mappings_keyword, task_name in Utils._task_mappings.items():
+            logger.info(f"keyword:{mappings_keyword}")
+            if mappings_keyword == result_keyword:
                 if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
                     config.daily_tasks[Utils.get_uid()][task_name] = False
-                    logger.warning(_(f"keyword:{keyword}----->{task_name}:进行了点击,任务已经完成"))
+                    logger.warning(_(f"keyword:{mappings_keyword}----->{task_name}:进行了点击,任务已经完成"))
                     Utils.showDailyTasksScore(task_name, Utils.get_uid())
                     config.save_config()
                 else:
-                    logger.warning(_(f"keyword:{keyword}----->{task_name}:进行了点击,但可能配置项中之前已完成修改或未识别成功"))
+                    logger.warning(_(f"keyword:{mappings_keyword}----->{task_name}:进行了点击,但可能配置项中之前已完成修改或未识别成功"))
                 break
         (left, top), (right, bottom) = coordinates
         x = (left + right) // 2 + offset[0]
