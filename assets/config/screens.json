@@ -475,6 +475,26 @@
         ]
     },
     {
+        "name": "用户协议",
+        "id": "protocol",
+        "image_path": "./assets/images/login/protocol.png",
+        "actions": [
+            {
+                "target_screen": "click_enter",
+                "actions_list": [
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "./assets/images/login/protocol_agree.png",
+                            "image",
+                            0.95
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "模拟宇宙-积分奖励",
         "id": "universe_score",
         "image_path": "./assets/images/screen/universe/universe_score.png",
