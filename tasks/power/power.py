@@ -109,15 +109,29 @@ class Power:
                 logger.info(_("自动战斗已开启"))
                 break
             time.sleep(0.5)
+
         logger.info(_("等待战斗"))
+        Power.isFightFail = False
 
         def check_fight():
-            return auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9)
-        if not auto.retry_with_timeout(lambda: check_fight(), 30 * 60, 1):
+            if auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9):
+                return auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9)
+            elif auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
+                Power.isFightFail = True
+                return auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9)
+                  
+        if not auto.retry_with_timeout(lambda: check_fight(), 10 * 60, 1):
             nowtime = time.time()
-            logger.error(_(f"{nowtime},战斗超时"))
-            raise Exception(_(f"{nowtime},战斗超时"))
-        logger.info(_("战斗完成"))
+            logger.error(f"{nowtime},战斗超时/或战败")
+            raise Exception(f"{nowtime},战斗超时/或战败")
+        else:
+            if Power.isFightFail:
+                auto.click_element("./assets/images/fight/fight_fail.png", "image", 0.9)
+                nowtime = time.time()
+                logger.error(f"{nowtime},战败,请检查当前队伍练度")
+                raise Exception(f"{nowtime},战败,请检查当前队伍练度")
+            else:
+                logger.info(_("战斗完成"))
 
     @staticmethod
     def borrow_character():
