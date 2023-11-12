@@ -3,46 +3,6 @@ log_level: INFO # 日志等级: INFO、DEBUG
 check_update: true # 检测更新
 agreed_to_disclaimer: false # false为未接受
 
-char_chs:
-  Arlan: 阿兰
-  Asta: 艾丝妲
-  Bailu: 白露
-  Blade: 刃
-  Bronya: 布洛妮娅
-  CaelumDestruction: 男物主
-  CaelumPreservation: 男火主
-  Clara: 克拉拉
-  DanHeng: 丹恒
-  DanHengImbibitorLunae: 丹恒·饮月
-  FuXuan: 符玄
-  Gepard: 杰帕德
-  Guinaifen: 桂乃芬
-  Herta: 黑塔
-  Himeko: 姬子
-  Hook: 虎克
-  Jingliu: 镜流
-  JingYuan: 景元
-  Kafka: 卡芙卡
-  Luka: 卢卡
-  Luocha: 罗刹
-  Lynx: 玲可
-  March7th: 三月七
-  Natasha: 娜塔莎
-  Pela: 佩拉
-  Qingque: 青雀
-  Sampo: 桑博
-  Seele: 希儿
-  Serval: 希露瓦
-  SilverWolf: 银狼
-  StelleDestruction: 女物主
-  StellePreservation: 女火主
-  Sushang: 素裳
-  Tingyuan: 停云
-  TopazandNumby: 托帕&账账
-  Welt: 瓦尔特
-  Yanqing: 彦卿
-  Yukong: 驭空
-
 last_running_uid: '111111111' # 最后运行的UID
 blacklist_uid: # UID黑名单,uid后为黑名单原因
 - '111111111' # 太帅
@@ -300,3 +260,43 @@ account_active:
         ActiveDay: 0 # 激活的天数
         ExpirationDate: 0 # 激活时刻过指定天数的时间戳,代表着过期时刻的时间戳
         CostDay: 0
+
+char_chs:
+  Arlan: 阿兰
+  Asta: 艾丝妲
+  Bailu: 白露
+  Blade: 刃
+  Bronya: 布洛妮娅
+  CaelumDestruction: 男物主
+  CaelumPreservation: 男火主
+  Clara: 克拉拉
+  DanHeng: 丹恒
+  DanHengImbibitorLunae: 丹恒·饮月
+  FuXuan: 符玄
+  Gepard: 杰帕德
+  Guinaifen: 桂乃芬
+  Herta: 黑塔
+  Himeko: 姬子
+  Hook: 虎克
+  Jingliu: 镜流
+  JingYuan: 景元
+  Kafka: 卡芙卡
+  Luka: 卢卡
+  Luocha: 罗刹
+  Lynx: 玲可
+  March7th: 三月七
+  Natasha: 娜塔莎
+  Pela: 佩拉
+  Qingque: 青雀
+  Sampo: 桑博
+  Seele: 希儿
+  Serval: 希露瓦
+  SilverWolf: 银狼
+  StelleDestruction: 女物主
+  StellePreservation: 女火主
+  Sushang: 素裳
+  Tingyuan: 停云
+  TopazandNumby: 托帕&账账
+  Welt: 瓦尔特
+  Yanqing: 彦卿
+  Yukong: 驭空

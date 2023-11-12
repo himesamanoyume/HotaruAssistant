@@ -232,9 +232,6 @@ class Notify:
             case _:
                 lizhanyuxiang_text = ''
 
-
-
-
         multi_content += f"<p>拟造花萼（金）:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['拟造花萼（金）']}<rt class='ttt' style='background-color: unset;' data-rt='{nizaohuaejin_text}'></rt></ruby></span></p>"
         multi_content += f"<p>拟造花萼（赤）:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_names[uid]['拟造花萼（赤）']}</span></p>"
         multi_content += f"<p>凝滞虚影:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['凝滞虚影']}<rt class='ttt' style='background-color: unset;' data-rt='{ningzhixuying_text}'></rt></ruby></span></p>"
@@ -244,15 +241,15 @@ class Notify:
 
         match config.universe_number[uid]:
             case 3:
-                world_number = '第三世界'
+                world_number = "<ruby>第三世界<rt class='ttt' style='background-color: unset;' data-rt='封印站/仙舟套'></rt></ruby>"
             case 4:
-                world_number = '第四世界'
+                world_number = "<ruby>第四世界<rt class='ttt' style='background-color: unset;' data-rt='击破套/翁瓦克'></rt></ruby>"
             case 5:
-                world_number = '第五世界'
+                world_number = "<ruby>第五世界<rt class='ttt' style='background-color: unset;' data-rt='泛银河/差分机'></rt></ruby>"
             case 6:
-                world_number = '第六世界'
+                world_number = "<ruby>第六世界<rt class='ttt' style='background-color: unset;' data-rt='筑城者/萨尔索图'></rt></ruby>"
             case 7:
-                world_number = '第七世界'
+                world_number = "<ruby>第七世界<rt class='ttt' style='background-color: unset;' data-rt='繁星/龙骨套'></rt></ruby>"
             case _:
                 world_number = '世界选择有误'
 
