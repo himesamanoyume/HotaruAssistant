@@ -103,6 +103,16 @@
                             "image",
                             0.95
                         ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    },
+                    {
+                        "action": "self.get_current_screen",
+                        "args": []
                     }
                 ]
             },
@@ -144,8 +154,12 @@
                     {
                         "action": "time.sleep",
                         "args": [
-                            1
+                            2
                         ]
+                    },
+                    {
+                        "action": "self.get_current_screen",
+                        "args": []
                     }
                 ]
             },
@@ -679,6 +693,16 @@
                             "image",
                             0.95
                         ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    },
+                    {
+                        "action": "self.get_current_screen",
+                        "args": []
                     }
                 ]
             }
@@ -710,6 +734,16 @@
                             "image",
                             0.95
                         ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    },
+                    {
+                        "action": "self.get_current_screen",
+                        "args": []
                     }
                 ]
             },

@@ -176,8 +176,8 @@ class Utils:
         time.sleep(0.5)
         Utils._task_mappings = Utils._load_config("./assets/config/task_mappings.json")
         for mappings_keyword, task_name in Utils._task_mappings.items():
-            logger.info(f"keyword:{mappings_keyword}")
-            if mappings_keyword == result_keyword:
+            logger.info(f"mappings_keyword:{mappings_keyword},result_keyword:{result_keyword}")
+            if mappings_keyword in result_keyword:
                 if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
                     config.daily_tasks[Utils.get_uid()][task_name] = False
                     logger.warning(_(f"keyword:{mappings_keyword}----->{task_name}:进行了点击,任务已经完成"))

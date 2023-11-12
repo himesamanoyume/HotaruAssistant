@@ -114,11 +114,10 @@ class Power:
         Power.isFightFail = False
 
         def check_fight():
-            if auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9):
-                return auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9)
-            elif auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
+            if auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
                 Power.isFightFail = True
-                return auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9)
+
+            return auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9) or auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9)
                   
         if not auto.retry_with_timeout(lambda: check_fight(), 10 * 60, 1):
             nowtime = time.time()
@@ -412,7 +411,7 @@ class Power:
                 auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
             Power.borrow_character()
             if auto.click_element("开始挑战", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
-                if instance_type == "凝滞虚影" or "侵蚀隧洞":
+                if instance_type in ["凝滞虚影", "侵蚀隧洞"]:
                     time.sleep(2)
                     for i in range(3):
                         auto.press_mouse()
