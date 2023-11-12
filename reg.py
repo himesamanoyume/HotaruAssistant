@@ -1,84 +1,47 @@
-import winreg
-import json
-import time
+# import winreg
+# import json
+# import time
 import pyuac
 from managers.logger_manager import logger
 import sys
+import os
+from managers.config_manager import config
 from managers.translate_manager import _
 
 class Reg:
-    key = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
-    sub_key = "Software\\miHoYo\\崩坏：星穹铁道"
-    value_name = "MIHOYOSDK_ADL_PROD_CN_h3123967166"
-    reg_path = "D:\\MihoyoLogin\\starrail\\reg.json"
-    
-    def export_reg():
+    def reg_export():
         try:
-            print("进行注册表导出\n")
-            uid = int(input("输入UID:\n"))
+            # 保存完整的注册表
+            logger.info("保存完整的注册表")
+            os.system(f"cmd /C reg export HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 D:\MihoyoLogin\\temp\\temp-full.reg /y")
+            # 删除所有注册表
+            logger.info("删除所有注册表")
+            os.system(f"cmd /C reg delete HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 /f")
+            # 等待游戏启动并登录
+            logger.info("等待游戏启动并登录")
+            os.system(f"cmd /C start \"\" \"{config.game_path}\"")
+            uid = input("输入uid:\n")
+            input("登录完成后按回车进入下一步...\n")
+            # end
+            # 导出对应账号注册表
+            logger.info("导出对应账号注册表")
+            os.system(f"cmd /C reg export HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 D:\MihoyoLogin\starrail\\starrail-{uid}.reg")
+            # 重新导入完整注册表
+            logger.info("重新导入完整注册表")
+            os.system(f"cmd /C reg import D:\MihoyoLogin\\temp\\temp-full.reg")
+            logger.info("完成")
+            config.want_register_accounts[uid] = {}
+            config.want_register_accounts[uid] = config.want_register_accounts['111111111']
+            config.want_register_accounts[uid]['reg_path'] = f'D:\MihoyoLogin\starrail\\starrail-{uid}.reg'
+            config.save_config()
 
-            
-
-            with winreg.OpenKey(Reg.key, Reg.sub_key) as reg_key:
-                get_value, _ = winreg.QueryValueEx(reg_key, Reg.value_name)
-                real_value = str(get_value).split("'")[1]
-
-            with open(Reg.reg_path, 'r', encoding='utf-8') as file:
-                json_file_data = json.load(file)
-
-            for data in json_file_data:
-                if f"{uid}" in data:
-                    data[f'{uid}'] = real_value
-                    with open(Reg.reg_path, 'w') as file:
-                        json.dump(json_file_data, file)
-                    winreg.CloseKey(Reg.key)
-                    print("检测到json中已有该uid,已更新reg_value")
-                    return
-                
-            new_reg = {
-                uid: real_value
-            }
-            json_file_data.append(new_reg)
-            print("新uid,已新增reg_value")
-
-            with open(Reg.reg_path, 'w') as file:
-                json.dump(json_file_data, file)
-
-            winreg.CloseKey(Reg.key)
-
-        except FileNotFoundError:
-            nowtime = time.time()
-            raise Exception (f"{nowtime},配置文件不存在：{Reg.reg_path}")
         except Exception as e:
-            nowtime = time.time()
-            raise Exception (f"{nowtime},配置文件解析失败：{e}")
-
-    def import_reg(uid):
-        try:
-            with winreg.OpenKey(Reg.key, Reg.sub_key) as reg_key:
-                reg_path = "D:\\MihoyoLogin\\starrail\\reg.json"
-
-            with open(reg_path, 'r', encoding='utf-8') as file:
-                json_file_data = json.load(file)
-                for data in json_file_data:
-                    if f"{uid}" in data:
-                        reg_value = data[f"{uid}"]
-                        byte_value = bytearray(reg_value, 'utf-8')
-                        winreg.SetValueEx(reg_key, Reg.value_name, 0, winreg.REG_BINARY, byte_value)
-                        print(f"{uid}的reg_value已导入")
-                        break
-                            
-
-            winreg.CloseKey(Reg.key)
-                
-        except FileNotFoundError:
-            nowtime = time.time()
-            raise Exception (f"{nowtime},配置文件不存在：{reg_path}")
-        except Exception as e:
-            nowtime = time.time()
-            raise Exception (f"{nowtime},配置文件解析失败：{e}")
+            logger.error(_("发生错误: {e}").format(e=e))
+            input(_("按回车键关闭窗口. . ."))
+            sys.exit(1)
 
 if __name__ == '__main__':
+
     if not pyuac.isUserAdmin():
         try:
             pyuac.runAsAdmin(wait=False)
@@ -89,8 +52,7 @@ if __name__ == '__main__':
             sys.exit(1)
     else:
         try:
-            Reg.export_reg()
-            # Reg.import_reg(100193509)
+            Reg.reg_export()
             input(("按回车键关闭窗口. . ."))
             sys.exit(1)
         except KeyboardInterrupt:
@@ -99,9 +61,6 @@ if __name__ == '__main__':
             sys.exit(1)
         except Exception as e:
             logger.error(_("发生错误: {e}").format(e=e))
-            # notify.notify(_("发生错误: {e}").format(e=e))
             input(_("按回车键关闭窗口. . ."))
             sys.exit(1)
-    # Reg.export_reg()
-    # Reg.import_reg(100193509)
-# https://blog.51cto.com/u_16213364/7875395
+
