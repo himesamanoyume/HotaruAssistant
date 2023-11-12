@@ -541,7 +541,10 @@ class Notify:
         randomNumber = random.randint(0,4)
 
         account_active_content = ""
-        uid = Utils.get_uid() if not Utils.get_uid() == '-1' else '-1'
+        if Utils._uid == '-1':
+            uid = '-1'
+        else:
+            uid = Utils.get_uid() if not Utils.get_uid() == '-1' else '-1'
 
         htmlStr=f"""
             <div class=body style=background-color:#3a3a3a>

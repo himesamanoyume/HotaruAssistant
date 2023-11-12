@@ -35,6 +35,7 @@ class Game:
     @staticmethod
     def stop(index, detect_loop=False, currentUID = 0, lastUID=-1, isAbnormalExit = False):
         if not isAbnormalExit:
+            logger.info("正常退出中")
             Utils._content.update({'date':f'{datetime.now()}'})
             i =0
             for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():

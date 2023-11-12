@@ -1,6 +1,3 @@
-# import winreg
-# import json
-# import time
 import pyuac
 from managers.logger_manager import logger
 import sys
@@ -25,14 +22,28 @@ class Reg:
             # end
             # 导出对应账号注册表
             logger.info("导出对应账号注册表")
-            os.system(f"cmd /C reg export HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 D:\MihoyoLogin\starrail\\starrail-{uid}.reg")
+            os.system(f"cmd /C reg export HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 D:\MihoyoLogin\starrail\\starrail-{uid}.reg /y")
             # 重新导入完整注册表
             logger.info("重新导入完整注册表")
             os.system(f"cmd /C reg import D:\MihoyoLogin\\temp\\temp-full.reg")
-            logger.info("完成")
+            logger.info("完成,你已可以Alt+F4退出游戏")
             config.want_register_accounts[uid] = {}
-            config.want_register_accounts[uid] = config.want_register_accounts['111111111']
+            config.want_register_accounts[uid]['email'] = config.want_register_accounts['111111111']['email']
             config.want_register_accounts[uid]['reg_path'] = f'D:\MihoyoLogin\starrail\\starrail-{uid}.reg'
+            config.want_register_accounts[uid]['active_day'] = config.want_register_accounts['111111111']['active_day']
+
+            temp_list = list()
+            temp_list.append('Bronya')
+            temp_list.append('Blade')
+            temp_list.append('Jingliu')
+            temp_list.append('JingYuan')
+
+            config.want_register_accounts[uid]['universe_team'] = temp_list
+            
+            config.want_register_accounts[uid]['universe_fate'] = config.want_register_accounts['111111111']['universe_fate']
+            config.want_register_accounts[uid]['universe_number'] = config.want_register_accounts['111111111']['universe_number']
+            config.want_register_accounts[uid]['universe_difficulty'] = config.want_register_accounts['111111111']['universe_difficulty']
+            config.save_config()
             config.save_config()
 
         except Exception as e:

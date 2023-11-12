@@ -1414,6 +1414,24 @@
         ]
     },
     {
+        "name": "需要登录",
+        "id": "need_login",
+        "image_path": "./assets/images/login/need_login.png",
+        "actions":[
+            {
+                "target_screen": "start_game",
+                "actions_list": [
+                    {
+                        "action": "auto.need_login_error",
+                        "args": [
+                            
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "强制下线",
         "id": "force_offline",
         "image_path": "./assets/images/base/force_offline.png",

@@ -58,6 +58,11 @@ class Automation:
                     max_loc = local_max_loc
 
         return max_val, max_loc
+    
+    def need_login_error(self):
+        nowtime = time.time()
+        logger.error(f"{nowtime},检测到需要登录,可能是注册表不正确或已更改了密码")
+        raise Exception(f"{nowtime},检测到需要登录,可能是注册表不正确或已更改了密码")
 
     def find_element(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, pixel_bgr=None):
         # 参数有些太多了，以后改

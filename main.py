@@ -206,6 +206,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
         except Exception as e:
             logger.error(f"{e}")
             notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
+            logger.error("进入非正常退出游戏流程")
             Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
         
     # 子任务
