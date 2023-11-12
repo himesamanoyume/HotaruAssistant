@@ -65,8 +65,11 @@ class Universe:
         logger.hr(_("准备模拟宇宙"), 2)
         
         config.save_config()
-        if config.universe_fin[Utils.get_uid()] and daily:
+        if config.universe_fin[Utils.get_uid()] and daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
             logger.info(_("鉴定为正在每日任务中且分数已满,跳过"))
+            return True
+        if config.instance_type[Utils.get_uid()] == '模拟宇宙' and not Universe.immersifiers > 0:
+            logger.info(_("鉴定为沉浸器数量不足,跳过"))
             return True
         if Universe.before_start():
             command = [config.python_exe_path, "states.py"]
@@ -78,7 +81,13 @@ class Universe:
                 screen.change_to('universe_main')
                 logger.info(_("开始模拟宇宙"))
                 config._load_config()
+
                 # for循环2次,每次开始时都检测一遍积分
+                if config.instance_type[Utils.get_uid()] == '模拟宇宙' and 0 < Universe.immersifiers:
+                    nums = Universe.immersifiers // 4
+                    if Universe.immersifiers % 4 > 0:
+                        nums += 1
+
                 for i in range(nums):
                     time.sleep(0.5)
                     # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
@@ -133,8 +142,8 @@ class Universe:
                         logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
                         if Universe.immersifiers > 0:
                             command.append("--bonus=1")
-                        if daily:
-                            logger.info(_("鉴定为正在每日任务中,最大积分情况下将直接跳过"))
+                        if daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
+                            logger.info(_("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
                             return False
                     else:
                         logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
@@ -193,6 +202,20 @@ class Universe:
     def get_immersifier():
         screen.change_to('guide3')
         instance_type_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
+        if config.instance_type[Utils.get_uid()] == '模拟宇宙':
+            if Utils._power >= 40:
+                count = Utils._power // 40
+                if auto.click_element("./assets/images/share/trailblaze_power/immersifiers.png", "image", 0.95, max_retries=10):
+                    time.sleep(0.5)
+                
+                    for i in range(count-1):
+                        auto.click_element("./assets/images/share/trailbaze_power/plus.png","image",0.95,max_retries=10)
+                        time.sleep(0.5)
+
+                    if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
+                        time.sleep(1)
+                        auto.press_mouse()
+
         if not auto.click_element("模拟宇宙", "text", crop=instance_type_crop):
             if auto.click_element("凝滞虚影", "text", max_retries=10, crop=instance_type_crop):
                 auto.mouse_scroll(12, 1)
@@ -274,9 +297,11 @@ class Universe:
                 if char_count == 4:
                     break
                 logger.info(f"{character}")
-                if not auto.click_element(f"./assets/images/character/{character}.png","image", 0.9, max_retries=10, take_screenshot=True):
+                if not auto.click_element(f"./assets/images/character/{character}.png","image", 0.85, max_retries=10, take_screenshot=True):
+                    time.sleep(0.5)
                     auto.mouse_scroll(30, -1)
-                    if not auto.click_element(f"./assets/images/character/{character}.png", "image", 0.9, max_retries=10, take_screenshot=True):
+                    if not auto.click_element(f"./assets/images/character/{character}.png", "image", 0.85, max_retries=10, take_screenshot=True):
+                        time.sleep(0.5)
                         auto.mouse_scroll(30, 1)
                         continue
                     else:

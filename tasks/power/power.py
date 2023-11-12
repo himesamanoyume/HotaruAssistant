@@ -14,10 +14,14 @@ class Power:
     def start():
         if Utils._power<=8:
             return
-        instance_name = config.instance_names[Utils.get_uid()][config.instance_type[Utils.get_uid()]]
-        if instance_name == "无":
-            logger.info(_("跳过清体力 {type}未开启").format(type=config.instance_type[Utils.get_uid()]))
-            return False
+        if config.instance_type[Utils.get_uid()] == '模拟宇宙':
+            Utils._power = Power.power()
+            return
+        else:
+            instance_name = config.instance_names[Utils.get_uid()][config.instance_type[Utils.get_uid()]]
+            if instance_name == "无":
+                logger.info(_("跳过清体力 {type}未开启").format(type=config.instance_type[Utils.get_uid()]))
+                return False
 
         logger.hr(_("开始清体力"), 0)
 
@@ -28,22 +32,22 @@ class Power:
         Power.instance(config.instance_type[Utils.get_uid()], instance_name, config.power_needs[config.instance_type[Utils.get_uid()]])
         logger.hr(_("完成"), 2)
 
+    def get_power(crop, type="trailblaze_power"):
+        try:
+            if type == "trailblaze_power":
+                result = auto.get_single_line_text(crop=crop, blacklist=['+', '米'], max_retries=3)
+                power = int(result.replace("1240", "/240").split('/')[0])
+                return power if 0 <= power <= 999 else -1
+            elif type == "reserved_trailblaze_power":
+                result = auto.get_single_line_text(crop=crop, blacklist=['+', '米'], max_retries=3)
+                power = int(result[0])
+                return power if 0 <= power <= 2400 else -1
+        except Exception as e:
+            logger.error(_("识别开拓力失败: {error}").format(error=e))
+            return -1
+
     @staticmethod
     def power():
-        def get_power(crop, type="trailblaze_power"):
-            try:
-                if type == "trailblaze_power":
-                    result = auto.get_single_line_text(crop=crop, blacklist=['+', '米'], max_retries=3)
-                    power = int(result.replace("1240", "/240").split('/')[0])
-                    return power if 0 <= power <= 999 else -1
-                elif type == "reserved_trailblaze_power":
-                    result = auto.get_single_line_text(crop=crop, blacklist=['+', '米'], max_retries=3)
-                    power = int(result[0])
-                    return power if 0 <= power <= 2400 else -1
-            except Exception as e:
-                logger.error(_("识别开拓力失败: {error}").format(error=e))
-                return -1
-
         def move_button_and_confirm():
             if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
                 result = auto.find_element("./assets/images/share/trailblaze_power/button.png", "image", 0.9, max_retries=10)
@@ -83,7 +87,7 @@ class Power:
                         auto.press_key("esc")
 
         screen.change_to('map')
-        trailblaze_power = get_power(trailblaze_power_crop)
+        trailblaze_power = Power.get_power(trailblaze_power_crop)
         Utils._power = trailblaze_power
         logger.info(_("🟣开拓力: {power}").format(power=trailblaze_power))
         Utils._content.update({'new_power':f'{trailblaze_power}'})

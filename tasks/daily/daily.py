@@ -38,8 +38,6 @@ class Daily:
         else:
             logger.info(_("历战余响尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
-        Power.start()
-
         if Utils.is_next_4_am(config.fight_timestamp, Utils.get_uid()):
             config.save_config()
             if config.fight_enable:
@@ -49,10 +47,15 @@ class Daily:
         else:
             logger.info(_("锄大地尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
-        
+        Power.start()
         if config.universe_enable:
             # Power.start()
             # Reward.start()
+            # if config.instance_type[Utils.get_uid()] == '模拟宇宙':
+            #     _nums = Utils._power // 160
+            # else:
+            #     _nums = 2
+            Universe.get_immersifier()
             isTrue = Universe.start(get_reward=True, daily=True, nums=2)
             if isTrue:
                 Power.start()
