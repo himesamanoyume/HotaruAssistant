@@ -156,7 +156,7 @@ class Notify:
 
         multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 10 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{config.forgottenhall_levels[uid]}/10</p></blockquote>"
 
-        multi_content += (f"<blockquote>" if config.forgottenhall_stars[uid] == 30 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;';")+f"<p>星数:{config.forgottenhall_stars[uid]}/30</p></blockquote>"
+        multi_content += (f"<blockquote>" if config.forgottenhall_stars[uid] == 30 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{config.forgottenhall_stars[uid]}/30</p></blockquote>"
 
         multi_content += f"<p><strong>预计满开拓力时间</strong></p><blockquote><p>{full_power_time}</p></blockquote>"
 

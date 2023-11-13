@@ -159,6 +159,8 @@ class Screen:
                     if not Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
                         while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
                             time.sleep(1)
+                elif self.get_name(self.current_screen) == "遗器已满":
+                    auto.relic_full_error()
                 return True
 
             if autotry:

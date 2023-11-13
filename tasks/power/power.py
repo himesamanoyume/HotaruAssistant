@@ -5,6 +5,7 @@ from managers.config_manager import config
 from managers.ocr_manager import ocr
 from tasks.daily.utils import Utils
 from managers.translate_manager import _
+from tasks.daily.relics import Relics
 from tasks.base.base import Base
 import time
 
@@ -415,6 +416,8 @@ class Power:
                 auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
             Power.borrow_character()
             if auto.click_element("开始挑战", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
+                time.sleep(0.5)
+                screen.get_current_screen()
                 if instance_type in ["凝滞虚影", "侵蚀隧洞"]:
                     time.sleep(2)
                     for i in range(3):
@@ -476,6 +479,7 @@ class Power:
                 logger.info(_("🟣开拓力 < {power_need}*{number}").format(power_need=power_need, number=number))
                 return False
 
+        Relics.detect_relic_count()
         
         Utils._temp += "<p>"+f'{instance_type} - {instance_name} - {number}次</p>'
 

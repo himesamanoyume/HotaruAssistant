@@ -1,7 +1,9 @@
 from managers.screen_manager import screen
 from managers.automation_manager import auto
 from managers.logger_manager import logger
+from managers.config_manager import config
 from managers.translate_manager import _
+from tasks.daily.utils import Utils
 import time
 
 class Relics:
@@ -27,7 +29,7 @@ class Relics:
                             time.sleep(1)
                             if auto.click_element("全选", "text", max_retries=10, crop=(937.0 / 1920, 951.0 / 1080, 121.0 / 1920, 63.0 / 1080)):
                                 time.sleep(5)
-                                if auto.click_element("./assets/images/screen/bag/all_select.png", "image", 0.9, max_retries=10):
+                                if auto.find_element("./assets/images/screen/bag/all_select.png", "image", 0.9, max_retries=10):
                                     countText = auto.get_single_line_text((616.0 / 1920, 871.0 / 1080, 110.0 / 1920, 37.0 / 1080), [], 5)
                                     count = countText.split('/')[0]
                                     logger.info(f"已选数量:{count}/500")
@@ -48,4 +50,24 @@ class Relics:
             return False
         except Exception as e:
             logger.error(_("分解遗器失败: {error}").format(error=e))
+        return False
+    
+    @staticmethod
+    def detect_relic_count():
+        try:
+            logger.hr(_("准备检测遗器数量"), 2)
+            # screen.get_current_screen()
+            screen.change_to('bag_relics')
+            relic_count_crop=(1021.0 / 1920, 974.0 / 1080, 131.0 / 1920, 33.0 / 1080)
+            relic_countText = auto.get_single_line_text(relic_count_crop, ['遗','器','数','量'], max_retries=5)
+            logger.info(f"遗器数量:{relic_countText}")
+            relic_countText = relic_countText.split('/')[0]
+            Utils._relicCount = int(relic_countText)
+            if Utils._relicCount >= 1450:
+                logger.warning("检测到遗器数量超标")
+                if config.relic_salvage_enable[Utils.get_uid()]:
+                    Relics.salvage()
+                    Relics.detect_relic_count()
+        except Exception as e:
+            logger.error(_("检测遗器数量失败: {error}").format(error=e))
         return False

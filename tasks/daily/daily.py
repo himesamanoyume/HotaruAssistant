@@ -55,8 +55,8 @@ class Daily:
             #     _nums = Utils._power // 160
             # else:
             #     _nums = 2
-            Universe.get_immersifier()
-            isTrue = Universe.start(get_reward=True, daily=True, nums=2)
+            # Universe.get_immersifier()
+            isTrue = Universe.start(get_reward=True, daily=True, nums=0)
             if isTrue:
                 Power.start()
         else:

@@ -1414,6 +1414,24 @@
         ]
     },
     {
+        "name": "遗器已满",
+        "id": "relic_full",
+        "image_path": "./assets/images/fight/relic_full.png",
+        "actions":[
+            {
+                "target_screen": "main",
+                "actions_list": [
+                    {
+                        "action": "auto.relic_full_error",
+                        "args": [
+                            
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "需要登录",
         "id": "need_login",
         "image_path": "./assets/images/login/need_login.png",

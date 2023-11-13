@@ -66,6 +66,9 @@ def main(action=None):
                     continue
                 Utils.init_instanceButNoSave(uidStr)
 
+                # 分解遗器
+                Utils.detectIsNoneButNoSave(config.relic_salvage_enable, uidStr, False)
+
                 # echo of war历战余响
                 Utils.detectIsNoneButNoSave(config.echo_of_war_enable, uidStr, False)
                 Utils.detectIsNoneButNoSave(config.echo_of_war_times, uidStr, 0)

@@ -2,6 +2,7 @@ from managers.screen_manager import screen
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.automation_manager import auto
+from tasks.daily.relics import Relics
 from managers.translate_manager import _
 from tasks.base.base import Base
 from tasks.base.pythonchecker import PythonChecker
@@ -13,7 +14,8 @@ import time
 
 
 class Universe:
-    immersifiers = 0
+
+    
 
     @staticmethod
     def update():
@@ -61,18 +63,21 @@ class Universe:
     
 
     @staticmethod
-    def start(get_reward=False, nums=config.universe_count, save=True, daily=True):
+    def start(get_reward=False, nums=0, save=True, daily=True):
         logger.hr(_("准备模拟宇宙"), 2)
         
         config.save_config()
         if config.universe_fin[Utils.get_uid()] and daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
             logger.info(_("鉴定为正在每日任务中且分数已满,跳过"))
             return True
-        if config.instance_type[Utils.get_uid()] == '模拟宇宙' and not Universe.immersifiers > 0:
-            logger.info(_("鉴定为沉浸器数量不足,跳过"))
-            return True
+        
+        Relics.detect_relic_count()
+        if Utils._relicCount >= 1450:
+            logger.warning("遗器数量超标,不进行模拟宇宙")
+            return False
+       
         if Universe.before_start():
-            command = [config.python_exe_path, "states.py"]
+            
             screen.change_to('main')
 
             logger.info(_("开始校准"))
@@ -80,106 +85,117 @@ class Universe:
                 
                 screen.change_to('universe_main')
                 logger.info(_("开始模拟宇宙"))
-                config._load_config()
 
-                # for循环2次,每次开始时都检测一遍积分
-                if config.instance_type[Utils.get_uid()] == '模拟宇宙' and 0 < Universe.immersifiers:
-                    nums = Universe.immersifiers // 4
-                    if Universe.immersifiers % 4 > 0:
-                        nums += 1
-
-                for i in range(nums):
-                    time.sleep(0.5)
-                    # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
-                    if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                        current_score, max_score = Utils.get_universe_score()
-                        auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
-
-                    elif auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
-                        time.sleep(1)
-                        current_score, max_score = Utils.get_universe_score()
-                        if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
-                            time.sleep(0.5)
-                            if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                                time.sleep(0.5)
-                                logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
-                                # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
-                                auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
-                    
-                    time.sleep(0.5)
-                    
-                    isFirstTimeSelectTeam = True
-                    if isFirstTimeSelectTeam:
-                        isFirstTimeSelectTeam = Universe.select_universe()
-                    else:
-                        Universe.get_immersifier()
-
-                    # screen.change_to('universe_main')
-
-                    match config.universe_fate[Utils.get_uid()]:
-                        case '存护':
-                            fate = 0
-                        case '记忆':
-                            fate = 1
-                        case '虚无':
-                            fate = 2
-                        case '丰饶':
-                            fate = 3
-                        case '巡猎':
-                            fate = 4
-                        case '毁灭':
-                            fate = 5
-                        case '欢愉':
-                            fate = 6
-                        case '繁育':
-                            fate = 7
-                    
-                    if current_score == 0:
-                        logger.info(_("积分为0,鉴定为首次进行模拟宇宙"))
-                        if Universe.immersifiers > 0:
-                            command.append("--bonus=1")
-                    elif current_score == max_score:
-                        logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
-                        if Universe.immersifiers > 0:
-                            command.append("--bonus=1")
-                        if daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
-                            logger.info(_("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
-                            return False
-                    else:
-                        logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
-                        command.append("--bonus=1")
-                    
-                    command.append(f"--nums=1")
-                        
-                    # end
-                    logger.info(_("将开始第{index}次进行模拟宇宙").format(index=i+1))
-                    command.append(f"--fate={fate}")
-                    if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
-                    
-                        screen.change_to('main')
-                        # 此时保存运行的时间戳
-                        if save:
-                            Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
-                        # end
-
-                        if get_reward:
-                            # 此时领取积分奖励
-                            Universe.get_reward()
-                            # end
-                        else:
-                            # 改成第一/二次模拟宇宙已完成
-                            logger.info(_("🎉第{index}次模拟宇宙已完成🎉").format(index=i+1))
-                            Utils._temp += f'<p>模拟宇宙已完成{i+1}次</p>'
-
-                            # end
-                        return True
-                    else:
-                        logger.error(_("模拟宇宙失败"))
-                    # end
+                if nums > 0:
+                    for i in range(nums):
+                        Universe.runUniverse(get_reward, save, daily, nums)
+                else:
+                    Universe.runUniverse(get_reward, save, daily)
             else:
                 logger.error(_("校准失败"))
         logger.warning(_("⚠️模拟宇宙未完成⚠️"))
         return False
+    
+    @staticmethod
+    def runUniverse(get_reward=False, save=True, daily=True, nums=0):
+
+        command = [config.python_exe_path, "states.py"]
+        time.sleep(0.5)
+        logger.info("开始检测模拟宇宙积分")
+        # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
+        if auto.find_element("./assets/images/base/click_close.png", "image", 0.9,max_retries=10):
+            current_score, max_score = Utils.get_universe_score()
+            auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+
+        elif auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
+            time.sleep(1)
+            current_score, max_score = Utils.get_universe_score()
+            if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
+                time.sleep(0.5)
+                if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                    time.sleep(0.5)
+                    logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
+                    # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
+                    auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+        
+        time.sleep(0.5)
+
+        if config.instance_type[Utils.get_uid()] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
+            
+            if Utils._isFirstTimeSelectTeam:
+                logger.info("本账号首次运行模拟宇宙")
+                Utils._isFirstTimeSelectTeam = Universe.select_universe()
+            else:
+                Universe.get_immersifier()
+
+            # screen.change_to('universe_main')
+            if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and not Utils._immersifiers > 0) or not nums == 0:
+                logger.info(_("鉴定为沉浸器数量不足,跳过"))
+                return True
+
+            match config.universe_fate[Utils.get_uid()]:
+                case '存护':
+                    fate = 0
+                case '记忆':
+                    fate = 1
+                case '虚无':
+                    fate = 2
+                case '丰饶':
+                    fate = 3
+                case '巡猎':
+                    fate = 4
+                case '毁灭':
+                    fate = 5
+                case '欢愉':
+                    fate = 6
+                case '繁育':
+                    fate = 7
+            
+            if current_score == 0:
+                logger.info(_("积分为0,鉴定为首次进行模拟宇宙"))
+                if Utils._immersifiers > 0:
+                    command.append("--bonus=1")
+            elif current_score == max_score:
+                logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
+                if Utils._immersifiers > 0:
+                    command.append("--bonus=1")
+                if daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
+                    logger.info(_("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
+                    return False
+            else:
+                logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
+                command.append("--bonus=1")
+            
+            command.append(f"--nums=1")
+                
+            # end
+            logger.info(_("将开始进行模拟宇宙"))
+            command.append(f"--fate={fate}")
+            if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
+            
+                screen.change_to('main')
+                # 此时保存运行的时间戳
+                if save:
+                    Utils.saveTimestamp('universe_timestamp', Utils.get_uid())
+                # end
+
+                if get_reward:
+                    # 此时领取积分奖励
+                    Universe.get_reward()
+                    # end
+                
+                Universe.get_immersifier()
+
+                if Utils._immersifiers > 0:
+                    logger.info("检测到沉浸器数量还有剩余,继续进行一次模拟宇宙")
+                    Universe.runUniverse(get_reward, save, daily)
+
+                logger.info(_("🎉模拟宇宙已完成1次🎉"))
+                Utils._temp += f'<p>模拟宇宙已完成1次</p>'
+                return True
+            else:
+                logger.error(_("模拟宇宙失败"))
+            # end
 
     @staticmethod
     def get_reward():
@@ -205,11 +221,12 @@ class Universe:
         if config.instance_type[Utils.get_uid()] == '模拟宇宙':
             if Utils._power >= 40:
                 count = Utils._power // 40
+                logger.info(f"开拓力能换{count}个沉浸器")
                 if auto.click_element("./assets/images/share/trailblaze_power/immersifiers.png", "image", 0.95, max_retries=10):
                     time.sleep(0.5)
                 
                     for i in range(count-1):
-                        auto.click_element("./assets/images/share/trailbaze_power/plus.png","image",0.95,max_retries=10)
+                        auto.click_element("./assets/images/share/trailblaze_power/plus.png", "image", 0.9, max_retries=10)
                         time.sleep(0.5)
 
                     if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
@@ -226,10 +243,10 @@ class Universe:
             result = auto.get_single_line_text(crop=(1673.0 / 1920, 50.0 / 1080, 71.0 / 1920, 31.0 / 1080),max_retries=5)
             count = result.split("/")[0]
             logger.info(f"识别到沉浸器数量为:{count}")
-            Universe.immersifiers = int(count)
+            Utils._immersifiers = int(count)
         except Exception as e:
             logger.error(_("识别沉浸器数量失败: {error}").format(error=e))
-            Universe.immersifiers = 0
+            Utils._immersifiers = 0
 
     @staticmethod
     def select_universe():
@@ -352,7 +369,6 @@ class Universe:
             return
         else:
             Universe.clear_team(j+1)
-
 
     @staticmethod
     def gui():
