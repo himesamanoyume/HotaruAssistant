@@ -2,6 +2,7 @@ from managers.screen_manager import screen
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.automation_manager import auto
+from tasks.power.power import Power
 from tasks.daily.relics import Relics
 from managers.translate_manager import _
 from tasks.base.base import Base
@@ -121,6 +122,8 @@ class Universe:
         time.sleep(0.5)
 
         if config.instance_type[Utils.get_uid()] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
+
+            Power.power()
             
             if Utils._isFirstTimeSelectTeam:
                 logger.info("本账号首次运行模拟宇宙")

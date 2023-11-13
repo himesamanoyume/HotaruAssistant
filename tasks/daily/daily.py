@@ -27,6 +27,8 @@ class Daily:
 
 
     def sub():
+        
+        Relics.detect_relic_count()
 
         if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
             config.save_config()

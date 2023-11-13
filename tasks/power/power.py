@@ -478,8 +478,6 @@ class Power:
             if power_need * number > power:
                 logger.info(_("🟣开拓力 < {power_need}*{number}").format(power_need=power_need, number=number))
                 return False
-
-        Relics.detect_relic_count()
         
         Utils._temp += "<p>"+f'{instance_type} - {instance_name} - {number}次</p>'
 

@@ -91,6 +91,7 @@ March7thAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
+- ~~邮件中显示遗器数量~~
 - config save load用队列
 - task_mappings改成全部图片扫描
 - ~~新增清体力刷模拟宇宙拿遗器:体力换成沉浸器~~

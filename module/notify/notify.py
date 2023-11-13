@@ -152,6 +152,8 @@ class Notify:
 
         multi_content += f"<p><strong>当前历战余响次数</strong></p>"+(f"<blockquote>" if config.echo_of_war_times[uid] == 0 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
 
+        multi_content += f"<p><strong>当前遗器数量</strong></p><blockquote style='background-color:rgb(calc(64 + (95 - 64)*({Utils._relicCount} / 1500)), 64, calc(95 - (95 - 64)*({Utils._relicCount} / 1500)));box-shadow: 3px 0 0 0 rgb(calc(102 + (216 - 102)*({Utils._relicCount} / 1500)), calc(204 - (204 - 89)*({Utils._relicCount} / 1500)), calc(255 - (255 - 89)*({Utils._relicCount} / 1500))) inset;'><p>{Utils._relicCount}/1500</p></blockquote>"
+
         multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{Utils._content['countdownText']}</p>"
 
         multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 10 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{config.forgottenhall_levels[uid]}/10</p></blockquote>"
@@ -238,6 +240,7 @@ class Notify:
         multi_content += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['侵蚀隧洞']}<rt class='ttt' style='background-color: unset;' data-rt='{qinshisuidong_text}'></rt></ruby></span></p>"
         multi_content += f"<p>是否清空3次历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.echo_of_war_enable[uid] else '否'}</span></p>"
         multi_content += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['历战余响']}<rt class='ttt' style='background-color: unset;' data-rt='{lizhanyuxiang_text}'></rt></ruby></span></p>"
+        multi_content += f"<div class=post-txt-container-datetime>当遗器数量超过1450时将会分解至多500件遗器2~4星遗器</div><p>是否开启分解遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.relic_salvage_enable[uid] else '否'}</span></p>"
 
         match config.universe_number[uid]:
             case 3:
