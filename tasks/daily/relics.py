@@ -12,6 +12,9 @@ class Relics:
         try:
             logger.hr(_("准备分解遗器"), 2)
             # screen.get_current_screen()
+            if not config.relic_salvage_enable[Utils.get_uid()]:
+                logger.info("检测到分解遗器未开启,跳过分解遗器")
+                return
             screen.change_to('bag_relics')
             if auto.click_element("分解", "text", max_retries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
                 if auto.click_element("分解", "text", max_retries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
@@ -65,9 +68,9 @@ class Relics:
             Utils._relicCount = int(relic_countText)
             if Utils._relicCount >= 1450:
                 logger.warning("检测到遗器数量超标")
-                if config.relic_salvage_enable[Utils.get_uid()]:
-                    Relics.salvage()
-                    Relics.detect_relic_count()
+                Relics.salvage()
+                Relics.detect_relic_count()
+
         except Exception as e:
             logger.error(_("检测遗器数量失败: {error}").format(error=e))
         return False

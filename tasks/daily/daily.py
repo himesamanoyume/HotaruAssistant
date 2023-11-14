@@ -49,13 +49,7 @@ class Daily:
 
         Power.start()
         if config.universe_enable:
-            # Power.start()
-            # Reward.start()
-            # if config.instance_type[Utils.get_uid()] == '模拟宇宙':
-            #     _nums = Utils._power // 160
-            # else:
-            #     _nums = 2
-            # Universe.get_immersifier()
+            
             isTrue = Universe.start(get_reward=True, daily=True, nums=0)
             if isTrue:
                 Power.start()
@@ -85,11 +79,6 @@ class Daily:
         Utils._content.update({'uid':Utils.get_uid()})
         Utils.getDailyScoreMappings()
         Tasks._isDetect = False
-        
-        # input(_("按回车键关闭窗口. . ."))
-        # Relics.salvage()
-        # input(_("按回车键关闭窗口. . ."))
-        # return
 
         if Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
             config.save_config()
@@ -128,8 +117,8 @@ class Daily:
                 "累计消灭20个敌人": lambda: ForgottenHall.enemy_20(),
                 "利用弱点进入战斗并获胜3次": lambda: ForgottenHall.weakness_to_fight(),
                 "施放终结技造成制胜一击1次": lambda: ForgottenHall.ultimate(),
-                "通关「模拟宇宙」（任意世界）的1个区域": lambda: Universe.start(get_reward=False, nums=1, save=False)
-                # "分解任意1件遗器": lambda: Relics.salvage()
+                "通关「模拟宇宙」（任意世界）的1个区域": lambda: Universe.start(get_reward=False, nums=1, save=False),
+                "分解任意1件遗器": lambda: Relics.salvage()
             }
 
             logger.hr(_("今日实训"), 2)

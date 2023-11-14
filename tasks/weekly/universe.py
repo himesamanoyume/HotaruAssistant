@@ -93,9 +93,10 @@ class Universe:
                 screen.change_to('universe_main')
                 logger.info(_("开始模拟宇宙"))
 
+                # 使用nums时一般都是特殊需求使用来刷模拟宇宙
                 if nums > 0:
                     for i in range(nums):
-                        Universe.runUniverse(get_reward, save, daily, nums)
+                        Universe.runUniverse(get_reward, save, daily)
                 else:
                     Universe.runUniverse(get_reward, save, daily)
             else:
@@ -104,7 +105,7 @@ class Universe:
         return False
     
     @staticmethod
-    def runUniverse(get_reward=False, save=True, daily=True, nums=0):
+    def runUniverse(get_reward=False, save=True, daily=True):
 
         command = [config.python_exe_path, "states.py"]
         time.sleep(0.5)
@@ -136,9 +137,10 @@ class Universe:
                 Universe.get_immersifier()
 
             # screen.change_to('universe_main')
-            if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and not Utils._immersifiers > 0) or not nums == 0:
-                logger.info(_("鉴定为沉浸器数量不足,跳过"))
-                return True
+            if not current_score < max_score:
+                if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers < 2):
+                    logger.info(_("鉴定为沉浸器数量不足,跳过"))
+                    return True
 
             match config.universe_fate[Utils.get_uid()]:
                 case '存护':

@@ -282,6 +282,10 @@ class Power:
             elif relicPart in '连结绳' and mainPropName not in ['防御力']:
                 logger.warning(f"发现连结绳胚子")
                 Power.create_relic_content(relicName, relicPart, relicList)
+        elif (propCount == 3 and usefulPropCount == 0):
+            if relicPart in '躯干' and mainPropName in ['暴击率','暴击伤害']:
+                logger.warning(f"发现躯干胚子")
+                Power.create_relic_content(relicName, relicPart, relicList)
 
     @staticmethod
     def instance_get_relic():
@@ -296,9 +300,9 @@ class Power:
                 if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((success_reward_top_left_x - 380 + j*120.0 )/ 1920, (success_reward_top_left_y + 40 + i*120) / 1080, 120.0 / 1920, 120.0 / 1080)):
                     time.sleep(0.5)
                     relic_name = auto.get_single_line_text(relic_name_crop, blacklist=[], max_retries=5)
-                    logger.info(relic_name)
+
                     relic_part = auto.get_single_line_text(crop=(515.0 / 1920, 726.0 / 1080, 91.0 / 1920, 35.0 / 1080),blacklist=['+','0'],max_retries=3)
-                    logger.info(relic_part)
+                    logger.info(f"{relic_name}:{relic_part}")
 
                     auto.take_screenshot(crop=relic_prop_crop)
                     time.sleep(0.5)
