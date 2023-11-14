@@ -6,7 +6,7 @@ from managers.translate_manager import _
 from tasks.daily.utils import Utils
 from tasks.power.power import Power
 from module.automation.screenshot import Screenshot
-from tasks.base.base import Base
+from tasks.daily.relics import Relics
 import time
 
 
@@ -31,6 +31,11 @@ class Echoofwar:
 
     @staticmethod
     def start():
+        Relics.detect_relic_count()
+        if Utils._relicCount >= 1450:
+            nowtime = time.time()
+            logger.error(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
+            raise Exception(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
         try:
             logger.hr(_("准备历战余响"), 2)
             screen.change_to('guide3')

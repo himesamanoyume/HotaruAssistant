@@ -13,6 +13,11 @@ import time
 class Power:
     @staticmethod
     def start():
+        Relics.detect_relic_count()
+        if Utils._relicCount >= 1450:
+            nowtime = time.time()
+            logger.error(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
+            raise Exception(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
         if Utils._power<=8:
             return
         if config.instance_type[Utils.get_uid()] == '模拟宇宙':
@@ -23,7 +28,7 @@ class Power:
             if instance_name == "无":
                 logger.info(_("跳过清体力 {type}未开启").format(type=config.instance_type[Utils.get_uid()]))
                 return False
-
+     
         logger.hr(_("开始清体力"), 0)
 
         # 兼容旧设置
@@ -100,21 +105,25 @@ class Power:
     def wait_fight(instance_name):
         logger.info(_("进入战斗"))
         for i in range(20):
-            if auto.find_element("./assets/images/base/2x_speed_off.png", "image", 0.95, crop=(1630.0 / 1920, 24.0 / 1080, 60.0 / 1920, 45.0 / 1080)):
-                logger.info(_("尝试开启二倍速"))
-                auto.press_key("b")
-            elif auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.95, crop=(1630.0 / 1920, 24.0 / 1080, 60.0 / 1920, 45.0 / 1080)):
+            if auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
                 logger.info(_("二倍速已开启"))
                 break
-            time.sleep(0.5)
+            else:
+                logger.info(_("尝试开启二倍速"))
+                auto.press_key("b")
+                time.sleep(0.5)
+
+        time.sleep(1)
+
         for i in range(20):
-            if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):
+            if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95,max_retries=5):
                 logger.info(_("尝试开启自动战斗"))
                 auto.press_key("v")
-            elif auto.find_element("./assets/images/base/auto.png", "image", 0.95, take_screenshot=False):
+                time.sleep(0.5)
+            elif auto.find_element("./assets/images/base/auto.png", "image", 0.985, take_screenshot=True,max_retries=5):
                 logger.info(_("自动战斗已开启"))
                 break
-            time.sleep(0.5)
+        time.sleep(1)
 
         logger.info(_("等待战斗"))
         Power.isFightFail = False
@@ -418,8 +427,6 @@ class Power:
             Power.borrow_character()
             if auto.click_element("开始挑战", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
                 time.sleep(0.5)
-                screen.get_current_screen()
-                screen.change_to("fighting")
                 if instance_type in ["凝滞虚影", "侵蚀隧洞"]:
                     time.sleep(2)
                     for i in range(3):

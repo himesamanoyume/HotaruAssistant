@@ -505,6 +505,72 @@
         ]
     },
     {
+        "name": "模拟宇宙-选择难度",
+        "id": "universe_select",
+        "image_path": "./assets/images/screen/universe/download_char.png",
+        "actions": [
+            {
+                "target_screen": "universe_main",
+                "actions_list": [
+                    {
+                        "action": "auto.press_key",
+                        "args": [
+                            "esc"
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "universe_download_char",
+                "actions_list": [
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "./assets/images/screen/universe/download_char.png",
+                            "image",
+                            0.95
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "模拟宇宙-下载初始角色",
+        "id": "universe_download_char",
+        "image_path": "./assets/images/screen/universe/char_detail.png",
+        "actions": [
+            {
+                "target_screen": "universe_main",
+                "actions_list": [
+                    {
+                        "action": "auto.press_key",
+                        "args": [
+                            "esc"
+                        ]
+                    },
+                    {
+                        "action": "auto.press_key",
+                        "args": [
+                            "esc"
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "universe_select",
+                "actions_list": [
+                    {
+                        "action": "auto.press_key",
+                        "args": [
+                            "esc"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "退出「模拟宇宙」",
         "id": "leave_temporarily",
         "image_path": "./assets/images/screen/universe/leave_temporarily.png",

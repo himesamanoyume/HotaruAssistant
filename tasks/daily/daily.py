@@ -27,8 +27,6 @@ class Daily:
 
 
     def sub():
-        
-        Relics.detect_relic_count()
 
         if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
             config.save_config()
@@ -75,6 +73,7 @@ class Daily:
             logger.info(_("忘却之庭尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
         Reward.start()
+        Relics.detect_relic_count()
 
 
     @staticmethod
