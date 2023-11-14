@@ -97,14 +97,15 @@ class Power:
         return trailblaze_power
 
     @staticmethod
-    def wait_fight():
+    def wait_fight(instance_name):
         logger.info(_("进入战斗"))
         for i in range(20):
-            if auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+            if auto.find_element("./assets/images/base/2x_speed_off.png", "image", 0.95, crop=(1630.0 / 1920, 24.0 / 1080, 60.0 / 1920, 45.0 / 1080)):
+                logger.info(_("尝试开启二倍速"))
+                auto.press_key("b")
+            elif auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.95, crop=(1630.0 / 1920, 24.0 / 1080, 60.0 / 1920, 45.0 / 1080)):
                 logger.info(_("二倍速已开启"))
                 break
-            else:
-                auto.press_key("b")
             time.sleep(0.5)
         for i in range(20):
             if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):
@@ -126,14 +127,14 @@ class Power:
                   
         if not auto.retry_with_timeout(lambda: check_fight(), 10 * 60, 1):
             nowtime = time.time()
-            logger.error(f"{nowtime},战斗超时/或战败")
-            raise Exception(f"{nowtime},战斗超时/或战败")
+            logger.error(f"{nowtime},挑战{instance_name}时战斗超时或战败")
+            raise Exception(f"{nowtime},挑战{instance_name}时战斗超时或战败")
         else:
             if Power.isFightFail:
                 auto.click_element("./assets/images/fight/fight_fail.png", "image", 0.9)
                 nowtime = time.time()
-                logger.error(f"{nowtime},战败,请检查当前队伍练度")
-                raise Exception(f"{nowtime},战败,请检查当前队伍练度")
+                logger.error(f"{nowtime},挑战{instance_name}时战败,请检查当前队伍练度,可能是当前队伍搭配不好打该副本,也可能是生存位被集火阵亡最终导致全队阵亡")
+                raise Exception(f"{nowtime},挑战{instance_name}时战败,请检查当前队伍练度,可能是当前队伍搭配不好打该副本,也可能是生存位被集火阵亡最终导致全队阵亡")
             else:
                 logger.info(_("战斗完成"))
 
@@ -418,13 +419,14 @@ class Power:
             if auto.click_element("开始挑战", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
                 time.sleep(0.5)
                 screen.get_current_screen()
+                screen.change_to("fighting")
                 if instance_type in ["凝滞虚影", "侵蚀隧洞"]:
                     time.sleep(2)
                     for i in range(3):
                         auto.press_mouse()
 
                     for i in range(total_count - 1):
-                        Power.wait_fight()
+                        Power.wait_fight(instance_name)
                         logger.info(_(f"第{i+1}次{instance_type}副本完成(1)"))
                         if instance_type == "侵蚀隧洞":
                             Power.instance_get_relic()
@@ -434,7 +436,7 @@ class Power:
                 else:
                     if full_count > 0:
                         for i in range(full_count - 1):
-                            Power.wait_fight()
+                            Power.wait_fight(instance_name)
                             logger.info(_(f"第{i+1}次{instance_type}副本完成(2)"))
                             if not (full_count == 1 and incomplete_count == 0):
                                 auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
@@ -442,7 +444,7 @@ class Power:
                                     time.sleep(1)
                                     auto.click_element("./assets/images/base/confirm.png", "image", 0.9)  
                 
-                Power.wait_fight()
+                Power.wait_fight(instance_name)
                 if instance_type == "侵蚀隧洞":
                     Power.instance_get_relic()
                 if full_count > 0:

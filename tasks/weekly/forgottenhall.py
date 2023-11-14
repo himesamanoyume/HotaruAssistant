@@ -14,11 +14,12 @@ class ForgottenHall:
     def wait_fight(count, boss_count, max_recursion):
         logger.info(_("进入战斗"))
         for i in range(20):
-            if auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+            if auto.find_element("./assets/images/base/2x_speed_off.png", "image", 0.95, crop=(1630.0 / 1920, 24.0 / 1080, 60.0 / 1920, 45.0 / 1080)):
+                logger.info(_("尝试开启二倍速"))
+                auto.press_key("b")
+            elif auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.95, crop=(1630.0 / 1920, 24.0 / 1080, 60.0 / 1920, 45.0 / 1080)):
                 logger.info(_("二倍速已开启"))
                 break
-            else:
-                auto.press_key("b")
             time.sleep(0.5)
         for i in range(20):
             if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):

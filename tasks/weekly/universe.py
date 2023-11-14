@@ -122,8 +122,6 @@ class Universe:
         time.sleep(0.5)
 
         if config.instance_type[Utils.get_uid()] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
-
-            Power.power()
             
             if Utils._isFirstTimeSelectTeam:
                 logger.info("本账号首次运行模拟宇宙")
@@ -219,6 +217,7 @@ class Universe:
 
     @staticmethod
     def get_immersifier():
+        Power.power()
         screen.change_to('guide3')
         instance_type_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
         if config.instance_type[Utils.get_uid()] == '模拟宇宙':

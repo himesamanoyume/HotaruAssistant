@@ -157,6 +157,7 @@ class Daily:
                             logger.info(_("{_task_name}已完成").format(_task_name=task_name))
                             config.daily_tasks[Utils.get_uid()][task_name] = False
                             Utils.showDailyTasksScore(task_name, Utils.get_uid())
+                            Reward.start()
                             # config.save_config()
                         else:
                             if not config.daily_tasks_fin[Utils.get_uid()]:
