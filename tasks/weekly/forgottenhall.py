@@ -13,8 +13,8 @@ class ForgottenHall:
     def clear_team(j):
         if j == 10:
             nowtime = time.time()
-            logger.error(f"{nowtime},忘却之亭清理队伍失败")
-            raise Exception(f"{nowtime},忘却之亭清理队伍失败")
+            logger.error(f"{nowtime},忘却之庭清理队伍失败")
+            raise Exception(f"{nowtime},忘却之庭清理队伍失败")
         
         for i in range(4):
             auto.click_element_with_pos(((1400+i*105, 837),(1400+i*105, 837)))

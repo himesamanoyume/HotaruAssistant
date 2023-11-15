@@ -23,7 +23,7 @@ want_register_accounts: # 启动游戏前先进行注册
     - JingLiu
     - JingYuan
     universe_fate: '巡猎'
-    universe_number: 1
+    universe_number: 3
     universe_difficulty: 1
 
 

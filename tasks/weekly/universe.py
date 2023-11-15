@@ -102,14 +102,11 @@ class Universe:
             else:
                 logger.error(_("校准失败"))
         logger.warning(_("⚠️模拟宇宙未完成⚠️"))
+        Power.power()
         return False
     
     @staticmethod
-    def runUniverse(get_reward=False, save=True, daily=True):
-
-        command = [config.python_exe_path, "states.py"]
-        time.sleep(0.5)
-        logger.info("开始检测模拟宇宙积分")
+    def open_universe_score_screen():
         screen.change_to("universe_main")
         # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
         if auto.find_element("./assets/images/base/click_close.png", "image", 0.9,max_retries=10):
@@ -127,6 +124,16 @@ class Universe:
                     # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
         
+        return current_score, max_score
+    
+    @staticmethod
+    def runUniverse(get_reward=False, save=True, daily=True):
+
+        command = [config.python_exe_path, "states.py"]
+        time.sleep(0.5)
+        logger.info("开始检测模拟宇宙积分")
+        current_score, max_score = Universe.open_universe_score_screen()
+        
         time.sleep(0.5)
 
         if config.instance_type[Utils.get_uid()] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
@@ -139,10 +146,10 @@ class Universe:
 
             # screen.change_to('universe_main')
             if current_score == None or max_score == None:
-                current_score, max_score = Utils.get_universe_score()
-                
+                current_score, max_score = Universe.open_universe_score_screen()
+
             if not current_score < max_score:
-                if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers < 2):
+                if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers <= 2):
                     logger.info(_("鉴定为沉浸器数量不足,跳过"))
                     return True
 
@@ -213,18 +220,7 @@ class Universe:
     @staticmethod
     def get_reward():
         logger.info(_("开始领取模拟宇宙积分奖励"))
-        screen.change_to('universe_main')
-        time.sleep(0.5)
-        if auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9):
-            time.sleep(0.5)
-            Utils.get_universe_score()
-            if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
-                time.sleep(0.3)
-                if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                    time.sleep(0.3)
-                    logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
-                    # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
-                    auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+        Universe.open_universe_score_screen()
         screen.change_to('universe_main')
 
     @staticmethod

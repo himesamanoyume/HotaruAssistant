@@ -172,8 +172,32 @@ def run_new_accounts():
         logger.info("检测到有新注册表加入")
         for uid, item in config.want_register_accounts.items():
             if uid == '111111111': continue
-            if item['reg_path']=='' or item['email']=='' or item['active_day'] == 0 or not len(item['universe_team']) == 4 or not item['universe_fate'] in ['存护','记忆','虚无','丰饶','巡猎','毁灭','欢愉','繁育'] or not item['universe_number'] in [3,4,5,6,7] or not item['universe_difficulty'] in [1,2,3,4,5]:
-                logger.error(f"{uid}:新的注册信息未完整填写")
+            if item['reg_path']=='':
+                logger.error(f"{uid}:新的注册信息中注册表地址未完整填写")
+                input("按下回车跳过该次注册")
+                return
+            if item['email']=='':
+                logger.error(f"{uid}:新的注册信息中邮箱未完整填写")
+                input("按下回车跳过该次注册")
+                return
+            if item['active_day'] == 0:
+                logger.error(f"{uid}:新的注册信息中激活天数未填写")
+                input("按下回车跳过该次注册")
+                return
+            if not len(item['universe_team']) == 4:
+                logger.error(f"{uid}:新的注册信息中模拟宇宙小队角色未填写满4人或超出4人")
+                input("按下回车跳过该次注册")
+                return
+            if not item['universe_fate'] in ['存护','记忆','虚无','丰饶','巡猎','毁灭','欢愉','繁育']:
+                logger.error(f"{uid}:新的注册信息中模拟宇宙命途不合法")
+                input("按下回车跳过该次注册")
+                return
+            if not item['universe_number'] in [3,4,5,6,7]:
+                logger.error(f"{uid}:新的注册信息中模拟宇宙选择的世界不合法")
+                input("按下回车跳过该次注册")
+                return
+            if not item['universe_difficulty'] in [1,2,3,4,5]:
+                logger.error(f"{uid}:新的注册信息中模拟宇宙难度不合法")
                 input("按下回车跳过该次注册")
                 return
             config.multi_login_accounts.append(item['reg_path'])
@@ -204,6 +228,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
         # logger.info("run")
         # Version.start()
         try:
+            logger.info("本次为每日流程")
             Game.start()
             Daily.start()
             Game.stop(index ,True, currentUID, _lastUID)
@@ -216,14 +241,23 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
     # 子任务
     elif action in ["fight", "universe", "forgottenhall"]:
         # Version.start()
-        Game.start()
-        if action == "fight":
-            Fight.start()
-        elif action == "universe":
-            Universe.start(get_reward=True, nums=1, daily=False)
-        elif action == "forgottenhall":
-            ForgottenHall.start()
-        Game.stop(index ,False)
+        try:
+            Game.start()
+            if action == "fight":
+                Fight.start()
+            elif action == "universe":
+                logger.info("本次为模拟宇宙专属")
+                Daily.start_ready()
+                Universe.start(get_reward=True, daily=True, nums=0)
+                Daily.end()
+            elif action == "forgottenhall":
+                ForgottenHall.start()
+            Game.stop(index ,True, currentUID, _lastUID)
+        except Exception as e:
+            logger.error(f"{e}")
+            notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
+            logger.error("进入非正常退出游戏流程")
+            Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
     # 子任务 原生图形界面
     elif action in ["universe_gui", "fight_gui"]:
         if action == "universe_gui" and not Universe.gui():

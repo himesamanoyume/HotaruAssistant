@@ -192,7 +192,7 @@ class Power:
                             return False
                     auto.mouse_scroll(27, -1)
                     # 等待界面完全停止
-                    time.sleep(0.5)
+                    time.sleep(1)
 
                 logger.info(_("找不到指定用户名的支援角色，尝试按照优先级选择"))
                 # 重新打开支援页面，防止上一次的滚动位置影响
@@ -383,6 +383,7 @@ class Power:
         if not auto.click_element(instance_type, "text", crop=instance_type_crop):
             if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=instance_type_crop):
                 auto.mouse_scroll(12, -1)
+                time.sleep(0.5)
                 auto.click_element(instance_type, "text", crop=instance_type_crop)
         # 截图过快会导致结果不可信
         time.sleep(1)
@@ -391,13 +392,19 @@ class Power:
         instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)
         Flag = False
-        for i in range(5):
+        for i in range(7):
             if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
                 Flag = True
                 break
+            if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+                nowtime = time.time()
+                logger.error(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
             auto.mouse_scroll(18, -1)
             # 等待界面完全停止
-            time.sleep(0.5)
+            time.sleep(1)
+            
+        
         if not Flag:
             logger.error(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
             # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))

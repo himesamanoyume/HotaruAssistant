@@ -221,10 +221,10 @@ class Screen:
                         self.change_to(next_screen, max_recursion=max_recursion - 1)
                     else:
                         nowtime = time.time()
-                        logger.error(_(f"{nowtime},无法切换到 {self.get_name(next_screen)}"))
+                        logger.error(_(f"{nowtime},无法切换到 {self.get_name(next_screen)},请确保你的账号已经解锁该功能,且不要在配置中选择你未解锁的副本或功能"))
                         logger.info(_("请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
                         logger.info(_("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
-                        raise Exception (f"{nowtime},无法切换到 {self.get_name(next_screen)}")
+                        raise Exception (f"{nowtime},无法切换到 {self.get_name(next_screen)},请确保你的账号已经解锁该功能,且不要在配置中选择你未解锁的副本或功能")
                         # input(_("按回车键关闭窗口. . ."))
                         # sys.exit(1)
 

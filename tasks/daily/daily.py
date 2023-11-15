@@ -48,13 +48,13 @@ class Daily:
             logger.info(_("锄大地尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
 
         Power.start()
-        if config.universe_enable:
-            
-            isTrue = Universe.start(get_reward=True, daily=True, nums=0)
-            if isTrue:
-                Power.start()
-        else:
-            logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
+        # if config.universe_enable:
+        #     isTrue = Universe.start(get_reward=True, daily=True, nums=0)
+        #     if isTrue:
+        #         Power.start()
+        # else:
+        #     logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
+        #     current_score, max_score = Universe.open_universe_score_screen()
 
         if Utils.is_next_mon_4_am(config.forgottenhall_timestamp, Utils.get_uid()):
             config.save_config()
@@ -64,17 +64,9 @@ class Daily:
             else:
                 logger.info(_("忘却之庭{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
         else:
-            logger.info(_("忘却之庭尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
+            logger.info(_("忘却之庭尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))  
 
-        Reward.start()
-        Relics.detect_relic_count()
-
-
-    @staticmethod
-    def start():
-        if config.multi_login:
-            logger.hr(_("多账号下开始日常任务"), 0)
-
+    def start_ready():
         Utils.get_new_uid()
         Utils._content.update({'uid':Utils.get_uid()})
         Utils.getDailyScoreMappings()
@@ -96,6 +88,13 @@ class Daily:
 
         else:
             logger.info(_("日常任务{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
+
+    @staticmethod
+    def start():
+        if config.multi_login:
+            logger.hr(_("多账号下开始日常任务"), 0)
+
+        Daily.start_ready()
 
         Utils.calcDailyTasksScore(Utils.get_uid())
         if len(config.daily_tasks[Utils.get_uid()]) > 0:
@@ -162,17 +161,24 @@ class Daily:
                 count = count + 1 if not value else count
 
             logger.info(_("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
+            Utils.calcDailyTasksScore(Utils.get_uid())
+            logger.hr(_("完成"), 2)
+            Daily.sub()
+            Daily.end()
         
+
+    def end():
+        Power.power()
+        ForgottenHall.get_star_and_level()
+        Reward.start()
+        Relics.detect_relic_count()
         Utils.calcDailyTasksScore(Utils.get_uid())
-        logger.hr(_("完成"), 2)
-        Daily.sub()
         totalTime = time.time() - Utils._start_timestamp
-        if totalTime >= 2400:
-            notify.announcement(f"{Utils.get_uid()}运行时长超时警告!","该UID运行总时长超40分钟,不健康,请立即检查优化", isSingle=True)
+        if totalTime >= 3000:
+            notify.announcement(f"{Utils.get_uid()}运行时长超时警告!","该UID运行总时长超50分钟,不健康,请立即检查优化", isSingle=True)
         _day = int(totalTime // 86400)
         _hour = int((totalTime - _day * 86400) // 3600)
         _minute = int(((totalTime - _day *86400) - _hour * 3600) // 60)
         _second = int(((totalTime - _day *86400) - _hour * 3600) - _minute * 60)
         Utils._content['running_time'] = (f"{_day}天" if not _day == 0 else '') + (f"{_hour}时" if not _hour == 0 else '') + (f"{_minute}分" if not _minute == 0 else '') + f"{_second}秒"
-        logger.info(f"本次运行时长:{Utils._content['running_time']}")
-        Utils.calcDailyTasksScore(Utils.get_uid())
+        logger.info(f"本次运行时长:{Utils._content['running_time']}")      
