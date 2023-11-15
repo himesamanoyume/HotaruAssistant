@@ -132,34 +132,38 @@ def main(action=None):
                 firstTimeLogin = True
                 jumpValue = ''
                 jumpFin = False
-                for value in loginList:
-                    if not firstTimeLogin and not jumpFin:
-                        if not value == jumpValue:
-                            continue
-                        else:
-                            jumpFin = True
-
-                    uidStr2 = str(value).split('-')[1][:9]
-                    run_new_accounts()
-                    modify_all_account_active_day()
-                    account_active_fun(uidStr2)
-
-                    if isFirstTimeLoop:
-                        if firstTimeLogin:
-                            firstTimeLogin = False
-                            jumpValue = loginList[first_reg]
-                            if jumpValue == value:
-                                jumpFin = True
-                            else:
+                for turn in range(2):
+                    for value in loginList:
+                        if not firstTimeLogin and not jumpFin:
+                            if not value == jumpValue:
                                 continue
+                            else:
+                                jumpFin = True
 
-                    logger.info(_(value))
-                    logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
-                    if os.system(f"cmd /C REG IMPORT {value}"):
-                        return False
-                    # logger.info(action)
-                    run(index, action, uidStr2, lastUID)
-                    isFirstTimeLoop = False
+                        uidStr2 = str(value).split('-')[1][:9]
+                        run_new_accounts()
+                        modify_all_account_active_day()
+                        account_active_fun(uidStr2)
+
+                        if isFirstTimeLoop:
+                            if firstTimeLogin:
+                                firstTimeLogin = False
+                                jumpValue = loginList[first_reg]
+                                if jumpValue == value:
+                                    jumpFin = True
+                                else:
+                                    continue
+
+                        logger.info(_(value))
+                        logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
+                        if os.system(f"cmd /C REG IMPORT {value}"):
+                            return False
+                        # logger.info(action)
+                        if turn == 0:
+                            run(index, None, uidStr2, lastUID)
+                        else:
+                            run(index, "universe", uidStr2, lastUID)
+                        isFirstTimeLoop = False
         # input(_("按回车键关闭窗口. . ."))
         # sys.exit(0)
     else:
@@ -231,7 +235,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
             logger.info("本次为每日流程")
             Game.start()
             Daily.start()
-            Game.stop(index ,True, currentUID, _lastUID)
+            Game.stop(index ,True, currentUID, _lastUID, action=action)
         except Exception as e:
             logger.error(f"{e}")
             notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
@@ -242,17 +246,18 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
     elif action in ["fight", "universe", "forgottenhall"]:
         # Version.start()
         try:
+            if action == "universe":
+                logger.info("本次为模拟宇宙专属")
             Game.start()
             if action == "fight":
                 Fight.start()
             elif action == "universe":
-                logger.info("本次为模拟宇宙专属")
                 Daily.start_ready()
                 Universe.start(get_reward=True, daily=True, nums=0)
                 Daily.end()
             elif action == "forgottenhall":
                 ForgottenHall.start()
-            Game.stop(index ,True, currentUID, _lastUID)
+            Game.stop(index ,True, currentUID, _lastUID, action=action)
         except Exception as e:
             logger.error(f"{e}")
             notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)

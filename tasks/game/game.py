@@ -33,7 +33,7 @@ class Game:
         logger.hr(_("完成"), 2)
 
     @staticmethod
-    def stop(index, detect_loop=False, currentUID = 0, lastUID=-1, isAbnormalExit = False):
+    def stop(index, detect_loop=False, currentUID = 0, lastUID=-1, isAbnormalExit = False, action=None):
         if not isAbnormalExit:
             logger.info("正常退出中")
             Utils._content.update({'date':f'{datetime.now()}'})
@@ -53,7 +53,13 @@ class Game:
             Utils._content.update({'daily_tasks_score':f'{config.daily_tasks_score[Utils.get_uid()]}'})
             Utils._content.update({'multi_content':f"{Utils._temp}"})
 
-            notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _("上号详细情况"))
+            if action == None:
+                subTitle = "/日常任务轮次"
+            elif action == "universe":
+                subTitle = "/模拟宇宙轮次"
+            else:
+                subTitle = "/未知轮次(请通知我出现了这个情况)"
+            notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _(f"上号详细情况{subTitle}"))
 
         if config.multi_login:
             logger.hr(_("多账号结束运行一个账号"), 0)
@@ -61,7 +67,7 @@ class Game:
                 logger.hr(_("停止运行"), 0)
                 # Stop.play_audio()
                 if detect_loop and config.after_finish == "Loop":
-                    if lastUID == currentUID:
+                    if lastUID == currentUID and action == "universe":
                         Stop.after_finish_is_loop()
                     else:
                         Stop.stop_game()
