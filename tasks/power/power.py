@@ -112,15 +112,19 @@ class Power:
                 logger.info(_("尝试开启二倍速"))
                 auto.press_key("b")
                 time.sleep(0.5)
+                if auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9) or auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
+                    break
 
         time.sleep(1)
 
         for i in range(20):
-            if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95,max_retries=5):
+            if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):
                 logger.info(_("尝试开启自动战斗"))
                 auto.press_key("v")
                 time.sleep(0.5)
-            elif auto.find_element("./assets/images/base/auto.png", "image", 0.985, take_screenshot=True,max_retries=5):
+                if auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9) or auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
+                    break
+            elif auto.find_element("./assets/images/base/auto.png", "image", 0.985, take_screenshot=False):
                 logger.info(_("自动战斗已开启"))
                 break
         time.sleep(1)

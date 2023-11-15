@@ -110,6 +110,7 @@ class Universe:
         command = [config.python_exe_path, "states.py"]
         time.sleep(0.5)
         logger.info("开始检测模拟宇宙积分")
+        screen.change_to("universe_main")
         # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
         if auto.find_element("./assets/images/base/click_close.png", "image", 0.9,max_retries=10):
             current_score, max_score = Utils.get_universe_score()
@@ -137,6 +138,9 @@ class Universe:
                 Universe.get_immersifier()
 
             # screen.change_to('universe_main')
+            if current_score == None or max_score == None:
+                current_score, max_score = Utils.get_universe_score()
+                
             if not current_score < max_score:
                 if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers < 2):
                     logger.info(_("鉴定为沉浸器数量不足,跳过"))
@@ -312,10 +316,9 @@ class Universe:
 
         time.sleep(1)
 
-        if auto.click_element("./assets/images/universe/download_char.png", "image", 0.9,max_retries=10):
+        if auto.click_element("./assets/images/screen/universe/download_char.png", "image", 0.9,max_retries=10):
             time.sleep(1)
-            j = 1
-            Universe.clear_team(j)
+            Universe.clear_team(1)
 
             char_count=0
             auto.click_element_with_pos(((70, 300),(70, 300)), action="move")

@@ -10,6 +10,21 @@ import time
 
 
 class ForgottenHall:
+    def clear_team(j):
+        if j == 10:
+            nowtime = time.time()
+            logger.error(f"{nowtime},忘却之亭清理队伍失败")
+            raise Exception(f"{nowtime},忘却之亭清理队伍失败")
+        
+        for i in range(4):
+            auto.click_element_with_pos(((1400+i*105, 837),(1400+i*105, 837)))
+            time.sleep(1)
+        if auto.find_element("./assets/images/forgottenhall/all_clear_team.png", "image", 0.9, take_screenshot=True, max_retries=3):
+            logger.info("队伍已清空")
+            return
+        else:
+            ForgottenHall.clear_team(j+1)
+
     @staticmethod
     def wait_fight(count, boss_count, max_recursion):
         logger.info(_("进入战斗"))
@@ -20,12 +35,16 @@ class ForgottenHall:
             else:
                 logger.info(_("尝试开启二倍速"))
                 auto.press_key("b")
+                if auto.find_element("./assets/images/forgottenhall/back.png", "image", 0.9):
+                    break
         time.sleep(1)
         for i in range(20):
-            if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95,max_retries=5):
+            if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):
                 logger.info(_("尝试开启自动战斗"))
                 auto.press_key("v")
-            elif auto.find_element("./assets/images/base/auto.png", "image", 0.95, take_screenshot=True,max_retries=5):
+                if auto.find_element("./assets/images/forgottenhall/back.png", "image", 0.9):
+                    break
+            elif auto.find_element("./assets/images/base/auto.png", "image", 0.95, take_screenshot=False):
                 logger.info(_("自动战斗已开启"))
                 break
         time.sleep(1)
@@ -343,6 +362,7 @@ class ForgottenHall:
             if auto.click_element("01", "text", max_retries=20, crop=(18.0 / 1920, 226.0 / 1080, 1896.0 / 1920, 656.0 / 1080)):
                 if auto.find_element("./assets/images/forgottenhall/team1.png", "image", 0.8, max_retries=10, crop=(610 / 1920, 670 / 1080, 118 / 1920, 218 / 1080)):
                     # auto.take_screenshot(crop=(30 / 1920, 115 / 1080, 530 / 1920, 810 / 1080))
+                    ForgottenHall.clear_team(1)
                     char_count=0
                     auto.click_element_with_pos(((70, 300),(70, 300)), action="move")
                     for character in config.daily_memory_one_team:

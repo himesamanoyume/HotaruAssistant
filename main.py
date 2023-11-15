@@ -40,6 +40,7 @@ def main(action=None):
         else:
             logger.info(_("开始多账号运行"))
             # input(_("按回车键关闭窗口. . ."))
+            # ForgottenHall.clear_team(1)
             # input(_("按回车键关闭窗口. . ."))
             # return
 
