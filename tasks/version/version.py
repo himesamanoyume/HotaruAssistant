@@ -3,6 +3,7 @@ from managers.logger_manager import logger
 from managers.translate_manager import _
 from managers.config_manager import config
 from managers.notify_manager import notify
+from managers.utils_manager import gu
 from packaging.version import parse
 import requests
 import json

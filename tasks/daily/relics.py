@@ -68,7 +68,7 @@ class Relics:
             relic_countText = relic_countText.split('/')[0]
             Utils._relicCount = int(relic_countText)
             if Utils._relicCount >= 1450:
-                logger.warning("检测到遗器数量超标")
+                logger.warning(gu("检测到遗器数量超标"))
                 Relics.salvage()
                 Relics.detect_relic_count()
 

@@ -2,6 +2,7 @@ from managers.screen_manager import screen
 from managers.automation_manager import auto
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from managers.utils_manager import gu
 import time
 
 
@@ -26,12 +27,12 @@ class Synthesis:
                                 if auto.click_element("./assets/images/synthesis/synthesis_button.png", "image", 0.9, max_retries=10):
                                     if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
                                         if auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                                            logger.info(_("合成消耗品完成"))
+                                            logger.info(gu("合成消耗品完成"))
                                             return True
                                 break
-            logger.error(_("合成消耗品失败"))
+            logger.error(gu("合成消耗品失败"))
         except Exception as e:
-            logger.error(_("合成消耗品失败: {error}").format(error=e))
+            logger.error(gu("合成消耗品失败: {error}").format(error=e))
         return False
 
     def material():
@@ -53,12 +54,12 @@ class Synthesis:
                                 if auto.click_element("./assets/images/synthesis/synthesis_button.png", "image", 0.9, max_retries=10):
                                     if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
                                         if auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                                            logger.info(_("合成材料完成"))
+                                            logger.info(gu("合成材料完成"))
                                             return True
                                 break
-            logger.error(_("合成材料失败"))
+            logger.error(gu("合成材料失败"))
         except Exception as e:
-            logger.error(_("合成材料失败: {error}").format(error=e))
+            logger.error(gu("合成材料失败: {error}").format(error=e))
         return False
 
     def use_consumables(recursion=True):
@@ -81,18 +82,18 @@ class Synthesis:
                                         if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
                                             auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=2)
                                             if auto.find_element("./assets/images/screen/bag/bag_consumables.png", "image", 0.9, max_retries=10):
-                                                logger.info(_("使用消耗品完成"))
+                                                logger.info(gu("使用消耗品完成"))
                                                 return True
                                 break
                             elif recursion:
-                                logger.info(_("没有可用的消耗品，尝试合成"))
+                                logger.info(gu("没有可用的消耗品，尝试合成"))
                                 if Synthesis.consumables():
                                     return Synthesis.use_consumables(False)
                                 else:
                                     break
                             else:
                                 break
-            logger.error(_("使用消耗品失败"))
+            logger.error(gu("使用消耗品失败"))
         except Exception as e:
-            logger.error(_("使用消耗品失败: {error}").format(error=e))
+            logger.error(gu("使用消耗品失败: {error}").format(error=e))
         return False

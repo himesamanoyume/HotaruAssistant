@@ -46,13 +46,13 @@ class Screen:
                     add_screen(self, id, name, image_path, actions)
         except FileNotFoundError:
             nowtime = time.time()
-            logger.error(_(f"{nowtime}配置文件不存在：{config_path}"))
+            logger.error(gu(f"{nowtime}配置文件不存在：{config_path}"))
             raise Exception (f"{nowtime},配置文件不存在：{config_path}")
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(1)
         except Exception as e:
             nowtime = time.time()
-            logger.error(_(f"{nowtime},配置文件解析失败：{e}"))
+            logger.error(gu(f"{nowtime},配置文件解析失败：{e}"))
             raise Exception (f"{nowtime},配置文件解析失败：{e}")
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(1)
@@ -155,7 +155,7 @@ class Screen:
                 screen_name=self.green + self.get_name(self.current_screen) + self.reset
                 logger.info(gu("当前界面：{_screen_name}").format(_screen_name = screen_name))
                 if self.get_name(self.current_screen) == "星际和平指南-每日实训":
-                    logger.warning("进入到星际和平指南-每日实训的判断")
+                    logger.warning(gu("进入到星际和平指南-每日实训的判断"))
                     time.sleep(0.5)
                     if not Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
                         while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
@@ -165,13 +165,13 @@ class Screen:
                 return True
 
             if autotry:
-                logger.warning(_("未识别出任何界面，请确保游戏画面干净，按ESC后重试"))
+                logger.warning(gu("未识别出任何界面，请确保游戏画面干净，按ESC后重试"))
                 auto.press_key("esc")
                 time.sleep(1)
             else:
-                logger.debug(_("未识别出任何界面，请确保游戏画面干净"))
+                logger.debug(gu("未识别出任何界面，请确保游戏画面干净"))
                 break
-        logger.error(_("当前界面：未知"))
+        logger.error(gu("当前界面：未知"))
         return False
 
     def check_screen(self, target_screen):
@@ -218,7 +218,7 @@ class Screen:
 
                 if self.current_screen != next_screen:
                     if max_recursion > 0:
-                        logger.warning(_("切换到 {next_screen} 超时，准备重试").format(next_screen=self.get_name(next_screen)))
+                        logger.warning(gu("切换到 {next_screen} 超时，准备重试").format(next_screen=self.get_name(next_screen)))
                         self.change_to(next_screen, max_recursion=max_recursion - 1)
                     else:
                         nowtime = time.time()
@@ -232,7 +232,7 @@ class Screen:
                 
                 logger.info(gu("切换到：{next_screen}").format(next_screen=self.green + self.get_name(next_screen) + self.reset))
                 if self.get_name(next_screen) == "星际和平指南-每日实训":
-                    logger.warning("进入到星际和平指南-每日实训的判断")
+                    logger.warning(gu("进入到星际和平指南-每日实训的判断"))
                     time.sleep(0.5)
                     if not Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
                         while Utils.click_element_quest("./assets/images/quest/receive.png", "image", 0.9, crop=(265.0 / 1920, 394.0 / 1080, 1400.0 / 1920, 504.0 / 1080)):
@@ -244,7 +244,7 @@ class Screen:
         logger.debug(_("无法从 {current_screen} 切换到 {target_screen}").format(
             current_screen=self.get_name(self.current_screen), target_screen=self.get_name(target_screen)))
         nowtime = time.time()
-        logger.error(f"{nowtime},无法从 {self.get_name(self.current_screen)} 切换到 {self.get_name(target_screen)}")
+        logger.error(gu(f"{nowtime},无法从 {self.get_name(self.current_screen)} 切换到 {self.get_name(target_screen)}"))
         raise Exception (f"{nowtime},无法从 {self.get_name(self.current_screen)} 切换到 {self.get_name(target_screen)}")
         # input(_("按回车键关闭窗口. . ."))
         # sys.exit(1)

@@ -3,6 +3,7 @@ from managers.automation_manager import auto
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from managers.utils_manager import gu
 import time
 
 
@@ -10,7 +11,7 @@ class Dispatch:
     @staticmethod
     def get_reward(uid):
         if not config.dispatch_enable:
-            logger.info(_("委托未开启"))
+            logger.info(gu("委托未开启"))
             return False
 
         screen.change_to('dispatch')
@@ -24,7 +25,7 @@ class Dispatch:
     @staticmethod
     def _perform_dispatches():
         for i in range(4):
-            logger.info(_("正在进行第{number}次委托").format(number=i + 1))
+            logger.info(gu("正在进行第{number}次委托").format(number=i + 1))
 
             if not Dispatch.perform_dispatch_and_check(crop=(298.0 / 1920, 153.0 / 1080, 1094.0 / 1920, 122.0 / 1080)):
                 return
@@ -39,7 +40,7 @@ class Dispatch:
     @staticmethod
     def perform_dispatch_and_check(crop):
         if not Dispatch._click_complete_dispatch(crop):
-            logger.warning(_("未检测到已完成的委托"))
+            logger.warning(gu("未检测到已完成的委托"))
             return False
         time.sleep(0.5)
         return True

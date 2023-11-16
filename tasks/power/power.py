@@ -5,6 +5,7 @@ from managers.config_manager import config
 from managers.ocr_manager import ocr
 from tasks.daily.utils import Utils
 from managers.translate_manager import _
+from managers.utils_manager import gu
 from tasks.daily.relics import Relics
 from tasks.base.base import Base
 import time
@@ -16,7 +17,7 @@ class Power:
         Relics.detect_relic_count()
         if Utils._relicCount >= 1450:
             nowtime = time.time()
-            logger.error(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
+            logger.error(gu(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止"))
             raise Exception(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
         if Utils._power<=8:
             return
@@ -26,7 +27,7 @@ class Power:
         else:
             instance_name = config.instance_names[Utils.get_uid()][config.instance_type[Utils.get_uid()]]
             if instance_name == "无":
-                logger.info(_("跳过清体力 {type}未开启").format(type=config.instance_type[Utils.get_uid()]))
+                logger.info(gu("跳过清体力 {type}未开启").format(type=config.instance_type[Utils.get_uid()]))
                 return False
      
         logger.hr(_("开始清体力"), 0)
@@ -49,7 +50,7 @@ class Power:
                 power = int(result[0])
                 return power if 0 <= power <= 2400 else -1
         except Exception as e:
-            logger.error(_("识别开拓力失败: {error}").format(error=e))
+            logger.error(gu("识别开拓力失败: {error}").format(error=e))
             return -1
 
     @staticmethod
@@ -95,21 +96,21 @@ class Power:
         screen.change_to('map')
         trailblaze_power = Power.get_power(trailblaze_power_crop)
         Utils._power = trailblaze_power
-        logger.info(_("🟣开拓力: {power}").format(power=trailblaze_power))
+        logger.info(gu("🟣开拓力: {power}").format(power=trailblaze_power))
         Utils._content.update({'new_power':f'{trailblaze_power}'})
-        logger.info(_("开拓力回满时间为:{time}").format(time=Utils.getFullPowerTime(trailblaze_power)))
+        logger.info(gu("开拓力回满时间为:{time}").format(time=Utils.getFullPowerTime(trailblaze_power)))
         Utils._content.update({'full_power_time':f'{Utils.getFullPowerTime(trailblaze_power)}'})
         return trailblaze_power
 
     @staticmethod
     def wait_fight(instance_name):
-        logger.info(_("进入战斗"))
+        logger.info(gu("进入战斗"))
         for i in range(20):
             if auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
-                logger.info(_("二倍速已开启"))
+                logger.info(gu("二倍速已开启"))
                 break
             else:
-                logger.info(_("尝试开启二倍速"))
+                logger.info(gu("尝试开启二倍速"))
                 auto.press_key("b")
                 time.sleep(0.5)
                 if auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9) or auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
@@ -119,17 +120,17 @@ class Power:
 
         for i in range(20):
             if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):
-                logger.info(_("尝试开启自动战斗"))
+                logger.info(gu("尝试开启自动战斗"))
                 auto.press_key("v")
                 time.sleep(0.5)
                 if auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9) or auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
                     break
             elif auto.find_element("./assets/images/base/auto.png", "image", 0.985, take_screenshot=False):
-                logger.info(_("自动战斗已开启"))
+                logger.info(gu("自动战斗已开启"))
                 break
         time.sleep(1)
 
-        logger.info(_("等待战斗"))
+        logger.info(gu("等待战斗"))
         Power.isFightFail = False
 
         def check_fight():
@@ -140,28 +141,28 @@ class Power:
                   
         if not auto.retry_with_timeout(lambda: check_fight(), 10 * 60, 1):
             nowtime = time.time()
-            logger.error(f"{nowtime},挑战{instance_name}时战斗超时或战败")
+            logger.error(gu(f"{nowtime},挑战{instance_name}时战斗超时或战败"))
             raise Exception(f"{nowtime},挑战{instance_name}时战斗超时或战败")
         else:
             if Power.isFightFail:
                 auto.click_element("./assets/images/fight/fight_fail.png", "image", 0.9)
                 nowtime = time.time()
-                logger.error(f"{nowtime},挑战{instance_name}时战败,请检查当前队伍练度,可能是当前队伍搭配不好打该副本,也可能是生存位被集火阵亡最终导致全队阵亡")
+                logger.error(gu(f"{nowtime},挑战{instance_name}时战败,请检查当前队伍练度,可能是当前队伍搭配不好打该副本,也可能是生存位被集火阵亡最终导致全队阵亡"))
                 raise Exception(f"{nowtime},挑战{instance_name}时战败,请检查当前队伍练度,可能是当前队伍搭配不好打该副本,也可能是生存位被集火阵亡最终导致全队阵亡")
             else:
-                logger.info(_("战斗完成"))
+                logger.info(gu("战斗完成"))
 
     @staticmethod
     def borrow_character():
         if not (("使用支援角色并获得战斗胜利1次" in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()]["使用支援角色并获得战斗胜利1次"]) or config.borrow_character_enable):
             return True
         if not auto.click_element("支援", "text", max_retries=10, crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
-            logger.error(_("找不到支援按钮"))
+            logger.error(gu("找不到支援按钮"))
             return False
         # 等待界面加载
         time.sleep(0.5)
         if not auto.find_element("支援列表", "text", max_retries=10, crop=(234 / 1920, 78 / 1080, 133 / 1920, 57 / 1080)):
-            logger.error(_("未进入支援列表"))
+            logger.error(gu("未进入支援列表"))
             return False
 
         try:
@@ -173,7 +174,7 @@ class Power:
                     if auto.click_element(config.borrow_character_from, "text", crop=(196 / 1920, 167 / 1080, 427 / 1920, 754 / 1080), include=True):
                         # 找到角色的对应处理
                         if not auto.click_element("入队", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
-                            logger.error(_("找不到入队按钮"))
+                            logger.error(gu("找不到入队按钮"))
                             return False
                         # 等待界面加载
                         time.sleep(0.5)
@@ -194,23 +195,23 @@ class Power:
                     # 等待界面完全停止
                     time.sleep(1)
 
-                logger.info(_("找不到指定用户名的支援角色，尝试按照优先级选择"))
+                logger.info(gu("找不到指定用户名的支援角色，尝试按照优先级选择"))
                 # 重新打开支援页面，防止上一次的滚动位置影响
                 auto.press_key("esc")
                 time.sleep(0.5)
                 if not auto.click_element("支援", "text", max_retries=10, crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
-                    logger.error(_("找不到支援按钮"))
+                    logger.error(gu("找不到支援按钮"))
                     return False
                 # 等待界面加载
                 time.sleep(0.5)
                 if not auto.find_element("支援列表", "text", max_retries=10, crop=(234 / 1920, 78 / 1080, 133 / 1920, 57 / 1080)):
-                    logger.error(_("未进入支援列表"))
+                    logger.error(gu("未进入支援列表"))
                     return False
 
             for name in config.borrow_character:
                 if auto.click_element("./assets/images/character/" + name + ".png", "image", 0.8, max_retries=1, scale_range=(0.9, 0.9), crop=(57 / 1920, 143 / 1080, 140 / 1920, 814 / 1080)):
                     if not auto.click_element("入队", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
-                        logger.error(_("找不到入队按钮"))
+                        logger.error(gu("找不到入队按钮"))
                         return False
                     # 等待界面加载
                     time.sleep(0.5)
@@ -227,7 +228,7 @@ class Power:
                     else:
                         return False
         except Exception as e:
-            logger.warning(_("选择支援角色出错： {e}").format(e=e))
+            logger.warning(gu("选择支援角色出错： {e}").format(e=e))
 
         auto.press_key("esc")
         if auto.find_element("解除支援", "text", max_retries=2, crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
@@ -251,51 +252,51 @@ class Power:
     
     @staticmethod
     def is_good_relic(relicName, relicPart, relicList, propCount, usefulPropCount, mainPropName):
-        logger.info("开始检测遗器")
+        logger.info(gu("开始检测遗器"))
         if (propCount >= 3 and usefulPropCount == 2):
             if relicPart in ['头部', '手部']:
-                logger.warning(f"发现头部/手部胚子")
+                logger.warning(gu(f"发现头部/手部胚子"))
             elif relicPart in '躯干':
-                logger.warning(f"发现躯干胚子")
+                logger.warning(gu(f"发现躯干胚子"))
             elif relicPart in '脚部':
-                logger.warning(f"发现脚部胚子")
+                logger.warning(gu(f"发现脚部胚子"))
             elif relicPart in '位面球':
-                logger.warning(f"发现位面球胚子")
+                logger.warning(gu(f"发现位面球胚子"))
             elif relicPart in '连结绳':
-                logger.warning(f"发现连结绳胚子")
+                logger.warning(gu(f"发现连结绳胚子"))
 
             Power.create_relic_content(relicName, relicPart, relicList)
 
         elif (propCount == 3 and usefulPropCount == 1):
             if relicPart in ['头部', '手部']:
-                logger.warning(f"发现头部/手部胚子")
+                logger.warning(gu(f"发现头部/手部胚子"))
                 Power.create_relic_content(relicName, relicPart, relicList)
 
             elif relicPart in '躯干' and mainPropName in ['暴击率','暴击伤害','攻击力']:
-                logger.warning(f"发现躯干胚子")
+                logger.warning(gu(f"发现躯干胚子"))
                 Power.create_relic_content(relicName, relicPart, relicList)
 
             elif relicPart in '脚部' and mainPropName in ['速度','攻击力']:
-                logger.warning(f"发现脚部胚子")
+                logger.warning(gu(f"发现脚部胚子"))
                 Power.create_relic_content(relicName, relicPart, relicList)
 
             elif relicPart in '位面球' and mainPropName in ['量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成','攻击力']:
-                logger.warning(f"发现位面球胚子")
+                logger.warning(gu(f"发现位面球胚子"))
                 Power.create_relic_content(relicName, relicPart, relicList)
 
             elif relicPart in '连结绳' and mainPropName not in ['防御力']:
-                logger.warning(f"发现连结绳胚子")
+                logger.warning(gu(f"发现连结绳胚子"))
                 Power.create_relic_content(relicName, relicPart, relicList)
         elif (propCount == 3 and usefulPropCount == 0):
             if relicPart in '躯干' and mainPropName in ['暴击率','暴击伤害']:
-                logger.warning(f"发现躯干胚子")
+                logger.warning(gu(f"发现躯干胚子"))
                 Power.create_relic_content(relicName, relicPart, relicList)
 
     @staticmethod
     def instance_get_relic():
         relic_name_crop=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
         relic_prop_crop=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性
-        logger.info("开始检测遗器")
+        logger.info(gu("开始检测遗器"))
         point = auto.find_element("./assets/images/fight/fight_reward.png", "image", 0.9, max_retries=2)
         success_reward_top_left_x = point[0][0]
         success_reward_top_left_y = point[0][1]
@@ -306,7 +307,7 @@ class Power:
                     relic_name = auto.get_single_line_text(relic_name_crop, blacklist=[], max_retries=5)
 
                     relic_part = auto.get_single_line_text(crop=(515.0 / 1920, 726.0 / 1080, 91.0 / 1920, 35.0 / 1080),blacklist=['+','0'],max_retries=3)
-                    logger.info(f"{relic_name}:{relic_part}")
+                    logger.info(gu(f"{relic_name}:{relic_part}"))
 
                     auto.take_screenshot(crop=relic_prop_crop)
                     time.sleep(0.5)
@@ -350,8 +351,8 @@ class Power:
                     allPropText = '词条:'
                     for key in relicList:
                         allPropText += f'{key},'
-                    logger.info(allPropText)
-                    logger.info(f"总词条数:{propCount},有效词条:{usefulPropCount}")
+                    logger.info(gu(allPropText))
+                    logger.info(gu(f"总词条数:{propCount},有效词条:{usefulPropCount}"))
 
                     Power.is_good_relic(relic_name, relic_part, relicList, propCount, usefulPropCount, tempMainPropName)
                     
@@ -398,7 +399,7 @@ class Power:
                 break
             if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
                 nowtime = time.time()
-                logger.error(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
                 raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
             auto.mouse_scroll(18, -1)
             # 等待界面完全停止
@@ -406,22 +407,22 @@ class Power:
             
         
         if not Flag:
-            logger.error(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+            logger.error(gu("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
             # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
             return False
         # 验证传送是否成功
         if not auto.find_element(instance_name, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
-            logger.error(_("⚠️刷副本未完成 - 传送可能失败⚠️"))
+            logger.error(gu("⚠️刷副本未完成 - 传送可能失败⚠️"))
             # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 传送可能失败⚠️"))
             return False
 
         full_count = total_count // 6
         incomplete_count = total_count - full_count * 6
-        logger.info(f"按单次体力需求计算次数:{total_count},按6次为完整一次计算:{full_count},按扣除完整次数剩下次数计算:{incomplete_count}")
+        logger.info(gu(f"按单次体力需求计算次数:{total_count},按6次为完整一次计算:{full_count},按扣除完整次数剩下次数计算:{incomplete_count}"))
         if "拟造花萼" in instance_type:
             
             if not 0 <= full_count or not 0 <= incomplete_count <= 6:
-                logger.error(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
+                logger.error(gu("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
                 # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
                 return False
             result = auto.find_element("./assets/images/screen/guide/plus.png", "image", 0.9, max_retries=10,
@@ -449,7 +450,7 @@ class Power:
 
                     for i in range(total_count - 1):
                         Power.wait_fight(instance_name)
-                        logger.info(_(f"第{i+1}次{instance_type}副本完成(1)"))
+                        logger.info(gu(f"第{i+1}次{instance_type}副本完成(1)"))
                         if instance_type == "侵蚀隧洞":
                             Power.instance_get_relic()
                         time.sleep(1)
@@ -459,7 +460,7 @@ class Power:
                     if full_count > 0:
                         for i in range(full_count - 1):
                             Power.wait_fight(instance_name)
-                            logger.info(_(f"第{i+1}次{instance_type}副本完成(2)"))
+                            logger.info(gu(f"第{i+1}次{instance_type}副本完成(2)"))
                             if not (full_count == 1 and incomplete_count == 0):
                                 auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
                                 if instance_type == "历战余响":
@@ -470,11 +471,11 @@ class Power:
                 if instance_type == "侵蚀隧洞":
                     Power.instance_get_relic()
                 if full_count > 0:
-                    logger.info(_(f"{full_count*6}次{instance_type}副本完成(3)"))
+                    logger.info(gu(f"{full_count*6}次{instance_type}副本完成(3)"))
                 elif instance_type == "凝滞虚影" or "侵蚀隧洞" :
-                    logger.info(_(f"{total_count}次{instance_type}副本完成(4)"))
+                    logger.info(gu(f"{total_count}次{instance_type}副本完成(4)"))
                 else:
-                    logger.info(_(f"{incomplete_count}次{instance_type}副本完成(5)"))
+                    logger.info(gu(f"{incomplete_count}次{instance_type}副本完成(5)"))
                 # 速度太快，点击按钮无效
                 time.sleep(1)
                 auto.click_element("./assets/images/fight/fight_exit.png", "image", 0.9, max_retries=10)
@@ -482,7 +483,7 @@ class Power:
                 if full_count > 0 and incomplete_count > 0:
                     Power.run_instances(instance_type, instance_name, a_times_need_power, incomplete_count)
                 else:
-                    logger.info(_("副本任务完成"))
+                    logger.info(gu("副本任务完成"))
                     return True
 
     @staticmethod
@@ -496,11 +497,11 @@ class Power:
             # number刷的次数
             number = power // power_need
             if number < 1:
-                logger.info(_("🟣开拓力 < {power_need}").format(power_need=power_need))
+                logger.info(gu("🟣开拓力 < {power_need}").format(power_need=power_need))
                 return False
         else:
             if power_need * number > power:
-                logger.info(_("🟣开拓力 < {power_need}*{number}").format(power_need=power_need, number=number))
+                logger.info(gu("🟣开拓力 < {power_need}*{number}").format(power_need=power_need, number=number))
                 return False
         
         Utils._temp += "<p>"+f'{instance_type} - {instance_name} - {number}次</p>'

@@ -3,6 +3,7 @@ from managers.automation_manager import auto
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from managers.utils_manager import gu
 from tasks.daily.utils import Utils
 from module.automation.screenshot import Screenshot
 from tasks.base.base import Base
@@ -13,55 +14,55 @@ class ForgottenHall:
     def clear_team(j):
         if j == 10:
             nowtime = time.time()
-            logger.error(f"{nowtime},忘却之庭清理队伍失败")
+            logger.error(gu(f"{nowtime},忘却之庭清理队伍失败"))
             raise Exception(f"{nowtime},忘却之庭清理队伍失败")
         
         for i in range(4):
             auto.click_element_with_pos(((1400+i*105, 837),(1400+i*105, 837)))
             time.sleep(1)
         if auto.find_element("./assets/images/forgottenhall/all_clear_team.png", "image", 0.9, take_screenshot=True, max_retries=3):
-            logger.info("队伍已清空")
+            logger.info(gu("队伍已清空"))
             return
         else:
             ForgottenHall.clear_team(j+1)
 
     @staticmethod
     def wait_fight(count, boss_count, max_recursion):
-        logger.info(_("进入战斗"))
+        logger.info(gu("进入战斗"))
         for i in range(20):
             if auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
-                logger.info(_("二倍速已开启"))
+                logger.info(gu("二倍速已开启"))
                 break
             else:
-                logger.info(_("尝试开启二倍速"))
+                logger.info(gu("尝试开启二倍速"))
                 auto.press_key("b")
                 if auto.find_element("./assets/images/forgottenhall/back.png", "image", 0.9):
                     break
         time.sleep(1)
         for i in range(20):
             if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):
-                logger.info(_("尝试开启自动战斗"))
+                logger.info(gu("尝试开启自动战斗"))
                 auto.press_key("v")
                 if auto.find_element("./assets/images/forgottenhall/back.png", "image", 0.9):
                     break
             elif auto.find_element("./assets/images/base/auto.png", "image", 0.95, take_screenshot=False):
-                logger.info(_("自动战斗已开启"))
+                logger.info(gu("自动战斗已开启"))
                 break
         time.sleep(1)
-        logger.info(_("等待战斗"))
+        logger.info(gu("等待战斗"))
 
         def check_fight():
             if auto.find_element("./assets/images/forgottenhall/prepare_fight.png", "image", 0.9, crop=(64 / 1920, 277 / 1080, 167 / 1920, 38 / 1080)):
                 # 正常
                 return 1
             elif auto.find_element("./assets/images/forgottenhall/back.png", "image", 0.9, crop=(560 / 1920, 900 / 1080, 796 / 1920, 76 / 1080)):
-                logger.info(_("战斗完成"))
+                logger.info(gu("战斗完成"))
                 # 挑战失败
                 result = auto.find_element("./assets/images/forgottenhall/again.png", "image", 0.9,
                                            max_retries=2, crop=(560 / 1920, 900 / 1080, 796 / 1920, 76 / 1080))
                 if result and max_recursion > 0:
                     # 重新挑战
-                    logger.info(_("重新挑战"))
+                    logger.info(gu("重新挑战"))
                     auto.click_element("./assets/images/forgottenhall/again.png", "image", 0.9,
                                        max_retries=10, crop=(560 / 1920, 900 / 1080, 796 / 1920, 76 / 1080))
                     auto.click_element("./assets/images/forgottenhall/start.png", "image", 0.8,
@@ -82,7 +83,7 @@ class ForgottenHall:
         result = auto.retry_with_timeout(lambda: check_fight(), 30 * 60, 1)
         if not result:
             nowtime = time.time()
-            logger.error(_(f"{nowtime},战斗超时"))
+            logger.error(gu(f"{nowtime},战斗超时"))
             raise Exception(_(f"{nowtime},战斗超时"))
         return result
 
@@ -90,7 +91,7 @@ class ForgottenHall:
     def start_fight(count, boss_count, max_recursion=config.forgottenhall_retries, team=None):
         logger.debug(_("剩余重试次数:{max_recursion}".format(max_recursion=max_recursion)))
         for i in range(count):
-            logger.info(_("进入第{i}间").format(i=i + 1))
+            logger.info(gu("进入第{i}间").format(i=i + 1))
             auto.press_key("w", 3.5)
 
             # 释放秘技
@@ -122,7 +123,7 @@ class ForgottenHall:
                 time.sleep(1)
 
             for i in range(boss_count):
-                logger.info(_("挑战第{i}个boss").format(i=i + 1))
+                logger.info(gu("挑战第{i}个boss").format(i=i + 1))
 
                 # 适配近战角色开怪
                 if boss_count == 2:
@@ -218,22 +219,22 @@ class ForgottenHall:
             # 选择关卡
             top_left = ForgottenHall.change_to(f"{i:02}")
             if not top_left:
-                logger.error(_("切换关卡失败"))
+                logger.error(gu("切换关卡失败"))
                 break
             logger.debug(_("选择关卡:{top_left}").format(top_left=top_left))
             # 判断星数
             star_count = ForgottenHall.check_star(top_left)
             if star_count == 3:
-                logger.info(_("第{i}层已满星").format(i=f"{i:02}"))
+                logger.info(gu("第{i}层已满星").format(i=f"{i:02}"))
                 continue
             else:
-                logger.info(_("第{i}层星数{star_count}").format(i=i, star_count=star_count))
+                logger.info(gu("第{i}层星数{star_count}").format(i=i, star_count=star_count))
                 auto.click_element(f"{i:02}", "text", max_retries=20, crop=(0, 336 / 1080, 1, 537 / 1080))
 
-            logger.info(_("开始挑战第{i}层").format(i=f"{i:02}"))
+            logger.info(gu("开始挑战第{i}层").format(i=f"{i:02}"))
             # 选择角色
             if not ForgottenHall.configure_teams():
-                logger.error(_("配置队伍失败，请检查是否在设置中配置好两个队伍！！！"))
+                logger.error(gu("配置队伍失败，请检查是否在设置中配置好两个队伍！！！"))
                 break
 
             # 点击弹出框
@@ -241,16 +242,16 @@ class ForgottenHall:
             # 判断关卡BOSS数量
             boss_count = 2 if i in range(1, 6) else 1
             if not ForgottenHall.start_fight(2, boss_count):
-                logger.info(_("挑战失败"))
+                logger.info(gu("挑战失败"))
             else:
-                logger.info(_("挑战成功"))
+                logger.info(gu("挑战成功"))
                 max_level = i
 
             # 进入混沌回忆关卡选择界面
             time.sleep(2)
             if not auto.find_element("./assets/images/screen/forgottenhall/memory_of_chaos.png", "image", 0.8, max_retries=10, crop=(36 / 1920, 25 / 1080, 170 / 1920, 80 / 1080)):
                 # if not auto.find_element("混沌回忆", "text", max_retries=10):
-                logger.error(_("界面不正确，尝试切换到混沌回忆界面"))
+                logger.error(gu("界面不正确，尝试切换到混沌回忆界面"))
                 screen.change_to('memory_of_chaos')
 
         if max_level > 0:
@@ -261,7 +262,7 @@ class ForgottenHall:
                 while auto.click_element("./assets/images/forgottenhall/receive.png", "image", 0.9, crop=(1081.0 / 1920, 171.0 / 1080, 500.0 / 1920, 736.0 / 1080)):
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
                     time.sleep(1)
-            logger.info("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level)
+            logger.info(gu("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level))
             # Base.send_notification_with_screenshot(_("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level))
             auto.press_key("esc")
             time.sleep(1)
@@ -278,9 +279,9 @@ class ForgottenHall:
                 for box in auto.ocr_result:
                     text = box[1][0]
                     if "/30" in text:
-                        logger.info(_("星数：{text}").format(text=text))
+                        logger.info(gu("星数：{text}").format(text=text))
                         if text.split("/")[0] == "30":
-                            logger.info(_("混沌回忆未刷新"))
+                            logger.info(gu("混沌回忆未刷新"))
                             screen.change_to('menu')
                             return True
                         else:
@@ -329,7 +330,7 @@ class ForgottenHall:
                         countdownText = '识别出错'
                     levelText = auto.get_single_line_text(crop=levelTextCrop, blacklist=[], max_retries=3)
                     starText = auto.get_single_line_text(crop=starTextCrop, blacklist=[], max_retries=3)
-                    logger.info(f"忘却之庭刷新倒计时:{countdownText},层数:{levelText},星数:{starText}")
+                    logger.info(gu(f"忘却之庭刷新倒计时:{countdownText},层数:{levelText},星数:{starText}"))
                     Utils._content['countdownText'] = countdownText
                     level = levelText.split('/')[0]
                     star = starText.split('/')[0]
@@ -337,8 +338,8 @@ class ForgottenHall:
                     config.forgottenhall_stars[Utils.get_uid()] = int(star)
                     config.save_config()
                 except Exception as e:
-                    logger.error(_("识别忘却之庭失败: {error}").format(error=e))
-                    logger.warning(_("因读取忘却之庭失败,程序中止"))
+                    logger.error(gu("识别忘却之庭失败: {error}").format(error=e))
+                    logger.warning(gu("因读取忘却之庭失败,程序中止"))
 
         screen.change_to('main')
         return True
@@ -350,7 +351,7 @@ class ForgottenHall:
         if ForgottenHall.prepare():
             # Utils.detectTimestamp(config.forgottenhall_timestamp, Utils.get_uid())
             Utils.saveTimestamp('forgottenhall_timestamp', Utils.get_uid())
-            logger.info(_("混沌回忆完成"))
+            logger.info(gu("混沌回忆完成"))
 
     @staticmethod
     def start_memory_one():
@@ -370,18 +371,18 @@ class ForgottenHall:
                         time.sleep(0.5)
                         if char_count == 4:
                             break
-                        logger.info(f"{character[0]}")
+                        logger.info(gu(f"{character[0]}"))
                         if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.9, max_retries=10, take_screenshot=True):
                             auto.mouse_scroll(15, -1)
                             if not auto.click_element(f"./assets/images/character/{character[0]}.png", "image", 0.9, max_retries=10, take_screenshot=True):
                                 auto.mouse_scroll(15, 1)
                                 continue
                             else:
-                                logger.info("该角色已选中")
+                                logger.info(gu("该角色已选中"))
                                 auto.mouse_scroll(15, 1)
                                 char_count+=1
                         else:
-                            logger.info("该角色已选中")
+                            logger.info(gu("该角色已选中"))
                             char_count+=1
                         time.sleep(0.5)
                     if auto.click_element("回忆", "text", max_retries=10, crop=(1546 / 1920, 962 / 1080, 343 / 1920, 62 / 1080), include=True):
@@ -389,10 +390,10 @@ class ForgottenHall:
                         if ForgottenHall.start_fight(1, 1, 0, config.daily_memory_one_team):
                             flag = True
             time.sleep(2)
-            logger.info(_("回忆一完成"))
+            logger.info(gu("回忆一完成"))
             return flag
         except Exception as e:
-            logger.error(_("回忆一失败: {error}").format(error=e))
+            logger.error(gu("回忆一失败: {error}").format(error=e))
             return False
 
     @staticmethod
@@ -404,43 +405,43 @@ class ForgottenHall:
     def weakness_to_fight():
         if config.daily_memory_one_enable:
             if config.daily_tasks_fin[Utils.get_uid()]:
-                logger.info(_("每日活跃度已满,跳过"))
+                logger.info(gu("每日活跃度已满,跳过"))
                 return False
-            logger.info(_("进行[利用弱点进入战斗并获胜3次]"))
+            logger.info(gu("进行[利用弱点进入战斗并获胜3次]"))
             return ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one()
 
     @staticmethod
     def weakness_3():
         if config.daily_memory_one_enable:
             if config.daily_tasks_fin[Utils.get_uid()]:
-                logger.info(_("每日活跃度已满,跳过"))
+                logger.info(gu("每日活跃度已满,跳过"))
                 return False
-            logger.info(_("进行[单场战斗中，触发3种不同属性的弱点击破]"))
+            logger.info(gu("进行[单场战斗中，触发3种不同属性的弱点击破]"))
             return ForgottenHall.start_memory_one()
 
     @staticmethod
     def weakness_5():
         if config.daily_memory_one_enable:
             if config.daily_tasks_fin[Utils.get_uid()]:
-                logger.info(_("每日活跃度已满,跳过"))
+                logger.info(gu("每日活跃度已满,跳过"))
                 return False
-            logger.info(_("进行[累计触发弱点击破效果5次]"))
+            logger.info(gu("进行[累计触发弱点击破效果5次]"))
             return ForgottenHall.start_memory_one()
 
     @staticmethod
     def enemy_20():
         if config.daily_memory_one_enable:
             if config.daily_tasks_fin[Utils.get_uid()]:
-                logger.info(_("每日活跃度已满,跳过"))
+                logger.info(gu("每日活跃度已满,跳过"))
                 return False
-            logger.info(_("进行[累计消灭20个敌人]"))
+            logger.info(gu("进行[累计消灭20个敌人]"))
             return ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one() and ForgottenHall.start_memory_one()
 
     @staticmethod
     def ultimate():
         if config.daily_memory_one_enable:
             if config.daily_tasks_fin[Utils.get_uid()]:
-                logger.info(_("每日活跃度已满,跳过"))
+                logger.info(gu("每日活跃度已满,跳过"))
                 return False
-            logger.info(_("进行[施放终结技造成制胜一击1次]"))
+            logger.info(gu("进行[施放终结技造成制胜一击1次]"))
             return ForgottenHall.start_memory_one()

@@ -57,21 +57,21 @@ class Utils:
             max_score = scoreAndMaxScore.split('/')[1]
 
             logger.info(getUid(f"识别到当前积分为:{current_score}"))
-            logger.info(_(f"识别到积分上限为:{max_score}"))
+            logger.info(getUid(f"识别到积分上限为:{max_score}"))
             if int(current_score) == int(max_score):
-                logger.info(_(f"模拟宇宙积分已满"))
+                logger.info(getUid(f"模拟宇宙积分已满"))
                 config.universe_fin[Utils.get_uid()] = True
             else:
-                logger.info(_(f"模拟宇宙积分未满"))
+                logger.info(getUid(f"模拟宇宙积分未满"))
                 config.universe_fin[Utils.get_uid()] = False
                 
             config.save_config()
             return int(current_score), int(max_score)
         except Exception as e:
-            logger.error(_("识别模拟宇宙积分失败: {error}").format(error=e))
+            logger.error(getUid("识别模拟宇宙积分失败: {error}").format(error=e))
             config.universe_score[Utils.get_uid()] = '0/1'
             config.save_config()
-            logger.warning(_("因读取模拟宇宙积分失败,程序中止"))
+            logger.warning(getUid("因读取模拟宇宙积分失败,程序中止"))
 
     def init_instanceButNoSave(uid):
         if config.instance_type == {} or uid not in config.instance_type.keys():
@@ -121,14 +121,14 @@ class Utils:
     
     def relic_full_error(self):
         nowtime = time.time()
-        logger.error(f"{nowtime},检测到背包遗器已满,本次运行已中断,如有需要请在配置中开启自动分解遗器选项,或手动上号清理并保持空位富余")
+        logger.error(getUid(f"{nowtime},检测到背包遗器已满,本次运行已中断,如有需要请在配置中开启自动分解遗器选项,或手动上号清理并保持空位富余"))
         raise Exception(f"{nowtime},检测到背包遗器已满,本次运行已中断,如有需要请在配置中开启自动分解遗器选项,或手动上号清理并保持空位富余")
         
     def showDailyTasksScore(task_name, uid):
         Utils.detectIsNoneButNoSave(config.daily_tasks_score, uid)
         config.save_config()
         if task_name in Utils._task_score_mappings.keys():
-            logger.info(_(f"{task_name}的活跃度为{Utils._task_score_mappings[task_name]}"))
+            logger.info(getUid(f"{task_name}的活跃度为{Utils._task_score_mappings[task_name]}"))
             Utils.calcDailyTasksScore(uid)
 
     def calcDailyTasksScore(uid):
@@ -143,14 +143,14 @@ class Utils:
         
         config.daily_tasks_score[uid] = temp_score
         config.save_config()
-        logger.info(_(f"现在总活跃度为{config.daily_tasks_score[uid]}"))
+        logger.info(getUid(f"现在总活跃度为{config.daily_tasks_score[uid]}"))
 
         if config.daily_tasks_score[uid] >= 500:
             config.daily_tasks_fin[uid] = True
-            logger.info(_("该账号今日500活跃度已达成"))
+            logger.info(getUid("该账号今日500活跃度已达成"))
         elif config.daily_tasks_fin[uid]:
             config.daily_tasks_fin[uid] = False
-            logger.info(_("该账号今日500活跃度未达成"))
+            logger.info(getUid("该账号今日500活跃度未达成"))
 
         config.save_config()
     
@@ -174,7 +174,7 @@ class Utils:
         coordinates = auto.find_element(target, find_type, threshold, max_retries, crop, take_screenshot,
                                         relative, scale_range, include, need_ocr, source)
         if coordinates:
-            logger.warning("检测到每日任务待领取")
+            logger.warning(getUid("检测到每日任务待领取"))
             return Utils.click_element_with_pos_quest(coordinates, offset)
         return False
     
@@ -195,15 +195,15 @@ class Utils:
         time.sleep(0.5)
         Utils._task_mappings = Utils._load_config("./assets/config/task_mappings.json")
         for mappings_keyword, task_name in Utils._task_mappings.items():
-            logger.info(f"mappings_keyword:{mappings_keyword},result_keyword:{result_keyword}")
+            logger.info(getUid(f"mappings_keyword:{mappings_keyword},result_keyword:{result_keyword}"))
             if mappings_keyword in result_keyword:
                 if task_name in config.daily_tasks[Utils.get_uid()] and config.daily_tasks[Utils.get_uid()][task_name] == True:
                     config.daily_tasks[Utils.get_uid()][task_name] = False
-                    logger.warning(_(f"keyword:{mappings_keyword}----->{task_name}:进行了点击,任务已经完成"))
+                    logger.warning(getUid(f"keyword:{mappings_keyword}----->{task_name}:进行了点击,任务已经完成"))
                     Utils.showDailyTasksScore(task_name, Utils.get_uid())
                     config.save_config()
                 else:
-                    logger.warning(_(f"keyword:{mappings_keyword}----->{task_name}:进行了点击,但可能配置项中之前已完成修改或未识别成功"))
+                    logger.warning(getUid(f"keyword:{mappings_keyword}----->{task_name}:进行了点击,但可能配置项中之前已完成修改或未识别成功"))
                 break
         (left, top), (right, bottom) = coordinates
         x = (left + right) // 2 + offset[0]

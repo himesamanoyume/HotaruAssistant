@@ -5,6 +5,7 @@ from managers.automation_manager import auto
 from tasks.power.power import Power
 from tasks.daily.relics import Relics
 from managers.translate_manager import _
+from managers.utils_manager import gu
 from tasks.base.base import Base
 from tasks.base.pythonchecker import PythonChecker
 from tasks.daily.utils import Utils
@@ -30,28 +31,28 @@ class Universe:
     @staticmethod
     def check_path():
         if not os.path.exists(config.universe_path):
-            logger.warning(_("模拟宇宙路径不存在: {path}").format(path=config.universe_path))
+            logger.warning(gu("模拟宇宙路径不存在: {path}").format(path=config.universe_path))
             Universe.update()
         elif not os.path.exists(os.path.join(config.universe_path, 'gui.exe')):
-            logger.error(_("模拟宇宙缺失核心文件，请尝试更新"))
+            logger.error(gu("模拟宇宙缺失核心文件，请尝试更新"))
             return False
         # 日常任务需要能够自定义次数的模拟宇宙版本，检测是否存在 nums 参数
         with open(os.path.join(config.universe_path, 'states.py'), 'r', encoding='utf-8') as f:
             if "nums" not in f.read():
-                logger.warning(_("模拟宇宙版本过低"))
+                logger.warning(gu("模拟宇宙版本过低"))
                 Universe.update()
         return True
 
     @staticmethod
     def check_requirements():
         if not config.universe_requirements:
-            logger.info(_("开始安装依赖"))
+            logger.info(gu("开始安装依赖"))
             from tasks.base.fastest_mirror import FastestMirror
             subprocess.run([config.python_exe_path, "-m", "pip", "install", "-i", FastestMirror.get_pypi_mirror(), "pip", "--upgrade"])
             while not subprocess.run([config.python_exe_path, "-m", "pip", "install", "-i", FastestMirror.get_pypi_mirror(), "-r", "requirements.txt"], check=True, cwd=config.universe_path):
-                logger.error(_("依赖安装失败"))
+                logger.error(gu("依赖安装失败"))
                 input(_("按回车键重试. . ."))
-            logger.info(_("依赖安装成功"))
+            logger.info(gu("依赖安装成功"))
             config.set_value("universe_requirements", True)
 
     @staticmethod
@@ -68,30 +69,30 @@ class Universe:
         Relics.detect_relic_count()
         if Utils._relicCount >= 1450:
             nowtime = time.time()
-            logger.error(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
+            logger.error(gu(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止"))
             raise Exception(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
         
         logger.hr(_("准备模拟宇宙"), 2)
         
         config.save_config()
         if config.universe_fin[Utils.get_uid()] and daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
-            logger.info(_("鉴定为正在每日任务中且分数已满,跳过"))
+            logger.info(gu("鉴定为正在每日任务中且分数已满,跳过"))
             return True
         
         Relics.detect_relic_count()
         if Utils._relicCount >= 1450:
-            logger.warning("遗器数量超标,不进行模拟宇宙")
+            logger.warning(gu("遗器数量超标,不进行模拟宇宙"))
             return False
        
         if Universe.before_start():
             
             screen.change_to('main')
 
-            logger.info(_("开始校准"))
+            logger.info(gu("开始校准"))
             if subprocess_with_timeout([config.python_exe_path, "align_angle.py"], 60, config.universe_path, config.env):
                 
                 screen.change_to('universe_main')
-                logger.info(_("开始模拟宇宙"))
+                logger.info(gu("开始模拟宇宙"))
 
                 # 使用nums时一般都是特殊需求使用来刷模拟宇宙
                 if nums > 0:
@@ -100,8 +101,8 @@ class Universe:
                 else:
                     Universe.runUniverse(get_reward, save, daily)
             else:
-                logger.error(_("校准失败"))
-        logger.warning(_("⚠️模拟宇宙未完成⚠️"))
+                logger.error(gu("校准失败"))
+        logger.warning(gu("⚠️模拟宇宙未完成⚠️"))
         Power.power()
         return False
     
@@ -120,7 +121,7 @@ class Universe:
                 time.sleep(0.5)
                 if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
                     time.sleep(0.5)
-                    logger.info(_("🎉模拟宇宙积分奖励已领取🎉"))
+                    logger.info(gu("🎉模拟宇宙积分奖励已领取🎉"))
                     # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
         
@@ -131,12 +132,12 @@ class Universe:
 
         command = [config.python_exe_path, "states.py"]
         time.sleep(0.5)
-        logger.info("开始检测模拟宇宙积分")
+        logger.info(gu("开始检测模拟宇宙积分"))
         current_score, max_score = Universe.open_universe_score_screen()
         Universe.get_immersifier()
         if not current_score < max_score:
-            if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers <= 2):
-                logger.info(_("鉴定为沉浸器数量不足,跳过"))
+            if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers < 4):
+                logger.info(gu("鉴定为沉浸器数量不足,跳过"))
                 return True
           
         time.sleep(0.5)
@@ -144,7 +145,7 @@ class Universe:
         if config.instance_type[Utils.get_uid()] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
             
             if Utils._isFirstTimeSelectTeam:
-                logger.info("本账号首次运行模拟宇宙")
+                logger.info(gu("本账号首次运行模拟宇宙"))
                 Utils._isFirstTimeSelectTeam = Universe.select_universe()
             # else:
             #     Universe.get_immersifier()
@@ -155,7 +156,7 @@ class Universe:
 
             # if not current_score < max_score:
             #     if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers <= 2):
-            #         logger.info(_("鉴定为沉浸器数量不足,跳过"))
+            #         logger.info(gu("鉴定为沉浸器数量不足,跳过"))
             #         return True
 
             match config.universe_fate[Utils.get_uid()]:
@@ -177,24 +178,24 @@ class Universe:
                     fate = 7
             
             if current_score == 0:
-                logger.info(_("积分为0,鉴定为首次进行模拟宇宙"))
+                logger.info(gu("积分为0,鉴定为首次进行模拟宇宙"))
                 if Utils._immersifiers > 0:
                     command.append("--bonus=1")
             elif current_score == max_score:
-                logger.info(_("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
+                logger.info(gu("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
                 if Utils._immersifiers > 0:
                     command.append("--bonus=1")
                 if daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
-                    logger.info(_("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
+                    logger.info(gu("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
                     return False
             else:
-                logger.info(_("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
+                logger.info(gu("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
                 command.append("--bonus=1")
             
             command.append(f"--nums=1")
                 
             # end
-            logger.info(_("将开始进行模拟宇宙"))
+            logger.info(gu("将开始进行模拟宇宙"))
             command.append(f"--fate={fate}")
             if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
             
@@ -216,16 +217,16 @@ class Universe:
                 #     Universe.runUniverse(get_reward, save, daily)
                 Universe.runUniverse(get_reward, save, daily)
 
-                logger.info(_("🎉模拟宇宙已完成1次🎉"))
+                logger.info(gu("🎉模拟宇宙已完成1次🎉"))
                 Utils._temp += f'<p>模拟宇宙已完成1次</p>'
                 return True
             else:
-                logger.error(_("模拟宇宙失败"))
+                logger.error(gu("模拟宇宙失败"))
             # end
 
     @staticmethod
     def get_reward():
-        logger.info(_("开始领取模拟宇宙积分奖励"))
+        logger.info(gu("开始领取模拟宇宙积分奖励"))
         Universe.open_universe_score_screen()
         screen.change_to('universe_main')
 
@@ -237,7 +238,7 @@ class Universe:
         if config.instance_type[Utils.get_uid()] == '模拟宇宙':
             if Utils._power >= 40:
                 count = Utils._power // 40
-                logger.info(f"开拓力能换{count}个沉浸器")
+                logger.info(gu(f"开拓力能换{count}个沉浸器"))
                 if auto.click_element("./assets/images/share/trailblaze_power/immersifiers.png", "image", 0.95, max_retries=10):
                     time.sleep(0.5)
                 
@@ -258,10 +259,10 @@ class Universe:
         try:
             result = auto.get_single_line_text(crop=(1673.0 / 1920, 50.0 / 1080, 71.0 / 1920, 31.0 / 1080),max_retries=5)
             count = result.split("/")[0]
-            logger.info(f"识别到沉浸器数量为:{count}")
+            logger.info(gu(f"识别到沉浸器数量为:{count}"))
             Utils._immersifiers = int(count)
         except Exception as e:
-            logger.error(_("识别沉浸器数量失败: {error}").format(error=e))
+            logger.error(gu("识别沉浸器数量失败: {error}").format(error=e))
             Utils._immersifiers = 0
 
     @staticmethod
@@ -299,7 +300,7 @@ class Universe:
             # 等待界面完全停止
             time.sleep(1)
         if not Flag:
-            logger.error(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+            logger.error(gu("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
             return False
 
         time.sleep(3)
@@ -307,10 +308,10 @@ class Universe:
         # 选择难度,0不是难度
         d = config.universe_difficulty[Utils.get_uid()]
         if not d in [1,2,3,4,5]:
-            logger.warning("难度设置不合法,进行难度5")
+            logger.warning(gu("难度设置不合法,进行难度5"))
             d = 5
         if config.universe_number[Utils.get_uid()] in [5,6,7] and d > 4:
-            logger.warning("第五、第六、第七世界暂不支持难度4以上,进行难度4")
+            logger.warning(gu("第五、第六、第七世界暂不支持难度4以上,进行难度4"))
             d = 4
         
         # 用嵌套函数
@@ -328,7 +329,7 @@ class Universe:
                 time.sleep(0.5)
                 if char_count == 4:
                     break
-                logger.info(f"{character}")
+                logger.info(gu(f"{character}"))
                 if not auto.click_element(f"./assets/images/character/{character}.png","image", 0.85, max_retries=10, take_screenshot=True):
                     time.sleep(0.5)
                     auto.mouse_scroll(30, -1)
@@ -337,11 +338,11 @@ class Universe:
                         auto.mouse_scroll(30, 1)
                         continue
                     else:
-                        logger.info("该角色已选中")
+                        logger.info(gu("该角色已选中"))
                         auto.mouse_scroll(30, 1)
                         char_count+=1
                 else:
-                    logger.info("该角色已选中")
+                    logger.info(gu("该角色已选中"))
                     char_count+=1
                 time.sleep(0.5)
             if char_count == 4:
@@ -350,37 +351,37 @@ class Universe:
                 return True
         else:
             nowtime = time.time()
-            logger.error(f"{nowtime}模拟宇宙未找到下载角色按钮")
+            logger.error(gu(f"{nowtime}模拟宇宙未找到下载角色按钮"))
             raise Exception(f"{nowtime}模拟宇宙未找到下载角色按钮")
               
     def select_universe_difficulty(d):
         difficulty_crop=(85.0 / 1920, 108.0 / 1080, 94.0 / 1920, 836.0 / 1080)
         if d==0:
-            logger.error(f"难度{d}不合法")
+            logger.error(gu(f"难度{d}不合法"))
             return
 
         if not auto.click_element(f"./assets/images/universe/on_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
-                logger.info(f"未选中难度{d}")
+                logger.info(gu(f"未选中难度{d}"))
                 if not auto.click_element(f"./assets/images/universe/off_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
-                    logger.info(f"仍未选中难度{d}")
+                    logger.info(gu(f"仍未选中难度{d}"))
                     auto.click_element_with_pos(((135, 160+(d-1)*110),(135, 160+(d-1)*110)))
                     if not auto.click_element(f"./assets/images/universe/on_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
                         Universe.select_universe_difficulty(d-1)
         
-        logger.info(f"已选中难度{d}")
+        logger.info(gu(f"已选中难度{d}"))
         return
     
     def clear_team(j):
         if j == 10:
             nowtime = time.time()
-            logger.error(f"{nowtime},模拟宇宙清理队伍失败")
+            logger.error(gu(f"{nowtime},模拟宇宙清理队伍失败"))
             raise Exception(f"{nowtime},模拟宇宙清理队伍失败")
         
         for i in range(4):
             auto.click_element_with_pos(((663+i*105, 837),(663+i*105, 837)))
             time.sleep(1)
         if auto.find_element("./assets/images/universe/all_clear_team.png", "image", 0.95, take_screenshot=True):
-            logger.info("队伍已清空")
+            logger.info(gu("队伍已清空"))
             return
         else:
             Universe.clear_team(j+1)

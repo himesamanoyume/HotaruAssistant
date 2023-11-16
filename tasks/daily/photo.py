@@ -3,6 +3,7 @@ from managers.automation_manager import auto
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from managers.utils_manager import gu
 import time
 
 
@@ -19,8 +20,8 @@ class Photo:
                 if auto.find_element("./assets/images/screen/photo_preview.png", "image", 0.9):
                     flag = True
                     break
-            logger.info(_("拍照完成"))
+            logger.info(gu("拍照完成"))
             return flag
         except Exception as e:
-            logger.error(_("拍照失败: {error}").format(error=e))
+            logger.error(gu("拍照失败: {error}").format(error=e))
             return False

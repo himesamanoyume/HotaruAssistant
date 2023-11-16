@@ -3,13 +3,14 @@ from managers.automation_manager import auto
 from managers.config_manager import config
 from managers.logger_manager import logger
 from managers.translate_manager import _
+from managers.utils_manager import gu
 
 
 class Mail:
     @staticmethod
     def get_reward():
         if not config.mail_enable:
-            logger.info(_("邮件奖励未开启"))
+            logger.info(gu("邮件奖励未开启"))
             return False
 
         screen.change_to('mail')
