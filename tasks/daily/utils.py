@@ -10,7 +10,7 @@ import json
 import sys
 
 def getUid(message):
-    return f"{Utils._uid}|{message}"
+    return f"\033[91m[{Utils._uid}]\033[0m|{message}"
 
 class Utils:
     _uid = '-1'
