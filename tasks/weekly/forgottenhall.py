@@ -314,7 +314,8 @@ class ForgottenHall:
         screen.change_to('guide3')
         guide3_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
         if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=guide3_crop):
-            auto.mouse_scroll(12, -1)
+            auto.mouse_scroll(18, -1)
+            time.sleep(1)
             if auto.click_element("忘却之庭", "text", max_retries=10, crop=guide3_crop):
                 time.sleep(1)
                 countdownTextCrop=(1425.0 / 1920, 319.0 / 1080, 199.0 / 1920, 43.0 / 1080)
@@ -323,7 +324,7 @@ class ForgottenHall:
                 try:
                     time.sleep(0.5)
                     countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=6)
-                    countdownText = countdownText.replace('）','').replace(')','').replace('①','')
+                    countdownText = countdownText.replace('）','').replace(')','').replace('①','').replace('?','')
                     if countdownText == '?':
                         countdownText = '识别出错'
                     levelText = auto.get_single_line_text(crop=levelTextCrop, blacklist=[], max_retries=3)

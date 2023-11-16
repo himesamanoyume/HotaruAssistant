@@ -57,13 +57,13 @@ class Start:
         logger.debug(_("游戏启动成功: {path}").format(path=config.game_path))
 
         time.sleep(10)
-        if not auto.retry_with_timeout(lambda: WindowSwitcher.check_and_switch(config.game_title_name), 60, 1):
+        if not auto.retry_with_timeout(lambda: WindowSwitcher.check_and_switch(config.game_title_name), 180, 1):
             logger.error(_("无法切换游戏到前台"))
             return False
 
         Resolution.check(config.game_title_name, 1920, 1080)
 
-        if not auto.retry_with_timeout(lambda: Start.check_and_click_enter(), 600, 1):
+        if not auto.retry_with_timeout(lambda: Start.check_and_click_enter(), 180, 1):
             logger.error(_("无法找到点击进入按钮"))
             return False
         

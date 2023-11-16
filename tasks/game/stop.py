@@ -2,6 +2,7 @@ from managers.logger_manager import logger
 from managers.automation_manager import auto
 from managers.translate_manager import _
 from managers.config_manager import config
+from managers.utils_manager import gu
 from managers.notify_manager import notify
 from managers.ocr_manager import ocr
 from tasks.power.power import Power
@@ -46,9 +47,17 @@ class Stop:
             #     return False
             time.sleep(1)
             pyautogui.hotkey('alt', 'f4')
+            time.sleep(5)
             # 新增检查是否还在的判断
-            time.sleep(2)
-            logger.info(_("游戏退出成功"))
+            if not WindowSwitcher.check_and_switch(config.game_title_name):
+                logger.info(_("游戏退出成功"))
+            else:
+                pyautogui.hotkey('alt', 'f4')
+                time.sleep(5)
+                if WindowSwitcher.check_and_switch(config.game_title_name):
+                    auto.retry_with_timeout(lambda: Stop.terminate_process(config.game_process_name), 10, 1)
+            Utils._uid = "-1"
+            # end
         else:
             logger.warning(_("游戏已经退出了"))
         return True

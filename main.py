@@ -7,6 +7,7 @@ from managers.logger_manager import logger
 from managers.config_manager import config
 from managers.ocr_manager import ocr
 from managers.translate_manager import _
+from managers.utils_manager import gu
 from tasks.game.game import Game
 from tasks.daily.daily import Daily
 from tasks.daily.fight import Fight
@@ -34,11 +35,11 @@ def main(action=None):
     if config.multi_login:
         # 多账号
         if len(config.multi_login_accounts) == 0:
-            logger.warning(_("你并没有填写注册表位置"))
-            input(_("按回车键关闭窗口. . ."))
+            logger.warning("你并没有填写注册表位置")
+            input("按回车键关闭窗口. . .")
             sys.exit(0)
         else:
-            logger.info(_("开始多账号运行"))
+            logger.info("开始多账号运行")
             # input(_("按回车键关闭窗口. . ."))
             # ForgottenHall.clear_team(1)
             # input(_("按回车键关闭窗口. . ."))
@@ -132,7 +133,12 @@ def main(action=None):
                 firstTimeLogin = True
                 jumpValue = ''
                 jumpFin = False
-                for turn in range(2):
+                # 若只启动模拟宇宙,该循环就只有1次,只进行模拟宇宙
+                if action == "universe":
+                    count = 1
+                else:
+                    count = 2
+                for turn in range(count):
                     for value in loginList:
                         if not firstTimeLogin and not jumpFin:
                             if not value == jumpValue:
@@ -154,15 +160,18 @@ def main(action=None):
                                 else:
                                     continue
 
-                        logger.info(_(value))
-                        logger.debug(_("运行命令: cmd /C REG IMPORT {path}").format(path=value))
+                        logger.info(value)
+                        logger.debug("运行命令: cmd /C REG IMPORT {path}").format(path=value)
                         if os.system(f"cmd /C REG IMPORT {value}"):
                             return False
                         # logger.info(action)
-                        if turn == 0:
-                            run(index, None, uidStr2, lastUID)
-                        else:
+                        if count == 1:
                             run(index, "universe", uidStr2, lastUID)
+                        else:
+                            if turn == 0:
+                                run(index, None, uidStr2, lastUID)
+                            else:
+                                run(index, "universe", uidStr2, lastUID)
                         isFirstTimeLoop = False
         # input(_("按回车键关闭窗口. . ."))
         # sys.exit(0)
@@ -237,9 +246,9 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
             Daily.start()
             Game.stop(index ,True, currentUID, _lastUID, action=action)
         except Exception as e:
-            logger.error(f"{e}")
+            logger.error(gu(f"{e}"))
             notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
-            logger.error("进入非正常退出游戏流程")
+            logger.error(gu("进入非正常退出游戏流程"))
             Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
         
     # 子任务
@@ -259,9 +268,9 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
                 ForgottenHall.start()
             Game.stop(index ,True, currentUID, _lastUID, action=action)
         except Exception as e:
-            logger.error(f"{e}")
+            logger.error(gu(f"{e}"))
             notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
-            logger.error("进入非正常退出游戏流程")
+            logger.error(gu("进入非正常退出游戏流程"))
             Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
     # 子任务 原生图形界面
     elif action in ["universe_gui", "fight_gui"]:
@@ -287,8 +296,8 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
         input(_("按回车键关闭窗口. . ."))
         sys.exit(0)
     else:
-        logger.error(_("未知任务: {action}").format(action=action))
-        input(_("按回车键关闭窗口. . ."))
+        logger.error("未知任务: {action}").format(action=action)
+        input("按回车键关闭窗口. . .")
         sys.exit(1)
 
 def exit_handler():
@@ -357,19 +366,19 @@ if __name__ == "__main__":
             pyuac.runAsAdmin(wait=False)
             sys.exit(0)
         except Exception:
-            logger.error(_("管理员权限获取失败"))
-            input(("按回车键关闭窗口. . ."))
+            logger.error("管理员权限获取失败")
+            input("按回车键关闭窗口. . .")
             sys.exit(1)
     else:
         try:
             atexit.register(exit_handler)
             main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
-            logger.error(_("发生错误: {e}").format(e=_("手动强制停止")))
-            input(("按回车键关闭窗口. . ."))
+            logger.error("发生错误: {e}").format(e=gu("手动强制停止"))
+            input("按回车键关闭窗口. . .")
             sys.exit(1)
         except Exception as e:
-            logger.error(_("发生错误: {e}").format(e=e))
+            logger.error("发生错误: {e}").format(e=e)
             # notify.notify(_("发生错误: {e}").format(e=e))
-            input(_("按回车键关闭窗口. . ."))
+            input("按回车键关闭窗口. . .")
             sys.exit(1)

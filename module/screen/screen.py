@@ -2,6 +2,7 @@ from managers.automation_manager import auto
 from managers.logger_manager import logger
 from managers.config_manager import config
 from managers.translate_manager import _
+from managers.utils_manager import gu
 from tasks.daily.utils import Utils
 from collections import deque
 import threading
@@ -152,7 +153,7 @@ class Screen:
 
             if self.current_screen:
                 screen_name=self.green + self.get_name(self.current_screen) + self.reset
-                logger.info(_("当前界面：{_screen_name}").format(_screen_name = screen_name))
+                logger.info(gu("当前界面：{_screen_name}").format(_screen_name = screen_name))
                 if self.get_name(self.current_screen) == "星际和平指南-每日实训":
                     logger.warning("进入到星际和平指南-每日实训的判断")
                     time.sleep(0.5)
@@ -191,8 +192,8 @@ class Screen:
 
         if not self.get_current_screen():
             nowtime = time.time()
-            logger.info(_(f"{nowtime},请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
-            logger.info(_("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
+            logger.info(gu(f"{nowtime},请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
+            logger.info(gu("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
             raise Exception (f"{nowtime},检测画面失败")
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(1)
@@ -221,15 +222,15 @@ class Screen:
                         self.change_to(next_screen, max_recursion=max_recursion - 1)
                     else:
                         nowtime = time.time()
-                        logger.error(_(f"{nowtime},无法切换到 {self.get_name(next_screen)},请确保你的账号已经解锁该功能,且不要在配置中选择你未解锁的副本或功能"))
-                        logger.info(_("请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
-                        logger.info(_("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
+                        logger.error(gu(f"{nowtime},无法切换到 {self.get_name(next_screen)},请确保你的账号已经解锁该功能,且不要在配置中选择你未解锁的副本或功能"))
+                        logger.info(gu("请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
+                        logger.info(gu("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
                         raise Exception (f"{nowtime},无法切换到 {self.get_name(next_screen)},请确保你的账号已经解锁该功能,且不要在配置中选择你未解锁的副本或功能")
                         # input(_("按回车键关闭窗口. . ."))
                         # sys.exit(1)
 
                 
-                logger.info(_("切换到：{next_screen}").format(next_screen=self.green + self.get_name(next_screen) + self.reset))
+                logger.info(gu("切换到：{next_screen}").format(next_screen=self.green + self.get_name(next_screen) + self.reset))
                 if self.get_name(next_screen) == "星际和平指南-每日实训":
                     logger.warning("进入到星际和平指南-每日实训的判断")
                     time.sleep(0.5)

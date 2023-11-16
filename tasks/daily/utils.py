@@ -9,6 +9,9 @@ from managers.translate_manager import _
 import json
 import sys
 
+def getUid(message):
+    return f"{Utils._uid}|{message}"
+
 class Utils:
     _uid = '-1'
     _daily_tasks = {}
@@ -30,9 +33,9 @@ class Utils:
 
     def saveTimestamp(timestamp, uid):
         if config.save_timestamp(timestamp, uid):
-            logger.info(_("已更新时间戳"))
+            logger.info(getUid("已更新时间戳"))
         else:
-            logger.info(_("更新时间戳出错"))
+            logger.info(getUid("更新时间戳出错"))
 
     def getFullPowerTime(power):
         remainingPower = 240 - power
@@ -45,7 +48,7 @@ class Utils:
         time.sleep(1)
         try:
             scoreAndMaxScore = auto.get_single_line_text(crop=score_crop, blacklist=[], max_retries=5)
-            logger.info(_(f"识别到文字为:{scoreAndMaxScore}"))
+            logger.info(getUid(f"识别到文字为:{scoreAndMaxScore}"))
             Utils.detectIsNoneButNoSave(config.universe_score, Utils.get_uid())
             config.universe_score[Utils.get_uid()] = scoreAndMaxScore
             config.save_config()
@@ -53,7 +56,7 @@ class Utils:
             current_score = scoreAndMaxScore.split('/')[0]
             max_score = scoreAndMaxScore.split('/')[1]
 
-            logger.info(_(f"识别到当前积分为:{current_score}"))
+            logger.info(getUid(f"识别到当前积分为:{current_score}"))
             logger.info(_(f"识别到积分上限为:{max_score}"))
             if int(current_score) == int(max_score):
                 logger.info(_(f"模拟宇宙积分已满"))

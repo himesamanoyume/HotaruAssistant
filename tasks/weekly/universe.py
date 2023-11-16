@@ -133,7 +133,12 @@ class Universe:
         time.sleep(0.5)
         logger.info("开始检测模拟宇宙积分")
         current_score, max_score = Universe.open_universe_score_screen()
-        
+        Universe.get_immersifier()
+        if not current_score < max_score:
+            if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers <= 2):
+                logger.info(_("鉴定为沉浸器数量不足,跳过"))
+                return True
+          
         time.sleep(0.5)
 
         if config.instance_type[Utils.get_uid()] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
@@ -141,17 +146,17 @@ class Universe:
             if Utils._isFirstTimeSelectTeam:
                 logger.info("本账号首次运行模拟宇宙")
                 Utils._isFirstTimeSelectTeam = Universe.select_universe()
-            else:
-                Universe.get_immersifier()
+            # else:
+            #     Universe.get_immersifier()
 
             # screen.change_to('universe_main')
-            if current_score == None or max_score == None:
-                current_score, max_score = Universe.open_universe_score_screen()
+            # if current_score == None or max_score == None:
+            #     current_score, max_score = Universe.open_universe_score_screen()
 
-            if not current_score < max_score:
-                if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers <= 2):
-                    logger.info(_("鉴定为沉浸器数量不足,跳过"))
-                    return True
+            # if not current_score < max_score:
+            #     if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers <= 2):
+            #         logger.info(_("鉴定为沉浸器数量不足,跳过"))
+            #         return True
 
             match config.universe_fate[Utils.get_uid()]:
                 case '存护':
@@ -204,11 +209,12 @@ class Universe:
                     Universe.get_reward()
                     # end
                 
-                Universe.get_immersifier()
+                # Universe.get_immersifier()
 
-                if Utils._immersifiers > 0:
-                    logger.info("检测到沉浸器数量还有剩余,继续进行一次模拟宇宙")
-                    Universe.runUniverse(get_reward, save, daily)
+                # if Utils._immersifiers > 0:
+                #     logger.info("检测到沉浸器数量还有剩余,继续进行一次模拟宇宙")
+                #     Universe.runUniverse(get_reward, save, daily)
+                Universe.runUniverse(get_reward, save, daily)
 
                 logger.info(_("🎉模拟宇宙已完成1次🎉"))
                 Utils._temp += f'<p>模拟宇宙已完成1次</p>'

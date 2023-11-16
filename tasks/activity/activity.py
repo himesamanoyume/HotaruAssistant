@@ -8,6 +8,7 @@ from managers.screen_manager import screen
 from managers.automation_manager import auto
 from managers.ocr_manager import ocr
 from managers.translate_manager import _
+from managers.utils_manager import gu
 
 
 class Activity():
@@ -22,7 +23,7 @@ class Activity():
 
         result = ocr.recognize_multi_lines(auto.screenshot)
         if not result:
-            logger.info(_("未检测到任何活动"))
+            logger.info(gu("未检测到任何活动"))
             # logger.hr(_("完成"), 2)
             return
 
