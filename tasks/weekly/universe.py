@@ -348,7 +348,8 @@ class Universe:
             if char_count == 4:
                 return False
             else:
-                return True
+                logger.error(gu(f"{nowtime}模拟宇宙未能选中4位配置中的角色,请检查"))
+                raise Exception(f"{nowtime}模拟宇宙未能选中4位配置中的角色,请检查")
         else:
             nowtime = time.time()
             logger.error(gu(f"{nowtime}模拟宇宙未找到下载角色按钮"))
