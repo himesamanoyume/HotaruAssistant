@@ -32,7 +32,7 @@ class Synthesis:
                                 break
             logger.error(gu("合成消耗品失败"))
         except Exception as e:
-            logger.error(gu("合成消耗品失败: {error}").format(error=e))
+            logger.error(gu(f"合成消耗品失败: {e}"))
         return False
 
     def material():
@@ -59,7 +59,7 @@ class Synthesis:
                                 break
             logger.error(gu("合成材料失败"))
         except Exception as e:
-            logger.error(gu("合成材料失败: {error}").format(error=e))
+            logger.error(gu(f"合成材料失败: {e}"))
         return False
 
     def use_consumables(recursion=True):
@@ -95,5 +95,5 @@ class Synthesis:
                                 break
             logger.error(gu("使用消耗品失败"))
         except Exception as e:
-            logger.error(gu("使用消耗品失败: {error}").format(error=e))
+            logger.error(gu(f"使用消耗品失败: {e}"))
         return False

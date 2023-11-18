@@ -35,18 +35,18 @@ class Daily:
             if config.echo_of_war_enable[Utils.get_uid()]:
                 Echoofwar.start()
             else:
-                logger.info(gu("历战余响{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
+                logger.info(gu("历战余响\033[91m未开启\033[0m"))
         else:
-            logger.info(gu("历战余响尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
+            logger.info(gu("历战余响尚\033[91m未刷新\033[0m"))
 
         if Utils.is_next_4_am(config.fight_timestamp, Utils.get_uid()):
             config.save_config()
             if config.fight_enable:
                 Fight.start()
             else:
-                logger.info(gu("锄大地{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
+                logger.info(gu("锄大地\033[91m未开启\033[0m"))
         else:
-            logger.info(gu("锄大地尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
+            logger.info(gu("锄大地尚\033[91m未刷新\033[0m"))
 
         Power.start()
         # if config.universe_enable:
@@ -65,9 +65,9 @@ class Daily:
             if config.forgottenhall_enable:
                 ForgottenHall.start(Utils.get_uid())
             else:
-                logger.info(gu("忘却之庭{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
+                logger.info(gu("忘却之庭\033[91m未开启\033[0m"))
         else:
-            logger.info(gu("忘却之庭尚{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))  
+            logger.info(gu("忘却之庭尚\033[91m未刷新\033[0m"))  
 
     def start_ready():
         Utils.get_new_uid()
@@ -90,7 +90,7 @@ class Daily:
             Utils.saveTimestamp('last_run_timestamp', Utils.get_uid())
 
         else:
-            logger.info(gu("日常任务{red}".format(red="\033[91m" + _("未刷新") + "\033[0m")))
+            logger.info(gu("日常任务\033[91m未刷新\033[0m"))
 
     @staticmethod
     def start():
@@ -130,7 +130,7 @@ class Daily:
                 state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
                 logger.info(gu(f"{key}: {state}"))
                 count = count + 1 if not value else count
-            logger.info(gu("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
+            logger.info(gu(f"已完成：\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
 
             blacklist = {"单场战斗中，触发3种不同属性的弱点击破","累计触发弱点击破效果5次","利用弱点进入战斗并获胜3次","施放终结技造成制胜一击1次"}
 
@@ -139,23 +139,23 @@ class Daily:
                 if "{_task_name}".format(_task_name = task_name) in task_functions.keys():
                     if config.daily_tasks[Utils.get_uid()][task_name]:
                         if config.daily_tasks_fin[Utils.get_uid()]:
-                            logger.info(gu("因每日任务已完成,【{_task_name}】{green}").format(_task_name=task_name,green ="\033[92m" + _("跳过") + "\033[0m"))
+                            logger.info(gu(f"因每日任务已完成,【{task_name}】\033[92m跳过\033[0m"))
                             continue
-                        if task_functions["{_task_name}".format(_task_name = task_name)]():
+                        if task_functions[f"{task_name}"]():
                             if task_name in blacklist:
                                 continue
-                            logger.info(gu("{_task_name}已完成").format(_task_name=task_name))
+                            logger.info(gu(f"{task_name}已完成"))
                             config.daily_tasks[Utils.get_uid()][task_name] = False
                             Utils.showDailyTasksScore(task_name, Utils.get_uid())
                             Reward.start()
                             # config.save_config()
                         else:
                             if not config.daily_tasks_fin[Utils.get_uid()]:
-                                logger.warning(gu("【{_task_name}】可能对应选项{red},请自行解决").format(_task_name=task_name, red="\033[91m" + _("未开启") + "\033[0m"))
+                                logger.warning(gu(f"【{task_name}】可能对应选项\033[91m未开启\033[0m,请自行解决"))
                     else:
-                        logger.info(gu("【{_task_name}】该任务{green},跳过").format(_task_name=task_name, green="\033[92m" + _("已完成") + "\033[0m"))
+                        logger.info(gu(f"【{task_name}】该任务\033[92m已完成\033[0m,跳过"))
                 else:
-                    logger.warning(gu("【{_task_name}】可能该任务{red},跳过").format(_task_name=task_name, red="\033[91m" + _("暂不支持") + "\033[0m"))                                              
+                    logger.warning(gu(f"【{task_name}】可能该任务\033[91m暂不支持\033[0m,跳过"))                                              
 
             logger.hr(_("每日部分结束"), 2)
 
@@ -163,7 +163,7 @@ class Daily:
             for key, value in config.daily_tasks[Utils.get_uid()].items():
                 count = count + 1 if not value else count
 
-            logger.info(gu("已完成：{count_total}").format(count_total=f"\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
+            logger.info(gu(f"已完成：\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
             Utils.calcDailyTasksScore(Utils.get_uid())
             logger.hr(_("完成"), 2)
             Daily.sub()

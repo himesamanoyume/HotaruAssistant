@@ -24,7 +24,7 @@ class Echoofwar:
                 for box in auto.ocr_result:
                     text = box[1][0]
                     if "/3" in text:
-                        logger.info(gu("历战余响本周可领取奖励次数：{text}").format(text=text))
+                        logger.info(gu(f"历战余响本周可领取奖励次数：{text}"))
                         reward_count = int(text.split("/")[0])
 
                         config.echo_of_war_times[Utils.get_uid()] = reward_count
@@ -49,7 +49,7 @@ class Echoofwar:
                     for box in auto.ocr_result:
                         text = box[1][0]
                         if "/3" in text:
-                            logger.info(gu("历战余响本周可领取奖励次数：{text}").format(text=text))
+                            logger.info(gu(f"历战余响本周可领取奖励次数：{text}"))
                             reward_count = int(text.split("/")[0])
 
                             config.echo_of_war_times[Utils.get_uid()] = reward_count
@@ -75,5 +75,5 @@ class Echoofwar:
                                 return Power.run_instances("历战余响", config.instance_names[Utils.get_uid()]["历战余响"], 30, min(reward_count, max_count))
             return False
         except Exception as e:
-            logger.error(gu("历战余响失败: {error}").format(error=e))
+            logger.error(gu(f"历战余响失败: {e}"))
             return False

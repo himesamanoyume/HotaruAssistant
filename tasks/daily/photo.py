@@ -23,5 +23,5 @@ class Photo:
             logger.info(gu("拍照完成"))
             return flag
         except Exception as e:
-            logger.error(gu("拍照失败: {error}").format(error=e))
+            logger.error(gu(f"拍照失败: {e}"))
             return False

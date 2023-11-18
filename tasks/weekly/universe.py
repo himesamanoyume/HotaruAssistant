@@ -31,7 +31,7 @@ class Universe:
     @staticmethod
     def check_path():
         if not os.path.exists(config.universe_path):
-            logger.warning(gu("模拟宇宙路径不存在: {path}").format(path=config.universe_path))
+            logger.warning(gu(f"模拟宇宙路径不存在: {config.universe_path}"))
             Universe.update()
         elif not os.path.exists(os.path.join(config.universe_path, 'gui.exe')):
             logger.error(gu("模拟宇宙缺失核心文件，请尝试更新"))
@@ -262,7 +262,7 @@ class Universe:
             logger.info(gu(f"识别到沉浸器数量为:{count}"))
             Utils._immersifiers = int(count)
         except Exception as e:
-            logger.error(gu("识别沉浸器数量失败: {error}").format(error=e))
+            logger.error(gu(f"识别沉浸器数量失败: {e}"))
             Utils._immersifiers = 0
 
     @staticmethod

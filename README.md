@@ -91,6 +91,7 @@ March7thAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
+- ~~python socket~~
 - 模拟宇宙的脱离卡死是否有问题
 - 想办法在screen之间做更快速的联动
 - 测试几天

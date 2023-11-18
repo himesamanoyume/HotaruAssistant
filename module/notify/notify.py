@@ -67,11 +67,9 @@ class Notify:
                 try:
                     response = n.notify(**notifier_params,
                                         title=title, content=content)
-                    logger.info(_("{notifier_name} 通知发送完成").format(
-                        notifier_name=notifier_name.capitalize()))
+                    logger.info(_(f"{notifier_name.capitalize()} 通知发送完成"))
                 except Exception as e:
-                    logger.error(_("{notifier_name} 通知发送失败").format(
-                        notifier_name=notifier_name.capitalize()))
+                    logger.error(_(f"{notifier_name.capitalize()} 通知发送失败"))
                     logger.error(f"{e}")
 
     def _send_notification_with_image(self, notifier_name, title, content, image_io):

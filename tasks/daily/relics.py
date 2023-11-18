@@ -53,7 +53,7 @@ class Relics:
             logger.error(gu("分解遗器失败"))
             return False
         except Exception as e:
-            logger.error(gu("分解遗器失败: {error}").format(error=e))
+            logger.error(gu(f"分解遗器失败: {e}"))
         return False
     
     @staticmethod
@@ -73,5 +73,5 @@ class Relics:
                 Relics.detect_relic_count()
 
         except Exception as e:
-            logger.error(gu("检测遗器数量失败: {error}").format(error=e))
+            logger.error(gu(f"检测遗器数量失败: {e}"))
         return False

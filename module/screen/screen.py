@@ -153,7 +153,7 @@ class Screen:
 
             if self.current_screen:
                 screen_name=self.green + self.get_name(self.current_screen) + self.reset
-                logger.info(gu("当前界面：{_screen_name}").format(_screen_name = screen_name))
+                logger.info(gu(f"当前界面：{screen_name}"))
                 if self.get_name(self.current_screen) == "星际和平指南-每日实训":
                     logger.warning(gu("进入到星际和平指南-每日实训的判断"))
                     time.sleep(0.5)
@@ -218,7 +218,7 @@ class Screen:
 
                 if self.current_screen != next_screen:
                     if max_recursion > 0:
-                        logger.warning(gu("切换到 {next_screen} 超时，准备重试").format(next_screen=self.get_name(next_screen)))
+                        logger.warning(gu(f"切换到 {self.get_name(next_screen)} 超时，准备重试"))
                         self.change_to(next_screen, max_recursion=max_recursion - 1)
                     else:
                         nowtime = time.time()
@@ -230,7 +230,7 @@ class Screen:
                         # sys.exit(1)
 
                 
-                logger.info(gu("切换到：{next_screen}").format(next_screen=self.green + self.get_name(next_screen) + self.reset))
+                logger.info(gu(f"切换到：{self.green + self.get_name(next_screen) + self.reset}"))
                 if self.get_name(next_screen) == "星际和平指南-每日实训":
                     logger.warning(gu("进入到星际和平指南-每日实训的判断"))
                     time.sleep(0.5)

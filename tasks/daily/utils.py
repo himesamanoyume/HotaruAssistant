@@ -6,10 +6,12 @@ import time
 from managers.ocr_manager import ocr
 from tasks.base.date import Date
 from managers.translate_manager import _
+from managers.client_manager import client
 import json
 import sys
 
 def getUid(message):
+    client.send(f"\033[91m[{Utils._uid}]\033[0m|{message}".encode())
     return f"\033[91m[{Utils._uid}]\033[0m|{message}"
 
 class Utils:

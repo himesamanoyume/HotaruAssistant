@@ -95,14 +95,14 @@ class Automation:
             # screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2GRAY)
             screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2RGB)
             max_val, max_loc = self.scale_and_match_template(screenshot, template, threshold, scale_range)
-            logger.debug(_("目标图片：{target} 相似度：{max_val}").format(target=target, max_val=max_val))
+            logger.debug(_(f"目标图片：{target} 相似度：{max_val}"))
             if threshold is None or max_val >= threshold:
                 channels, width, height = template.shape[::-1]
                 top_left = (max_loc[0] + self.screenshot_pos[0], max_loc[1] + self.screenshot_pos[1])
                 bottom_right = (top_left[0] + width, top_left[1] + height)
                 return top_left, bottom_right
         except Exception as e:
-            logger.error(_("寻找图片出错：{e}").format(e=e))
+            logger.error(_(f"寻找图片出错：{e}"))
         return None, None
 
     @staticmethod

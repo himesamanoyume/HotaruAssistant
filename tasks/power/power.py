@@ -27,7 +27,7 @@ class Power:
         else:
             instance_name = config.instance_names[Utils.get_uid()][config.instance_type[Utils.get_uid()]]
             if instance_name == "无":
-                logger.info(gu("跳过清体力 {type}未开启").format(type=config.instance_type[Utils.get_uid()]))
+                logger.info(gu(f"跳过清体力,{config.instance_type[Utils.get_uid()]}未开启"))
                 return False
      
         logger.hr(_("开始清体力"), 0)
@@ -50,7 +50,7 @@ class Power:
                 power = int(result[0])
                 return power if 0 <= power <= 2400 else -1
         except Exception as e:
-            logger.error(gu("识别开拓力失败: {error}").format(error=e))
+            logger.error(gu(f"识别开拓力失败: {e}"))
             return -1
 
     @staticmethod
@@ -96,9 +96,9 @@ class Power:
         screen.change_to('map')
         trailblaze_power = Power.get_power(trailblaze_power_crop)
         Utils._power = trailblaze_power
-        logger.info(gu("🟣开拓力: {power}").format(power=trailblaze_power))
+        logger.info(gu(f"🟣开拓力: {trailblaze_power}"))
         Utils._content.update({'new_power':f'{trailblaze_power}'})
-        logger.info(gu("开拓力回满时间为:{time}").format(time=Utils.getFullPowerTime(trailblaze_power)))
+        logger.info(gu(f"开拓力回满时间为:{Utils.getFullPowerTime(trailblaze_power)}"))
         Utils._content.update({'full_power_time':f'{Utils.getFullPowerTime(trailblaze_power)}'})
         return trailblaze_power
 
@@ -228,7 +228,7 @@ class Power:
                     else:
                         return False
         except Exception as e:
-            logger.warning(gu("选择支援角色出错： {e}").format(e=e))
+            logger.warning(gu(f"选择支援角色出错： {e}"))
 
         auto.press_key("esc")
         if auto.find_element("解除支援", "text", max_retries=2, crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
@@ -497,11 +497,11 @@ class Power:
             # number刷的次数
             number = power // power_need
             if number < 1:
-                logger.info(gu("🟣开拓力 < {power_need}").format(power_need=power_need))
+                logger.info(gu(f"🟣开拓力 < {power_need}"))
                 return False
         else:
             if power_need * number > power:
-                logger.info(gu("🟣开拓力 < {power_need}*{number}").format(power_need=power_need, number=number))
+                logger.info(gu(f"🟣开拓力 < {power_need}*{number}"))
                 return False
         
         Utils._temp += "<p>"+f'{instance_type} - {instance_name} - {number}次</p>'

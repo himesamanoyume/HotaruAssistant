@@ -26,7 +26,7 @@ class Tasks:
             with open(config_example_path, 'r', encoding='utf-8') as file:
                 return json.load(file)
         except FileNotFoundError:
-            logger.error(gu("配置文件不存在：{path}").format(path=config_example_path))
+            logger.error(gu(f"配置文件不存在：{config_example_path}"))
             input(_("按回车键关闭窗口. . ."))
             sys.exit(1)
 

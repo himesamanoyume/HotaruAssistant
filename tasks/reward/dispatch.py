@@ -25,7 +25,7 @@ class Dispatch:
     @staticmethod
     def _perform_dispatches():
         for i in range(4):
-            logger.info(gu("正在进行第{number}次委托").format(number=i + 1))
+            logger.info(gu(f"正在进行第{i + 1}次委托"))
 
             if not Dispatch.perform_dispatch_and_check(crop=(298.0 / 1920, 153.0 / 1080, 1094.0 / 1920, 122.0 / 1080)):
                 return

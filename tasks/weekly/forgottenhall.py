@@ -91,7 +91,7 @@ class ForgottenHall:
     def start_fight(count, boss_count, max_recursion=config.forgottenhall_retries, team=None):
         logger.debug(_("剩余重试次数:{max_recursion}".format(max_recursion=max_recursion)))
         for i in range(count):
-            logger.info(gu("进入第{i}间").format(i=i + 1))
+            logger.info(gu(f"进入第{i+1}间"))
             auto.press_key("w", 3.5)
 
             # 释放秘技
@@ -123,7 +123,7 @@ class ForgottenHall:
                 time.sleep(1)
 
             for i in range(boss_count):
-                logger.info(gu("挑战第{i}个boss").format(i=i + 1))
+                logger.info(gu(f"挑战第{i + 1}个boss"))
 
                 # 适配近战角色开怪
                 if boss_count == 2:
@@ -225,13 +225,13 @@ class ForgottenHall:
             # 判断星数
             star_count = ForgottenHall.check_star(top_left)
             if star_count == 3:
-                logger.info(gu("第{i}层已满星").format(i=f"{i:02}"))
+                logger.info(gu(f"第{i:02}层已满星"))
                 continue
             else:
-                logger.info(gu("第{i}层星数{star_count}").format(i=i, star_count=star_count))
+                logger.info(gu(f"第{i}层星数{star_count}"))
                 auto.click_element(f"{i:02}", "text", max_retries=20, crop=(0, 336 / 1080, 1, 537 / 1080))
 
-            logger.info(gu("开始挑战第{i}层").format(i=f"{i:02}"))
+            logger.info(gu(f"开始挑战第{i:02}层"))
             # 选择角色
             if not ForgottenHall.configure_teams():
                 logger.error(gu("配置队伍失败，请检查是否在设置中配置好两个队伍！！！"))
@@ -262,7 +262,7 @@ class ForgottenHall:
                 while auto.click_element("./assets/images/forgottenhall/receive.png", "image", 0.9, crop=(1081.0 / 1920, 171.0 / 1080, 500.0 / 1920, 736.0 / 1080)):
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
                     time.sleep(1)
-            logger.info(gu("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level))
+            logger.info(gu(f"🎉混沌回忆已通关{max_level}层🎉"))
             # Base.send_notification_with_screenshot(_("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level))
             auto.press_key("esc")
             time.sleep(1)
@@ -279,7 +279,7 @@ class ForgottenHall:
                 for box in auto.ocr_result:
                     text = box[1][0]
                     if "/30" in text:
-                        logger.info(gu("星数：{text}").format(text=text))
+                        logger.info(gu(f"星数：{text}"))
                         if text.split("/")[0] == "30":
                             logger.info(gu("混沌回忆未刷新"))
                             screen.change_to('menu')
@@ -338,7 +338,7 @@ class ForgottenHall:
                     config.forgottenhall_stars[Utils.get_uid()] = int(star)
                     config.save_config()
                 except Exception as e:
-                    logger.error(gu("识别忘却之庭失败: {error}").format(error=e))
+                    logger.error(gu(f"识别忘却之庭失败: {e}"))
                     logger.warning(gu("因读取忘却之庭失败,程序中止"))
 
         screen.change_to('main')
@@ -393,7 +393,7 @@ class ForgottenHall:
             logger.info(gu("回忆一完成"))
             return flag
         except Exception as e:
-            logger.error(gu("回忆一失败: {error}").format(error=e))
+            logger.error(gu(f"回忆一失败: {e}"))
             return False
 
     @staticmethod
