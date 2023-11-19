@@ -70,6 +70,7 @@ class Daily:
             logger.info(gu("忘却之庭尚\033[91m未刷新\033[0m"))  
 
     def start_ready():
+        auto.press_key('\\')
         Utils.get_new_uid()
         Utils._content.update({'uid':Utils.get_uid()})
         Utils.getDailyScoreMappings()
@@ -176,6 +177,7 @@ class Daily:
         Reward.start()
         Relics.detect_relic_count()
         Utils.calcDailyTasksScore(Utils.get_uid())
+        auto.press_key('\\')
         totalTime = time.time() - Utils._start_timestamp
         if totalTime >= 3000:
             notify.announcement(f"{Utils.get_uid()}运行时长超时警告!","该UID运行总时长超50分钟,不健康,请立即检查优化", isSingle=True)

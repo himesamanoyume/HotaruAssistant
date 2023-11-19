@@ -91,9 +91,9 @@ March7thAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
-- ~~python socket~~
+- ~~邮件发送录像附件~~
 - 模拟宇宙的脱离卡死是否有问题
-- 想办法在screen之间做更快速的联动
+- 想办法在screen之间做更快速的联动（优化）
 - 测试几天
 - config save load用队列
 - task_mappings改成全部图片扫描

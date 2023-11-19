@@ -188,3 +188,4 @@ pyrightconfig.json
 /logs
 /screenshots
 /3rdparty/PaddleOCR-json_*
+/records/temp/*

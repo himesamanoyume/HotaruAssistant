@@ -64,6 +64,7 @@ class Relics:
             screen.change_to('bag_relics')
             relic_count_crop=(1021.0 / 1920, 974.0 / 1080, 131.0 / 1920, 33.0 / 1080)
             relic_countText = auto.get_single_line_text(relic_count_crop, ['遗','器','数','量'], max_retries=5)
+            relic_countText = relic_countText.replace('量','')
             logger.info(gu(f"遗器数量:{relic_countText}"))
             relic_countText = relic_countText.split('/')[0]
             Utils._relicCount = int(relic_countText)
