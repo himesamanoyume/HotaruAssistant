@@ -60,10 +60,7 @@ def test():
             os.remove(mp4_file_path)
     except Exception as e:
         print(e)
-    # sendHostEmail.sendmail(config.notify_smtp_From, '285835609@qq.com', str(emailObject))
-    # sendHostEmail.sendmail(config.notify_smtp_From, 'himeproducer@qq.com', str(emailObject))
     
-
 def send_mail(smtp_from, smtp_to, send_host, email_object):
     send_host.sendmail(smtp_from, smtp_to, email_object)
 

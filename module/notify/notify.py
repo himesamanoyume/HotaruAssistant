@@ -386,6 +386,7 @@ class Notify:
 
         html=f"{htmlStr}"
         emailObject.attach(MIMEText(html,'html','utf-8'))
+        time.sleep(5)
 
         # 使用方法
         directory = './records/temp'  # 你的文件夹路径
