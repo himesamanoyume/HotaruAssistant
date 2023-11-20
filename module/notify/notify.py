@@ -16,7 +16,7 @@ from email.mime.base import MIMEBase
 import time
 from email import encoders
 import os
-import shutil
+from managers.utils_manager import gu
 
 
 class Notify:
@@ -389,16 +389,20 @@ class Notify:
         time.sleep(5)
 
         # 使用方法
-        directory = './records/temp'  # 你的文件夹路径
+        directory = './records'  # 你的文件夹路径
         mp4_file = Notify.get_single_mp4_file(directory)
         if mp4_file is not None:
             mp4_file_path = f"{directory}/{mp4_file}"
-            att = open(mp4_file_path, 'rb')
-            part = MIMEBase('application','octet-stream')
-            part.set_payload((att).read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', "attachment; filename= %s" % mp4_file)
-            emailObject.attach(part)
+            size = os.path.getsize(mp4_file_path)
+            if size < 50000000:
+                att = open(mp4_file_path, 'rb')
+                part = MIMEBase('application','octet-stream')
+                part.set_payload((att).read())
+                encoders.encode_base64(part)
+                part.add_header('Content-Disposition', "attachment; filename= %s" % mp4_file)
+                emailObject.attach(part)
+            else:
+                logger.warning(gu("由于视频文件过大,取消附件"))
 
         
         import threading
@@ -420,7 +424,12 @@ class Notify:
         logger.info(_("{notifier_name} 通知发送完成").format(notifier_name="smtp"))
 
     def send_mail(smtp_from, smtp_to, send_host, email_object):
-        send_host.sendmail(smtp_from, smtp_to, email_object)
+        try:
+            send_host.sendmail(smtp_from, smtp_to, email_object)
+        except Exception as e:
+            nowtime = time.time()
+            logger.error(gu(f"{nowtime},邮件错误:{e}"))
+            raise Exception(f"{nowtime},邮件错误:{e}")
 
     def _send_notification_by_winotify(self, title, content):
         import os

@@ -144,11 +144,12 @@ class Universe:
 
         if config.instance_type[Utils.get_uid()] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
             
-            if Utils._isFirstTimeSelectTeam:
-                logger.info(gu("本账号首次运行模拟宇宙"))
-                Utils._isFirstTimeSelectTeam = Universe.select_universe()
+            # if Utils._isFirstTimeSelectTeam:
+            #     logger.info(gu("本账号首次运行模拟宇宙"))
+            #     Utils._isFirstTimeSelectTeam = Universe.select_universe()
             # else:
             #     Universe.get_immersifier()
+            Universe.select_universe()
 
             # screen.change_to('universe_main')
             # if current_score == None or max_score == None:
@@ -267,8 +268,6 @@ class Universe:
 
     @staticmethod
     def select_universe():
-        
-        Universe.get_immersifier()
 
         # 截图过快会导致结果不可信
         time.sleep(1)

@@ -252,7 +252,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
             logger.error("进入非正常退出游戏流程")
             auto.press_key(']')
             time.sleep(2)
-            files = glob.glob('./records/temp/*')
+            files = glob.glob('./records/*')
             for f in files:
                 if os.path.isfile(f):
                     os.remove(f)
@@ -278,6 +278,12 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
             logger.error(f"{e}")
             notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
             logger.error("进入非正常退出游戏流程")
+            auto.press_key(']')
+            time.sleep(2)
+            files = glob.glob('./records/*')
+            for f in files:
+                if os.path.isfile(f):
+                    os.remove(f)
             Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
     # 子任务 原生图形界面
     elif action in ["universe_gui", "fight_gui"]:
