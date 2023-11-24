@@ -53,10 +53,13 @@ def main(action=None):
             # notify.announcement("某UID运行时长超时警告!", "有某UID玩家运行时长超40分钟!这得治!", isSingle=True)
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(0)
-
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
                 account_active_fun(uidStr)
+
+            for index in range(len(config.multi_login_accounts)):
+                uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
+                # account_active_fun(uidStr)
                 if uidStr in config.blacklist_uid:
                     logger.warning(f"{uidStr}【正在黑名单中】")
                     continue
@@ -408,6 +411,12 @@ def account_active_fun(uid):
                 for index in range(len(config.multi_login_accounts)):
                     if uid in config.multi_login_accounts[index]:
                         config.del_value_with_no_save('multi_login_accounts', index)
+                
+                if uid in loginList:
+                    loginList.remove(uid)
+
+                if uid in loginDict:
+                    loginDict.pop(uid)
 
             except Exception as e:
                 logger.warning(e)
