@@ -308,7 +308,7 @@ class ForgottenHall:
 
         ForgottenHall.run()
 
-        screen.change_to('main')
+        screen.change_to('menu')
         return True
     
     def get_star_and_level():
@@ -341,7 +341,7 @@ class ForgottenHall:
                     logger.error(gu(f"识别忘却之庭失败: {e}"))
                     logger.warning(gu("因读取忘却之庭失败,程序中止"))
 
-        screen.change_to('main')
+        screen.change_to('menu')
         return True
 
     @staticmethod

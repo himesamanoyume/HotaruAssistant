@@ -79,10 +79,10 @@ class Universe:
             logger.info(gu("鉴定为正在每日任务中且分数已满,跳过"))
             return True
         
-        Relics.detect_relic_count()
-        if Utils._relicCount >= 1450:
-            logger.warning(gu("遗器数量超标,不进行模拟宇宙"))
-            return False
+        # Relics.detect_relic_count()
+        # if Utils._relicCount >= 1450:
+        #     logger.warning(gu("遗器数量超标,不进行模拟宇宙"))
+        #     return False
        
         if Universe.before_start():
             

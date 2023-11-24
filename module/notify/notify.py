@@ -394,13 +394,19 @@ class Notify:
         if mp4_file is not None:
             mp4_file_path = f"{directory}/{mp4_file}"
             size = os.path.getsize(mp4_file_path)
+            logger.info(gu(f"视频大小为:{size}/50000000"))
             if size < 50000000:
-                att = open(mp4_file_path, 'rb')
-                part = MIMEBase('application','octet-stream')
-                part.set_payload((att).read())
-                encoders.encode_base64(part)
-                part.add_header('Content-Disposition', "attachment; filename= %s" % mp4_file)
-                emailObject.attach(part)
+                try:
+                    att = open(mp4_file_path, 'rb')
+                    part = MIMEBase('application','octet-stream')
+                    part.set_payload((att).read())
+                    encoders.encode_base64(part)
+                    part.add_header('Content-Disposition', "attachment; filename= %s" % mp4_file)
+                    emailObject.attach(part)
+                except Exception as e:
+                    nowtime = time.time()
+                    logger.error(gu(f"{nowtime},邮件错误:{e}"))
+                    raise Exception(f"{nowtime},邮件错误:{e}")
             else:
                 logger.warning(gu("由于视频文件过大,取消附件"))
 
@@ -413,7 +419,12 @@ class Notify:
         t.start()
         t.join()
         sendHostEmail.quit()
-        att.close()
+        try:
+            att.close()
+        except Exception as e:
+            nowtime = time.time()
+            logger.error(gu(f"{nowtime},邮件错误:{e}"))
+            raise Exception(f"{nowtime},邮件错误:{e}")
         
         if os.path.isfile(mp4_file_path):
             os.remove(mp4_file_path)

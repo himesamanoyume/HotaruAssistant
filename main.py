@@ -346,7 +346,7 @@ def account_active_fun(uid):
         config.account_active[uid]['ExpirationDate'] = (config.account_active[uid]['ActiveDate'] + (config.account_active[uid]['ActiveDay'] * 86400))
         config.account_active[uid]['isWantActive'] = False 
 
-    if config.account_active[uid]['ActiveDay'] >= 0:
+    if config.account_active[uid]['ActiveDay'] >= 0 and not config.account_active[uid]['isExpired']:
         costDay = (time.time() - config.account_active[uid]['ActiveDate']) / 86400
         if costDay > 0:
             config.account_active[uid]['CostDay'] = round(costDay, 3)
@@ -363,7 +363,7 @@ def account_active_fun(uid):
     if config.account_active[uid]['ActiveDay'] >= 0 and config.account_active[uid]['ExpirationDate'] == 0 and config.account_active[uid]['ActiveDate']:
         logger.error(f"{uid}的激活信息异常")
 
-    if time.time() >= config.account_active[uid]['ExpirationDate'] and (config.account_active[uid]['CostDay'] >= config.account_active[uid]['ActiveDay']):
+    if time.time() >= config.account_active[uid]['ExpirationDate'] and (config.account_active[uid]['CostDay'] >= config.account_active[uid]['ActiveDay']) and (not config.account_active[uid]['isExpired']):
         logger.info(f"{uid}已过期,正在执行信息清除")
         config.account_active[uid]['isExpired'] = True
         config.account_active[uid]['ActiveDate'] = 0

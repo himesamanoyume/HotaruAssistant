@@ -166,10 +166,11 @@ class Daily:
 
             logger.info(gu(f"已完成：\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
             Utils.calcDailyTasksScore(Utils.get_uid())
-            logger.hr(_("完成"), 2)
-            Daily.sub()
-            Daily.end()
-        
+            
+        logger.hr(_("完成"), 2)
+        Daily.sub()
+        Daily.end()
+    
 
     def end():
         Power.power()
@@ -185,5 +186,5 @@ class Daily:
         _hour = int((totalTime - _day * 86400) // 3600)
         _minute = int(((totalTime - _day *86400) - _hour * 3600) // 60)
         _second = int(((totalTime - _day *86400) - _hour * 3600) - _minute * 60)
-        Utils._content['running_time'] = (f"{_day}天" if not _day == 0 else '') + (f"{_hour}时" if not _hour == 0 else '') + (f"{_minute}分" if not _minute == 0 else '') + f"{_second}秒"
+        Utils._content['running_time'] = (f"{_day}天" if not _day == 0 else '') + (f"{_hour}小时" if not _hour == 0 else '') + (f"{_minute}分" if not _minute == 0 else '') + f"{_second}秒"
         logger.info(gu(f"本次运行时长:{Utils._content['running_time']}"))    
