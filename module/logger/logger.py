@@ -1,6 +1,7 @@
 from datetime import datetime
 import logging
 import os
+import glob
 
 from .coloredformatter import ColoredFormatter
 from .titleformatter import TitleFormatter
@@ -17,6 +18,14 @@ class Logger:
 
     def current_datetime(self):
         return datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    
+    def clear_log(self, directory):
+        files = glob.glob(directory + '/*')
+        for f in files:
+            if os.path.isfile(f):
+                if os.path.getsize(f) <= 2048:
+                    os.remove(f)
+                
 
     def _create_logger(self, level="INFO"):
         self.logger = logging.getLogger('March7thAssistant')
@@ -25,6 +34,9 @@ class Logger:
 
         if not os.path.exists("logs"):
             os.makedirs("logs")
+
+        self.clear_log("./logs")
+        
         file_handler = logging.FileHandler(f"./logs/{self.current_datetime()}.log", encoding="utf-8")
         file_formatter = logging.Formatter('|%(levelname)s|%(asctime)s|%(filename)s:%(lineno)d|%(message)s')
         file_handler.setFormatter(file_formatter)

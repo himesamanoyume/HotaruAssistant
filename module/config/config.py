@@ -85,6 +85,13 @@ class Config:
         del self.config[key][uid]
         self.save_config()
 
+    def del_value_with_no_save(self, key, uid):
+        self.config[key][uid] = {}
+        del self.config[key][uid]
+
+    def del_value_without_uid_no_save(self, key):
+        del self.config[key]
+
     def setValueByUid(self, key, value, uid):
         self._load_config()
         if key == {}:

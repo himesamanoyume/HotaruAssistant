@@ -368,8 +368,51 @@ def account_active_fun(uid):
         config.account_active[uid]['isExpired'] = True
         config.account_active[uid]['ActiveDate'] = 0
         config.account_active[uid]['ActiveDay'] = 0
-        config.account_active[uid]['ExpirationDate'] = 0
+        # config.account_active[uid]['ExpirationDate'] = 0
         config.account_active[uid]['CostDay'] = 0
+
+    if time.time() >= config.account_active[uid]['ExpirationDate'] and config.account_active[uid]['isExpired']:
+        costDay = (time.time() - config.account_active[uid]['ExpirationDate']) / 86400
+        if costDay > 0:
+            config.account_active[uid]['CostDay'] = round(costDay, 3)
+        else:
+            config.account_active[uid]['CostDay'] = 0
+
+        if config.account_active[uid]['CostDay'] >= 15:
+            logger.info(f"{uid}已过期15天,正在执行配置清除")
+            try:
+                config.del_value_with_no_save('instance_type',uid)
+                config.del_value_with_no_save('instance_names',uid)
+                config.del_value_with_no_save('echo_of_war_enable',uid)
+                config.del_value_with_no_save('echo_of_war_timestamp',uid)
+                config.del_value_with_no_save('echo_of_war_times',uid)
+                config.del_value_with_no_save('relic_salvage_enable',uid)
+                config.del_value_with_no_save('daily_tasks',uid)
+                config.del_value_with_no_save('daily_tasks_score',uid)
+                config.del_value_with_no_save('daily_tasks_fin',uid)
+                config.del_value_with_no_save('last_run_timestamp',uid)
+                config.del_value_with_no_save('fight_timestamp',uid)
+                config.del_value_with_no_save('universe_fin',uid)
+                config.del_value_with_no_save('universe_score',uid)
+                config.del_value_with_no_save('universe_timestamp',uid)
+                config.del_value_with_no_save('universe_number',uid)
+                config.del_value_with_no_save('universe_difficulty',uid)
+                config.del_value_with_no_save('universe_fate',uid)
+                config.del_value_with_no_save('universe_team',uid)
+                config.del_value_with_no_save('forgottenhall_stars',uid)
+                config.del_value_with_no_save('forgottenhall_levels',uid)
+                config.del_value_with_no_save('forgottenhall_timestamp',uid)
+                config.del_value_with_no_save('notify_smtp_To',uid)
+                config.del_value_with_no_save('account_active',uid)
+
+                for index in range(len(config.multi_login_accounts)):
+                    if uid in config.multi_login_accounts[index]:
+                        config.del_value_with_no_save('multi_login_accounts', index)
+
+            except Exception as e:
+                logger.warning(e)
+                input('...')
+                sys.exit(0)
             
     config.save_config()
 
