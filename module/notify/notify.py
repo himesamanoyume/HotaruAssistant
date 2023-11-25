@@ -270,7 +270,7 @@ class Notify:
                 world_number = '世界选择有误'
 
         universe_content = ''
-        universe_content += f"<div class=post-txt-container-datetime>此项请一定要配置准确,会影响模拟宇宙的通关效率,若运行超50分钟则会被加入黑名单,修改配置到正常为止才会释放,此外队伍选择也要选择已拥有的角色</div><p><strong>模拟宇宙:</strong><span class=important style=background-color:#40405f;color:#66ccff>{world_number}</span></p>{Utils._content['universe_number']}"
+        universe_content += f"<p><strong>模拟宇宙:</strong><span class=important style=background-color:#40405f;color:#66ccff>{world_number}</span></p>{Utils._content['universe_number']}"
 
         universe_content += f"<p><strong>模拟宇宙难度:</strong><span class=important style=background-color:#40405f;color:#66ccff>难度{config.universe_difficulty[uid]}</span></p>{Utils._content['universe_difficulty']}"
         
@@ -321,9 +321,6 @@ class Notify:
                                 <section class=post-detail-txt style=color:#d9d9d9>
                                     {account_active_content}
                                     {running_time}
-                                    <div class=post-txt-container-datetime>
-                                        注意：邮件所有信息都由<span class=important style=background-color:#40405f;color:#66ccff>文字识别</span>得来,因此如果出现某些奇怪文本属于正常情况,每日有些任务脚本很难完成,如<span class=important style=background-color:#40405f;color:#66ccff>遗器等级提升1次,触发3种不同属性的弱点击破</span>,因此如果发现活跃度未满500时,有需要请尽可能自行上号检查
-                                    </div>
                                     <p>
                                         <strong>开拓力去向:</strong>
                                         <p>
@@ -336,9 +333,6 @@ class Notify:
                                     <p>{multi_content}{universe_content}</p>
                                     <hr style=background:#d9d9d9>
                                     <p><strong>遗器胚子</strong></p>
-                                    <div class=post-txt-container-datetime style=color:#d9d9d9>
-                                        识别为胚子的遗器都会上锁,模拟宇宙获取的遗器不支持识别
-                                    </div>
                                     <div class=relicContainer>
                                         {relic_content}
                                     </div>
@@ -393,26 +387,27 @@ class Notify:
         time.sleep(5)
 
         # 使用方法
-        directory = './records'  # 你的文件夹路径
-        mp4_file = Notify.get_single_mp4_file(directory)
-        if mp4_file is not None:
-            mp4_file_path = f"{directory}/{mp4_file}"
-            size = os.path.getsize(mp4_file_path)
-            logger.info(gu(f"视频大小为:{size}/50000000"))
-            if size < 50000000:
-                try:
-                    att = open(mp4_file_path, 'rb')
-                    part = MIMEBase('application','octet-stream')
-                    part.set_payload((att).read())
-                    encoders.encode_base64(part)
-                    part.add_header('Content-Disposition', "attachment; filename= %s" % mp4_file)
-                    emailObject.attach(part)
-                except Exception as e:
-                    nowtime = time.time()
-                    logger.error(gu(f"{nowtime},邮件错误:{e}"))
-                    raise Exception(f"{nowtime},邮件错误:{e}")
-            else:
-                logger.warning(gu("由于视频文件过大,取消附件"))
+        if config.recording_enable:
+            directory = './records'  # 你的文件夹路径
+            mp4_file = Notify.get_single_mp4_file(directory)
+            if mp4_file is not None:
+                mp4_file_path = f"{directory}/{mp4_file}"
+                size = os.path.getsize(mp4_file_path)
+                logger.info(gu(f"视频大小为:{size}/50000000"))
+                if size < 50000000:
+                    try:
+                        att = open(mp4_file_path, 'rb')
+                        part = MIMEBase('application','octet-stream')
+                        part.set_payload((att).read())
+                        encoders.encode_base64(part)
+                        part.add_header('Content-Disposition', "attachment; filename= %s" % mp4_file)
+                        emailObject.attach(part)
+                    except Exception as e:
+                        nowtime = time.time()
+                        logger.error(gu(f"{nowtime},邮件错误:{e}"))
+                        raise Exception(f"{nowtime},邮件错误:{e}")
+                else:
+                    logger.warning(gu("由于视频文件过大,取消附件"))
 
         
         import threading
@@ -424,7 +419,8 @@ class Notify:
         t.join()
         sendHostEmail.quit()
         try:
-            att.close()
+            if config.recording_enable:
+                att.close()
         except Exception as e:
             nowtime = time.time()
             logger.error(gu(f"{nowtime},邮件错误:{e}"))
@@ -607,7 +603,7 @@ class Notify:
             uid = '-1'
         else:
             uid = Utils.get_uid() if not Utils.get_uid() == '-1' else '-1'
-            multi_content += f"<hr style=background:#d9d9d9><p><strong>配置详细</strong></p><div class=post-txt-container-datetime>该配置显示了当要挑战副本时会选择什么副本,如果配置与需求不符请和我说,然后我进行调整</div>"
+            multi_content += f"<hr style=background:#d9d9d9><p><strong>配置详细</strong></p><div class=post-txt-container-datetime>该配置显示了当要挑战副本时会选择什么副本,如果配置与需求不符或需求有变化请和我说,然后我进行调整,否则我一律会首先遵照每个UID的配置来清体力</div>"
             multi_content += f"<p>清开拓力时会自动打的副本类型:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_type[uid]}</span></p>"
             multi_content += f"<p>不同副本类型下的副本名称:</p>"
 

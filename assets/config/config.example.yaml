@@ -3,6 +3,7 @@ log_level: INFO # 日志等级: INFO、DEBUG
 check_update: true # 检测更新
 agreed_to_disclaimer: false # false为未接受
 
+recording_enable: false # 是否录制
 last_running_uid: '111111111' # 最后运行的UID
 blacklist_uid: # UID黑名单,uid后为黑名单原因
 - '111111111' # 太帅

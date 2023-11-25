@@ -130,7 +130,7 @@ class Stop:
 
         wait_time = Stop.get_wait_time_with_total_time(total_time)
         future_time = Date.calculate_future_time(wait_time)
-        logger.info(_(f"将在{future_time}后继续运行"))
+        logger.info(gu(f"将在{future_time}后继续运行"))
 
         time.sleep(wait_time)
 

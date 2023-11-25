@@ -70,7 +70,9 @@ class Daily:
             logger.info(gu("忘却之庭尚\033[91m未刷新\033[0m"))  
 
     def start_ready():
-        auto.press_key('[')
+        if config.recording_enable:
+            auto.press_key('[')
+            
         Utils.get_new_uid()
         Utils._content.update({'uid':Utils.get_uid()})
         Utils.getDailyScoreMappings()
