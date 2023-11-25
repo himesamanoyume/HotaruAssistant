@@ -159,6 +159,10 @@ class Notify:
 
         multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin[uid] else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
 
+        multi_content += f"<p><strong>当前沉浸器数量</strong>:{Utils._immersifiers}</p>"
+
+        # Utils._content['immersifiers']
+
         multi_content += f"<p><strong>当前历战余响次数</strong></p>"+(f"<blockquote>" if config.echo_of_war_times[uid] == 0 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
 
         multi_content += f"<p><strong>当前遗器数量</strong></p><blockquote style='background-color:rgb(calc(64 + (95 - 64)*({Utils._relicCount} / 1500)), 64, calc(95 - (95 - 64)*({Utils._relicCount} / 1500)));box-shadow: 3px 0 0 0 rgb(calc(102 + (216 - 102)*({Utils._relicCount} / 1500)), calc(204 - (204 - 89)*({Utils._relicCount} / 1500)), calc(255 - (255 - 89)*({Utils._relicCount} / 1500))) inset;'><p>{Utils._relicCount}/1500</p></blockquote>"

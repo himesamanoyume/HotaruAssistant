@@ -411,6 +411,10 @@ def account_active_fun(uid):
                 for index in range(len(config.multi_login_accounts)):
                     if uid in config.multi_login_accounts[index]:
                         config.del_value_with_no_save('multi_login_accounts', index)
+
+                for index in range(len(config.blacklist_uid)):
+                    if uid in config.blacklist_uid[index]:
+                        config.del_value_with_no_save('blacklist_uid', index)
                 
                 if uid in loginList:
                     loginList.remove(uid)
