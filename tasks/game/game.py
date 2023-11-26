@@ -33,7 +33,7 @@ class Game:
         logger.hr(_("完成"), 2)
 
     @staticmethod
-    def stop(index, detect_loop=False, currentUID = 0, lastUID=-1, isAbnormalExit = False, action=None):
+    def stop(index, detect_loop=False, currentUID = 0, lastUID=-1, isAbnormalExit = False, action=None, isSendEmail = True):
         if not isAbnormalExit:
             logger.info("正常退出中")
             Utils._content.update({'date':f'{datetime.now()}'})
@@ -60,10 +60,11 @@ class Game:
             else:
                 subTitle = "/未知轮次(请通知我出现了这个情况)"
 
-            if config.daily_tasks_fin[Utils.get_uid()]:
-                notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _(f"上号详细情况{subTitle}"))
-            else:
-                notify.announcement(f"UID:{Utils.get_uid()},每日尚未完成",f"上号详细情况{subTitle}")
+            if isSendEmail:
+                if config.daily_tasks_fin[Utils.get_uid()]:
+                    notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _(f"上号详细情况{subTitle}"))
+                else:
+                    notify.announcement(f"UID:{Utils.get_uid()},每日尚未完成",f"上号详细情况{subTitle}")
 
         if config.multi_login:
             logger.hr(_("多账号结束运行一个账号"), 0)

@@ -159,7 +159,7 @@ class Notify:
 
         multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin[uid] else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
 
-        multi_content += f"<p><strong>当前沉浸器数量</strong>:{Utils._immersifiers}</p>"
+        multi_content += f"<p>当前沉浸器数量:{Utils._immersifiers}</p>"
 
         multi_content += f"<p><strong>当前历战余响次数</strong></p>"+(f"<blockquote>" if config.echo_of_war_times[uid] == 0 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{config.echo_of_war_times[uid]}/3</p></blockquote>"
 

@@ -12,6 +12,7 @@ from tasks.daily.daily import Daily
 from tasks.daily.fight import Fight
 from tasks.daily.utils import Utils
 from datetime import datetime
+from testFun import testFun
 import questionary
 from managers.automation_manager import auto
 import time
@@ -41,7 +42,7 @@ def main(action=None):
         else:
             logger.info("开始多账号运行")
             # input(_("按回车键关闭窗口. . ."))
-            # ForgottenHall.clear_team(1)
+            # testFun()
             # input(_("按回车键关闭窗口. . ."))
             # return
 
@@ -170,14 +171,12 @@ def main(action=None):
                             return False
                         # logger.info(action)
                         if count == 1:
-                            if config.instance_type[uidStr2] == '模拟宇宙' or not config.universe_fin[uidStr2]:
-                                run(index, "universe", uidStr2, lastUID)
+                            run(index, "universe", uidStr2, lastUID)
                         else:
                             if turn == 0:
                                 run(index, None, uidStr2, lastUID)
                             else:
-                                if config.instance_type[uidStr2] == '模拟宇宙' or not config.universe_fin[uidStr2]:
-                                    run(index, "universe", uidStr2, lastUID)
+                                run(index, "universe", uidStr2, lastUID)
                         isFirstTimeLoop = False
         # input(_("按回车键关闭窗口. . ."))
         # sys.exit(0)
@@ -273,12 +272,18 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
             if action == "fight":
                 Fight.start()
             elif action == "universe":
-                Daily.start_ready()
-                Universe.start(get_reward=True, daily=True, nums=0)
-                Daily.end()
+                if config.instance_type[currentUID] == '模拟宇宙' or not config.universe_fin[currentUID]:
+                    Daily.start_ready()
+                    Universe.start(get_reward=True, daily=True, nums=0)
+                    Daily.end()
+                else:
+                    logger.info("因为未选择清模拟宇宙,跳过")
             elif action == "forgottenhall":
                 ForgottenHall.start()
-            Game.stop(index ,True, currentUID, _lastUID, action=action)
+            if config.instance_type[currentUID] == '模拟宇宙' or not config.universe_fin[currentUID]:
+                Game.stop(index ,True, currentUID, _lastUID, action=action)
+            else:
+                Game.stop(index ,True, currentUID, _lastUID, action=action, isSendEmail=False)
         except Exception as e:
             logger.error(f"{e}")
             notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)

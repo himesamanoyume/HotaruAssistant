@@ -114,14 +114,14 @@ class Daily:
                 "完成1次「凝滞虚影」": lambda: Power.instance("凝滞虚影", config.instance_names[Utils.get_uid()]["凝滞虚影"], 30, 1),
                 "完成1次「侵蚀隧洞」": lambda: Power.instance("侵蚀隧洞", config.instance_names[Utils.get_uid()]["侵蚀隧洞"], 40, 1),
                 "完成1次「历战余响」": lambda: Power.instance("历战余响", config.instance_names[Utils.get_uid()]["历战余响"], 30, 1),
-                "累计施放2次秘技": lambda: HimekoTry.technique(),
-                "累计击碎3个可破坏物": lambda: HimekoTry.item(),
+                "累计施放2次秘技": lambda: HimekoTry.total(),
+                "累计击碎3个可破坏物": lambda: HimekoTry.total(),
                 "完成1次「忘却之庭」": lambda: ForgottenHall.finish_forgottenhall(),
-                "单场战斗中，触发3种不同属性的弱点击破": lambda: ForgottenHall.weakness_3(),
-                "累计触发弱点击破效果5次": lambda: ForgottenHall.weakness_5(),
-                "累计消灭20个敌人": lambda: ForgottenHall.enemy_20(),
-                "利用弱点进入战斗并获胜3次": lambda: ForgottenHall.weakness_to_fight(),
-                "施放终结技造成制胜一击1次": lambda: ForgottenHall.ultimate(),
+                "单场战斗中，触发3种不同属性的弱点击破": lambda: HimekoTry.total(),
+                "累计触发弱点击破效果5次": lambda: HimekoTry.total(),
+                "累计消灭20个敌人": lambda: HimekoTry.enemy_20(),
+                "利用弱点进入战斗并获胜3次": lambda: HimekoTry.weakness_to_fight(),
+                "施放终结技造成制胜一击1次": lambda: HimekoTry.total(),
                 "通关「模拟宇宙」（任意世界）的1个区域": lambda: Universe.start(get_reward=False, nums=1, save=False),
                 "分解任意1件遗器": lambda: Relics.salvage()
             }
@@ -135,18 +135,17 @@ class Daily:
                 count = count + 1 if not value else count
             logger.info(gu(f"已完成：\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
 
-            blacklist = {"单场战斗中，触发3种不同属性的弱点击破","累计触发弱点击破效果5次","利用弱点进入战斗并获胜3次","施放终结技造成制胜一击1次"}
+            # blacklist = {"单场战斗中，触发3种不同属性的弱点击破","累计触发弱点击破效果5次","利用弱点进入战斗并获胜3次","施放终结技造成制胜一击1次"}
 
             for task_name, task_value in config.daily_tasks[Utils.get_uid()].items():
-                
-                if "{_task_name}".format(_task_name = task_name) in task_functions.keys():
+                if f"{task_name}" in task_functions.keys():
                     if config.daily_tasks[Utils.get_uid()][task_name]:
                         if config.daily_tasks_fin[Utils.get_uid()]:
                             logger.info(gu(f"因每日任务已完成,【{task_name}】\033[92m跳过\033[0m"))
                             continue
                         if task_functions[f"{task_name}"]():
-                            if task_name in blacklist:
-                                continue
+                            # if task_name in blacklist:
+                            #     continue
                             logger.info(gu(f"{task_name}已完成"))
                             config.daily_tasks[Utils.get_uid()][task_name] = False
                             Utils.showDailyTasksScore(task_name, Utils.get_uid())
