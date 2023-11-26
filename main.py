@@ -170,12 +170,14 @@ def main(action=None):
                             return False
                         # logger.info(action)
                         if count == 1:
-                            run(index, "universe", uidStr2, lastUID)
+                            if config.instance_type[uidStr2] == '模拟宇宙' or not config.universe_fin[uidStr2]:
+                                run(index, "universe", uidStr2, lastUID)
                         else:
                             if turn == 0:
                                 run(index, None, uidStr2, lastUID)
                             else:
-                                run(index, "universe", uidStr2, lastUID)
+                                if config.instance_type[uidStr2] == '模拟宇宙' or not config.universe_fin[uidStr2]:
+                                    run(index, "universe", uidStr2, lastUID)
                         isFirstTimeLoop = False
         # input(_("按回车键关闭窗口. . ."))
         # sys.exit(0)

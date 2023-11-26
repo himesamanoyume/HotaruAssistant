@@ -875,6 +875,12 @@
                         ]
                     },
                     {
+                        "action": "time.sleep",
+                        "args": [
+                            1
+                        ]
+                    },
+                    {
                         "action": "auto.click_element",
                         "args": [
                             "忘却之庭",
