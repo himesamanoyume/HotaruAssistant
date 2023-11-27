@@ -11,8 +11,9 @@ import json
 import sys
 
 def getUid(message):
-    client.send(f"\033[91m[{Utils._uid}]\033[0m|{message}".encode())
-    return f"\033[91m[{Utils._uid}]\033[0m|{message}"
+    text = f"\033[91m[{Utils._uid}]\033[0m|{Utils._action}|{message}"
+    client.send(text.encode())
+    return text
 
 class Utils:
     _uid = '-1'
@@ -27,6 +28,7 @@ class Utils:
     _immersifiers = 0
     _isFirstTimeSelectTeam = True
     _relicCount = 0
+    _action = ''
     def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
             configName[uid] = defaultValue

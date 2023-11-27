@@ -247,12 +247,15 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
         # Version.start()
         try:
             logger.info("本次为每日流程")
+            Utils._action = '每日任务流程'
             Game.start()
             Daily.start()
             Game.stop(index ,True, currentUID, _lastUID, action=action)
+            Utils._action = ''
         except Exception as e:
+            
             logger.error(f"{e}")
-            notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
+            notify.announcement((f'运行流程异常|{Utils._action}'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
             logger.error("进入非正常退出游戏流程")
             auto.press_key(']')
             time.sleep(2)
@@ -261,6 +264,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
                 if os.path.isfile(f):
                     os.remove(f)
             Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
+            Utils._action = ''
         
     # 子任务
     elif action in ["fight", "universe", "forgottenhall"]:
@@ -268,25 +272,28 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
         try:
             if action == "universe":
                 logger.info("本次为模拟宇宙专属")
+                Utils._action = '模拟宇宙流程'
             Game.start()
             if action == "fight":
                 Fight.start()
             elif action == "universe":
+                Daily.start_ready()
                 if config.instance_type[currentUID] == '模拟宇宙' or not config.universe_fin[currentUID]:
-                    Daily.start_ready()
                     Universe.start(get_reward=True, daily=True, nums=0)
-                    Daily.end()
                 else:
                     logger.info("因为未选择清模拟宇宙,跳过")
+                Daily.end()
             elif action == "forgottenhall":
                 ForgottenHall.start()
             if config.instance_type[currentUID] == '模拟宇宙' or not config.universe_fin[currentUID]:
                 Game.stop(index ,True, currentUID, _lastUID, action=action)
             else:
                 Game.stop(index ,True, currentUID, _lastUID, action=action, isSendEmail=False)
+                Utils._action = ''
+                logger.info("因为未选择清模拟宇宙或模拟宇宙已通关,不发送邮件通知号主")
         except Exception as e:
             logger.error(f"{e}")
-            notify.announcement((f'运行流程异常'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
+            notify.announcement((f'运行流程异常|{Utils._action}'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
             logger.error("进入非正常退出游戏流程")
             auto.press_key(']')
             time.sleep(2)
@@ -295,6 +302,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
                 if os.path.isfile(f):
                     os.remove(f)
             Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
+            Utils._action = ''
     # 子任务 原生图形界面
     elif action in ["universe_gui", "fight_gui"]:
         if action == "universe_gui" and not Universe.gui():

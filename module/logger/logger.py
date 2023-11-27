@@ -38,12 +38,12 @@ class Logger:
         self.clear_log("./logs")
         
         file_handler = logging.FileHandler(f"./logs/{self.current_datetime()}.log", encoding="utf-8")
-        file_formatter = logging.Formatter('|%(levelname)s|%(asctime)s|%(filename)s:%(lineno)d|%(message)s')
+        file_formatter = logging.Formatter('|%(levelname)s|%(asctime)s|%(filename)s:%(lineno)d|\n|%(message)s')
         file_handler.setFormatter(file_formatter)
         self.logger.addHandler(file_handler)
 
         console_handler = logging.StreamHandler()
-        console_formatter = ColoredFormatter('|%(levelname)s|%(asctime)s|%(filename)s:%(lineno)d|%(message)s')
+        console_formatter = ColoredFormatter('|%(levelname)s|%(asctime)s|%(filename)s:%(lineno)d|\n|%(message)s')
         console_handler.setFormatter(console_formatter)
         self.logger.addHandler(console_handler)
 
