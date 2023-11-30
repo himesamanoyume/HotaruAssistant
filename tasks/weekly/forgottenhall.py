@@ -221,7 +221,7 @@ class ForgottenHall:
             if not top_left:
                 logger.error(gu("切换关卡失败"))
                 break
-            logger.debug(_("选择关卡:{top_left}").format(top_left=top_left))
+            logger.info(gu(f"选择关卡:{top_left}"))
             # 判断星数
             star_count = ForgottenHall.check_star(top_left)
             if star_count == 3:
@@ -346,7 +346,7 @@ class ForgottenHall:
 
     @staticmethod
     def start():
-        logger.hr(_("准备混沌回忆"), 2)
+        logger.hr(gu("准备混沌回忆"), 2)
 
         if ForgottenHall.prepare():
             # Utils.detectTimestamp(config.forgottenhall_timestamp, Utils.get_uid())
@@ -357,7 +357,7 @@ class ForgottenHall:
     def start_memory_one():
         try:
             flag = False
-            logger.hr(_("准备回忆一"), 2)
+            logger.hr(gu("准备回忆一"), 2)
             screen.change_to("memory")
             auto.mouse_scroll(30, 1)
             time.sleep(2)

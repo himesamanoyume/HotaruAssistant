@@ -13,9 +13,9 @@ class Version:
     @staticmethod
     def start():
         if not config.check_update:
-            logger.debug(_("检测更新未开启"))
+            logger.debug(gu("检测更新未开启"))
             return False
-        logger.hr(_("开始检测更新"), 0)
+        logger.hr(gu("开始检测更新"), 0)
         try:
             response = requests.get(FastestMirror.get_github_api_mirror("moesnow","March7thAssistant","latest.json",1), timeout=3)
             if response.status_code == 200:
@@ -33,4 +33,4 @@ class Version:
         except Exception as e:
             logger.warning(_("检测更新失败"))
             logger.debug(e)
-        logger.hr(_("完成"), 2)
+        logger.hr(gu("完成"), 2)

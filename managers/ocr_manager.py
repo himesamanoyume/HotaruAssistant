@@ -28,7 +28,7 @@ def install_ocr():
 
 def check_path():
     if not os.path.exists(ocr_path):
-        logger.warning(_("OCR 路径不存在: {path}").format(path=ocr_path))
+        logger.warning(_(f"OCR 路径不存在: {ocr_path}"))
         install_ocr()
 
 

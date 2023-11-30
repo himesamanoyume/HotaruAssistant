@@ -10,7 +10,7 @@ class Synthesis:
     @staticmethod
     def consumables():
         try:
-            logger.hr(_("准备合成消耗品"), 2)
+            logger.hr(gu("准备合成消耗品"), 2)
             screen.change_to('consumables')
             # 筛选规则
             if auto.click_element("./assets/images/synthesis/filter.png", "image", 0.9, max_retries=10):
@@ -37,7 +37,7 @@ class Synthesis:
 
     def material():
         try:
-            logger.hr(_("准备合成材料"), 2)
+            logger.hr(gu("准备合成材料"), 2)
             screen.change_to('material')
             # 筛选规则
             if auto.click_element("./assets/images/synthesis/filter.png", "image", 0.9, max_retries=10):
@@ -64,7 +64,7 @@ class Synthesis:
 
     def use_consumables(recursion=True):
         try:
-            logger.hr(_("准备使用消耗品"), 2)
+            logger.hr(gu("准备使用消耗品"), 2)
             screen.change_to('bag_consumables')
             # 筛选规则
             if auto.click_element("./assets/images/synthesis/filter.png", "image", 0.9, max_retries=10):

@@ -72,7 +72,7 @@ class Universe:
             logger.error(gu(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止"))
             raise Exception(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
         
-        logger.hr(_("准备模拟宇宙"), 2)
+        logger.hr(gu("准备模拟宇宙"), 2)
         
         config.save_config()
         if config.universe_fin[Utils.get_uid()] and daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':

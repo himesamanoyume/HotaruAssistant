@@ -12,7 +12,7 @@ class Photo:
     def photograph():
         try:
             flag = False
-            logger.hr(_("准备拍照"), 2)
+            logger.hr(gu("准备拍照"), 2)
             screen.change_to('camera')
             time.sleep(1)
             for i in range(10):

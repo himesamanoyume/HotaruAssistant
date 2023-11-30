@@ -11,36 +11,48 @@ import time
 class HimekoTry:
     @staticmethod
     def technique():
-        HimekoTry.total()
+        logger.info(gu("开始进行累计施放2次秘技"))
+        HimekoTry.total(1)
 
     @staticmethod
     def item():
-        HimekoTry.total()
+        logger.info(gu("开始进行累计击碎3个可破坏物"))
+        HimekoTry.total(2)
 
     @staticmethod
     def enemy_20():
+        logger.info(gu("开始进行累计消灭20个敌人"))
         for i in range(2):
             if config.daily_tasks[Utils.get_uid()]['累计消灭20个敌人']:
+                logger.info(gu("【累计消灭20个敌人】已被顺带完成"))
                 break
             HimekoTry.total()
         return True
 
     @staticmethod
     def weakness_to_fight():
+        logger.info(gu("开始进行利用弱点进入战斗并获胜3次"))
         for i in range(3):
             if config.daily_tasks[Utils.get_uid()]['利用弱点进入战斗并获胜3次']:
+                logger.info(gu("【利用弱点进入战斗并获胜3次】已被顺带完成"))
                 break
             HimekoTry.total()
         return True
     
     @staticmethod
-    def total():
+    def total(endpoint:int=0):
         if config.daily_himeko_try_enable:
             screen.change_to("himeko_prepare")
+            logger.info(gu("开始进行姬子试用"))
             auto.press_key(config.get_value("hotkey_technique"))
             time.sleep(2)
             auto.press_key(config.get_value("hotkey_technique"))
             time.sleep(2)
+            # endpoint=0:一直进行到结束,1:使用两次秘技,2:破坏3次可破坏物
+            if endpoint == 1:
+                screen.change_to("himeko_try")
+                Reward.start()
+                return True
             auto.press_key("w", 6)
             auto.press_mouse()
             time.sleep(1)
@@ -52,6 +64,10 @@ class HimekoTry:
             auto.press_key("d", 2)
             auto.press_mouse()
             time.sleep(1)
+            if endpoint == 2:
+                screen.change_to("himeko_try")
+                Reward.start()
+                return True
             auto.press_key("w", 2)
             auto.press_mouse()
             time.sleep(3)

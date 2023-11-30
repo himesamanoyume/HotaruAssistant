@@ -29,12 +29,11 @@ if __name__ == "__main__":
         try:
             main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
-            logger.error(("发生错误: {e}").format(e=("手动强制停止")))
+            logger.error("发生错误: 手动强制停止")
             input(("按回车键关闭窗口. . ."))
             sys.exit(1)
         except Exception as e:
-            logger.error(("发生错误: {e}").format(e=e))
-            # notify.notify(_("发生错误: {e}").format(e=e))
+            logger.error(f"发生错误: {e}")
             input(("按回车键关闭窗口. . ."))
             sys.exit(1)
     

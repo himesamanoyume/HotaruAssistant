@@ -38,7 +38,7 @@ class Echoofwar:
             logger.error(gu(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止"))
             raise Exception(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
         try:
-            logger.hr(_("准备历战余响"), 2)
+            logger.hr(gu("准备历战余响"), 2)
             screen.change_to('guide3')
             guide3_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
             if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=guide3_crop):

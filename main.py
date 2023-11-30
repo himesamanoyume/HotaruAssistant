@@ -327,7 +327,7 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
         input(_("按回车键关闭窗口. . ."))
         sys.exit(0)
     else:
-        logger.error("未知任务: {action}").format(action=action)
+        logger.error(f"未知任务: {action}")
         input("按回车键关闭窗口. . .")
         sys.exit(1)
 
@@ -458,11 +458,10 @@ if __name__ == "__main__":
             atexit.register(exit_handler)
             main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
-            logger.error("发生错误: {e}").format(e=("手动强制停止"))
+            logger.error("发生错误: 手动强制停止")
             input("按回车键关闭窗口. . .")
             sys.exit(0)
         except Exception as e:
-            logger.error("发生错误: {e}").format(e=e)
-            # notify.notify(_("发生错误: {e}").format(e=e))
+            logger.error(f"发生错误: {e}")
             input("按回车键关闭窗口. . .")
             sys.exit(0)

@@ -15,7 +15,7 @@ class GiftOfRadiance:
             receive_path = "./assets/images/activity/giftof/receive.png"
             receive_fin_path = "./assets/images/activity/giftof/receive_fin.png"
             if auto.find_element(receive_path, "image", 0.9) or auto.find_element(receive_fin_path, "image", 0.9):
-                logger.hr(_("检测到巡光之礼奖励"), 2)
+                logger.hr(gu("检测到巡光之礼奖励"), 2)
                 while auto.click_element(receive_path, "image", 0.9) or auto.click_element(receive_fin_path, "image", 0.9):
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
                     time.sleep(1)

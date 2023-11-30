@@ -143,7 +143,7 @@ class Automation:
             bw_map[np.sum((screenshot - pixel_bgr) ** 2, axis=-1) <= 800] = 255
             return Automation.count_template_matches(bw_map, template, threshold)
         except Exception as e:
-            logger.error(_("寻找图片并计数出错：{e}").format(e=e))
+            logger.error(_(f"寻找图片并计数出错：{e}"))
             return None
 
     def find_text_element(self, target, include, need_ocr=True, relative=False):
@@ -154,7 +154,7 @@ class Automation:
             if need_ocr:
                 self.ocr_result = ocr.recognize_multi_lines(np.array(self.screenshot))
             if not self.ocr_result:
-                logger.debug(_("目标文字：{target} 未找到，没有识别出任何文字").format(target=", ".join(target)))
+                logger.debug(_(f"目标文字：{', '.join(target)} 未找到，没有识别出任何文字"))
                 return None, None
             for box in self.ocr_result:
                 text = box[1][0]

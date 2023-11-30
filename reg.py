@@ -47,7 +47,7 @@ class Reg:
             config.save_config()
 
         except Exception as e:
-            logger.error(_("发生错误: {e}").format(e=e))
+            logger.error(f"发生错误: {e}")
             input(_("按回车键关闭窗口. . ."))
             sys.exit(1)
 
@@ -67,11 +67,11 @@ if __name__ == '__main__':
             input(("按回车键关闭窗口. . ."))
             sys.exit(1)
         except KeyboardInterrupt:
-            logger.error(_("发生错误: {e}").format(e=_("手动强制停止")))
+            logger.error("发生错误: 手动强制停止")
             input(("按回车键关闭窗口. . ."))
             sys.exit(1)
         except Exception as e:
-            logger.error(_("发生错误: {e}").format(e=e))
+            logger.error(f"发生错误: {e}")
             input(_("按回车键关闭窗口. . ."))
             sys.exit(1)
 

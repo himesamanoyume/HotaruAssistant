@@ -32,14 +32,14 @@ class Power:
             logger.info(gu(f"跳过清体力,体力太低"))
             return
      
-        logger.hr(_("开始清体力"), 0)
+        logger.hr(gu("开始清体力"), 0)
 
         # 兼容旧设置
         if "·" in instance_name:
             instance_name = instance_name.split("·")[0]
 
         Power.instance(config.instance_type[Utils.get_uid()], instance_name, config.power_needs[config.instance_type[Utils.get_uid()]])
-        logger.hr(_("完成"), 2)
+        logger.hr(gu("完成"), 2)
 
     def get_power(crop, type="trailblaze_power"):
         try:
@@ -365,7 +365,7 @@ class Power:
     @staticmethod
     def run_instances(instance_type, instance_name, a_times_need_power, total_count):
         if instance_name == "无":
-            logger.debug(_("{type}未开启").format(type=instance_type))
+            logger.warning(gu(f"{instance_type}未开启"))
             return False
 
         instance_name = instance_name.replace("巽风之形", "风之形")
@@ -491,9 +491,9 @@ class Power:
     @staticmethod
     def instance(instance_type, instance_name, power_need, number=None):
         if instance_name == "无":
-            logger.debug(_("{type}未开启").format(type=instance_type))
+            logger.warning(gu(f"{instance_type}未开启"))
             return False
-        logger.hr(_("准备{type}").format(type=instance_type), 2)
+        logger.hr(gu(f"准备{instance_type}"), 2)
         power = Power.power()
         if number is None:
             # number刷的次数
@@ -508,5 +508,5 @@ class Power:
         
         Utils._temp += "<p>"+f'{instance_type} - {instance_name} - {number}次</p>'
 
-        logger.hr(_("开始刷{type} - {name}，总计{number}次").format(type=instance_type, name=instance_name, number=number), 2)
+        logger.hr(gu(f"开始刷{instance_type} - {instance_name}，总计{number}次"), 2)
         return Power.run_instances(instance_type, instance_name, power_need, number)

@@ -80,7 +80,7 @@ class Fight:
 
     @staticmethod
     def start():
-        logger.hr(_("准备锄大地"), 2)
+        logger.hr(gu("准备锄大地"), 2)
         if Fight.before_start():
             # 切换队伍
             if config.fight_team_enable:

@@ -11,7 +11,7 @@ class Relics:
     @staticmethod
     def salvage():
         try:
-            logger.hr(("准备分解遗器"), 2)
+            logger.hr(gu("准备分解遗器"), 2)
             # screen.get_current_screen()
             if not config.relic_salvage_enable[Utils.get_uid()]:
                 logger.info(gu("检测到分解遗器未开启,跳过分解遗器"))
@@ -59,7 +59,7 @@ class Relics:
     @staticmethod
     def detect_relic_count():
         try:
-            logger.hr(_("准备检测遗器数量"), 2)
+            logger.hr(gu("准备检测遗器数量"), 2)
             # screen.get_current_screen()
             screen.change_to('bag_relics')
             relic_count_crop=(1021.0 / 1920, 974.0 / 1080, 131.0 / 1920, 33.0 / 1080)

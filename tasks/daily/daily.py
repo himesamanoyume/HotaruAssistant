@@ -98,7 +98,7 @@ class Daily:
     @staticmethod
     def start():
         if config.multi_login:
-            logger.hr(_("多账号下开始日常任务"), 0)
+            logger.hr(gu("多账号下开始日常任务"), 0)
 
         Daily.start_ready()
 
@@ -114,19 +114,19 @@ class Daily:
                 "完成1次「凝滞虚影」": lambda: Power.instance("凝滞虚影", config.instance_names[Utils.get_uid()]["凝滞虚影"], 30, 1),
                 "完成1次「侵蚀隧洞」": lambda: Power.instance("侵蚀隧洞", config.instance_names[Utils.get_uid()]["侵蚀隧洞"], 40, 1),
                 "完成1次「历战余响」": lambda: Power.instance("历战余响", config.instance_names[Utils.get_uid()]["历战余响"], 30, 1),
-                "累计施放2次秘技": lambda: HimekoTry.total(),
-                "累计击碎3个可破坏物": lambda: HimekoTry.total(),
+                "累计施放2次秘技": lambda: HimekoTry.technique(),
+                "累计击碎3个可破坏物": lambda: HimekoTry.item(),
                 "完成1次「忘却之庭」": lambda: ForgottenHall.finish_forgottenhall(),
                 "单场战斗中，触发3种不同属性的弱点击破": lambda: HimekoTry.total(),
                 "累计触发弱点击破效果5次": lambda: HimekoTry.total(),
                 "累计消灭20个敌人": lambda: HimekoTry.enemy_20(),
                 "利用弱点进入战斗并获胜3次": lambda: HimekoTry.weakness_to_fight(),
                 "施放终结技造成制胜一击1次": lambda: HimekoTry.total(),
-                "通关「模拟宇宙」（任意世界）的1个区域": lambda: Universe.start(get_reward=False, nums=1, save=False),
+                # "通关「模拟宇宙」（任意世界）的1个区域": lambda: Universe.start(get_reward=False, nums=1, save=False),
                 "分解任意1件遗器": lambda: Relics.salvage()
             }
 
-            logger.hr(_("今日实训"), 2)
+            logger.hr(gu("今日实训"), 2)
 
             count = 0
             for key, value in config.daily_tasks[Utils.get_uid()].items():
@@ -159,7 +159,7 @@ class Daily:
                 else:
                     logger.warning(gu(f"【{task_name}】可能该任务\033[91m暂不支持\033[0m,跳过"))                                              
 
-            logger.hr(_("每日部分结束"), 2)
+            logger.hr(gu("每日部分结束"), 2)
 
             count = 0
             for key, value in config.daily_tasks[Utils.get_uid()].items():
@@ -168,7 +168,7 @@ class Daily:
             logger.info(gu(f"已完成：\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
             Utils.calcDailyTasksScore(Utils.get_uid())
             
-        logger.hr(_("完成"), 2)
+        logger.hr(gu("完成"), 2)
         Daily.sub()
         Daily.end()
     
@@ -178,6 +178,7 @@ class Daily:
         ForgottenHall.get_star_and_level()
         Reward.start()
         Relics.detect_relic_count()
+        Echoofwar.echoofwar_get_times()
         Utils.calcDailyTasksScore(Utils.get_uid())
         auto.press_key(']')
         totalTime = time.time() - Utils._start_timestamp

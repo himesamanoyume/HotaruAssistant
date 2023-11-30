@@ -125,7 +125,7 @@ class Stop:
         Stop.stop_game()
         # 等待状态退出OCR避免内存占用
         ocr.exit_ocr()
-        logger.hr(_("完成"), 2)
+        logger.hr(gu("完成"), 2)
         total_time = time.time() - Utils._loop_start_timestamp
 
         wait_time = Stop.get_wait_time_with_total_time(total_time)
@@ -147,7 +147,7 @@ class Stop:
             Stop.stop_game()
             input(_("按回车键关闭窗口. . ."))
             sys.exit(0)
-        logger.hr(_("完成"), 2)
+        logger.hr(gu("完成"), 2)
 
         # if config.after_finish not in ["Shutdown", "Hibernate", "Sleep"]:
         #     input(_("按回车键关闭窗口. . ."))
