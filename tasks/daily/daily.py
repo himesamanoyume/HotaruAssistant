@@ -148,8 +148,7 @@ class Daily:
                             #     continue
                             logger.info(gu(f"{task_name}已完成"))
                             config.daily_tasks[Utils.get_uid()][task_name] = False
-                            Utils.showDailyTasksScore(task_name, Utils.get_uid())
-                            Reward.start()
+                            Utils.showDailyTasksScore(task_name, Utils.get_uid())                     
                             # config.save_config()
                         else:
                             if not config.daily_tasks_fin[Utils.get_uid()]:
@@ -158,7 +157,8 @@ class Daily:
                         logger.info(gu(f"【{task_name}】该任务\033[92m已完成\033[0m,跳过"))
                 else:
                     logger.warning(gu(f"【{task_name}】可能该任务\033[91m暂不支持\033[0m,跳过"))                                              
-
+            
+            Reward.start()
             logger.hr(gu("每日部分结束"), 2)
 
             count = 0

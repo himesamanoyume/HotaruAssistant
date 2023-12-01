@@ -51,7 +51,6 @@ class HimekoTry:
             # endpoint=0:一直进行到结束,1:使用两次秘技,2:破坏3次可破坏物
             if endpoint == 1:
                 screen.change_to("himeko_try")
-                Reward.start()
                 return True
             auto.press_key("w", 6)
             auto.press_mouse()
@@ -66,7 +65,6 @@ class HimekoTry:
             time.sleep(1)
             if endpoint == 2:
                 screen.change_to("himeko_try")
-                Reward.start()
                 return True
             auto.press_key("w", 2)
             auto.press_mouse()
@@ -121,5 +119,4 @@ class HimekoTry:
 
             time.sleep(10)
             screen.change_to("himeko_try")
-            Reward.start()
             return True
