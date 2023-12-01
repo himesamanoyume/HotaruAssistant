@@ -1,0 +1,92 @@
+{
+    "角色":
+    {
+        "Arlan": "阿兰",
+        "Asta": "艾丝妲",
+        "Bailu": "白露",
+        "Blade": "刃",
+        "Bronya": "布洛妮娅",
+        "CaelumDestruction": "男物主",
+        "CaelumPreservation": "男火主",
+        "Clara": "克拉拉",
+        "DanHeng": "丹恒",
+        "DanHengImbibitorLunae": "丹恒·饮月",
+        "FuXuan": "符玄",
+        "Gepard": "杰帕德",
+        "Guinaifen": "桂乃芬",
+        "Herta": "黑塔",
+        "Himeko": "姬子",
+        "Hook": "虎克",
+        "Jingliu": "镜流",
+        "JingYuan": "景元",
+        "Kafka": "卡芙卡",
+        "Luka": "卢卡",
+        "Luocha": "罗刹",
+        "Lynx": "玲可",
+        "March7th": "三月七",
+        "Natasha": "娜塔莎",
+        "Pela": "佩拉",
+        "Qingque": "青雀",
+        "Sampo": "桑博",
+        "Seele": "希儿",
+        "Serval": "希露瓦",
+        "SilverWolf": "银狼",
+        "StelleDestruction": "女物主",
+        "StellePreservation": "女火主",
+        "Sushang": "素裳",
+        "Tingyuan": "停云",
+        "TopazandNumby": "托帕&账账",
+        "Welt": "瓦尔特",
+        "Yanqing": "彦卿",
+        "Yukong": "驭空",
+        "Huohuo": "霍霍"
+    },
+    "拟造花萼（金）":
+    {
+        "回忆之蕾": "角色经验",
+        "以太之蕾": "武器经验",
+        "藏珍之蕾": "信用点"
+    },
+    "凝滞虚影":
+    {
+        "空海之形": "量子1",
+        "巽风之形": "风1",
+        "鸣雷之形": "雷1",
+        "炎华之形": "火1",
+        "锋芒之形": "物理",
+        "霜晶之形": "冰1",
+        "幻光之形": "虚数1",
+        "冰棱之形": "冰2",
+        "震厄之形": "雷2",
+        "孽兽之形": "量子2",
+        "燔灼之形": "火2",
+        "天人之形": "风2",
+        "偃偶之形": "虚数2"
+    },
+    "侵蚀隧洞":
+    {
+        "霜风之径": "冰/风套",
+        "迅拳之径": "物理/击破套",
+        "漂泊之径": "奶/快枪手套",
+        "睿治之径": "铁卫/量子套",
+        "圣颂之径": "防御/雷套",
+        "野焰之径": "火/虚数套",
+        "药使之径": "莳者/信使套",
+        "幽冥之径": "大公/系囚套"
+    },
+    "历战余响":
+    {
+        "毁灭的开端": "末日兽",
+        "寒潮的落幕": "可可利亚",
+        "不死的神实": "幻胧"
+    },
+    "模拟宇宙":
+    {
+        "3": "<ruby>第三世界<rt class='ttt' style='background-color: unset;' data-rt='封印站/仙舟套'></rt></ruby>",
+        "4": "<ruby>第四世界<rt class='ttt' style='background-color: unset;' data-rt='击破套/翁瓦克'></rt></ruby>",
+        "5": "<ruby>第五世界<rt class='ttt' style='background-color: unset;' data-rt='泛银河/差分机'></rt></ruby>",
+        "6": "<ruby>第六世界<rt class='ttt' style='background-color: unset;' data-rt='筑城者/萨尔索图'></rt></ruby>",
+        "7": "<ruby>第七世界<rt class='ttt' style='background-color: unset;' data-rt='繁星/龙骨套'></rt></ruby>",
+        "8": "<ruby>第八世界<rt class='ttt' style='background-color: unset;' data-rt='匹诺康尼/苍穹战线'></rt></ruby>"
+    }
+}

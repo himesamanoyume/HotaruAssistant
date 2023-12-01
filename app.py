@@ -11,6 +11,7 @@ def index():
         uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
         loginList.append(f'{uidStr}')
 
+
     return render_template('index.html',loginList=loginList)
 
 @app.route('/<uid>')
@@ -23,5 +24,5 @@ def config_save():
 
 
 if __name__ == '__name__':
-    # app.debug=True
-    app.run(debug=True,host= '0.0.0.0')
+    # flask run --debug --host=0.0.0.0
+    app.run()
