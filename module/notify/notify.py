@@ -618,14 +618,14 @@ class Notify:
                 ningzhixuying_text = '冰2'
             case '震厄之形':
                 ningzhixuying_text = '雷2'
-            case '偃偶之形':
-                ningzhixuying_text = '虚数2'
             case '孽兽之形':
                 ningzhixuying_text = '量子2'
-            case '天人之形':
-                ningzhixuying_text = '风2'
             case '燔灼之形':
                 ningzhixuying_text = '火2'
+            case '天人之形':
+                ningzhixuying_text = '风2'
+            case '偃偶之形':
+                ningzhixuying_text = '虚数2'
             case _:
                 ningzhixuying_text = ''
 
@@ -644,6 +644,8 @@ class Notify:
                 qinshisuidong_text = '火/虚数套'
             case '药使之径':
                 qinshisuidong_text = '莳者/信使套'
+            case '幽冥之径':
+                qinshisuidong_text = '大公/系囚套'
             case _:
                 qinshisuidong_text = ''
 

@@ -1,21 +1,27 @@
-import os
-import sys
-os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)))
+from flask import Flask
+from managers.config_manager import config
+from flask import render_template
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication
-from app.main_window import MainWindow
-import sys
+app = Flask(__name__)
+loginList = list()
 
-# enable dpi scale
-QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
-QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
+@app.route('/')
+def index():
+    for index in range(len(config.multi_login_accounts)):
+        uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
+        loginList.append(f'{uidStr}')
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    app.setAttribute(Qt.AA_DontCreateNativeWidgetSiblings)
+    return render_template('index.html',loginList=loginList)
 
-    w = MainWindow()
+@app.route('/<uid>')
+def config_setting(uid):
+    return render_template('config.html', uid=uid)
 
-    sys.exit(app.exec_())
+@app.route('/<uid>/save',methods=['POST'])
+def config_save():
+    return "Saving!"
+
+
+if __name__ == '__name__':
+    # app.debug=True
+    app.run(debug=True,host= '0.0.0.0')
