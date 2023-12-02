@@ -30,6 +30,74 @@
                         <div class=post-txt-container>
                             <div class=post-txt-container-title style=color:#d9d9d9>
                                 <h4 style=color:#66ccff>
+                                    详细情况
+                                </h4>
+                            </div>
+                            <section class=post-detail-txt style=color:#d9d9d9>
+                                {% if not config.account_active[uid]['ActiveDay'] <= 3 %}
+                                <blockquote><p>
+                                {% else %}
+                                <blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>
+                                {% endif %}
+                                激活天数剩余:{{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}}天
+                                </p></blockquote>
+                                <p><strong>每日完成情况</strong></p>
+                                {% for key, value in config.daily_tasks[uid].items() %}
+                                <p>
+                                    <ruby>
+                                        {{key}}
+                                        <rt class='ttt' data-rt='{{task_score[key]}}'></rt>
+                                    </ruby>
+                                    :
+                                    {% if config.daily_tasks[uid][key] %}
+                                        未完成
+                                    {% else %}
+                                        <span class=important style=background-color:#40405f;color:#66ccff>已完成</span>
+                                    {% endif %}
+                                </p>
+                                {% endfor %}
+                                <p><strong>当前活跃度</strong></p>
+                                {% if config.daily_tasks_fin[uid] %}
+                                <blockquote>
+                                {% else %}
+                                <blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>
+                                {% endif %}
+                                <p>{{config.daily_tasks_score[uid]}}/500</p></blockquote>
+
+                                <p><strong>当前模拟宇宙积分</strong></p>
+                                {% if config.universe_fin[uid] %}
+                                <blockquote>
+                                {% else %}
+                                <blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>
+                                {% endif %}
+                                <p>{{config.universe_score[uid]}}</p></blockquote>
+
+                                <p><strong>当前历战余响次数</strong></p>
+                                {% if config.echo_of_war_times[uid] == 0 %}
+                                <blockquote>
+                                {% else %}
+                                <blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>
+                                {% endif %}
+                                <p>{{config.echo_of_war_times[uid]}}/3</p></blockquote>
+
+                                <p><strong>当前忘却之庭 - 混沌回忆</strong></p>
+                                {% if config.forgottenhall_levels[uid] == 10 %}
+                                <blockquote>
+                                {% else %}
+                                <blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>
+                                {% endif %}
+                                <p>层数:{{config.forgottenhall_levels[uid]}}/10</p></blockquote>
+                                {% if config.forgottenhall_stars[uid] == 30 %}
+                                <blockquote>
+                                {% else %}
+                                <blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>
+                                {% endif %}
+                                <p>星数:{{config.forgottenhall_stars[uid]}}/30</p></blockquote>
+
+                            </section>
+                            <hr>
+                            <div class=post-txt-container-title style=color:#d9d9d9>
+                                <h4 style=color:#66ccff>
                                     设置界面
                                 </h4>
                             </div>
@@ -97,6 +165,9 @@
                                         <option value="幽冥之径" {% if '幽冥之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>幽冥之径({{ruby['侵蚀隧洞']['幽冥之径']}})</option>
                                     </select>
                                 </p>
+                                <p>是否清空3次历战余响:
+                                    <input type="checkbox" name="echo_of_war_enable" {% if config.echo_of_war_enable[uid] %} checked {% endif %}>
+                                </p>
                                 <p>历战余响:
                                     <select class=configSelect name=instance_name5>
                                         <option value="无" {% if '无' == config.instance_names[uid]['历战余响'] %} selected {% endif %}>无</option>
@@ -105,10 +176,9 @@
                                         <option value="不死的神实" {% if '不死的神实' == config.instance_names[uid]['历战余响'] %} selected {% endif %}>不死的神实({{ruby['历战余响']['不死的神实']}})</option>
                                     </select>
                                 </p>
-                                <p>是否清空3次历战余响:
-                                    <input type="checkbox" name="echo_of_war_enable" {% if config.echo_of_war_enable[uid] %} checked {% endif %}>
+                                <p>是否分解遗器:
+                                    <input type="checkbox" name="relic_salvage_enable" value="relic_salvage_enable" {% if config.relic_salvage_enable[uid] %} checked {% endif %}>
                                 </p>
-                                <hr>
                                 <p>模拟宇宙:
                                     <select class=configSelect name=universe_number>
                                         <option value="3" {% if 3 == config.universe_number[uid] %} selected {% endif %}>第三世界({{ruby['模拟宇宙']["3"]}})</option>
@@ -148,9 +218,7 @@
                                         {{ruby["角色"][config.universe_team[uid][3]]}}
                                     </span>
                                 </p>
-                                <p>是否分解遗器:
-                                    <input type="checkbox" name="relic_salvage_enable" value="relic_salvage_enable" {% if config.relic_salvage_enable[uid] %} checked {% endif %}>
-                                </p>
+                                
                             </section>
                             
                             <div class=post-txt-container-datetime style=color:#d9d9d9>
