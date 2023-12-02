@@ -125,7 +125,7 @@ def main(action=None):
             isFirstTimeLoop = True
 
             while True:
-
+                config.reload()
                 if not os.path.exists("./backup"):
                     os.makedirs("./backup")
                 shutil.copy("./config.yaml",f"./backup/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")

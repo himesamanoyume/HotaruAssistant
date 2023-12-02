@@ -106,6 +106,9 @@ class Config:
         if key == {}:
             self.config[key][uid] = {}
         return self.config[key][uid]
+    
+    def reload(self):
+        self._load_config()
 
     def save_timestamp(self, timestamp, uid):
         if timestamp == {}:

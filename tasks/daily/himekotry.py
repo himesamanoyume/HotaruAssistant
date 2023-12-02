@@ -12,32 +12,28 @@ class HimekoTry:
     @staticmethod
     def technique():
         logger.info(gu("开始进行累计施放2次秘技"))
-        HimekoTry.total(1)
+        return HimekoTry.total(1)
 
     @staticmethod
     def item():
         logger.info(gu("开始进行累计击碎3个可破坏物"))
-        HimekoTry.total(2)
+        return HimekoTry.total(2)
 
     @staticmethod
     def enemy_20():
         logger.info(gu("开始进行累计消灭20个敌人"))
-        for i in range(2):
-            if config.daily_tasks[Utils.get_uid()]['累计消灭20个敌人']:
-                logger.info(gu("【累计消灭20个敌人】已被顺带完成"))
-                break
-            HimekoTry.total()
-        return True
+        if config.daily_tasks[Utils.get_uid()]['累计消灭20个敌人']:
+            logger.info(gu("【累计消灭20个敌人】已被顺带完成"))
+            return True
+        return HimekoTry.total() and HimekoTry.total()
 
     @staticmethod
     def weakness_to_fight():
         logger.info(gu("开始进行利用弱点进入战斗并获胜3次"))
-        for i in range(3):
-            if config.daily_tasks[Utils.get_uid()]['利用弱点进入战斗并获胜3次']:
-                logger.info(gu("【利用弱点进入战斗并获胜3次】已被顺带完成"))
-                break
-            HimekoTry.total()
-        return True
+        if config.daily_tasks[Utils.get_uid()]['利用弱点进入战斗并获胜3次']:
+            logger.info(gu("【利用弱点进入战斗并获胜3次】已被顺带完成"))
+            return True
+        return HimekoTry.total() and HimekoTry.total()
     
     @staticmethod
     def total(endpoint:int=0):
@@ -82,6 +78,7 @@ class HimekoTry:
                     auto.press_key("b")
                     time.sleep(0.5)
                     if auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9) or auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
+                        logger.info(gu("检测到战斗失败/重试"))
                         break
             
             time.sleep(1)
@@ -90,31 +87,37 @@ class HimekoTry:
             auto.press_key("a")
             for i in range(20):
                 if auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=10):
+                    logger.info(gu("姬子已使用普攻"))
                     break
             time.sleep(3)
             auto.press_key("d")
 
             for i in range(20):
                 if auto.click_element("./assets/images/himeko/herta_q.png", "image", 0.9, max_retries=10):
+                    logger.info(gu("黑塔已使用普攻"))
                     break
             time.sleep(3)
             auto.press_key("a")
             for i in range(20):
                 if auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=10):
+                    logger.info(gu("娜塔莎已使用普攻"))
                     break
 
             time.sleep(10)
             for i in range(20):
                 if auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=10):
+                    logger.info(gu("姬子已使用普攻"))
                     break
 
             time.sleep(3)
             for i in range(20):
                 if auto.click_element("./assets/images/himeko/himeko_skill.png", "image", 0.9, max_retries=10):
+                    logger.info(gu("姬子已开启终结技"))
                     break
             time.sleep(3)
             for i in range(20):
                 if auto.click_element("./assets/images/himeko/himeko_space.png", "image", 0.9, max_retries=10):
+                    logger.info(gu("姬子已施放终结技"))
                     break
 
             time.sleep(10)
