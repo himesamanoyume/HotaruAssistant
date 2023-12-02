@@ -92,12 +92,10 @@ March7thAssistant 离不开以下开源项目的帮助：
 ## TODO
 
 - **新增一个py脚本专门用于修改config,flask?**
-- ~~实现读取json数据来展示邮件~~
 - 绝不公开设置面板
-- ~~能否将原本启动的app界面改成其他py脚本来启动,让flask代替app入口~~
-- ~~历战余响在end中再检测~~
+- page div为保存
+- config save load用队列
 - 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测
 - 新增继续模拟宇宙（继续进度，结束并结算）
 - 想办法远程操作config
 - 想办法在screen之间做更快速的联动（优化）
-- config save load用队列
