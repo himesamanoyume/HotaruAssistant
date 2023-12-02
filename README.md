@@ -91,11 +91,8 @@ March7thAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
-- **新增一个py脚本专门用于修改config,flask?**
-- 绝不公开设置面板
-- 格式化flask的style
-- flask添加回head,转移style,添加favicon
-- post-page为保存
+- ~~新增一个py脚本专门用于修改config,flask?~~
+- - ~~post-page为保存:弄清flask post方法,js实现,完成时弹出提示~~
 - config save load用队列
 - 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测
 - 新增继续模拟宇宙（继续进度，结束并结算）

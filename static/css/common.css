@@ -34,7 +34,6 @@
     }
 
     .main>.home-container>.info-container>.info-container-inner>.info {
-        margin-top: 10px;
         box-shadow: 0 0 0 0 #000 inset, 4px 4px 14px -13px #000
     }
 
@@ -97,7 +96,8 @@
         -moz-user-select: none;
         -ms-user-select: none;
         -webkit-user-select: none;
-        width: 0;
+        width: 100%;
+        text-align: center;
         font-size: 25px;
         color: transparent
     }
@@ -308,6 +308,7 @@
         height: 40px;
         box-shadow: 4px 4px 14px -13px #000;
         text-align:-webkit-center;
+        margin-bottom: 10px;
     }
 
     .post-type {
