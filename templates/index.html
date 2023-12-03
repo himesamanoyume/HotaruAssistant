@@ -32,7 +32,8 @@
                             </div>
                             <section class=post-detail-txt style=color:#d9d9d9>
                                 {% for uid in loginList %}
-                                    <p><a href="/{{uid}}">{{uid}}|{{config.notify_smtp_To[uid]}}|{{config.account_active[uid]['ActiveDay']-config.account_active[uid]['CostDay']}}天</a></p>
+                                    <p><a href="/{{uid}}">
+                                        {% if config.daily_tasks_fin[uid] %}√|{% endif %}{{uid}}|{{config.notify_smtp_To[uid]}}|{{config.account_active[uid]['ActiveDay']-config.account_active[uid]['CostDay']}}天</a></p>
                                 {% endfor %}
                             </section>
                         </div>

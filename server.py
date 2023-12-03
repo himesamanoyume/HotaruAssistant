@@ -1,5 +1,6 @@
 import socket
 import threading
+import os
 
 def handle_client(client_socket):
     while True:
@@ -13,7 +14,7 @@ def start_server():
     server_socket.bind(('localhost', 3377))
     server_socket.listen(5)
     print("服务器已启动，正在等待客户端连接...")
-
+    os.system("cmd /C flask run --debug --host=0.0.0.0")
     while True:
         client_socket, client_address = server_socket.accept()
         print(f"客户端{client_address}已连接")

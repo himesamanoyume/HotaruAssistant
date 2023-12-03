@@ -2,7 +2,7 @@ from flask import Flask
 from managers.config_manager import config
 from flask import render_template,request
 import json
-from tasks.daily.utils import Utils
+# from tasks.daily.utils import Utils
 
 app = Flask(__name__)
 loginList = list()
@@ -18,9 +18,11 @@ def index():
 
 @app.route('/<uid>')
 def config_setting(uid):
-    task_score = Utils._load_config("./assets/config/task_score_mappings.json")
-    ruby = Utils._load_config("./assets/config/ruby_detail.json")
-    return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score)
+    with open("./assets/config/task_score_mappings.json", 'r', encoding='utf-8') as score_json:
+        task_score = json.load(score_json)
+        with open("./assets/config/ruby_detail.json", 'r', encoding='utf-8') as ruby_json:
+            ruby = json.load(ruby_json)
+            return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score)
 
 @app.route('/<uid>/save',methods=['POST'])
 def config_save(uid):
