@@ -1,8 +1,8 @@
 from flask import Flask
-from managers.config_manager import config
 from flask import render_template,request
 import json
-# from tasks.daily.utils import Utils
+from module.config.config import Config
+config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
 
 app = Flask(__name__)
 loginList = list()
