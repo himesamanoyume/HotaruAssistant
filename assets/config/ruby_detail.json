@@ -84,11 +84,11 @@
     },
     "模拟宇宙":
     {
-        "3": "封印站/仙舟套",
-        "4": "击破套/翁瓦克",
-        "5": "泛银河/差分机",
-        "6": "筑城者/萨尔索图",
-        "7": "繁星/龙骨套",
-        "8": "匹诺康尼/苍穹战线"
+        "3": "<ruby>第三世界<rt class='ttt' style='background-color: unset;' data-rt='封印站/仙舟套'></rt></ruby>",
+        "4": "<ruby>第四世界<rt class='ttt' style='background-color: unset;' data-rt='击破套/翁瓦克'></rt></ruby>",
+        "5": "<ruby>第五世界<rt class='ttt' style='background-color: unset;' data-rt='泛银河/差分机'></rt></ruby>",
+        "6": "<ruby>第六世界<rt class='ttt' style='background-color: unset;' data-rt='筑城者/萨尔索图'></rt></ruby>",
+        "7": "<ruby>第七世界<rt class='ttt' style='background-color: unset;' data-rt='繁星/龙骨套'></rt></ruby>",
+        "8": "<ruby>第八世界<rt class='ttt' style='background-color: unset;' data-rt='匹诺康尼/苍穹战线'></rt></ruby>"
     }
 }

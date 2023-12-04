@@ -46,25 +46,44 @@ def testFun():
                     break
         
         time.sleep(1)
+
         auto.press_key("a")
         auto.press_key("a")
         auto.press_key("a")
+
         for i in range(20):
             if auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=10):
                 logger.info(gu("姬子已使用普攻"))
                 break
+            elif auto.click_element("./assets/images/himeko/herta_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("黑塔已使用普攻"))
+                break
+            elif auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("娜塔莎已使用普攻"))
+                break
+
         time.sleep(3)
         auto.press_key("d")
-
+        time.sleep(0.5)
         for i in range(20):
             if auto.click_element("./assets/images/himeko/herta_q.png", "image", 0.9, max_retries=10):
                 logger.info(gu("黑塔已使用普攻"))
                 break
+            elif auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("姬子已使用普攻"))
+                break
+            elif auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("娜塔莎已使用普攻"))
+                break
+
         time.sleep(3)
         auto.press_key("a")
         for i in range(20):
             if auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=10):
                 logger.info(gu("娜塔莎已使用普攻"))
+                break
+            elif auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("姬子已使用普攻"))
                 break
 
         time.sleep(10)
@@ -72,17 +91,61 @@ def testFun():
             if auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=10):
                 logger.info(gu("姬子已使用普攻"))
                 break
-
-        time.sleep(3)
-        for i in range(20):
-            if auto.click_element("./assets/images/himeko/himeko_skill.png", "image", 0.9, max_retries=10):
-                logger.info(gu("姬子已开启终结技"))
+            elif auto.click_element("./assets/images/himeko/herta_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("黑塔已使用普攻"))
                 break
+            elif auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("娜塔莎已使用普攻"))
+                break
+
+        time.sleep(2)
+        for i in range(20):
+            if auto.click_element("./assets/images/himeko/herta_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("黑塔已使用普攻"))
+                break
+            elif auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("姬子已使用普攻"))
+                break
+            elif auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("娜塔莎已使用普攻"))
+                break
+        
+        time.sleep(2)
+        for i in range(20):
+            if auto.click_element("./assets/images/himeko/natasha_e.png", "image", 0.9, max_retries=10):
+                logger.info(gu("娜塔莎已激活战技"))
+                break
+            else:
+                logger.info(gu("流程出现差错,重试"))
+                return testFun()
+
+        time.sleep(2)
+        for i in range(20):
+            if auto.click_element("./assets/images/himeko/natasha_active_q.png", "image", 0.9, max_retries=10):
+                logger.info(gu("娜塔莎已释放战技"))
+                break
+            else:
+                logger.info(gu("流程出现差错,重试"))
+                return testFun()
+
+        time.sleep(2)
+        for i in range(20):
+            if auto.find_element("./assets/images/himeko/himeko_skill.png", "image", 0.9, max_retries=20):
+                if auto.click_element("./assets/images/himeko/himeko_skill.png", "image", 0.9, max_retries=10):
+                    logger.info(gu("姬子已开启终结技"))
+                    break
+            else:
+                logger.info(gu("流程出现差错,重试"))
+                return testFun()
+
         time.sleep(3)
         for i in range(20):
             if auto.click_element("./assets/images/himeko/himeko_space.png", "image", 0.9, max_retries=10):
                 logger.info(gu("姬子已施放终结技"))
                 break
+            else:
+                logger.info(gu("流程出现差错,重试"))
+                return testFun()
 
         time.sleep(10)
         screen.change_to("himeko_try")
@@ -99,7 +162,8 @@ if __name__ == '__main__':
             sys.exit(0)
     else:
         try:
-            testFun()
+            for i in range(10):
+                testFun()
         except KeyboardInterrupt:
             logger.error("发生错误: 手动强制停止")
             input("按回车键关闭窗口. . .")

@@ -617,7 +617,7 @@ class Notify:
             world_number = '世界选择有误'
 
         universe_content = ''
-        universe_content += f"<p>模拟宇宙:<span class=important style=background-color:#40405f;color:#66ccff>{world_number}</span></p>{Utils._content['universe_number']}"
+        universe_content += f"<p>模拟宇宙:<span class=important style=background-color:#40405f;color:#66ccff>{world_number}</span></p>"
 
         # universe_content += f"<p>模拟宇宙难度:<span class=important style=background-color:#40405f;color:#66ccff>难度{config.universe_difficulty[uid]}</span></p>{Utils._content['universe_difficulty']}"
         

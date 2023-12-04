@@ -29,6 +29,7 @@ class Utils:
     _isFirstTimeSelectTeam = True
     _relicCount = 0
     _action = ''
+    _totalTime = 0
     def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
             configName[uid] = defaultValue

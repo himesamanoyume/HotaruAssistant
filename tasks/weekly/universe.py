@@ -98,10 +98,13 @@ class Universe:
                 if nums > 0:
                     for i in range(nums):
                         Universe.runUniverse(get_reward, save, daily)
+                    return True
                 else:
                     Universe.runUniverse(get_reward, save, daily)
+                    return True
             else:
                 logger.error(gu("校准失败"))
+        
         logger.warning(gu("⚠️模拟宇宙未完成⚠️"))
         Power.power()
         return False

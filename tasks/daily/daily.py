@@ -182,6 +182,7 @@ class Daily:
         Utils.calcDailyTasksScore(Utils.get_uid())
         auto.press_key(']')
         totalTime = time.time() - Utils._start_timestamp
+        Utils._totalTime = totalTime
         if totalTime >= 3600:
             notify.announcement(gu(f"{Utils.get_uid()}运行时长超时警告!"),"该UID运行总时长超60分钟,不健康,请立即检查优化", isSingle=True)
         _day = int(totalTime // 86400)
