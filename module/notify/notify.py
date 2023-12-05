@@ -613,11 +613,13 @@ class Notify:
 
         if config.universe_number[uid] in [3,4,5,6,7,8]:
             world_number = ruby_mappings['模拟宇宙'][str(config.universe_number[uid])]
+            world_relic = ruby_mappings['模拟宇宙遗器'][str(config.universe_number[uid])]
         else:
             world_number = '世界选择有误'
+            world_relic = ''
 
         universe_content = ''
-        universe_content += f"<p>模拟宇宙:<span class=important style=background-color:#40405f;color:#66ccff>{world_number}</span></p>"
+        universe_content += f"<p>模拟宇宙:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{world_number}<rt class='ttt' style='background-color: unset;' data-rt='{world_relic}'></rt></ruby></span></p>"
 
         # universe_content += f"<p>模拟宇宙难度:<span class=important style=background-color:#40405f;color:#66ccff>难度{config.universe_difficulty[uid]}</span></p>{Utils._content['universe_difficulty']}"
         

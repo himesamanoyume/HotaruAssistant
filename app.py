@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template,request
 import json
 from module.config.config import Config
-config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
+
 
 app = Flask(__name__)
 loginList = list()
@@ -10,6 +10,7 @@ loginList = list()
 @app.route('/')
 def index():
     loginList.clear()
+    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
     for index in range(len(config.multi_login_accounts)):
         uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
         loginList.append(f'{uidStr}')
@@ -18,6 +19,7 @@ def index():
 
 @app.route('/<uid>')
 def config_setting(uid):
+    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
     with open("./assets/config/task_score_mappings.json", 'r', encoding='utf-8') as score_json:
         task_score = json.load(score_json)
         with open("./assets/config/ruby_detail.json", 'r', encoding='utf-8') as ruby_json:
@@ -26,6 +28,7 @@ def config_setting(uid):
 
 @app.route('/<uid>/save',methods=['POST'])
 def config_save(uid):
+    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
     data = request.get_json('data')
     config.instance_type[uid] = data['instance_type']
     config.instance_names[uid]['拟造花萼（金）'] = data['instance_name1']

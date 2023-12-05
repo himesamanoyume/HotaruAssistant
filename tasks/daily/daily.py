@@ -133,7 +133,7 @@ class Daily:
                 state = "\033[91m" + _("待完成") + "\033[0m" if value else "\033[92m" + _("已完成") + "\033[0m"
                 logger.info(gu(f"{key}: {state}"))
                 count = count + 1 if not value else count
-            logger.info(gu(f"已完成：\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
+            logger.info(gu(f"已完成:\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
 
             # blacklist = {"单场战斗中，触发3种不同属性的弱点击破","累计触发弱点击破效果5次","利用弱点进入战斗并获胜3次","施放终结技造成制胜一击1次"}
 
@@ -165,7 +165,7 @@ class Daily:
             for key, value in config.daily_tasks[Utils.get_uid()].items():
                 count = count + 1 if not value else count
 
-            logger.info(gu(f"已完成：\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
+            logger.info(gu(f"已完成:\033[93m{count}/{len(config.daily_tasks[Utils.get_uid()])}\033[0m"))
             Utils.calcDailyTasksScore(Utils.get_uid())
             
         logger.hr(gu("完成"), 2)
