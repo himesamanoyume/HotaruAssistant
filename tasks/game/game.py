@@ -15,6 +15,7 @@ class Game:
     @staticmethod
     def start():
         logger.hr(_("开始运行"), 0)
+        config.reload()
         logger.info(_("开始启动游戏"))
         if not auto.retry_with_timeout(lambda: Start.start_game(), 1200, 1):
             # notify.notify(_("⚠️启动游戏超时，退出程序⚠️"))

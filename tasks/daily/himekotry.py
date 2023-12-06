@@ -13,6 +13,21 @@ class HimekoTry:
     def technique():
         logger.info(gu("开始进行累计施放2次秘技"))
         return HimekoTry.total(1)
+    
+    @staticmethod
+    def weakness_5():
+        logger.info(gu("开始进行累计触发弱点击破效果5次"))
+        return HimekoTry.total()
+    
+    @staticmethod
+    def weakness_diffrent_3():
+        logger.info(gu("开始进行单场战斗中，触发3种不同属性的弱点击破"))
+        return HimekoTry.total()
+    
+    @staticmethod
+    def final_skill_end():
+        logger.info(gu("开始进行施放终结技造成制胜一击1次"))
+        return HimekoTry.total()
 
     @staticmethod
     def item():
@@ -82,20 +97,22 @@ class HimekoTry:
                         break
             
             time.sleep(1)
-
             auto.press_key("a")
             auto.press_key("a")
             auto.press_key("a")
 
             for i in range(20):
+                auto.press_key("a")
+                auto.press_key("a")
+                auto.press_key("a")
                 if auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=5):
                     logger.info(gu("姬子已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/herta_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("黑塔已使用普攻"))
+                    logger.info(gu("备选黑塔已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("娜塔莎已使用普攻"))
+                    logger.info(gu("备选娜塔莎已使用普攻"))
                     break
 
             time.sleep(3)
@@ -106,23 +123,28 @@ class HimekoTry:
                     logger.info(gu("黑塔已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("姬子已使用普攻"))
+                    logger.info(gu("备选姬子已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("娜塔莎已使用普攻"))
+                    logger.info(gu("备选娜塔莎已使用普攻"))
                     break
 
             time.sleep(3)
             auto.press_key("a")
+            auto.press_key("a")
+            auto.press_key("a")
             for i in range(20):
+                auto.press_key("a")
+                auto.press_key("a")
+                auto.press_key("a")
                 if auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=5):
                     logger.info(gu("娜塔莎已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("姬子已使用普攻"))
+                    logger.info(gu("备选姬子已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/herta_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("黑塔已使用普攻"))
+                    logger.info(gu("备选黑塔已使用普攻"))
                     break
 
             time.sleep(10)
@@ -131,10 +153,10 @@ class HimekoTry:
                     logger.info(gu("姬子已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/herta_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("黑塔已使用普攻"))
+                    logger.info(gu("备选黑塔已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("娜塔莎已使用普攻"))
+                    logger.info(gu("备选娜塔莎已使用普攻"))
                     break
 
             time.sleep(2)
@@ -143,10 +165,10 @@ class HimekoTry:
                     logger.info(gu("黑塔已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/himeko_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("姬子已使用普攻"))
+                    logger.info(gu("备选姬子已使用普攻"))
                     break
                 elif auto.click_element("./assets/images/himeko/natasha_q.png", "image", 0.9, max_retries=2):
-                    logger.info(gu("娜塔莎已使用普攻"))
+                    logger.info(gu("备选娜塔莎已使用普攻"))
                     break
             
             time.sleep(2)

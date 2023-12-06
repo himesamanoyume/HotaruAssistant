@@ -72,7 +72,8 @@ class Daily:
     def start_ready():
         if config.recording_enable:
             auto.press_key('[')
-            
+        
+        config.reload()
         Utils.get_new_uid()
         Utils._content.update({'uid':Utils.get_uid()})
         Utils.getDailyScoreMappings()
@@ -117,11 +118,11 @@ class Daily:
                 "累计施放2次秘技": lambda: HimekoTry.technique(),
                 "累计击碎3个可破坏物": lambda: HimekoTry.item(),
                 "完成1次「忘却之庭」": lambda: ForgottenHall.finish_forgottenhall(),
-                "单场战斗中，触发3种不同属性的弱点击破": lambda: HimekoTry.total(),
-                "累计触发弱点击破效果5次": lambda: HimekoTry.total(),
+                "单场战斗中，触发3种不同属性的弱点击破": lambda: HimekoTry.weakness_diffrent_3(),
+                "累计触发弱点击破效果5次": lambda: HimekoTry.weakness_5(),
                 "累计消灭20个敌人": lambda: HimekoTry.enemy_20(),
                 "利用弱点进入战斗并获胜3次": lambda: HimekoTry.weakness_to_fight(),
-                "施放终结技造成制胜一击1次": lambda: HimekoTry.total(),
+                "施放终结技造成制胜一击1次": lambda: HimekoTry.final_skill_end(),
                 # "通关「模拟宇宙」（任意世界）的1个区域": lambda: Universe.start(get_reward=False, nums=1, save=False),
                 "分解任意1件遗器": lambda: Relics.salvage()
             }
@@ -174,6 +175,7 @@ class Daily:
     
 
     def end():
+        config.reload()
         Power.power()
         ForgottenHall.get_star_and_level()
         Reward.start()

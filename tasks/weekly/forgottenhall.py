@@ -240,7 +240,8 @@ class ForgottenHall:
             # 点击弹出框
             ForgottenHall.click_message_box()
             # 判断关卡BOSS数量
-            boss_count = 2 if i in range(1, 6) else 1
+            # boss_count = 2 if i in range(1, 6) else 1
+            boss_count = 1
             if not ForgottenHall.start_fight(2, boss_count):
                 logger.info(gu("挑战失败"))
             else:
@@ -257,15 +258,16 @@ class ForgottenHall:
         if max_level > 0:
             screen.change_to('memory_of_chaos')
             # 领取星琼
-            if auto.click_element("./assets/images/dispatch/reward.png", "image", 0.9, crop=(1775.0 / 1920, 902.0 / 1080, 116.0 / 1920, 110.0 / 1080)):
+            if auto.click_element("./assets/images/dispatch/reward.png", "image", 0.9, max_retries=5, crop=(1775.0 / 1920, 902.0 / 1080, 116.0 / 1920, 110.0 / 1080)):
                 time.sleep(1)
                 while auto.click_element("./assets/images/forgottenhall/receive.png", "image", 0.9, crop=(1081.0 / 1920, 171.0 / 1080, 500.0 / 1920, 736.0 / 1080)):
                     auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
                     time.sleep(1)
-            logger.info(gu(f"🎉混沌回忆已通关{max_level}层🎉"))
-            # Base.send_notification_with_screenshot(_("🎉混沌回忆已通关{max_level}层🎉").format(max_level=max_level))
-            auto.press_key("esc")
-            time.sleep(1)
+                logger.info(gu(f"🎉混沌回忆已通关{max_level}层🎉"))
+                auto.press_key("esc")
+                time.sleep(1)
+            else:
+                logger.error(gu("🎉混沌回忆已通关{max_level}层🎉\n领取星琼失败"))
 
     @staticmethod
     def prepare():

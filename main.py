@@ -143,6 +143,7 @@ def main(action=None):
                 else:
                     count = 2
                 for turn in range(count):
+                    config.reload()
                     for value in loginList:
                         if not firstTimeLogin and not jumpFin:
                             if not value == jumpValue:
