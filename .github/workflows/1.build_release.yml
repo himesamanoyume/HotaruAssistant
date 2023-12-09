@@ -35,7 +35,7 @@ jobs:
 
       - name: Move assets to dist directory
         run: |
-          xcopy /E /Y ".\dist\March7th Assistant\*" ".\dist\March7thAssistantPrivate\"
+          xcopy /E /Y ".\dist\March7th Assistant Private\*" ".\dist\March7thAssistantPrivate\"
           xcopy /E /Y ".\dist\March7th Launcher\*" ".\dist\March7thAssistantPrivate\"
           xcopy /E /I /Y .\assets\ .\dist\March7thAssistantPrivate\assets\
           xcopy /Y .\README.md .\dist\March7thAssistantPrivate\
@@ -43,7 +43,7 @@ jobs:
       - name: Create zip archive
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          ren .\dist\March7thAssistant March7thAssistantPrivate_${{ github.ref_name }}
+          ren .\dist\March7thAssistantPrivate March7thAssistantPrivate_${{ github.ref_name }}
           powershell Compress-Archive -Path .\dist\March7thAssistantPrivate_${{ github.ref_name }}\ -DestinationPath .\dist\March7thAssistantPrivate_${{ github.ref_name }}.zip -Force
 
       - name: Move 3rdparty to dist directory
@@ -62,7 +62,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-          name: March7thAssistant ${{ github.ref_name }}
+          name: March7thAssistantPrivate ${{ github.ref_name }}
           files: |
            ./dist/March7thAssistantPrivate_${{ github.ref_name }}_full.zip
            ./dist/March7thAssistantPrivate_${{ github.ref_name }}.zip
