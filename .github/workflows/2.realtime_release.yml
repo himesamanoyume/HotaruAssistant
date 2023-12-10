@@ -44,7 +44,6 @@ jobs:
           xcopy /E /Y ".\dist\March7th Assistant Server\*" ".\dist\March7thAssistantPrivate\"
           xcopy /E /I /Y .\assets\ .\dist\March7thAssistantPrivate\assets\
           xcopy /Y .\README.md .\dist\March7thAssistantPrivate\
-          xcopy /Y .\3rdparty .\dist\March7thAssistantPrivate\3rdparty
 
       - name: Create zip archive
         run: |
