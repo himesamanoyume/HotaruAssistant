@@ -5,23 +5,27 @@
 
 <h1>
 三月七小助手<br>
-March7thAssistant
+March7thAssistant - 私人版
+
+修改者: 姫様の夢
 </h1>
 
-<p>
-    <img alt="" src="https://img.shields.io/badge/platform-Windows-blue?style=flat-square&color=4096d8" />
-    <img alt="" src="https://img.shields.io/github/last-commit/moesnow/March7thAssistant?style=flat-square&color=f18cb9" />
-    <img alt="" src="https://img.shields.io/github/v/release/moesnow/March7thAssistant?style=flat-square&color=4096d8" />
-    <img alt="" src="https://img.shields.io/github/downloads/moesnow/March7thAssistant/total?style=flat-square&color=f18cb9" />
-</p>
-
-**简体中文** | [繁體中文](./README_TW.md) | [English](./README_EN.md)
-
-快速上手，请访问：[使用教程](https://moesnow.github.io/March7thAssistant/#/assets/docs/Tutorial)
-
-遇到问题，请在提问前查看：[FAQ](https://moesnow.github.io/March7thAssistant/#/assets/docs/FAQ)
+原项目地址[https://github.com/moesnow/March7thAssistant](https://github.com/moesnow/March7thAssistant)
 
 </div>
+
+## TODO
+
+- flask新增模块化
+- ~~reg.py新增选项,选择进行复原还是进行记录注册表,再进行下一步~~
+- ~~reg.py改为在根目录保存~~
+- server关闭时发送给client强制关闭请求
+- webui实现注册want_register_accounts
+- webui实现account_active,all_account_active_day
+- config save load用队列
+- 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测
+- 新增继续模拟宇宙（继续进度，结束并结算）
+- 想办法在screen之间做更快速的联动（优化）
 
 ## 功能简介
 
@@ -35,51 +39,22 @@ March7thAssistant
 
 详情见 [配置文件](assets/config/config.example.yaml) 或图形界面设置 
 
-## 界面展示
-
-![README](assets/screenshot/README1.png)
-
 ## 注意事项
 
 - 必须使用**PC端** `1920*1080` 分辨率窗口或全屏运行游戏（不支持HDR）
-- 模拟宇宙相关 [项目文档](https://asu.stysqy.top/)  [Q&A](https://asu.stysqy.top/guide/qa.html)
 - 需要后台运行或多显示器可以尝试 [远程本地多用户桌面](https://asu.stysqy.top/guide/bs.html)
-- 遇到错误请在 [Issue](https://github.com/moesnow/March7thAssistant/issues) 反馈，提问讨论可以在 [Discussions](https://github.com/moesnow/March7thAssistant/discussions)
 
 ## 下载安装
 
-前往 [Releases](https://github.com/moesnow/March7thAssistant/releases/latest) 下载后解压双击三月七图标的 `March7th Launcher.exe` 打开图形界面
-
-如果需要使用 **任务计划程序** 定时运行或直接执行 **完整运行**，可以使用终端图标的 `March7th Assistant.exe`
+前往 [Releases](https://github.com/himesamanoyume/March7thAssistant/releases/latest) 下载
 
 检测更新可以点击图形界面设置最底下的按钮，或双击 `Update.exe`
 
-## 源码运行
-
-如果你是完全不懂的小白，请通过上面的方式下载安装，不用往下看了。
-
-```cmd
-git clone https://github.com/moesnow/March7thAssistant
-cd March7thAssistant
-pip install -r requirements.txt
-python app.py
-python main.py
-```
-
-<details>
-<summary>开发相关</summary>
-
-获取 crop 参数表示的裁剪坐标可以通过图形界面设置内的捕获截图功能
-
-python main.py 后面支持参数 fight/universe/forgottenhall 等
-
-</details>
-
----
-
 ## 相关项目
 
-March7thAssistant 离不开以下开源项目的帮助：
+March7thAssistantPrivate 离不开以下开源项目的帮助：
+
+- 原版三月七助手 [https://github.com/moesnow/March7thAssistant](https://github.com/moesnow/March7thAssistant)
 
 - 模拟宇宙自动化 [https://github.com/CHNZYX/Auto_Simulated_Universe](https://github.com/CHNZYX/Auto_Simulated_Universe)
 
@@ -88,12 +63,3 @@ March7thAssistant 离不开以下开源项目的帮助：
 - OCR文字识别 [https://github.com/hiroi-sora/PaddleOCR-json](https://github.com/hiroi-sora/PaddleOCR-json)
 
 - 图形界面组件库 [https://github.com/zhiyiYo/PyQt-Fluent-Widgets](https://github.com/zhiyiYo/PyQt-Fluent-Widgets)
-
-## TODO
-
-- webui实现注册want_register_accounts
-- webui实现account_active,all_account_active_day
-- config save load用队列
-- 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测
-- 新增继续模拟宇宙（继续进度，结束并结算）
-- 想办法在screen之间做更快速的联动（优化）

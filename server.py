@@ -1,6 +1,7 @@
 import socket
 import threading
 import os
+from app import apprun
 
 def handle_client(client_socket):
     while True:
@@ -10,7 +11,8 @@ def handle_client(client_socket):
         print(f"{data.decode('utf-8')}")
 
 def run_flask():
-    os.system("cmd /C flask run --debug --host=0.0.0.0")
+    apprun()
+    # os.system("cmd /C flask run --debug --host=0.0.0.0")
 
 def start_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

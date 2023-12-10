@@ -9,7 +9,7 @@ blacklist_uid: # UID黑名单,uid后为黑名单原因
 - '111111111' # 太帅
 - '222222222' # 太帅
 after_finish: None # 任务完成后: "None"（无）"Exit"（退出）"Loop"（循环）"Shutdown"（关机）"Hibernate"（休眠）"Sleep"（睡眠）
-power_limit: 60 # 循环运行所需开拓力
+power_limit: 10 # 循环运行所需开拓力
 play_audio: false # 任务完成后播放提示音
 multi_login: false # 是否多账号登录
 multi_login_accounts: {} # 多账号注册表位置

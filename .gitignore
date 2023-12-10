@@ -189,3 +189,4 @@ pyrightconfig.json
 /screenshots
 /3rdparty/PaddleOCR-json_*
 /records/*
+/reg/*

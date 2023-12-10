@@ -26,6 +26,11 @@ def config_setting(uid):
             ruby = json.load(ruby_json)
             return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score)
 
+@app.route('/register')
+def register():
+    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
+    return render_template('register.html')
+
 @app.route('/<uid>/save',methods=['POST'])
 def config_save(uid):
     config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
@@ -47,4 +52,7 @@ def config_save(uid):
 
 if __name__ == '__name__':
     #cmd: flask run --debug --host=0.0.0.0
-    app.run()
+    app.run(host='0.0.0.0')
+
+def apprun():
+    app.run(host='0.0.0.0')
