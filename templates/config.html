@@ -6,6 +6,9 @@ HimeProducer | 管理
 {% block title %}
 详细情况
 {% endblock %}
+{% block uid %}
+data-rt="{{uid}}"
+{% endblock %}
 {% block section %}
 {% if not config.account_active[uid]['ActiveDay'] <= 3 %}
 <blockquote><p>
@@ -183,18 +186,38 @@ HimeProducer | 管理
         <option value="繁育" {% if '繁育' == config.universe_fate[uid] %} selected {% endif %}>繁育</option>
     </select>
 </p>
-<p>模拟宇宙队伍选择(不提供修改):
-    <span class=important style=background-color:#40405f;color:#66ccff>
-        {{ruby["角色"][config.universe_team[uid][0]]}},
-        {{ruby["角色"][config.universe_team[uid][1]]}},
-        {{ruby["角色"][config.universe_team[uid][2]]}},
-        {{ruby["角色"][config.universe_team[uid][3]]}}
-    </span>
+<p>模拟宇宙队伍选择:
+    <p>
+        1号位:
+        <select class=configSelect name=universe_team0 >
+        {% for char in ruby['角色'] %}
+        <option value="{{char}}" {% if char == config.universe_team[uid][0] %} selected {% endif %}>{{ruby['角色'][char]}}</option>
+        {% endfor %}
+        </select>
+        2号位:
+        <select class=configSelect name=universe_team1 >
+        {% for char in ruby['角色'] %}
+        <option value="{{char}}" {% if char == config.universe_team[uid][1] %} selected {% endif %}>{{ruby['角色'][char]}}</option>
+        {% endfor %}
+        </select>
+        3号位:
+        <select class=configSelect name=universe_team2 >
+        {% for char in ruby['角色'] %}
+        <option value="{{char}}" {% if char == config.universe_team[uid][2] %} selected {% endif %}>{{ruby['角色'][char]}}</option>
+        {% endfor %}
+        </select>
+        4号位:
+        <select class=configSelect name=universe_team3 >
+        {% for char in ruby['角色'] %}
+        <option value="{{char}}" {% if char == config.universe_team[uid][3] %} selected {% endif %}>{{ruby['角色'][char]}}</option>
+        {% endfor %}
+        </select>
+    </p>
 </p>
 {% endblock %}
 {% block bottompostpage %}
 <div class="post-page">
-    <button class="link-button" id="submitChange" onclick="submitChange()">提交</button>
+    <button class="link-button" id="submitChange" onclick="config_submitChange()">提交</button>
 </div>
 {% endblock %}
 {% block post_datetime %}

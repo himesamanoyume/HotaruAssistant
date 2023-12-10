@@ -3,5 +3,79 @@
 HimeProducer | 注册
 {% endblock %}
 {% block title %}
-注册界面
+注册部分
+{% endblock %}
+{% block section %}
+<p>要注册的UID:
+    <input name="reg_uid" type="number" style="width: 120px;" placeholder="111111111" min="100000000">
+</p>
+<p>要绑定的邮箱地址(尽量为qq邮箱):
+    <input name="email" type="email" style="width: 200px;" placeholder="123456789@qq.com">
+</p>
+<p>要激活的天数:
+    <input name="active_day" type="number" style="width: 80px;" placeholder="30" min="0">天
+</p>
+<p>模拟宇宙:
+    <select class=configSelect name=universe_number>
+        <option value="3">第三世界({{ruby['模拟宇宙遗器']["3"]}})</option>
+        <option value="4">第四世界({{ruby['模拟宇宙遗器']["4"]}})</option>
+        <option value="5">第五世界({{ruby['模拟宇宙遗器']["5"]}})</option>
+        <option value="6">第六世界({{ruby['模拟宇宙遗器']["6"]}})</option>
+        <option value="7">第七世界({{ruby['模拟宇宙遗器']["7"]}})</option>
+        <option value="8">第八世界({{ruby['模拟宇宙遗器']["8"]}})</option>
+    </select>
+</p>
+<p>模拟宇宙难度:
+    <select class=configSelect name=universe_difficulty>
+        <option value="1">难度1</option>
+        <option value="2">难度2</option>
+        <option value="3">难度3</option>
+        <option value="4">难度4</option>
+        <option value="5">难度5</option>
+    </select>
+</p>
+<p>模拟宇宙命途:
+    <select class=configSelect name=universe_fate>
+        <option value="存护">存护</option>
+        <option value="记忆">记忆</option>
+        <option value="虚无">虚无</option>
+        <option value="丰饶">丰饶</option>
+        <option value="巡猎">巡猎</option>
+        <option value="毁灭">毁灭</option>
+        <option value="欢愉">欢愉</option>
+        <option value="繁育">繁育</option>
+    </select>
+</p>
+<p>模拟宇宙的队友(不能重复):</p>
+<p>
+    1号位:
+    <select class=configSelect name=universe_team0 >
+    {% for char in ruby['角色'] %}
+    <option value="{{char}}">{{ruby['角色'][char]}}</option>
+    {% endfor %}
+    </select>
+    2号位:
+    <select class=configSelect name=universe_team1 >
+    {% for char in ruby['角色'] %}
+    <option value="{{char}}">{{ruby['角色'][char]}}</option>
+    {% endfor %}
+    </select>
+    3号位:
+    <select class=configSelect name=universe_team2 >
+    {% for char in ruby['角色'] %}
+    <option value="{{char}}">{{ruby['角色'][char]}}</option>
+    {% endfor %}
+    </select>
+    4号位:
+    <select class=configSelect name=universe_team3 >
+    {% for char in ruby['角色'] %}
+    <option value="{{char}}">{{ruby['角色'][char]}}</option>
+    {% endfor %}
+    </select>
+</p>
+{% endblock %}
+{% block bottompostpage %}
+<div class="post-page">
+    <button class="link-button" id="submitChange" onclick="">注册</button>
+</div>
 {% endblock %}

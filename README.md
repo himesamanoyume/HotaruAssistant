@@ -16,11 +16,17 @@ March7thAssistant - 私人版
 
 ## TODO
 
-- ~~workflows的zip重复压缩~~
+- 缺少银枝寒鸦的icon
+- workflows里添加common转移到assets中
+- client新增检查是否开启server并提示
+- ~~flask不在debug时似乎页面的config不会变动~~
+- config冲突还未解决(所有config操作前加上config.reload())
+- config新增设置多少时间重新开始循环
+- workflows的zip重复压缩
 - 重新实现检查更新
 - ~~flask新增模块化~~
 - server关闭时发送给client强制关闭请求
-- webui实现注册want_register_accounts
+- webui实现注册want_register_accounts **(config save中js新增universe_team相关)**
 - webui实现account_active,all_account_active_day
 - config save load用队列
 - 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测

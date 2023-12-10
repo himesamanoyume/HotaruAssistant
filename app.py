@@ -6,20 +6,21 @@ from module.config.config import Config
 
 app = Flask(__name__)
 loginList = list()
+config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
 
 @app.route('/')
 def index():
     loginList.clear()
-    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
+    config.reload()
     for index in range(len(config.multi_login_accounts)):
         uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
         loginList.append(f'{uidStr}')
-
+    config.save_config()
     return render_template('index.html',loginList=loginList, config=config)
 
 @app.route('/<uid>')
 def config_setting(uid):
-    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
+    config.reload()
     with open("./assets/config/task_score_mappings.json", 'r', encoding='utf-8') as score_json:
         task_score = json.load(score_json)
         with open("./assets/config/ruby_detail.json", 'r', encoding='utf-8') as ruby_json:
@@ -28,12 +29,14 @@ def config_setting(uid):
 
 @app.route('/register')
 def register():
-    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
-    return render_template('register.html')
+    config.reload()
+    with open("./assets/config/ruby_detail.json", 'r', encoding='utf-8') as ruby_json:
+            ruby = json.load(ruby_json)
+            return render_template('register.html',ruby=ruby)
 
 @app.route('/<uid>/save',methods=['POST'])
 def config_save(uid):
-    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
+    config.reload()
     data = request.get_json('data')
     config.instance_type[uid] = data['instance_type']
     config.instance_names[uid]['拟造花萼（金）'] = data['instance_name1']
@@ -45,10 +48,22 @@ def config_save(uid):
     config.universe_number[uid] = data['universe_number']
     config.universe_difficulty[uid] = data['universe_difficulty']
     config.universe_fate[uid] = data['universe_fate']
+    config.universe_team[uid][0] = data['universe_team0']
+    config.universe_team[uid][1] = data['universe_team1']
+    config.universe_team[uid][2] = data['universe_team2']
+    config.universe_team[uid][3] = data['universe_team3']
     config.relic_salvage_enable[uid] = data['relic_salvage_enable']
     config.save_config()
     return ''
 
+@app.route('/register/save',methods=['POST'])
+def register_save(uid):
+    config.reload()
+    data = request.get_json('data')
+
+    
+    config.save_config()
+    return ''
 
 if __name__ == '__name__':
     #cmd: flask run --debug --host=0.0.0.0

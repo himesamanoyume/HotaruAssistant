@@ -1529,6 +1529,9 @@
         width: 20px;
         height: 20px;
         line-height: 30px;
+        outline: none;
+        border: 1px solid #66ccff;
+        position: relative;
     }
     
     input:checked::after {

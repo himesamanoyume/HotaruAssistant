@@ -108,7 +108,7 @@ class Config:
         return self.config[key][uid]
     
     def reload(self):
-        self._load_config()
+        self._load_config("./config.yaml")
 
     def save_timestamp(self, timestamp, uid):
         if timestamp == {}:

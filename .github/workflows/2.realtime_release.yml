@@ -45,13 +45,8 @@ jobs:
           xcopy /E /I /Y .\static\ .\dist\March7thAssistantPrivate\static\
           xcopy /Y .\README.md .\dist\March7thAssistantPrivate\
 
-      - name: Create zip archive
-        run: |
-          ren .\dist\March7thAssistantPrivate March7thAssistantPrivate_${{ github.run_number }}
-          powershell Compress-Archive -Path .\dist\March7thAssistantPrivate_${{ github.run_number }}\ -DestinationPath .\dist\March7thAssistantPrivate_${{ github.run_number }}.zip -Force
-
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: March7thAssistantPrivate_${{ github.run_number }}
-          path: ./dist/March7thAssistantPrivate_${{ github.run_number }}.zip
+          path: ./dist/March7thAssistantPrivate

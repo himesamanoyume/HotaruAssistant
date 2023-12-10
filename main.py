@@ -126,6 +126,7 @@ def main(action=None):
 
             while True:
                 config.reload()
+                logger.info(f"config已重载")
                 if not os.path.exists("./backup"):
                     os.makedirs("./backup")
                 shutil.copy("./config.yaml",f"./backup/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")
@@ -219,6 +220,7 @@ def run_new_accounts():
                 logger.error(f"{uid}:新的注册信息中模拟宇宙难度不合法")
                 input("按下回车跳过该次注册")
                 return
+            config.reload()
             config.multi_login_accounts.append(item['reg_path'])
             loginList.append(f"{str(item['reg_path'])}")
             config.notify_smtp_To[uid] = item['email']
