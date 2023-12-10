@@ -53,5 +53,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: March7thAssistantPrivate_${{ github.run_number }}.zip
+          name: March7thAssistantPrivate_${{ github.run_number }}
           path: ./dist/March7thAssistantPrivate_${{ github.run_number }}.zip

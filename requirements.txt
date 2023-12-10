@@ -20,3 +20,4 @@ cpufeature
 PyQt-Fluent-Widgets
 pylnk3
 flask
+questionary

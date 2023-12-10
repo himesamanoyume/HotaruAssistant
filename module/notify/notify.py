@@ -541,6 +541,6 @@ class Notify:
         return multi_content, universe_content
 
 version = '1.0.7'
-css = open("./static/css/common.css", 'r', encoding='utf-8')
+css = open("./assets/css/common.css", 'r', encoding='utf-8')
 htmlStyle = css.read()
 css.close()

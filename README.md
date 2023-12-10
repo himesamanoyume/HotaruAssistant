@@ -16,9 +16,9 @@ March7thAssistant - 私人版
 
 ## TODO
 
-- flask新增模块化
-- ~~reg.py新增选项,选择进行复原还是进行记录注册表,再进行下一步~~
-- ~~reg.py改为在根目录保存~~
+- ~~workflows的zip重复压缩~~
+- 重新实现检查更新
+- ~~flask新增模块化~~
 - server关闭时发送给client强制关闭请求
 - webui实现注册want_register_accounts
 - webui实现account_active,all_account_active_day
