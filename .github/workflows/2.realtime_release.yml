@@ -1,10 +1,9 @@
 name: Build realtime release
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - '**.py'
   push:
+    branches:
+      - main
     paths:
       - '**.py'
 permissions:
