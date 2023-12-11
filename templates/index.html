@@ -4,14 +4,24 @@ HimeProducer | 主页
 {% endblock %}
 {% block toppostpage %}
 <div class="post-page">
-    <a class="link-button" id="register" style="text-decoration:none" href="./register">注册</a>
-    <a class="link-button" id="active" style="text-decoration:none" href="./active">激活设置</a>
+    <a class="link-button" id="register" style="text-decoration:none" href="./register">注册界面</a>
+    <a class="link-button" id="active" style="text-decoration:none" href="./active">续期界面</a>
 </div>
 {% endblock %}
 {% block title %}
-配置管理主页
+管理界面
 {% endblock %}
 {% block section %}
+    <p>邮件归档中心的邮箱地址:(未完成)</p>
+    <div class=post-txt-container-datetime style=color:#d9d9d9>
+        当脚本发送邮件时,都会同时再发送另一封副本邮件到邮件归档中心,用于查看所有发送过的邮件
+    </div>
+    <h6 style=color:#66ccff>
+        UID总览
+    </h6>
+    <div class=post-txt-container-datetime style=color:#d9d9d9>
+        若显示√代表该UID每日任务已完成,最后则是该UID绑定的邮箱地址
+    </div>
     {% for uid in loginList %}
         <p><a href="/{{uid}}">
             {% if config.daily_tasks_fin[uid] %}√|{% endif %}<ruby>{{uid}}<rt class='ttt' data-rt="{{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}}天"></rt></ruby>|{{config.notify_smtp_To[uid]}}

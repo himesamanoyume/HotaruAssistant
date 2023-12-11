@@ -72,12 +72,11 @@ data-rt="{{uid}}"
 
 </section>
 <hr>
-<div class=post-txt-container-title style=color:#d9d9d9>
-<h4 style=color:#66ccff>
-    设置界面
-</h4>
-</div>
+
 <section class=post-detail-txt style=color:#d9d9d9>
+<h6 style=color:#66ccff>
+    配置信息
+</h6>
 <p>清开拓力时将要打的副本类型:
     <select class=configSelect name=instance_type>
         <option value="无" {% if "无" == config.instance_type[uid] %} selected {% endif %}>无</option>
@@ -214,10 +213,40 @@ data-rt="{{uid}}"
         </select>
     </p>
 </p>
+<h6 style=color:#66ccff>
+    激活信息
+</h6>
+<p>是否过期:
+    {% if config.account_active[uid]['isExpired'] %} 
+    <span class=important style=background-color:#40405f;color:#d85959>已过期 
+    {% else %} 
+    <span class=important style=background-color:#40405f;color:#66ccff>未过期
+    {% endif %}
+    </span>
+</p>
+<div class=post-txt-container-datetime style=color:#d9d9d9>
+    如果过期,则启动Client时显示的列表中将跳过该UID
+</div>
+<p>激活起始日期(时间戳要改):
+    <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ActiveDate']}}</span>
+</p>
+<p>激活的天数:
+    <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ActiveDay']}}</span>天
+</p>
+<p>激活过期日期(时间戳要改):
+    <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ExpirationDate']}}</span>
+</p>
+<p>激活天数剩余:
+    <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}}</span>天
+</p>
+<p>绑定中的邮箱地址:
+    <input name="email" type="email" style="width: 200px;" placeholder="123456789@qq.com" value="{{config.notify_smtp_To[uid]}}">
+</p>
 {% endblock %}
 {% block bottompostpage %}
 <div class="post-page">
-    <button class="link-button" id="submitChange" onclick="config_submitChange()">提交</button>
+    <button class="link-button" id="submitChange" onclick="config_submitChange()">更改配置信息</button>
+    <button class="link-button" id="submitChange" onclick="active_submitChange()">更改激活信息</button>
 </div>
 {% endblock %}
 {% block post_datetime %}

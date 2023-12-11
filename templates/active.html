@@ -1,0 +1,18 @@
+{% extends 'common.html' %}
+{% block head %}
+HimeProducer | 激活
+{% endblock %}
+{% block title %}
+续期界面
+{% endblock %}
+{% block section %}
+<p>为所有激活中的UID延长激活时间</p>
+<p>要续期的天数:
+    <input name="add_active_day" type="number" style="width: 80px;" placeholder="1" min="0">天
+</p>
+{% endblock %}
+{% block bottompostpage %}
+<div class="post-page">
+    <button class="link-button" id="submitChange" onclick="add_active()">续期</button>
+</div>
+{% endblock %}

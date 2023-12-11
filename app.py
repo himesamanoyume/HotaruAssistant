@@ -79,6 +79,11 @@ def register_save():
     config.save_config()
     return ''
 
+@app.route('/active')
+def active():
+    config.reload()
+    return render_template('active.html',config=config)
+            
 if __name__ == '__name__':
     #cmd: flask run --debug --host=0.0.0.0
     app.run(host='0.0.0.0')

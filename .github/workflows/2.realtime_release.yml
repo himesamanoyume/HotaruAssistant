@@ -44,6 +44,7 @@ jobs:
           xcopy /E /I /Y .\assets\ .\dist\March7thAssistantPrivate\assets\
           xcopy /E /I /Y .\static\ .\dist\March7thAssistantPrivate\static\
           xcopy /Y .\README.md .\dist\March7thAssistantPrivate\
+          xcopy /Y .\static\css\common.css .\dist\March7thAssistantPrivate\assets\css\
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3

@@ -24,7 +24,7 @@ class Universe:
         config.set_value("universe_requirements", False)
         from module.update.update_handler import UpdateHandler
         from tasks.base.fastest_mirror import FastestMirror
-        url = FastestMirror.get_github_mirror("https://github.com/CHNZYX/Auto_Simulated_Universe/archive/main.zip")
+        url = FastestMirror.get_github_mirror("https://github.com/himesamanoyume/Auto_Simulated_Universe/archive/main.zip")
         update_handler = UpdateHandler(url, config.universe_path, "Auto_Simulated_Universe-main")
         update_handler.run()
 

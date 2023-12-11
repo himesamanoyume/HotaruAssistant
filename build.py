@@ -5,4 +5,4 @@ from tasks.daily.fight import Fight
 if __name__ == "__main__":
     check_path()
     Universe.check_path()
-    Fight.check_path()
+    # Fight.check_path()

@@ -63,9 +63,9 @@ class Game:
 
             if isSendEmail:
                 if config.daily_tasks_fin[Utils.get_uid()]:
-                    notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _(f"上号详细情况{subTitle}"))
+                    notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _(f"上号详细{subTitle}"))
                 else:
-                    notify.notify(f"UID:{Utils.get_uid()},每日尚未完成",f"上号详细情况{subTitle}", isSingle=True)
+                    notify.notify(f"UID:{Utils.get_uid()},每日尚未完成",f"上号详细{subTitle}", isSingle=True)
             else:
                 logger.info("未开启发送邮件")
 
