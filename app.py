@@ -20,12 +20,15 @@ def index():
 
 @app.route('/<uid>')
 def config_setting(uid):
+    from datetime import datetime
     config.reload()
     with open("./assets/config/task_score_mappings.json", 'r', encoding='utf-8') as score_json:
         task_score = json.load(score_json)
         with open("./assets/config/ruby_detail.json", 'r', encoding='utf-8') as ruby_json:
             ruby = json.load(ruby_json)
-            return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score)
+            ActiveDate = str(datetime.fromtimestamp(config.account_active[uid]['ActiveDate'])).split('.')[0]
+            ExpirationDate = str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]
+            return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score,ActiveDate=ActiveDate, ExpirationDate=ExpirationDate)
 
 @app.route('/register')
 def register():
@@ -34,7 +37,7 @@ def register():
             ruby = json.load(ruby_json)
             return render_template('register.html',ruby=ruby)
 
-@app.route('/<uid>/save',methods=['POST'])
+@app.route('/<uid>/configsave',methods=['POST'])
 def config_save(uid):
     config.reload()
     data = request.get_json('data')
@@ -79,10 +82,40 @@ def register_save():
     config.save_config()
     return ''
 
+@app.route('/smtpsave',methods=['POST'])
+def smtp_save():
+    config.reload()
+    data = request.get_json('data')
+    config.set_value("notify_smtp_enable", data['notify_smtp_enable'])
+    config.set_value("notify_smtp_host", data['notify_smtp_host'])
+    config.set_value("notify_smtp_user", data['notify_smtp_user'])
+    config.set_value("notify_smtp_password", data['notify_smtp_password'])
+    config.set_value("notify_smtp_From", data['notify_smtp_From'])
+    return ''
+
+@app.route('/<uid>/activesave',methods=['POST'])
+def active_save(uid):
+    config.reload()
+    data = request.get_json('data')
+    if data['isWantActive']:
+        config.account_active[uid]['isWantActive'] = data['isWantActive']
+        config.account_active[uid]['ActiveDay'] = data['changeActiveDay']
+
+    config.notify_smtp_To[uid] = data['notify_smtp_To']
+    config.save_config()
+    return ''
+
 @app.route('/active')
 def active():
     config.reload()
     return render_template('active.html',config=config)
+
+@app.route('/addactivesave',methods=['POST'])
+def all_active_save():
+    config.reload()
+    data = request.get_json('data')
+    config.set_value("all_account_active_day", data['add_active_day'])
+    return ''
             
 if __name__ == '__name__':
     #cmd: flask run --debug --host=0.0.0.0

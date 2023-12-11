@@ -227,26 +227,38 @@ data-rt="{{uid}}"
 <div class=post-txt-container-datetime style=color:#d9d9d9>
     如果过期,则启动Client时显示的列表中将跳过该UID
 </div>
-<p>激活起始日期(时间戳要改):
-    <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ActiveDate']}}</span>
+<p>激活起始日期:
+    <span class=important style=background-color:#40405f;color:#66ccff>{{ActiveDate}}</span>
 </p>
 <p>激活的天数:
     <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ActiveDay']}}</span>天
 </p>
-<p>激活过期日期(时间戳要改):
-    <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ExpirationDate']}}</span>
+<blockquote>
+<p>更改激活天数:
+    <input name="changeActiveDay" type="number" style="width: 100px;" value="{{config.account_active[uid]['ActiveDay']}}">天
+</p>
+<p>再次确认是否更改?
+    <input name="isWantActive" type="checkbox" {% if config.account_active[uid]['isWantActive'] %} checked {% endif %}>
+</p>
+</blockquote>
+<div class=post-txt-container-datetime style=color:#d9d9d9>
+    若要<span class=important>保存更改激活天数必须勾选再次确认</span>,在不勾选的情况下如果保存激活信息,则更改激活天数不会做出修改<br>
+    勾选后需要等到下一次启动Client时脚本将会根据新的天数再次激活UID并重新计算过期时间
+</div>
+<p>激活过期日期:
+    <span class=important style=background-color:#40405f;color:#66ccff>{{ExpirationDate}}</span>
 </p>
 <p>激活天数剩余:
     <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}}</span>天
 </p>
 <p>绑定中的邮箱地址:
-    <input name="email" type="email" style="width: 200px;" placeholder="123456789@qq.com" value="{{config.notify_smtp_To[uid]}}">
+    <input name="notify_smtp_To" type="email" style="width: 200px;" placeholder="123456789@qq.com" value="{{config.notify_smtp_To[uid]}}">
 </p>
 {% endblock %}
 {% block bottompostpage %}
 <div class="post-page">
-    <button class="link-button" id="submitChange" onclick="config_submitChange()">更改配置信息</button>
-    <button class="link-button" id="submitChange" onclick="active_submitChange()">更改激活信息</button>
+    <button class="link-button" id="submitChange" onclick="config_submitChange()">保存配置信息</button>
+    <button class="link-button" id="submitChange" onclick="active_submitChange()">保存激活信息</button>
 </div>
 {% endblock %}
 {% block post_datetime %}

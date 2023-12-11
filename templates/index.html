@@ -4,18 +4,51 @@ HimeProducer | 主页
 {% endblock %}
 {% block toppostpage %}
 <div class="post-page">
+    <button class="link-button" id="smtp" onclick="smtp_submitChange()">保存smtp设置</button>
     <a class="link-button" id="register" style="text-decoration:none" href="./register">注册界面</a>
-    <a class="link-button" id="active" style="text-decoration:none" href="./active">续期界面</a>
+    <a class="link-button" id="active" style="text-decoration:none" href="./active">全体续期界面</a>
 </div>
 {% endblock %}
 {% block title %}
 管理界面
 {% endblock %}
 {% block section %}
-    <p>邮件归档中心的邮箱地址:(未完成)</p>
+    <h6 style=color:#66ccff>
+        SMTP服务
+    </h6>
+    <p>使用SMTP服务,首先需要<span class="important">登录网页qq邮箱→设置→账号→POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务→开启服务</span></p>
+    <p><a href="https://mail.qq.com/" target="_blank">打开QQ邮箱</a></p>
+    <p>是否开启脚本SMTP服务:
+        <input type="checkbox" name="notify_smtp_enable" {% if config.notify_smtp_enable %} checked {% endif %}>
+    </p>
     <div class=post-txt-container-datetime style=color:#d9d9d9>
-        当脚本发送邮件时,都会同时再发送另一封副本邮件到邮件归档中心,用于查看所有发送过的邮件
+        此处显示的是脚本是否启动服务,需要qq邮箱和脚本都开启,才能使用
     </div>
+    <p>邮箱域名:
+        <input name="notify_smtp_host" type="text" style="width: 200px;" placeholder="smtp.qq.com" value="{{config.notify_smtp_host}}">
+    </p>
+    <div class=post-txt-container-datetime style=color:#d9d9d9>
+        通常就填smtp.qq.com
+    </div>
+    <p>邮件归档中心的邮箱地址:
+        <input name="notify_smtp_user" type="email" style="width: 200px;" placeholder="xxxxxx@qq.com" value="{{config.notify_smtp_user}}">
+    </p>
+    <div class=post-txt-container-datetime style=color:#d9d9d9>
+        当脚本发送邮件时,都会同时再发送另一封副本邮件到邮件归档中心,用于备份,以便随时查看所有发送过的邮件中的内容
+    </div>
+    <p>授权码:
+        <input name="notify_smtp_password" type="text" style="width: 200px;" placeholder="需要到对应邮箱里获取" value="{{config.notify_smtp_password}}">
+    </p>
+    <div class=post-txt-container-datetime style=color:#d9d9d9>
+        <span class="important">POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务→管理服务→生成授权码</span><br>授权码相当于密码,SMTP服务登录时不使用密码而是要使用授权码
+    </div>
+    <p>发件人邮箱地址:
+        <input name="notify_smtp_From" type="email" style="width: 200px;" placeholder="{{config.notify_smtp_user}}" value="{{config.notify_smtp_From}}">
+    </p>
+    <div class=post-txt-container-datetime style=color:#d9d9d9>
+        发件人通常填归档中心的邮箱地址,也可以另选
+    </div>
+    <hr>
     <h6 style=color:#66ccff>
         UID总览
     </h6>

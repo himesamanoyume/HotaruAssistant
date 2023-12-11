@@ -3,16 +3,25 @@
 HimeProducer | 激活
 {% endblock %}
 {% block title %}
-续期界面
+全体续期界面
 {% endblock %}
 {% block section %}
 <p>为所有激活中的UID延长激活时间</p>
 <p>要续期的天数:
     <input name="add_active_day" type="number" style="width: 80px;" placeholder="1" min="0">天
 </p>
+<p>再次确认是否全体续期?
+    <input name="all_add_active_confirm" type="checkbox">
+</p>
+<div class=post-txt-container-datetime style=color:#d9d9d9>
+    若要<span class=important>保存全体续期必须勾选再次确认</span>,在不勾选的情况下无法保存
+</div>
+<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>
+    <p>注意:如果使用了全体续期,将会在下次启动Client时进行激活,同时还会向所有被续期的UID所绑定的邮箱发送全体公告邮件,用以告知此次续期事件,所以谨慎使用</p>
+</blockquote>
 {% endblock %}
 {% block bottompostpage %}
 <div class="post-page">
-    <button class="link-button" id="submitChange" onclick="add_active()">续期</button>
+    <button class="link-button" id="submitChange" onclick="all_add_active()">全部续期</button>
 </div>
 {% endblock %}

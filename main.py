@@ -348,7 +348,7 @@ def modify_all_account_active_day():
                 config.account_active[uidStr3]['ActiveDay'] += config.all_account_active_day
         config.save_config()
         logger.info(f"为所有未过期账号延长{config.all_account_active_day}天时间")
-        notify.announcement(_("普罗丢瑟代练 - 通知"), _(f"<p>为所有未过期账号延长{config.all_account_active_day}天时间</p>"))
+        notify.announcement(_("通知"), _(f"<p>为所有未过期账号延长{config.all_account_active_day}天时间</p>"))
         config.set_value('all_account_active_day', 0)
     elif config.all_account_active_day == 0:
         return
