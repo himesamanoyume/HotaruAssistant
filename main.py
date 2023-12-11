@@ -288,7 +288,8 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
                 Daily.end()
             elif action == "forgottenhall":
                 ForgottenHall.start()
-            if (config.instance_type[currentUID] == '模拟宇宙' or not config.universe_fin[currentUID]) and Utils._totalTime >= 900:
+
+            if config.instance_type[currentUID] == '模拟宇宙' or (not config.universe_fin[currentUID] or Utils._totalTime >= 900):
                 Game.stop(index ,True, currentUID, _lastUID, action=action)
             else:
                 Game.stop(index ,True, currentUID, _lastUID, action=action, isSendEmail=False)

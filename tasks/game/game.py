@@ -66,6 +66,8 @@ class Game:
                     notify.notify(_(f'UID:{Utils.get_uid()},上号刚刚结束!'), _(f"上号详细情况{subTitle}"))
                 else:
                     notify.notify(f"UID:{Utils.get_uid()},每日尚未完成",f"上号详细情况{subTitle}", isSingle=True)
+            else:
+                logger.info("未开启发送邮件")
 
         if config.multi_login:
             logger.hr(_("多账号结束运行一个账号"), 0)

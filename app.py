@@ -57,11 +57,25 @@ def config_save(uid):
     return ''
 
 @app.route('/register/save',methods=['POST'])
-def register_save(uid):
+def register_save():
     config.reload()
     data = request.get_json('data')
-
-    
+    uid = data['reg_uid']
+    config.want_register_accounts[uid] = {}
+    config.want_register_accounts[uid]['email'] = data['email']
+    config.want_register_accounts[uid]['reg_path'] = f"./reg/starrail-{uid}.reg"
+    config.want_register_accounts[uid]['active_day'] = data['active_day']
+    config.want_register_accounts[uid]['email'] = data['email']
+    config.want_register_accounts[uid]['universe_team'] = {}
+    tempList = list()
+    tempList.append(data['universe_team0'])
+    tempList.append(data['universe_team1'])
+    tempList.append(data['universe_team2'])
+    tempList.append(data['universe_team3'])
+    config.want_register_accounts[uid]['universe_team'] = tempList
+    config.want_register_accounts[uid]['universe_fate'] = data['universe_fate']
+    config.want_register_accounts[uid]['universe_number'] = data['universe_number']
+    config.want_register_accounts[uid]['universe_difficulty'] = data['universe_difficulty']
     config.save_config()
     return ''
 

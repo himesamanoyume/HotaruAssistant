@@ -43,6 +43,8 @@ function config_submitChange(){
             type:"POST",
         }).done(function(){
             alert(uid+"已提交")
+        }).fail(function(){
+            alert("提交失败!")
         })
     }
 }
@@ -60,6 +62,16 @@ function register_submitChange(){
         var universe_team2 = $('select[name="universe_team2"]').val()
         var universe_team3 = $('select[name="universe_team3"]').val()
 
+        if (reg_uid==''){
+            alert("uid不能为空")
+            return
+        }
+
+        if (email==''){
+            alert("邮箱地址不能为空")
+            return
+        }
+
         var json={
             "reg_uid":reg_uid,
             "email":email,
@@ -72,13 +84,31 @@ function register_submitChange(){
             "universe_team2":universe_team2,
             "universe_team3":universe_team3,
         }
+
+        if (json['reg_uid'] < 100000000 || json['reg_uid'] > 999999999){
+            alert("uid格式不正确")
+            return
+        }
+
+        if (json['active_day'] <= 0){
+            alert("激活天数不正确,必须大于0")
+            return
+        }
+
+        if ($.unique([universe_team0, universe_team1, universe_team2, universe_team3]).length != 4) {
+            alert("存在两个或更多角色选择重复")
+            return
+        }
+
         $.ajax({
             url:"./register/save",
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
         }).done(function(){
-            alert(uid+"已提交")
+            alert("已提交")
+        }).fail(function(){
+            alert("提交失败!")
         })
     }
 }
