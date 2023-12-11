@@ -17,8 +17,6 @@ By: 姫様の夢
 ## TODO
 
 - 领取每日奖励时都截图一张,在邮件中发送(类似100593155_2023_12_12.png)
-- ~~config中钉钉通知相关是否可以删除~~
-- ~~app.py中直接将config的激活时刻时间戳与过期时刻时间戳转换为日期传入网页~~
 - 脚本新增网络获取api key,如果对应api key不允许,则无法启动该脚本
 - flask新增发送通知功能(notify_app.py)
 - 缺少银枝寒鸦的icon
@@ -27,7 +25,6 @@ By: 姫様の夢
 - config新增设置多少时间重新开始循环
 - 重新实现检查更新
 - server关闭时发送给client强制关闭请求
-- ~~webui实现account_active,all_account_active_day~~
 - config save load用队列
 - 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测
 - 新增继续模拟宇宙（继续进度，结束并结算）

@@ -3,7 +3,6 @@ from managers.screen_manager import screen
 from managers.automation_manager import auto
 from managers.utils_manager import gu
 from managers.logger_manager import logger
-from tasks.reward.reward import Reward
 from tasks.daily.utils import Utils
 import time
 
@@ -37,7 +36,7 @@ class HimekoTry:
     @staticmethod
     def enemy_20():
         logger.info(gu("开始进行累计消灭20个敌人"))
-        if config.daily_tasks[Utils.get_uid()]['累计消灭20个敌人']:
+        if not config.daily_tasks[Utils.get_uid()]['累计消灭20个敌人']:
             logger.info(gu("【累计消灭20个敌人】已被顺带完成"))
             return True
         return HimekoTry.total() and HimekoTry.total()
@@ -45,7 +44,7 @@ class HimekoTry:
     @staticmethod
     def weakness_to_fight():
         logger.info(gu("开始进行利用弱点进入战斗并获胜3次"))
-        if config.daily_tasks[Utils.get_uid()]['利用弱点进入战斗并获胜3次']:
+        if not config.daily_tasks[Utils.get_uid()]['利用弱点进入战斗并获胜3次']:
             logger.info(gu("【利用弱点进入战斗并获胜3次】已被顺带完成"))
             return True
         return HimekoTry.total() and HimekoTry.total()

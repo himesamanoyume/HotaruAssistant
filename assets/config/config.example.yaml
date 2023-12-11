@@ -113,14 +113,14 @@ fight_team_number: '2' # 队伍编号
 fight_requirements: false # 是否安装过依赖（更新后会重置为false）
 fight_timestamp: {} # 上次运行锄大地的时间戳（每天运行）
 
-universe_enable: false # 启用模拟宇宙
+universe_enable: true # 启用模拟宇宙
 # universe_operation_mode: exe # 运行方式 源码: source 集成: exe
-universe_bonus_enable: false # 领取沉浸奖励
+universe_bonus_enable: true # 领取沉浸奖励
 universe_fin: {} # 是否模拟宇宙满分
 universe_score: {} # 模拟宇宙积分
 universe_count: 2 # 运行次数
 universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
-universe_timeout: 20 # 模拟宇宙超时（单位小时）
+universe_timeout: 0.67 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）
 universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
 universe_number: {} # 第几宇宙
@@ -178,7 +178,7 @@ notify_smtp_ssl: '' # 可选参数
 
 all_account_active_day: 0 # 给所有账号增加天数
 account_active:
-    '100193509':
+    '111111111':
         isExpired: false # 是否过期,如果过期,启动列表跳过该项
         isWantActive: false # 只有在此项为true时才会重新计算过期时间戳
         ActiveDate: 0 # 激活时刻的时间戳
