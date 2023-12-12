@@ -175,6 +175,7 @@ notify_smtp_From: '' # 可选参数
 notify_smtp_To: {} # 可选参数
 notify_smtp_port: '587' # 可选参数 587,465
 notify_smtp_ssl: '' # 可选参数
+notify_smtp_master: '' # 正在控制该脚本的使用者的专用邮箱
 
 all_account_active_day: 0 # 给所有账号增加天数
 account_active:

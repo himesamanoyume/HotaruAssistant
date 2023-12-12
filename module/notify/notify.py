@@ -306,7 +306,7 @@ class Notify:
 
 
 
-    def announcement(self, title='', content='', image_io=None, isSingle=False):
+    def announcement(self, title='', content='', image_io=None, isSingle=False, singleTo=''):
         for notifier_name in self.notifiers:
             self._send_announcement(notifier_name, title, content, isSingle)
             # if image_io:
@@ -314,12 +314,12 @@ class Notify:
             # else:
             #     self._send_announcement(notifier_name, title, content)
 
-    def _send_announcement(self, notifier_name, title, content, isSingle=False):
+    def _send_announcement(self, notifier_name, title, content, isSingle=False, singleTo=''):
         if self.notifiers.get(notifier_name, False):
 
             if notifier_name == "smtp":
                 if isSingle:
-                    self._send_single_notify_by_smtp(title, content)
+                    self._send_single_notify_by_smtp(title, content, singleTo=singleTo)
                 else:
                     self._send_announcement_by_smtp(title, content)
                 return
@@ -373,7 +373,7 @@ class Notify:
         sendHostEmail.quit()
         logger.info(gu("smtp 公告/通知发送完成"))
 
-    def _send_single_notify_by_smtp(self, title, content):
+    def _send_single_notify_by_smtp(self, title, content, singleTo=''):
         sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
         sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
         
@@ -417,10 +417,10 @@ class Notify:
 
         html = f"{htmlStr}"
         emailObject.attach(MIMEText(html,'html','utf-8'))
-        emailObject['To'] = '285835609@qq.com'
+        emailObject['To'] = config.notify_smtp_single
 
-        sendHostEmail.sendmail(config.notify_smtp_From, '285835609@qq.com', str(emailObject))
-        sendHostEmail.sendmail(config.notify_smtp_From, 'himeproducer@qq.com', str(emailObject))
+        sendHostEmail.sendmail(config.notify_smtp_From, singleTo, str(emailObject))
+        sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_user, str(emailObject))
         # if not uid == '-1':
         #     sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_To[uid], str(emailObject))
 
@@ -450,10 +450,10 @@ class Notify:
                 </main>
                 <footer class=footer style=color:#d9d9d9>
                     <div class=footer-content>
-                        Copyright © 2021-2023 @姫様の夢/公主殿下的梦境
+                        Copyright © 2021-2024 @姫様の夢
                     </div>
                     <div class=footer-content>
-                        <a>HIMEPRODUCER</a> Ver{version}
+                        <a>HIMEPRODUCER</a> {version}
                     </div>
                 </footer>
             </div>
@@ -540,7 +540,9 @@ class Notify:
 
         return multi_content, universe_content
 
-version = '1.0.7'
+version_txt = open("./assets/config/version.txt", "r", encoding='utf-8')
+version = version_txt.read()
+version_txt.close()
 css = open("./assets/css/common.css", 'r', encoding='utf-8')
 htmlStyle = css.read()
 css.close()

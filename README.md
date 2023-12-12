@@ -16,10 +16,9 @@ By: 姫様の夢
 
 ## TODO
 
+- 实现脚本先查一遍数据库的特殊字段是否生效,生效才能继续使用
 - webui表单变动时提示
-- 领取每日奖励时都截图一张,在邮件中发送(类似100593155_2023_12_12.png)
-- 脚本新增网络获取api key,如果对应api key不允许,则无法启动该脚本
-- flask新增发送通知功能(notify_app.py)
+- ~~flask新增发送通知功能(notify_app.py)~~
 - 缺少银枝寒鸦的icon
 - client新增检查是否开启server并提示
 - config冲突还未完全解决(所有config操作前加上config.reload())

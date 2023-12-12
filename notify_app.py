@@ -9,9 +9,9 @@ def main():
 
     if type in ['1','2']:
         if type == '1':
-            notify.announcement("HimeProducer - 公告", f"<p>{content}</p>")
+            notify.announcement("全体公告", f"<p>{content}</p>")
         elif type == '2':
-            notify.announcement("单人通知!", f"<p>{content}</p>", isSingle=True)
+            notify.announcement("单人通知", f"<p>{content}</p>", isSingle=True, )
 
     input(("按回车键关闭窗口. . ."))
     sys.exit(1)

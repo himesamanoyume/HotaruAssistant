@@ -151,13 +151,15 @@ function smtp_submitChange(){
         var notify_smtp_user = $('input[name="notify_smtp_user"]').val()
         var notify_smtp_password = $('input[name="notify_smtp_password"]').val()
         var notify_smtp_From = $('input[name="notify_smtp_From"]').val()
+        var notify_smtp_master = $('input[name="notify_smtp_master"]').val()
 
         var json={
             "notify_smtp_enable":notify_smtp_enable,
             "notify_smtp_host":notify_smtp_host,
             "notify_smtp_user":notify_smtp_user,
             "notify_smtp_password":notify_smtp_password,
-            "notify_smtp_From":notify_smtp_From
+            "notify_smtp_From":notify_smtp_From,
+            "notify_smtp_master":notify_smtp_master
         }
         $.ajax({
             url:"./smtpsave",
@@ -197,7 +199,7 @@ function all_add_active(){
         }
 
         $.ajax({
-            url:"./addactivesave",
+            url:"./active/alladd",
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
@@ -205,6 +207,72 @@ function all_add_active(){
             alert("已保存")
         }).fail(function(){
             alert("保存失败!")
+        })
+    }
+}
+
+function announcement(){
+    if(confirm("确定发布全体公告吗?")){
+        var notify_title = $('input[name="notify_title"]').val()
+        var notify_content = $('#notify_content').val()
+
+        if (notify_title==''){
+            alert("标题不能为空")
+            return
+        }
+        if (notify_content==''){
+            alert("内容不能为空")
+            return
+        }
+
+        var json={
+            "notify_title":notify_title,
+            "notify_content":notify_content
+        }
+
+        $.ajax({
+            url:"./notify/announcement",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已发布")
+        }).fail(function(){
+            alert("发布失败!")
+        })
+    }
+}
+
+function announcement_single(){
+    if(confirm("确定发布单人通知吗?")){
+        var notify_title = $('input[name="notify_title"]').val()
+        var notify_content = $('#notify_content').val()
+        var notify_single = $('select[name="notify_single"]').val()
+
+        if (notify_title==''){
+            alert("标题不能为空")
+            return
+        }
+        if (notify_content==''){
+            alert("内容不能为空")
+            return
+        }
+
+        var json={
+            "notify_title":notify_title,
+            "notify_content":notify_content,
+            "notify_single":notify_single
+        }
+
+        $.ajax({
+            url:"./notify/single",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已发布")
+        }).fail(function(){
+            alert("发布失败!")
         })
     }
 }

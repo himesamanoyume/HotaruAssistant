@@ -1533,6 +1533,19 @@
         border: 1px solid #66ccff;
         position: relative;
     }
+
+    textarea{
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        background: #40405f;
+        color: #66ccff;
+        width: 300px;
+        height: 150px;
+        line-height: 15px;
+        outline: none;
+        border: 1px solid #66ccff;
+        position: relative;
+    }
     
     input:checked::after {
         content: '';
