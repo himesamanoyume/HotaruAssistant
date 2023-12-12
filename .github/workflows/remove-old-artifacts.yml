@@ -7,11 +7,13 @@ on:
 
 jobs:
   remove-old-artifacts:
+    permissions:
+      actions: write
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-    - name: Remove artifacts
+    - name: Remove old artifacts
       uses: c-hive/gha-remove-artifacts@v1 
       with:
         age: '3 days'
