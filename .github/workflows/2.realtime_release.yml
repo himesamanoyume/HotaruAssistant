@@ -48,3 +48,4 @@ jobs:
         with:
           name: March7thAssistantPrivate_${{ github.run_number }}
           path: ./dist/March7thAssistantPrivate
+          retention-days: 1
