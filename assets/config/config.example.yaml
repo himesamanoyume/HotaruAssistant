@@ -9,7 +9,8 @@ blacklist_uid: # UID黑名单,uid后为黑名单原因
 - '111111111' # 太帅
 - '222222222' # 太帅
 after_finish: None # 任务完成后: "None"（无）"Exit"（退出）"Loop"（循环）"Shutdown"（关机）"Hibernate"（休眠）"Sleep"（睡眠）
-power_limit: 10 # 循环运行所需开拓力
+power_limit: 10 # 循环运行所需开拓力(已弃用该项)
+next_loop_time: 12 # 下一次循环开始所等待的时间 单位:小时
 play_audio: false # 任务完成后播放提示音
 multi_login: true # 是否多账号登录
 multi_login_accounts: {} # 多账号注册表位置
@@ -160,6 +161,8 @@ forgottenhall_team2: # 队伍2
 forgottenhall_timestamp: {} # 上次运行混沌回忆的时间戳（每周运行，如已经满星则跳过）
 
 hotkey_technique: e # 游戏内设置的秘技按键
+hotkey_obs_start: '[' # obs开始录制的快捷键
+hotkey_obs_stop: ']' # obs开始录制的快捷键
 
 # 消息通知
 # Windows 原生通知

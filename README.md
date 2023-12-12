@@ -17,12 +17,11 @@ By: 姫様の夢
 ## TODO
 
 - 实现脚本先查一遍数据库的特殊字段是否生效,生效才能继续使用
-- webui表单变动时提示
 - ~~flask新增发送通知功能(notify_app.py)~~
 - 缺少银枝寒鸦的icon
 - client新增检查是否开启server并提示
 - config冲突还未完全解决(所有config操作前加上config.reload())
-- config新增设置多少时间重新开始循环
+- ~~config新增设置多少时间重新开始循环~~
 - 重新实现检查更新
 - server关闭时发送给client强制关闭请求
 - config save load用队列

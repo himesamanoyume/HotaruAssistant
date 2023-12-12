@@ -93,6 +93,17 @@ def smtp_save():
     config.set_value("notify_smtp_master", data['notify_smtp_master'])
     return ''
 
+@app.route('/miscsave',methods=['POST'])
+def misc_save():
+    config.reload()
+    data = request.get_json('data')
+    config.set_value("next_loop_time", data['next_loop_time'])
+    config.set_value("hotkey_technique", data['hotkey_technique'])
+    config.set_value("recording_enable", data['recording_enable'])
+    config.set_value("hotkey_obs_start", data['hotkey_obs_start'])
+    config.set_value("hotkey_obs_stop", data['hotkey_obs_stop'])
+    return ''
+
 @app.route('/<uid>/activesave',methods=['POST'])
 def active_save(uid):
     config.reload()
@@ -248,7 +259,7 @@ def send_announcement_single(title, content, uid, singleTo=''):
 
     html = f"{htmlStr}"
     emailObject.attach(MIMEText(html,'html','utf-8'))
-    emailObject['To'] = config.notify_smtp_single
+    emailObject['To'] = config.notify_smtp_master
 
     sendHostEmail.sendmail(config.notify_smtp_From, singleTo, str(emailObject))
     sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_user, str(emailObject))

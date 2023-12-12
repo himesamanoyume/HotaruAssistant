@@ -75,7 +75,7 @@ class Stop:
     @staticmethod
     def get_wait_time_with_total_time(total_time):
         # 距离体力到达配置文件指定的上限剩余秒数
-        wait_time = 12 * 3600 - total_time
+        wait_time = config.next_loop_time * 3600 - total_time
         if wait_time < 0:
             wait_time = 0
         # 距离第二天凌晨4点剩余秒数，+30避免显示3点59分不美观，#7

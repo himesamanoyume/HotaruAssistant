@@ -243,14 +243,14 @@ class Notify:
         
         import threading
         if isSingle:
-            t = threading.Thread(target=Notify.send_mail(config.notify_smtp_From, '285835609@qq.com', sendHostEmail, str(emailObject)))
+            t = threading.Thread(target=Notify.send_mail(config.notify_smtp_From, config.notify_smtp_master, sendHostEmail, str(emailObject)))
             t.start()
             t.join()
         else:
             t = threading.Thread(target=Notify.send_mail(config.notify_smtp_From, config.notify_smtp_To[uid], sendHostEmail, str(emailObject)))
             t.start()
             t.join()
-        t = threading.Thread(target=Notify.send_mail(config.notify_smtp_From, 'himeproducer@qq.com', sendHostEmail, str(emailObject)))
+        t = threading.Thread(target=Notify.send_mail(config.notify_smtp_From, config.notify_smtp_user, sendHostEmail, str(emailObject)))
         t.start()
         t.join()
         sendHostEmail.quit()
@@ -265,9 +265,6 @@ class Notify:
         if config.recording_enable:
             if os.path.isfile(mp4_file_path):
                 os.remove(mp4_file_path)
-
-        # sendHostEmail.sendmail(config.notify_smtp_From, , str(emailObject))
-        # sendHostEmail.sendmail(config.notify_smtp_From, [config.notify_smtp_To[uid], 'himeproducer@qq.com'], str(emailObject))
 
         logger.info(_("{notifier_name} 通知发送完成").format(notifier_name="smtp"))
 
@@ -369,7 +366,7 @@ class Notify:
             emailObject['To'] = value
             sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_To[index], str(emailObject))
         
-        sendHostEmail.sendmail(config.notify_smtp_From, 'himeproducer@qq.com', str(emailObject))
+        sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_user, str(emailObject))
         sendHostEmail.quit()
         logger.info(gu("smtp 公告/通知发送完成"))
 
@@ -417,7 +414,7 @@ class Notify:
 
         html = f"{htmlStr}"
         emailObject.attach(MIMEText(html,'html','utf-8'))
-        emailObject['To'] = config.notify_smtp_single
+        emailObject['To'] = config.notify_smtp_master
 
         sendHostEmail.sendmail(config.notify_smtp_From, singleTo, str(emailObject))
         sendHostEmail.sendmail(config.notify_smtp_From, config.notify_smtp_user, str(emailObject))

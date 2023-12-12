@@ -174,6 +174,53 @@ function smtp_submitChange(){
     }
 }
 
+function misc_submitChange(){
+    if(confirm("确定要保存吗?")){
+        var next_loop_time = $('input[name="next_loop_time"]').val()
+        var hotkey_technique = $('input[name="hotkey_technique"]').val()
+        var recording_enable = $('input[name="recording_enable"]').prop('checked')
+        var hotkey_obs_start = $('input[name="hotkey_obs_start"]').val()
+        var hotkey_obs_stop = $('input[name="hotkey_obs_stop"]').val()
+
+        if (hotkey_technique==''){
+            alert("游戏内设置的秘技按键不能为空")
+            return
+        }
+        if (hotkey_obs_start==''){
+            alert("OBS开始录制的快捷键不能为空")
+            return
+        }
+        if (hotkey_obs_stop==''){
+            alert("OBS停止录制的快捷键不能为空")
+            return
+        }
+
+        var json={
+            "next_loop_time":parseFloat(next_loop_time),
+            "hotkey_technique":hotkey_technique,
+            "recording_enable":recording_enable,
+            "hotkey_obs_start":hotkey_obs_start,
+            "hotkey_obs_stop":hotkey_obs_stop
+        }
+
+        if (json['next_loop_time'] <= 0){
+            alert("循环等待时间不正确,必须大于0")
+            return
+        }
+        
+        $.ajax({
+            url:"./miscsave",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已保存")
+        }).fail(function(){
+            alert("保存失败!")
+        })
+    }
+}
+
 function all_add_active(){
     if(confirm("确定要保存吗?")){
         var add_active_day = $('input[name="add_active_day"]').val()

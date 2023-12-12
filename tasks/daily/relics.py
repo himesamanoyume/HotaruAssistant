@@ -38,10 +38,13 @@ class Relics:
                                     count = countText.split('/')[0]
                                     logger.info(gu(f"已选数量:{count}/500"))
                                     if auto.click_element("分解", "text", max_retries=10, crop=(1597.0 / 1920, 958.0 / 1080, 285.0 / 1920, 65.0 / 1080)):
+                                        logger.info(gu(f"已点击分解遗器"))
                                         time.sleep(1)
                                         if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
+                                            logger.info(gu(f"已点击确认"))
                                             time.sleep(1)
                                             if auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                                                logger.info(gu(f"已点击关闭窗口"))
                                                 time.sleep(1)
                                                 logger.info(gu(f"分解遗器{count}件完成"))
                                                 screen.change_to('main')

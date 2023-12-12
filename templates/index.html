@@ -1,6 +1,6 @@
 {% extends 'common.html' %}
 {% block head %}
-HimeProducer | 主页
+HIMEPRODUCER | 主页
 {% endblock %}
 {% block toppostpage %}
 <div class="post-page">
@@ -9,7 +9,8 @@ HimeProducer | 主页
     <a class="link-button" id="active" style="text-decoration:none" href="./active">全体续期界面</a>
 </div>
 <div class="post-page">
-    <button class="link-button" id="smtp" onclick="smtp_submitChange()">保存SMTP设置</button>
+    <button class="link-button" id="smtp" onclick="smtp_submitChange()">保存SMTP服务设置</button>
+    <button class="link-button" id="misc" onclick="misc_submitChange()">保存杂项设置</button>
 </div>
 {% endblock %}
 {% block title %}
@@ -22,6 +23,8 @@ HimeProducer | 主页
     <h6 style=color:#66ccff>
         SMTP服务
     </h6>
+    <details>
+    <summary>点击</summary>
     <p>使用SMTP服务,首先需要<span class="important">登录网页qq邮箱→设置→账号→POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务→开启服务</span></p>
     <p><a href="https://mail.qq.com/" target="_blank">打开QQ邮箱</a></p>
     <p>是否开启脚本SMTP服务:
@@ -60,6 +63,37 @@ HimeProducer | 主页
     <div class=post-txt-container-datetime style=color:#d9d9d9>
         用于在发送全体公告时会额外发送一份至专用邮箱,以便查看邮件内容是否正确
     </div>
+    </details>
+    <h6 style=color:#66ccff>
+        杂项
+    </h6>
+    <details>
+    <summary>点击</summary>
+    <p>循环结束后到下一次开始等待的时间:
+        <input name="next_loop_time" type="number" style="width: 50px;" placeholder="默认12小时" value="{{config.next_loop_time}}">小时
+    </p>
+    <p>游戏内设置的秘技按键:
+        <input name="hotkey_technique" type="text" style="width: 60px;" placeholder="默认e" value="{{config.hotkey_technique}}">
+    </p>
+    <p>是否开启OBS录制:
+        <input type="checkbox" name="recording_enable" {% if config.recording_enable %} checked {% endif %}>
+    </p>
+    <div class=post-txt-container-datetime style=color:#d9d9d9>
+        如果要使用录制,需要先打开OBS,并且提前设置好抓取来源,设置→输出→输出模式改为高级<br>
+        在脚本根目录下<span class="important">新建records的文件夹</span>,并将录像路径设为该文件夹,勾选"生成没有空格的文件名"<br>
+        录像格式:<span class="important">MPEG-4(.mp4)</span>,编码器设置中速率控制:<span class="important">CBR</span>,码率:<span class="important">50Kbps</span><br>
+        设置→视频中分辨率尽可能低,如1280x720,<span class="important">帧率设置为10</span><br>
+        设置→快捷键中<span class="important">开始录制</span>和<span class="important">停止录制</span>分别设置为下面所填的快捷键,<span class="important" style="color: #d85959;">快捷键不要相同!</span><br>
+        如果开启OBS录制,则会在登录游戏时开始录制,退出游戏前结束录制,并将视频作为附件添加到邮件中发送<br>
+        <span class="important">如此低画质是由于QQ邮箱无法发送超过50MB大小的附件</span>
+    </div>
+    <p>OBS开始录制的快捷键:
+        <input name="hotkey_obs_start" type="text" style="width: 60px;" placeholder="默认[" value="{{config.hotkey_obs_start}}">
+    </p>
+    <p>OBS停止录制的快捷键:
+        <input name="hotkey_obs_stop" type="text" style="width: 60px;" placeholder="默认]" value="{{config.hotkey_obs_stop}}">
+    </p>
+    </details>
     <hr>
     <h6 style=color:#66ccff>
         UID总览
