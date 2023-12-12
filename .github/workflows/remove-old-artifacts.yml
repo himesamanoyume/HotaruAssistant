@@ -12,6 +12,6 @@ jobs:
 
     steps:
     - name: Remove artifacts
-    uses: c-hive/gha-remove-artifacts@v1.3.0  
+      uses: c-hive/gha-remove-artifacts@v1.3.0  
       with:
-        age: '3 days' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by
+        age: '3 days'
