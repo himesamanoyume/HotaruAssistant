@@ -1,9 +1,14 @@
 import socket
+import sys
 
 class Client:
     _instance = None
     c_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    c_socket.connect(('localhost', 3377))
+    try:
+        c_socket.connect(('localhost', 3377))
+    except Exception:
+        input("你在启动Client前必须先启动Server!\n按回车键关闭窗口. . .")
+        sys.exit(0)
 
     def __new__(cls):
         if cls._instance is None:

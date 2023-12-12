@@ -127,6 +127,7 @@ class Notify:
             return None
 
     def _send_notification_by_smtp(self, title, contentTitle, isSingle=False):
+        config.reload()
         sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
         sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
         emailObject = MIMEMultipart()
@@ -301,8 +302,6 @@ class Notify:
             else:
                 self._send_notification(notifier_name, title, content, isSingle)
 
-
-
     def announcement(self, title='', content='', image_io=None, isSingle=False, singleTo=''):
         for notifier_name in self.notifiers:
             self._send_announcement(notifier_name, title, content, isSingle)
@@ -322,6 +321,7 @@ class Notify:
                 return
             
     def _send_announcement_by_smtp(self, title, content):
+        config.reload()
         sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
         sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
         
@@ -371,6 +371,7 @@ class Notify:
         logger.info(gu("smtp 公告/通知发送完成"))
 
     def _send_single_notify_by_smtp(self, title, content, singleTo=''):
+        config.reload()
         sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
         sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
         

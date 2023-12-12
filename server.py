@@ -5,10 +5,14 @@ from app import apprun
 
 def handle_client(client_socket):
     while True:
-        data = client_socket.recv(1024)
-        if not data:
+        try:
+            data = client_socket.recv(1024)
+            if not data:
+                break
+            print(f"{data.decode('utf-8')}")
+        except Exception as e:
+            print(f"发生异常:{e}")
             break
-        print(f"{data.decode('utf-8')}")
 
 def run_flask():
     apprun()

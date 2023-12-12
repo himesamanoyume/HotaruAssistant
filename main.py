@@ -33,6 +33,7 @@ def main(action=None):
     #     logger.error(_("您尚未同意《免责声明》"))
     #     input(_("按回车键关闭窗口. . ."))
     #     sys.exit(0)
+    config.reload()
     if config.multi_login:
         # 多账号
         if len(config.multi_login_accounts) == 0:
@@ -54,6 +55,7 @@ def main(action=None):
             # notify.announcement("某UID运行时长超时警告!", "有某UID玩家运行时长超40分钟!这得治!", isSingle=True)
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(0)
+            config.reload()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
                 account_active_fun(uidStr)
@@ -107,6 +109,7 @@ def main(action=None):
                     config.universe_score[uidStr] = f'0/{maxScore}'
                     config.universe_fin[uidStr] = False
                 
+                config.reload()
                 loginDict.update({f'{uidStr}' : f'{str(config.multi_login_accounts[index])}'})
                 loginList.append(f'{str(config.multi_login_accounts[index])}')
                 temp_text = f":活跃度:{Utils.getConfigValue(config.daily_tasks_score, uidStr)},模拟宇宙积分:{Utils.getConfigValue(config.universe_score, uidStr)}"
@@ -188,6 +191,7 @@ def main(action=None):
 
 def run_new_accounts():
     logger.info("正在检测是否有新注册表加入")
+    config.reload()
     if len(config.want_register_accounts) > 1:
         logger.info("检测到有新注册表加入")
         for uid, item in config.want_register_accounts.items():
@@ -340,6 +344,7 @@ def exit_handler():
     ocr.exit_ocr()
 
 def modify_all_account_active_day():
+    config.reload()
     if config.all_account_active_day > 0:
         for index in range(len(config.multi_login_accounts)):
             uidStr3 = str(config.multi_login_accounts[index]).split('-')[1][:9]
@@ -357,6 +362,7 @@ def modify_all_account_active_day():
         config.set_value('all_account_active_day', 0)
 
 def account_active_fun(uid):
+    config.reload()
     if config.account_active[uid]['isWantActive']:
         logger.info(f"{uid}:正在激活,新的激活天数为{config.account_active[uid]['ActiveDay']}天")
         if config.account_active[uid]['isExpired']:

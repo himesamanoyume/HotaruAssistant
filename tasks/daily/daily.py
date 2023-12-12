@@ -28,7 +28,7 @@ class Daily:
 
 
     def sub():
-
+        config.reload()
         if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
             config.save_config()
             Echoofwar.echoofwar_get_times()
@@ -98,6 +98,7 @@ class Daily:
 
     @staticmethod
     def start():
+        config.reload()
         if config.multi_login:
             logger.hr(gu("多账号下开始日常任务"), 0)
 
@@ -173,7 +174,6 @@ class Daily:
         Daily.sub()
         Daily.end()
     
-
     def end():
         config.reload()
         Power.power()

@@ -17,13 +17,11 @@ By: 姫様の夢
 ## TODO
 
 - 实现脚本先查一遍数据库的特殊字段是否生效,生效才能继续使用
-- ~~flask新增发送通知功能(notify_app.py)~~
 - 缺少银枝寒鸦的icon
-- client新增检查是否开启server并提示
-- config冲突还未完全解决(所有config操作前加上config.reload())
-- ~~config新增设置多少时间重新开始循环~~
+- ~~client新增检查是否开启server并提示~~
+- ~~config冲突还未完全解决(所有config操作前加上config.reload())~~
 - 重新实现检查更新
-- server关闭时发送给client强制关闭请求
+- - 参考appQt的检查更新,实现在开启server时检查更新
 - config save load用队列
 - 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测
 - 新增继续模拟宇宙（继续进度，结束并结算）

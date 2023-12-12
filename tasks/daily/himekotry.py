@@ -209,6 +209,14 @@ class HimekoTry:
 
             time.sleep(10)
             screen.change_to("himeko_try")
+            if "累计击碎3个可破坏物" in config.daily_tasks[Utils.get_uid()]:
+                if config.daily_tasks[Utils.get_uid()]["累计击碎3个可破坏物"]:
+                    config.daily_tasks[Utils.get_uid()]["累计击碎3个可破坏物"] = False
+                    Utils.showDailyTasksScore("累计击碎3个可破坏物", Utils.get_uid())  
+            elif "累计施放2次秘技" in config.daily_tasks[Utils.get_uid()]:
+                if config.daily_tasks[Utils.get_uid()]["累计施放2次秘技"]:
+                    config.daily_tasks[Utils.get_uid()]["累计施放2次秘技"] = False
+                    Utils.showDailyTasksScore("累计施放2次秘技", Utils.get_uid())  
             return True
         else:
             logger.warning(gu("未开启姬子试用,跳过"))
