@@ -21,9 +21,7 @@ By: 姫様の夢
 
 ## TODO
 
-- ~~实现自动下载模拟宇宙~~
-- webui添加黑名单
-- 缺少银枝寒鸦的icon
+- None
 
 ## 低优先级
 
@@ -50,7 +48,7 @@ By: 姫様の夢
 
 ## 下载安装
 
-前往 [Releases](https://github.com/himesamanoyume/March7thAssistant/releases/latest) 下载
+前往 [Releases](https://github.com/himesamanoyume/himesamanoyume/releases/latest) 下载
 
 检测更新可以点击图形界面设置最底下的按钮，或双击 `Update.exe`
 

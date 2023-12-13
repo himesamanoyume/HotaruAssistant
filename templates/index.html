@@ -23,8 +23,6 @@ HIMEPRODUCER | 主页
     <h6 style=color:#66ccff>
         SMTP服务
     </h6>
-    <details>
-    <summary>点击</summary>
     <p>使用SMTP服务,首先需要<span class="important">登录网页qq邮箱→设置→账号→POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务→开启服务</span></p>
     <p><a href="https://mail.qq.com/" target="_blank">打开QQ邮箱</a></p>
     <p>是否开启脚本SMTP服务:
@@ -63,12 +61,9 @@ HIMEPRODUCER | 主页
     <div class=post-txt-container-datetime style=color:#d9d9d9>
         用于在发送全体公告时会额外发送一份至专用邮箱,以便查看邮件内容是否正确
     </div>
-    </details>
     <h6 style=color:#66ccff>
         杂项
     </h6>
-    <details>
-    <summary>点击</summary>
     <p>循环结束后到下一次开始等待的时间:
         <input name="next_loop_time" type="number" style="width: 50px;" placeholder="默认12小时" value="{{config.next_loop_time}}">小时
     </p>
@@ -93,7 +88,29 @@ HIMEPRODUCER | 主页
     <p>OBS停止录制的快捷键:
         <input name="hotkey_obs_stop" type="text" style="width: 60px;" placeholder="默认]" value="{{config.hotkey_obs_stop}}">
     </p>
-    </details>
+    <h6 style=color:#66ccff>
+        黑名单管理
+    </h6>
+    <div class=post-txt-container-datetime>
+        当UID被添加进黑名单时,启动脚本的列表中将会跳过该UID
+    </div>
+    <p>输入一个UID将其添加至黑名单:
+        <input name="blacklist_uid" type="number" style="width: 150px;" placeholder="111111111">
+        <button class="link-button" id="append_blacklist" style="width: 100px;" onclick="append_blacklist()">添加</button>
+    </p>
+    
+    <p>将一个UID移除黑名单:
+        <select class=configSelect name=blacklist_uid>
+            {% for uid in config.blacklist_uid %}
+                {% if uid in ['111111111','222222222'] %}
+
+                {% else %}
+                    <option value="{{uid}}">{{uid}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button class="link-button" id="remove_blacklist" style="width: 100px;" onclick="remove_blacklist()">移除</button>
+    </p>
     <hr>
     <h6 style=color:#66ccff>
         UID总览

@@ -17,7 +17,7 @@ from urllib.parse import urlparse
 
 class Update:
     def __init__(self, download_url=None):
-        self.process_name = ("March7th Assistant Client.exe", "March7th Assistant Register.exe", "March7th Assistant Server.exe")
+        self.process_name = ("March7th Assistant Client.exe", "March7th Assistant Register.exe", "March7th Assistant Server.exe", "Update.exe")
         self.api_urls = [
             "https://api.github.com/repos/himesamanoyume/himesamanoyume/releases/latest",
             "https://cdn.jsdelivr.net/gh/himesamanoyume/himesamanoyume@release/latest.json",

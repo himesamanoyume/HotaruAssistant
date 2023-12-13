@@ -547,13 +547,13 @@ class Notify:
         device_id = uuid.getnode()
 
         emailObject = MIMEMultipart()
-        themeObject = Header('设备使用通知', 'utf-8').encode()
+        themeObject = Header(f'设备使用通知:{multi_content}', 'utf-8').encode()
 
         emailObject['subject'] = themeObject
         emailObject['From'] = config.notify_smtp_From
 
         htmlStr=f"""
-            {Notify.head_content("设备使用通知")}
+            {Notify.head_content(f"设备使用通知:{multi_content}")}
                                     <section class=post-detail-txt style=color:#d9d9d9>
                                         <p>此次使用脚本的计算机名为:{multi_content}</p>
                                     </section>

@@ -150,6 +150,28 @@ def announcement_single():
     data = request.get_json('data')
     send_announcement_single(f"单人通知:{data['notify_title']}", f"<p>{data['notify_content']}</p>", data['notify_single'], config.notify_smtp_To[data['notify_single']])
     return ''
+
+@app.route('/blacklist/append',methods=['POST'])
+def append_blacklist():
+    config.reload()
+    data = request.get_json('data')
+    uid = str(data['blacklist_uid'])
+    if not uid in config.blacklist_uid:
+        config.blacklist_uid.append(uid)
+
+    config.save_config()
+    return ''
+
+@app.route('/blacklist/remove',methods=['POST'])
+def remove_blacklist():
+    config.reload()
+    data = request.get_json('data')
+    uid = str(data['blacklist_uid'])
+    if uid in config.blacklist_uid:
+        config.blacklist_uid.remove(uid)
+
+    config.save_config()
+    return ''
             
 if __name__ == '__name__':
     #cmd: flask run --debug --host=0.0.0.0

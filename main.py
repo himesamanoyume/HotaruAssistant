@@ -179,11 +179,12 @@ def main(action=None):
                                 else:
                                     continue
 
-                        logger.info(value)
-                        logger.debug("运行命令: cmd /C REG IMPORT {path}".format(path=value))
-                    
+                        logger.info(f"运行命令: cmd /C REG IMPORT {value}")
+
                         if os.system(f"cmd /C REG IMPORT {value}"):
+                            input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
                             return False
+                            
                         # logger.info(action)
                         if count == 1:
                             run(index, "universe", uidStr2, lastUID)

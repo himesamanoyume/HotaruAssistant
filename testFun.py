@@ -1,7 +1,8 @@
+from module.config.config import Config
 
 def testFun():
-    import socket
-    print(socket.gethostname())
+    config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
+    
 
 if __name__ == '__main__':
     testFun()

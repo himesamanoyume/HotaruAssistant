@@ -323,3 +323,65 @@ function announcement_single(){
         })
     }
 }
+
+function append_blacklist(){
+    if(confirm("确定添加该UID至黑名单吗?")){
+        var blacklist_uid = $('input[name="blacklist_uid"]').val()
+
+        if (blacklist_uid==''){
+            alert("uid不能为空")
+            return
+        }
+
+        var json={
+            "blacklist_uid":blacklist_uid
+        }
+
+        if (json['blacklist_uid'] < 100000000 || json['blacklist_uid'] > 999999999){
+            alert("uid格式不正确")
+            return
+        }
+        $.ajax({
+            url:"./blacklist/append",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已添加")
+            location.reload()
+        }).fail(function(){
+            alert("添加失败!")
+        })
+    }
+}
+
+function remove_blacklist(){
+    if(confirm("确定将该UID从黑名单中移除吗?")){
+        var blacklist_uid = $('select[name="blacklist_uid"]').val()
+
+        if (blacklist_uid==''){
+            alert("uid不能为空")
+            return
+        }
+
+        var json={
+            "blacklist_uid":blacklist_uid
+        }
+
+        if (json['blacklist_uid'] < 100000000 || json['blacklist_uid'] > 999999999){
+            alert("uid格式不正确")
+            return
+        }
+        $.ajax({
+            url:"./blacklist/remove",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已移除")
+            location.reload()
+        }).fail(function(){
+            alert("移除失败!")
+        })
+    }
+}
