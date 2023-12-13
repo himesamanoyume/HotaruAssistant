@@ -13,8 +13,8 @@ By: 姫様の夢
 原项目地址[https://github.com/moesnow/March7thAssistant](https://github.com/moesnow/March7thAssistant)
 
 <p>
-    <img alt="" src="https://img.shields.io/github/v/release/himesamanoyume/March7thAssistantPrivate?style=flat-square&color=4096d8" />
-    <img alt="" src="https://img.shields.io/github/downloads/himesamanoyume/March7thAssistantPrivate/total?style=flat-square&color=f18cb9" />
+    <img alt="" src="https://img.shields.io/github/v/release/himesamanoyume/himesamanoyume?style=flat-square&color=4096d8" />
+    <img alt="" src="https://img.shields.io/github/downloads/himesamanoyume/himesamanoyume/total?style=flat-square&color=f18cb9" />
 </p>
 
 </div>
@@ -37,7 +37,7 @@ By: 姫様の夢
 - 凌晨四点或体力恢复到指定值后自动启动
 - 任务完成后声音提示、自动关闭游戏或关机
 
-> 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/CHNZYX/Auto_Simulated_Universe) 项目，锄大地调用的 [Fhoe-Rail](https://github.com/linruowuyin/Fhoe-Rail) 项目
+> 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/himesamanoyume/Auto_Simulated_Universe) 项目，锄大地调用的 [Fhoe-Rail](https://github.com/himesamanoyume/Fhoe-Rail) 项目
 
 详情见 [配置文件](assets/config/config.example.yaml) 或图形界面设置 
 
@@ -58,9 +58,9 @@ March7thAssistantPrivate 离不开以下开源项目的帮助：
 
 - 原版三月七助手 [https://github.com/moesnow/March7thAssistant](https://github.com/moesnow/March7thAssistant)
 
-- 模拟宇宙自动化 [https://github.com/CHNZYX/Auto_Simulated_Universe](https://github.com/CHNZYX/Auto_Simulated_Universe)
+- 原版模拟宇宙自动化 [https://github.com/CHNZYX/Auto_Simulated_Universe](https://github.com/CHNZYX/Auto_Simulated_Universe)
 
-- 锄大地自动化 [https://github.com/linruowuyin/Fhoe-Rail](https://github.com/linruowuyin/Fhoe-Rail)
+- 原版锄大地自动化 [https://github.com/linruowuyin/Fhoe-Rail](https://github.com/linruowuyin/Fhoe-Rail)
 
 - OCR文字识别 [https://github.com/hiroi-sora/PaddleOCR-json](https://github.com/hiroi-sora/PaddleOCR-json)
 
