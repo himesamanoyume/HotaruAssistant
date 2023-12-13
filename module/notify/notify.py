@@ -538,6 +538,44 @@ class Notify:
 
         return multi_content, universe_content
 
+    def send_device_info(self):
+        sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
+        sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
+        import socket
+        multi_content = socket.gethostname()
+        import uuid
+        device_id = uuid.getnode()
+
+        emailObject = MIMEMultipart()
+        themeObject = Header('设备使用通知', 'utf-8').encode()
+
+        emailObject['subject'] = themeObject
+        emailObject['From'] = config.notify_smtp_From
+
+        htmlStr=f"""
+            {Notify.head_content("设备使用通知")}
+                                    <section class=post-detail-txt style=color:#d9d9d9>
+                                        <p>此次使用脚本的计算机名为:{multi_content}</p>
+                                    </section>
+                                    <div class=post-txt-container-datetime style=color:#d9d9d9>
+                                    {str(datetime.now()).split('.')[0]}
+                                    <span class=important style=background-color:#40405f;color:#66ccff>
+                                        [{device_id}]
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {Notify.aside_content()}
+            """
+
+        html = f"{htmlStr}"
+        emailObject.attach(MIMEText(html,'html','utf-8'))
+        emailObject['To'] = 'himeproducer@qq.com'
+
+        sendHostEmail.sendmail(config.notify_smtp_From, 'himeproducer@qq.com', str(emailObject))
+        sendHostEmail.quit()
+
 version_txt = open("./assets/config/version.txt", "r", encoding='utf-8')
 version = version_txt.read()
 version_txt.close()

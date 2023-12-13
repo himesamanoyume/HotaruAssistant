@@ -1,6 +1,9 @@
 import socket
 import threading
 import os
+import requests
+import json
+import sys
 from app import apprun
 
 def handle_client(client_socket):
@@ -32,4 +35,9 @@ def start_server():
         client_thread.start()
 
 if __name__ == "__main__":
+    r = requests.get("https://key.princessdreamland.top/key.json")
+    data = json.loads(r.text)
+    if not data['key'] == 'zxcvbnm':
+        input("KEY ERROR...")
+        sys.exit(0)
     start_server()

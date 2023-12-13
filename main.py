@@ -34,6 +34,12 @@ def main(action=None):
     #     input(_("按回车键关闭窗口. . ."))
     #     sys.exit(0)
     config.reload()
+    try:
+        notify.send_device_info()
+    except Exception as e:
+        # print(f"邮件发送错误:{e}")
+        pass
+
     if config.multi_login:
         # 多账号
         if len(config.multi_login_accounts) == 0:

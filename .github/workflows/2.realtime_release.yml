@@ -1,9 +1,6 @@
 name: Build realtime release
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '**.py'
 permissions:
   contents: write
 jobs:

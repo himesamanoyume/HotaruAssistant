@@ -16,10 +16,8 @@ By: 姫様の夢
 
 ## TODO
 
-- 实现脚本先查一遍数据库的特殊字段是否生效,生效才能继续使用
+- ~~实现脚本先查一遍key.json的key是否对应,生效才能继续使用~~
 - 缺少银枝寒鸦的icon
-- ~~client新增检查是否开启server并提示~~
-- ~~config冲突还未完全解决(所有config操作前加上config.reload())~~
 - 重新实现检查更新
 - - 参考appQt的检查更新,实现在开启server时检查更新
 - config save load用队列

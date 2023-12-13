@@ -1,15 +1,7 @@
-from managers.config_manager import config
-from managers.translate_manager import _
-from managers.screen_manager import screen
-from managers.logger_manager import logger
-from managers.utils_manager import gu
-from managers.automation_manager import auto
-import time,atexit,sys,pyuac
 
-def testFun(type=2):
-    css = open("./static/css/common.css", 'r', encoding='utf-8')
-    htmlStyle = css.read()
-    css.close()
+def testFun():
+    import socket
+    print(socket.gethostname())
 
 if __name__ == '__main__':
     testFun()
