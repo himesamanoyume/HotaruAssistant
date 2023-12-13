@@ -92,7 +92,7 @@ class Update:
             if parse(version.lstrip('v')) > parse(current_version.lstrip('v')):
                 print(f"发现新版本：{current_version} ——> {version}")
             else:
-                print(f"当前已是最新版本: {current_version}")
+                print(f"当前已是最新版本: {current_version},你可以直接关闭程序,也可以重新下载最新版本")
         except Exception:
             print(f"本地版本获取失败")
             print(f"最新版本: {version}")

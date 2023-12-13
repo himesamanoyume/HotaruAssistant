@@ -16,9 +16,6 @@ import time
 
 
 class Universe:
-
-    
-
     @staticmethod
     def update():
         config.set_value("universe_requirements", False)

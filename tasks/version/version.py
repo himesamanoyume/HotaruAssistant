@@ -23,8 +23,7 @@ class Version:
                 version = data["tag_name"]
                 logger.info(gu(f"最新版本:{config.version},当前版本:{version}"))
                 if parse(version.lstrip('v')) > parse(config.version.lstrip('v')):
-                    # notify.notify(_("发现新版本：{v}").format(v=version))
-                    logger.info(gu(f"发现新版本"))
+                    logger.info(gu(f"发现新版本,请退出程序使用Update.exe进行更新"))
                     logger.info(data["html_url"])
                 else:
                     logger.info(gu("已经是最新版本"))

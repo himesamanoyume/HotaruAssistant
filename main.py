@@ -42,6 +42,7 @@ def main(action=None):
         pass
 
     Version.start()
+    Universe.check_path()
     
     if config.multi_login:
         # 多账号
