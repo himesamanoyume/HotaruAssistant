@@ -17,20 +17,21 @@ class Version:
             return False
         logger.hr(gu("开始检测更新"), 0)
         try:
-            response = requests.get(FastestMirror.get_github_api_mirror("moesnow","March7thAssistant","latest.json",1), timeout=3)
+            response = requests.get(FastestMirror.get_github_api_mirror("himesamanoyume","March7thAssistantPrivate","latest.json",1), timeout=3)
             if response.status_code == 200:
                 data = json.loads(response.text)
                 version = data["tag_name"]
+                logger.info(gu(f"最新版本:{config.version},当前版本:{version}"))
                 if parse(version.lstrip('v')) > parse(config.version.lstrip('v')):
                     # notify.notify(_("发现新版本：{v}").format(v=version))
-                    logger.info(_("发现新版本：{v0}  ——→  {v}").format(v0=config.version, v=version))
+                    logger.info(gu(f"发现新版本"))
                     logger.info(data["html_url"])
                 else:
-                    logger.info(_("已经是最新版本：{v0}").format(v0=config.version))
+                    logger.info(gu("已经是最新版本"))
             else:
-                logger.warning(_("检测更新失败"))
+                logger.warning(gu("检测更新失败"))
                 logger.debug(response.text)
         except Exception as e:
-            logger.warning(_("检测更新失败"))
+            logger.warning(gu("检测更新失败"))
             logger.debug(e)
         logger.hr(gu("完成"), 2)

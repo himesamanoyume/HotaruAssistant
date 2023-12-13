@@ -22,6 +22,7 @@ import atexit
 import pyuac
 import glob
 import shutil
+from tasks.version.version import Version
 
 loginDict = dict()
 loginList = list()
@@ -40,6 +41,8 @@ def main(action=None):
         # print(f"邮件发送错误:{e}")
         pass
 
+    Version.start()
+    
     if config.multi_login:
         # 多账号
         if len(config.multi_login_accounts) == 0:

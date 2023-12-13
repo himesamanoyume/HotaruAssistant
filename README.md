@@ -12,14 +12,18 @@ By: 姫様の夢
 
 原项目地址[https://github.com/moesnow/March7thAssistant](https://github.com/moesnow/March7thAssistant)
 
+<p>
+    <img alt="" src="https://img.shields.io/github/v/release/himesamanoyume/March7thAssistantPrivate?style=flat-square&color=4096d8" />
+    <img alt="" src="https://img.shields.io/github/downloads/himesamanoyume/March7thAssistantPrivate/total?style=flat-square&color=f18cb9" />
+</p>
+
 </div>
 
 ## TODO
 
-- ~~实现脚本先查一遍key.json的key是否对应,生效才能继续使用~~
 - 缺少银枝寒鸦的icon
-- 重新实现检查更新
-- - 参考appQt的检查更新,实现在开启server时检查更新
+- 重新实现检查更新(未实验)
+- - ~~参考appQt的检查更新,实现在开启server时检查更新~~
 - config save load用队列
 - 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测
 - 新增继续模拟宇宙（继续进度，结束并结算）
