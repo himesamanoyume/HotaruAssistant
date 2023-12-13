@@ -21,7 +21,7 @@ By: 姫様の夢
 
 ## TODO
 
-- None
+- Register新增关闭游戏
 
 ## 低优先级
 

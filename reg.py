@@ -8,11 +8,11 @@ import questionary
 
 class Reg:
     def main():
-        logger.info("在选择前需要将游戏关闭,然后检查config.yaml中的game_path是否正确填入")
-        title_ = "用方向键然后回车键选择你要做的:"
+        logger.warning("在进行选择前,需要先手动把游戏退出!!!然后检查config.yaml中的game_path是否正确填入")
+        title_ = "若已经关闭游戏,用方向键然后回车键选择你要做的:"
         options_reg = dict()
-        options_reg.update({"0:获取新的注册表":0})
-        options_reg.update({"1:重新导入完整注册表":1})
+        options_reg.update({"0:获取新的注册表(会重新启动游戏,因此需要提前关闭游戏)":0})
+        options_reg.update({"1:重新导入完整注册表(导入注册表后需要重启游戏才会生效)":1})
         option_ = questionary.select(title_, list(options_reg.keys())).ask()
         value = options_reg.get(option_)
         if value == 0:
