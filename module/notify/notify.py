@@ -464,11 +464,13 @@ class Notify:
         <div class=body style=background-color:#3a3a3a>
             <style>{htmlStyle}</style>
                 <header class=header style=position:sticky>
-                    <nav class=nav style='margin:0 15px;justify-content:center;background-color:#2b2b2b'>
-                        <span class=blogName style=color:#d9d9d9 id=nav-index>
-                            HIMEPRODUCER
-                        </span>
-                    </nav>
+                    <div class=nav-out>
+                        <nav class=nav style='margin:0 15px;justify-content:center;background-color:#2b2b2b'>
+                            <span class=blogName style=color:#d9d9d9 id=nav-index>
+                                HIMEPRODUCER
+                            </span>
+                        </nav>
+                    </div>
                 </header>
                 <main class=main>
                     <div class=home-container>
