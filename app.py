@@ -337,7 +337,7 @@ def aside_content():
                             <div class=info style=background-color:#2b2b2b>
                                 <div class=fiximg style=width:100%;border-bottom-left-radius:0;border-bottom-right-radius:0;display:block>
                                     <div class=fiximg__container style=display:block;margin:0>
-                                        <img class=info-icon loading=lazy src=https://blog.princessdreamland.top/usericon.webp style=margin-top:20px;max-height:185px;border-radius:3px;max-width:185px;width:100%;border:0;background-color:#66ccff>
+                                        <img class=info-icon loading=lazy src=https://blog.himesamanoyume.top/usericon.webp style=margin-top:20px;max-height:185px;border-radius:3px;max-width:185px;width:100%;border:0;background-color:#66ccff>
                                     </div>
                                 </div>
                                 <div class=info-name style=color:#d9d9d9>
@@ -380,7 +380,7 @@ def head_content(contentTitle):
                     <div class=post-container style=margin:0;box-sizing:border-box;max-width:100%;width:100%;height:100%;border:0>
                         <div class=post style=background-color:#2b2b2b>
                             <div class=post-Img-container>
-                                <img id=_index loading=lazy src=https://blog.princessdreamland.top/_index{randomNumber}.webp data-zoomable/>
+                                <img id=_index loading=lazy src=https://blog.himesamanoyume.top/_index{randomNumber}.webp data-zoomable/>
                             </div>
                             <div class=post-txt-container>
                                 <div class=post-txt-container-title style=color:#d9d9d9>
