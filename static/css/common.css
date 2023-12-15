@@ -1320,7 +1320,7 @@
     }
 
     .info-icon:hover {
-        transform: translate3d(-5px, -5px, 0)
+        transform: translate3d(0, -5px, 0)
     }
 
     .info-name {
