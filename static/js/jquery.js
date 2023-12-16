@@ -355,8 +355,8 @@ function remove_cdkey_list(){
     if(confirm("确定将该CDKEY从兑换码列表中移除吗?")){
         var cdkey_list = $('select[name="cdkey_list"]').val()
 
-        if (cdkey_list==''){
-            alert("CDKEY不能为空")
+        if (cdkey_list==null){
+            alert("已经没有CDKEY可以移除了")
             return
         }
 

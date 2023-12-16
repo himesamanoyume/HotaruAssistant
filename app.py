@@ -168,7 +168,10 @@ def remove_blacklist():
     data = request.get_json('data')
     uid = str(data['blacklist_uid'])
     if uid in config.blacklist_uid:
-        config.blacklist_uid.remove(uid)
+        if len(config.blacklist_uid) == 1:
+            config.set_value("blacklist_uid", [])
+        else:
+            config.blacklist_uid.remove(uid)
 
     config.save_config()
     return ''
@@ -190,7 +193,10 @@ def remove_cdkeylist():
     data = request.get_json('data')
     cdkey = data['cdkey_list']
     if cdkey in config.cdkey_list:
-        config.cdkey_list.remove(cdkey)
+        if len(config.cdkey_list) == 1:
+            config.set_value("cdkey_list", [])
+        else:
+            config.cdkey_list.remove(cdkey)
 
     config.save_config()
     return ''
