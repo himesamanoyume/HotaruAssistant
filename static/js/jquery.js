@@ -324,6 +324,60 @@ function announcement_single(){
     }
 }
 
+function append_cdkey_list(){
+    if(confirm("确定添加该CDKEY至兑换码列表吗?")){
+        var cdkey_list = $('input[name="cdkey_list"]').val()
+
+        if (cdkey_list==''){
+            alert("CDKEY不能为空")
+            return
+        }
+
+        var json={
+            "cdkey_list": cdkey_list
+        }
+
+        $.ajax({
+            url:"./cdkeylist/append",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已添加")
+            location.reload()
+        }).fail(function(){
+            alert("添加失败!")
+        })
+    }
+}
+
+function remove_cdkey_list(){
+    if(confirm("确定将该CDKEY从兑换码列表中移除吗?")){
+        var cdkey_list = $('select[name="cdkey_list"]').val()
+
+        if (cdkey_list==''){
+            alert("CDKEY不能为空")
+            return
+        }
+
+        var json={
+            "cdkey_list": cdkey_list
+        }
+
+        $.ajax({
+            url:"./cdkeylist/remove",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已移除")
+            location.reload()
+        }).fail(function(){
+            alert("移除失败!")
+        })
+    }
+}
+
 function append_blacklist(){
     if(confirm("确定添加该UID至黑名单吗?")){
         var blacklist_uid = $('input[name="blacklist_uid"]').val()

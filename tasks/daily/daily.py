@@ -21,12 +21,9 @@ from tasks.power.power import Power
 from tasks.daily.tasks import Tasks
 from tasks.activity.activity import Activity
 from tasks.daily.himekotry import HimekoTry
-
-
+import pyperclip
 
 class Daily:
-
-
     def sub():
         config.reload()
         if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
@@ -179,6 +176,7 @@ class Daily:
         Power.power()
         ForgottenHall.get_star_and_level()
         Reward.start()
+        Daily.get_cdkey()
         Relics.detect_relic_count()
         Echoofwar.echoofwar_get_times()
         Utils.calcDailyTasksScore(Utils.get_uid())
@@ -194,4 +192,37 @@ class Daily:
         _minute = int(((totalTime - _day *86400) - _hour * 3600) // 60)
         _second = int(((totalTime - _day *86400) - _hour * 3600) - _minute * 60)
         Utils._content['running_time'] = (f"{_day}天" if not _day == 0 else '') + (f"{_hour}小时" if not _hour == 0 else '') + (f"{_minute}分" if not _minute == 0 else '') + f"{_second}秒"
-        logger.info(gu(f"本次运行时长:{Utils._content['running_time']}"))    
+        logger.info(gu(f"本次运行时长:{Utils._content['running_time']}"))
+
+    def get_cdkey():
+        screen.change_to("cdkey")
+        config.reload()
+        for cdkey in config.cdkey_list:
+            time.sleep(1)
+            pyperclip.copy(cdkey)
+            if auto.click_element("./assets/images/screen/cdkey/cdkey_copy.png", "image", 0.9, max_retries=5):
+                time.sleep(0.5)
+                if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=5):
+                    time.sleep(0.5)
+                    if auto.find_element("./assets/images/screen/cdkey/cdkey_fast.png", "image", 0.9, max_retries=5):
+                        logger.warning(gu(f"{cdkey},兑换过快,5秒后重试"))
+                        time.sleep(5)
+                        if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=5):
+                            time.sleep(0.5)
+                            if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=5):
+                                logger.info(gu(f"{cdkey},兑换成功"))
+                                time.sleep(1)
+                                screen.change_to("cdkey")
+                                continue
+                    elif auto.find_element("./assets/images/screen/cdkey/cdkey_repeat.png", "image", 0.9, max_retries=5):
+                        logger.warning(gu(f"{cdkey},已被兑换过了"))
+                        time.sleep(1)
+                        if auto.click_element("./assets/images/screen/cdkey/cdkey_clear.png", "image", 0.9, max_retries=5):
+                            continue
+                    elif auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=5):
+                        logger.info(gu(f"{cdkey},兑换成功"))
+                        time.sleep(1)
+                        screen.change_to("cdkey")
+                        continue
+                        
+        screen.change_to("menu")

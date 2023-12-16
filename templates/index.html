@@ -98,7 +98,6 @@ HIMEPRODUCER | 主页
         <input name="blacklist_uid" type="number" style="width: 150px;" placeholder="111111111">
         <button class="link-button" id="append_blacklist" style="width: 100px;min-width:5%" onclick="append_blacklist()">添加</button>
     </p>
-    
     <p>将一个UID移除黑名单:
         <select class=configSelect name=blacklist_uid>
             {% for uid in config.blacklist_uid %}
@@ -110,6 +109,24 @@ HIMEPRODUCER | 主页
             {% endfor %}
         </select>
         <button class="link-button" id="remove_blacklist" style="width: 100px;min-width:5%" onclick="remove_blacklist()">移除</button>
+    </p>
+    <h6 style=color:#66ccff>
+        兑换码
+    </h6>
+    <div class=post-txt-container-datetime>
+        当有兑换码时,每次上号都会按顺序兑换一次全部兑换码,添加兑换码时自行检查是否正确
+    </div>
+    <p>输入一个CDKEY将其添加至兑换码列表:
+        <input name="cdkey_list" type="text" style="width: 150px;">
+        <button class="link-button" id="append_cdkey_list" style="width: 100px;min-width:5%" onclick="append_cdkey_list()">添加</button>
+    </p>
+    <p>将一个CDKEY移除兑换码列表:
+        <select class=configSelect name=cdkey_list>
+            {% for cdkey in config.cdkey_list %}
+                <option value="{{cdkey}}">{{cdkey}}</option>
+            {% endfor %}
+        </select>
+        <button class="link-button" id="remove_cdkey_list" style="width: 100px;min-width:5%" onclick="remove_cdkey_list()">移除</button>
     </p>
     <hr>
     <h6 style=color:#66ccff>

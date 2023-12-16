@@ -21,7 +21,7 @@ By: 姫様の夢
 
 ## TODO
 
-- None
+- ~~cdkey_list~~
 
 ## 低优先级
 

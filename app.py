@@ -172,6 +172,28 @@ def remove_blacklist():
 
     config.save_config()
     return ''
+
+@app.route('/cdkeylist/append',methods=['POST'])
+def append_cdkeylist():
+    config.reload()
+    data = request.get_json('data')
+    cdkey = data['cdkey_list']
+    if not cdkey in config.cdkey_list:
+        config.cdkey_list.append(cdkey)
+
+    config.save_config()
+    return ''
+
+@app.route('/cdkeylist/remove',methods=['POST'])
+def remove_cdkeylist():
+    config.reload()
+    data = request.get_json('data')
+    cdkey = data['cdkey_list']
+    if cdkey in config.cdkey_list:
+        config.cdkey_list.remove(cdkey)
+
+    config.save_config()
+    return ''
             
 if __name__ == '__name__':
     #cmd: flask run --debug --host=0.0.0.0
