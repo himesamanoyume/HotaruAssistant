@@ -25,6 +25,8 @@ if __name__ == "__main__":
 
     os.system(f"xcopy /Y .\static\css\common.css .\dist\M7A_Private\\assets\\css")
 
+    os.system(f"xcopy /Y .\static\css\common.css .\\assets\css\common.css")
+
     os.system(f"powershell Compress-Archive -Path .\dist\M7A_Private\ -DestinationPath .\dist\M7A_Private_{version}.zip -Force")
 
     input("按回车键退出...")

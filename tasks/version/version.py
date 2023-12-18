@@ -21,7 +21,7 @@ class Version:
             if response.status_code == 200:
                 data = json.loads(response.text)
                 version = data["tag_name"]
-                logger.info(gu(f"最新版本:{config.version},当前版本:{version}"))
+                logger.info(gu(f"最新版本:{version},当前版本:{config.version}"))
                 if parse(version.lstrip('v')) > parse(config.version.lstrip('v')):
                     logger.info(gu(f"发现新版本,请退出程序使用Update.exe进行更新"))
                     logger.info(data["html_url"])

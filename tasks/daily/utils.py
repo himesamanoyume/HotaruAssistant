@@ -30,6 +30,7 @@ class Utils:
     _relicCount = 0
     _action = ''
     _totalTime = 0
+    _himekoTimes = 0
     def detectIsNoneButNoSave(configName, uid, defaultValue=0):
         if configName == {} or uid not in configName.keys():
             configName[uid] = defaultValue
@@ -105,6 +106,7 @@ class Utils:
             Utils._immersifiers = 0
             Utils._isFirstTimeSelectTeam = True
             Utils._relicCount = 0
+            Utils._himekoTimes = 0
             logger.info(_(f"识别到UID为:{Utils._uid}"))
             config.set_value('last_running_uid', Utils._uid)
         except Exception as e:

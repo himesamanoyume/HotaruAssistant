@@ -1314,14 +1314,13 @@
 
     .info-icon {
         max-width: 185px;
-        margin-top: 1px;
         width: 100%;
         border: 0;
         background-color: #66ccff
     }
 
     .info-icon:hover {
-        transform: translate3d(-5px, -5px, 0)
+        transform: translate3d(0, -5px, 0)
     }
 
     .info-name {
@@ -1354,7 +1353,7 @@
 
     .link-button {
         border: 0;
-        width: 30%;
+        min-width: 30%;
         height: 40px;
         line-height: 40px;
         background-color:#2b2b2b;

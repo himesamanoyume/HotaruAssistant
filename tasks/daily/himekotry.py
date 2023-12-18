@@ -11,27 +11,27 @@ class HimekoTry:
     @staticmethod
     def technique():
         logger.info(gu("开始进行累计施放2次秘技"))
-        return HimekoTry.total(1)
+        return True if Utils._himekoTimes >= 1 else HimekoTry.total(1)
     
     @staticmethod
     def weakness_5():
         logger.info(gu("开始进行累计触发弱点击破效果5次"))
-        return HimekoTry.total()
+        return True if Utils._himekoTimes >= 1 else HimekoTry.total()
     
     @staticmethod
     def weakness_diffrent_3():
         logger.info(gu("开始进行单场战斗中，触发3种不同属性的弱点击破"))
-        return HimekoTry.total()
+        return True if Utils._himekoTimes >= 1 else HimekoTry.total()
     
     @staticmethod
     def final_skill_end():
         logger.info(gu("开始进行施放终结技造成制胜一击1次"))
-        return HimekoTry.total()
+        return True if Utils._himekoTimes >= 1 else HimekoTry.total()
 
     @staticmethod
     def item():
         logger.info(gu("开始进行累计击碎3个可破坏物"))
-        return HimekoTry.total(2)
+        return True if Utils._himekoTimes >= 1 else HimekoTry.total(2)
 
     @staticmethod
     def enemy_20():
@@ -39,7 +39,7 @@ class HimekoTry:
         if not config.daily_tasks[Utils.get_uid()]['累计消灭20个敌人']:
             logger.info(gu("【累计消灭20个敌人】已被顺带完成"))
             return True
-        return HimekoTry.total() and HimekoTry.total()
+        return True if Utils._himekoTimes >= 2 else ( HimekoTry.total() if Utils._himekoTimes >= 1 else HimekoTry.total() and HimekoTry.total()) 
 
     @staticmethod
     def weakness_to_fight():
@@ -47,7 +47,7 @@ class HimekoTry:
         if not config.daily_tasks[Utils.get_uid()]['利用弱点进入战斗并获胜3次']:
             logger.info(gu("【利用弱点进入战斗并获胜3次】已被顺带完成"))
             return True
-        return HimekoTry.total() and HimekoTry.total()
+        return True if Utils._himekoTimes >= 3 else ( HimekoTry.total() if Utils._himekoTimes >= 2 else ( HimekoTry.total() and HimekoTry.total() if Utils._himekoTimes >= 1 else HimekoTry.total() and HimekoTry.total() and HimekoTry.total() )) 
     
     @staticmethod
     def total(endpoint:int=0):
@@ -209,14 +209,8 @@ class HimekoTry:
 
             time.sleep(10)
             screen.change_to("himeko_try")
-            if "累计击碎3个可破坏物" in config.daily_tasks[Utils.get_uid()]:
-                if config.daily_tasks[Utils.get_uid()]["累计击碎3个可破坏物"]:
-                    config.daily_tasks[Utils.get_uid()]["累计击碎3个可破坏物"] = False
-                    Utils.showDailyTasksScore("累计击碎3个可破坏物", Utils.get_uid())  
-            elif "累计施放2次秘技" in config.daily_tasks[Utils.get_uid()]:
-                if config.daily_tasks[Utils.get_uid()]["累计施放2次秘技"]:
-                    config.daily_tasks[Utils.get_uid()]["累计施放2次秘技"] = False
-                    Utils.showDailyTasksScore("累计施放2次秘技", Utils.get_uid())  
+            
+            Utils._himekoTimes += 1
             return True
         else:
             logger.warning(gu("未开启姬子试用,跳过"))

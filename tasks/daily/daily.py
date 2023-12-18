@@ -176,7 +176,8 @@ class Daily:
         Power.power()
         ForgottenHall.get_star_and_level()
         Reward.start()
-        Daily.get_cdkey()
+        if len(config.cdkey_list) > 0:
+            Daily.get_cdkey()
         Relics.detect_relic_count()
         Echoofwar.echoofwar_get_times()
         Utils.calcDailyTasksScore(Utils.get_uid())
@@ -198,6 +199,7 @@ class Daily:
         screen.change_to("cdkey")
         config.reload()
         for cdkey in config.cdkey_list:
+            logger.info(gu("检测到有兑换码"))
             time.sleep(1)
             pyperclip.copy(cdkey)
             if auto.click_element("./assets/images/screen/cdkey/cdkey_copy.png", "image", 0.9, max_retries=5):
