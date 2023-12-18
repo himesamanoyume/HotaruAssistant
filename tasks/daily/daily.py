@@ -68,7 +68,7 @@ class Daily:
 
     def start_ready():
         if config.recording_enable:
-            auto.press_key('[')
+            auto.press_key(config.hotkey_obs_start)
         
         config.reload()
         Utils.get_new_uid()
@@ -181,7 +181,7 @@ class Daily:
         Relics.detect_relic_count()
         Echoofwar.echoofwar_get_times()
         Utils.calcDailyTasksScore(Utils.get_uid())
-        auto.press_key(']')
+        auto.press_key(config.hotkey_obs_stop)
         totalTime = time.time() - Utils._start_timestamp
         Utils._totalTime = totalTime
         if totalTime >= 3600:
