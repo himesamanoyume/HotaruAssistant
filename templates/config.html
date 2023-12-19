@@ -17,7 +17,9 @@ data-rt="{{uid}}"
 {% endif %}
 激活天数剩余:{{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}}天
 </p></blockquote>
-<p><strong>每日完成情况</strong></p>
+<h6 style=color:#66ccff>
+    每日完成情况
+</h6>
 {% for key, value in config.daily_tasks[uid].items() %}
 <p>
     <ruby>
@@ -25,11 +27,8 @@ data-rt="{{uid}}"
         <rt class='ttt' data-rt='{{task_score[key]}}'></rt>
     </ruby>
     :
-    {% if config.daily_tasks[uid][key] %}
-        未完成
-    {% else %}
-        <span class=important style=background-color:#40405f;color:#66ccff>已完成</span>
-    {% endif %}
+    <input type="checkbox" name="daily_tasks" {% if not config.daily_tasks[uid][key] %} checked {% endif %}>
+    
 </p>
 {% endfor %}
 <p><strong>当前活跃度</strong></p>
@@ -257,6 +256,7 @@ data-rt="{{uid}}"
 {% endblock %}
 {% block bottompostpage %}
 <div class="post-page">
+    <button class="link-button" id="daily_submitChange" onclick="daily_submitChange()">保存每日情况</button>
     <button class="link-button" id="config_submitChange" onclick="config_submitChange()">保存配置信息</button>
     <button class="link-button" id="active_submitChange" onclick="active_submitChange()">保存激活信息</button>
 </div>
