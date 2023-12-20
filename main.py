@@ -378,7 +378,7 @@ def account_active_fun(uid):
         logger.info(f"{uid}:正在激活,新的激活天数为{config.account_active[uid]['ActiveDay']}天")
         if config.account_active[uid]['isExpired']:
             logger.info(f"{uid}:已过期用户正在重新激活")
-            config.account_active[uid]['ActiveDate'] = time.time()
+            config.account_active[uid]['ActiveDate'] = round(time.time())
             config.account_active[uid]['CostDay'] = 0
             config.account_active[uid]['isExpired'] = False
 
@@ -386,7 +386,7 @@ def account_active_fun(uid):
         config.account_active[uid]['isWantActive'] = False 
 
     if config.account_active[uid]['ActiveDay'] >= 0 and not config.account_active[uid]['isExpired']:
-        costDay = (time.time() - config.account_active[uid]['ActiveDate']) / 86400
+        costDay = (round(time.time()) - config.account_active[uid]['ActiveDate']) / 86400
         if costDay > 0:
             config.account_active[uid]['CostDay'] = round(costDay, 3)
         else:

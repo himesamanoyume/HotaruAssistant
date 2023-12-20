@@ -137,7 +137,7 @@ HIMEPRODUCER | 主页
     </div>
     {% for uid in loginList %}
         <p><a href="/{{uid}}">
-            {% if config.daily_tasks_fin[uid] %}√|{% endif %}<ruby>{{uid}}<rt class='ttt' data-rt="{{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}}天"></rt></ruby>|{{config.notify_smtp_To[uid]}}
+            {% if config.daily_tasks_fin[uid] %}√|{% endif %}<ruby>{{uid}}<rt class='ttt' data-rt="{{(config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay'])|roundDate}}天"></rt></ruby>|{{config.notify_smtp_To[uid]}}
             </a>
         </p>
     {% endfor %}

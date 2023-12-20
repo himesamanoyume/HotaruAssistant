@@ -15,7 +15,7 @@ data-rt="{{uid}}"
 {% else %}
 <blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>
 {% endif %}
-激活天数剩余:{{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}}天
+激活天数剩余:{{(config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay'])| roundDate }}天
 </p></blockquote>
 <h6 style=color:#66ccff>
     每日完成情况
@@ -248,7 +248,7 @@ data-rt="{{uid}}"
     <span class=important style=background-color:#40405f;color:#66ccff>{{ExpirationDate}}</span>
 </p>
 <p>激活天数剩余:
-    <span class=important style=background-color:#40405f;color:#66ccff>{{config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']}}</span>天
+    <span class=important style=background-color:#40405f;color:#66ccff>{{(config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay'])|roundDate}}</span>天
 </p>
 <p>绑定中的邮箱地址:
     <input name="notify_smtp_To" type="email" style="width: 200px;" placeholder="123456789@qq.com" value="{{config.notify_smtp_To[uid]}}">

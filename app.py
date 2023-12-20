@@ -7,6 +7,17 @@ from module.config.config import Config
 app = Flask(__name__)
 loginList = list()
 config = Config("./assets/config/version.txt", "./assets/config/config.example.yaml", "./config.yaml")
+ts = open("./assets/config/task_score_mappings.json", 'r', encoding='utf-8')
+task_score = json.load(ts)
+ts.close()
+rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
+ruby = json.load(rb)
+rb.close()
+
+app.config['TEMPLATES_AUTO_RELOAD']=True
+@app.template_filter('roundDate')
+def roundDate(value):
+    return round(value, 3)
 
 @app.route('/')
 def index():
@@ -21,46 +32,39 @@ def index():
 def config_setting(uid):
     from datetime import datetime
     config.reload()
-    with open("./assets/config/task_score_mappings.json", 'r', encoding='utf-8') as score_json:
-        task_score = json.load(score_json)
-        with open("./assets/config/ruby_detail.json", 'r', encoding='utf-8') as ruby_json:
-            ruby = json.load(ruby_json)
-            ActiveDate = str(datetime.fromtimestamp(config.account_active[uid]['ActiveDate'])).split('.')[0]
-            ExpirationDate = str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]
-            return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score,ActiveDate=ActiveDate, ExpirationDate=ExpirationDate)
+    ActiveDate = str(datetime.fromtimestamp(config.account_active[uid]['ActiveDate'])).split('.')[0]
+    ExpirationDate = str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]
+    return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score,ActiveDate=ActiveDate, ExpirationDate=ExpirationDate)
+            
 
 @app.route('/register')
 def register():
     config.reload()
-    with open("./assets/config/ruby_detail.json", 'r', encoding='utf-8') as ruby_json:
-            ruby = json.load(ruby_json)
-            return render_template('register.html',ruby=ruby)
+    return render_template('register.html',ruby=ruby)
 
 @app.route('/<uid>/dailysave',methods=['POST'])
 def daily_save(uid):
     config.reload()
     data = request.get_json('data')
     i = 0
-    with open("./assets/config/task_score_mappings.json", "r", encoding='utf-8') as score_json:
-        task_score = json.load(score_json)
-        for key, value in config.daily_tasks[uid].items():
-            config.daily_tasks[uid][key] = not data['daily_tasks_arr'][i]
-            i+=1
-        _content = dict()
-        config.daily_tasks_score[uid] = 0
-        temp_score = 0
-        j=0
-        for key, value in config.daily_tasks[uid].items():
-            _content.update({f'daily_0{i}_score':f'{task_score[key]}'})
-            i+=1
-            if not value:
-                temp_score += task_score[key]
+    for key, value in config.daily_tasks[uid].items():
+        config.daily_tasks[uid][key] = not data['daily_tasks_arr'][i]
+        i+=1
+    _content = dict()
+    config.daily_tasks_score[uid] = 0
+    temp_score = 0
+    j=0
+    for key, value in config.daily_tasks[uid].items():
+        _content.update({f'daily_0{i}_score':f'{task_score[key]}'})
+        i+=1
+        if not value:
+            temp_score += task_score[key]
         
-        config.daily_tasks_score[uid] = temp_score
-        if config.daily_tasks_score[uid] >= 500:
-            config.daily_tasks_fin[uid] = True
-        elif config.daily_tasks_fin[uid]:
-            config.daily_tasks_fin[uid] = False
+    config.daily_tasks_score[uid] = temp_score
+    if config.daily_tasks_score[uid] >= 500:
+        config.daily_tasks_fin[uid] = True
+    elif config.daily_tasks_fin[uid]:
+        config.daily_tasks_fin[uid] = False
     config.save_config()
     return ''
 
