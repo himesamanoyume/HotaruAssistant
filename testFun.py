@@ -1,7 +1,7 @@
 # from module.config.config import Config
 # from managers.notify_manager import notify
 # from managers.logger_manager import logger
-from managers.config_manager import config
+# from managers.config_manager import config
 # from managers.screen_manager import screen
 # from managers.utils_manager import gu
 # from managers.ocr_manager import ocr
@@ -22,10 +22,19 @@ from managers.config_manager import config
 # import shutil,sys
 # from tasks.version.version import Version
 # import pyperclip
+# import requests,json
+from datetime import datetime
+import time
 
 def testFun():
     input("...")
-    print(len(config.cdkey_list))
+    start_time = "2023-12-22 12:00:00"
+    end_time = "2023-12-25 00:00:00"
+
+    start_time_stamp = time.mktime(time.strptime(start_time, "%Y-%m-%d %H:%M:%S"))
+    end_time_stamp = time.mktime(time.strptime(end_time, "%Y-%m-%d %H:%M:%S"))
+    progress = (time.time() - start_time_stamp) / (end_time_stamp - start_time_stamp)
+    print(progress)
     input("...")
 
     
