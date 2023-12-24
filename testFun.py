@@ -33,8 +33,10 @@ def testFun():
 
     start_time_stamp = time.mktime(time.strptime(start_time, "%Y-%m-%d %H:%M:%S"))
     end_time_stamp = time.mktime(time.strptime(end_time, "%Y-%m-%d %H:%M:%S"))
-    progress = (time.time() - start_time_stamp) / (end_time_stamp - start_time_stamp)
-    print(progress)
+    totalTime = end_time_stamp - start_time_stamp
+    _day = int(totalTime // 86400)
+    _hour = int((totalTime - _day * 86400) // 3600)
+    print(f"{_day},{_hour}")
     input("...")
 
     

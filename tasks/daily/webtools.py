@@ -29,7 +29,10 @@ class WebTools:
             start_time_stamp = time.mktime(time.strptime(start_time, "%Y-%m-%d %H:%M:%S"))
             end_time_stamp = time.mktime(time.strptime(end_time, "%Y-%m-%d %H:%M:%S"))
             progress = (time.time() - start_time_stamp) / (end_time_stamp - start_time_stamp)
-            datalist.append({"title":title,"start_time":start_time,"end_time":end_time,"progress": progress})
+            totalTime = end_time_stamp - time.time()
+            _day = int(totalTime // 86400)
+            _hour = int((totalTime - _day * 86400) // 3600)
+            datalist.append({"title":title,"start_time":start_time,"end_time":end_time,"progress": progress, "day":_day,"hour":_hour})
 
         return datalist
     
@@ -45,7 +48,10 @@ class WebTools:
             start_time_stamp = time.mktime(time.strptime(start_time, "%Y-%m-%d %H:%M:%S"))
             end_time_stamp = time.mktime(time.strptime(end_time, "%Y-%m-%d %H:%M:%S"))
             progress = (time.time() - start_time_stamp) / (end_time_stamp - start_time_stamp)
-            content += f"<div style='background-color:#40405f;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'>{title}</p><div style='font-size: 12px;line-height: 30px;padding: 0 20px;display: inline-block;transition-duration: .2s;'>{start_time} - {end_time}</div><div style='background-color: #66ccff;width:{progress * 100}%;max-width:100%;height:3px;'></div></div>"
+            totalTime = end_time_stamp - time.time()
+            _day = int(totalTime // 86400)
+            _hour = int((totalTime - _day * 86400) // 3600)
+            content += f"<div style='background-color:#40405f;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'>{title}</p><div style='font-size: 12px;line-height: 30px;padding: 0 20px;display: inline-block;transition-duration: .2s;'>{start_time} - {end_time}<br>{_day} 天 {_hour} 时后结束</div><div style='background-color: #66ccff;width:{progress * 100}%;max-width:100%;height:3px;'></div></div>"
 
         return content
 
@@ -94,7 +100,7 @@ class WebTools:
     def aside_content():
         aside_content = f"""
         <aside class=info-container>
-                            <div class=info-container-inner id=info-container-inner>
+                            <div class=info-container-inner id=info-container-inner style='margin-top:10px'>
                                 <div class=info style=background-color:#2b2b2b>
                                     <div class=fiximg style=width:100%;border-bottom-left-radius:0;border-bottom-right-radius:0;display:block>
                                         <div class=fiximg__container style=display:block;margin:0>

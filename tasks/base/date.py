@@ -52,7 +52,7 @@ class Date:
         current_time = datetime.now()
         future_time = current_time + timedelta(seconds=seconds)
         if future_time.date() == current_time.date():
-            return f"今天{future_time.hour}时{future_time.minute}分"
+            return f"今天{future_time}时{future_time.minute}分"
         elif future_time.date() == current_time.date() + timedelta(days=1):
             return f"明天{future_time.hour}时{future_time.minute}分"
         else:

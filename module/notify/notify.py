@@ -181,6 +181,7 @@ class Notify:
             {WebTools.head_content(contentTitle)}
                                 <section class=post-detail-txt style=color:#d9d9d9>
                                     {account_active_content}
+                                    {WebTools.official_content()}
                                     {running_time}
                                     <p>
                                         <strong>开拓力去向:</strong>
@@ -344,6 +345,7 @@ class Notify:
                                 {WebTools.head_content("公告/通知")}
                                     <section class=post-detail-txt style=color:#d9d9d9>
                                         {account_active_content}
+                                        {WebTools.official_content()}
                                         {multi_content}
                                     </section>
                                     <p>
@@ -395,6 +397,7 @@ class Notify:
             {WebTools.head_content("单独通知")}
                                     <section class=post-detail-txt style=color:#d9d9d9>
                                         {account_active_content}
+                                        {WebTools.official_content()}
                                         <p>{multi_content}{universe_content}</p>
                                     </section>
                                     <p>
