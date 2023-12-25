@@ -22,21 +22,15 @@
 # import shutil,sys
 # from tasks.version.version import Version
 # import pyperclip
-# import requests,json
+import requests,json
 from datetime import datetime
 import time
 
 def testFun():
-    input("...")
-    start_time = "2023-12-22 12:00:00"
-    end_time = "2023-12-25 00:00:00"
-
-    start_time_stamp = time.mktime(time.strptime(start_time, "%Y-%m-%d %H:%M:%S"))
-    end_time_stamp = time.mktime(time.strptime(end_time, "%Y-%m-%d %H:%M:%S"))
-    totalTime = end_time_stamp - start_time_stamp
-    _day = int(totalTime // 86400)
-    _hour = int((totalTime - _day * 86400) // 3600)
-    print(f"{_day},{_hour}")
+    # input("...")
+    r = requests.get("https://hkrpg-api.mihoyo.com/common/hkrpg_cn/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&bundle_id=hkrpg_cn&channel_id=1&level=1&platform=pc&region=prod_gf_cn&uid=1")
+    data = json.loads(r.text)
+    print(data)
     input("...")
 
     

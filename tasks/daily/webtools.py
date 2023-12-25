@@ -51,7 +51,7 @@ class WebTools:
             totalTime = end_time_stamp - time.time()
             _day = int(totalTime // 86400)
             _hour = int((totalTime - _day * 86400) // 3600)
-            content += f"<div style='background-color:#40405f;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'>{title}</p><div style='font-size: 12px;line-height: 30px;padding: 0 20px;display: inline-block;transition-duration: .2s;'>{start_time} - {end_time}<br>{_day} 天 {_hour} 时后结束</div><div style='background-color: #66ccff;width:{progress * 100}%;max-width:100%;height:3px;'></div></div>"
+            content += f"<div style='background-color:#40405f;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'><b>{title}</b></p><div style='font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;'>{_day} 天 {_hour} 时后结束<br>{start_time} - {end_time}</div><div style='background-color: #66ccff;width:{progress * 100}%;max-width:100%;height:3px;'></div></div>"
 
         return content
 

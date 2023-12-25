@@ -26,21 +26,21 @@ jobs:
 
       - name: Generate program
         run: |
-          pyinstaller -D --distpath .\dist\M7A_Private_v1.7.5.1 -i .\assets\logo\March7th.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'March7th Assistant Client' --onefile main.py -y
-          pyinstaller -D --distpath .\dist\M7A_Private_v1.7.5.1 -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'March7th Assistant Register' --onefile reg.py -y
-          pyinstaller -D --distpath .\dist\M7A_Private_v1.7.5.1 -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'March7th Assistant Server' --onefile --add-data='templates;templates' --add-data='static;static' server.py -y
-          pyinstaller -F --distpath .\dist\M7A_Private_v1.7.5.1 -i .\assets\logo\Update.ico -n 'Update' update.py -y
+          pyinstaller -D --distpath .\dist\M7A_Private_v1.7.5.2 -i .\assets\logo\March7th.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'March7th Assistant Client' --onefile main.py -y
+          pyinstaller -D --distpath .\dist\M7A_Private_v1.7.5.2 -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'March7th Assistant Register' --onefile reg.py -y
+          pyinstaller -D --distpath .\dist\M7A_Private_v1.7.5.2 -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'March7th Assistant Server' --onefile --add-data='templates;templates' --add-data='static;static' server.py -y
+          pyinstaller -F --distpath .\dist\M7A_Private_v1.7.5.2 -i .\assets\logo\Update.ico -n 'Update' update.py -y
 
       - name: Move assets to dist directory
         run: |
-          xcopy /E /I /Y .\assets\ .\dist\M7A_Private_v1.7.5.1\assets\
-          xcopy /E /I /Y .\static\ .\dist\M7A_Private_v1.7.5.1\static\
-          xcopy /Y .\README.md .\dist\M7A_Private_v1.7.5.1\
-          xcopy /Y .\static\css\common.css .\dist\M7A_Private_v1.7.5.1\assets\css\
+          xcopy /E /I /Y .\assets\ .\dist\M7A_Private_v1.7.5.2\assets\
+          xcopy /E /I /Y .\static\ .\dist\M7A_Private_v1.7.5.2\static\
+          xcopy /Y .\README.md .\dist\M7A_Private_v1.7.5.2\
+          xcopy /Y .\static\css\common.css .\dist\M7A_Private_v1.7.5.2\assets\css\
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: March7thAssistantPrivate_${{ github.run_number }}
-          path: ./dist/M7A_Private_v1.7.5.1
+          path: ./dist/M7A_Private_v1.7.5.2
           retention-days: 1

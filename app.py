@@ -17,6 +17,10 @@ rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
 ruby = json.load(rb)
 rb.close()
 
+def log(message, uid = -1):
+    text = f"\033[91m[{uid}]\033[0m|网页后台改动|{message}"
+    print(text)
+
 app.config['TEMPLATES_AUTO_RELOAD']=True
 @app.template_filter('roundDate')
 def roundDate(value):
@@ -72,6 +76,7 @@ def daily_save(uid):
     elif config.daily_tasks_fin[uid]:
         config.daily_tasks_fin[uid] = False
     config.save_config()
+    log("每日完成情况已改动", uid)
     return ''
 
 @app.route('/<uid>/configsave',methods=['POST'])
@@ -94,6 +99,7 @@ def config_save(uid):
     config.universe_team[uid][3] = data['universe_team3']
     config.relic_salvage_enable[uid] = data['relic_salvage_enable']
     config.save_config()
+    log("配置信息已改动", uid)
     return ''
 
 @app.route('/register/save',methods=['POST'])
@@ -117,6 +123,7 @@ def register_save():
     config.want_register_accounts[uid]['universe_number'] = data['universe_number']
     config.want_register_accounts[uid]['universe_difficulty'] = data['universe_difficulty']
     config.save_config()
+    log("已完成注册", uid)
     return ''
 
 @app.route('/smtpsave',methods=['POST'])
@@ -129,6 +136,7 @@ def smtp_save():
     config.set_value("notify_smtp_password", data['notify_smtp_password'])
     config.set_value("notify_smtp_From", data['notify_smtp_From'])
     config.set_value("notify_smtp_master", data['notify_smtp_master'])
+    log("SMTP服务设置已改动")
     return ''
 
 @app.route('/miscsave',methods=['POST'])
@@ -140,6 +148,7 @@ def misc_save():
     config.set_value("recording_enable", data['recording_enable'])
     config.set_value("hotkey_obs_start", data['hotkey_obs_start'])
     config.set_value("hotkey_obs_stop", data['hotkey_obs_stop'])
+    log("杂项设置已改动")
     return ''
 
 @app.route('/<uid>/activesave',methods=['POST'])
@@ -152,6 +161,7 @@ def active_save(uid):
 
     config.notify_smtp_To[uid] = data['notify_smtp_To']
     config.save_config()
+    log("激活信息已改动并生效", uid)
     return ''
 
 @app.route('/active')
@@ -164,6 +174,7 @@ def all_active_save():
     config.reload()
     data = request.get_json('data')
     config.set_value("all_account_active_day", data['add_active_day'])
+    log("全体续期已生效")
     return ''
 
 @app.route('/notify')
@@ -180,6 +191,7 @@ def announcement():
     config.reload()
     data = request.get_json('data')
     send_announcement(f"全体公告:{data['notify_title']}", f"<p>{data['notify_content']}</p>")
+    log("全体公告已发送")
     return ''
 
 @app.route('/notify/single',methods=['POST'])
@@ -187,6 +199,7 @@ def announcement_single():
     config.reload()
     data = request.get_json('data')
     send_announcement_single(f"单人通知:{data['notify_title']}", f"<p>{data['notify_content']}</p>", data['notify_single'], config.notify_smtp_To[data['notify_single']])
+    log("单人通知已发送")
     return ''
 
 @app.route('/blacklist/append',methods=['POST'])
@@ -198,6 +211,7 @@ def append_blacklist():
         config.blacklist_uid.append(uid)
 
     config.save_config()
+    log(f"黑名单已添加:{uid}")
     return ''
 
 @app.route('/blacklist/remove',methods=['POST'])
@@ -212,6 +226,7 @@ def remove_blacklist():
             config.blacklist_uid.remove(uid)
 
     config.save_config()
+    log(f"黑名单已移除:{uid}")
     return ''
 
 @app.route('/cdkeylist/append',methods=['POST'])
@@ -223,6 +238,7 @@ def append_cdkeylist():
         config.cdkey_list.append(cdkey)
 
     config.save_config()
+    log(f"已添加兑换码:{cdkey}")
     return ''
 
 @app.route('/cdkeylist/remove',methods=['POST'])
@@ -237,6 +253,7 @@ def remove_cdkeylist():
             config.cdkey_list.remove(cdkey)
 
     config.save_config()
+    log(f"已移除兑换码:{cdkey}")
     return ''
             
 if __name__ == '__name__':
