@@ -26,6 +26,11 @@ app.config['TEMPLATES_AUTO_RELOAD']=True
 def roundDate(value):
     return round(value, 3)
 
+app.config['TEMPLATES_AUTO_RELOAD']=True
+@app.template_filter('universe_number')
+def universe_number(value):
+    return f"{value}"
+
 @app.route('/')
 def index():
     loginList.clear()

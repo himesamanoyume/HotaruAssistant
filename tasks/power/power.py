@@ -250,6 +250,7 @@ class Power:
         Utils._content['relic_content'] += "</div></div>"
         time.sleep(1)
         if auto.click_element("./assets/images/fight/relic_lock.png", "image", 0.9, max_retries=5):
+            logger.info(gu("胚子已锁定"))
             time.sleep(1)
         return
     
@@ -378,6 +379,7 @@ class Power:
         instance_name = instance_name.replace("燔灼之形", "灼之形")
         instance_name = instance_name.replace("潘灼之形", "灼之形")
         instance_name = instance_name.replace("熠灼之形", "灼之形")
+        instance_name = instance_name.replace("蛀星的旧靥", "蛀星的旧")
 
         if config.instance_team_enable:
             Base.change_team(config.instance_team_number)

@@ -90,53 +90,33 @@ data-rt="{{uid}}"
 <p>拟造花萼（金）:
     <select class=configSelect name=instance_name1>
         <option value="无" {% if '无' == config.instance_names[uid]['拟造花萼（金）'] %} selected {% endif %}>无</option>
-        <option value="回忆之蕾" {% if '回忆之蕾' == config.instance_names[uid]['拟造花萼（金）'] %} selected {% endif %}>回忆之蕾({{ruby['拟造花萼（金）']['回忆之蕾']}})</option>
-        <option value="以太之蕾" {% if '以太之蕾' == config.instance_names[uid]['拟造花萼（金）'] %} selected {% endif %}>以太之蕾({{ruby['拟造花萼（金）']['以太之蕾']}})</option>
-        <option value="藏珍之蕾" {% if '藏珍之蕾' == config.instance_names[uid]['拟造花萼（金）'] %} selected {% endif %}>藏珍之蕾({{ruby['拟造花萼（金）']['藏珍之蕾']}})</option>
+        {% for key, value in ruby['拟造花萼（金）'].items() %}
+            <option value="{{key}}" {% if key == config.instance_names[uid]['拟造花萼（金）'] %} selected {% endif %}>{{key}}({{value}})</option>
+        {% endfor %}
     </select>
 </p>
 <p>拟造花萼（赤）:
     <select class=configSelect name=instance_name2>
         <option value="无" {% if '无' == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>无</option>
-        <option value="毁灭之蕾" {% if '毁灭之蕾' == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>毁灭之蕾</option>
-        <option value="存护之蕾" {% if '存护之蕾' == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>存护之蕾</option>
-        <option value="巡猎之蕾" {% if '巡猎之蕾' == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>巡猎之蕾</option>
-        <option value="丰饶之蕾" {% if '丰饶之蕾' == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>丰饶之蕾</option>
-        <option value="智识之蕾" {% if '智识之蕾' == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>智识之蕾</option>
-        <option value="同谐之蕾" {% if '同谐之蕾' == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>同谐之蕾</option>
-        <option value="虚无之蕾" {% if '虚无之蕾' == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>虚无之蕾</option>
+        {% for key, value in ruby['拟造花萼（赤）'].items() %}
+            <option value="{{key}}" {% if key == config.instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>{{key}}</option>
+        {% endfor %}
     </select>
 </p>
 <p>凝滞虚影:
     <select class=configSelect name=instance_name3>
         <option value="无" {% if '无' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>无</option>
-        <option value="空海之形" {% if '空海之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>空海之形({{ruby['凝滞虚影']['空海之形']}})</option>
-        <option value="巽风之形" {% if '巽风之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>巽风之形({{ruby['凝滞虚影']['巽风之形']}})</option>
-        <option value="鸣雷之形" {% if '鸣雷之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>鸣雷之形({{ruby['凝滞虚影']['鸣雷之形']}})</option>
-        <option value="炎华之形" {% if '炎华之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>炎华之形({{ruby['凝滞虚影']['炎华之形']}})</option>
-        <option value="锋芒之形" {% if '锋芒之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>锋芒之形({{ruby['凝滞虚影']['锋芒之形']}})</option>
-        <option value="霜晶之形" {% if '霜晶之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>霜晶之形({{ruby['凝滞虚影']['霜晶之形']}})</option>
-        <option value="幻光之形" {% if '幻光之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>幻光之形({{ruby['凝滞虚影']['幻光之形']}})</option>
-        <option value="冰棱之形" {% if '冰棱之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>冰棱之形({{ruby['凝滞虚影']['冰棱之形']}})</option>
-        <option value="震厄之形" {% if '震厄之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>震厄之形({{ruby['凝滞虚影']['震厄之形']}})</option>
-        <option value="孽兽之形" {% if '孽兽之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>孽兽之形({{ruby['凝滞虚影']['孽兽之形']}})</option>
-        <option value="燔灼之形" {% if '燔灼之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>燔灼之形({{ruby['凝滞虚影']['燔灼之形']}})</option>
-        <option value="天人之形" {% if '天人之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>天人之形({{ruby['凝滞虚影']['天人之形']}})</option>
-        <option value="偃偶之形" {% if '偃偶之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>偃偶之形({{ruby['凝滞虚影']['偃偶之形']}})</option>
-        <option value="幽府之形" {% if '幽府之形' == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>幽府之形({{ruby['凝滞虚影']['幽府之形']}})</option>
+        {% for key, value in ruby['凝滞虚影'].items() %}
+            <option value="{{key}}" {% if key == config.instance_names[uid]['凝滞虚影'] %} selected {% endif %}>{{key}}({{value}})</option>
+        {% endfor %}
     </select>
 </p>
 <p>侵蚀隧洞:
     <select class=configSelect name=instance_name4>
         <option value="无" {% if '无' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>无</option>
-        <option value="霜风之径" {% if '霜风之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>霜风之径({{ruby['侵蚀隧洞']['霜风之径']}})</option>
-        <option value="迅拳之径" {% if '迅拳之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>迅拳之径({{ruby['侵蚀隧洞']['迅拳之径']}})</option>
-        <option value="漂泊之径" {% if '漂泊之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>漂泊之径({{ruby['侵蚀隧洞']['漂泊之径']}})</option>
-        <option value="睿治之径" {% if '睿治之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>睿治之径({{ruby['侵蚀隧洞']['睿治之径']}})</option>
-        <option value="圣颂之径" {% if '圣颂之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>圣颂之径({{ruby['侵蚀隧洞']['圣颂之径']}})</option>
-        <option value="野焰之径" {% if '野焰之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>野焰之径({{ruby['侵蚀隧洞']['野焰之径']}})</option>
-        <option value="药使之径" {% if '药使之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>药使之径({{ruby['侵蚀隧洞']['药使之径']}})</option>
-        <option value="幽冥之径" {% if '幽冥之径' == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>幽冥之径({{ruby['侵蚀隧洞']['幽冥之径']}})</option>
+        {% for key, value in ruby['侵蚀隧洞'].items() %}
+            <option value="{{key}}" {% if key == config.instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>{{key}}({{value}})</option>
+        {% endfor %}
     </select>
 </p>
 <p>是否清空3次历战余响:
@@ -145,9 +125,9 @@ data-rt="{{uid}}"
 <p>历战余响:
     <select class=configSelect name=instance_name5>
         <option value="无" {% if '无' == config.instance_names[uid]['历战余响'] %} selected {% endif %}>无</option>
-        <option value="毁灭的开端" {% if '毁灭的开端' == config.instance_names[uid]['历战余响'] %} selected {% endif %}>毁灭的开端({{ruby['历战余响']['毁灭的开端']}})</option>
-        <option value="寒潮的落幕" {% if '寒潮的落幕' == config.instance_names[uid]['历战余响'] %} selected {% endif %}>寒潮的落幕({{ruby['历战余响']['寒潮的落幕']}})</option>
-        <option value="不死的神实" {% if '不死的神实' == config.instance_names[uid]['历战余响'] %} selected {% endif %}>不死的神实({{ruby['历战余响']['不死的神实']}})</option>
+        {% for key, value in ruby['历战余响'].items() %}
+            <option value="{{key}}" {% if key == config.instance_names[uid]['历战余响'] %} selected {% endif %}>{{key}}({{value}})</option>
+        {% endfor %}
     </select>
 </p>
 <p>是否分解遗器:
@@ -155,33 +135,23 @@ data-rt="{{uid}}"
 </p>
 <p>模拟宇宙:
     <select class=configSelect name=universe_number>
-        <option value="3" {% if 3 == config.universe_number[uid] %} selected {% endif %}>第三世界({{ruby['模拟宇宙遗器']["3"]}})</option>
-        <option value="4" {% if 4 == config.universe_number[uid] %} selected {% endif %}>第四世界({{ruby['模拟宇宙遗器']["4"]}})</option>
-        <option value="5" {% if 5 == config.universe_number[uid] %} selected {% endif %}>第五世界({{ruby['模拟宇宙遗器']["5"]}})</option>
-        <option value="6" {% if 6 == config.universe_number[uid] %} selected {% endif %}>第六世界({{ruby['模拟宇宙遗器']["6"]}})</option>
-        <option value="7" {% if 7 == config.universe_number[uid] %} selected {% endif %}>第七世界({{ruby['模拟宇宙遗器']["7"]}})</option>
-        <option value="8" {% if 8 == config.universe_number[uid] %} selected {% endif %}>第八世界({{ruby['模拟宇宙遗器']["8"]}})</option>
+        {% for key, value in ruby['模拟宇宙'].items() %}
+            <option value="{{key}}" {% if key == (config.universe_number[uid] | universe_number) %} selected {% endif %}>{{value}}({{ruby['模拟宇宙遗器'][key]}})</option>
+        {% endfor %}
     </select>
 </p>
 <p>模拟宇宙难度:
     <select class=configSelect name=universe_difficulty>
-        <option value="1" {% if 1 == config.universe_difficulty[uid] %} selected {% endif %}>难度1</option>
-        <option value="2" {% if 2 == config.universe_difficulty[uid] %} selected {% endif %}>难度2</option>
-        <option value="3" {% if 3 == config.universe_difficulty[uid] %} selected {% endif %}>难度3</option>
-        <option value="4" {% if 4 == config.universe_difficulty[uid] %} selected {% endif %}>难度4</option>
-        <option value="5" {% if 5 == config.universe_difficulty[uid] %} selected {% endif %}>难度5</option>
+        {% for key, value in ruby['模拟宇宙难度'].items() %}
+            <option value="{{key}}" {% if key == (config.universe_difficulty[uid] | universe_number) %} selected {% endif %}>{{value}}</option>
+        {% endfor %}
     </select>
 </p>
 <p>模拟宇宙命途:
     <select class=configSelect name=universe_fate>
-        <option value="存护" {% if '存护' == config.universe_fate[uid] %} selected {% endif %}>存护</option>
-        <option value="记忆" {% if '记忆' == config.universe_fate[uid] %} selected {% endif %}>记忆</option>
-        <option value="虚无" {% if '虚无' == config.universe_fate[uid] %} selected {% endif %}>虚无</option>
-        <option value="丰饶" {% if '丰饶' == config.universe_fate[uid] %} selected {% endif %}>丰饶</option>
-        <option value="巡猎" {% if '巡猎' == config.universe_fate[uid] %} selected {% endif %}>巡猎</option>
-        <option value="毁灭" {% if '毁灭' == config.universe_fate[uid] %} selected {% endif %}>毁灭</option>
-        <option value="欢愉" {% if '欢愉' == config.universe_fate[uid] %} selected {% endif %}>欢愉</option>
-        <option value="繁育" {% if '繁育' == config.universe_fate[uid] %} selected {% endif %}>繁育</option>
+        {% for key, value in ruby['模拟宇宙命途'].items() %}
+            <option value="{{key}}" {% if key == config.universe_fate[uid] %} selected {% endif %}>{{value}}</option>
+        {% endfor %}
     </select>
 </p>
 <p>模拟宇宙队伍选择:

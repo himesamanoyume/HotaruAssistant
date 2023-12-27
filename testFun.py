@@ -31,19 +31,49 @@ task_mappings = json.load(open("./assets/config/task_mappings.json", 'r', encodi
 
 def testFun():
     input("...")
-    relic_name_crop=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
-    relic_prop_crop=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性
-    logger.info(("开始检测遗器"))
-    point = auto.find_element("./assets/images/fight/fight_reward.png", "image", 0.9,max_retries=2)
-    success_reward_top_left_x = point[0][0]
-    success_reward_top_left_y = point[0][1]
-    logger.info((f"{success_reward_top_left_x},{success_reward_top_left_y}"))
-    for i in range(2):
-        for j in range(7):
-            if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((success_reward_top_left_x - 420 + j*120.0 )/ 1920, (success_reward_top_left_y + 30 + i*120) / 1080, 120.0 / 1920, 120.0 / 1080)):
-                time.sleep(1.5)
-                if auto.click_element("./assets/images/fight/relic_info_close.png", "image", 0.9, max_retries=3):
-                            time.sleep(0.5)
+    instance_name = "蛀星的旧靥"
+    instance_name = instance_name.replace("巽风之形", "风之形")
+    instance_name = instance_name.replace("翼风之形", "风之形")
+
+    instance_name = instance_name.replace("偃偶之形", "偶之形")
+    instance_name = instance_name.replace("孽兽之形", "兽之形")
+
+    instance_name = instance_name.replace("燔灼之形", "灼之形")
+    instance_name = instance_name.replace("潘灼之形", "灼之形")
+    instance_name = instance_name.replace("熠灼之形", "灼之形")
+    instance_name = instance_name.replace("蛀星的旧靥", "蛀星的旧")
+
+
+    screen.change_to('guide3')
+    instance_type_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
+    if not auto.click_element("历战余响", "text", crop=instance_type_crop):
+        if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=instance_type_crop):
+            auto.mouse_scroll(12, -1)
+            time.sleep(0.5)
+            auto.click_element("历战余响", "text", crop=instance_type_crop)
+    # 截图过快会导致结果不可信
+    time.sleep(1)
+
+    # 传送
+    instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
+    auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)
+    Flag = False
+    for i in range(7):
+        if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+            Flag = True
+            break
+        if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+            nowtime = time.time()
+            logger.error(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
+        auto.mouse_scroll(18, -1)
+        # 等待界面完全停止
+        time.sleep(1)
+        
+    
+    if not Flag:
+        logger.error("⚠️刷副本未完成 - 没有找到指定副本名称⚠️")
+        # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+        return False
     input("...")
 
 if __name__ == '__main__':
