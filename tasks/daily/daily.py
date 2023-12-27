@@ -107,6 +107,7 @@ class Daily:
                 "拍照1次": lambda: Photo.photograph(),
                 "合成1次消耗品": lambda: Synthesis.consumables(),
                 "合成1次材料": lambda: Synthesis.material(),
+                "使用1次「万能合成机」": lambda: Synthesis.material(),
                 "使用1件消耗品": lambda: Synthesis.use_consumables(),
                 "完成1次「拟造花萼（金）」": lambda: Power.instance("拟造花萼（金）", config.instance_names[Utils.get_uid()]["拟造花萼（金）"], 10, 1),
                 "完成1次「拟造花萼（赤）」": lambda: Power.instance("拟造花萼（赤）", config.instance_names[Utils.get_uid()]["拟造花萼（赤）"], 10, 1),

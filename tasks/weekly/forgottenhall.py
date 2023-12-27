@@ -314,34 +314,31 @@ class ForgottenHall:
         return True
     
     def get_star_and_level():
-        screen.change_to('guide3')
-        guide3_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
-        if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=guide3_crop):
-            auto.mouse_scroll(18, -1)
+        screen.change_to('guide4')
+        guide4_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
+        if auto.click_element("忘却之庭", "text", max_retries=20, crop=guide4_crop):
             time.sleep(1)
-            if auto.click_element("忘却之庭", "text", max_retries=10, crop=guide3_crop):
-                time.sleep(1)
-                countdownTextCrop=(1425.0 / 1920, 319.0 / 1080, 199.0 / 1920, 43.0 / 1080)
-                levelTextCrop=(1346.0 / 1920, 646.0 / 1080, 67.0 / 1920, 37.0 / 1080)
-                starTextCrop = (1345.0 / 1920, 693.0 / 1080, 68.0 / 1920, 29.0 / 1080)
-                try:
-                    time.sleep(0.5)
-                    countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=6)
-                    countdownText = countdownText.replace('）','').replace(')','').replace('①','').replace('?','')
-                    if countdownText == '?':
-                        countdownText = '识别出错'
-                    levelText = auto.get_single_line_text(crop=levelTextCrop, blacklist=[], max_retries=3)
-                    starText = auto.get_single_line_text(crop=starTextCrop, blacklist=[], max_retries=3)
-                    logger.info(gu(f"忘却之庭刷新倒计时:{countdownText},层数:{levelText},星数:{starText}"))
-                    Utils._content['countdownText'] = countdownText
-                    level = levelText.split('/')[0]
-                    star = starText.split('/')[0]
-                    config.forgottenhall_levels[Utils.get_uid()] = int(level)
-                    config.forgottenhall_stars[Utils.get_uid()] = int(star)
-                    config.save_config()
-                except Exception as e:
-                    logger.error(gu(f"识别忘却之庭失败: {e}"))
-                    logger.warning(gu("因读取忘却之庭失败,程序中止"))
+            countdownTextCrop=(1484.0 / 1920, 556.0 / 1080, 135.0 / 1920, 27.0 / 1080)
+            levelTextCrop=(1312.0 / 1920, 641.0 / 1080, 95.0 / 1920, 31.0 / 1080)
+            starTextCrop=(1309.0 / 1920, 682.0 / 1080, 102.0 / 1920, 33.0 / 1080)
+            try:
+                time.sleep(0.5)
+                countdownText = auto.get_single_line_text(crop=countdownTextCrop, blacklist=[], max_retries=6)
+                countdownText = countdownText.replace('）','').replace(')','').replace('①','').replace('?','')
+                if countdownText == '?':
+                    countdownText = '识别出错'
+                levelText = auto.get_single_line_text(crop=levelTextCrop, blacklist=[], max_retries=3)
+                starText = auto.get_single_line_text(crop=starTextCrop, blacklist=[], max_retries=3)
+                logger.info(gu(f"忘却之庭刷新倒计时:{countdownText},层数:{levelText},星数:{starText}"))
+                Utils._content['countdownText'] = countdownText
+                level = levelText.split('/')[0]
+                star = starText.split('/')[0]
+                config.forgottenhall_levels[Utils.get_uid()] = int(level)
+                config.forgottenhall_stars[Utils.get_uid()] = int(star)
+                config.save_config()
+            except Exception as e:
+                logger.error(gu(f"识别忘却之庭失败: {e}"))
+                logger.warning(gu("因读取忘却之庭失败,程序中止"))
 
         screen.change_to('menu')
         return True

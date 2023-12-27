@@ -152,7 +152,7 @@ class Notify:
             relic_content = '<p>无</p>'
         multi_content += f"<p><strong>每日完成情况</strong></p>"
 
-        for i in range(6):
+        for i in range(8):
             multi_content += f"<p><ruby>{Utils._content[f'daily_0{i}']}<rt class='ttt' data-rt='{Utils._content[f'daily_0{i}_score']}'></rt></ruby>:"+(f"未完成</p>" if Utils._content[f'daily_0{i}_value'] else "<span class=important style=background-color:#40405f;color:#66ccff>已完成</span></p>")
 
         account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>")+f"激活天数剩余:{round((config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']),3)}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
@@ -169,9 +169,9 @@ class Notify:
 
         multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{Utils._content['countdownText']}</p>"
 
-        multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 10 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{config.forgottenhall_levels[uid]}/10</p></blockquote>"
+        multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{config.forgottenhall_levels[uid]}/12</p></blockquote>"
 
-        multi_content += (f"<blockquote>" if config.forgottenhall_stars[uid] == 30 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{config.forgottenhall_stars[uid]}/30</p></blockquote>"
+        multi_content += (f"<blockquote>" if config.forgottenhall_stars[uid] == 36 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{config.forgottenhall_stars[uid]}/36</p></blockquote>"
 
         multi_content += f"<p><strong>预计满开拓力时间</strong></p><blockquote><p>{full_power_time}</p></blockquote>"
 

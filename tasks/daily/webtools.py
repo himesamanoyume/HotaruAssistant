@@ -40,7 +40,7 @@ class WebTools:
         r = requests.get("https://hkrpg-api.mihoyo.com/common/hkrpg_cn/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&bundle_id=hkrpg_cn&channel_id=1&level=1&platform=pc&region=prod_gf_cn&uid=1")
         data = json.loads(r.text)
         data=data['data']['pic_list'][0]['type_list'][0]['list']
-        content = '<p>简易官方公告,进度条仅代表邮件发送时距离结束的进度!</p>'
+        content = '<p>简易官方资讯,进度条仅代表邮件发送时距离结束的进度!</p>'
         for item in data:
             title = item['title']
             start_time = item['start_time']

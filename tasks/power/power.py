@@ -248,7 +248,8 @@ class Power:
             else:
                 Utils._content['relic_content'] += f"<p>{prop}</p>"
         Utils._content['relic_content'] += "</div></div>"
-        if auto.click_element("./assets/images/fight/relic_lock.png", "image", 0.9, max_retries=3):
+        time.sleep(1)
+        if auto.click_element("./assets/images/fight/relic_lock.png", "image", 0.9, max_retries=5):
             time.sleep(1)
         return
     
@@ -442,7 +443,9 @@ class Power:
             if instance_type == "历战余响":
                 time.sleep(1)
                 auto.click_element("./assets/images/base/confirm.png", "image", 0.9)
-            Power.borrow_character()
+
+            if config.daily_tasks_fin[Utils.get_uid()] == False:
+                Power.borrow_character()
             if auto.click_element("开始挑战", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
                 time.sleep(0.5)
                 if instance_type in ["凝滞虚影", "侵蚀隧洞"]:

@@ -21,7 +21,8 @@ By: 姫様の夢
 
 ## TODO
 
-- None
+- 虚构叙事完善
+- - screen json
 
 ## 低优先级
 

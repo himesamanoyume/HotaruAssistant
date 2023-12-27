@@ -106,18 +106,17 @@ def main(action=None):
                 Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
 
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
-                    
                     config.daily_tasks_score[uidStr] = 0
                     config.daily_tasks_fin[uidStr] = False
                     config.daily_tasks[uidStr] = {}
-
                 
 
                 if Utils.is_next_mon_4_am(config.universe_timestamp, uidStr, False):
-                    
                     maxScore = str(config.universe_score[uidStr]).split('/')[1]
                     config.universe_score[uidStr] = f'0/{maxScore}'
                     config.universe_fin[uidStr] = False
+
+                config.save_config()
                 
                 config.reload()
                 loginDict.update({f'{uidStr}' : f'{str(config.multi_login_accounts[index])}'})

@@ -142,6 +142,45 @@
                 ]
             },
             {
+                "target_screen": "guide4",
+                "actions_list": [
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "./assets/images/screen/guide/enter_guide.png",
+                            "image",
+                            0.95
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            1
+                        ]
+                    },
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "./assets/images/screen/guide/enter_guide4.png",
+                            "image",
+                            0.95
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
                 "target_screen": "mail",
                 "actions_list": [
                     {
@@ -516,6 +555,26 @@
         ]
     },
     {
+        "name": "虚构叙事",
+        "id": "pure_fiction",
+        "image_path": "./assets/images/login/protocol.png",
+        "actions": [
+            {
+                "target_screen": "click_enter",
+                "actions_list": [
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "./assets/images/login/protocol_agree.png",
+                            "image",
+                            0.95
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "模拟宇宙-积分奖励",
         "id": "universe_score",
         "image_path": "./assets/images/screen/universe/universe_score.png",
@@ -830,6 +889,25 @@
                         ]
                     }
                 ]
+            },
+            {
+                "target_screen": "guide4",
+                "actions_list": [
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "./assets/images/screen/guide/enter_guide4.png",
+                            "image",
+                            0.95
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -869,6 +947,25 @@
                 ]
             },
             {
+                "target_screen": "guide4",
+                "actions_list": [
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "./assets/images/screen/guide/enter_guide4.png",
+                            "image",
+                            0.95
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
                 "target_screen": "universe_main",
                 "actions_list": [
                     {
@@ -882,27 +979,66 @@
                         ]
                     }
                 ]
+            }
+        ]
+    },
+    {
+        "name": "星际和平指南-逐光捡金",
+        "id": "guide4",
+        "image_path": "./assets/images/screen/guide/guide4.png",
+        "actions": [
+            {
+                "target_screen": "menu",
+                "actions_list": [
+                    {
+                        "action": "auto.press_key",
+                        "args": [
+                            "esc"
+                        ]
+                    }
+                ]
             },
             {
-                "target_screen": "memory_of_chaos",
+                "target_screen": "guide2",
                 "actions_list": [
                     {
                         "action": "auto.click_element",
                         "args": [
-                            "侵蚀隧洞",
-                            "text",
-                            null,
-                            10,
-                            "crop=(262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)"
+                            "./assets/images/screen/guide/enter_guide2.png",
+                            "image",
+                            0.95
                         ]
                     },
                     {
-                        "action": "auto.mouse_scroll",
+                        "action": "time.sleep",
                         "args": [
-                            12,
-                            -1
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "guide3",
+                "actions_list": [
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "./assets/images/screen/guide/enter_guide3.png",
+                            "image",
+                            0.95
                         ]
                     },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "memory_of_chaos",
+                "actions_list": [
                     {
                         "action": "time.sleep",
                         "args": [
@@ -932,7 +1068,7 @@
                             "text",
                             null,
                             10,
-                            "crop=(689.0 / 1920, 285.0 / 1080, 970.0 / 1920, 474.0 / 1080)"
+                            "crop=(1499.0 / 1920, 647.0 / 1080, 106.0 / 1920, 38.0 / 1080)"
                         ]
                     },
                     {
@@ -942,6 +1078,43 @@
                             "image",
                             0.95,
                             2
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "pure_fiction",
+                "actions_list": [
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            1
+                        ]
+                    },
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "虚构叙事",
+                            "text",
+                            null,
+                            10,
+                            "crop=(262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)"
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            1
+                        ]
+                    },
+                    {
+                        "action": "auto.click_element",
+                        "args": [
+                            "传送",
+                            "text",
+                            null,
+                            10,
+                            "crop=(1499.0 / 1920, 647.0 / 1080, 106.0 / 1920, 38.0 / 1080)"
                         ]
                     }
                 ]
