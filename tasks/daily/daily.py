@@ -36,14 +36,14 @@ class Daily:
         else:
             logger.info(gu("历战余响尚\033[91m未刷新\033[0m"))
 
-        if Utils.is_next_4_am(config.fight_timestamp, Utils.get_uid()):
-            config.save_config()
-            if config.fight_enable:
-                Fight.start()
-            else:
-                logger.info(gu("锄大地\033[91m未开启\033[0m"))
-        else:
-            logger.info(gu("锄大地尚\033[91m未刷新\033[0m"))
+        # if Utils.is_next_4_am(config.fight_timestamp, Utils.get_uid()):
+        #     config.save_config()
+        #     if config.fight_enable:
+        #         Fight.start()
+        #     else:
+        #         logger.info(gu("锄大地\033[91m未开启\033[0m"))
+        # else:
+        #     logger.info(gu("锄大地尚\033[91m未刷新\033[0m"))
 
         Power.start()
         # if config.universe_enable:
@@ -56,15 +56,15 @@ class Daily:
         Universe.open_universe_score_screen()
         Universe.get_immersifier()
 
-        if Utils.is_next_mon_4_am(config.forgottenhall_timestamp, Utils.get_uid()):
-            config.save_config()
-            # ForgottenHall.get_star_and_level()
-            if config.forgottenhall_enable:
-                ForgottenHall.start(Utils.get_uid())
-            else:
-                logger.info(gu("忘却之庭\033[91m未开启\033[0m"))
-        else:
-            logger.info(gu("忘却之庭尚\033[91m未刷新\033[0m"))  
+        # if Utils.is_next_mon_4_am(config.forgottenhall_timestamp, Utils.get_uid()):
+        #     config.save_config()
+        #     # ForgottenHall.get_star_and_level()
+        #     if config.forgottenhall_enable:
+        #         ForgottenHall.start(Utils.get_uid())
+        #     else:
+        #         logger.info(gu("忘却之庭\033[91m未开启\033[0m"))
+        # else:
+        #     logger.info(gu("忘却之庭尚\033[91m未刷新\033[0m"))  
 
     def start_ready():
         if config.recording_enable:

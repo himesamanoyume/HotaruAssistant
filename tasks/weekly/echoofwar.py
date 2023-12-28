@@ -72,6 +72,8 @@ class Echoofwar:
                                 elif reward_count <= max_count:
                                     Utils.saveTimestamp('echo_of_war_timestamp', Utils.get_uid())
 
+                                Utils._temp += "<p>"+f'历战余响 - {config.instance_names[Utils.get_uid()]["历战余响"]} - 1次</p>'
+
                                 return Power.run_instances("历战余响", config.instance_names[Utils.get_uid()]["历战余响"], 30, min(reward_count, max_count))
             return False
         except Exception as e:
