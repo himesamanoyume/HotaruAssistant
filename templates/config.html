@@ -150,7 +150,7 @@ data-rt="{{uid}}"
 <p>模拟宇宙命途:
     <select class=configSelect name=universe_fate>
         {% for key, value in ruby['模拟宇宙命途'].items() %}
-            <option value="{{key}}" {% if key == config.universe_fate[uid] %} selected {% endif %}>{{value}}</option>
+            <option value="{{key}}" {% if key == (config.universe_fate[uid] | universe_number) %} selected {% endif %}>{{value}}</option>
         {% endfor %}
     </select>
 </p>

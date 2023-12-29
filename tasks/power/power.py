@@ -239,6 +239,7 @@ class Power:
             return False
         
     def create_relic_content(relicName, relicPart, relicList):
+        logger.info(gu("正在生成胚子信息"))
         Utils._content['relic_content'] += f"<div class=relic><p><strong>{relicName}</strong><span style=font-size:10px>{relicPart}</span></p>"
         isMain = True
         for prop in relicList:
@@ -449,7 +450,18 @@ class Power:
             if config.daily_tasks_fin[Utils.get_uid()] == False:
                 Power.borrow_character()
             if auto.click_element("开始挑战", "text", max_retries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
-                time.sleep(0.5)
+                time.sleep(1)
+
+                if auto.find_element("./assets/images/fight/no_power.png", "image", 0.9):
+                    nowtime = time.time()
+                    logger.error(gu(f"{nowtime},挑战{instance_name}时开拓力不足,但却触发了挑战,请检查"))
+                    raise Exception(f"{nowtime},挑战{instance_name}时开拓力不足,但却触发了挑战,请检查")
+                
+                if auto.find_element("./assets/images/fight/char_dead.png", "image", 0.9):
+                    nowtime = time.time()
+                    logger.error(gu(f"{nowtime},挑战{instance_name}时有角色处于无法战斗的状态,请检查"))
+                    raise Exception(f"{nowtime},挑战{instance_name}时有角色处于无法战斗的状态,请检查")
+                
                 if instance_type in ["凝滞虚影", "侵蚀隧洞"]:
                     time.sleep(2)
                     for i in range(3):

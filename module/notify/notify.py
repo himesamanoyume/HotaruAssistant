@@ -304,15 +304,15 @@ class Notify:
             else:
                 self._send_notification(notifier_name, title, content, isSingle)
 
-    def announcement(self, title='', content='', image_io=None, isSingle=False, singleTo=''):
+    def announcement(self, title='', content='', image_io=None, isSingle=False, singleTo=config.notify_smtp_master):
         for notifier_name in self.notifiers:
-            self._send_announcement(notifier_name, title, content, isSingle)
+            self._send_announcement(notifier_name, title, content, isSingle, singleTo=singleTo)
             # if image_io:
             #     self._send_announcement(notifier_name, title, content, image_io)
             # else:
             #     self._send_announcement(notifier_name, title, content)
 
-    def _send_announcement(self, notifier_name, title, content, isSingle=False, singleTo=''):
+    def _send_announcement(self, notifier_name, title, content, isSingle=False, singleTo=config.notify_smtp_master):
         if self.notifiers.get(notifier_name, False):
 
             if notifier_name == "smtp":
@@ -373,7 +373,7 @@ class Notify:
         sendHostEmail.quit()
         logger.info(gu("smtp 公告/通知发送完成"))
 
-    def _send_single_notify_by_smtp(self, title, content, singleTo=''):
+    def _send_single_notify_by_smtp(self, title, content, singleTo=config.notify_smtp_master):
         config.reload()
         sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
         sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
@@ -387,6 +387,7 @@ class Notify:
         emailObject['From'] = config.notify_smtp_From
 
         account_active_content = ""
+        universe_content = ""
         if Utils._uid == '-1':
             uid = '-1'
         else:

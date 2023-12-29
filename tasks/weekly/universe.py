@@ -159,24 +159,6 @@ class Universe:
             #     if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers <= 2):
             #         logger.info(gu("鉴定为沉浸器数量不足,跳过"))
             #         return True
-
-            match config.universe_fate[Utils.get_uid()]:
-                case '存护':
-                    fate = 0
-                case '记忆':
-                    fate = 1
-                case '虚无':
-                    fate = 2
-                case '丰饶':
-                    fate = 3
-                case '巡猎':
-                    fate = 4
-                case '毁灭':
-                    fate = 5
-                case '欢愉':
-                    fate = 6
-                case '繁育':
-                    fate = 7
             
             if current_score == 0:
                 logger.info(gu("积分为0,鉴定为首次进行模拟宇宙"))
@@ -197,7 +179,7 @@ class Universe:
                 
             # end
             logger.info(gu("将开始进行模拟宇宙"))
-            command.append(f"--fate={fate}")
+            command.append(f"--fate={config.universe_fate[Utils.get_uid()]}")
             if subprocess_with_timeout(command, config.universe_timeout * 3600, config.universe_path, config.env):
             
                 screen.change_to('main')

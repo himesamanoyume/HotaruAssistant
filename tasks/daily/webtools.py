@@ -24,6 +24,8 @@ class WebTools:
         datalist = list()
         for item in data:
             title = item['title']
+            if title == '':
+                continue
             start_time = item['start_time']
             end_time = item['end_time']
             start_time_stamp = time.mktime(time.strptime(start_time, "%Y-%m-%d %H:%M:%S"))
@@ -43,6 +45,8 @@ class WebTools:
         content = '<p>简易官方资讯,进度条仅代表邮件发送时距离结束的进度!</p>'
         for item in data:
             title = item['title']
+            if title == '':
+                continue
             start_time = item['start_time']
             end_time = item['end_time']
             start_time_stamp = time.mktime(time.strptime(start_time, "%Y-%m-%d %H:%M:%S"))

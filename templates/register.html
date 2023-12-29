@@ -17,33 +17,23 @@ HIMEPRODUCER | 注册
 </p>
 <p>模拟宇宙:
     <select class=configSelect name=universe_number>
-        <option value="3">第三世界({{ruby['模拟宇宙遗器']["3"]}})</option>
-        <option value="4">第四世界({{ruby['模拟宇宙遗器']["4"]}})</option>
-        <option value="5">第五世界({{ruby['模拟宇宙遗器']["5"]}})</option>
-        <option value="6">第六世界({{ruby['模拟宇宙遗器']["6"]}})</option>
-        <option value="7">第七世界({{ruby['模拟宇宙遗器']["7"]}})</option>
-        <option value="8">第八世界({{ruby['模拟宇宙遗器']["8"]}})</option>
+        {% for key, value in ruby['模拟宇宙'].items() %}
+            <option value="{{key}}">{{value}}({{ruby['模拟宇宙遗器'][key]}})</option>
+        {% endfor %}
     </select>
 </p>
 <p>模拟宇宙难度:
     <select class=configSelect name=universe_difficulty>
-        <option value="1">难度1</option>
-        <option value="2">难度2</option>
-        <option value="3">难度3</option>
-        <option value="4">难度4</option>
-        <option value="5">难度5</option>
+        {% for key, value in ruby['模拟宇宙难度'].items() %}
+            <option value="{{key}}">{{value}}</option>
+        {% endfor %}
     </select>
 </p>
 <p>模拟宇宙命途:
     <select class=configSelect name=universe_fate>
-        <option value="存护">存护</option>
-        <option value="记忆">记忆</option>
-        <option value="虚无">虚无</option>
-        <option value="丰饶">丰饶</option>
-        <option value="巡猎">巡猎</option>
-        <option value="毁灭">毁灭</option>
-        <option value="欢愉">欢愉</option>
-        <option value="繁育">繁育</option>
+        {% for key, value in ruby['模拟宇宙命途'].items() %}
+            <option value="{{key}}">{{value}}</option>
+        {% endfor %}
     </select>
 </p>
 <p>模拟宇宙的队友(不能重复):</p>
