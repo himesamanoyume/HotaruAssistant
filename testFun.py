@@ -31,7 +31,7 @@ task_mappings = json.load(open("./assets/config/task_mappings.json", 'r', encodi
 
 def testFun():
     input("...")
-    screen.change_to("universe_extend")
+    screen.change_to("main")
     input("...")
 
 if __name__ == '__main__':

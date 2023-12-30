@@ -1,18 +1,18 @@
-import pyuac
 from managers.logger_manager import logger
-import sys
-import os
+from managers.automation_manager import auto
+from managers.screen_manager import screen
+import sys,pyuac,os,questionary
 from module.config.config import Config
 from managers.translate_manager import _
-import questionary
+from tasks.base.resolution import Resolution
 
 class Reg:
     def main():
         logger.warning("在进行选择前,需要先手动把游戏退出!!!然后检查config.yaml中的game_path是否正确填入")
         title_ = "若已经关闭游戏,用方向键然后回车键选择你要做的:"
         options_reg = dict()
-        options_reg.update({"0:获取新的注册表(会重新启动游戏,因此需要提前关闭游戏)":0})
-        options_reg.update({"1:重新导入完整注册表(导入注册表后需要重启游戏才会生效)":1})
+        options_reg.update({"选择获取新的注册表(会重新启动游戏,因此需要提前关闭游戏)":0})
+        options_reg.update({"选择重新导入完整注册表(导入注册表后需要重启游戏才会生效)":1})
         option_ = questionary.select(title_, list(options_reg.keys())).ask()
         value = options_reg.get(option_)
         if value == 0:
@@ -37,8 +37,27 @@ class Reg:
             # 等待游戏启动并登录
             logger.info("等待游戏启动并登录")
             os.system(f"cmd /C start \"\" \"{config.game_path}\"")
-            uid = input("此时登录账号并进入游戏,之后查看uid并输入uid:\n")
-            input("是否完成?若完成则按回车进入下一步...\n")
+
+            logger.info("此时登录账号并点击进入游戏,之后等待加载至主界面,同时将分辨率调整至1920*1080...")
+            input("是否已完成加载到主界面?若完成则按回车进入下一步开始识别UID...")
+
+            Resolution.check(config.game_title_name, 1920, 1080)
+            
+            logger.info("正在自动识别UID")
+
+            screen.change_to("main")
+
+            uid = auto.get_single_line_text(crop = (70.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080), blacklist=[], max_retries=9)
+
+            options_reg2 = dict()
+            options_reg2.update({f"正确,直接导出":0})
+            options_reg2.update({"错误,手动输入UID":1})
+            option_ = questionary.select(f"识别UID:{uid},是否正确?根据情况选择下列选项:", list(options_reg2.keys())).ask()
+            value = options_reg2.get(option_)
+            if value == 0:
+                pass
+            elif value == 1:
+                uid = input("手动输入UID:\n")
             # end
             # 导出对应账号注册表
             logger.info("导出对应账号注册表")
