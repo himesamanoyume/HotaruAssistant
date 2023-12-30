@@ -65,24 +65,24 @@ class Reg:
             # 重新导入完整注册表
             logger.info("重新导入完整注册表")
             os.system(f"cmd /C reg import ./reg/temp-full.reg")
-            logger.info("完成,你已可以退出游戏")
-            config.want_register_accounts[uid] = {}
-            config.want_register_accounts[uid]['email'] = config.want_register_accounts['111111111']['email']
-            config.want_register_accounts[uid]['reg_path'] = f'./reg/starrail-{uid}.reg'
-            config.want_register_accounts[uid]['active_day'] = config.want_register_accounts['111111111']['active_day']
+            logger.info("完成,你已可以退出游戏,若要激活账号,需要到WEB后台的注册界面进行")
+            # config.want_register_accounts[uid] = {}
+            # config.want_register_accounts[uid]['email'] = config.want_register_accounts['111111111']['email']
+            # config.want_register_accounts[uid]['reg_path'] = f'./reg/starrail-{uid}.reg'
+            # config.want_register_accounts[uid]['active_day'] = config.want_register_accounts['111111111']['active_day']
 
-            temp_list = list()
-            temp_list.append('Bronya')
-            temp_list.append('Blade')
-            temp_list.append('Jingliu')
-            temp_list.append('JingYuan')
+            # temp_list = list()
+            # temp_list.append('Bronya')
+            # temp_list.append('Blade')
+            # temp_list.append('Jingliu')
+            # temp_list.append('JingYuan')
 
-            config.want_register_accounts[uid]['universe_team'] = temp_list
+            # config.want_register_accounts[uid]['universe_team'] = temp_list
             
-            config.want_register_accounts[uid]['universe_fate'] = config.want_register_accounts['111111111']['universe_fate']
-            config.want_register_accounts[uid]['universe_number'] = config.want_register_accounts['111111111']['universe_number']
-            config.want_register_accounts[uid]['universe_difficulty'] = config.want_register_accounts['111111111']['universe_difficulty']
-            config.save_config()
+            # config.want_register_accounts[uid]['universe_fate'] = config.want_register_accounts['111111111']['universe_fate']
+            # config.want_register_accounts[uid]['universe_number'] = config.want_register_accounts['111111111']['universe_number']
+            # config.want_register_accounts[uid]['universe_difficulty'] = config.want_register_accounts['111111111']['universe_difficulty']
+            # config.save_config()
 
         except Exception as e:
             logger.error(f"发生错误: {e}")
