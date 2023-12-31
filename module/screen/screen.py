@@ -168,6 +168,9 @@ class Screen:
                 logger.warning(gu("未识别出任何界面，请确保游戏画面干净，按ESC后重试"))
                 auto.press_key("esc")
                 time.sleep(1)
+                import random
+                auto.mouse_scroll(5, 1 + -2 * random.randint(0,1))
+                time.sleep(0.2)
             else:
                 logger.debug(gu("未识别出任何界面，请确保游戏画面干净"))
                 break

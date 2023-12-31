@@ -1,9 +1,4 @@
-import socket
-import threading
-import os
-import requests
-import json
-import sys
+import socket,datetime,threading,os,requests,json,sys
 from app import apprun
 
 def handle_client(client_socket):
@@ -12,7 +7,8 @@ def handle_client(client_socket):
             data = client_socket.recv(1024)
             if not data:
                 break
-            print(f"{data.decode('utf-8')}")
+            current_time = datetime.datetime.now()
+            print(f"[{current_time.hour:02d}:{current_time.minute:02d}]{data.decode('utf-8')}")
         except Exception as e:
             print(f"发生异常:{e}")
             break
@@ -28,6 +24,7 @@ def start_server():
     print("服务器已启动，正在等待客户端连接...")
     flask_thread = threading.Thread(target=run_flask)
     flask_thread.start()
+    print("需要到下方显示的IP地址中进入后台")
     while True:
         client_socket, client_address = server_socket.accept()
         print(f"客户端{client_address}已连接")

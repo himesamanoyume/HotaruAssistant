@@ -21,13 +21,15 @@ By: 姫様の夢
 
 ## TODO
 
-- ~~注册表获取新增为自动识别或手动识别~~
-- 虚构叙事完善
+- *Bug:罕见情况下找不到主界面 如刚好手机图标背景全白时(实在找不到时,新增尝试上下滚动鼠标改变摄像头距离)*
+- **虚构叙事完善**
 - - screen json
 - - 记录刷新时间
 
 ## 低优先级
 
+- webui显示log
+- Bug:最后一个账号若非正常退出,则会直接开始下一轮循环
 - 模拟宇宙脚本中领取沉浸奖励点击的部分可以尝试进行检测
 - 新增继续模拟宇宙（继续进度，结束并结算）
 - 想办法在screen之间做更快速的联动（优化）
@@ -40,7 +42,9 @@ By: 姫様の夢
 - 凌晨四点或体力恢复到指定值后自动启动
 - 任务完成后声音提示、自动关闭游戏或关机
 
-> 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/himesamanoyume/Auto_Simulated_Universe) 项目，锄大地调用的 [Fhoe-Rail](https://github.com/himesamanoyume/Fhoe-Rail) 项目
+> 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/himesamanoyume/Auto_Simulated_Universe) 项目(也是我自己为适配本项目所修改的fork)，锄大地调用的 [Fhoe-Rail](https://github.com/himesamanoyume/Fhoe-Rail) 项目(也是我自己为适配本项目所修改的fork)
+
+然而,锄大地功能已经剔除
 
 详情见 [配置文件](assets/config/config.example.yaml) 或图形界面设置 
 

@@ -18,7 +18,9 @@ ruby = json.load(rb)
 rb.close()
 
 def log(message, uid = -1):
-    text = f"\033[91m[{uid}]\033[0m|网页后台改动|{message}"
+    import datetime
+    current_time = datetime.datetime.now()
+    text = f"[{current_time.hour:02d}:{current_time.minute:02d}]\033[91m[{uid}]\033[0m|网页后台改动|{message}"
     print(text)
 
 app.config['TEMPLATES_AUTO_RELOAD']=True
