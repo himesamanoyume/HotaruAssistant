@@ -14,6 +14,25 @@
         transition-duration: .2s
     }
 
+    .webui_container{
+        display: inline-flex;
+        flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+    }
+
+    .webui_content{
+        max-width: 480px;
+        display: inline-block;
+    }
+
+    @media screen and (max-width:1005px) {
+        .webui_content{
+            width: 100%;
+            max-width: none;
+        }
+    }
+
     .body {
         width: 100%;
         min-height: 100%;

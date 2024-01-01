@@ -26,15 +26,16 @@ import pyperclip
 class Daily:
     def sub():
         config.reload()
-        if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
-            config.save_config()
-            Echoofwar.echoofwar_get_times()
-            if config.echo_of_war_enable[Utils.get_uid()]:
+        if config.echo_of_war_enable[Utils.get_uid()]:
+            if Echoofwar.echoofwar_get_times() > 0:
                 Echoofwar.start()
             else:
-                logger.info(gu("历战余响\033[91m未开启\033[0m"))
+                if Utils.is_next_mon_4_am(config.echo_of_war_timestamp, Utils.get_uid()):
+                    config.save_config()
+                else:
+                    logger.info(gu("历战余响尚\033[91m未刷新\033[0m"))
         else:
-            logger.info(gu("历战余响尚\033[91m未刷新\033[0m"))
+            logger.info(gu("历战余响\033[91m未开启\033[0m"))
 
         # if Utils.is_next_4_am(config.fight_timestamp, Utils.get_uid()):
         #     config.save_config()
@@ -86,6 +87,7 @@ class Daily:
 
             tasks = Tasks("./assets/config/task_mappings.json")
             tasks.start(Utils.get_uid())
+            Reward.start()
 
             config.set_value("daily_tasks", tasks.daily_tasks)
             Utils.saveTimestamp('last_run_timestamp', Utils.get_uid())

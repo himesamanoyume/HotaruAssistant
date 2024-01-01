@@ -29,6 +29,7 @@ class Echoofwar:
 
                         config.echo_of_war_times[Utils.get_uid()] = reward_count
                         config.save_config()
+                        return reward_count
 
     @staticmethod
     def start():

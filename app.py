@@ -43,7 +43,7 @@ def index():
 
     datalist = WebTools.official_notice()
 
-    return render_template('index.html',loginList=loginList, config=config, datalist=datalist)
+    return render_template('index.html',loginList=loginList, config=config, datalist=datalist, ruby=ruby)
 
 @app.route('/<uid>')
 def config_setting(uid):
@@ -261,6 +261,35 @@ def remove_cdkeylist():
 
     config.save_config()
     log(f"已移除兑换码:{cdkey}")
+    return ''
+
+@app.route('/borrowchar/append',methods=['POST'])
+def append_borrowchar():
+    config.reload()
+    data = request.get_json('data')
+    char = data['borrow_character']
+    if not char in config.borrow_character:
+        config.borrow_character.append(char)
+        config.save_config()
+        log(f"已添加助战角色:{ruby['角色'][char]}")
+        return '已添加'
+    else:
+        log(f"助战角色:{ruby['角色'][char]}已重复!")
+        return '助战角色已重复'
+
+@app.route('/borrowchar/remove',methods=['POST'])
+def remove_borrowchar():
+    config.reload()
+    data = request.get_json('data')
+    char = data['borrow_character']
+    if char in config.borrow_character:
+        if len(config.borrow_character) == 1:
+            config.set_value("borrow_character", [])
+        else:
+            config.borrow_character.remove(char)
+
+    config.save_config()
+    log(f"已移除助战角色:{ruby['角色'][char]}")
     return ''
             
 if __name__ == '__name__':

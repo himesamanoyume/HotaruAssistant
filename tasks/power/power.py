@@ -462,10 +462,11 @@ class Power:
                     logger.error(gu(f"{nowtime},挑战{instance_name}时有角色处于无法战斗的状态,请检查"))
                     raise Exception(f"{nowtime},挑战{instance_name}时有角色处于无法战斗的状态,请检查")
                 
-                if instance_type in ["凝滞虚影", "侵蚀隧洞"]:
+                if instance_type in ["凝滞虚影", "侵蚀隧洞", "历战余响"]:
                     time.sleep(2)
-                    for i in range(3):
-                        auto.press_mouse()
+                    if instance_type in ["凝滞虚影"]:
+                        for i in range(3):
+                            auto.press_mouse()
 
                     for i in range(total_count - 1):
                         Power.wait_fight(instance_name)
@@ -474,7 +475,10 @@ class Power:
                             Power.instance_get_relic()
                         time.sleep(1)
                         auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
-                        time.sleep(1)
+                        if instance_type == "历战余响":
+                            time.sleep(1)
+                            auto.click_element("./assets/images/base/confirm.png", "image", 0.9) 
+                        time.sleep(1) 
                 else:
                     if full_count > 0:
                         for i in range(full_count - 1):
@@ -482,9 +486,9 @@ class Power:
                             logger.info(gu(f"第{i+1}次{instance_type}副本完成(2)"))
                             if not (full_count == 1 and incomplete_count == 0):
                                 auto.click_element("./assets/images/fight/fight_again.png", "image", 0.9, max_retries=10)
-                                if instance_type == "历战余响":
-                                    time.sleep(1)
-                                    auto.click_element("./assets/images/base/confirm.png", "image", 0.9)  
+                                # if instance_type == "历战余响":
+                                #     time.sleep(1)
+                                #     auto.click_element("./assets/images/base/confirm.png", "image", 0.9)  
                 
                 Power.wait_fight(instance_name)
                 if instance_type == "侵蚀隧洞":

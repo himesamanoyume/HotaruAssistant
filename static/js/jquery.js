@@ -466,3 +466,47 @@ function remove_blacklist(){
         })
     }
 }
+
+function append_borrow_character(){
+    if(confirm("确定添加该角色插入到助战优先级列表的尾端吗?")){
+        var borrow_character = $('select[name="add_borrow_character"]').val()
+
+        var json={
+            "borrow_character":borrow_character
+        }
+
+        $.ajax({
+            url:"./borrowchar/append",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(response){
+            alert(response)
+            location.reload()
+        }).fail(function(){
+            alert("添加失败!")
+        })
+    }
+}
+
+function remove_borrow_character(){
+    if(confirm("确定将该助战角色从优先级列表中移除吗?")){
+        var borrow_character = $('select[name="remove_borrow_character"]').val()
+
+        var json={
+            "borrow_character":borrow_character
+        }
+
+        $.ajax({
+            url:"./borrowchar/remove",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已移除!")
+            location.reload()
+        }).fail(function(){
+            alert("移除失败!")
+        })
+    }
+}
