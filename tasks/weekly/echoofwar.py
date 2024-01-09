@@ -16,8 +16,10 @@ class Echoofwar:
     def echoofwar_get_times():
         screen.change_to('guide3')
         guide3_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
+        logger.info(gu(f"开始检测历战余响本周可领取奖励次数"))
         if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=guide3_crop):
             auto.mouse_scroll(12, -1)
+            time.sleep(1)
             if auto.click_element("历战余响", "text", max_retries=10, crop=guide3_crop):
                 auto.find_element("历战余响", "text", max_retries=10, crop=(
                     682.0 / 1920, 275.0 / 1080, 1002.0 / 1920, 184.0 / 1080), include=True)

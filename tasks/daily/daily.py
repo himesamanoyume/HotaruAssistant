@@ -16,6 +16,7 @@ from tasks.daily.synthesis import Synthesis
 from tasks.daily.relics import Relics
 from tasks.daily.utils import Utils
 from tasks.weekly.forgottenhall import ForgottenHall
+from tasks.weekly.purefiction import PureFiction
 from tasks.weekly.echoofwar import Echoofwar
 from tasks.power.power import Power
 from tasks.daily.tasks import Tasks
@@ -26,6 +27,7 @@ import pyperclip
 class Daily:
     def sub():
         config.reload()
+        logger.info(gu("进入历战余响部分"))
         if config.echo_of_war_enable[Utils.get_uid()]:
             if Echoofwar.echoofwar_get_times() > 0:
                 Echoofwar.start()
@@ -46,6 +48,7 @@ class Daily:
         # else:
         #     logger.info(gu("锄大地尚\033[91m未刷新\033[0m"))
 
+        logger.info(gu("进入清体力部分"))
         Power.start()
         # if config.universe_enable:
         #     isTrue = Universe.start(get_reward=True, daily=True, nums=0)
@@ -54,6 +57,7 @@ class Daily:
         # else:
         #     logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
         
+        logger.info(gu("进入模拟宇宙部分"))
         Universe.open_universe_score_screen()
         Universe.get_immersifier()
 
@@ -178,6 +182,8 @@ class Daily:
         config.reload()
         Power.power()
         ForgottenHall.get_star_and_level()
+        PureFiction.get_star_and_level()
+        screen.change_to('menu')
         Reward.start()
         if len(config.cdkey_list) > 0:
             Daily.get_cdkey()

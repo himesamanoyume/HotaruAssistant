@@ -115,6 +115,9 @@ universe_difficulty: {} # 什么难度
 universe_fate: {} # 什么命途 0存护1记忆2虚无3丰饶4巡猎5毁灭6欢愉7繁育
 universe_team: {} # 阵容 用templist append角色名后整个赋值到此
 
+purefiction_stars: {} # 虚构叙事星数
+purefiction_levels: {} # 虚构叙事层数
+
 forgottenhall_stars: {} # 忘却之庭星数
 forgottenhall_levels: {} # 忘却之庭通过层数
 forgottenhall_enable: false # 启用忘却之庭

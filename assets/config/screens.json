@@ -621,17 +621,15 @@
     {
         "name": "虚构叙事",
         "id": "pure_fiction",
-        "image_path": "./assets/images/login/protocol.png",
+        "image_path": "./assets/images/purefiction/pure_fiction_main.png",
         "actions": [
             {
-                "target_screen": "click_enter",
+                "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "auto.click_element",
+                        "action": "auto.press_key",
                         "args": [
-                            "./assets/images/login/protocol_agree.png",
-                            "image",
-                            0.95
+                            "esc"
                         ]
                     }
                 ]

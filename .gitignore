@@ -181,6 +181,7 @@ pyrightconfig.json
 # Test
 /tests
 /test.py
+/testFun.py
 
 # March7thAssistant
 /*config.yaml

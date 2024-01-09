@@ -95,6 +95,10 @@ class Utils:
         uid_crop = (70.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
         try:
             Utils._uid = auto.get_single_line_text(crop=uid_crop, blacklist=[], max_retries=9)
+            if Utils._uid == None:
+                nowtime = time.time()
+                logger.error(getUid(f"{nowtime},读取UID错误:{e}"))
+                raise Exception(f"{nowtime},读取UID错误:{e}")
             Utils._content = dict()
             Utils._temp = ''
             Utils._power = 250
@@ -153,6 +157,7 @@ class Utils:
         logger.info(getUid(f"现在总活跃度为{config.daily_tasks_score[uid]}"))
 
         if config.daily_tasks_score[uid] >= 500:
+            config.daily_tasks_score[uid] = 500
             config.daily_tasks_fin[uid] = True
             logger.info(getUid("该账号今日500活跃度已达成"))
         elif config.daily_tasks_fin[uid]:

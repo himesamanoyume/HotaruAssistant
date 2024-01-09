@@ -107,6 +107,7 @@ class Power:
     @staticmethod
     def wait_fight(instance_name):
         logger.info(gu("进入战斗"))
+        time.sleep(5)
         for i in range(20):
             if auto.find_element("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
                 logger.info(gu("二倍速已开启"))
@@ -118,7 +119,7 @@ class Power:
                 if auto.find_element("./assets/images/fight/fight_again.png", "image", 0.9) or auto.find_element("./assets/images/fight/fight_fail.png", "image", 0.9):
                     break
 
-        time.sleep(1)
+        time.sleep(5)
 
         for i in range(20):
             if auto.find_element("./assets/images/base/not_auto.png", "image", 0.95):
@@ -467,6 +468,7 @@ class Power:
                     if instance_type in ["凝滞虚影"]:
                         for i in range(3):
                             auto.press_mouse()
+                            time.sleep(3)
 
                     for i in range(total_count - 1):
                         Power.wait_fight(instance_name)

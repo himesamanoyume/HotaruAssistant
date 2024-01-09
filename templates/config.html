@@ -69,6 +69,20 @@ data-rt="{{uid}}"
 {% endif %}
 <p>星数:{{config.forgottenhall_stars[uid]}}/36</p></blockquote>
 
+<p><strong>当前虚构叙事</strong></p>
+{% if config.purefiction_levels[uid] == 4 %}
+<blockquote>
+{% else %}
+<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>
+{% endif %}
+<p>层数:{{config.purefiction_levels[uid]}}/4</p></blockquote>
+{% if config.purefiction_stars[uid] == 12 %}
+<blockquote>
+{% else %}
+<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>
+{% endif %}
+<p>星数:{{config.purefiction_stars[uid]}}/12</p></blockquote>
+
 </section>
 <hr>
 

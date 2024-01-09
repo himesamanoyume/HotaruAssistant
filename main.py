@@ -432,6 +432,8 @@ def account_active_fun(uid):
                 config.del_value_with_no_save('forgottenhall_stars',uid)
                 config.del_value_with_no_save('forgottenhall_levels',uid)
                 config.del_value_with_no_save('forgottenhall_timestamp',uid)
+                config.del_value_with_no_save('purefiction_stars',uid)
+                config.del_value_with_no_save('purefiction_levels',uid)
                 config.del_value_with_no_save('notify_smtp_To',uid)
                 config.del_value_with_no_save('account_active',uid)
 
