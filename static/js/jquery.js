@@ -44,6 +44,7 @@ function config_submitChange(){
         var universe_team2 = $('select[name="universe_team2"]').val()
         var universe_team3 = $('select[name="universe_team3"]').val()
         var relic_salvage_enable = $('input[name="relic_salvage_enable"]').prop('checked')
+        var relic_salvage_5star_enable = $('input[name="relic_salvage_5star_enable"]').prop('checked')
         var uid = $('.body').attr('data-rt')
 
         var json={
@@ -61,7 +62,8 @@ function config_submitChange(){
             "universe_team1":universe_team1,
             "universe_team2":universe_team2,
             "universe_team3":universe_team3,
-            "relic_salvage_enable":relic_salvage_enable
+            "relic_salvage_enable":relic_salvage_enable,
+            "relic_salvage_5star_enable":relic_salvage_5star_enable
         }
         $.ajax({
             url:"./"+uid+"/configsave",

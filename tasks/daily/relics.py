@@ -29,6 +29,9 @@ class Relics:
                         time.sleep(0.5)
                         auto.click_element("4星", "text", max_retries=10, crop=(1408.0 / 1920, 308.0 / 1080, 336.0 / 1920, 136.0 / 1080))
                         time.sleep(0.5)
+                        if config.relic_salvage_5star_enable[Utils.get_uid()]:
+                            auto.click_element("5星", "text", max_retries=10, crop=(1408.0 / 1920, 308.0 / 1080, 336.0 / 1920, 136.0 / 1080))
+                            time.sleep(0.5)
                         if auto.click_element("确认", "text", max_retries=10, crop=(1597.0 / 1920, 958.0 / 1080, 285.0 / 1920, 65.0 / 1080)):
                             time.sleep(1)
                             if auto.click_element("全选", "text", max_retries=10, crop=(937.0 / 1920, 951.0 / 1080, 121.0 / 1920, 63.0 / 1080)):

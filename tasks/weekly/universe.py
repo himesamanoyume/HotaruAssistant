@@ -109,23 +109,25 @@ class Universe:
     @staticmethod
     def open_universe_score_screen():
         screen.change_to("universe_main")
-        time.sleep(1)
+        time.sleep(2)
         # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
-        if auto.find_element("./assets/images/base/click_close.png", "image", 0.9,max_retries=10):
+        if auto.find_element("./assets/images/screen/universe/universe_score.png", "image", 0.9, max_retries=10):
+            logger.info(gu("检测到模拟宇宙本周首次进入界面"))
             time.sleep(1)
             current_score, max_score = Utils.get_universe_score()
-            auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+            auto.click_element("./assets/images/himeko/close.png", "image", 0.9, max_retries=10)
 
         elif auto.click_element("./assets/images/universe/universe_reward.png", "image", 0.9, max_retries=10):
+            logger.info(gu("正在点开积分界面"))
             time.sleep(1)
             current_score, max_score = Utils.get_universe_score()
             if auto.click_element("./assets/images/universe/one_key_receive.png", "image", 0.9, max_retries=10):
                 time.sleep(0.5)
-                if auto.find_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                if auto.find_element("./assets/images/himeko/close.png", "image", 0.9, max_retries=10):
                     time.sleep(0.5)
                     logger.info(gu("🎉模拟宇宙积分奖励已领取🎉"))
                     # Base.send_notification_with_screenshot(_("🎉模拟宇宙积分奖励已领取🎉"))
-                    auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+                    auto.click_element("./assets/images/himeko/close.png", "image", 0.9, max_retries=10)
         
         return current_score, max_score
     

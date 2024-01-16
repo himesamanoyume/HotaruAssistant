@@ -78,6 +78,7 @@ def main(action=None):
 
                 # 分解遗器
                 Utils.detectIsNoneButNoSave(config.relic_salvage_enable, uidStr, False)
+                Utils.detectIsNoneButNoSave(config.relic_salvage_5star_enable, uidStr, False)
 
                 # echo of war历战余响
                 Utils.detectIsNoneButNoSave(config.echo_of_war_enable, uidStr, False)

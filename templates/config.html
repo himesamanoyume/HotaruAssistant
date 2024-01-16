@@ -144,8 +144,11 @@ data-rt="{{uid}}"
         {% endfor %}
     </select>
 </p>
-<p>是否分解遗器:
+<p>是否开启分解4星及以下的遗器:
     <input type="checkbox" name="relic_salvage_enable" value="relic_salvage_enable" {% if config.relic_salvage_enable[uid] %} checked {% endif %}>
+</p>
+<p>是否分解5星遗器:
+    <input type="checkbox" name="relic_salvage_5star_enable" value="relic_salvage_5star_enable" {% if config.relic_salvage_5star_enable[uid] %} checked {% endif %}>
 </p>
 <p>模拟宇宙:
     <select class=configSelect name=universe_number>
