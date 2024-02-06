@@ -400,17 +400,50 @@ class Power:
         instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)
         Flag = False
-        for i in range(7):
-            if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
-                Flag = True
-                break
-            if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
-                nowtime = time.time()
-                logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
-                raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
-            auto.mouse_scroll(18, -1)
-            # 等待界面完全停止
-            time.sleep(1)
+        if instance_type in ['拟造花萼（赤）']:
+            import json
+            rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
+            ruby = json.load(rb)
+            rb.close()
+            for i in range(7):
+                point = auto.find_element(f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instance_name]}.png", "image", 0.9, max_retries=5)
+
+                success_point_top_left_x = point[0][0]
+                success_point_top_left_y = point[0][1]
+                text_crop=(success_point_top_left_x/ 1920, success_point_top_left_y / 1080, 735 / 1920, 87 / 1080)
+
+                if auto.click_element("传送", "text", crop=text_crop):
+                    Flag = True
+                    break
+                elif auto.click_element("进入", "text", crop=text_crop):
+                    logger.info("该副本限时开放中,但你并没有解锁该副本")
+                    Flag = True
+                    break
+                
+                if auto.click_element("追踪", "text", crop=text_crop):
+                    nowtime = time.time()
+                    logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
+                    raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                auto.mouse_scroll(18, -1)
+                # 等待界面完全停止
+                time.sleep(1)
+        else:
+            for i in range(7):
+                if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+                    Flag = True
+                    break
+                elif auto.click_element("进入", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+                    logger.info("该副本限时开放中,但你并没有解锁该副本")
+                    Flag = True
+                    break
+
+                if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+                    nowtime = time.time()
+                    logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
+                    raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                auto.mouse_scroll(18, -1)
+                # 等待界面完全停止
+                time.sleep(1)
             
         
         if not Flag:
