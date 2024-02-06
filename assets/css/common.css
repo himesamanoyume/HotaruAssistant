@@ -638,7 +638,7 @@
     }
 
     ruby>rt {
-        display: block;
+        /* display: block; */
         font-size: 50%;
         text-align: start
     }

@@ -299,9 +299,9 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
             if config.instance_type[currentUID] == '模拟宇宙' or (not config.universe_fin[currentUID] or Utils._totalTime >= 900):
                 Game.stop(index ,True, currentUID, _lastUID, action=action)
             else:
+                logger.info("因为未选择清模拟宇宙或模拟宇宙已通关,不发送邮件通知号主")
                 Game.stop(index ,True, currentUID, _lastUID, action=action, isSendEmail=False)
                 Utils._action = ''
-                logger.info("因为未选择清模拟宇宙或模拟宇宙已通关,不发送邮件通知号主")
         except Exception as e:
             logger.error(f"{e}")
             notify.announcement((f'运行流程异常|{Utils._action}'), (f"<p>本次运行已中断</p><p>时间戳:{e}</p>"), isSingle=True)
