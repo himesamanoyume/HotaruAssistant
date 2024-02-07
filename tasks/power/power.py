@@ -427,6 +427,33 @@ class Power:
                 auto.mouse_scroll(18, -1)
                 # 等待界面完全停止
                 time.sleep(1)
+        elif instance_type in ['拟造花萼（金）']:
+            import json
+            rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
+            ruby = json.load(rb)
+            rb.close()
+
+            instance_map, instance_map_type = instance_name.split('-')
+            instance_map_name = ruby['星球'][instance_map]
+
+            for i in range(2):
+                if auto.click_element(f"./assets/images/screen/guide/{instance_map_name}_on.png", "image", 0.9, max_retries=10) or auto.click_element(f"./assets/images/screen/guide/{instance_map_name}_off.png", "image", 0.9, max_retries=10):
+
+                    if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type):
+                        Flag = True
+
+                    elif auto.click_element("进入", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type):
+                        logger.info("该副本限时开放中,但你并没有解锁该副本")
+                        Flag = True
+
+                    if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type):
+                        nowtime = time.time()
+                        logger.error(gu(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本"))
+                        raise Exception(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                
+                # 等待界面完全停止
+                time.sleep(1)
+
         else:
             for i in range(7):
                 if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
@@ -445,15 +472,14 @@ class Power:
                 # 等待界面完全停止
                 time.sleep(1)
             
-        
         if not Flag:
             logger.error(gu("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
-            # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+
             return False
         # 验证传送是否成功
-        if not auto.find_element(instance_name, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
+        if (not auto.find_element(instance_name, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080))) or (not auto.find_element(instance_map_type, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080))):
+
             logger.error(gu("⚠️刷副本未完成 - 传送可能失败⚠️"))
-            # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 传送可能失败⚠️"))
             return False
 
         full_count = total_count // 6

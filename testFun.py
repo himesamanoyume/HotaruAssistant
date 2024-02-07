@@ -31,62 +31,12 @@ task_mappings = json.load(open("./assets/config/task_mappings.json", 'r', encodi
 
 def testFun():
     input("按回车开始执行...")
-    WindowSwitcher.check_and_switch(config.game_title_name)
+    # WindowSwitcher.check_and_switch(config.game_title_name)
     # ------------------------------------------------------------------------
-    instance_type = "凝滞虚影"
-    instance_name = "空海之形"
-
-    screen.change_to('guide3')
-    instance_type_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
-    if not auto.click_element(instance_type, "text", crop=instance_type_crop):
-        if auto.click_element("侵蚀隧洞", "text", max_retries=10, crop=instance_type_crop):
-            auto.mouse_scroll(12, -1)
-            time.sleep(0.5)
-            auto.click_element(instance_type, "text", crop=instance_type_crop)
-    # 截图过快会导致结果不可信
-    time.sleep(1)
-
-    # 传送
-    instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
-    auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)
-    Flag = False
-    if instance_type in ['拟造花萼（赤）']:
-        import json
-        rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
-        ruby = json.load(rb)
-        rb.close()
-        for i in range(7):
-            point = auto.find_element(f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instance_name]}.png", "image", 0.9, max_retries=5)
-
-            success_point_top_left_x = point[0][0]
-            success_point_top_left_y = point[0][1]
-            text_crop=(success_point_top_left_x/ 1920, success_point_top_left_y / 1080, 735 / 1920, 87 / 1080)
-
-            if auto.click_element("传送", "text", crop=text_crop):
-                Flag = True
-                break
-            
-            if auto.click_element("追踪", "text", crop=text_crop):
-                print("你似乎没有解锁这个副本?总之无法传送到该副本")
-                # nowtime = time.time()
-                # logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
-                # raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
-            auto.mouse_scroll(18, -1)
-            # 等待界面完全停止
-            time.sleep(1)
-    else:
-        for i in range(7):
-            if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
-                Flag = True
-                break
-            if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
-                print("你似乎没有解锁这个副本?总之无法传送到该副本")
-                # nowtime = time.time()
-                # logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
-                # raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
-            auto.mouse_scroll(18, -1)
-            # 等待界面完全停止
-            time.sleep(1)
+    instance_name = '雅利洛-回忆之蕾'
+    instance_map_name, instance_map_type = instance_name.split('-')
+    print(f'{instance_map_name},{instance_map_type}')
+    # ------------------------------------------------------------------------
     input("...")
 
 if __name__ == '__main__':
