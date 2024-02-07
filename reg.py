@@ -20,7 +20,23 @@ class Reg:
         elif value == 1:
             Reg.restore_reg()
         elif value == 2:
-            Reg.take_screenshot()
+            Reg.take_ss_first()
+    
+    def take_ss_first():
+        Reg.take_screenshot()
+        Reg.take_ss_second()
+
+    def take_ss_second():
+        options_reg2 = dict()
+        options_reg2.update({"0:继续截图":0})
+        options_reg2.update({"1:退出":1})
+        option_ = questionary.select("截图已完成,选择下一步", list(options_reg2.keys())).ask()
+        value = options_reg2.get(option_)
+        if value == 0:
+            Reg.take_ss_first()
+        else:
+            pass
+
 
     def restore_reg():
         logger.info("重新导入完整注册表")
