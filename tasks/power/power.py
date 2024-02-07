@@ -400,6 +400,7 @@ class Power:
         instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)
         Flag = False
+        instance_map_type = ''
         if instance_type in ['拟造花萼（赤）']:
             import json
             rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
@@ -441,10 +442,12 @@ class Power:
 
                     if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type):
                         Flag = True
+                        break
 
                     elif auto.click_element("进入", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type):
                         logger.info("该副本限时开放中,但你并没有解锁该副本")
                         Flag = True
+                        break
 
                     if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type):
                         nowtime = time.time()
@@ -477,10 +480,10 @@ class Power:
 
             return False
         # 验证传送是否成功
-        if (not auto.find_element(instance_name, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080))) or (not auto.find_element(instance_map_type, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080))):
-
-            logger.error(gu("⚠️刷副本未完成 - 传送可能失败⚠️"))
-            return False
+        if not auto.find_element(instance_name, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
+            if not auto.find_element(instance_map_type, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
+                logger.error(gu("⚠️刷副本未完成 - 传送可能失败⚠️"))
+                return False
 
         full_count = total_count // 6
         incomplete_count = total_count - full_count * 6

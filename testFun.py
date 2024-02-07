@@ -31,11 +31,9 @@ task_mappings = json.load(open("./assets/config/task_mappings.json", 'r', encodi
 
 def testFun():
     input("按回车开始执行...")
-    # WindowSwitcher.check_and_switch(config.game_title_name)
+    WindowSwitcher.check_and_switch(config.game_title_name)
     # ------------------------------------------------------------------------
-    instance_name = '雅利洛-回忆之蕾'
-    instance_map_name, instance_map_type = instance_name.split('-')
-    print(f'{instance_map_name},{instance_map_type}')
+    
     # ------------------------------------------------------------------------
     input("...")
 
