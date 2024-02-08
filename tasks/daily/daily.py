@@ -108,6 +108,9 @@ class Daily:
         Daily.start_ready()
 
         Utils.calcDailyTasksScore(Utils.get_uid())
+
+        Power.power()
+
         if len(config.daily_tasks[Utils.get_uid()]) > 0:
             task_functions = {
                 "拍照1次": lambda: Photo.photograph(),

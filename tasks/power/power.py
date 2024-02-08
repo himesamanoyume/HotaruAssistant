@@ -256,6 +256,14 @@ class Power:
             time.sleep(1)
         return
     
+    def rubbish_relic():
+        logger.info(gu("鉴定为垃圾"))
+        if auto.click_element("./assets/images/fight/relic_rubbish.png", "image", 0.9, max_retries=5):
+            logger.info(gu("已标记为垃圾"))
+            time.sleep(1)
+        return
+
+    
     @staticmethod
     def is_good_relic(relicName, relicPart, relicList, propCount, usefulPropCount, mainPropName):
         logger.info(gu("开始检测遗器"))
@@ -297,6 +305,11 @@ class Power:
             if relicPart in '躯干' and mainPropName in ['暴击率','暴击伤害']:
                 logger.warning(gu(f"发现躯干胚子"))
                 Power.create_relic_content(relicName, relicPart, relicList)
+            else:
+                Power.rubbish_relic()
+        elif propCount == 4 and usefulPropCount == 0:
+            Power.rubbish_relic()
+                
 
     @staticmethod
     def instance_get_relic():
@@ -407,24 +420,27 @@ class Power:
             ruby = json.load(rb)
             rb.close()
             for i in range(7):
-                point = auto.find_element(f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instance_name]}.png", "image", 0.9, max_retries=5)
+                if auto.find_element(f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instance_name]}.png", "image", 0.9, max_retries=5):
 
-                success_point_top_left_x = point[0][0]
-                success_point_top_left_y = point[0][1]
-                text_crop=(success_point_top_left_x/ 1920, success_point_top_left_y / 1080, 735 / 1920, 87 / 1080)
+                    point = auto.find_element(f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instance_name]}.png", "image", 0.9, max_retries=5)
 
-                if auto.click_element("传送", "text", crop=text_crop):
-                    Flag = True
-                    break
-                elif auto.click_element("进入", "text", crop=text_crop):
-                    logger.info("该副本限时开放中,但你并没有解锁该副本")
-                    Flag = True
-                    break
+                    success_point_top_left_x = point[0][0]
+                    success_point_top_left_y = point[0][1]
+                    text_crop=(success_point_top_left_x/ 1920, success_point_top_left_y / 1080, 735 / 1920, 87 / 1080)
+
+                    if auto.click_element("传送", "text", crop=text_crop):
+                        Flag = True
+                        break
+                    elif auto.click_element("进入", "text", crop=text_crop):
+                        logger.info("该副本限时开放中,但你并没有解锁该副本")
+                        Flag = True
+                        break
                 
-                if auto.click_element("追踪", "text", crop=text_crop):
-                    nowtime = time.time()
-                    logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
-                    raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                    if auto.click_element("追踪", "text", crop=text_crop):
+                        nowtime = time.time()
+                        logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
+                        raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                    
                 auto.mouse_scroll(18, -1)
                 # 等待界面完全停止
                 time.sleep(1)
@@ -456,7 +472,6 @@ class Power:
                 
                 # 等待界面完全停止
                 time.sleep(1)
-
         else:
             for i in range(7):
                 if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
