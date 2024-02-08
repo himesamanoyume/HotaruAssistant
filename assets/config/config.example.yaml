@@ -76,16 +76,6 @@ mail_enable: true # 领取邮件奖励
 assist_enable: true # 领取支援奖励
 
 daily_himeko_try_enable: false # 通过 “姬子试用” 完成任务
-daily_memory_one_enable: false # 通过 “回忆一” 完成任务
-daily_memory_one_team: # 用于回忆一的队伍
-- - Bronya
-  - -1
-- - Natasha
-  - 0
-- - March7th
-  - 0
-- - Asta
-  - 0
 daily_tasks: {} # 每日实训
 daily_tasks_score: {} # 活跃度
 daily_tasks_fin: {} # 是否完成实训
@@ -108,37 +98,6 @@ universe_team: {} # 阵容 用templist append角色名后整个赋值到此
 
 purefiction_stars: {} # 虚构叙事星数
 purefiction_levels: {} # 虚构叙事层数
-
-forgottenhall_stars: {} # 忘却之庭星数
-forgottenhall_levels: {} # 忘却之庭通过层数
-forgottenhall_enable: false # 启用忘却之庭
-forgottenhall_level: # 混沌回忆关卡范围
-- 1
-- 10
-forgottenhall_retries: 1 # 混沌回忆挑战失败后的重试次数
-# 混沌回忆队伍
-# 数字代表秘技使用次数，其中 -1 代表最后一个放秘技和普攻的角色
-# 角色对应的英文名字可以在 "March7thAssistant\assets\images\character" 中查看
-forgottenhall_team1: # 队伍1
-- - Asta
-  - -1
-- - Natasha
-  - 0
-- - Tingyun
-  - 2
-- - JingYuan
-  - 1
-forgottenhall_team2: # 队伍2
-- -
-    Bronya
-  - 1
-- - Luocha
-  - 1
-- - SilverWolf
-  - -1
-- - Qingque
-  - 1
-forgottenhall_timestamp: {} # 上次运行混沌回忆的时间戳（每周运行，如已经满星则跳过）
 
 hotkey_technique: e # 游戏内设置的秘技按键
 hotkey_obs_start: '[' # obs开始录制的快捷键
