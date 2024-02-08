@@ -39,37 +39,12 @@ class Daily:
         else:
             logger.info(gu("历战余响\033[91m未开启\033[0m"))
 
-        # if Utils.is_next_4_am(config.fight_timestamp, Utils.get_uid()):
-        #     config.save_config()
-        #     if config.fight_enable:
-        #         Fight.start()
-        #     else:
-        #         logger.info(gu("锄大地\033[91m未开启\033[0m"))
-        # else:
-        #     logger.info(gu("锄大地尚\033[91m未刷新\033[0m"))
-
         logger.info(gu("进入清体力部分"))
         Power.start()
-        # if config.universe_enable:
-        #     isTrue = Universe.start(get_reward=True, daily=True, nums=0)
-        #     if isTrue:
-        #         Power.start()
-        # else:
-        #     logger.info(_("模拟宇宙{red}".format(red="\033[91m" + _("未开启") + "\033[0m")))
         
         logger.info(gu("进入模拟宇宙部分"))
         Universe.open_universe_score_screen()
         Universe.get_immersifier()
-
-        # if Utils.is_next_mon_4_am(config.forgottenhall_timestamp, Utils.get_uid()):
-        #     config.save_config()
-        #     # ForgottenHall.get_star_and_level()
-        #     if config.forgottenhall_enable:
-        #         ForgottenHall.start(Utils.get_uid())
-        #     else:
-        #         logger.info(gu("忘却之庭\033[91m未开启\033[0m"))
-        # else:
-        #     logger.info(gu("忘却之庭尚\033[91m未刷新\033[0m"))  
 
     def start_ready():
         if config.recording_enable:
@@ -125,7 +100,6 @@ class Daily:
                 "完成1次「历战余响」": lambda: Power.instance("历战余响", config.instance_names[Utils.get_uid()]["历战余响"], 30, 1),
                 "累计施放2次秘技": lambda: HimekoTry.technique(),
                 "累计击碎3个可破坏物": lambda: HimekoTry.item(),
-                "完成1次「忘却之庭」": lambda: ForgottenHall.finish_forgottenhall(),
                 "单场战斗中，触发3种不同属性的弱点击破": lambda: HimekoTry.weakness_diffrent_3(),
                 "累计触发弱点击破效果5次": lambda: HimekoTry.weakness_5(),
                 "累计消灭20个敌人": lambda: HimekoTry.enemy_20(),
