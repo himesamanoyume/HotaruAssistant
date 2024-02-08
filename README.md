@@ -49,16 +49,11 @@ By: 姫様の夢
 - 凌晨四点或体力恢复到指定值后自动启动
 - 任务完成后声音提示、自动关闭游戏或关机
 
-> 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/himesamanoyume/Auto_Simulated_Universe) 项目(也是我自己为适配本项目所修改的fork)，锄大地调用的 [Fhoe-Rail](https://github.com/himesamanoyume/Fhoe-Rail) 项目(也是我自己为适配本项目所修改的fork)
-
-然而,锄大地功能已经剔除
-
-详情见 [配置文件](assets/config/config.example.yaml) 或图形界面设置 
+> 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/himesamanoyume/Auto_Simulated_Universe) 项目(我自己为适配本项目所修改的fork)，锄大地功能已经剔除
 
 ## 注意事项
 
-- 必须使用**PC端** `1920*1080` 分辨率窗口或全屏运行游戏（不支持HDR）
-- 需要后台运行或多显示器可以尝试 [远程本地多用户桌面](https://asu.stysqy.top/guide/bs.html)
+- 必须在**PC端**且通过使用 [远程本地多用户桌面](https://asu.stysqy.top/guide/bs.html) 在后台以 `1920*1080` 分辨率连接用户并以全屏运行游戏（不支持HDR）
 
 ## 下载安装
 
@@ -74,8 +69,4 @@ March7thAssistantPrivate 离不开以下开源项目的帮助：
 
 - 原版模拟宇宙自动化 [https://github.com/CHNZYX/Auto_Simulated_Universe](https://github.com/CHNZYX/Auto_Simulated_Universe)
 
-- 原版锄大地自动化 [https://github.com/linruowuyin/Fhoe-Rail](https://github.com/linruowuyin/Fhoe-Rail)
-
 - OCR文字识别 [https://github.com/hiroi-sora/PaddleOCR-json](https://github.com/hiroi-sora/PaddleOCR-json)
-
-- 图形界面组件库 [https://github.com/zhiyiYo/PyQt-Fluent-Widgets](https://github.com/zhiyiYo/PyQt-Fluent-Widgets)
