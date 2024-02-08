@@ -19,7 +19,6 @@ want_register_accounts: # 启动游戏前先进行注册
   '111111111':
     email: ''
     reg_path: ''
-    active_day: 0
     universe_team:
     - Bronya
     - Blade
@@ -92,15 +91,6 @@ daily_tasks_score: {} # 活跃度
 daily_tasks_fin: {} # 是否完成实训
 last_run_timestamp: {} # 上次运行日常的时间戳
 
-fight_enable: false # 启用锄大地
-# fight_operation_mode: exe # 运行方式 源码: source 集成: exe
-fight_path: .\3rdparty\Fhoe-Rail # 锄大地路径
-fight_timeout: 6 # 锄大地超时（单位小时）
-fight_team_enable: false # 锄大地时自动切换队伍
-fight_team_number: '2' # 队伍编号
-fight_requirements: false # 是否安装过依赖（更新后会重置为false）
-fight_timestamp: {} # 上次运行锄大地的时间戳（每天运行）
-
 universe_enable: true # 启用模拟宇宙
 # universe_operation_mode: exe # 运行方式 源码: source 集成: exe
 universe_bonus_enable: true # 领取沉浸奖励
@@ -170,12 +160,3 @@ notify_smtp_port: '587' # 可选参数 587,465
 notify_smtp_ssl: '' # 可选参数
 notify_smtp_master: '' # 正在控制该脚本的使用者的专用邮箱
 
-all_account_active_day: 0 # 给所有账号增加天数
-account_active:
-    '111111111':
-        isExpired: false # 是否过期,如果过期,启动列表跳过该项
-        isWantActive: false # 只有在此项为true时才会重新计算过期时间戳
-        ActiveDate: 0 # 激活时刻的时间戳
-        ActiveDay: 0 # 激活的天数
-        ExpirationDate: 0 # 激活时刻过指定天数的时间戳,代表着过期时刻的时间戳
-        CostDay: 0

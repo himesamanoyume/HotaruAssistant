@@ -155,8 +155,6 @@ class Notify:
         for i in range(8):
             multi_content += f"<p><ruby>{Utils._content[f'daily_0{i}']}<rt class='ttt' data-rt='{Utils._content[f'daily_0{i}_score']}'></rt></ruby>:"+(f"未完成</p>" if Utils._content[f'daily_0{i}_value'] else "<span class=important style=background-color:#40405f;color:#66ccff>已完成</span></p>")
 
-        account_active_content = ("<blockquote><p>" if not config.account_active[uid]['ActiveDay'] <= 3 else "<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>")+f"激活天数剩余:{round((config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay']),3)}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
-
         multi_content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if config.daily_tasks_fin[uid] else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{Utils._content['daily_tasks_score']}/500</p></blockquote>"
 
         multi_content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if config.universe_fin[uid] else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{Utils._content['current_universe_score']}/{Utils._content['max_universe_score']}</p></blockquote>"
@@ -186,7 +184,6 @@ class Notify:
         htmlStr=f"""
             {WebTools.head_content(contentTitle)}
                                 <section class=post-detail-txt style=color:#d9d9d9>
-                                    {account_active_content}
                                     {WebTools.official_content()}
                                     {running_time}
                                     <p>
@@ -337,21 +334,16 @@ class Notify:
         multi_content = content
 
         for index, value in config.notify_smtp_To.items():
-            if config.account_active[index]['ExpirationDate'] < time.time():
-                logger.warning(f"{index},已过期,跳过发送公告")
-                continue
+
             emailObject = MIMEMultipart()
             themeObject = Header(title, 'utf-8').encode()
 
             emailObject['subject'] = themeObject
             emailObject['From'] = config.notify_smtp_From
 
-            account_active_content = ("<blockquote><p>" if not config.account_active[index]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;><p>")+f"激活天数剩余:{config.account_active[index]['ActiveDay'] - config.account_active[index]['CostDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[index]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
-
             htmlStr=f"""
                                 {WebTools.head_content("公告/通知")}
                                     <section class=post-detail-txt style=color:#d9d9d9>
-                                        {account_active_content}
                                         {WebTools.official_content()}
                                         {multi_content}
                                     </section>
@@ -393,7 +385,6 @@ class Notify:
         emailObject['subject'] = themeObject
         emailObject['From'] = config.notify_smtp_From
 
-        account_active_content = ""
         universe_content = ""
         if Utils._uid == '-1':
             uid = '-1'
@@ -404,7 +395,6 @@ class Notify:
         htmlStr=f"""
             {WebTools.head_content("单独通知")}
                                     <section class=post-detail-txt style=color:#d9d9d9>
-                                        {account_active_content}
                                         {WebTools.official_content()}
                                         <p>{multi_content}{universe_content}</p>
                                     </section>

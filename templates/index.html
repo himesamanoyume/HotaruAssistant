@@ -6,7 +6,6 @@ HIMEPRODUCER | 主页
 <div class="post-page">
     <a class="link-button" id="notify" style="text-decoration:none" href="./notify" >发布公告界面</a>
     <a class="link-button" id="register" style="text-decoration:none" href="./register">注册界面</a>
-    <a class="link-button" id="active" style="text-decoration:none" href="./active">全体续期界面</a>
 </div>
 <div class="post-page">
     <button class="link-button" id="smtp" onclick="smtp_submitChange()">保存SMTP服务设置</button>
@@ -183,7 +182,7 @@ HIMEPRODUCER | 主页
         {% for uid in loginList %}
             <p>
                 <a href="/{{uid}}">
-                {% if config.daily_tasks_fin[uid] %}√|{% endif %}<ruby>{{uid}}<rt class='ttt' data-rt="{{(config.account_active[uid]['ActiveDay'] - config.account_active[uid]['CostDay'])|roundDate}}天"></rt></ruby>|{{config.notify_smtp_To[uid]}}
+                {% if config.daily_tasks_fin[uid] %}√|{% endif %}<ruby>{{uid}}|{{config.notify_smtp_To[uid]}}
                 </a>
             </p>
         {% endfor %}

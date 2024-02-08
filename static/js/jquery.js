@@ -82,7 +82,6 @@ function register_submitChange(){
     if(confirm("确定要保存吗?")){
         var reg_uid = $('input[name="reg_uid"]').val()
         var email = $('input[name="email"]').val()
-        var active_day = $('input[name="active_day"]').val()
         var universe_number = $('select[name="universe_number"]').val()
         var universe_difficulty = $('select[name="universe_difficulty"]').val()
         var universe_fate = $('select[name="universe_fate"]').val()
@@ -104,7 +103,6 @@ function register_submitChange(){
         var json={
             "reg_uid":reg_uid,
             "email":email,
-            "active_day":parseFloat(active_day),
             "universe_number":parseInt(universe_number),
             "universe_difficulty":parseInt(universe_difficulty),
             "universe_fate":parseInt(universe_fate),
@@ -119,11 +117,6 @@ function register_submitChange(){
             return
         }
 
-        if (json['active_day'] <= 0){
-            alert("激活天数不正确,必须大于0")
-            return
-        }
-
         if ($.unique([universe_team0, universe_team1, universe_team2, universe_team3]).length != 4) {
             alert("存在两个或更多角色选择重复")
             return
@@ -131,37 +124,6 @@ function register_submitChange(){
 
         $.ajax({
             url:"./register/save",
-            contentType:"application/json",
-            data: JSON.stringify(json),
-            type:"POST",
-        }).done(function(){
-            alert("已保存")
-        }).fail(function(){
-            alert("保存失败!")
-        })
-    }
-}
-
-function active_submitChange(){
-    if(confirm("确定要保存吗?")){
-        var isWantActive = $('input[name="isWantActive"]').prop('checked')
-        var changeActiveDay = $('input[name="changeActiveDay"]').val()
-        var notify_smtp_To = $('input[name="notify_smtp_To"]').val()
-        var uid = $('.body').attr('data-rt')
-
-        var json={
-            "isWantActive":isWantActive,
-            "changeActiveDay":parseFloat(changeActiveDay),
-            "notify_smtp_To":notify_smtp_To
-        }
-
-        if (json['changeActiveDay'] <= 0){
-            alert("激活天数不正确,必须大于0")
-            return
-        }
-
-        $.ajax({
-            url:"./"+uid+"/activesave",
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
@@ -239,43 +201,6 @@ function misc_submitChange(){
         
         $.ajax({
             url:"./miscsave",
-            contentType:"application/json",
-            data: JSON.stringify(json),
-            type:"POST",
-        }).done(function(){
-            alert("已保存")
-        }).fail(function(){
-            alert("保存失败!")
-        })
-    }
-}
-
-function all_add_active(){
-    if(confirm("确定要保存吗?")){
-        var add_active_day = $('input[name="add_active_day"]').val()
-        var all_add_active_confirm = $('input[name="all_add_active_confirm"]').prop('checked')
-
-        if (add_active_day==''){
-            alert("续期天数不能为空")
-            return
-        }
-
-        if (!all_add_active_confirm){
-            alert("未勾选再次确认,无法保存")
-            return
-        }
-
-        var json={
-            "add_active_day":parseFloat(add_active_day),
-        }
-
-        if (json['add_active_day'] <= 0){
-            alert("续期天数不正确,必须大于0")
-            return
-        }
-
-        $.ajax({
-            url:"./active/alladd",
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",

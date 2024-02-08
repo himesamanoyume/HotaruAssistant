@@ -49,9 +49,7 @@ def index():
 def config_setting(uid):
     from datetime import datetime
     config.reload()
-    ActiveDate = str(datetime.fromtimestamp(config.account_active[uid]['ActiveDate'])).split('.')[0]
-    ExpirationDate = str(datetime.fromtimestamp(config.account_active[uid]['ExpirationDate'])).split('.')[0]
-    return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score,ActiveDate=ActiveDate, ExpirationDate=ExpirationDate)
+    return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score)
             
 
 @app.route('/register')
@@ -118,7 +116,6 @@ def register_save():
     config.want_register_accounts[uid] = {}
     config.want_register_accounts[uid]['email'] = data['email']
     config.want_register_accounts[uid]['reg_path'] = f"./reg/starrail-{uid}.reg"
-    config.want_register_accounts[uid]['active_day'] = data['active_day']
     config.want_register_accounts[uid]['email'] = data['email']
     config.want_register_accounts[uid]['universe_team'] = {}
     tempList = list()
@@ -157,32 +154,6 @@ def misc_save():
     config.set_value("hotkey_obs_start", data['hotkey_obs_start'])
     config.set_value("hotkey_obs_stop", data['hotkey_obs_stop'])
     log("杂项设置已改动")
-    return ''
-
-@app.route('/<uid>/activesave',methods=['POST'])
-def active_save(uid):
-    config.reload()
-    data = request.get_json('data')
-    if data['isWantActive']:
-        config.account_active[uid]['isWantActive'] = data['isWantActive']
-        config.account_active[uid]['ActiveDay'] = data['changeActiveDay']
-
-    config.notify_smtp_To[uid] = data['notify_smtp_To']
-    config.save_config()
-    log("激活信息已改动并生效", uid)
-    return ''
-
-@app.route('/active')
-def active():
-    config.reload()
-    return render_template('active.html',config=config)
-
-@app.route('/active/alladd',methods=['POST'])
-def all_active_save():
-    config.reload()
-    data = request.get_json('data')
-    config.set_value("all_account_active_day", data['add_active_day'])
-    log("全体续期已生效")
     return ''
 
 @app.route('/notify')
@@ -307,20 +278,15 @@ def send_announcement(title, content):
     multi_content = content
 
     for index, value in config.notify_smtp_To.items():
-        if config.account_active[index]['ExpirationDate'] < time.time():
-            continue
         emailObject = MIMEMultipart()
         themeObject = Header(title, 'utf-8').encode()
 
         emailObject['subject'] = themeObject
         emailObject['From'] = config.notify_smtp_From
 
-        account_active_content = ("<blockquote><p>" if not config.account_active[index]['ActiveDay'] <= 3 else "<blockquote style=background-color:#5f4040;box-shadow: 3px 0 0 0 #d85959 inset;><p>")+f"激活天数剩余:{config.account_active[index]['ActiveDay'] - config.account_active[index]['CostDay']}天</p><p>过期时间:{str(datetime.fromtimestamp(config.account_active[index]['ExpirationDate'])).split('.')[0]}</p></blockquote>"
-
         htmlStr=f"""
                             {WebTools.head_content(title)}
                                 <section class=post-detail-txt style=color:#d9d9d9>
-                                    {account_active_content}
                                     {WebTools.official_content()}
                                     {multi_content}
                                 </section>
@@ -360,13 +326,11 @@ def send_announcement_single(title, content, uid, singleTo=''):
     emailObject['subject'] = themeObject
     emailObject['From'] = config.notify_smtp_From
 
-    account_active_content = ""
     multi_content, universe_content = WebTools.config_content(multi_content, uid)
 
     htmlStr=f"""
         {WebTools.head_content(title)}
                                 <section class=post-detail-txt style=color:#d9d9d9>
-                                    {account_active_content}
                                     {WebTools.official_content()}
                                     <p>{multi_content}{universe_content}</p>
                                 </section>

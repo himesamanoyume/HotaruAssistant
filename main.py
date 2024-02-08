@@ -55,25 +55,17 @@ def main(action=None):
 
             options_reg = dict()
             run_new_accounts()
-            modify_all_account_active_day()
 
             config.reload()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
-                account_active_fun(uidStr)
 
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
-                # account_active_fun(uidStr)
                 if uidStr in config.blacklist_uid:
                     logger.warning(f"{uidStr}【正在黑名单中】")
                     continue
-                if config.account_active[uidStr]['isExpired']:
-                    logger.warning(f"{uidStr}【已过期】")
-                    continue
-                if not (config.account_active[uidStr]['ActiveDate'] <= config.account_active[uidStr]['ExpirationDate'] and config.account_active[uidStr]['ActiveDate'] != config.account_active[uidStr]['ExpirationDate']):
-                    logger.error(f"{uidStr}【激活信息有异常】")
-                    continue
+
                 Utils.init_instanceButNoSave(uidStr)
 
                 # 分解遗器
@@ -119,7 +111,7 @@ def main(action=None):
                 options_reg.update({("<每日已完成>" + uidStr + temp_text + last_run_uidText
                                     if config.daily_tasks_fin[uidStr] 
                                     else 
-                                    uidStr + temp_text + last_run_uidText)+ (f"【剩余{round((config.account_active[uidStr]['ActiveDay'] - config.account_active[uidStr]['CostDay']), 3)}天】"): index})
+                                    uidStr + temp_text + last_run_uidText) : index})
             
             config.save_config()
 
@@ -159,8 +151,6 @@ def main(action=None):
 
                         uidStr2 = str(value).split('-')[1][:9]
                         run_new_accounts()
-                        modify_all_account_active_day()
-                        account_active_fun(uidStr2)
 
                         if isFirstTimeLoop:
                             if firstTimeLogin:
@@ -207,10 +197,6 @@ def run_new_accounts():
                 logger.error(f"{uid}:新的注册信息中邮箱未完整填写")
                 input("按下回车跳过该次注册")
                 return
-            if item['active_day'] == 0:
-                logger.error(f"{uid}:新的注册信息中激活天数未填写")
-                input("按下回车跳过该次注册")
-                return
             if not len(item['universe_team']) == 4:
                 logger.error(f"{uid}:新的注册信息中模拟宇宙小队角色未填写满4人或超出4人")
                 input("按下回车跳过该次注册")
@@ -231,13 +217,6 @@ def run_new_accounts():
             config.multi_login_accounts.append(item['reg_path'])
             loginList.append(f"{str(item['reg_path'])}")
             config.notify_smtp_To[uid] = item['email']
-            config.account_active[uid] = {}
-            config.account_active[uid]['isExpired'] = True
-            config.account_active[uid]['isWantActive'] = True
-            config.account_active[uid]['ActiveDate'] = 0
-            config.account_active[uid]['ActiveDay'] = item['active_day']
-            config.account_active[uid]['ExpirationDate'] = 0
-            config.account_active[uid]['CostDay'] = 0
 
             config.universe_number[uid] = item['universe_number']
             config.universe_difficulty[uid] = item['universe_difficulty']
@@ -345,119 +324,6 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
 def exit_handler():
     # 退出 OCR
     ocr.exit_ocr()
-
-def modify_all_account_active_day():
-    config.reload()
-    if config.all_account_active_day > 0:
-        for index in range(len(config.multi_login_accounts)):
-            uidStr3 = str(config.multi_login_accounts[index]).split('-')[1][:9]
-            if not config.account_active[uidStr3]['isExpired']:
-                config.account_active[uidStr3]['isWantActive'] = True
-                config.account_active[uidStr3]['ActiveDay'] += config.all_account_active_day
-        config.save_config()
-        logger.info(f"为所有未过期账号延长{config.all_account_active_day}天时间")
-        notify.announcement(_("通知"), _(f"<p>为所有未过期账号延长{config.all_account_active_day}天时间</p>"))
-        config.set_value('all_account_active_day', 0)
-    elif config.all_account_active_day == 0:
-        return
-    else:
-        logger.error(f"延长账号时间不合法,已取消")
-        config.set_value('all_account_active_day', 0)
-
-def account_active_fun(uid):
-    config.reload()
-    if config.account_active[uid]['isWantActive']:
-        logger.info(f"{uid}:正在激活,新的激活天数为{config.account_active[uid]['ActiveDay']}天")
-        if config.account_active[uid]['isExpired']:
-            logger.info(f"{uid}:已过期用户正在重新激活")
-            config.account_active[uid]['ActiveDate'] = round(time.time())
-            config.account_active[uid]['CostDay'] = 0
-            config.account_active[uid]['isExpired'] = False
-
-        config.account_active[uid]['ExpirationDate'] = (config.account_active[uid]['ActiveDate'] + (config.account_active[uid]['ActiveDay'] * 86400))
-        config.account_active[uid]['isWantActive'] = False 
-
-    if config.account_active[uid]['ActiveDay'] >= 0 and not config.account_active[uid]['isExpired']:
-        costDay = (round(time.time()) - config.account_active[uid]['ActiveDate']) / 86400
-        if costDay > 0:
-            config.account_active[uid]['CostDay'] = round(costDay, 3)
-        else:
-            config.account_active[uid]['CostDay'] = 0
-
-    elif config.account_active[uid]['ActiveDay'] < 0:
-        logger.error(f"{uid}激活时间不合法,已设为0")
-        config.account_active[uid]['ActiveDay'] = 0
-
-    if config.account_active[uid]['ExpirationDate'] >= time.time() >= config.account_active[uid]['ExpirationDate'] - 3*86400:
-        logger.warning(f"提醒:{uid}激活天数已不足3天")
-
-    if config.account_active[uid]['ActiveDay'] >= 0 and config.account_active[uid]['ExpirationDate'] == 0 and config.account_active[uid]['ActiveDate']:
-        logger.error(f"{uid}的激活信息异常")
-
-    if time.time() >= config.account_active[uid]['ExpirationDate'] and (config.account_active[uid]['CostDay'] >= config.account_active[uid]['ActiveDay']) and (not config.account_active[uid]['isExpired']):
-        logger.info(f"{uid}已过期,正在执行信息清除")
-        config.account_active[uid]['isExpired'] = True
-        config.account_active[uid]['ActiveDate'] = 0
-        config.account_active[uid]['ActiveDay'] = 0
-        # config.account_active[uid]['ExpirationDate'] = 0
-        config.account_active[uid]['CostDay'] = 0
-
-    if time.time() >= config.account_active[uid]['ExpirationDate'] and config.account_active[uid]['isExpired']:
-        costDay = (time.time() - config.account_active[uid]['ExpirationDate']) / 86400
-        if costDay > 0:
-            config.account_active[uid]['CostDay'] = round(costDay, 3)
-        else:
-            config.account_active[uid]['CostDay'] = 0
-
-        if config.account_active[uid]['CostDay'] >= 15:
-            logger.info(f"{uid}已过期15天,正在执行配置清除")
-            try:
-                config.del_value_with_no_save('instance_type',uid)
-                config.del_value_with_no_save('instance_names',uid)
-                config.del_value_with_no_save('echo_of_war_enable',uid)
-                config.del_value_with_no_save('echo_of_war_timestamp',uid)
-                config.del_value_with_no_save('echo_of_war_times',uid)
-                config.del_value_with_no_save('relic_salvage_enable',uid)
-                config.del_value_with_no_save('daily_tasks',uid)
-                config.del_value_with_no_save('daily_tasks_score',uid)
-                config.del_value_with_no_save('daily_tasks_fin',uid)
-                config.del_value_with_no_save('last_run_timestamp',uid)
-                config.del_value_with_no_save('fight_timestamp',uid)
-                config.del_value_with_no_save('universe_fin',uid)
-                config.del_value_with_no_save('universe_score',uid)
-                config.del_value_with_no_save('universe_timestamp',uid)
-                config.del_value_with_no_save('universe_number',uid)
-                config.del_value_with_no_save('universe_difficulty',uid)
-                config.del_value_with_no_save('universe_fate',uid)
-                config.del_value_with_no_save('universe_team',uid)
-                config.del_value_with_no_save('forgottenhall_stars',uid)
-                config.del_value_with_no_save('forgottenhall_levels',uid)
-                config.del_value_with_no_save('forgottenhall_timestamp',uid)
-                config.del_value_with_no_save('purefiction_stars',uid)
-                config.del_value_with_no_save('purefiction_levels',uid)
-                config.del_value_with_no_save('notify_smtp_To',uid)
-                config.del_value_with_no_save('account_active',uid)
-
-                for index in range(len(config.multi_login_accounts)):
-                    if uid in config.multi_login_accounts[index]:
-                        config.del_value_with_no_save('multi_login_accounts', index)
-
-                for index in range(len(config.blacklist_uid)):
-                    if uid in config.blacklist_uid[index]:
-                        config.del_value_with_no_save('blacklist_uid', index)
-                
-                if uid in loginList:
-                    loginList.remove(uid)
-
-                if uid in loginDict:
-                    loginDict.pop(uid)
-
-            except Exception as e:
-                logger.warning(e)
-                input('...')
-                sys.exit(0)
-            
-    config.save_config()
 
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():
