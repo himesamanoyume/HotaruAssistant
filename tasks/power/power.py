@@ -14,13 +14,13 @@ import time
 class Power:
     @staticmethod
     def start(): 
-        if config.instance_type[Utils.get_uid()] == '模拟宇宙':
+        if config.instance_type[Utils.get_uid()][0] == '模拟宇宙':
             Utils._power = Power.power()
             return
         else:
-            instance_name = config.instance_names[Utils.get_uid()][config.instance_type[Utils.get_uid()]]
+            instance_name = config.instance_names[Utils.get_uid()][config.instance_type[Utils.get_uid()][0]]
             if instance_name == "无":
-                logger.info(gu(f"跳过清体力,{config.instance_type[Utils.get_uid()]}未开启"))
+                logger.info(gu(f"跳过清体力,{config.instance_type[Utils.get_uid()][0]}未开启"))
                 return False
         
         Relics.detect_relic_count()
@@ -38,7 +38,7 @@ class Power:
         if "·" in instance_name:
             instance_name = instance_name.split("·")[0]
 
-        Power.instance(config.instance_type[Utils.get_uid()], instance_name, config.power_needs[config.instance_type[Utils.get_uid()]])
+        Power.instance(config.instance_type[Utils.get_uid()][0], instance_name, config.power_needs[config.instance_type[Utils.get_uid()][0]])
         logger.hr(gu("完成"), 2)
 
     def get_power(crop, type="trailblaze_power"):

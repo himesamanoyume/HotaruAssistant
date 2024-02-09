@@ -29,7 +29,6 @@ function daily_submitChange(){
 
 function config_submitChange(){
     if(confirm("确定要保存吗?")){
-        var instance_type = $('select[name="instance_type"]').val()
         var instance_name1 = $('select[name="instance_name1"]').val()
         var instance_name2 = $('select[name="instance_name2"]').val()
         var instance_name3 = $('select[name="instance_name3"]').val()
@@ -48,7 +47,6 @@ function config_submitChange(){
         var uid = $('.body').attr('data-rt')
 
         var json={
-            "instance_type":instance_type,
             "instance_name1":instance_name1,
             "instance_name2":instance_name2,
             "instance_name3":instance_name3,
@@ -274,6 +272,54 @@ function announcement_single(){
             alert("已发布")
         }).fail(function(){
             alert("发布失败!")
+        })
+    }
+}
+
+function append_instance_list(){
+    var add_instance_type = $('select[name="add_instance_type"]').val()
+    
+
+    if(confirm("确定将【"+add_instance_type+"】添加至任务副本列表末端吗?")){
+        var uid = $('.body').attr('data-rt')
+
+        var json={
+            "uid": uid,
+            "add_instance_type": add_instance_type,
+        }
+
+        $.ajax({
+            url:"./instancelist/append",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已添加")
+            location.reload()
+        }).fail(function(){
+            alert("添加失败!")
+        })
+    }
+}
+
+function remove_instance_list(){
+    if(confirm("确定将最顶上副本类型从任务副本列表中移除吗?")){
+        var uid = $('.body').attr('data-rt')
+
+        var json={
+            "uid": uid
+        }
+
+        $.ajax({
+            url:"./instancelist/remove",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已移除")
+            location.reload()
+        }).fail(function(){
+            alert("移除失败!")
         })
     }
 }

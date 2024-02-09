@@ -83,15 +83,25 @@ data-rt="{{uid}}"
 <h6 style=color:#66ccff>
     配置信息
 </h6>
-<p>清开拓力时将要打的副本类型:
+<p>当前任务副本列表,最顶上为今天每日清开拓力时将要打的副本类型:
     <select class=configSelect name=instance_type>
-        <option value="无" {% if "无" == config.instance_type[uid] %} selected {% endif %}>无</option>
-        <option value="侵蚀隧洞" {% if '侵蚀隧洞' == config.instance_type[uid] %} selected {% endif %}>侵蚀隧洞</option>
-        <option value="凝滞虚影" {% if '凝滞虚影' == config.instance_type[uid] %} selected {% endif %}>凝滞虚影</option>
-        <option value="拟造花萼（金）" {% if '拟造花萼（金）' == config.instance_type[uid] %} selected {% endif %}>拟造花萼（金）</option>
-        <option value="拟造花萼（赤）" {% if '拟造花萼（赤）' == config.instance_type[uid] %} selected {% endif %}>拟造花萼（赤）</option>
-        <option value="模拟宇宙" {% if '模拟宇宙' == config.instance_type[uid] %} selected {% endif %}>模拟宇宙</option>
+        {% for key in config.instance_type[uid] %}
+            <option value="{{key}}">{{key}}</option>
+        {% endfor %}
     </select>
+</p>
+<p>将最顶上副本类型从任务副本列表中移除:
+    <button class="link-button" id="remove_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_instance_list()">移除</button>
+</p>
+<p>选择一个副本将其添加至任务副本列表末尾:
+    <select class=configSelect name=add_instance_type>
+        <option value="侵蚀隧洞">侵蚀隧洞</option>
+        <option value="凝滞虚影">凝滞虚影</option>
+        <option value="拟造花萼（金）">拟造花萼（金）</option>
+        <option value="拟造花萼（赤）">拟造花萼（赤）</option>
+        <option value="模拟宇宙">模拟宇宙</option>
+    </select>
+    <button class="link-button" id="append_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_instance_list()">添加</button>
 </p>
 <p>不同副本类型下的副本名称:</p>
 <p>拟造花萼（金）:

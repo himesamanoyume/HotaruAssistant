@@ -88,7 +88,6 @@ def daily_save(uid):
 def config_save(uid):
     config.reload()
     data = request.get_json('data')
-    config.instance_type[uid] = data['instance_type']
     config.instance_names[uid]['拟造花萼（金）'] = data['instance_name1']
     config.instance_names[uid]['拟造花萼（赤）'] = data['instance_name2']
     config.instance_names[uid]['凝滞虚影'] = data['instance_name3']
@@ -179,6 +178,31 @@ def announcement_single():
     data = request.get_json('data')
     send_announcement_single(f"单人通知:{data['notify_title']}", f"<p>{data['notify_content']}</p>", data['notify_single'], config.notify_smtp_To[data['notify_single']])
     log("单人通知已发送")
+    return ''
+
+@app.route('/instancelist/append',methods=['POST'])
+def append_instance_list():
+    config.reload()
+    data = request.get_json('data')
+    uid = str(data['uid'])
+    add_instance_type = str(data['add_instance_type'])
+    
+    config.instance_type[uid].append(add_instance_type)
+    log(f"副本类型已添加:{uid},{add_instance_type}")
+
+    config.save_config()
+    return ''
+
+@app.route('/instancelist/remove',methods=['POST'])
+def remove_instance_list():
+    config.reload()
+    data = request.get_json('data')
+    uid = str(data['uid'])
+    instance = config.instance_type[uid][0]
+    config.instance_type[uid].remove(config.instance_type[uid][0])
+
+    config.save_config()
+    log(f"{uid}:{instance}已移除")
     return ''
 
 @app.route('/blacklist/append',methods=['POST'])

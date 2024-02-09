@@ -250,26 +250,20 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
             Utils._action = ''
         
     # 子任务
-    elif action in ["fight", "universe", "forgottenhall"]:
+    elif action in ["universe"]:
         # Version.start()
         try:
-            if action == "universe":
-                logger.info("本次为模拟宇宙专属")
-                Utils._action = '模拟宇宙流程'
+            logger.info("本次为模拟宇宙专属")
+            Utils._action = '模拟宇宙流程'
             Game.start()
-            if action == "fight":
-                Fight.start()
-            elif action == "universe":
-                Daily.start_ready()
-                if config.instance_type[currentUID] == '模拟宇宙' or not config.universe_fin[currentUID]:
-                    Universe.start(get_reward=True, daily=True, nums=0)
-                else:
-                    logger.info("因为未选择清模拟宇宙,跳过")
-                Daily.end()
-            elif action == "forgottenhall":
-                ForgottenHall.start()
+            Daily.start_ready()
+            if config.instance_type[currentUID][0] == '模拟宇宙' or not config.universe_fin[currentUID]:
+                Universe.start(get_reward=True, daily=True, nums=0)
+            else:
+                logger.info("因为未选择清模拟宇宙,跳过")
+            Daily.end()
 
-            if config.instance_type[currentUID] == '模拟宇宙' or (not config.universe_fin[currentUID] or Utils._totalTime >= 900):
+            if config.instance_type[currentUID][0] == '模拟宇宙' or (not config.universe_fin[currentUID] or Utils._totalTime >= 900):
                 Game.stop(index ,True, currentUID, _lastUID, action=action)
             else:
                 logger.info("因为未选择清模拟宇宙或模拟宇宙已通关,不发送邮件通知号主")

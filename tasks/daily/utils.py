@@ -81,7 +81,7 @@ class Utils:
 
     def init_instanceButNoSave(uid):
         if config.instance_type == {} or uid not in config.instance_type.keys():
-            config.instance_type[uid] = '拟造花萼（金）'
+            config.instance_type[uid].append('拟造花萼（金）')
 
         if config.instance_names == {} or uid not in config.instance_names.keys():
             config.instance_names[uid] = {}

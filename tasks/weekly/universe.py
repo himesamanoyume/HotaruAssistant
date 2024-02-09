@@ -72,7 +72,7 @@ class Universe:
         logger.hr(gu("准备模拟宇宙"), 2)
         
         config.save_config()
-        if config.universe_fin[Utils.get_uid()] and daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
+        if config.universe_fin[Utils.get_uid()] and daily and not config.instance_type[Utils.get_uid()][0] == '模拟宇宙':
             logger.info(gu("鉴定为正在每日任务中且分数已满,跳过"))
             return True
         
@@ -140,13 +140,13 @@ class Universe:
         current_score, max_score = Universe.open_universe_score_screen()
         Universe.get_immersifier()
         if not current_score < max_score:
-            if (config.instance_type[Utils.get_uid()] == '模拟宇宙' and Utils._immersifiers < 4):
+            if (config.instance_type[Utils.get_uid()][0] == '模拟宇宙' and Utils._immersifiers < 4):
                 logger.info(gu("鉴定为沉浸器数量不足,跳过"))
                 return True
           
         time.sleep(0.5)
 
-        if config.instance_type[Utils.get_uid()] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
+        if config.instance_type[Utils.get_uid()][0] == '模拟宇宙' or not config.universe_fin[Utils.get_uid()]:
             
             # if Utils._isFirstTimeSelectTeam:
             #     logger.info(gu("本账号首次运行模拟宇宙"))
@@ -172,7 +172,7 @@ class Universe:
                 logger.info(gu("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
                 if Utils._immersifiers > 0:
                     command.append("--bonus=1")
-                if daily and not config.instance_type[Utils.get_uid()] == '模拟宇宙':
+                if daily and not config.instance_type[Utils.get_uid()][0] == '模拟宇宙':
                     logger.info(gu("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
                     return False
             else:
@@ -222,7 +222,7 @@ class Universe:
         Power.power()
         screen.change_to('guide3')
         instance_type_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
-        if config.instance_type[Utils.get_uid()] == '模拟宇宙':
+        if config.instance_type[Utils.get_uid()][0] == '模拟宇宙':
             if Utils._power >= 40:
                 count = Utils._power // 40
                 logger.info(gu(f"开拓力能换{count}个沉浸器"))
