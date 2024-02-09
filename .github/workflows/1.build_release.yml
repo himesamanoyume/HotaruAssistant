@@ -29,42 +29,42 @@ jobs:
 
       - name: Generate program
         run: |
-          pyinstaller -D --distpath .\dist\March7thAssistantPrivate -i .\assets\logo\March7th.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n "March7th Assistant Client" --onefile main.py -y
-          pyinstaller -D --distpath .\dist\March7thAssistantPrivate -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n "March7th Assistant Register" --onefile reg.py -y
-          pyinstaller -D --distpath .\dist\March7thAssistantPrivate -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n "March7th Assistant Server" --onefile --add-data='templates;templates' --add-data='static;static' server.py -y
-          pyinstaller -F --distpath .\dist\March7thAssistantPrivate\ -i .\assets\logo\Update.ico -n "Update" update.py -y
+          pyinstaller -D --distpath .\dist\HotaruAssistant -i .\assets\logo\Hotaru.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n "Hotaru Assistant Client" --onefile main.py -y
+          pyinstaller -D --distpath .\dist\HotaruAssistant -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n "Hotaru Assistant Register" --onefile reg.py -y
+          pyinstaller -D --distpath .\dist\HotaruAssistant -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n "Hotaru Assistant Server" --onefile --add-data='templates;templates' --add-data='static;static' server.py -y
+          pyinstaller -F --distpath .\dist\HotaruAssistant\ -i .\assets\logo\Update.ico -n "Update" update.py -y
 
       - name: Move assets to dist directory
         run: |
-          xcopy /E /I /Y .\assets\ .\dist\March7thAssistantPrivate\assets\
-          xcopy /E /I /Y .\static\ .\dist\March7thAssistantPrivate\static\
-          xcopy /Y .\README.md .\dist\March7thAssistantPrivate\
-          xcopy /Y .\static\css\common.css .\dist\March7thAssistantPrivate\assets\css\
+          xcopy /E /I /Y .\assets\ .\dist\HotaruAssistant\assets\
+          xcopy /E /I /Y .\static\ .\dist\HotaruAssistant\static\
+          xcopy /Y .\README.md .\dist\HotaruAssistant\
+          xcopy /Y .\static\css\common.css .\dist\HotaruAssistant\assets\css\
 
       - name: Create zip archive
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          ren .\dist\March7thAssistantPrivate March7thAssistantPrivate_${{ github.ref_name }}
-          powershell Compress-Archive -Path .\dist\March7thAssistantPrivate_${{ github.ref_name }}\ -DestinationPath .\dist\March7thAssistantPrivate_${{ github.ref_name }}.zip -Force
+          ren .\dist\HotaruAssistant HotaruAssistant_${{ github.ref_name }}
+          powershell Compress-Archive -Path .\dist\HotaruAssistant_${{ github.ref_name }}\ -DestinationPath .\dist\HotaruAssistant_${{ github.ref_name }}.zip -Force
 
       - name: Move 3rdparty to dist directory
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           python build.py github-actions
-          xcopy .\3rdparty\ .\dist\March7thAssistantPrivate_${{ github.ref_name }}\3rdparty\ /E /I /Y
-          powershell Copy-Item -Path .\assets\config\config.example.yaml -Destination .\dist\March7thAssistantPrivate_${{ github.ref_name }}\config.yaml -Force
+          xcopy .\3rdparty\ .\dist\HotaruAssistant_${{ github.ref_name }}\3rdparty\ /E /I /Y
+          powershell Copy-Item -Path .\assets\config\config.example.yaml -Destination .\dist\HotaruAssistant_${{ github.ref_name }}\config.yaml -Force
 
       - name: Create full zip archive
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          powershell Compress-Archive -Path .\dist\March7thAssistantPrivate_${{ github.ref_name }}\ -DestinationPath .\dist\March7thAssistantPrivate_${{ github.ref_name }}_full.zip -Force
+          powershell Compress-Archive -Path .\dist\HotaruAssistant_${{ github.ref_name }}\ -DestinationPath .\dist\HotaruAssistant_${{ github.ref_name }}_full.zip -Force
 
       - name: Create release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-          name: March7thAssistantPrivate ${{ github.ref_name }}
+          name: HotaruAssistant ${{ github.ref_name }}
           files: |
-           ./dist/March7thAssistantPrivate_${{ github.ref_name }}_full
-           ./dist/March7thAssistantPrivate_${{ github.ref_name }}
+           ./dist/HotaruAssistant_${{ github.ref_name }}_full
+           ./dist/HotaruAssistant_${{ github.ref_name }}
           prerelease: true

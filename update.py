@@ -17,12 +17,12 @@ from urllib.parse import urlparse
 
 class Update:
     def __init__(self, download_url=None):
-        self.process_name = ("March7th Assistant Client.exe", "March7th Assistant Register.exe", "March7th Assistant Server.exe", "Update.exe")
+        self.process_name = ("Hotaru Assistant Client.exe", "Hotaru Assistant Register.exe", "Hotaru Assistant Server.exe", "Update.exe")
         self.api_urls = [
-            "https://api.github.com/repos/himesamanoyume/himesamanoyume/releases/latest",
-            "https://cdn.jsdelivr.net/gh/himesamanoyume/himesamanoyume@release/latest.json",
-            "https://ghproxy.com/https://raw.githubusercontent.com/himesamanoyume/himesamanoyume/release/latest.json",
-            "https://github.moeyy.xyz/https://raw.githubusercontent.com/himesamanoyume/himesamanoyume/release/latest.json",
+            "https://api.github.com/repos/himesamanoyume/HotaruAssistant/releases/latest",
+            "https://cdn.jsdelivr.net/gh/himesamanoyume/HotaruAssistant@release/latest.json",
+            "https://ghproxy.com/https://raw.githubusercontent.com/himesamanoyume/HotaruAssistant/release/latest.json",
+            "https://github.moeyy.xyz/https://raw.githubusercontent.com/himesamanoyume/HotaruAssistant/release/latest.json",
         ]
 
         self.temp_path = tempfile.gettempdir()

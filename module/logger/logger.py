@@ -28,7 +28,7 @@ class Logger:
                 
 
     def _create_logger(self, level="INFO"):
-        self.logger = logging.getLogger('March7thAssistant')
+        self.logger = logging.getLogger('HotaruAssistant')
         self.logger.propagate = False
         self.logger.setLevel(level)
 

@@ -287,19 +287,19 @@ class Notify:
         import os
         from winotify import Notification, audio
 
-        message = content
-        if title and content:
-            message = '{}\n{}'.format(title, content)
-        if title and not content:
-            message = title
+        # message = content
+        # if title and content:
+        #     message = '{}\n{}'.format(title, content)
+        # if title and not content:
+        #     message = title
 
-        toast = Notification(app_id="March7thAssistant",
-                             title="三月七小助手|･ω･)",
-                             msg=message,
-                             icon=os.getcwd() + "\\assets\\app\\images\\March7th.jpg")
-        toast.set_audio(audio.Mail, loop=False)
-        toast.show()
-        logger.info(_("{notifier_name} 通知发送完成").format(notifier_name="winotify"))
+        # toast = Notification(app_id="March7thAssistant",
+        #                      title="三月七小助手|･ω･)",
+        #                      msg=message,
+        #                      icon=os.getcwd() + "\\assets\\app\\images\\March7th.jpg")
+        # toast.set_audio(audio.Mail, loop=False)
+        # toast.show()
+        # logger.info(_("{notifier_name} 通知发送完成").format(notifier_name="winotify"))
 
     def notify(self, title="", content="", image_io=None, isSingle=False):
         for notifier_name in self.notifiers:
@@ -427,40 +427,3 @@ class Notify:
         sendHostEmail.quit()
         logger.info(gu("smtp 单独通知发送完成"))
 
-    def send_device_info(self):
-        sendHostEmail = smtplib.SMTP(config.notify_smtp_host, config.notify_smtp_port)
-        sendHostEmail.login(config.notify_smtp_user, config.notify_smtp_password)
-        import socket
-        multi_content = socket.gethostname()
-        import uuid
-        device_id = uuid.getnode()
-
-        emailObject = MIMEMultipart()
-        themeObject = Header(f'设备使用通知:{multi_content}', 'utf-8').encode()
-
-        emailObject['subject'] = themeObject
-        emailObject['From'] = config.notify_smtp_From
-
-        htmlStr=f"""
-            {WebTools.head_content(f"设备使用通知:{multi_content}")}
-                                    <section class=post-detail-txt style=color:#d9d9d9>
-                                        <p>此次使用脚本的计算机名为:{multi_content}</p>
-                                    </section>
-                                    <div class=post-txt-container-datetime style=color:#d9d9d9>
-                                    {str(datetime.now()).split('.')[0]}
-                                    <span class=important style=background-color:#40405f;color:#66ccff>
-                                        [{device_id}]
-                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {WebTools.aside_content()}
-            """
-
-        html = f"{htmlStr}"
-        emailObject.attach(MIMEText(html,'html','utf-8'))
-        emailObject['To'] = 'himeproducer@qq.com'
-
-        sendHostEmail.sendmail(config.notify_smtp_From, 'himeproducer@qq.com', str(emailObject))
-        sendHostEmail.quit()

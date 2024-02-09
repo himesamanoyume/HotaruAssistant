@@ -183,7 +183,7 @@ pyrightconfig.json
 /test.py
 /testFun.py
 
-# March7thAssistant
+# HotaruAssistant
 /*config.yaml
 /backup/*
 /logs
@@ -191,3 +191,4 @@ pyrightconfig.json
 /3rdparty/PaddleOCR-json_*
 /records/*
 /reg/*
+*.bat

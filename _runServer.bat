@@ -1,1 +1,0 @@
-cmd /C py ./server.py

@@ -5,7 +5,7 @@ config = Config("./assets/config/version.txt", "./assets/config/config.example.y
 
 
 def check():
-    path = os.path.join(os.getenv('LocalAppData'), "March7thAssistantPrivate\\disclaimer")
+    path = os.path.join(os.getenv('LocalAppData'), "HotaruAssistant\\disclaimer")
     if not os.path.exists(path):
         config.set_value("agreed_to_disclaimer", False)
 

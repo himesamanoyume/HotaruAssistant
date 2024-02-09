@@ -19,9 +19,9 @@ class FastestMirror:
     def get_github_api_mirror(user, repo, file, timeout=5):
         mirror_urls = [
             f"https://api.github.com/repos/{user}/{repo}/releases/latest",
-            f"https://cdn.jsdelivr.net/gh/himesamanoyume/himesamanoyume@release/{file}",
-            f"https://ghproxy.com/https://raw.githubusercontent.com/himesamanoyume/himesamanoyume/release/{file}",
-            f"https://github.moeyy.xyz/https://raw.githubusercontent.com/himesamanoyume/himesamanoyume/release/{file}",
+            f"https://cdn.jsdelivr.net/gh/himesamanoyume/HotaruAssistant@release/{file}",
+            f"https://ghproxy.com/https://raw.githubusercontent.com/himesamanoyume/HotaruAssistant/release/{file}",
+            f"https://github.moeyy.xyz/https://raw.githubusercontent.com/himesamanoyume/HotaruAssistant/release/{file}",
         ]
         return FastestMirror.find_fastest_mirror(mirror_urls, timeout)
 

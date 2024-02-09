@@ -35,11 +35,6 @@ def main(action=None):
     #     input(_("按回车键关闭窗口. . ."))
     #     sys.exit(0)
     config.reload()
-    try:
-        notify.send_device_info()
-    except Exception as e:
-        # print(f"邮件发送错误:{e}")
-        pass
 
     Version.start()
     Universe.check_path()
@@ -311,8 +306,8 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
     elif action == "notify":
         from io import BytesIO
         from PIL import Image
-        image_io = BytesIO()
-        Image.open("./assets/app/images/March7th.jpg").save(image_io, format='JPEG')
+        # image_io = BytesIO()
+        # Image.open("./assets/app/images/March7th.jpg").save(image_io, format='JPEG')
         # notify.notify(_("三月七小助手|･ω･)"), _("这是一条测试消息"),image_io)
         input(_("按回车键关闭窗口. . ."))
         sys.exit(0)
