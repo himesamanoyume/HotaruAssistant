@@ -9,7 +9,6 @@ from managers.utils_manager import gu
 from tasks.base.date import Date
 from tasks.daily.photo import Photo
 from managers.notify_manager import notify
-from tasks.daily.fight import Fight
 from tasks.weekly.universe import Universe
 from tasks.reward.reward import Reward
 from tasks.daily.synthesis import Synthesis

@@ -288,29 +288,6 @@ def run(index=-1, action=None, currentUID=0, _lastUID=-1):
                     os.remove(f)
             Game.stop(index ,True, currentUID, _lastUID, isAbnormalExit=True)
             Utils._action = ''
-    # 子任务 原生图形界面
-    elif action in ["universe_gui", "fight_gui"]:
-        if action == "universe_gui" and not Universe.gui():
-            input(_("按回车键关闭窗口. . ."))
-        elif action == "fight_gui" and not Fight.gui():
-            input(_("按回车键关闭窗口. . ."))
-        sys.exit(0)
-    # 子任务 更新项目
-    elif action in ["universe_update", "fight_update"]:
-        if action == "universe_update":
-            Universe.update()
-        elif action == "fight_update":
-            Fight.update()
-        input(_("按回车键关闭窗口. . ."))
-        sys.exit(0)
-    elif action == "notify":
-        from io import BytesIO
-        from PIL import Image
-        # image_io = BytesIO()
-        # Image.open("./assets/app/images/March7th.jpg").save(image_io, format='JPEG')
-        # notify.notify(_("三月七小助手|･ω･)"), _("这是一条测试消息"),image_io)
-        input(_("按回车键关闭窗口. . ."))
-        sys.exit(0)
     else:
         logger.error(f"未知任务: {action}")
         input("按回车键关闭窗口. . .")
