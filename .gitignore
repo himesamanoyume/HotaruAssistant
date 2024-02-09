@@ -191,4 +191,5 @@ pyrightconfig.json
 /3rdparty/PaddleOCR-json_*
 /records/*
 /reg/*
-*.bat
+/*.bat
+/build_workflows.py
