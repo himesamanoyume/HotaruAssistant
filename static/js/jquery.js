@@ -276,11 +276,40 @@ function announcement_single(){
     }
 }
 
+function change_instance_list(){
+    var add_instance_type = $('select[name="add_instance_type"]').val()
+
+    var temp = $('select[name="instance_type_list"]').val()
+    var change_instance_type_id = temp.split(':')[0]
+    var change_instance_type = temp.split(':')[1]
+
+    if(confirm("确定将【"+change_instance_type+"】替换为【"+add_instance_type+"】吗?")){
+        var uid = $('.body').attr('data-rt')
+
+        var json={
+            "uid": uid,
+            "add_instance_type": add_instance_type,
+            "change_instance_type_id": parseInt(change_instance_type_id)
+        }
+
+        $.ajax({
+            url:"./instancelist/change",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+        }).done(function(){
+            alert("已替换")
+            location.reload()
+        }).fail(function(){
+            alert("替换失败!")
+        })
+    }
+}
+
 function append_instance_list(){
     var add_instance_type = $('select[name="add_instance_type"]').val()
-    
 
-    if(confirm("确定将【"+add_instance_type+"】添加至任务副本列表末端吗?")){
+    if(confirm("确定将【"+add_instance_type+"】添加至任务副本列表队尾吗?")){
         var uid = $('.body').attr('data-rt')
 
         var json={
@@ -303,11 +332,16 @@ function append_instance_list(){
 }
 
 function remove_instance_list(){
-    if(confirm("确定将最顶上副本类型从任务副本列表中移除吗?")){
-        var uid = $('.body').attr('data-rt')
+    var temp = $('select[name="instance_type_list"]').val()
+    var remove_instance_type_id = temp.split(':')[0]
+    var remove_instance_type = temp.split(':')[1]
 
+    if(confirm("确定将【"+remove_instance_type+"】从任务副本列表中移除吗?")){
+        var uid = $('.body').attr('data-rt')
+    
         var json={
-            "uid": uid
+            "uid": uid,
+            "remove_instance_type_id": parseInt(remove_instance_type_id)
         }
 
         $.ajax({

@@ -49,7 +49,7 @@ def index():
 def config_setting(uid):
     from datetime import datetime
     config.reload()
-    return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score)
+    return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score, len=len(config.instance_type[uid]))
             
 
 @app.route('/register')
@@ -185,12 +185,27 @@ def append_instance_list():
     config.reload()
     data = request.get_json('data')
     uid = str(data['uid'])
-    add_instance_type = str(data['add_instance_type'])
-    
+    add_instance_type = data['add_instance_type']
+
     config.instance_type[uid].append(add_instance_type)
-    log(f"副本类型已添加:{uid},{add_instance_type}")
+    log(f"{uid},副本类型已添加:{add_instance_type}")
 
     config.save_config()
+    return ''
+
+@app.route('/instancelist/change',methods=['POST'])
+def change_instance_list():
+    config.reload()
+    data = request.get_json('data')
+    uid = str(data['uid'])
+    add_instance_type = data['add_instance_type']
+    change_instance_type_id = data['change_instance_type_id']
+    change_instance = config.instance_type[uid][change_instance_type_id]
+
+    config.instance_type[uid][change_instance_type_id] = add_instance_type
+    config.save_config()
+    log(f"{uid},副本类型已替换:{change_instance} → {add_instance_type}")
+    
     return ''
 
 @app.route('/instancelist/remove',methods=['POST'])
@@ -198,8 +213,9 @@ def remove_instance_list():
     config.reload()
     data = request.get_json('data')
     uid = str(data['uid'])
-    instance = config.instance_type[uid][0]
-    config.instance_type[uid].remove(config.instance_type[uid][0])
+    remove_instance_type_id = data['remove_instance_type_id']
+    instance = config.instance_type[uid][remove_instance_type_id]
+    config.instance_type[uid].remove(config.instance_type[uid][remove_instance_type_id])
 
     config.save_config()
     log(f"{uid}:{instance}已移除")

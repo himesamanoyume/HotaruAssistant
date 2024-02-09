@@ -83,17 +83,20 @@ data-rt="{{uid}}"
 <h6 style=color:#66ccff>
     配置信息
 </h6>
-<p>当前任务副本列表,最顶上为今天每日清开拓力时将要打的副本类型:
-    <select class=configSelect name=instance_type>
-        {% for key in config.instance_type[uid] %}
-            <option value="{{key}}">{{key}}</option>
+<p>今天每日清开拓力时将要打的副本类型:
+    <span class="important">{{config.instance_type[uid][0]}}</span>
+</p>
+<p>任务副本列表:
+    <select class=configSelect name=instance_type_list>
+        {% for i in range(0, len) %}
+            <option value="{{i}}:{{config.instance_type[uid][i]}}">{{config.instance_type[uid][i]}}</option>
         {% endfor %}
     </select>
 </p>
-<p>将最顶上副本类型从任务副本列表中移除:
+<p>将【任务副本列表】选中的副本类型从任务副本列表中移除:
     <button class="link-button" id="remove_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_instance_list()">移除</button>
 </p>
-<p>选择一个副本将其添加至任务副本列表末尾:
+<p>选择一个副本将其替换掉【任务副本列表】选中的副本类型,或直接添加至任务副本列表队尾:
     <select class=configSelect name=add_instance_type>
         <option value="侵蚀隧洞">侵蚀隧洞</option>
         <option value="凝滞虚影">凝滞虚影</option>
@@ -101,7 +104,8 @@ data-rt="{{uid}}"
         <option value="拟造花萼（赤）">拟造花萼（赤）</option>
         <option value="模拟宇宙">模拟宇宙</option>
     </select>
-    <button class="link-button" id="append_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_instance_list()">添加</button>
+    <button class="link-button" id="change_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="change_instance_list()">替换</button>
+    <button class="link-button" id="append_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_instance_list()">添加至队尾</button>
 </p>
 <p>不同副本类型下的副本名称:</p>
 <p>拟造花萼（金）:

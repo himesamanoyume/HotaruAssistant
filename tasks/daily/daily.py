@@ -56,8 +56,13 @@ class Daily:
         Tasks._isDetect = False
 
         if Utils.is_next_4_am(config.last_run_timestamp, Utils.get_uid()):
-            config.save_config()
             logger.info(gu("已是新的一天,开始每日"))
+            if len(config.instance_type[Utils.get_uid()]) == 1:
+                pass
+            else:
+                config.instance_type[Utils.get_uid()].remove(config.instance_type[Utils.get_uid()][0])
+            config.save_config()
+            
             # 活动
             Activity.start()
 
