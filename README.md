@@ -9,6 +9,7 @@ HotaruAssistant
 
 By: 姫様の夢
 </h1>
+三月七你别再联系了,我怕流萤误会
 
 基于March7thAssistant v1.6.2
 

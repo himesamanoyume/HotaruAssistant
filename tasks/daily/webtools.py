@@ -128,7 +128,7 @@ class WebTools:
                         Copyright © 2021-2024 @姫様の夢
                     </div>
                     <div class=footer-content>
-                        <a>SecretBase</a> {version}
+                        <a>HotaruAssistant</a> {version}
                     </div>
                 </footer>
             </div>
