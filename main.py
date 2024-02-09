@@ -9,7 +9,6 @@ from managers.ocr_manager import ocr
 from managers.translate_manager import _
 from tasks.game.game import Game
 from tasks.daily.daily import Daily
-from tasks.daily.fight import Fight
 from tasks.daily.utils import Utils
 from datetime import datetime
 from testFun import testFun
@@ -29,12 +28,12 @@ loginList = list()
 lastUID = ''
 
 def main(action=None):
-    # 免责申明
-    # if not config.agreed_to_disclaimer:
-    #     logger.error(_("您尚未同意《免责声明》"))
-    #     input(_("按回车键关闭窗口. . ."))
-    #     sys.exit(0)
     config.reload()
+    # 免责申明
+    if not config.agreed_to_disclaimer:
+        logger.error(_("您尚未同意《免责声明》"))
+        input(_("按回车键关闭窗口. . ."))
+        sys.exit(0)
 
     Version.start()
     Universe.check_path()

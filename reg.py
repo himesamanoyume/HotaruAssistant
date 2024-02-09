@@ -1,7 +1,7 @@
 from managers.logger_manager import logger
 from managers.automation_manager import auto
 from managers.screen_manager import screen
-import sys,pyuac,os,questionary
+import sys,pyuac,os,questionary,time,pyautogui
 from module.config.config import Config
 from managers.translate_manager import _
 
@@ -66,12 +66,14 @@ class Reg:
             logger.info("删除所有注册表")
             os.system(f"cmd /C reg delete HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 /f")
             # 等待游戏启动并登录
-            logger.info("等待游戏启动并登录")
+            logger.info("等待游戏启动并登录,登录完账号后,在可点击【进入游戏】界面等待脚本画面识别")
+            logger.info("待脚本自动点击【进入游戏】之后等待加载至主界面,同时确保分辨率已调整至1920*1080全屏幕...")
             # os.system(f"cmd /C start \"\" \"{config.game_path}\"")
             
             Start.start_game()
-
-            logger.info("此时登录账号并点击进入游戏,之后等待加载至主界面,同时将分辨率调整至1920*1080全屏幕...")
+            time.sleep(1)
+            pyautogui.hotkey('alt', 'tab')
+            
             input("是否已完成加载到主界面?若完成则按回车进入下一步开始识别UID...")
 
             # Resolution.check(config.game_title_name, 1920, 1080)
@@ -81,6 +83,9 @@ class Reg:
             screen.change_to("main")
 
             uid = auto.get_single_line_text(crop = (70.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080), blacklist=[], max_retries=9)
+
+            time.sleep(1)
+            pyautogui.hotkey('alt', 'tab')
 
             options_reg2 = dict()
             options_reg2.update({f"正确,直接导出":0})
@@ -99,7 +104,6 @@ class Reg:
             logger.info("重新导入完整注册表")
             os.system(f"cmd /C reg import ./reg/temp-full.reg")
             logger.info("完成,你已可以退出游戏,若要激活账号,需要到WEB后台的注册界面进行")
-           
 
         except Exception as e:
             logger.error(f"发生错误: {e}")

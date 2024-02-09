@@ -71,9 +71,6 @@ HotaruAssistant 离不开以下开源项目的帮助：
 ## TODO
 
 - 教程写明更清晰的使用步骤(从blog中移动)
-- 启动服务器之后自动打开浏览器后台
-- Register注册时,完成每一步自动切换窗口(?),并告知登录完成后等待在进入游戏界面
-- config中的forgottenhall_enable, daily_memory_one_enable, fight_enable之类的不相关条目也会自动生成,全部剔除
 - ~~遗器新增设为垃圾~~,以及分解时对垃圾的选择
 
 ## 低优先级

@@ -27,6 +27,8 @@ def start_server():
     flask_thread = threading.Thread(target=run_flask)
     flask_thread.start()
     print("需要到下方显示的IP地址中进入后台")
+    import webbrowser
+    webbrowser.open('http://127.0.0.1:5000')
     while True:
         client_socket, client_address = server_socket.accept()
         print(f"客户端{client_address}已连接")
