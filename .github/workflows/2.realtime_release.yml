@@ -26,21 +26,21 @@ jobs:
 
       - name: Generate program
         run: |
-          pyinstaller -D --distpath .\dist\HotaruAssistant_v1.8.1 -i .\assets\logo\Hotaru.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'Hotaru Assistant Client' --onefile main.py -y
-          pyinstaller -D --distpath .\dist\HotaruAssistant_v1.8.1 -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'Hotaru Assistant Register' --onefile reg.py -y
-          pyinstaller -D --distpath .\dist\HotaruAssistant_v1.8.1 -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'Hotaru Assistant Server' --onefile --add-data='templates;templates' --add-data='static;static' server.py -y
-          pyinstaller -F --distpath .\dist\HotaruAssistant_v1.8.1 -i .\assets\logo\Update.ico -n 'Update' update.py -y
+          pyinstaller -D --distpath .\dist\HotaruAssistant_v1.8.1.1 -i .\assets\logo\Hotaru.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'Hotaru Assistant Client' --onefile main.py -y
+          pyinstaller -D --distpath .\dist\HotaruAssistant_v1.8.1.1 -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'Hotaru Assistant Register' --onefile reg.py -y
+          pyinstaller -D --distpath .\dist\HotaruAssistant_v1.8.1.1 -i .\assets\logo\Terminal.ico --contents-directory libraries --exclude-module PyQt5 --uac-admin -n 'Hotaru Assistant Server' --onefile --add-data='templates;templates' --add-data='static;static' server.py -y
+          pyinstaller -F --distpath .\dist\HotaruAssistant_v1.8.1.1 -i .\assets\logo\Update.ico -n 'Update' update.py -y
 
       - name: Move assets to dist directory
         run: |
-          xcopy /E /I /Y .\assets\ .\dist\HotaruAssistant_v1.8.1\assets\
-          xcopy /E /I /Y .\static\ .\dist\HotaruAssistant_v1.8.1\static\
-          xcopy /Y .\README.md .\dist\HotaruAssistant_v1.8.1\
-          xcopy /Y .\static\css\common.css .\dist\HotaruAssistant_v1.8.1\assets\css\
+          xcopy /E /I /Y .\assets\ .\dist\HotaruAssistant_v1.8.1.1\assets\
+          xcopy /E /I /Y .\static\ .\dist\HotaruAssistant_v1.8.1.1\static\
+          xcopy /Y .\README.md .\dist\HotaruAssistant_v1.8.1.1\
+          xcopy /Y .\static\css\common.css .\dist\HotaruAssistant_v1.8.1.1\assets\css\
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: HotaruAssistant_${{ github.run_number }}
-          path: ./dist/HotaruAssistant_v1.8.1
+          path: ./dist/HotaruAssistant_v1.8.1.1
           retention-days: 1

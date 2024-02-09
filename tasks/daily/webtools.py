@@ -128,7 +128,7 @@ class WebTools:
                         Copyright © 2021-2024 @姫様の夢
                     </div>
                     <div class=footer-content>
-                        <a>HIMEPRODUCER</a> {version}
+                        <a>SecretBase</a> {version}
                     </div>
                 </footer>
             </div>
@@ -143,7 +143,7 @@ class WebTools:
                 <header class=header style=position:sticky>
                     <nav class=nav style='margin:0 15px;justify-content:center;background-color:#2b2b2b'>
                         <span class=blogName style=color:#d9d9d9 id=nav-index>
-                            HIMEPRODUCER
+                            SecretBase
                         </span>
                     </nav>
                 </header>
