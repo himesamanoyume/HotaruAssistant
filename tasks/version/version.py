@@ -17,7 +17,7 @@ class Version:
             return False
         logger.hr(gu("开始检测更新"), 0)
         try:
-            response = requests.get(FastestMirror.get_github_api_mirror("himesamanoyume","himesamanoyume","latest.json",1), timeout=3)
+            response = requests.get(FastestMirror.get_github_api_mirror("himesamanoyume","HotaruAssistant","latest.json",1), timeout=3)
             if response.status_code == 200:
                 data = json.loads(response.text)
                 version = data["tag_name"]
