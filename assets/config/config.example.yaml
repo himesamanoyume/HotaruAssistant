@@ -58,6 +58,9 @@ echo_of_war_times: {} # 历战余响次数
 
 relic_salvage_enable: {} # 是否分解遗器
 relic_salvage_5star_enable: {} # 若允许分解遗器,是否分解5星遗器
+relic_salvage_4star_enable: {} # 若允许分解遗器,是否分解4星遗器
+relic_salvage_5star_to_exp: {} # 若分解5星遗器,是否分解成遗器经验材料
+relic_threshold_count: {} # 触发遗器超标的数量
 borrow_character_enable: false # 强制使用支援角色
 borrow_character_from: # 使用指定好友的支援角色
 - 好友1
@@ -82,7 +85,6 @@ daily_tasks_fin: {} # 是否完成实训
 last_run_timestamp: {} # 上次运行日常的时间戳
 
 universe_enable: true # 启用模拟宇宙
-# universe_operation_mode: exe # 运行方式 源码: source 集成: exe
 universe_bonus_enable: true # 领取沉浸奖励
 universe_fin: {} # 是否模拟宇宙满分
 universe_score: {} # 模拟宇宙积分
@@ -94,7 +96,7 @@ universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
 universe_number: {} # 第几宇宙
 universe_difficulty: {} # 什么难度
 universe_fate: {} # 什么命途 0存护1记忆2虚无3丰饶4巡猎5毁灭6欢愉7繁育
-universe_team: {} # 阵容 用templist append角色名后整个赋值到此
+universe_team: {} # 阵容
 
 purefiction_stars: {} # 虚构叙事星数
 purefiction_levels: {} # 虚构叙事层数

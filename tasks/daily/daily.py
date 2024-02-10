@@ -93,15 +93,7 @@ class Daily:
         if len(config.daily_tasks[Utils.get_uid()]) > 0:
             task_functions = {
                 "拍照1次": lambda: Photo.photograph(),
-                "合成1次消耗品": lambda: Synthesis.consumables(),
-                "合成1次材料": lambda: Synthesis.material(),
                 "使用1次「万能合成机」": lambda: Synthesis.material(),
-                "使用1件消耗品": lambda: Synthesis.use_consumables(),
-                "完成1次「拟造花萼（金）」": lambda: Power.instance("拟造花萼（金）", config.instance_names[Utils.get_uid()]["拟造花萼（金）"], 10, 1),
-                "完成1次「拟造花萼（赤）」": lambda: Power.instance("拟造花萼（赤）", config.instance_names[Utils.get_uid()]["拟造花萼（赤）"], 10, 1),
-                "完成1次「凝滞虚影」": lambda: Power.instance("凝滞虚影", config.instance_names[Utils.get_uid()]["凝滞虚影"], 30, 1),
-                "完成1次「侵蚀隧洞」": lambda: Power.instance("侵蚀隧洞", config.instance_names[Utils.get_uid()]["侵蚀隧洞"], 40, 1),
-                "完成1次「历战余响」": lambda: Power.instance("历战余响", config.instance_names[Utils.get_uid()]["历战余响"], 30, 1),
                 "累计施放2次秘技": lambda: HimekoTry.technique(),
                 "累计击碎3个可破坏物": lambda: HimekoTry.item(),
                 "单场战斗中，触发3种不同属性的弱点击破": lambda: HimekoTry.weakness_diffrent_3(),

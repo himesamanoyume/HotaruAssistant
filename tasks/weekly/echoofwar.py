@@ -36,10 +36,7 @@ class Echoofwar:
     @staticmethod
     def start():
         Relics.detect_relic_count()
-        if Utils._relicCount >= 1450:
-            nowtime = time.time()
-            logger.error(gu(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止"))
-            raise Exception(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
+        Relics.skip_for_relic_count()
         try:
             logger.hr(gu("准备历战余响"), 2)
             screen.change_to('guide3')

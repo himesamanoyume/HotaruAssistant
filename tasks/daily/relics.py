@@ -9,6 +9,13 @@ import time
 
 class Relics:
     @staticmethod
+    def skip_for_relic_count():
+        if Utils._relicCount >= config.relic_threshold_count[Utils.get_uid()]:
+            nowtime = time.time()
+            logger.error(gu(f"{nowtime},检测到遗器数量超过{config.relic_threshold_count[Utils.get_uid()]},所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止"))
+            raise Exception(f"{nowtime},检测到遗器数量超过{config.relic_threshold_count[Utils.get_uid()]},所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
+
+    @staticmethod
     def salvage():
         try:
             logger.hr(gu("准备分解遗器"), 2)
@@ -20,47 +27,52 @@ class Relics:
             if auto.click_element("分解", "text", max_retries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
                 if auto.click_element("分解", "text", max_retries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
                     time.sleep(1)
-                    if auto.click_element("./assets/images/synthesis/filter.png", "image", 0.9, max_retries=10):
+                    if auto.click_element("./assets/images/relic/fast_select.png", "image", 0.9, max_retries=10):
                         # 等待筛选界面弹出
                         time.sleep(1)
-                        auto.click_element("2星", "text", max_retries=10, crop=(1408.0 / 1920, 308.0 / 1080, 336.0 / 1920, 136.0 / 1080))
+                        fast_select_crop=(439.0 / 1920, 357.0 / 1080, 1018.0 / 1920, 448.0 / 1080)
+                        auto.click_element("全选已弃置", "text", max_retries=10, crop=fast_select_crop)
                         time.sleep(0.5)
-                        auto.click_element("3星", "text", max_retries=10, crop=(1408.0 / 1920, 308.0 / 1080, 336.0 / 1920, 136.0 / 1080))
+                        auto.click_element("3星及以下", "text", max_retries=10, crop=fast_select_crop)
                         time.sleep(0.5)
-                        auto.click_element("4星", "text", max_retries=10, crop=(1408.0 / 1920, 308.0 / 1080, 336.0 / 1920, 136.0 / 1080))
-                        time.sleep(0.5)
-                        if config.relic_salvage_5star_enable[Utils.get_uid()]:
-                            auto.click_element("5星", "text", max_retries=10, crop=(1408.0 / 1920, 308.0 / 1080, 336.0 / 1920, 136.0 / 1080))
+                        if config.relic_salvage_4star_enable[Utils.get_uid()]:
+                            auto.click_element("4星及以下", "text", max_retries=10, crop=fast_select_crop)
                             time.sleep(0.5)
-                        if auto.click_element("确认", "text", max_retries=10, crop=(1597.0 / 1920, 958.0 / 1080, 285.0 / 1920, 65.0 / 1080)):
-                            time.sleep(1)
-                            if auto.click_element("全选", "text", max_retries=10, crop=(937.0 / 1920, 951.0 / 1080, 121.0 / 1920, 63.0 / 1080)):
-                                time.sleep(5)
-                                if auto.find_element("./assets/images/screen/bag/all_select.png", "image", 0.9, max_retries=10):
-                                    countText = auto.get_single_line_text((616.0 / 1920, 871.0 / 1080, 110.0 / 1920, 37.0 / 1080), [], 5)
-                                    count = countText.split('/')[0]
-                                    logger.info(gu(f"已选数量:{count}/500"))
-                                    if auto.click_element("分解", "text", max_retries=10, crop=(1597.0 / 1920, 958.0 / 1080, 285.0 / 1920, 65.0 / 1080)):
-                                        logger.info(gu(f"已点击分解遗器"))
+                        if config.relic_salvage_5star_enable[Utils.get_uid()]:
+                            auto.click_element("5星及以下", "text", max_retries=10, crop=fast_select_crop)
+                            time.sleep(0.5)
+                        if auto.click_element("确认", "text", max_retries=10, crop=fast_select_crop):
+                            time.sleep(3)
+                            countText = auto.get_single_line_text((616.0 / 1920, 871.0 / 1080, 110.0 / 1920, 37.0 / 1080), [], 5)
+                            count = countText.split('/')[0]
+                            logger.info(gu(f"已选数量:{count}/500"))
+                            time.sleep(0.5)
+                            if count != 0:
+                                if config.relic_salvage_5star_enable[Utils.get_uid()] and config.relic_salvage_5star_to_exp[Utils.get_uid()]:
+                                    if auto.click_element("./assets/images/relic/relic_exp.png", "image", 0.9, max_retries=10):
+                                        logger.info("已点击将5星遗器分解为遗器经验材料")
+                                time.sleep(1)
+                                if auto.click_element("./assets/images/relic/salvage.png", "image", max_retries=10):
+                                    logger.info(gu(f"已点击分解遗器"))
+                                    time.sleep(1)
+                                    if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
+                                        logger.info(gu(f"已点击确认"))
                                         time.sleep(1)
-                                        if auto.click_element("./assets/images/base/confirm.png", "image", 0.9, max_retries=10):
-                                            logger.info(gu(f"已点击确认"))
+                                        if auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
+                                            logger.info(gu(f"已点击关闭窗口"))
                                             time.sleep(1)
-                                            if auto.click_element("./assets/images/base/click_close.png", "image", 0.9, max_retries=10):
-                                                logger.info(gu(f"已点击关闭窗口"))
-                                                time.sleep(1)
-                                                logger.info(gu(f"分解遗器{count}件完成"))
-                                                screen.change_to('main')
-                                                return True
-                                else:
-                                    logger.error(gu("分解遗器失败: 没有多余的遗器可供分解"))
-                                    screen.change_to('main')
-                                    return False
-            logger.error(gu("分解遗器失败"))
-            return False
+                                            logger.info(gu(f"分解遗器{count}件完成"))
+                                            screen.change_to('main')
+                                            return True
+                            else:
+                                logger.error(gu("分解遗器失败: 没有多余的遗器可供分解"))
+                                screen.change_to('main')
+                                return False
+                logger.error(gu("分解遗器失败"))
+                return False
         except Exception as e:
             logger.error(gu(f"分解遗器失败: {e}"))
-        return False
+            return False
     
     @staticmethod
     def detect_relic_count():
@@ -74,7 +86,7 @@ class Relics:
             logger.info(gu(f"遗器数量:{relic_countText}"))
             relic_countText = relic_countText.split('/')[0]
             Utils._relicCount = int(relic_countText)
-            if Utils._relicCount >= 1450:
+            if Utils._relicCount >= config.relic_threshold_count[Utils.get_uid()]:
                 logger.warning(gu("检测到遗器数量超标"))
                 Relics.salvage()
                 Relics.detect_relic_count()

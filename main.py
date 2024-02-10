@@ -31,7 +31,7 @@ def main(action=None):
     config.reload()
     # 免责申明
     if not config.agreed_to_disclaimer:
-        logger.error(_("您尚未同意《免责声明》"))
+        logger.error(_("您尚未同意《免责声明》,请先运行Server并同意《免责声明》"))
         input(_("按回车键关闭窗口. . ."))
         sys.exit(0)
 
@@ -64,7 +64,10 @@ def main(action=None):
 
                 # 分解遗器
                 Utils.detectIsNoneButNoSave(config.relic_salvage_enable, uidStr, False)
+                Utils.detectIsNoneButNoSave(config.relic_salvage_4star_enable, uidStr, True)
                 Utils.detectIsNoneButNoSave(config.relic_salvage_5star_enable, uidStr, False)
+                Utils.detectIsNoneButNoSave(config.relic_salvage_5star_to_exp, uidStr, False)
+                Utils.detectIsNoneButNoSave(config.relic_threshold_count, uidStr, 1450)
 
                 # echo of war历战余响
                 Utils.detectIsNoneButNoSave(config.echo_of_war_enable, uidStr, False)
@@ -74,7 +77,6 @@ def main(action=None):
                 Utils.detectIsNoneButNoSave(config.daily_tasks_score, uidStr, '0/1')
                 Utils.detectIsNoneButNoSave(config.daily_tasks_fin, uidStr, False)
                 
-
                 # universe模拟宇宙
                 Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
                 Utils.detectIsNoneButNoSave(config.universe_number, uidStr, 3)

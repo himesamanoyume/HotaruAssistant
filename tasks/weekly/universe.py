@@ -64,10 +64,7 @@ class Universe:
     @staticmethod
     def start(get_reward=False, nums=0, save=True, daily=True):
         Relics.detect_relic_count()
-        if Utils._relicCount >= 1450:
-            nowtime = time.time()
-            logger.error(gu(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止"))
-            raise Exception(f"{nowtime},检测到遗器数量超过1450,所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
+        Relics.skip_for_relic_count()
         
         logger.hr(gu("准备模拟宇宙"), 2)
         
@@ -76,11 +73,6 @@ class Universe:
             logger.info(gu("鉴定为正在每日任务中且分数已满,跳过"))
             return True
         
-        # Relics.detect_relic_count()
-        # if Utils._relicCount >= 1450:
-        #     logger.warning(gu("遗器数量超标,不进行模拟宇宙"))
-        #     return False
-       
         if Universe.before_start():
             
             screen.change_to('main')

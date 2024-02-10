@@ -42,20 +42,20 @@ class Stop:
         logger.info(gu("开始退出游戏"))
         time.sleep(2)
         if WindowSwitcher.check_and_switch(config.game_title_name):
-            if not auto.retry_with_timeout(lambda: Stop.terminate_process(config.game_process_name), 10, 1):
-                logger.error(_("游戏退出失败"))
-                return False
-            # time.sleep(1)
-            # pyautogui.hotkey('alt', 'f4')
+            # if not auto.retry_with_timeout(lambda: Stop.terminate_process(config.game_process_name), 10, 1):
+            #     logger.error(_("游戏退出失败"))
+            #     return False
+            time.sleep(1)
+            pyautogui.hotkey('alt', 'f4')
             time.sleep(5)
             # 新增检查是否还在的判断
             if not WindowSwitcher.check_and_switch(config.game_title_name):
                 logger.info(gu("游戏退出成功"))
             else:
-                # pyautogui.hotkey('alt', 'f4')
+                pyautogui.hotkey('alt', 'f4')
                 time.sleep(5)
-                if WindowSwitcher.check_and_switch(config.game_title_name):
-                    auto.retry_with_timeout(lambda: Stop.terminate_process(config.game_process_name), 10, 1)
+                # if WindowSwitcher.check_and_switch(config.game_title_name):
+                #     auto.retry_with_timeout(lambda: Stop.terminate_process(config.game_process_name), 10, 1)
             Utils._uid = "-1"
             # end
         else:

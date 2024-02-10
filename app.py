@@ -102,7 +102,10 @@ def config_save(uid):
     config.universe_team[uid][2] = data['universe_team2']
     config.universe_team[uid][3] = data['universe_team3']
     config.relic_salvage_enable[uid] = data['relic_salvage_enable']
+    config.relic_salvage_4star_enable[uid] = data['relic_salvage_4star_enable']
     config.relic_salvage_5star_enable[uid] = data['relic_salvage_5star_enable']
+    config.relic_salvage_5star_to_exp[uid] = data['relic_salvage_5star_to_exp']
+    config.relic_threshold_count[uid] = data['relic_threshold_count']
     config.save_config()
     log("配置信息已改动", uid)
     return ''

@@ -165,13 +165,13 @@ class Notify:
 
         multi_content += f"<p><strong>当前遗器数量</strong></p><blockquote style='background-color:rgb({(64 + (95 - 64)*(Utils._relicCount / 1500))}, 64, {(95 - (95 - 64)*(Utils._relicCount / 1500))});box-shadow: 3px 0 0 0 rgb({(102 + (216 - 102)*(Utils._relicCount / 1500))}, {(204 - (204 - 89)*(Utils._relicCount / 1500))}, {(255 - (255 - 89)*(Utils._relicCount / 1500))}) inset;'><p>{Utils._relicCount}/1500</p></blockquote>"
 
-        multi_content += f"<p><strong>当前忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{Utils._content['fh_countdownText']}</p>"
+        multi_content += f"<p><strong>最新一期忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{Utils._content['fh_countdownText']}</p>"
 
         multi_content += (f"<blockquote>" if config.forgottenhall_levels[uid] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{config.forgottenhall_levels[uid]}/12</p></blockquote>"
 
         multi_content += (f"<blockquote>" if config.forgottenhall_stars[uid] == 36 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{config.forgottenhall_stars[uid]}/36</p></blockquote>"
 
-        multi_content += f"<p><strong>当前虚构叙事</strong></p><div class=post-txt-container-datetime>注意,这里不支持虚构叙事代打,仅提供信息提示</div><p>距离刷新:{Utils._content['pf_countdownText']}</p>"
+        multi_content += f"<p><strong>最新一期虚构叙事</strong></p><div class=post-txt-container-datetime>注意,这里不支持虚构叙事代打,仅提供信息提示</div><p>距离刷新:{Utils._content['pf_countdownText']}</p>"
 
         multi_content += (f"<blockquote>" if config.purefiction_levels[uid] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{config.purefiction_levels[uid]}/4</p></blockquote>"
 

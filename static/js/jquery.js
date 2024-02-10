@@ -43,8 +43,16 @@ function config_submitChange(){
         var universe_team2 = $('select[name="universe_team2"]').val()
         var universe_team3 = $('select[name="universe_team3"]').val()
         var relic_salvage_enable = $('input[name="relic_salvage_enable"]').prop('checked')
+        var relic_salvage_4star_enable = $('input[name="relic_salvage_4star_enable"]').prop('checked')
         var relic_salvage_5star_enable = $('input[name="relic_salvage_5star_enable"]').prop('checked')
+        var relic_salvage_5star_to_exp = $('input[name="relic_salvage_5star_to_exp"]').prop('checked')
+        var relic_threshold_count = $('input[name="relic_threshold_count"]').val()
         var uid = $('.body').attr('data-rt')
+
+        if (relic_threshold_count==''){
+            alert("触发遗器分解的数量不能为空")
+            return
+        }
 
         var json={
             "instance_name1":instance_name1,
@@ -61,8 +69,18 @@ function config_submitChange(){
             "universe_team2":universe_team2,
             "universe_team3":universe_team3,
             "relic_salvage_enable":relic_salvage_enable,
-            "relic_salvage_5star_enable":relic_salvage_5star_enable
+            "relic_salvage_4star_enable":relic_salvage_4star_enable,
+            "relic_salvage_5star_enable":relic_salvage_5star_enable,
+            "relic_salvage_5star_to_exp":relic_salvage_5star_to_exp,
+            "relic_threshold_count":parseInt(relic_threshold_count)
         }
+
+
+        if (json['relic_threshold_count'] > 1500 || json['relic_threshold_count'] < 0){
+            alert("触发遗器分解的数量格式不正确")
+            return
+        }
+
         $.ajax({
             url:"./"+uid+"/configsave",
             contentType:"application/json",

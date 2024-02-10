@@ -11,7 +11,7 @@ data-rt="{{uid}}"
 {% endblock %}
 {% block section %}
 <h6 style=color:#66ccff>
-    每日完成情况
+    每日情况
 </h6>
 {% for key, value in config.daily_tasks[uid].items() %}
 <p>
@@ -48,7 +48,7 @@ data-rt="{{uid}}"
 {% endif %}
 <p>{{config.echo_of_war_times[uid]}}/3</p></blockquote>
 
-<p><strong>当前忘却之庭 - 混沌回忆</strong></p>
+<p><strong>最新一期忘却之庭 - 混沌回忆</strong></p>
 {% if config.forgottenhall_levels[uid] == 12 %}
 <blockquote>
 {% else %}
@@ -62,7 +62,7 @@ data-rt="{{uid}}"
 {% endif %}
 <p>星数:{{config.forgottenhall_stars[uid]}}/36</p></blockquote>
 
-<p><strong>当前虚构叙事</strong></p>
+<p><strong>最新一期虚构叙事</strong></p>
 {% if config.purefiction_levels[uid] == 4 %}
 <blockquote>
 {% else %}
@@ -151,11 +151,20 @@ data-rt="{{uid}}"
         {% endfor %}
     </select>
 </p>
-<p>是否开启分解4星及以下的遗器:
-    <input type="checkbox" name="relic_salvage_enable" value="relic_salvage_enable" {% if config.relic_salvage_enable[uid] %} checked {% endif %}>
+<p>是否开启分解遗器:
+    <input type="checkbox" name="relic_salvage_enable" {% if config.relic_salvage_enable[uid] %} checked {% endif %}>
+</p>
+<p>是否分解4星遗器:
+    <input type="checkbox" name="relic_salvage_4star_enable" {% if config.relic_salvage_4star_enable[uid] %} checked {% endif %}>
 </p>
 <p>是否分解5星遗器:
-    <input type="checkbox" name="relic_salvage_5star_enable" value="relic_salvage_5star_enable" {% if config.relic_salvage_5star_enable[uid] %} checked {% endif %}>
+    <input type="checkbox" name="relic_salvage_5star_enable" {% if config.relic_salvage_5star_enable[uid] %} checked {% endif %}>
+</p>
+<p>若分解5星遗器,是否分解为遗器经验材料:
+    <input type="checkbox" name="relic_salvage_5star_to_exp" {% if config.relic_salvage_5star_to_exp[uid] %} checked {% endif %}>
+</p>
+<p>当遗器数量达到何值时触发遗器分解:
+    <input name="relic_threshold_count" value="{{config.relic_threshold_count[uid]}}" placeholder="1111" type="number" style="width: 150px;">
 </p>
 <p>模拟宇宙:
     <select class=configSelect name=universe_number>
