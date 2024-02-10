@@ -5,10 +5,9 @@
 
 <h1>
 HotaruAssistant · 流萤小助手<br>
-<p style='font-size:11px'>三月七你别再联系了,我怕流萤误会</p>
 </h1>
 
-
+<h6>三月七你别再联系了,我怕流萤误会</h6>
 
 基于March7thAssistant v1.6.2
 
