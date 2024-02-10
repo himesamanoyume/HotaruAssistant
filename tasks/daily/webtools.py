@@ -62,8 +62,8 @@ class WebTools:
 
     def config_content(multi_content, uid):
         config.reload()
-        multi_content += f"<hr style=background:#d9d9d9><p><strong>配置详细</strong></p><div class=post-txt-container-datetime>该配置显示了当要挑战副本时会选择什么副本,如果配置与需求不符或需求有变化请和我说,然后我进行调整,否则我一律会首先遵照每个UID的配置来清体力</div>"
-        multi_content += f"<p>清开拓力时将要打的副本类型:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_type[uid][0]}</span></p>"
+        multi_content += f"<hr style=background:#d9d9d9><p><strong>配置详细</strong></p><div class=post-txt-container-datetime>该配置显示了当要挑战副本时会选择什么副本,如果配置与需求不符或需求有变化需要到后台进行调整</div>"
+        multi_content += f"<p>今天每日清开拓力时将要打的副本类型:<span class=important style=background-color:#40405f;color:#66ccff>{config.instance_type[uid][0]}</span></p>"
         multi_content += f"<p>不同副本类型下的副本名称:</p>"
 
         with open("./assets/config/ruby_detail.json", 'r', encoding='utf-8') as ruby_json:
