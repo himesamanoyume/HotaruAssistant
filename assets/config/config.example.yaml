@@ -98,6 +98,8 @@ universe_difficulty: {} # 什么难度
 universe_fate: {} # 什么命途 0存护1记忆2虚无3丰饶4巡猎5毁灭6欢愉7繁育
 universe_team: {} # 阵容
 
+forgottenhall_stars: {} # 忘却之庭星数
+forgottenhall_levels: {} # 忘却之庭通过层数
 purefiction_stars: {} # 虚构叙事星数
 purefiction_levels: {} # 虚构叙事层数
 

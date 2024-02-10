@@ -81,13 +81,16 @@ class Utils:
 
     def init_instanceButNoSave(uid):
         if config.instance_type == {} or uid not in config.instance_type.keys():
-            config.instance_type[uid].append('拟造花萼（金）')
+            config.instance_type[uid] = {}
+            tempList = list()
+            tempList.append('拟造花萼（金）')
+            config.instance_type[uid] = tempList
 
         if config.instance_names == {} or uid not in config.instance_names.keys():
             config.instance_names[uid] = {}
-            config.instance_names[uid]['拟造花萼（金）'] = '回忆之蕾'
-            config.instance_names[uid]['拟造花萼（赤）'] = '毁灭之蕾'
-            config.instance_names[uid]['凝滞虚影'] = '无'
+            config.instance_names[uid]['拟造花萼（金）'] = '雅利洛-回忆之蕾'
+            config.instance_names[uid]['拟造花萼（赤）'] = '毁灭之蕾1'
+            config.instance_names[uid]['凝滞虚影'] = '空海之形'
             config.instance_names[uid]['侵蚀隧洞'] = '睿治之径'
             config.instance_names[uid]['历战余响'] = '毁灭的开端'
 

@@ -21,6 +21,9 @@ class Reg:
             Reg.restore_reg()
         elif value == 2:
             Reg.take_ss_first()
+        
+        input("按回车键关闭窗口. . .")
+        sys.exit(1)
     
     def take_ss_first():
         Reg.take_screenshot()

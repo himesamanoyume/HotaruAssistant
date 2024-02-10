@@ -37,6 +37,7 @@ def main(action=None):
 
     Version.start()
     Universe.check_path()
+    run_new_accounts()
     
     if config.multi_login:
         # 多账号
@@ -48,7 +49,6 @@ def main(action=None):
             logger.info("开始多账号运行")
 
             options_reg = dict()
-            run_new_accounts()
 
             config.reload()
             for index in range(len(config.multi_login_accounts)):
@@ -197,11 +197,11 @@ def run_new_accounts():
                 logger.error(f"{uid}:新的注册信息中模拟宇宙小队角色未填写满4人或超出4人")
                 input("按下回车跳过该次注册")
                 return
-            if not item['universe_fate'] in ['存护','记忆','虚无','丰饶','巡猎','毁灭','欢愉','繁育']:
+            if not item['universe_fate'] in [0,1,2,3,4,5,6,7,8]:
                 logger.error(f"{uid}:新的注册信息中模拟宇宙命途不合法")
                 input("按下回车跳过该次注册")
                 return
-            if not item['universe_number'] in [3,4,5,6,7]:
+            if not item['universe_number'] in [3,4,5,6,7,8]:
                 logger.error(f"{uid}:新的注册信息中模拟宇宙选择的世界不合法")
                 input("按下回车跳过该次注册")
                 return
@@ -210,7 +210,14 @@ def run_new_accounts():
                 input("按下回车跳过该次注册")
                 return
             config.reload()
-            config.multi_login_accounts.append(item['reg_path'])
+            if config.multi_login_accounts == {}:
+                tempList = list()
+                tempList.append(item['reg_path'])
+                config.set_value("multi_login_accounts", tempList)
+                config.save_config()
+            else:
+                config.multi_login_accounts.append(item['reg_path'])
+
             loginList.append(f"{str(item['reg_path'])}")
             config.notify_smtp_To[uid] = item['email']
 

@@ -22,7 +22,7 @@ body:
       options:
         - label: "我已经使用一个干净且无其它非必要的插件的环境测试过，问题依旧存在。"
           required: true
-        - label: "我已经在 [Issue Tracker](https://github.com/moesnow/HotaruAssistant/issues) 中找过我要提出的问题，没有找到相同问题的ISSUE。"
+        - label: "我已经在 [Issue Tracker](https://github.com/himesamanoyume/HotaruAssistant/issues) 中找过我要提出的问题，没有找到相同问题的ISSUE。"
           required: true
         - label: 我已知晓并同意，若这个 Issue 是关于其他非程序本身问题，则我的 Issue 可能会被无条件自动关闭/锁定。
           required: true
@@ -70,7 +70,6 @@ body:
     attributes:
       label: 日志记录
       description: |
-        将日志等级(log_level)修改为 DEBUG 后再次运行，
         从 logs 文件夹内获取日志文件，按照日期命名。
 
   - type: textarea

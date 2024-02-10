@@ -95,7 +95,7 @@ function config_submitChange(){
 }
 
 function register_submitChange(){
-    if(confirm("确定要保存吗?")){
+    if(confirm("确定要注册吗?")){
         var reg_uid = $('input[name="reg_uid"]').val()
         var email = $('input[name="email"]').val()
         var universe_number = $('select[name="universe_number"]').val()
@@ -144,9 +144,9 @@ function register_submitChange(){
             data: JSON.stringify(json),
             type:"POST",
         }).done(function(){
-            alert("已保存")
+            alert("已注册!现在可以打开Client进行激活了")
         }).fail(function(){
-            alert("保存失败!")
+            alert("注册失败!")
         })
     }
 }
