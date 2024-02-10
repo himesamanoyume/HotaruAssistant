@@ -72,6 +72,7 @@ HotaruAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
+- 后台新增是否开启daily_himeko_try_enable,after_finish
 - 更换头图至秘密基地
 - 教程写明更清晰的使用步骤(从blog中移动)
 

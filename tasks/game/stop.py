@@ -143,7 +143,7 @@ class Stop:
                 Stop.hibernate()
             elif config.after_finish == "Sleep":
                 Stop.sleep()
-        elif config.after_finish in  ["Exit"]:
+        elif config.after_finish in ["Exit", "Loop"]:
             Stop.stop_game()
             input(_("按回车键关闭窗口. . ."))
             sys.exit(0)
