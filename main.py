@@ -228,7 +228,7 @@ def run_new_accounts():
 
             config.save_config()
             config.del_value('want_register_accounts', uid)
-        logger.info("新注册表加入完成")
+        logger.info("新注册表激活完成")
     else:
         logger.info("未检测到有新注册表加入")
 

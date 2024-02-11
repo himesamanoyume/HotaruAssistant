@@ -88,8 +88,65 @@ function config_submitChange(){
             type:"POST",
         }).done(function(){
             alert(uid+"已保存")
+            location.reload()
         }).fail(function(){
             alert("保存失败!")
+        })
+    }
+}
+
+function activate_submitChange(){
+    if(confirm("确定要激活吗?")){
+        var uid = $('select[name="activate_uid"]').val()
+
+        if (uid==null){
+            alert("uid不能为空")
+            return
+        }
+
+        var json={
+            "uid":uid
+        }
+
+        $.ajax({
+            url:"./activate/save",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
+        }).fail(function(){
+            alert("激活失败!")
+        })
+    }
+}
+
+function del_activate_submitChange(){
+    if(confirm("确定删除该激活信息吗?")){
+        var uid = $('select[name="activate_uid"]').val()
+
+        if (uid==null){
+            alert("uid不能为空")
+            return
+        }
+
+        var json={
+            "uid":uid
+        }
+
+        $.ajax({
+            url:"./activate/del",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+            success: function(result){
+                alert("删除激活信息成功!"+result)
+                location.reload()
+            }
+        }).fail(function(){
+            alert("删除失败!")
         })
     }
 }
@@ -144,7 +201,8 @@ function register_submitChange(){
             data: JSON.stringify(json),
             type:"POST",
         }).done(function(){
-            alert("已注册!现在可以打开Client进行激活了")
+            alert("已注册!现在可以打开Client或进入激活页面进行激活了")
+            location.reload()
         }).fail(function(){
             alert("注册失败!")
         })
@@ -175,6 +233,7 @@ function smtp_submitChange(){
             type:"POST",
         }).done(function(){
             alert("已保存")
+            location.reload()
         }).fail(function(){
             alert("保存失败!")
         })
@@ -222,6 +281,7 @@ function misc_submitChange(){
             type:"POST",
         }).done(function(){
             alert("已保存")
+            location.reload()
         }).fail(function(){
             alert("保存失败!")
         })
@@ -254,6 +314,7 @@ function announcement(){
             type:"POST",
         }).done(function(){
             alert("已发布")
+            location.reload()
         }).fail(function(){
             alert("发布失败!")
         })
@@ -288,6 +349,7 @@ function announcement_single(){
             type:"POST",
         }).done(function(){
             alert("已发布")
+            location.reload()
         }).fail(function(){
             alert("发布失败!")
         })

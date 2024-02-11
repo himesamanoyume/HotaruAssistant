@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,abort,Response
 from module.config.config import Config
 from tasks.daily.webtools import WebTools
 from datetime import datetime
@@ -57,6 +57,81 @@ def register():
     config.reload()
     return render_template('register.html',ruby=ruby)
 
+@app.route('/activate')
+def activate():
+    config.reload()
+    return render_template('activate.html', config=config)
+
+@app.route('/activate/save',methods=['POST'])
+def activate_save():
+    config.reload()
+    data = request.get_json('data')
+    uid = data['uid']
+    if uid == '':
+        abort(Response("uid不能为空"))
+    if len(config.want_register_accounts) > 1:
+        print("检测到有新注册表加入")
+        for uid, item in config.want_register_accounts.items():
+            if uid == '111111111': continue
+            if item['reg_path']=='':
+                t = f"{uid}:新的注册信息中注册表地址未完整填写"
+                print(t)
+                abort(Response(t))
+            if item['email']=='':
+                t = f"{uid}:新的注册信息中邮箱未完整填写"
+                print(t)
+                abort(Response(t))
+            if not len(item['universe_team']) == 4:
+                t = f"{uid}:新的注册信息中模拟宇宙小队角色未填写满4人或超出4人"
+                print(t)
+                abort(Response(t))
+            if not item['universe_fate'] in [0,1,2,3,4,5,6,7,8]:
+                t = f"{uid}:新的注册信息中模拟宇宙命途不合法"
+                print(t)
+                abort(Response(t))
+            if not item['universe_number'] in [3,4,5,6,7,8]:
+                t = f"{uid}:新的注册信息中模拟宇宙选择的世界不合法"
+                print(t)
+                abort(Response(t))
+            if not item['universe_difficulty'] in [1,2,3,4,5]:
+                t = f"{uid}:新的注册信息中模拟宇宙难度不合法"
+                print(t)
+                abort(Response(t))
+
+            if config.multi_login_accounts == {}:
+                tempList = list()
+                tempList.append(item['reg_path'])
+                config.set_value("multi_login_accounts", tempList)
+                config.save_config()
+            else:
+                config.multi_login_accounts.append(item['reg_path'])
+
+            loginList.append(f"{str(item['reg_path'])}")
+            config.notify_smtp_To[uid] = item['email']
+
+            config.universe_number[uid] = item['universe_number']
+            config.universe_difficulty[uid] = item['universe_difficulty']
+            config.universe_fate[uid] = item['universe_fate']
+            config.universe_team[uid] = item['universe_team']
+
+            config.save_config()
+            config.del_value('want_register_accounts', uid)
+        print("注册表激活完成")
+        return Response("注册表激活完成!")
+    else:
+        print("未检测到有新注册表加入")
+        return Response("未检测到有新注册表加入")
+    
+
+@app.route('/activate/del',methods=['POST'])
+def activate_del():
+    config.reload()
+    data = request.get_json('data')
+    uid = data['uid']
+    config.del_value('want_register_accounts', uid)
+    print("注册表删除成功")
+    return ''
+
 @app.route('/<uid>/dailysave',methods=['POST'])
 def daily_save(uid):
     config.reload()
@@ -77,6 +152,7 @@ def daily_save(uid):
         
     config.daily_tasks_score[uid] = temp_score
     if config.daily_tasks_score[uid] >= 500:
+        config.daily_tasks_score[uid] = 500
         config.daily_tasks_fin[uid] = True
     elif config.daily_tasks_fin[uid]:
         config.daily_tasks_fin[uid] = False
