@@ -58,7 +58,7 @@ OBS录制|&cross;|&check;
 
 前往 [Releases](https://github.com/himesamanoyume/HotaruAssistant/releases/latest) 下载
 
-检测更新可以点击图形界面设置最底下的按钮，或双击 `Update.exe`
+检测更新 双击 `Update.exe`
 
 ## 相关项目
 
@@ -72,12 +72,14 @@ HotaruAssistant 离不开以下开源项目的帮助：
 
 ## TODO
 
-- ~~app注册后直接生效~~
-- 自动战斗等判定改为持续到结束或超时
+- (Refactoring)update.exe新增选项选择更新全体或单独更新assets
+- 邮件中没有2.0遗器分解的配置信息
+- (Refactoring)截图工具加上滚动条，新增透明窗口 不断显示检测区域
+- (Refactoring)后台新增调整循环结束后配置
 - 遗器判定增加,适应1080P窗口
-- 时间戳为0且任务列表不止一个时,不要清掉第一个副本类型
-- 后台新增是否开启daily_himeko_try_enable,after_finish
-- 更换头图至秘密基地
+- ~~时间戳为0且任务列表不止一个时,不要清掉第一个副本类型~~
+- (Refactoring)后台新增是否开启daily_himeko_try_enable,after_finish
+- (Refactoring)更换头图至秘密基地
 - 教程写明更清晰的使用步骤(从blog中移动)
 
 ## 低优先级

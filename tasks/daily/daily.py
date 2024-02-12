@@ -60,7 +60,10 @@ class Daily:
             if len(config.instance_type[Utils.get_uid()]) == 1:
                 pass
             else:
-                config.instance_type[Utils.get_uid()].remove(config.instance_type[Utils.get_uid()][0])
+                if config.last_run_timestamp[Utils.get_uid()] == 0:
+                    pass
+                else:
+                    config.instance_type[Utils.get_uid()].remove(config.instance_type[Utils.get_uid()][0])
             config.save_config()
             
             # 活动
