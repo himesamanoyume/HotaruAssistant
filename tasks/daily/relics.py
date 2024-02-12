@@ -173,12 +173,23 @@ class Relics:
         relic_name_crop=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
         relic_prop_crop=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性
         logger.info(gu("开始检测遗器"))
+
         point = auto.find_element("./assets/images/fight/fight_reward.png", "image", 0.9, max_retries=2)
+        
         success_reward_top_left_x = point[0][0]
         success_reward_top_left_y = point[0][1]
+
         for i in range(2):
             for j in range(7):
-                if auto.click_element("./assets/images/fight/relic.png", "image", 0.9, max_retries=2, crop=((success_reward_top_left_x - 380 + j*120.0 )/ 1920, (success_reward_top_left_y + 40 + i*120) / 1080, 120.0 / 1920, 120.0 / 1080)):
+
+                auto.click_element_with_pos(((success_reward_top_left_x -380 + j *120, success_reward_top_left_y + 40 + i * 120), (success_reward_top_left_x -380 + 120 + j *120, success_reward_top_left_y + 40 + 120 + i * 120)))
+                    
+                if not auto.find_element("./assets/images/fight/5star.png", "image", 0.9, max_retries=2):
+                    if auto.click_element("./assets/images/fight/relic_info_close.png", "image", 0.9, max_retries=3):
+                        time.sleep(0.5)
+                    else:
+                        break
+                else:
                     time.sleep(0.5)
                     relic_name = auto.get_single_line_text(relic_name_crop, blacklist=[], max_retries=5)
 

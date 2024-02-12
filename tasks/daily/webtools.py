@@ -87,8 +87,11 @@ class WebTools:
             multi_content += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['侵蚀隧洞']}<rt class='ttt' style='background-color: unset;' data-rt='{qinshisuidong_text}'></rt></ruby></span></p>"
             multi_content += f"<p>是否清空3次历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.echo_of_war_enable[uid] else '否'}</span></p>"
             multi_content += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{config.instance_names[uid]['历战余响']}<rt class='ttt' style='background-color: unset;' data-rt='{lizhanyuxiang_text}'></rt></ruby></span></p>"
-            multi_content += f"<p>是否允许我分解4星及以下遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.relic_salvage_enable[uid] else '否'}</span></p>"
+            multi_content += f"<p>是否分解遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.relic_salvage_enable[uid] else '否'}</span></p>"
+            multi_content += f"<p>若开启分解,是否分解4星遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.relic_salvage_4star_enable[uid] else '否'}</span></p>"
             multi_content += f"<p>若开启分解,是否分解5星遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.relic_salvage_5star_enable[uid] else '否'}</span></p>"
+            multi_content += f"<p>若分解5星遗器,是否分解为遗器经验材料:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if config.relic_salvage_5star_to_exp[uid] else '否'}</span></p>"
+            multi_content += f"<p>当遗器数量达到何值时触发遗器分解:<span class=important style=background-color:#40405f;color:#66ccff>{config.relic_threshold_count[uid]}</span></p>"
 
             if config.universe_number[uid] in [3,4,5,6,7,8]:
                 world_number = ruby_mappings['模拟宇宙'][str(config.universe_number[uid])]
