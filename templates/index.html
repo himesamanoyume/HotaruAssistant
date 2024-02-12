@@ -1,0 +1,194 @@
+{% extends 'common.html' %}
+{% block head %}
+流萤的秘密基地
+{% endblock %}
+{% block toppostpage %}
+<div class="post-page">
+    <a class="link-button" id="notify" style="text-decoration:none" href="./notify" >发布公告界面</a>
+    <a class="link-button" id="register" style="text-decoration:none" href="./register">注册界面</a>
+    <a class="link-button" id="activate" style="text-decoration:none" href="./activate">激活界面</a>
+</div>
+{% endblock %}
+{% block bottompostpage %}
+<div class="post-page">
+    <button class="link-button" id="smtp" onclick="smtp_submitChange()">保存SMTP服务设置</button>
+    <button class="link-button" id="misc" onclick="misc_submitChange()">保存杂项设置</button>
+</div>
+{% endblock %}
+{% block title %}
+管理界面
+{% endblock %}
+{% block section %}
+    <h6 style=color:#66ccff>
+        便携公告
+    </h6>
+    <iframe src="https://webstatic.mihoyo.com/hkrpg/announcement/index.html?auth_appid=announcement&authkey_ver=1&bundle_id=hkrpg_cn&channel_id=1&game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&level=1&platform=pc&region=prod_gf_cn&sdk_presentation_style=fullscreen&sdk_screen_transparent=true&sign_type=2&uid=1&version=1.41#/" style="border: 0;background-color:#d5d5d5;height:35vmax;width:100%"></iframe>
+
+    {% for item in datalist %}
+    <div style='background-color:#40405f;margin:10px 0 0 0;'>
+        <p style="margin: 0 20px 0 20px;"><b>{{item['title']}}</b></p>
+        <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
+        {{item['day']}} 天 {{item['hour']}} 时后结束<br>{{item['start_time']}} - {{item['end_time']}}
+        </div>
+        <div style="background-color: #66ccff;width:{{item['progress'] * 100}}%;max-width:100%;height:3px;"></div>
+    </div>
+    {% endfor %}
+
+    <blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;margin:10px 0 0 0;'>
+        <p>由于网页后台和脚本运行时都会对配置文件进行修改,因此尽量不要在脚本运行时在后台修改配置文件,可能出现脚本刚修改完还没有保存就又被后台修改了文件的情况,这将会导致其中一边的修改不会被保存下来</p>
+    </blockquote>
+    <div class="webui_container">
+        <div class="webui_content">
+        <h6 style=color:#66ccff>
+            SMTP服务
+        </h6>
+        <p>使用SMTP服务,首先需要<span class="important">登录网页qq邮箱→设置→账号→POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务→开启服务</span></p>
+        <p><a href="https://mail.qq.com/" target="_blank">打开QQ邮箱</a></p>
+        <p>是否开启脚本SMTP服务:
+            <input type="checkbox" name="notify_smtp_enable" {% if config.notify_smtp_enable %} checked {% endif %}>
+        </p>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            此处显示的是脚本是否启动服务,需要qq邮箱和脚本都开启,才能使用
+        </div>
+        <p>邮箱域名:
+            <input name="notify_smtp_host" type="text" style="width: 200px;" placeholder="smtp.qq.com" value="{{config.notify_smtp_host}}">
+        </p>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            通常就填smtp.qq.com
+        </div>
+        <p>邮件归档中心的邮箱地址:
+            <input name="notify_smtp_user" type="email" style="width: 200px;" placeholder="xxxxxx@qq.com" value="{{config.notify_smtp_user}}">
+        </p>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            当脚本发送邮件时,都会同时再发送另一封副本邮件到邮件归档中心,用于备份,以便随时查看所有发送过的邮件中的内容
+        </div>
+        <p>授权码:
+            <input name="notify_smtp_password" type="text" style="width: 200px;" placeholder="需要到对应邮箱里获取" value="{{config.notify_smtp_password}}">
+        </p>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            <span class="important">POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务→管理服务→生成授权码</span><br>授权码相当于密码,SMTP服务登录时不使用密码而是要使用授权码
+        </div>
+        <p>发件人邮箱地址:
+            <input name="notify_smtp_From" type="email" style="width: 200px;" placeholder="{{config.notify_smtp_user}}" value="{{config.notify_smtp_From}}">
+        </p>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            发件人通常填归档中心的邮箱地址,也可以另选
+        </div>
+        <p>脚本使用者专用邮箱地址:
+            <input name="notify_smtp_master" type="email" style="width: 200px;" placeholder="xxx@qq.com" value="{{config.notify_smtp_master}}">
+        </p>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            用于在发送全体公告时会额外发送一份至专用邮箱,以便查看邮件内容是否正确
+        </div>
+        </div>
+        <div class="webui_content">
+        <h6 style=color:#66ccff>
+            杂项
+        </h6>
+        <p>循环结束后到下一次开始等待的时间:
+            <input name="next_loop_time" type="number" style="width: 100px;" placeholder="默认12小时" value="{{config.next_loop_time}}">小时
+        </p>
+        <p>游戏内设置的秘技按键:
+            <input name="hotkey_technique" type="text" style="width: 60px;" placeholder="默认e" value="{{config.hotkey_technique}}">
+        </p>
+        <p>是否开启OBS录制:
+            <input type="checkbox" name="recording_enable" {% if config.recording_enable %} checked {% endif %}>
+        </p>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            如果要使用录制,需要先打开OBS,并且提前设置好抓取来源,设置→输出→输出模式改为高级<br>
+            在脚本根目录下<span class="important">新建records的文件夹</span>,并将录像路径设为该文件夹,勾选"生成没有空格的文件名"<br>
+            录像格式:<span class="important">MPEG-4(.mp4)</span>,编码器设置中速率控制:<span class="important">CBR</span>,码率:<span class="important">50Kbps</span><br>
+            设置→视频中分辨率尽可能低,如1280x720,<span class="important">帧率设置为10</span><br>
+            设置→快捷键中<span class="important">开始录制</span>和<span class="important">停止录制</span>分别设置为下面所填的快捷键,<span class="important" style="color: #d85959;">快捷键不要相同!</span><br>
+            如果开启OBS录制,则会在登录游戏时开始录制,退出游戏前结束录制,并将视频作为附件添加到邮件中发送<br>
+            <span class="important">如此低画质是由于QQ邮箱无法发送超过50MB大小的附件</span>
+        </div>
+        <p>OBS开始录制的快捷键:
+            <input name="hotkey_obs_start" type="text" style="width: 60px;" placeholder="默认[" value="{{config.hotkey_obs_start}}">
+        </p>
+        <p>OBS停止录制的快捷键:
+            <input name="hotkey_obs_stop" type="text" style="width: 60px;" placeholder="默认]" value="{{config.hotkey_obs_stop}}">
+        </p>
+        </div>
+        <div class="webui_content">
+        <h6 style=color:#66ccff>
+            黑名单管理
+        </h6>
+        <div class=post-txt-container-datetime>
+            当UID被添加进黑名单时,启动脚本的列表中将会跳过该UID
+        </div>
+        <p>输入一个UID将其添加至黑名单:
+            <input name="blacklist_uid" type="number" style="width: 150px;" placeholder="111111111">
+            <button class="link-button" id="append_blacklist" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_blacklist()">添加</button>
+        </p>
+        <p>将一个UID移除黑名单:
+            <select class=configSelect name=blacklist_uid>
+                {% for uid in config.blacklist_uid %}
+                    {% if uid in ['111111111','222222222'] %}
+
+                    {% else %}
+                        <option value="{{uid}}">{{uid}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <button class="link-button" id="remove_blacklist" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_blacklist()">移除</button>
+        </p>
+        </div>
+        <div class="webui_content">
+        <h6 style=color:#66ccff>
+            兑换码
+        </h6>
+        <div class=post-txt-container-datetime>
+            当有兑换码时,每次上号都会按顺序兑换一次全部兑换码,添加兑换码时自行检查是否正确
+        </div>
+        <p>输入一个CDKEY将其添加至兑换码列表:
+            <input name="cdkey_list" type="text" style="width: 150px;">
+            <button class="link-button" id="append_cdkey_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_cdkey_list()">添加</button>
+        </p>
+        <p>将一个CDKEY移除兑换码列表:
+            <select class=configSelect name=cdkey_list>
+                {% for cdkey in config.cdkey_list %}
+                    <option value="{{cdkey}}">{{cdkey}}</option>
+                {% endfor %}
+            </select>
+            <button class="link-button" id="remove_cdkey_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_cdkey_list()">移除</button>
+        </p>
+        </div>
+        <div class="webui_content">
+        <h6 style=color:#66ccff>
+            助战优先级(从上到下)
+        </h6>
+        <p>选择一个角色插入到助战列表尾端:
+            <select class=configSelect name=add_borrow_character>
+            {% for char in ruby['角色'] %}
+            <option value="{{char}}">{{ruby['角色'][char]}}</option>
+            {% endfor %}
+            </select>
+            <button class="link-button" id="append_borrow_character" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_borrow_character()">添加</button>
+        </p>
+        <p>将一个角色从助战列表中移除:
+            <select class=configSelect name=remove_borrow_character>
+            {% for char in config.borrow_character %}
+            <option value="{{char}}">{{ruby['角色'][char]}}</option>
+            {% endfor %}
+            </select>
+            <button class="link-button" id="remove_borrow_character" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_borrow_character()">移除</button>
+        </p>
+        </div>
+        <div class="webui_content">
+        <h6 style=color:#66ccff>
+            UID总览
+        </h6>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            若显示√代表该UID每日任务已完成,最后则是该UID绑定的邮箱地址
+        </div>
+        {% for uid in loginList %}
+            <p>
+                <a href="/{{uid}}">
+                {% if config.daily_tasks_fin[uid] %}√|{% endif %}<ruby>{{uid}}|{{config.notify_smtp_To[uid]}}
+                </a>
+            </p>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

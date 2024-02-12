@@ -1,0 +1,26 @@
+{% extends 'common.html' %}
+{% block head %}
+流萤的秘密基地 | 激活
+{% endblock %}
+{% block title %}
+激活界面
+{% endblock %}
+{% block section %}
+<p>选择要激活的UID:
+    <select class=configSelect name=activate_uid>
+        {% for item in config.want_register_accounts.items() %}
+            {% if item[0] in ['111111111'] %}
+
+            {% else %}
+                <option value="{{item[0]}}">{{item[0]}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</p>
+{% endblock %}
+{% block bottompostpage %}
+<div class="post-page">
+    <button class="link-button" id="activate_submitChange" onclick="activate_submitChange()">激活选中UID</button>
+    <button class="link-button" id="del_activate_submitChange" onclick="del_activate_submitChange()">删除选中UID</button>
+</div>
+{% endblock %}
