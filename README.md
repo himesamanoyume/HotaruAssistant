@@ -165,7 +165,7 @@ More-->Wallpaper
 UI|QT客户端|WebUI
 OBS录制|&cross;|&check;
 
-> 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/himesamanoyume/Auto_Simulated_Universe) 项目(为我自己适配本项目所修改的fork)，锄大地功能已经剔除
+> 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/himesamanoyume/Auto_Simulated_Universe) 项目也是为我自己适配本项目所修改的fork,非原版模拟宇宙,锄大地功能已经剔除
 
 ## 2.0TODO
 
