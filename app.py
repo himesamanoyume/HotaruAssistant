@@ -70,33 +70,27 @@ def activate_save():
     if uid == '':
         abort(Response("uid不能为空"))
     if len(config.want_register_accounts) > 1:
-        print("检测到有新注册表加入")
+        log("检测到有新注册表加入", uid)
         for uid, item in config.want_register_accounts.items():
             if uid == '111111111': continue
             if item['reg_path']=='':
-                t = f"{uid}:新的注册信息中注册表地址未完整填写"
-                print(t)
-                abort(Response(t))
+                log("新的注册信息中注册表地址未完整填写",uid)
+                abort(Response(f"{uid}:新的注册信息中注册表地址未完整填写"))
             if item['email']=='':
-                t = f"{uid}:新的注册信息中邮箱未完整填写"
-                print(t)
-                abort(Response(t))
+                log("新的注册信息中邮箱未完整填写", uid)
+                abort(Response(f"{uid}:新的注册信息中邮箱未完整填写"))
             if not len(item['universe_team']) == 4:
-                t = f"{uid}:新的注册信息中模拟宇宙小队角色未填写满4人或超出4人"
-                print(t)
-                abort(Response(t))
+                log("新的注册信息中模拟宇宙小队角色未填写满4人或超出4人", uid)
+                abort(Response(f"{uid}:新的注册信息中模拟宇宙小队角色未填写满4人或超出4人"))
             if not item['universe_fate'] in [0,1,2,3,4,5,6,7,8]:
-                t = f"{uid}:新的注册信息中模拟宇宙命途不合法"
-                print(t)
-                abort(Response(t))
+                log("新的注册信息中模拟宇宙命途不合法", uid)
+                abort(Response(f"{uid}:新的注册信息中模拟宇宙命途不合法"))
             if not item['universe_number'] in [3,4,5,6,7,8]:
-                t = f"{uid}:新的注册信息中模拟宇宙选择的世界不合法"
-                print(t)
-                abort(Response(t))
+                log("新的注册信息中模拟宇宙选择的世界不合法", uid)
+                abort(Response(f"{uid}:新的注册信息中模拟宇宙选择的世界不合法"))
             if not item['universe_difficulty'] in [1,2,3,4,5]:
-                t = f"{uid}:新的注册信息中模拟宇宙难度不合法"
-                print(t)
-                abort(Response(t))
+                log("新的注册信息中模拟宇宙难度不合法", uid)
+                abort(Response(f"{uid}:新的注册信息中模拟宇宙难度不合法"))
 
             if config.multi_login_accounts == {}:
                 tempList = list()
@@ -116,10 +110,10 @@ def activate_save():
 
             config.save_config()
             config.del_value('want_register_accounts', uid)
-        print("注册表激活完成")
-        return Response("注册表激活完成!")
+        log("注册表激活完成",uid)
+        return Response(f"{uid},注册表激活完成!")
     else:
-        print("未检测到有新注册表加入")
+        log("未检测到有新注册表加入")
         return Response("未检测到有新注册表加入")
     
 
@@ -130,7 +124,7 @@ def activate_del():
     uid = data['uid']
     config.del_value('want_register_accounts', uid)
     print("注册表删除成功")
-    return ''
+    return Response("注册表删除成功")
 
 @app.route('/<uid>/dailysave',methods=['POST'])
 def daily_save(uid):
@@ -158,7 +152,7 @@ def daily_save(uid):
         config.daily_tasks_fin[uid] = False
     config.save_config()
     log("每日完成情况已改动", uid)
-    return ''
+    return Response(f"{uid},每日完成情况已改动")
 
 @app.route('/<uid>/configsave',methods=['POST'])
 def config_save(uid):
@@ -184,7 +178,7 @@ def config_save(uid):
     config.relic_threshold_count[uid] = data['relic_threshold_count']
     config.save_config()
     log("配置信息已改动", uid)
-    return ''
+    return Response(f"{uid},配置信息已改动")
 
 @app.route('/register/save',methods=['POST'])
 def register_save():
@@ -207,7 +201,7 @@ def register_save():
     config.want_register_accounts[uid]['universe_difficulty'] = data['universe_difficulty']
     config.save_config()
     log("已完成注册", uid)
-    return ''
+    return Response(f"{uid},已完成注册")
 
 @app.route('/smtpsave',methods=['POST'])
 def smtp_save():
@@ -220,7 +214,7 @@ def smtp_save():
     config.set_value("notify_smtp_From", data['notify_smtp_From'])
     config.set_value("notify_smtp_master", data['notify_smtp_master'])
     log("SMTP服务设置已改动")
-    return ''
+    return Response("SMTP服务设置已改动")
 
 @app.route('/miscsave',methods=['POST'])
 def misc_save():
@@ -232,7 +226,7 @@ def misc_save():
     config.set_value("hotkey_obs_start", data['hotkey_obs_start'])
     config.set_value("hotkey_obs_stop", data['hotkey_obs_stop'])
     log("杂项设置已改动")
-    return ''
+    return Response("杂项设置已改动")
 
 @app.route('/notify')
 def notify():
@@ -249,7 +243,7 @@ def announcement():
     data = request.get_json('data')
     send_announcement(f"全体公告:{data['notify_title']}", f"<p>{data['notify_content']}</p>")
     log("全体公告已发送")
-    return ''
+    return Response("全体公告已发送")
 
 @app.route('/notify/single',methods=['POST'])
 def announcement_single():
@@ -257,7 +251,7 @@ def announcement_single():
     data = request.get_json('data')
     send_announcement_single(f"单人通知:{data['notify_title']}", f"<p>{data['notify_content']}</p>", data['notify_single'], config.notify_smtp_To[data['notify_single']])
     log("单人通知已发送")
-    return ''
+    return Response("单人通知已发送")
 
 @app.route('/instancelist/append',methods=['POST'])
 def append_instance_list():
@@ -270,7 +264,7 @@ def append_instance_list():
     log(f"{uid},副本类型已添加:{add_instance_type}")
 
     config.save_config()
-    return ''
+    return Response(f"{uid},副本类型已添加:{add_instance_type}")
 
 @app.route('/instancelist/change',methods=['POST'])
 def change_instance_list():
@@ -285,7 +279,7 @@ def change_instance_list():
     config.save_config()
     log(f"{uid},副本类型已替换:{change_instance} → {add_instance_type}")
     
-    return ''
+    return Response(f"{uid},副本类型已替换:{change_instance} → {add_instance_type}")
 
 @app.route('/instancelist/remove',methods=['POST'])
 def remove_instance_list():
@@ -294,11 +288,13 @@ def remove_instance_list():
     uid = str(data['uid'])
     remove_instance_type_id = data['remove_instance_type_id']
     instance = config.instance_type[uid][remove_instance_type_id]
-    config.instance_type[uid].remove(config.instance_type[uid][remove_instance_type_id])
-
-    config.save_config()
-    log(f"{uid}:{instance}已移除")
-    return ''
+    if len(config.instance_type[uid]) == 1:
+        abort(Response("不能再移除了"))
+    else:
+        config.instance_type[uid].remove(config.instance_type[uid][remove_instance_type_id])
+        config.save_config()
+        log(f"{uid}:{instance}已移除")
+        return Response(f"{uid}:{instance}已移除")
 
 @app.route('/blacklist/append',methods=['POST'])
 def append_blacklist():
@@ -310,7 +306,7 @@ def append_blacklist():
 
     config.save_config()
     log(f"黑名单已添加:{uid}")
-    return ''
+    return Response(f"黑名单已添加:{uid}")
 
 @app.route('/blacklist/remove',methods=['POST'])
 def remove_blacklist():
@@ -325,7 +321,7 @@ def remove_blacklist():
 
     config.save_config()
     log(f"黑名单已移除:{uid}")
-    return ''
+    return Response(f"黑名单已移除:{uid}")
 
 @app.route('/cdkeylist/append',methods=['POST'])
 def append_cdkeylist():
@@ -337,7 +333,7 @@ def append_cdkeylist():
 
     config.save_config()
     log(f"已添加兑换码:{cdkey}")
-    return ''
+    return Response(f"已添加兑换码:{cdkey}")
 
 @app.route('/cdkeylist/remove',methods=['POST'])
 def remove_cdkeylist():
@@ -352,7 +348,7 @@ def remove_cdkeylist():
 
     config.save_config()
     log(f"已移除兑换码:{cdkey}")
-    return ''
+    return Response(f"已移除兑换码:{cdkey}")
 
 @app.route('/borrowchar/append',methods=['POST'])
 def append_borrowchar():
@@ -363,10 +359,10 @@ def append_borrowchar():
         config.borrow_character.append(char)
         config.save_config()
         log(f"已添加助战角色:{ruby['角色'][char]}")
-        return '已添加'
+        return Response(f"已添加助战角色:{ruby['角色'][char]}")
     else:
         log(f"助战角色:{ruby['角色'][char]}已重复!")
-        return '助战角色已重复'
+        return Response(f"助战角色:{ruby['角色'][char]}已重复!")
 
 @app.route('/borrowchar/remove',methods=['POST'])
 def remove_borrowchar():
@@ -381,7 +377,7 @@ def remove_borrowchar():
 
     config.save_config()
     log(f"已移除助战角色:{ruby['角色'][char]}")
-    return ''
+    return Response(f"已移除助战角色:{ruby['角色'][char]}")
             
 if __name__ == '__name__':
     #cmd: flask run --debug --host=0.0.0.0

@@ -18,9 +18,10 @@ function daily_submitChange(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert(uid+"已保存")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("保存失败!")
         })
@@ -86,9 +87,10 @@ function config_submitChange(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert(uid+"已保存")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("保存失败!")
         })
@@ -142,7 +144,7 @@ function del_activate_submitChange(){
             data: JSON.stringify(json),
             type:"POST",
             success: function(result){
-                alert("删除激活信息成功!"+result)
+                alert(result)
                 location.reload()
             }
         }).fail(function(){
@@ -200,9 +202,10 @@ function register_submitChange(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已注册!现在可以打开Client或进入激活页面进行激活了")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("注册失败!")
         })
@@ -231,9 +234,10 @@ function smtp_submitChange(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已保存")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("保存失败!")
         })
@@ -279,9 +283,10 @@ function misc_submitChange(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已保存")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("保存失败!")
         })
@@ -312,9 +317,10 @@ function announcement(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已发布")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("发布失败!")
         })
@@ -347,9 +353,10 @@ function announcement_single(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已发布")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("发布失败!")
         })
@@ -377,9 +384,10 @@ function change_instance_list(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已替换")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("替换失败!")
         })
@@ -402,9 +410,10 @@ function append_instance_list(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已添加")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("添加失败!")
         })
@@ -429,9 +438,10 @@ function remove_instance_list(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已移除")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("移除失败!")
         })
@@ -456,9 +466,10 @@ function append_cdkey_list(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已添加")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("添加失败!")
         })
@@ -483,9 +494,10 @@ function remove_cdkey_list(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已移除")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("移除失败!")
         })
@@ -514,9 +526,10 @@ function append_blacklist(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已添加")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("添加失败!")
         })
@@ -545,9 +558,10 @@ function remove_blacklist(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已移除")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("移除失败!")
         })
@@ -567,9 +581,10 @@ function append_borrow_character(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(response){
-            alert(response)
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("添加失败!")
         })
@@ -589,9 +604,10 @@ function remove_borrow_character(){
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
-        }).done(function(){
-            alert("已移除!")
-            location.reload()
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
         }).fail(function(){
             alert("移除失败!")
         })
