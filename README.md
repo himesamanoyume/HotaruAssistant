@@ -14,8 +14,8 @@ HotaruAssistant · 流萤小助手<br>
 原项目地址[https://github.com/moesnow/March7thAssistant](https://github.com/moesnow/March7thAssistant)
 
 <p>
-    <!-- <img alt="" src="https://img.shields.io/github/v/release/himesamanoyume/HotaruAssistant?style=flat-square&color=4096d8" /> -->
-    <!-- <img alt="" src="https://img.shields.io/github/downloads/himesamanoyume/HotaruAssistant/total?style=flat-square&color=f18cb9" /> -->
+    <img alt="" src="https://img.shields.io/github/v/release/himesamanoyume/HotaruAssistant?style=flat-square&color=4096d8" />
+    <img alt="" src="https://img.shields.io/github/downloads/himesamanoyume/HotaruAssistant/total?style=flat-square&color=f18cb9" />
 </p>
 
 </div>
@@ -46,7 +46,6 @@ HotaruAssistant · 流萤小助手<br>
 
 - 识别/点击都以限定时间内快速重复尝试为主
 - 尝试用监听相关
-- 一个大json，涵盖游戏所有界面，界面内的有对应图片文件的值，如`背包→遗器→分解按钮=json["背包"]["遗器"]["分解按钮"]=assets/....../salvage.png`
 
 预期项目结构
 
