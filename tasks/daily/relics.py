@@ -99,7 +99,7 @@ class Relics:
     @staticmethod
     def create_relic_content(relicName, relicPart, relicList):
         logger.info(gu("正在生成胚子信息"))
-        Utils._content['relic_content'] += f"<div class=relic><p><strong>{relicName}</strong><span style=font-size:10px>{relicPart}</span></p>"
+        Utils._content['relic_content'] += f"<div class=relic><p><strong>{relicName}</strong><br><span style=font-size:10px>{relicPart}</span></p>"
         isMain = True
         for prop in relicList:
             if isMain:
@@ -166,6 +166,11 @@ class Relics:
                 Relics.rubbish_relic()
         elif propCount == 4 and usefulPropCount == 0:
             Relics.rubbish_relic()
+        elif propCount == 4 and usefulPropCount == 1:
+            if relicPart in '躯干' and mainPropName in ['暴击率','暴击伤害']:
+                logger.warning(gu(f"发现躯干胚子"))
+                Relics.create_relic_content(relicName, relicPart, relicList)
+
                 
 
     @staticmethod
