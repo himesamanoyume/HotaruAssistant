@@ -45,7 +45,7 @@ HotaruAssistant · 流萤小助手<br>
 ### 指导思想
 
 - 识别/点击都以限定时间内快速重复尝试为主
-- 尝试用监听相关
+- 打死我也不用蛇形命名
 
 预期项目结构
 
@@ -53,47 +53,66 @@ HotaruAssistant · 流萤小助手<br>
 graph TB
 
 HotaruAssistant-->Modules
+HotaruAssistant-->States
+States-->BaseState
+States-->IdleState
+States-->WaitingState
+States-->CompleteDailyState
+States-->CompleteUniverseState
+States-->CompletePowerState
 Modules-->Client
-Client-->Auto1,负责点击
-Client-->Input1,负责鼠标输入,最好支持后台输入
-Client-->OCR
-Client-->Screen
-Screen-->Screenshot
-Screen-->DetectScrren
-Screen-->DevScreen1,透明窗口
-Screen-->Resulotion
+Client-->ClickModule
+Client-->InputModule最好支持后台输入
+Client-->OcrModule
+Client-->ScreenModule
+ScreenModule-->ScreenshotSubModule
+ScreenModule-->DetectScrrenSubModule
+ScreenModule-->DevScreenSubModule,透明窗口
+ScreenModule-->ResulotionScreenSubModule
 Modules-->Server
-Server-->WebUI
-Server-->Notify
-Server-->Data
-Server-->Update
-Server-->Logger
+Server-->WebModule
+Server-->NotifyModule
+Server-->DataModule
+Server-->UpdateModule
+Server-->LoggerModule
 Modules-->Json
+Json-->JsonModule
 Modules-->Config
-Modules-->Reg
-HotaruAssistant-->Managers
-Managers-->ServerMgr
-Managers-->ClientMgr
-Managers-->ConfigMgr
-Managers-->JsonMgr
-Managers-->LoggerMgr
-Managers-->UtilsMgr
-UtilsMgr-->DevScreen2
+Config-->ConfigModule
+Modules-->Regigster
+Regigster-->RegigsterModule
+Modules-->Plugin
+Modules-->Task
+Modules-->BaseModule
+Modules-->Controller
+Controller-->GameControllerModule
+Controller-->WindowsControllerModule
+HotaruAssistant-->Mgrs
+Mgrs-->BaseMgr
+BaseMgr-->SocketServerSubMgr
+BaseMgr-->SocketClientSubMgr
+BaseMgr-->ConfigMgr
+BaseMgr-->JsonMgr
+BaseMgr-->LoggerMgr
+BaseMgr-->UtilsMgr
+BaseMgr-->StateMgr
+BaseMgr-->ClickMgr
+BaseMgr-->HotaruMgr
+BaseMgr-->ScreenMgr
+BaseMgr-->SocketMgr
+BaseMgr-->WebMgr
+BaseMgr-->TaskMgr
+UtilsMgr-->DevScreen
 ClientMgr-->ClickMgr
 ClientMgr-->SocketMgr
 ClientMgr-->ScreenMgr
-ClickMgr-->Auto2
-ClickMgr-->Input2
+ClickMgr-->Click
+ClickMgr-->Input
 SocketMgr-->SocketClient
 SocketMgr-->SocketServer
-HotaruAssistant-->Game
-Game-->Assets
+HotaruAssistant-->Assets
 Assets-->ScreenJson
 Assets-->ScreenImages
-Game-->Tasks
-Tasks-->CompleteDaily
-Tasks-->CompleteUniverse
-Tasks-->CompletePower
 ```
 
 预期游戏结构
@@ -243,20 +262,26 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
-- null
-
-## 1.xTODO
-
+- **先将项目结构文件和函数名称定义写好,之后逐渐将老代码逻辑重构至新代码**
+- 如果完成了每日 则显示剧情天台中视角流萤仰望天空 否则没有
 - update.exe新增选项选择更新全体或单独更新assets
+- - assets也有版本号,v2.x.0a/v2.x.0b,meta json中存放
+- 网页将界面跳转移到header顶部, 同时也有下方配置部分的跳转, 新增uid跳转
+- 网页每个配置部分都为一个单独的div, 宽屏有足够空间时会横向排列,并且占用完全竖屏
+- 模拟宇宙改造成程序运行
+- 自动战斗检测一直持续到超时或战斗结束
 - 截图工具加上滚动条，新增透明窗口 不断显示检测区域
 - 后台新增调整循环结束后配置
 - 后台新增是否开启daily_himeko_try_enable,after_finish
 - 更换头图至秘密基地
 - 教程写明更清晰的使用步骤(从blog中移动)
 
-## 1.x低优先级
+## 1.xTODO
 
 - (预计v1.8.4.3)完成每日时截图界面与邮件一并发送防止显示完成了每日但实际上并没有的情况
+
+## 1.x低优先级
+
 - webui显示控制台log
 - 新增设置开启自动战斗继承和config项
 - 当一个事件距离开始不超过1天时 记为新活动开始发送通知
