@@ -33,34 +33,37 @@ app.config['TEMPLATES_AUTO_RELOAD']=True
 def universe_number(value):
     return f"{value}"
 
-@app.route('/')
-def index():
+def initLoginList():
     loginList.clear()
-    config.reload()
     for index in range(len(config.multi_login_accounts)):
         uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
         loginList.append(f'{uidStr}')
 
+    return loginList
+
+
+@app.route('/')
+def index():
+    config.reload()
     datalist = WebTools.official_notice()
 
-    return render_template('index.html',loginList=loginList, config=config, datalist=datalist, ruby=ruby)
+    return render_template('index.html',loginList=initLoginList(), config=config, datalist=datalist, ruby=ruby, url='index')
 
 @app.route('/<uid>')
 def config_setting(uid):
-    from datetime import datetime
     config.reload()
-    return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score, len=len(config.instance_type[uid]))
+    return render_template('config.html', uid=uid, config=config, ruby=ruby, task_score=task_score, len=len(config.instance_type[uid]), loginList=initLoginList())
             
 
 @app.route('/register')
 def register():
     config.reload()
-    return render_template('register.html',ruby=ruby)
+    return render_template('register.html',ruby=ruby, config=config, url='register',loginList=initLoginList())
 
 @app.route('/activate')
 def activate():
     config.reload()
-    return render_template('activate.html', config=config)
+    return render_template('activate.html', config=config, url='activate',loginList=initLoginList())
 
 @app.route('/activate/save',methods=['POST'])
 def activate_save():
@@ -230,12 +233,9 @@ def misc_save():
 
 @app.route('/notify')
 def notify():
-    loginList.clear()
     config.reload()
-    for index in range(len(config.multi_login_accounts)):
-        uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
-        loginList.append(f'{uidStr}')
-    return render_template('notify.html',config=config, loginList=loginList)
+
+    return render_template('notify.html',config=config, url='notify',loginList=initLoginList())
 
 @app.route('/notify/announcement',methods=['POST'])
 def announcement():

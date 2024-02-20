@@ -6,11 +6,19 @@
 {% block title %}
 详细情况
 {% endblock %}
+{% block nav %}
+<div class="nav-content">
+    <a class="nav-link" href="#每日情况">每日情况</a>  
+</div>
+<div class="nav-content">
+    <a class="nav-link"  href="#配置信息">配置信息</a>
+</div>
+{% endblock %}
 {% block uid %}
 data-rt="{{uid}}"
 {% endblock %}
 {% block section %}
-<h6 style=color:#66ccff>
+<h6 style=color:#66ccff id="每日情况">
     每日情况
 </h6>
 {% for key, value in config.daily_tasks[uid].items() %}
@@ -80,7 +88,7 @@ data-rt="{{uid}}"
 <hr>
 
 <section class=post-detail-txt style=color:#d9d9d9>
-<h6 style=color:#66ccff>
+<h6 style=color:#66ccff id="配置信息">
     配置信息
 </h6>
 <p>今天每日清开拓力时将要打的副本类型:

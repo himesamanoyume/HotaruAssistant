@@ -12,12 +12,34 @@
         <title>{% block head %}流萤的秘密基地 | 测试{% endblock %}</title>
     </head>
     <body class=body style=background-color:#3a3a3a {% block uid %} {% endblock %}>
-        <header class=header style=position:sticky>
+        <header class=header>
             <div class="nav-out"> 
-                <nav class=nav style='margin:0 15px;justify-content:center;background-color:#2b2b2b'>
+                <nav class=nav>
                     <a class=blogName id=nav-index href="./">
                         流萤的秘密基地
                     </a>
+                    <div class="nav-container">
+                        <div class="nav-content">
+                            <a class="{% if url=='notify' %}nav-link-active{% else %}nav-link{% endif %}" id="notify"  href="/notify">发布公告</a>
+                        </div>
+                        <div class="nav-content">
+                            <a class="{% if url=='register' %}nav-link-active{% else %}nav-link{% endif %}" id="register"  href="/register">注册界面</a>             
+                        </div>
+                        <div class="nav-content">
+                            <a class="{% if url=='activate' %}nav-link-active{% else %}nav-link{% endif %}" id="activate"  href="/activate">激活界面</a>            
+                        </div>
+                        {% block nav %}
+
+                        {% endblock %}
+                        <div class="nav-content">
+                            <select class=configSelect id=nav-select-uid>
+                                <option value="">选择UID跳转</option>
+                                {% for loginUid in loginList %}
+                                <option value="{{loginUid}}">{% if config.daily_tasks_fin[loginUid] %}√|{% endif %}{{loginUid}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                 </nav>
             </div>
         </header>
@@ -80,7 +102,7 @@
                 Copyright © 2021-2024 @姫様の夢
             </div>
             <div class=footer-content>
-                <a href="./">HotaruAssistant</a> v1.8.4.2
+                <a href="./">HotaruAssistant</a> v1.8.4.3
             </div>
         </footer>
     </body>

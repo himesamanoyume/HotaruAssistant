@@ -108,14 +108,26 @@
 
     body>header>.nav-out>.nav>.blogName {
         padding: 0;
-        user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -webkit-user-select: none;
+        margin: auto;
         text-align: center;
         font-size: 25px;
         line-height: 40px;
-        margin: auto;
+    }
+
+    .nav-out{
+        margin: 0 15px;
+    }
+
+    .nav-link-active{
+        padding: 0 5px;
+        min-width: 50px;
+        line-height: 40px;
+        text-decoration: none;
+        cursor: pointer;
+        text-align: center;
+        justify-content: center;
+        color: #66ccff;
+        box-shadow: 0 -3px 0 0 #66ccff inset;
     }
 
     body>header>.nav-out>.nav>.nav-container {
@@ -124,16 +136,20 @@
         display: inline-flex;
         display: -webkit-inline-flex;
         flex-wrap: wrap;
-        justify-content: center
+        justify-content: center;
     }
 
     body>header>.nav-out>.nav>.nav-container>.nav-content>.nav-link {
         padding: 0 5px;
-        min-width: 50px
+        min-width: 50px;
+        line-height: 40px;
+        transition-duration: .2s;
+        cursor: pointer;
+        text-align: center;
     }
 
     body>header>.nav-out>.nav>.nav-container>.nav-content {
-        width: 50px
+        min-width: 50px;
     }
 
     ::selection {
@@ -475,9 +491,20 @@
         text-decoration: none;
         color: #66ccff
     }
+    .nav-link:hover {
+        color: #66ccff;
+        text-decoration: none;
+        box-shadow: 0 -3px 0 0 #66ccff inset;
+    }
 
     a:hover {
         text-decoration: underline
+    }
+
+    body>header>.nav-out>.nav>.nav-container>.nav-content>.nav-link-active:hover {
+        color: #66ccff;
+        transition-duration: .2s;
+        text-decoration: none
     }
 
     .nav-content>a {
@@ -1221,11 +1248,11 @@
         color: #d9d9d9;
         box-shadow: 0 6px 24px -14px #000000;
         background-color: #2b2b2b;
+        flex-direction: column;
     }
 
     .blogName {
         padding: 0 40px;
-        font-size: 23px;
         position: inherit;
         user-select: none;
         -moz-user-select: none;
@@ -1245,18 +1272,18 @@
     }
 
     .nav-content {
-        width: 64px;
+        min-width: 50px;
         height: 60px;
-        display: grid
+        display: grid;
+        height: 40px;
+        margin: 0 3px;
     }
 
     .nav-link {
-        padding: 0 15px;
-        cursor: pointer;
-        text-align: center;
-        justify-content: center;
-        line-height: 57px;
-        min-width: 64px
+        padding: 0 5px;
+        min-width: 50px;
+        line-height: 40px;
+        transition-duration: .2s;
     }
 
     .nav-content:hover a .hover-bar {

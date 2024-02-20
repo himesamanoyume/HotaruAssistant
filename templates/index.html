@@ -2,11 +2,21 @@
 {% block head %}
 流萤的秘密基地
 {% endblock %}
-{% block toppostpage %}
-<div class="post-page">
-    <a class="link-button" id="notify" style="text-decoration:none" href="./notify" >发布公告界面</a>
-    <a class="link-button" id="register" style="text-decoration:none" href="./register">注册界面</a>
-    <a class="link-button" id="activate" style="text-decoration:none" href="./activate">激活界面</a>
+{% block nav %}
+<div class="nav-content">
+    <a class="nav-link" href="#SMTP服务">SMTP服务</a>             
+</div>
+<div class="nav-content">
+    <a class="nav-link" href="#杂项">杂项</a>             
+</div>
+<div class="nav-content">
+    <a class="nav-link" href="#黑名单管理">黑名单管理</a>             
+</div>
+<div class="nav-content">
+    <a class="nav-link" href="#兑换码">兑换码</a>             
+</div>
+<div class="nav-content">
+    <a class="nav-link" href="#助战优先级">助战优先级</a>             
 </div>
 {% endblock %}
 {% block bottompostpage %}
@@ -39,7 +49,7 @@
     </blockquote>
     <div class="webui_container">
         <div class="webui_content">
-        <h6 style=color:#66ccff>
+        <h6 style=color:#66ccff id="SMTP服务">
             SMTP服务
         </h6>
         <p>使用SMTP服务,首先需要<span class="important">登录网页qq邮箱→设置→账号→POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务→开启服务</span></p>
@@ -82,7 +92,7 @@
         </div>
         </div>
         <div class="webui_content">
-        <h6 style=color:#66ccff>
+        <h6 style=color:#66ccff id="杂项">
             杂项
         </h6>
         <p>循环结束后到下一次开始等待的时间:
@@ -111,7 +121,7 @@
         </p>
         </div>
         <div class="webui_content">
-        <h6 style=color:#66ccff>
+        <h6 style=color:#66ccff id="黑名单管理">
             黑名单管理
         </h6>
         <div class=post-txt-container-datetime>
@@ -135,7 +145,7 @@
         </p>
         </div>
         <div class="webui_content">
-        <h6 style=color:#66ccff>
+        <h6 style=color:#66ccff id="兑换码">
             兑换码
         </h6>
         <div class=post-txt-container-datetime>
@@ -155,7 +165,7 @@
         </p>
         </div>
         <div class="webui_content">
-        <h6 style=color:#66ccff>
+        <h6 style=color:#66ccff id="助战优先级">
             助战优先级(从上到下)
         </h6>
         <p>选择一个角色插入到助战列表尾端:
@@ -185,7 +195,7 @@
         {% for uid in loginList %}
             <p>
                 <a href="/{{uid}}">
-                {% if config.daily_tasks_fin[uid] %}√|{% endif %}<ruby>{{uid}}|{{config.notify_smtp_To[uid]}}
+                {% if config.daily_tasks_fin[uid] %}√|{% endif %}{{uid}}|{{config.notify_smtp_To[uid]}}
                 </a>
             </p>
         {% endfor %}
