@@ -1,7 +1,7 @@
-from Mgrs.BaseMgr import BaseMgr
+
 from States.BaseState import BaseState
 
-class GameStateMgr(BaseMgr):
+class StateMgr:
     mCurrentState = None
     
 

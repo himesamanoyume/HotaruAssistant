@@ -1,6 +1,16 @@
 import sys,pyuac,atexit,os
 os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)))
 
+from Mgrs.HotaruMgr import LogMgr
+from Mgrs.HotaruMgr import ConfigMgr
+
+def main():
+    LogMgr.Info("哈哈")
+    input("test...")
+    pass
+
+
+
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():
         try:
@@ -12,7 +22,7 @@ if __name__ == "__main__":
             sys.exit(0)
     else:
         try:
-            pass
+            main()
             # atexit.register(exit_handler)
             # main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
