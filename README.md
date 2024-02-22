@@ -66,7 +66,7 @@ Client-->InputModule最好支持后台输入
 Client-->OcrModule
 Client-->ScreenModule
 ScreenModule-->ScreenshotSubModule
-ScreenModule-->DetectScrrenSubModule
+ScreenModule-->DetectScreenSubModule
 ScreenModule-->DevScreenSubModule,透明窗口
 ScreenModule-->ResulotionScreenSubModule
 Modules-->Server

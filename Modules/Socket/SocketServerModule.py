@@ -1,5 +1,5 @@
 
-class DetectScreenSubModule:
+class SocketServerModule:
     mInstance = None
 
     def __new__(cls):

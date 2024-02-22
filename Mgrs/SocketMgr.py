@@ -1,14 +1,6 @@
 
-from Mgrs.SocketClientSubMgr import SocketClientSubMgr
-from Mgrs.SocketServerSubMgr import SocketServerSubMgr
+from Modules.Socket.SocketClientModule import SocketClientModule
+from Modules.Socket.SocketServerModule import SocketServerModule
 
-class SocketMgr:
-    
-    mInstance = None
-
-    def __new__(cls):
-        if cls.mInstance is None:
-            cls.mInstance = super().__new__(cls)
-            cls.mInstance.mClientMgr = SocketClientSubMgr(logMgr)
-            cls.mInstance.mServerMgr = SocketServerSubMgr(logMgr)
-        return cls.mInstance
+SocketClientMgr = SocketClientModule()
+SocketServerMgr = SocketServerModule()

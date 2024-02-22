@@ -1,4 +1,0 @@
-
-
-class SocketServerSubMgr:
-    pass

@@ -1,4 +1,3 @@
+from Modules.Server.WebModule import WebModule
 
-
-class WebMgr:
-    pass
+WebMgr = WebModule()

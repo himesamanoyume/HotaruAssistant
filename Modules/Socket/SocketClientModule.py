@@ -1,7 +1,5 @@
 
-
-class SocketClientSubMgr:
-    
+class SocketClientModule:
     mInstance = None
 
     def __new__(cls):
