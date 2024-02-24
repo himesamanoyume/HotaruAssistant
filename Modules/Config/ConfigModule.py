@@ -24,8 +24,9 @@ class ConfigModule:
                 exampleConfig = self.mYaml.load(exampleConfigFile)
                 if exampleConfig:
                     self.mExampleConfig = exampleConfig
+                LogMgr.Info("Config文件已加载")
         except FileNotFoundError:
-            LogMgr.Info("Config文件未找到")
+            LogMgr.Error("Config文件未找到")
             sys.exit(1)
         
         configPath = self.mConfigPath if configPath is None else configPath

@@ -1,10 +1,9 @@
-from States.State import State
 from Mgrs.HotaruMgr import LogMgr
-from Mgrs.HotaruMgr import ConfigMgr
+from States.State import State
 
-class CompleteDailyState:
+class InitState:
 
-    mStateName = 'CompleteDailyState'
+    mStateName = 'InitState'
 
     @classmethod
     def Init(cls):
@@ -28,5 +27,3 @@ class CompleteDailyState:
     @classmethod
     def OnExit(cls):
         LogMgr.Info(f"{cls.mStateName} Exit")
-
-

@@ -6,3 +6,7 @@ from Mgrs.SocketMgr import SocketClientMgr
 from Mgrs.SocketMgr import SocketServerMgr
 from Mgrs.ScreenMgr import ScreenMgr
 from Mgrs.WebMgr import WebMgr
+
+from Mgrs.StateMgr import StateMgr
+
+stateMgr = StateMgr()
