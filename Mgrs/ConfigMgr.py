@@ -1,5 +1,7 @@
 
 from Modules.Config.ConfigModule import ConfigModule
+from Mgrs.HotaruServerMgr import LogServerMgr
+import sys
 
 class ConfigMgr:
     mInstance = None
@@ -11,7 +13,10 @@ class ConfigMgr:
 
         return cls.mInstance
     
-    
+    @classmethod
+    def SetConfig(cls):
+        pass
 
-
-        
+    @classmethod
+    def IsAgreeDisclaimer(cls):
+        cls.mConfigModule.IsAgreeDisclaimer()

@@ -1,7 +1,7 @@
 from States.State import State
 from States.CompleteDailyState import CompleteDailyState
 from States.InitState import InitState
-from Mgrs.HotaruMgr import LogMgr
+from Mgrs.HotaruServerMgr import LogServerMgr
 
 class StateMgr:
     mInstance = None
@@ -15,7 +15,7 @@ class StateMgr:
         return cls.mInstance
 
     def Transition(cls, state: State):
-        LogMgr.Info(f"To State:{state.mStateName}")
+        LogServerMgr.Info(f"To State:{state.mStateName}")
         cls.mCurrentState = state
 
     @staticmethod

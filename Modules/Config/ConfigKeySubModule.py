@@ -1,6 +1,7 @@
 
 class ConfigKeySubModule:
     def __init__(self):
+        self.check_update = 'check_update'
         self.multi_login_accounts = 'multi_login_accounts'
         self.agreed_to_disclaimer = 'agreed_to_disclaimer'
         self.recording_enable = 'recording_enable'

@@ -1,13 +1,13 @@
 
-from Modules.Server.LoggerModule import LoggerModule
+from Modules.Server.LoggerServerModule import LoggerServerModule
 
-class LogMgr:
+class LogServerMgr:
     mInstance = None
     
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mLoggerModule = LoggerModule()
+            cls.mLoggerModule = LoggerServerModule()
 
         return cls.mInstance
     
@@ -22,6 +22,10 @@ class LogMgr:
     @classmethod
     def Warning(cls, msg, *args, **kwargs):
         cls.mLoggerModule.Warning(msg, *args, **kwargs)
+
+    @classmethod
+    def Hr(cls, msg, *args, **kwargs):
+        cls.mLoggerModule.Hr(msg, *args, **kwargs)
 
 
     

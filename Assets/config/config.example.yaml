@@ -1,19 +1,12 @@
-locales: zh_CN # 语言(弃用 别改)
-log_level: INFO # 日志等级: INFO、DEBUG(弃用 别改)
 check_update: true # 检测更新
 agreed_to_disclaimer: false # false为未接受
-
 recording_enable: false # 是否录制
 last_running_uid: '111111111' # 最后运行的UID
 blacklist_uid: # UID黑名单,uid后可以注释黑名单原因
 - '111111111' # 太帅
 - '222222222' # 太帅
 cdkey_list: {} # 兑换码列表
-after_finish: Loop # 任务完成后: "None"（无）"Exit"（退出）"Loop"（循环）"Shutdown"（关机）"Hibernate"（休眠）"Sleep"（睡眠）
-power_limit: 10 # 循环运行所需开拓力(已弃用该项)
 next_loop_time: 12 # 下一次循环开始所等待的时间 单位:小时
-play_audio: false # 任务完成后播放提示音
-multi_login: true # 是否多账号登录
 multi_login_accounts: {} # 多账号注册表位置
 want_register_accounts: # 启动游戏前先进行注册,111111111为示例,不要删除!
   '111111111':
@@ -27,7 +20,6 @@ want_register_accounts: # 启动游戏前先进行注册,111111111为示例,不�
     universe_fate: 4
     universe_number: 3
     universe_difficulty: 1
-
 
 python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
 pypi_mirror_urls: # pypi 镜像列表
@@ -52,6 +44,7 @@ instance_team_enable: false # 打副本时自动切换队伍
 instance_team_number: '1' # 队伍编号
 use_reserved_trailblaze_power: False # 使用后备开拓力
 use_fuel: False # 使用燃料
+
 echo_of_war_enable: {} # 体力优先完成3次「历战余响」
 echo_of_war_timestamp: {} # 上次完成3次「历战余响」的时间戳（每周运行）
 echo_of_war_times: {} # 历战余响次数
@@ -61,6 +54,7 @@ relic_salvage_5star_enable: {} # 若允许分解遗器,是否分解5星遗器
 relic_salvage_4star_enable: {} # 若允许分解遗器,是否分解4星遗器
 relic_salvage_5star_to_exp: {} # 若分解5星遗器,是否分解成遗器经验材料
 relic_threshold_count: {} # 触发遗器超标的数量
+
 borrow_character_enable: false # 强制使用支援角色
 borrow_character_from: # 使用指定好友的支援角色
 - 好友1
@@ -82,6 +76,7 @@ daily_himeko_try_enable: true # 通过 “姬子试用” 完成任务
 daily_tasks: {} # 每日实训
 daily_tasks_score: {} # 活跃度
 daily_tasks_fin: {} # 是否完成实训
+
 last_run_timestamp: {} # 上次运行日常的时间戳
 
 universe_enable: true # 启用模拟宇宙
