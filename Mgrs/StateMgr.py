@@ -27,6 +27,3 @@ class StateMgr:
     def CompleteDailyState():
         state = CompleteDailyState.Init()
         return state
-
-
-    
