@@ -1,5 +1,5 @@
 from States.State import State
-from Mgrs.HotaruServerMgr import LogServerMgr,ClickMgr,ConfigMgr,JsonMgr,SocketMgr,ScreenMgr,WebMgr
+from Mgrs.HotaruClientMgr import LogClientMgr,ClickMgr,JsonMgr,SocketMgr,ScreenMgr
 
 class BaseState(object):
 
@@ -18,12 +18,12 @@ class BaseState(object):
 
     @classmethod
     def OnBegin(cls):
-        LogServerMgr.Info(f"{cls.mStateName} BaseBegin")
+        LogClientMgr.Log(f"{cls.mStateName} BaseBegin")
 
     @classmethod
     def OnRunning(cls):
-        LogServerMgr.Info(f"{cls.mStateName} BaseRunning")
+        LogClientMgr.Log(f"{cls.mStateName} BaseRunning")
 
     @classmethod
     def OnExit(cls):
-        LogServerMgr.Info(f"{cls.mStateName} BaseExit")
+        LogClientMgr.Log(f"{cls.mStateName} BaseExit")

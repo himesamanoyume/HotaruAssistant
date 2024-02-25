@@ -28,5 +28,6 @@ class LogClientMgr:
         cls.mLoggerModule.Hr(msg, *args, **kwargs)
 
 
+
     
     

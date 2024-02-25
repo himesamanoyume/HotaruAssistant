@@ -4,7 +4,7 @@ from Mgrs.JsonMgr import JsonMgr
 from Mgrs.SocketMgr import SocketMgr
 from Mgrs.WebMgr import WebMgr
 
-logMgr = LogServerMgr()
+logServerMgr = LogServerMgr()
 jsonMgr = JsonMgr()
 configMgr = ConfigMgr()
 socketMgr = SocketMgr()

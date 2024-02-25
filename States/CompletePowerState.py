@@ -1,5 +1,5 @@
 from States.BaseState import BaseState
-from Mgrs.HotaruServerMgr import LogServerMgr,ClickMgr,ConfigMgr,JsonMgr,SocketMgr,ScreenMgr,WebMgr
+from Mgrs.HotaruClientMgr import LogClientMgr,ClickMgr,JsonMgr,SocketMgr,ScreenMgr
 
 class CompletePowerState(BaseState):
 
@@ -7,12 +7,12 @@ class CompletePowerState(BaseState):
 
     @classmethod
     def OnBegin(cls):
-        LogServerMgr.Info(f"{cls.mStateName} Begin")
+        LogClientMgr.Info(f"{cls.mStateName} Begin")
 
     @classmethod
     def OnRunning(cls):
-        LogServerMgr.Info(f"{cls.mStateName} Running")
+        LogClientMgr.Info(f"{cls.mStateName} Running")
 
     @classmethod
     def OnExit(cls):
-        LogServerMgr.Info(f"{cls.mStateName} Exit")
+        LogClientMgr.Info(f"{cls.mStateName} Exit")

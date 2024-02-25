@@ -1,5 +1,5 @@
 from States.BaseState import BaseState
-from Mgrs.HotaruServerMgr import LogServerMgr,ClickMgr,ConfigMgr,JsonMgr,SocketMgr,ScreenMgr,WebMgr
+from Mgrs.HotaruClientMgr import LogClientMgr,ClickMgr,JsonMgr,SocketMgr,ScreenMgr
 
 class InitState(BaseState):
 
@@ -7,14 +7,13 @@ class InitState(BaseState):
 
     @classmethod
     def OnBegin(cls):
-        LogServerMgr.Info(f"{cls.mStateName} Begin Reload")
-        ConfigMgr.IsAgreeDisclaimer()
+        LogClientMgr.Log(f"{cls.mStateName} Begin Reload")
         # WebMgr.StartServer()
 
     @classmethod
     def OnRunning(cls):
-        LogServerMgr.Info(f"{cls.mStateName} Running Reload")
+        LogClientMgr.Log(f"{cls.mStateName} Running Reload")
 
     @classmethod
     def OnExit(cls):
-        LogServerMgr.Info(f"{cls.mStateName} Exit Reload")
+        LogClientMgr.Log(f"{cls.mStateName} Exit Reload")
