@@ -265,6 +265,8 @@ class Universe:
                 world_number = '第六世界'
             case 7:
                 world_number = '第七世界'
+            case 8:
+                world_number = '第八世界'
             case _:
                 world_number = '第三世界'
                 Utils._content['universe_number'] = f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>模拟宇宙难度选择有误,请告知我检查配置</p></blockquote>"

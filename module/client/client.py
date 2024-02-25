@@ -1,5 +1,4 @@
-import socket
-import sys
+import socket,sys 
 
 class Client:
     _instance = None
