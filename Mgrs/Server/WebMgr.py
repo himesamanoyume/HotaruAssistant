@@ -12,9 +12,11 @@ class WebMgr:
         return cls.mInstance
     
     @classmethod
-    def StartServer(cls):
+    def StartWeb(cls):
         flaskThread = threading.Thread(target=cls.RunFlask)
         flaskThread.start()
+        import webbrowser
+        webbrowser.open('http://127.0.0.1:5000')
 
     @classmethod
     def RunFlask(cls):

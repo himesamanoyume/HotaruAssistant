@@ -3,11 +3,15 @@ os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else o
 
 from Hotaru.Server.LogServerHotaru import logServerMgr
 from Hotaru.Server.ConfigServerHotaru import configServerMgr
+from Hotaru.Server.WebHotaru import webMgr
+from Hotaru.Server.SocketServerHotaru import socketServerMgr
 
 def main():
     configServerMgr.IsAgreeDisclaimer()
     logServerMgr.Info("哈哈")
-    input("test...")
+    webMgr.StartWeb()
+    socketServerMgr.StartSocket()
+    input("按回车键关闭窗口. . .")
     pass
 
 

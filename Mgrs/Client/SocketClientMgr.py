@@ -10,3 +10,7 @@ class SocketClientMgr:
             cls.mSocketClientModule = SocketClientModule()
 
         return cls.mInstance
+    
+    @classmethod
+    def StartSocket(cls):
+        cls.mSocketClientModule.StartSocket()

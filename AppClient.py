@@ -3,9 +3,11 @@ os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else o
 
 from Hotaru.Client.LogClientHotaru import logClientMgr
 from Hotaru.Client.StateHotaru import stateMgr
+from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
 def main():
     logClientMgr.Info("哈哈")
+    socketClientMgr.StartSocket()
     stateMgr.Transition(stateMgr.CompleteDailyState())
     input("test...")
 
@@ -26,10 +28,10 @@ if __name__ == "__main__":
             # atexit.register(exit_handler)
             # main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
-            # logMgr.Error("发生错误: 手动强制停止")
+            logClientMgr.Error("发生错误: 手动强制停止")
             input("按回车键关闭窗口. . .")
             sys.exit(0)
         except Exception as e:
-            # logMgr.Error(f"发生错误: {e}")
+            logClientMgr.Error(f"发生错误: {e}")
             input("按回车键关闭窗口. . .")
             sys.exit(0)

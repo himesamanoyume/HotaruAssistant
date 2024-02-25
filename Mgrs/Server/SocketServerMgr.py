@@ -10,3 +10,8 @@ class SocketServerMgr:
             cls.mSocketServerModule = SocketServerModule()
 
         return cls.mInstance
+    
+    @classmethod
+    def StartSocket(cls):
+        cls.mSocketServerModule.StartSocket()
+        
