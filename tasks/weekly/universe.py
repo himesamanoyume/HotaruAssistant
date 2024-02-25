@@ -289,8 +289,8 @@ class Universe:
         if not d in [1,2,3,4,5]:
             logger.warning(gu("难度设置不合法,进行难度5"))
             d = 5
-        if config.universe_number[Utils.get_uid()] in [5,6,7] and d > 4:
-            logger.warning(gu("第五、第六、第七世界暂不支持难度4以上,进行难度4"))
+        if config.universe_number[Utils.get_uid()] in [5,6,7,8] and d > 4:
+            logger.warning(gu("第五、第六、第七、第八世界暂不支持难度4以上,进行难度4"))
             d = 4
         
         # 用嵌套函数
