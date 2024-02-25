@@ -9,5 +9,10 @@ class LoggerServerModule:
             cls.mInstance = super().__new__(cls)
         return cls.mInstance
     
-    def Log(self, msg):
-        pass
+    @classmethod
+    def Info(cls, msg):
+        print(msg)
+
+    @classmethod
+    def Error(cls, msg):
+        print(f"\033[91m{msg}\033[0m")

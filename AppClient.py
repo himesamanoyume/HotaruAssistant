@@ -1,11 +1,12 @@
 import sys,pyuac,atexit,os
 os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)))
 
-from Mgrs.HotaruClientMgr import logClientMgr,stateMgr,clickMgr,jsonMgr,socketMgr,screenMgr,gameMgr,configMgr
+from Hotaru.Client.LogClientHotaru import logClientMgr
+from Hotaru.Client.StateHotaru import stateMgr
 
 def main():
     logClientMgr.Info("哈哈")
-    # stateMgr.Transition(stateMgr.CompleteDailyState())
+    stateMgr.Transition(stateMgr.CompleteDailyState())
     input("test...")
 
 

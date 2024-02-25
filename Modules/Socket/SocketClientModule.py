@@ -1,5 +1,5 @@
 import socket,datetime,threading,os,requests,json,sys,questionary
-from Mgrs.HotaruClientMgr import LogClientMgr
+from Mgrs.Client.LogClientMgr import logClientMgr
 
 class SocketClientModule:
     mInstance = None
@@ -10,7 +10,11 @@ class SocketClientModule:
         return cls.mInstance
     
     def StartSocket():
-        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server_socket.bind(('localhost', 3377))
-        server_socket.listen(0)
-        LogClientMgr.Info("")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            client_socket.connect(('localhost', 3377))
+            logClientMgr.Info("已连接上Server")
+        except Exception:
+            logClientMgr.Warning("你在启动Client前必须先启动Server!")
+            input("按回车键关闭窗口. . .")
+            sys.exit(0)

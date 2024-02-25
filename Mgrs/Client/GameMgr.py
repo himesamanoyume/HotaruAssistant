@@ -1,5 +1,5 @@
 from Modules.Client.GameControllerModule import GameControllerModule
-from Mgrs.HotaruClientMgr import LogClientMgr
+from Hotaru.Client.LogClientHotaru import logClientMgr
 
 class GameMgr:
     mInstance = None

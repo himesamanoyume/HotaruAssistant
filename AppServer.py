@@ -1,11 +1,12 @@
 import sys,pyuac,atexit,os
 os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)))
 
-from Mgrs.HotaruServerMgr import logServerMgr,configMgr,jsonMgr,socketMgr,webMgr
+from Hotaru.Server.LogServerHotaru import logServerMgr
+from Hotaru.Server.ConfigServerHotaru import configServerMgr
 
 def main():
-    configMgr.IsAgreeDisclaimer()
-    logServerMgr.Log("哈哈")
+    configServerMgr.IsAgreeDisclaimer()
+    logServerMgr.Info("哈哈")
     input("test...")
     pass
 

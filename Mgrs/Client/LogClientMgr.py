@@ -8,6 +8,7 @@ class LogClientMgr:
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
             cls.mLoggerModule = LoggerClientModule()
+            cls.Info("Client日志已加载")
 
         return cls.mInstance
     

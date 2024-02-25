@@ -7,13 +7,18 @@ class LogServerMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mLoggerModule = LoggerServerModule()
+            cls.mLoggerServerModule = LoggerServerModule()
+            cls.Info("Server日志已加载")
 
         return cls.mInstance
     
     @classmethod
-    def Log(cls, msg):
-        cls.mLoggerModule.Log(msg)
+    def Info(cls, msg):
+        cls.mLoggerServerModule.Info(msg)
+
+    @classmethod
+    def Error(cls, msg):
+        cls.mLoggerServerModule.Error(msg)
 
 
 

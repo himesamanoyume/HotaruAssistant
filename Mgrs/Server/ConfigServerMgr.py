@@ -1,15 +1,16 @@
 
-from Modules.Config.ConfigModule import ConfigModule
-from Mgrs.HotaruServerMgr import LogServerMgr
+from Modules.Config.BaseConfigModule import BaseConfigModule
+from Modules.Config.ConfigServerModule import ConfigServerModule
+
 import sys
 
-class ConfigMgr:
+class ConfigServerMgr(BaseConfigModule):
     mInstance = None
     
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mConfigModule = ConfigModule()
+            cls.mConfigServerModule = ConfigServerModule()
 
         return cls.mInstance
     
@@ -19,4 +20,4 @@ class ConfigMgr:
 
     @classmethod
     def IsAgreeDisclaimer(cls):
-        cls.mConfigModule.IsAgreeDisclaimer()
+        cls.mConfigServerModule.IsAgreeDisclaimer()

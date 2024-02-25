@@ -1,5 +1,5 @@
 from States.BaseState import BaseState
-from Mgrs.HotaruClientMgr import LogClientMgr,ClickMgr,JsonMgr,SocketMgr,ScreenMgr
+from Hotaru.Client.LogClientHotaru import logClientMgr
 
 class CompleteDailyState(BaseState):
 
@@ -7,14 +7,14 @@ class CompleteDailyState(BaseState):
 
     @classmethod
     def OnBegin(cls):
-        LogClientMgr.Log(f"{cls.mStateName} Begin")
+        logClientMgr.Info(f"{cls.mStateName} Begin")
 
     @classmethod
     def OnRunning(cls):
-        LogClientMgr.Log(f"{cls.mStateName} Running")
+        logClientMgr.Info(f"{cls.mStateName} Running")
 
     @classmethod
     def OnExit(cls):
-        LogClientMgr.Log(f"{cls.mStateName} Exit")
+        logClientMgr.Info(f"{cls.mStateName} Exit")
 
 
