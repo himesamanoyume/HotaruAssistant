@@ -245,7 +245,7 @@ class Automation:
             self.mouse_move(x, y)
         return True
 
-    def click_element(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), log=True):
+    def click_element(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), log=False):
         def getUid(message):
             text = f"\033[91m[-1]\033[0m|检测目标流程|{message}"
             client.send(text.encode())

@@ -341,15 +341,41 @@ class Universe:
             return
 
         if not auto.click_element(f"./assets/images/universe/on_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
-                logger.info(gu(f"未选中难度{d}"))
-                if not auto.click_element(f"./assets/images/universe/off_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
-                    logger.info(gu(f"仍未选中难度{d}"))
-                    auto.click_element_with_pos(((135, 160+(d-1)*110),(135, 160+(d-1)*110)))
-                    if not auto.click_element(f"./assets/images/universe/on_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
+                logger.info(gu(f"未选中难度{d},尝试选择难度{d}"))
+                time.sleep(0.5)
+                if auto.click_element(f"./assets/images/universe/off_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
+                    logger.info(gu(f"检查是否选中难度{d}"))
+                    time.sleep(0.5)
+                    # 此处尝试无识别直接点击难度位置
+                    # auto.click_element_with_pos(((135, 160+(d-1)*110),(135, 160+(d-1)*110)))
+                    if auto.click_element(f"./assets/images/universe/on_{d}.png","image", 0.9, max_retries=5, crop=difficulty_crop):
+                        time.sleep(0.5)
+                        if auto.find_element("./assets/images/screen/universe/download_char.png", "image", 0.9, max_retries=10):
+                            time.sleep(0.5)
+                            logger.info(gu(f"已选中难度{d}"))
+                            return
+                        else:
+                            time.sleep(0.5)
+                            logger.warning(gu(f"已选中难度{d},但该难度未解锁,嵌套进入难度{d-1}"))
+                            Universe.select_universe_difficulty(d-1)
+                            return
+                    else:
+                        logger.warning(gu(f"可能该难度未开放,嵌套进入难度{d-1}"))
                         Universe.select_universe_difficulty(d-1)
-        
-        logger.info(gu(f"已选中难度{d}"))
-        return
+                        return
+                else:
+                    logger.warning(gu(f"可能该难度未开放,嵌套进入难度{d-1}"))
+                    Universe.select_universe_difficulty(d-1)
+                    return
+        else:
+            if not auto.find_element("./assets/images/screen/universe/download_char.png", "image", 0.9, max_retries=10):
+                time.sleep(0.5)
+                logger.warning(gu(f"已选中难度{d},但该难度未解锁,嵌套进入难度{d-1}"))
+                Universe.select_universe_difficulty(d-1)
+            else:
+                time.sleep(0.5)
+                logger.info(gu(f"已选中难度{d}"))
+                return
     
     def clear_team(j):
         if j == 10:
