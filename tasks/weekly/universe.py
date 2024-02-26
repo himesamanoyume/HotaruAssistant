@@ -272,7 +272,7 @@ class Universe:
                 Utils._content['universe_number'] = f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>模拟宇宙难度选择有误,请告知我检查配置</p></blockquote>"
 
         for i in range(5):
-            if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=world_number):
+            if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=world_number, source_type="text"):
                 Flag = True
                 break
             auto.mouse_scroll(20, -1)

@@ -270,41 +270,32 @@ class Power:
         auto.click_element("./assets/images/screen/guide/power.png", "image", max_retries=10)
         Flag = False
         instance_map_type = ''
+        import json
+        rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
+        ruby = json.load(rb)
+        rb.close()
+
         if instance_type in ['拟造花萼（赤）']:
-            import json
-            rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
-            ruby = json.load(rb)
-            rb.close()
+            source = f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instance_name]}.png"
             for i in range(7):
-                if auto.find_element(f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instance_name]}.png", "image", 0.9, max_retries=5):
+                if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=source,  source_type="image"):
+                    Flag = True
+                    break
 
-                    point = auto.find_element(f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instance_name]}.png", "image", 0.9, max_retries=5)
+                elif auto.click_element("进入", "min_distance_text", crop=instance_name_crop, include=True, source=source,  source_type="image"):
+                    logger.info("该副本限时开放中,但你并没有解锁该副本")
+                    Flag = True
+                    break
 
-                    success_point_top_left_x = point[0][0]
-                    success_point_top_left_y = point[0][1]
-                    text_crop=(success_point_top_left_x/ 1920, success_point_top_left_y / 1080, 735 / 1920, 87 / 1080)
-
-                    if auto.click_element("传送", "text", crop=text_crop):
-                        Flag = True
-                        break
-                    elif auto.click_element("进入", "text", crop=text_crop):
-                        logger.info("该副本限时开放中,但你并没有解锁该副本")
-                        Flag = True
-                        break
-                
-                    if auto.click_element("追踪", "text", crop=text_crop):
-                        nowtime = time.time()
-                        logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
-                        raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=source,  source_type="image"):
+                    nowtime = time.time()
+                    logger.error(gu(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本"))
+                    raise Exception(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本")
                     
                 auto.mouse_scroll(18, -1)
                 # 等待界面完全停止
                 time.sleep(1)
         elif instance_type in ['拟造花萼（金）']:
-            import json
-            rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
-            ruby = json.load(rb)
-            rb.close()
 
             instance_map, instance_map_type = instance_name.split('-')
             instance_map_name = ruby['星球'][instance_map]
@@ -316,29 +307,29 @@ class Power:
                         Flag = True
                         break
 
-                    elif auto.click_element("进入", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type):
+                    elif auto.click_element("进入", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type, source_type="text"):
                         logger.info("该副本限时开放中,但你并没有解锁该副本")
                         Flag = True
                         break
 
-                    if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type):
+                    if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_map_type, source_type="text"):
                         nowtime = time.time()
                         logger.error(gu(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本"))
                         raise Exception(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本")
-                
+                    
                 # 等待界面完全停止
-                time.sleep(1)
+                time.sleep(1)     
         else:
             for i in range(7):
-                if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+                if auto.click_element("传送", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name, source_type="text"):
                     Flag = True
                     break
-                elif auto.click_element("进入", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+                elif auto.click_element("进入", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name, source_type="text"):
                     logger.info("该副本限时开放中,但你并没有解锁该副本")
                     Flag = True
                     break
 
-                if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name):
+                if auto.click_element("追踪", "min_distance_text", crop=instance_name_crop, include=True, source=instance_name, source_type="text"):
                     nowtime = time.time()
                     logger.error(gu(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本"))
                     raise Exception(f"{nowtime},{instance_name}:你似乎没有解锁这个副本?总之无法传送到该副本")
@@ -351,7 +342,7 @@ class Power:
 
             return False
         # 验证传送是否成功
-        if not auto.find_element(instance_name, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
+        if not auto.find_element(instance_name.replace("2", ""), "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
             if not auto.find_element(instance_map_type, "text", max_retries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
                 logger.error(gu("⚠️刷副本未完成 - 传送可能失败⚠️"))
                 return False
