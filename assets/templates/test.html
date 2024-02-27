@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='/favicon.ico') }}">
+        <meta content="流萤的秘密基地" name="title">
+        <meta content="Himesamanoyume" name="author-name1">
+        <meta content="Princess Dreamland" name="author-name2">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}"/>
+        <script src="{{ url_for('static', filename='js/jquery.js') }}" defer></script>
+        <title>{% block head %}流萤的秘密基地 | 测试{% endblock %}</title>
+    </head>
+    <body class=body style=background-color:#3a3a3a>
+        <header class=header>
+            <div class="nav-out"> 
+                <nav class=nav>
+                    <a class=blogName id=nav-index href="./">
+                        流萤的秘密基地
+                    </a>
+                    <div class="nav-container">
+                        
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class=main>
+            
+        </main>
+        <footer class=footer style=color:#d9d9d9>
+            <div class=footer-content>
+                Copyright © 2021-2024 @姫様の夢
+            </div>
+            <div class=footer-content>
+                <a href="./">HotaruAssistant</a> v1.8.4.4
+            </div>
+        </footer>
+    </body>
+</html>
