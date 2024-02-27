@@ -12,7 +12,6 @@ class ConfigClientModule(BaseConfigModule):
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mInstance.LoadConfig()
         return cls.mInstance
     
     def ReadConfigByUid(self, uid):
