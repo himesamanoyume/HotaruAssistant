@@ -27,7 +27,7 @@ class BaseConfigModule(object):
                     self.DetectGamePath(loadedConfig)
                     self.mConfig.update(loadedConfig)
                     self.SaveConfig()
-                print("Config文件已加载")
+                # print("Config文件已加载")
         except FileNotFoundError:
             print("Config文件未找到")
             self.SaveConfig()
@@ -43,7 +43,7 @@ class BaseConfigModule(object):
             with open(exampleConfigPath, 'r', encoding='utf-8') as file:
                 loadedConfig = self.mYaml.load(file)
                 if loadedConfig:
-                    print("初始配置文件已加载")
+                    # print("初始配置文件已加载")
                     return loadedConfig
         except FileNotFoundError:
             input("初始配置文件未找到,检查assets是否完整")

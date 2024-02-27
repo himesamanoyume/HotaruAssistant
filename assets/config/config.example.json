@@ -1,0 +1,101 @@
+{
+    "common": {
+       "111111111": {
+          "email": "",
+          "reg_path": "",
+          "universe_team": [
+             "Bronya",
+             "Blade",
+             "JingLiu",
+             "JingYuan"
+          ],
+          "universe_fate": 4,
+          "universe_number": 3,
+          "universe_difficulty": 1
+       },
+       "check_update": true,
+       "agreed_to_disclaimer": false,
+       "recording_enable": false,
+       "last_running_uid": "111111111",
+       "blacklist_uid": [
+          "111111111",
+          "222222222"
+       ],
+       "cdkey_list": {},
+       "next_loop_time": 12,
+       "multi_login_accounts": {},
+       "want_register_accounts": null,
+       "python_exe_path": "",
+       "pypi_mirror_urls": [
+          "https://mirrors.cloud.tencent.com/pypi/simple/",
+          "https://mirrors.aliyun.com/pypi/simple/",
+          "https://pypi.org/simple/"
+       ],
+       "game_title_name": "崩坏：星穹铁道",
+       "game_process_name": "StarRail",
+       "game_path": "D:\\Star Rail\\Game\\StarRail.exe",
+       "power_needs": {
+          "拟造花萼（金）": 10,
+          "拟造花萼（赤）": 10,
+          "凝滞虚影": 30,
+          "侵蚀隧洞": 40,
+          "历战余响": 30
+       },
+       "hotkey_technique": "e",
+       "hotkey_obs_start": "[",
+       "hotkey_obs_stop": "]",
+       "universe_path": ".\\3rdparty\\Auto_Simulated_Universe",
+       "universe_timeout": 0.67,
+       "universe_requirements": false,
+       "notify_smtp_enable": false,
+       "notify_smtp_host": "",
+       "notify_smtp_user": "",
+       "notify_smtp_password": "",
+       "notify_smtp_From": "",
+       "notify_smtp_To": {},
+       "notify_smtp_port": "587",
+       "notify_smtp_ssl": "",
+       "notify_smtp_master": ""
+    },
+    "uid": {
+       "instance_type": {},
+       "instance_names": {},
+       "instance_team_enable": {},
+       "instance_team_number": {},
+       "borrow_character_enable": {},
+       "borrow_character_from": [
+          "好友1",
+          "好友2",
+          "好友3"
+       ],
+       "use_reserved_trailblaze_power": {},
+       "use_fuel": {},
+       "echo_of_war_enable": {},
+       "echo_of_war_timestamp": {},
+       "echo_of_war_times": {},
+       "relic_salvage_enable": {},
+       "relic_salvage_5star_enable": {},
+       "relic_salvage_4star_enable": {},
+       "relic_salvage_5star_to_exp": {},
+       "relic_threshold_count": {},
+       "daily_himeko_try_enable": {},
+       "daily_tasks": {},
+       "daily_tasks_score": {},
+       "daily_tasks_fin": {},
+       "last_run_timestamp": {},
+       "universe_enable": {},
+       "universe_bonus_enable": {},
+       "universe_fin": {},
+       "universe_score": {},
+       "universe_count": {},
+       "universe_timestamp": {},
+       "universe_number": {},
+       "universe_difficulty": {},
+       "universe_fate": {},
+       "universe_team": {},
+       "forgottenhall_stars": {},
+       "forgottenhall_levels": {},
+       "purefiction_stars": {},
+       "purefiction_levels": {}
+    }
+ }
