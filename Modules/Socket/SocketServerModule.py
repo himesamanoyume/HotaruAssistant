@@ -22,15 +22,24 @@ class SocketServerModule:
             clientThread = threading.Thread(target=cls.HandleClient, args=(clientSocket,))
             clientThread.start()
 
-    @staticmethod
-    def HandleClient(clientSocket):
+    @classmethod
+    def HandleClient(cls, clientSocket):
+        # 可能需要记录连接的client到数据结构里,用于对指定client发送消息
         while True:
             try:
                 data = clientSocket.recv(1024)
                 if not data:
                     break
-                currentTime = datetime.datetime.now()
-                logServerMgr.Info(f"[{currentTime.hour:02d}:{currentTime.minute:02d}]{data.decode('utf-8')}")
+                cls.LogHeadHandle(data.decode('utf-8'))
             except Exception as e:
                 logServerMgr.Error(f"发生异常:{e}")
                 break
+
+    # @classmethod
+    # def ConfigHeadHandle(cls, content:str):
+    #     key, value = content.split(':')
+    
+    @classmethod
+    def LogHeadHandle(cls, content):
+        currentTime = datetime.datetime.now()
+        logServerMgr.Info(f"[{currentTime.hour:02d}:{currentTime.minute:02d}]{content}")

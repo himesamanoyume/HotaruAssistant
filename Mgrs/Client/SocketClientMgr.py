@@ -14,3 +14,7 @@ class SocketClientMgr:
     @classmethod
     def StartSocket(cls):
         cls.mSocketClientModule.StartSocket()
+
+    # @classmethod
+    # def GetConfig(cls, key:str, uid:str=None):
+    #     pass

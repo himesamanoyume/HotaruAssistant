@@ -1,23 +1,26 @@
 
-from Modules.Config.BaseConfigModule import BaseConfigModule
 from Modules.Config.ConfigServerModule import ConfigServerModule
 
 import sys
 
-class ConfigServerMgr(BaseConfigModule):
+class ConfigServerMgr:
     mInstance = None
     
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mConfigServerModule = ConfigServerModule()
+            cls.mConfig = ConfigServerModule()
 
         return cls.mInstance
     
     @classmethod
-    def SetConfig(cls):
-        pass
+    def SetConfigValue(cls, key:str, uid:str=None, value=0):
+        cls.mConfig.SetConfigValue(key, uid, value)
 
     @classmethod
+    def GetConfigValue(cls, key:str, uid:str=None):
+        return cls.mConfig.GetConfigValue(key, uid)
+            
+    @classmethod
     def IsAgreeDisclaimer(cls):
-        cls.mConfigServerModule.IsAgreeDisclaimer()
+        cls.mConfig.IsAgreeDisclaimer()

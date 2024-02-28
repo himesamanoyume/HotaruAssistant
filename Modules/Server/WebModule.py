@@ -1,4 +1,6 @@
 from flask import Flask,render_template,request,abort,Response
+from Hotaru.Server.ConfigServerHotaru import configServerMgr
+import json
 
 
 class WebModule:
@@ -17,3 +19,21 @@ class WebModule:
     @mAppFlask.route('/')
     def Index():
         return render_template('test.html')
+    
+    @mAppFlask.route('/api/getConfigValue', methods=['POST'])
+    def GetConfigValue():
+        key = request.form.get('key')
+        uid = request.form.get('uid')
+        value = configServerMgr.GetConfigValue(key, uid)
+        data1 = {'value': value}
+        data2 = json.dumps(data1)
+        return Response(data2)
+    
+    @mAppFlask.route('/api/setConfigValue', methods=['POST'])
+    def SetConfigValue():
+        key = request.form.get('key')
+        uid = request.form.get('uid')
+        value = request.form.get('value')
+        configServerMgr.SetConfigValue(key, uid, value)
+        return Response()
+            
