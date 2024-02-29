@@ -3,14 +3,11 @@ os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else o
 
 from Hotaru.Client.LogClientHotaru import logClientMgr
 from Hotaru.Client.StateHotaru import stateMgr
-from Hotaru.Client.SocketClientHotaru import socketClientMgr
-from Hotaru.Client.ConfigClientHotaru import configClientMgr
+from States.InitState import InitState
 
 def main():
-    logClientMgr.Info("哈哈")
-    socketClientMgr.StartSocket()
-    stateMgr.Transition(stateMgr.CompleteDailyState())
-    configClientMgr.IsAgreeDisclaimer()
+    
+    stateMgr.Transition(InitState())
     # configClientMgr.SetConfigValue(configClientMgr.mConfig.mConfigKey.common.last_running_uid, value='111111112')
     input("test...")
 

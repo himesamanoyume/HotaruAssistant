@@ -8,6 +8,7 @@ class SocketClientMgr:
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
             cls.mSocketClientModule = SocketClientModule()
+            cls.StartSocket()
 
         return cls.mInstance
     
@@ -15,6 +16,6 @@ class SocketClientMgr:
     def StartSocket(cls):
         cls.mSocketClientModule.StartSocket()
 
-    # @classmethod
-    # def GetConfig(cls, key:str, uid:str=None):
-    #     pass
+    @classmethod
+    def LogSendToServer(cls, level, uid, action, msg):
+        cls.mSocketClientModule.LogSendToServer(level, uid, action, msg)

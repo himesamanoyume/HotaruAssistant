@@ -1,30 +1,27 @@
-from States.State import State
-from States.CompleteDailyState import CompleteDailyState
-from States.InitState import InitState
+
+from States.BaseState import BaseState
+# from States.CompleteDailyState import CompleteDailyState
+# from States.InitState import InitState
 from Hotaru.Client.LogClientHotaru import logClientMgr
 
 
 class StateMgr:
     mInstance = None
-    mCurrentState = None
+    mCurrentState:BaseState = None
     
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.InitState()
 
         return cls.mInstance
 
-    def Transition(cls, state: State):
-        logClientMgr.Info(f"To State:{state.mStateName}")
-        cls.mCurrentState = state
+    def Transition(cls, state: BaseState):
+        logClientMgr.Info(f"状态将变换至:{state.mStateName}")
+        if not cls.mCurrentState is None:
+            cls.mCurrentState.OnExit()
 
-    @staticmethod
-    def InitState():
-        state = InitState.Init()
-        return state
-    
-    @staticmethod
-    def CompleteDailyState():
-        state = CompleteDailyState.Init()
-        return state
+        cls.mCurrentState = state
+        logClientMgr.Info(f"状态已变换至:{state.mStateName}")
+
+        if not cls.mCurrentState.OnBegin():
+            cls.mCurrentState.OnRunning()

@@ -34,12 +34,8 @@ class SocketServerModule:
             except Exception as e:
                 logServerMgr.Error(f"发生异常:{e}")
                 break
-
-    # @classmethod
-    # def ConfigHeadHandle(cls, content:str):
-    #     key, value = content.split(':')
     
     @classmethod
     def LogHeadHandle(cls, content):
         currentTime = datetime.datetime.now()
-        logServerMgr.Info(f"[{currentTime.hour:02d}:{currentTime.minute:02d}]{content}")
+        logServerMgr.Info(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]{content}")

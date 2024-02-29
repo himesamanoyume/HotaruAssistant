@@ -1,20 +1,12 @@
-from States.State import State
 from Hotaru.Client.LogClientHotaru import logClientMgr
 
 class BaseState(object):
 
-    mStateName = 'BaseState'
+    """
+    OnBegin(), OnRunning()的返回值为True时, 代表状态将在此处结束, 不进行OnExit()以外的后续流程
+    """
 
-    @classmethod
-    def Init(cls):
-        state = State(
-            cls.mStateName,
-            lambda:cls.OnBegin(), 
-            lambda:cls.OnRunning(),
-            lambda:cls.OnExit()
-        )
-        
-        return state
+    mStateName = 'BaseState'
 
     @classmethod
     def OnBegin(cls):

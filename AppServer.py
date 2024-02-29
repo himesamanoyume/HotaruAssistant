@@ -8,13 +8,9 @@ from Hotaru.Server.SocketServerHotaru import socketServerMgr
 
 def main():
     configServerMgr.IsAgreeDisclaimer()
-    logServerMgr.Info("哈哈")
+    # logServerMgr.Info("哈哈")
     webMgr.StartWeb()
     socketServerMgr.StartSocket()
-    input("按回车键关闭窗口. . .")
-    pass
-
-
 
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():

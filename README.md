@@ -263,13 +263,15 @@ OBS录制|&cross;|&check;
 ## 2.0TODO
 
 - **先将项目结构文件和函数名称定义写好,之后逐渐将老代码逻辑重构至新代码**
-- 或者log专门为socket，~~config专门为post~~
-- ~~删除Data模块，client不能加载config，其configclient模块中只能通过get从server获取到config的值，socket也是与log同级的最基础模块，必须能够在任何时候导入~~
-
-- 如果完成了每日 则还原显示剧情中天台中视角流萤仰望天空图片 否则没有(流萤上线实装)
+- ~~或者log专门为socket，config专门为post~~
 - 服务器启动，客户端已连接，xx已加载等原始打印也带上时间
+- ~~删除Data模块，client不能加载config，其configclient模块中只能通过get从server获取到config的值，socket也是与log同级的最基础模块，必须能够在任何时候导入~~
+- ~~Bug:转换状态时,mCurrentState会直接成为state的状态~~
+- 用__init__.py文件统一加载BaseState,logClientMgr,stateMgr
+
+- 日常轮次时已获取模拟宇宙积分 若该次检测到已满分 则不尝试进行模拟宇宙轮次 当然选择刷模拟宇宙的情况除外
+- 如果完成了每日 则还原显示剧情中天台中视角流萤仰望天空图片 否则没有(流萤上线实装)
 - 启动游戏时,获取该进程的pid进行管理,以用于多开游戏时关闭特定进程的游戏
-- 服务器启动后 根据uid读取配置加载 并创建为实例，此后每隔一段时间保存到config文件，只能通过webui直接修改实例，服务器运行期间都以实例的配置为准，config只在第一次加载时起效
 - update.exe新增选项选择更新全体或单独更新assets
 - - assets也有版本号,v2.x.0a/v2.x.0b,meta json中存放
 - 模拟宇宙改造成程序运行
