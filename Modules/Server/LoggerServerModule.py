@@ -14,5 +14,9 @@ class LoggerServerModule:
         print(msg)
 
     @classmethod
+    def Warning(cls, msg):
+        print(f"\033[93m{msg}\033[0m")
+
+    @classmethod
     def Error(cls, msg):
         print(f"\033[91m{msg}\033[0m")

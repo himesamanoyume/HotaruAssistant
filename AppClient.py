@@ -8,7 +8,6 @@ from States.InitState import InitState
 def main():
     
     stateMgr.Transition(InitState())
-    # configClientMgr.SetConfigValue(configClientMgr.mConfig.mConfigKey.common.last_running_uid, value='111111112')
     input("test...")
 
 

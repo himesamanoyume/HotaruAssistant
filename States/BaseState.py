@@ -1,4 +1,4 @@
-from Hotaru.Client.LogClientHotaru import logClientMgr
+from States import *
 
 class BaseState(object):
 

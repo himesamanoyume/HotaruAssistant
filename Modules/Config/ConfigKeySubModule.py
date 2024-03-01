@@ -3,6 +3,18 @@ class ConfigKeySubModule:
 
     class ConfigKeyCommon:
         def __init__(self):
+            self.email = 'email'
+            self.reg_path = 'reg_path'
+            self.universe_team = 'universe_team'
+            self.universe_fate = 'universe_fate'
+            self.universe_number = 'universe_number'
+            self.universe_difficulty = 'universe_difficulty'
+            self.cylax_golden = '拟造花萼（金）'
+            self.cylax_crimson = '拟造花萼（赤）'
+            self.shadow = '凝滞虚影'
+            self.corrision = '侵蚀隧洞'
+            self.echo_of_war = '历战余响'
+            self.hotaru_version = 'hotaru_version'
             self.check_update = 'check_update'
             self.agreed_to_disclaimer = 'agreed_to_disclaimer'
             self.recording_enable = 'recording_enable'
@@ -73,17 +85,7 @@ class ConfigKeySubModule:
             self.purefiction_levels = 'purefiction_levels'
 
     
-    def __init__(self):
-        self.common = self.ConfigKeyCommon()
-        self.uid = self.ConfigKeyUid()
-        self.email = 'email'
-        self.reg_path = 'reg_path'
-        self.universe_team = 'universe_team'
-        self.universe_fate = 'universe_fate'
-        self.universe_number = 'universe_number'
-        self.universe_difficulty = 'universe_difficulty'
-        self.cylax_golden = '拟造花萼（金）'
-        self.cylax_crimson = '拟造花萼（赤）'
-        self.shadow = '凝滞虚影'
-        self.corrision = '侵蚀隧洞'
-        self.echo_of_war = '历战余响'
+    # def __init__(self):
+    #     self.common = self.ConfigKeyCommon()
+    #     self.uid = self.ConfigKeyUid()
+        

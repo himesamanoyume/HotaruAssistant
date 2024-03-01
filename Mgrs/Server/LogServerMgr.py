@@ -17,6 +17,10 @@ class LogServerMgr:
         cls.mLoggerServerModule.Info(msg)
 
     @classmethod
+    def Warning(cls, msg):
+        cls.mLoggerServerModule.Warning(msg)
+
+    @classmethod
     def Error(cls, msg):
         cls.mLoggerServerModule.Error(msg)
 

@@ -1,8 +1,6 @@
 
 from ruamel.yaml import YAML
-import sys,questionary,os
-from pylnk3 import Lnk
-from .ConfigKeySubModule import ConfigKeySubModule
+from Modules.Config import *
 from Hotaru.Server.LogServerHotaru import logServerMgr
 from Modules.Config.BaseConfigModule import BaseConfigModule
 
@@ -21,8 +19,7 @@ class ConfigServerModule(BaseConfigModule):
     
     @classmethod
     def IsAgreeDisclaimer(cls):
-        #  if not  xx[cls.mConfigKey.agreed_to_disclaimer]:
-        if not cls.GetConfigValue(cls.mConfigKey.common.agreed_to_disclaimer):
+        if not cls.GetConfigValue(cls.mCommonKey.agreed_to_disclaimer):
             cls.ShowDisclaimer()
 
     
@@ -116,8 +113,7 @@ class ConfigServerModule(BaseConfigModule):
         option = questionary.select(selectTitle, list(options.keys())).ask()
         value = options.get(option)
         if value == 0:
-            # logServerMgr.Info(cls.GetConfigValue(cls.mConfigKey.common.agreed_to_disclaimer))
-            cls.SetConfigValue(cls.mConfigKey.common.agreed_to_disclaimer, value=True)
+            cls.SetConfigValue(cls.mCommonKey.agreed_to_disclaimer, value=True)
         else:
             logServerMgr.Info("您未同意《免责声明》")
             input("按回车键关闭窗口. . .")

@@ -8,7 +8,9 @@ class BaseConfigModule(object):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
             
-            cls.mConfigKey = ConfigKeySubModule()
+            # cls.mConfigKey = ConfigKeySubModule()
+            cls.mUidKey = ConfigKeySubModule.ConfigKeyUid()
+            cls.mCommonKey = ConfigKeySubModule.ConfigKeyCommon()
         return cls.mInstance
     
     

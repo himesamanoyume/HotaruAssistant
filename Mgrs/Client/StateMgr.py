@@ -1,7 +1,5 @@
 
 from States.BaseState import BaseState
-# from States.CompleteDailyState import CompleteDailyState
-# from States.InitState import InitState
 from Hotaru.Client.LogClientHotaru import logClientMgr
 
 
@@ -25,3 +23,5 @@ class StateMgr:
 
         if not cls.mCurrentState.OnBegin():
             cls.mCurrentState.OnRunning()
+
+        return True

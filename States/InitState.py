@@ -1,8 +1,5 @@
-from States.BaseState import BaseState
-from Hotaru.Client.LogClientHotaru import logClientMgr
-from Hotaru.Client.ConfigClientHotaru import configClientMgr
-from Hotaru.Client.StateHotaru import stateMgr
-from States.CompleteDailyState import CompleteDailyState
+from States import *
+from .CompleteDailyState import CompleteDailyState
 
 class InitState(BaseState):
 
@@ -12,8 +9,7 @@ class InitState(BaseState):
     def OnBegin(cls):
         logClientMgr.Info(f"{cls.mStateName} Begin Reload")
         configClientMgr.IsAgreeDisclaimer()
-        stateMgr.Transition(CompleteDailyState())
-        return True
+        return stateMgr.Transition(CompleteDailyState())
 
     @classmethod
     def OnRunning(cls):

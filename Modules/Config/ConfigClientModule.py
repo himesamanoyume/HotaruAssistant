@@ -1,6 +1,5 @@
 
-import sys,questionary,requests,json
-from .ConfigKeySubModule import ConfigKeySubModule
+from Modules.Config import *
 from Hotaru.Client.LogClientHotaru import logClientMgr
 from Modules.Config.BaseConfigModule import BaseConfigModule
 
@@ -15,7 +14,7 @@ class ConfigClientModule(BaseConfigModule):
 
     @classmethod
     def IsAgreeDisclaimer(cls):
-        if not cls.GetConfigValue(cls.mConfigKey.common.agreed_to_disclaimer):
+        if not cls.GetConfigValue(cls.mCommonKey.agreed_to_disclaimer):
             logClientMgr.Error("你未同意《免责声明》, 需要先启动Server并同意")
             input("按回车键关闭窗口. . .")
             sys.exit(0)
