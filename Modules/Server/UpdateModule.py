@@ -13,6 +13,13 @@ class UpdateModule:
             cls.mInstance = super().__new__(cls)
         return cls.mInstance
     
+    @classmethod
+    def Run(cls):
+        cls.DownloadFile()
+        cls.ExtractFile()
+        cls.CoverFolder()
+        cls.CleanUp()
+    
     def DetectVersionUpdate():
         if not configServerMgr.GetConfigValue(configServerMgr.mConfig.mCommonKey.check_update):
             logServerMgr.Error("检测更新未开启")

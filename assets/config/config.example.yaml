@@ -1,4 +1,3 @@
-hotaru_version: 'v2.0.0'
 check_update: true # 检测更新
 agreed_to_disclaimer: false # false为未接受
 recording_enable: false # 是否录制
