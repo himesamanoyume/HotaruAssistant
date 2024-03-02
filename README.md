@@ -262,24 +262,23 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
-- **Update**
-- - 先实现用于自动下载OCR
+#### Update
+- 先实现用于自动下载OCR
+- 需要Update单独作为一个应用程序,因为下载器是不会随版本更新而变化的
 
-- **Socket**
-- - Client向Server发送心跳包,同时Server也要进行回应,当任何一方长期未接收到心跳包时,判定对方离线并做相应处理,如Client发现Server没了,则直接中止程序
+#### Socket
+- Client向Server发送心跳包,同时Server也要进行回应,当任何一方长期未接收到心跳包时,判定对方离线并做相应处理,如Client发现Server没了,则直接中止程序
 
-- **Screen**
-- - 实现Screen相关的代码转移
-- - 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
-- ~~config.example.yaml中添加脚本版本号, 新增meta.json代替ruby_detail+task_mappings+task_score_mappings,meta.json中添加资源文件版本号~~
-- ~~或者log专门为socket，config专门为post~~
+#### Screen
+- 实现Screen相关的代码转移
+- 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
+
+#### Web
+- 网页排版提高大屏幕利用率:宽屏时左右两列布局,左边为每日情况,右边为配置信息,下方对应保存信息按钮,底部横跨一页为作者信息(与目前相同), 每日信息需要sticky类似b站动态页面的左侧直播板块, 竖屏时变换为1列布局
+
+#### Common
+
 - 服务器启动，客户端已连接，xx已加载等原始打印也带上时间
-- ~~删除Data模块，client不能加载config，其configclient模块中只能通过get从server获取到config的值，socket也是与log同级的最基础模块，必须能够在任何时候导入~~
-- ~~Bug:转换状态时,mCurrentState会直接成为state的状态~~
-
-- **Web**
-- - 网页排版提高大屏幕利用率:宽屏时左右两列布局,左边为每日情况,右边为配置信息,下方对应保存信息按钮,底部横跨一页为作者信息(与目前相同), 每日信息需要sticky类似b站动态页面的左侧直播板块, 竖屏时变换为1列布局
-
 - 日常轮次时已获取模拟宇宙积分 若该次检测到已满分 则不尝试进行模拟宇宙轮次 当然选择刷模拟宇宙的情况除外
 - 如果完成了每日 则还原显示剧情中天台中视角流萤仰望天空图片 否则没有(流萤上线实装)
 - 启动游戏时,获取该进程的pid进行管理,以用于多开游戏时关闭特定进程的游戏
@@ -287,7 +286,6 @@ OBS录制|&cross;|&check;
 - - assets也有版本号,v2.x.0a/v2.x.0b,meta json中存放
 - 模拟宇宙改造成程序运行
 - 自动战斗检测一直持续到超时或战斗结束
-
 - 后台新增是否开启daily_himeko_try_enable,after_finish
 - 更换头图至秘密基地
 - 教程写明更清晰的使用步骤(从blog中移动)

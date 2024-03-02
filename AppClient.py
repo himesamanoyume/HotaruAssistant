@@ -5,10 +5,10 @@ from Hotaru.Client.LogClientHotaru import logClientMgr
 from Hotaru.Client.StateHotaru import stateMgr
 from States.InitState import InitState
 
-def main():
-    
-    stateMgr.Transition(InitState())
-    input("test...")
+class AppClient:
+    def Main():
+        stateMgr.Transition(InitState())
+        input("test...")
 
 
 
@@ -23,7 +23,7 @@ if __name__ == "__main__":
             sys.exit(0)
     else:
         try:
-            main()
+            AppClient.Main()
             # atexit.register(exit_handler)
             # main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:

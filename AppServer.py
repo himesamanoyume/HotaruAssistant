@@ -6,11 +6,12 @@ from Hotaru.Server.ConfigServerHotaru import configServerMgr
 from Hotaru.Server.WebHotaru import webMgr
 from Hotaru.Server.SocketServerHotaru import socketServerMgr
 
-def main():
-    configServerMgr.IsAgreeDisclaimer()
-    # logServerMgr.Info("哈哈")
-    webMgr.StartWeb()
-    socketServerMgr.StartSocket()
+class AppServer:
+    def Main():
+        configServerMgr.IsAgreeDisclaimer()
+        # logServerMgr.Info("哈哈")
+        webMgr.StartWeb()
+        socketServerMgr.StartSocket()
 
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():
@@ -23,7 +24,7 @@ if __name__ == "__main__":
             sys.exit(0)
     else:
         try:
-            main()
+            AppServer.Main()
             # atexit.register(exit_handler)
             # main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
