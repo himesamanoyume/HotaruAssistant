@@ -1,7 +1,7 @@
-from Modules.Client.DetectScreenSubModule import DetectScreenSubModule
-from Modules.Client.DevScreenSubModule import DevScreenSubModule
-from Modules.Client.ScreenshotScreenSubModule import ScreenshotScreenSubModule
-from Modules.Client.ResulotionScreenSubModule import ResulotionScreenSubModule
+from .DetectScreenSubModule import DetectScreenSubModule
+from .DevScreenSubModule import DevScreenSubModule
+from .ScreenshotScreenSubModule import ScreenshotScreenSubModule
+from .ResulotionScreenSubModule import ResulotionScreenSubModule
 
 class ScreenModule:
     mInstance = None

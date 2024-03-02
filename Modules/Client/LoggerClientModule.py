@@ -61,6 +61,9 @@ class LoggerClientModule:
     def Warning(self, msg, *args, **kwargs):
         self.GetLogger().warning(msg, *args, **kwargs)
 
+    def Debug(self, msg, *args, **kwargs):
+        self.GetLogger().debug(msg, *args, **kwargs)
+
     def Hr(self, msg, *args, **kwargs):
         self.GetLogger().hr(msg, *args, **kwargs)
 

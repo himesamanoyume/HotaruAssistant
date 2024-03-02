@@ -6,11 +6,14 @@ from Hotaru.Server.ConfigServerHotaru import configServerMgr
 from Hotaru.Server.WebHotaru import webMgr
 from Hotaru.Server.SocketServerHotaru import socketServerMgr
 from Hotaru.Server.UpdateHotaru import updateMgr
+from Hotaru.Server.OcrServerHotaru import ocrServerMgr
 
 class AppServer:
     def Main():
-        configServerMgr.IsAgreeDisclaimer()
-        updateMgr.DetectVersionUpdate()
+        logServerMgr.Info("HotaruAssistant - Server...启动!")
+        configServerMgr.mConfig.IsAgreeDisclaimer()
+        updateMgr.mUpdate.DetectVersionUpdate()
+        ocrServerMgr.CheckPath()
         # logServerMgr.Info("哈哈")
         webMgr.StartWeb()
         socketServerMgr.StartSocket()

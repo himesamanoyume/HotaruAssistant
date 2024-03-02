@@ -1,8 +1,8 @@
 
 from ruamel.yaml import YAML
-from Modules.Config import *
+from . import *
 from Hotaru.Server.LogServerHotaru import logServerMgr
-from Modules.Config.BaseConfigModule import BaseConfigModule
+from .BaseConfigModule import BaseConfigModule
 
 class ConfigServerModule(BaseConfigModule):
 
@@ -32,12 +32,12 @@ class ConfigServerModule(BaseConfigModule):
                     self.DetectGamePath(loadedConfig)
                     self.mConfig.update(loadedConfig)
                     self.SaveConfig()
-                print("Config文件已加载")
+                logServerMgr.Info("Config文件已加载")
         except FileNotFoundError:
-            print("Config文件未找到")
+            logServerMgr.Error("Config文件未找到")
             self.SaveConfig()
         except Exception as e:
-            print(f"Error loading YAML config from {configPath}: {e}")
+            logServerMgr.Error(f"Error loading YAML config from {configPath}: {e}")
 
     @classmethod
     def SaveConfig(cls):
@@ -64,7 +64,7 @@ class ConfigServerModule(BaseConfigModule):
             else:
                 return cls.mInstance.mConfig[key][uid]
         except Exception as e:
-            print(e)
+            logServerMgr.Error(e)
 
     @classmethod
     def SetConfigValue(cls, key:str, uid:str=None, value=0):
@@ -75,7 +75,7 @@ class ConfigServerModule(BaseConfigModule):
                 cls.mInstance.mConfig[key][uid] = value
             cls.SaveConfig()
         except Exception as e:
-            print(e)
+            logServerMgr.Error(e)
 
     def DetectGamePath(self, config):
         game_path = config['game_path']

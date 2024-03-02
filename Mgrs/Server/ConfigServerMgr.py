@@ -20,7 +20,3 @@ class ConfigServerMgr:
     @classmethod
     def GetConfigValue(cls, key:str, uid:str=None):
         return cls.mConfig.GetConfigValue(key, uid)
-            
-    @classmethod
-    def IsAgreeDisclaimer(cls):
-        cls.mConfig.IsAgreeDisclaimer()

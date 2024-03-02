@@ -11,7 +11,3 @@ class UpdateMgr:
 
         return cls.mInstance
     
-    @classmethod
-    def DetectVersionUpdate(cls):
-        cls.mUpdate.DetectVersionUpdate()
-        

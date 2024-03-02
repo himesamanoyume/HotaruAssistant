@@ -17,5 +17,5 @@ class SocketClientMgr:
         cls.mSocketClientModule.StartSocket()
 
     @classmethod
-    def LogSendToServer(cls, level, uid, action, msg):
-        cls.mSocketClientModule.LogSendToServer(level, uid, action, msg)
+    def LogSendToServer(cls, level, msg):
+        cls.mSocketClientModule.LogSendToServer(level, msg)

@@ -37,5 +37,4 @@ class SocketServerModule:
     
     @classmethod
     def LogHeadHandle(cls, content):
-        currentTime = datetime.datetime.now()
-        logServerMgr.Info(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]{content}")
+        logServerMgr.Socket(f"{content}")

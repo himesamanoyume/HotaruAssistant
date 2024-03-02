@@ -1,5 +1,6 @@
 from States import *
 from .LoginGameState import LoginGameState
+from Hotaru.Client.StateHotaru import stateMgr
 
 class CompleteDailyState(BaseState):
 

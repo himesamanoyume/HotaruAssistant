@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 class LoggerServerModule:
 
@@ -10,13 +10,21 @@ class LoggerServerModule:
         return cls.mInstance
     
     @classmethod
+    def Socket(cls, msg):
+        currentTime = datetime.datetime.now()
+        print(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]{msg}")
+    
+    @classmethod
     def Info(cls, msg):
-        print(msg)
+        currentTime = datetime.datetime.now()
+        print(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]\033[92mINFO\033[0m|{msg}")
 
     @classmethod
     def Warning(cls, msg):
-        print(f"\033[93m{msg}\033[0m")
+        currentTime = datetime.datetime.now()
+        print(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]\033[93mWARNING\033[0m|\033[93m{msg}\033[0m")
 
     @classmethod
     def Error(cls, msg):
-        print(f"\033[91m{msg}\033[0m")
+        currentTime = datetime.datetime.now()
+        print(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]\033[91mERROR\033[0m|\033[91m{msg}\033[0m")

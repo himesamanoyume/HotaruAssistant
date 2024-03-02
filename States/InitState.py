@@ -1,5 +1,7 @@
 from States import *
 from .CompleteDailyState import CompleteDailyState
+from Hotaru.Client.OcrClientHotaru import ocrClientMgr
+from Hotaru.Client.StateHotaru import stateMgr
 
 class InitState(BaseState):
 
@@ -8,7 +10,8 @@ class InitState(BaseState):
     @classmethod
     def OnBegin(cls):
         logClientMgr.Info(f"{cls.mStateName} Begin Reload")
-        configClientMgr.IsAgreeDisclaimer()
+        configClientMgr.mConfig.IsAgreeDisclaimer()
+        ocrClientMgr.CheckPath()
         return stateMgr.Transition(CompleteDailyState())
 
     @classmethod

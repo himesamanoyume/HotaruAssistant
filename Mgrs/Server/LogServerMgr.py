@@ -24,6 +24,10 @@ class LogServerMgr:
     def Error(cls, msg):
         cls.mLoggerServerModule.Error(msg)
 
+    @classmethod
+    def Socket(cls, msg):
+        cls.mLoggerServerModule.Socket(msg)
+
 
 
 

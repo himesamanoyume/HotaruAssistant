@@ -1,7 +1,7 @@
 
-from Modules.Config import *
+from . import *
 from Hotaru.Client.LogClientHotaru import logClientMgr
-from Modules.Config.BaseConfigModule import BaseConfigModule
+from .BaseConfigModule import BaseConfigModule
 
 class ConfigClientModule(BaseConfigModule):
 
