@@ -14,7 +14,6 @@ class ConfigKeySubModule:
             self.shadow = '凝滞虚影'
             self.corrision = '侵蚀隧洞'
             self.echo_of_war = '历战余响'
-            self.hotaru_version = 'hotaru_version'
             self.check_update = 'check_update'
             self.agreed_to_disclaimer = 'agreed_to_disclaimer'
             self.recording_enable = 'recording_enable'

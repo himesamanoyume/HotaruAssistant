@@ -63,45 +63,45 @@ class AppUpdate:
                 print(f"检测更新失败: {e}")
             input("按回车键重试. . .")
 
-        # 获取最新版本 (加入单独资源的更新)
-        latestHotaruVersion = data["tag_name"]
+        # 获取最新版本
         for asset in data["assets"]:
             if "Assets" in asset["browser_download_url"]:
-                downloadAssetsUrl = asset["browser_download_url"]
-                latestAssetsVersion = downloadAssetsUrl.split("HotaruAssistantAssets_")[1].split(".zip")[0]
-                extractAssetsFolderPath = os.path.join(self.tempPath, os.path.basename(downloadAssetsUrl).rsplit(".", 1)[0])
+                self.downloadAssetsUrl = asset["browser_download_url"]
+                self.latestAssetsVersion = self.downloadAssetsUrl.split("HotaruAssistantAssets_")[1].split(".zip")[0]
+                self.extractAssetsFolderPath = os.path.join(self.tempPath, os.path.basename(self.downloadAssetsUrl).rsplit(".", 1)[0])
                 continue
             else:
-                downloadHotaruUrl = asset["browser_download_url"]
-                extractHotaruFolderPath = os.path.join(self.tempPath, os.path.basename(downloadHotaruUrl).rsplit(".", 1)[0])
+                self.downloadHotaruUrl = asset["browser_download_url"]
+                self.extractHotaruFolderPath = os.path.join(self.tempPath, os.path.basename(self.downloadHotaruUrl).rsplit(".", 1)[0])
                 continue
 
         # 比较本地版本
         isLatestTxt = ""
         try:
+            latestHotaruVersion = data["tag_name"]
             with open("./assets/config/version.txt", 'r', encoding='utf-8') as txtFile:
-                currentHotaruVersion = txtFile.read()
+                self.currentHotaruVersion = txtFile.read()
                 txtFile.close()
             with open("./assets/config/meta.json", 'r', encoding='utf-8') as jsonFile:
-                currentAssetsVersion = json.loads(jsonFile)['hotaru_assets_version']
+                self.currentAssetsVersion = json.loads(jsonFile)['hotaru_assets_version']
                 jsonFile.close()
 
-            if parse(latestHotaruVersion.lstrip('v')) > parse(currentHotaruVersion.lstrip('v')):
-                print(f"发现助手新版本：{currentHotaruVersion} ——> {latestHotaruVersion}")
-                actualDownloadUrl = downloadHotaruUrl
-                actualExtractFolderPath = extractHotaruFolderPath
-                isLatestTxt = "\033[93m[检测到助手新版本,应选择更新]\033[0m"
+            if parse(latestHotaruVersion.lstrip('v')) > parse(self.currentHotaruVersion.lstrip('v')):
+                print(f"发现助手新版本：{self.currentHotaruVersion} ——> {latestHotaruVersion}")
+                self.actualDownloadUrl = self.downloadHotaruUrl
+                self.actualExtractFolderPath = self.extractHotaruFolderPath
+                isLatestTxt = "[检测到助手新版本,应选择更新]"
             else:
-                print(f"当前助手已是最新版本: {currentAssetsVersion}, 开始检测资源版本")
-                if parse(latestAssetsVersion.lstrip('v')) > parse(currentAssetsVersion.lstrip('v')):
-                    print(f"发现资源新版本：{currentAssetsVersion} ——> {currentAssetsVersion}")
-                    actualDownloadUrl = downloadAssetsUrl
-                    actualExtractFolderPath = extractAssetsFolderPath
-                    isLatestTxt = "\033[93m[检测到资源新版本,应选择更新]\033[0m"
+                print(f"当前助手已是最新版本: {self.currentAssetsVersion}, 开始检测资源版本")
+                if parse(self.latestAssetsVersion.lstrip('v')) > parse(self.currentAssetsVersion.lstrip('v')):
+                    print(f"发现资源新版本：{self.currentAssetsVersion} ——> {self.currentAssetsVersion}")
+                    self.actualDownloadUrl = self.downloadAssetsUrl
+                    self.actualExtractFolderPath = self.extractAssetsFolderPath
+                    isLatestTxt = "[检测到资源新版本,应选择更新]"
                 else:
-                    print(f"当前已是最新版本: {currentAssetsVersion}")
+                    print(f"当前已是最新版本: {self.currentAssetsVersion}")
         except Exception:
-            print(f"本地版本获取失败\n最新助手版本: {latestHotaruVersion}, 最新资源版本: {latestAssetsVersion}")
+            print(f"本地版本获取失败\n最新助手版本: {latestHotaruVersion}, 最新资源版本: {self.latestAssetsVersion}")
 
         title = "选择进行更新/重新下载或退出更新:"
         optionsReg = dict()
@@ -112,12 +112,12 @@ class AppUpdate:
         if value == 0:
             # 设置镜像
             apiEndpoints = [
-                actualDownloadUrl,
-                f"https://ghproxy.com/{actualDownloadUrl}",
-                f"https://github.moeyy.xyz/{actualDownloadUrl}",
+                self.actualDownloadUrl,
+                f"https://ghproxy.com/{self.actualDownloadUrl}",
+                f"https://github.moeyy.xyz/{self.actualDownloadUrl}",
             ]
             self.actualDownloadUrl = self.FindFastestMirror(apiEndpoints)
-            self.actualExtractFolderPath = actualExtractFolderPath
+            self.actualExtractFolderPath = self.actualExtractFolderPath
 
             print(f"下载地址：{self.actualDownloadUrl}")
             input("按回车键开始更新")

@@ -26,7 +26,7 @@ class FastestMirror:
     
     @staticmethod
     def GetPypiMirror(timeout=5):
-        return FastestMirror.FindFastestMirror(configServerMgr.mConfig.mConfigKey.common.pypi_mirror_urls, timeout)
+        return FastestMirror.FindFastestMirror(configServerMgr.mConfig.mCommonKey.pypi_mirror_urls, timeout)
 
     @staticmethod
     def FindFastestMirror(mirrorUrls, timeout=5):
@@ -37,8 +37,8 @@ class FastestMirror:
                 response = requests.head(mirrorUrl, timeout=timeout, allow_redirects=True)
                 endTime = time.time()
                 if response.status_code == 200:
-                    response_time = endTime - startTime
-                    logServerMgr.Info("镜像: {mirror} 响应时间: {time}").format(mirror=urlparse(mirrorUrl).netloc, time=response_time)
+                    responseTime = endTime - startTime
+                    logServerMgr.Info(f"镜像: {urlparse(mirrorUrl).netloc} 响应时间: {responseTime}")
                     return mirrorUrl
             except Exception:
                 pass
@@ -52,8 +52,8 @@ class FastestMirror:
                 result = future.result()
                 if result:
                     executor.shutdown()
-                    logServerMgr.Info("最快的镜像为: {mirror}").format(mirror=urlparse(result).netloc)
+                    logServerMgr.Info(f"最快的镜像为: {urlparse(result).netloc}")
                     return result
 
-        logServerMgr.Error("测速失败，使用默认镜像：{mirror}").format(mirror=urlparse(mirrorUrls[0]).netloc)
+        logServerMgr.Error(f"测速失败，使用默认镜像：{urlparse(mirrorUrls[0]).netloc}")
         return mirrorUrls[0]

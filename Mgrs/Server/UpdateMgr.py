@@ -10,4 +10,8 @@ class UpdateMgr:
             cls.mUpdate = UpdateModule()
 
         return cls.mInstance
+    
+    @classmethod
+    def DetectVersionUpdate(cls):
+        cls.mUpdate.DetectVersionUpdate()
         
