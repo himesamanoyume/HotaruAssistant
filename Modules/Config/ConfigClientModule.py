@@ -14,7 +14,7 @@ class ConfigClientModule(BaseConfigModule):
 
     @classmethod
     def IsAgreeDisclaimer(cls):
-        if not cls.GetConfigValue(cls.mCommonKey.agreed_to_disclaimer):
+        if not cls.GetConfigValue(cls.mKey.AGREED_TO_DISCLAIMER):
             logClientMgr.Error("你未同意《免责声明》, 需要先启动Server并同意")
             input("按回车键关闭窗口. . .")
             sys.exit(0)

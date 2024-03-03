@@ -1,15 +1,26 @@
-import sys,pyuac,atexit,os
+import sys,pyuac,atexit,os,threading
 os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)))
 
 from Hotaru.Client.LogClientHotaru import logClientMgr
 from Hotaru.Client.StateHotaru import stateMgr
 from States.InitState import InitState
 from Hotaru.Client.OcrClientHotaru import ocrClientMgr
+from Hotaru.Client.ScreenHotaru import screenMgr
+from Hotaru.Client.ConfigClientHotaru import configClientMgr
 
 class AppClient:
-    def Main():
+    def Main(self):
         stateMgr.Transition(InitState())
-        input("test...")
+        input("按回车键关闭窗口. . .")
+        sys.exit(0)
+
+    
+
+    def Test(self):
+        while True:
+            print("Test")
+
+
 
 def ExitHandler():
     # 退出 OCR
@@ -27,7 +38,8 @@ if __name__ == "__main__":
     else:
         try:
             atexit.register(ExitHandler)
-            AppClient.Main()
+            appClient = AppClient()
+            appClient.Main()
             # main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
             logClientMgr.Error("发生错误: 手动强制停止")

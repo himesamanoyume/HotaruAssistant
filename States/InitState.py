@@ -1,5 +1,5 @@
 from States import *
-from .CompleteDailyState import CompleteDailyState
+from .StartGameState import StartGameState
 from Hotaru.Client.OcrClientHotaru import ocrClientMgr
 from Hotaru.Client.StateHotaru import stateMgr
 
@@ -7,17 +7,14 @@ class InitState(BaseState):
 
     mStateName = 'InitState'
 
-    @classmethod
-    def OnBegin(cls):
-        logClientMgr.Info(f"{cls.mStateName} Begin Reload")
+    def OnBegin(self):
+        logClientMgr.Info(f"{self.mStateName} Begin Reload")
         configClientMgr.mConfig.IsAgreeDisclaimer()
         ocrClientMgr.CheckPath()
-        return stateMgr.Transition(CompleteDailyState())
+        return stateMgr.Transition(StartGameState())
 
-    @classmethod
-    def OnRunning(cls):
-        logClientMgr.Info(f"{cls.mStateName} Running Reload")
+    def OnRunning(self):
+        logClientMgr.Info(f"{self.mStateName} Running Reload")
 
-    @classmethod
-    def OnExit(cls):
-        logClientMgr.Info(f"{cls.mStateName} Exit Reload")
+    def OnExit(self):
+        logClientMgr.Info(f"{self.mStateName} Exit Reload")

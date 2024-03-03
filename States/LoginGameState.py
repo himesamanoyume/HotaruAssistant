@@ -1,18 +1,17 @@
 from States import *
 from Hotaru.Client.StateHotaru import stateMgr
+from .CompleteDailyState import CompleteDailyState
 
 class LoginGameState(BaseState):
 
     mStateName = 'LoginGameState'
 
-    @classmethod
-    def OnBegin(cls):
-        logClientMgr.Info(f"{cls.mStateName} Begin")
+    def OnBegin(self):
+        logClientMgr.Info(f"{self.mStateName} Begin")
 
-    @classmethod
-    def OnRunning(cls):
-        logClientMgr.Info(f"{cls.mStateName} Running")
+    def OnRunning(self):
+        logClientMgr.Info(f"{self.mStateName} Running")
+        return stateMgr.Transition(CompleteDailyState())
 
-    @classmethod
-    def OnExit(cls):
-        logClientMgr.Info(f"{cls.mStateName} Exit")
+    def OnExit(self):
+        logClientMgr.Info(f"{self.mStateName} Exit")

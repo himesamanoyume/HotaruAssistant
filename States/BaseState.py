@@ -8,14 +8,11 @@ class BaseState(object):
 
     mStateName = 'BaseState'
 
-    @classmethod
-    def OnBegin(cls):
-        logClientMgr.Info(f"{cls.mStateName} BaseBegin")
+    def OnBegin(self):
+        logClientMgr.Info(f"{self.mStateName} BaseBegin")
 
-    @classmethod
-    def OnRunning(cls):
-        logClientMgr.Info(f"{cls.mStateName} BaseRunning")
+    def OnRunning(self):
+        logClientMgr.Info(f"{self.mStateName} BaseRunning")
 
-    @classmethod
-    def OnExit(cls):
-        logClientMgr.Info(f"{cls.mStateName} BaseExit")
+    def OnExit(self):
+        logClientMgr.Info(f"{self.mStateName} BaseExit")

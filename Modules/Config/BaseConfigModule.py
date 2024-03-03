@@ -7,10 +7,7 @@ class BaseConfigModule(object):
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            
-            # cls.mConfigKey = ConfigKeySubModule()
-            cls.mUidKey = ConfigKeySubModule.ConfigKeyUid()
-            cls.mCommonKey = ConfigKeySubModule.ConfigKeyCommon()
+            cls.mKey = ConfigKeySubModule()
         return cls.mInstance
     
     

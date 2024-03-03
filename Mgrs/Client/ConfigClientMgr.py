@@ -19,4 +19,4 @@ class ConfigClientMgr:
     @classmethod
     def GetConfigValue(cls, key:str, uid:str=None):
         # return cls.__mConfig.GetConfigValue(key, uid)
-        cls.mConfig.GetConfigValue(key, uid)
+        return cls.mConfig.GetConfigValue(key, uid)

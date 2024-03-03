@@ -26,7 +26,7 @@ class FastestMirror:
     
     @staticmethod
     def GetPypiMirror(timeout=5):
-        return FastestMirror.FindFastestMirror(configServerMgr.mConfig.mCommonKey.pypi_mirror_urls, timeout)
+        return FastestMirror.FindFastestMirror(configServerMgr.mConfig.mKey.PYPI_MIRROR_URLS, timeout)
 
     @staticmethod
     def FindFastestMirror(mirrorUrls, timeout=5):

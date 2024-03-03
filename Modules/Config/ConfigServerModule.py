@@ -19,7 +19,7 @@ class ConfigServerModule(BaseConfigModule):
     
     @classmethod
     def IsAgreeDisclaimer(cls):
-        if not cls.GetConfigValue(cls.mCommonKey.agreed_to_disclaimer):
+        if not cls.GetConfigValue(cls.mKey.AGREED_TO_DISCLAIMER):
             cls.ShowDisclaimer()
 
     
@@ -113,7 +113,7 @@ class ConfigServerModule(BaseConfigModule):
         option = questionary.select(selectTitle, list(options.keys())).ask()
         value = options.get(option)
         if value == 0:
-            cls.SetConfigValue(cls.mCommonKey.agreed_to_disclaimer, value=True)
+            cls.SetConfigValue(cls.mKey.AGREED_TO_DISCLAIMER, value=True)
         else:
             logServerMgr.Info("您未同意《免责声明》")
             input("按回车键关闭窗口. . .")

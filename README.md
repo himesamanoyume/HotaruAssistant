@@ -47,115 +47,6 @@ HotaruAssistant · 流萤小助手<br>
 - 识别/点击都以限定时间内快速重复尝试为主
 - 打死我也不用蛇形命名
 
-预期项目结构
-
-```mermaid
-graph TB
-
-HotaruAssistant-->Modules
-HotaruAssistant-->States
-States-->BaseState
-States-->IdleState
-States-->WaitingState
-States-->CompleteDailyState
-States-->CompleteUniverseState
-States-->CompletePowerState
-Modules-->Client
-Client-->ClickModule
-Client-->InputModule最好支持后台输入
-Client-->OcrModule
-Client-->ScreenModule
-ScreenModule-->ScreenshotSubModule
-ScreenModule-->DetectScreenSubModule
-ScreenModule-->DevScreenSubModule,透明窗口
-ScreenModule-->ResulotionScreenSubModule
-Modules-->Server
-Server-->WebModule
-Server-->NotifyModule
-Server-->DataModule
-Server-->UpdateModule
-Server-->LoggerModule
-Modules-->Json
-Json-->JsonModule
-Modules-->Config
-Config-->ConfigModule
-Modules-->Regigster
-Regigster-->RegigsterModule
-Modules-->Plugin
-Modules-->Task
-Modules-->BaseModule
-Modules-->Controller
-Controller-->GameControllerModule
-Controller-->WindowsControllerModule
-HotaruAssistant-->Mgrs
-Mgrs-->BaseMgr
-BaseMgr-->SocketServerSubMgr
-BaseMgr-->SocketClientSubMgr
-BaseMgr-->ConfigMgr
-BaseMgr-->JsonMgr
-BaseMgr-->LoggerMgr
-BaseMgr-->UtilsMgr
-BaseMgr-->StateMgr
-BaseMgr-->ClickMgr
-BaseMgr-->HotaruMgr
-BaseMgr-->ScreenMgr
-BaseMgr-->SocketMgr
-BaseMgr-->WebMgr
-BaseMgr-->TaskMgr
-UtilsMgr-->DevScreen
-ClientMgr-->ClickMgr
-ClientMgr-->SocketMgr
-ClientMgr-->ScreenMgr
-ClickMgr-->Click
-ClickMgr-->Input
-SocketMgr-->SocketClient
-SocketMgr-->SocketServer
-HotaruAssistant-->Assets
-Assets-->ScreenJson
-Assets-->ScreenImages
-```
-
-预期游戏结构
-
-```mermaid
-graph TB
-
-ScreenImages-->Login
-ScreenImages-->Idle
-ScreenImages-->Phone
-ScreenImages-->Map
-ScreenImages-->Fight
-Phone-->Guide
-Phone-->Honor纪行
-Phone-->Store
-Phone-->TravelLog活动
-Phone-->Warp祈愿
-Phone-->Assignments委托
-Phone-->Synthesize合成机
-Phone-->Inventory背包
-Phone-->Mails
-Phone-->More
-Guide-->Index副本
-Guide-->Daily
-Guide-->Treasures深渊
-Index副本-->Universe
-Index副本-->CalyxGolden金花
-Index副本-->CalyxCrimson赤花
-Index副本-->Shadow凝滞虚影
-Index副本-->Corrision侵蚀隧洞
-Index副本-->War历战余响
-Treasures深渊-->Hall忘却之庭
-Treasures深渊-->Fiction虚构叙事
-Warp祈愿-->HimekoTry
-Synthesize合成机-->Synthesis合成
-Synthesize合成机-->Exchange转化
-Inventory背包-->Relics遗器
-More-->Profile
-More-->Wallpaper
-
-```
-
-
 </details>
 
 ## 声明
@@ -262,6 +153,9 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
+#### State
+- 要求实现两个状态能来回切换甚至达成循环
+
 #### Update
 - 需要Update单独作为一个应用程序,因为下载器是不会随版本更新而变化的
 
@@ -271,7 +165,8 @@ OBS录制|&cross;|&check;
 #### Screen/Click
 - 实现Screen相关的代码转移
 - - **优先实现DevScreen**
-- - - **后台输入**
+- - - 后台输入
+- - - **是否应该更换pygame的方式实现透明窗口**
 - 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
 
 #### Web
