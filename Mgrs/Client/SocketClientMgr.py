@@ -19,3 +19,7 @@ class SocketClientMgr:
     @classmethod
     def LogSendToServer(cls, level, msg):
         cls.mSocketClientModule.LogSendToServer(level, msg)
+
+    @classmethod
+    def LogScreenSendToServer(cls, msg):
+        cls.mSocketClientModule.LogScreenSendToServer(msg)

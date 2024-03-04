@@ -13,6 +13,11 @@ class LoggerServerModule:
     def Socket(cls, msg):
         currentTime = datetime.datetime.now()
         print(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]{msg}")
+
+    @classmethod
+    def Screen(cls, msg):
+        currentTime = datetime.datetime.now()
+        print(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}][SCREEN]|{msg}")
     
     @classmethod
     def Info(cls, msg):

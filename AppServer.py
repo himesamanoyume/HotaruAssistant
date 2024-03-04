@@ -8,6 +8,7 @@ from Hotaru.Server.SocketServerHotaru import socketServerMgr
 from Hotaru.Server.UpdateHotaru import updateMgr
 from Hotaru.Server.OcrServerHotaru import ocrServerMgr
 
+
 class AppServer:
     def Main():
         logServerMgr.Info("HotaruAssistant - Server...启动!")
@@ -17,6 +18,7 @@ class AppServer:
         # logServerMgr.Info("哈哈")
         webMgr.StartWeb()
         socketServerMgr.StartSocket()
+        
 
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():

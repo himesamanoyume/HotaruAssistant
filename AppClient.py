@@ -5,7 +5,7 @@ from Hotaru.Client.LogClientHotaru import logClientMgr
 from Hotaru.Client.StateHotaru import stateMgr
 from States.InitState import InitState
 from Hotaru.Client.OcrClientHotaru import ocrClientMgr
-from Hotaru.Client.ScreenHotaru import screenMgr
+# from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.ConfigClientHotaru import configClientMgr
 
 class AppClient:
@@ -13,14 +13,6 @@ class AppClient:
         stateMgr.Transition(InitState())
         input("按回车键关闭窗口. . .")
         sys.exit(0)
-
-    
-
-    def Test(self):
-        while True:
-            print("Test")
-
-
 
 def ExitHandler():
     # 退出 OCR
@@ -40,7 +32,6 @@ if __name__ == "__main__":
             atexit.register(ExitHandler)
             appClient = AppClient()
             appClient.Main()
-            # main(sys.argv[1]) if len(sys.argv) > 1 else main()
         except KeyboardInterrupt:
             logClientMgr.Error("发生错误: 手动强制停止")
             input("按回车键关闭窗口. . .")

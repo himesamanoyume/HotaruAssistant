@@ -33,6 +33,10 @@ class LogClientMgr:
         cls.mLoggerModule.Warning(msg, *args, **kwargs)
 
     @classmethod
+    def Screen(cls, msg):
+        socketClientMgr.LogScreenSendToServer(msg)
+
+    @classmethod
     def Debug(cls, msg, *args, **kwargs):
         msg = f"\033[91m[-1]\033[0m|临时流程|" + msg
         cls.mLoggerModule.Debug(msg, *args, **kwargs)

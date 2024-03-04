@@ -28,6 +28,10 @@ class LogServerMgr:
     def Socket(cls, msg):
         cls.mLoggerServerModule.Socket(msg)
 
+    @classmethod
+    def Screen(cls, msg):
+        cls.mLoggerServerModule.Screen(msg)
+
 
 
 

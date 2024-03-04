@@ -1,5 +1,4 @@
 # from .DetectScreenSubModule import DetectScreenSubModule
-from .DevScreenSubModule import DevScreenSubModule
 # from .ScreenshotScreenSubModule import ScreenshotScreenSubModule
 # from .ResulotionScreenSubModule import ResulotionScreenSubModule
 import threading,time,json,sys
@@ -11,8 +10,8 @@ class ScreenModule:
 
     def __init__(cls, configPath="./assets/config/screens.json"):
         if cls.mInstance is None:
+            pass
             # cls.mDetectScreen = DetectScreenSubModule()
-            cls.mDevScreen = DevScreenSubModule()
             # cls.mScreenshot = ScreenshotScreenSubModule()
             # cls.mResulotionScreen = ResulotionScreenSubModule()
             # cls.currentScreen = None

@@ -161,16 +161,19 @@ OBS录制|&cross;|&check;
 
 #### Socket
 - [低优先级]Client向Server发送心跳包,同时Server也要进行回应,当任何一方长期未接收到心跳包时,判定对方离线并做相应处理,如Client发现Server没了,则直接中止程序
+- BUG:启动Client时会莫名其妙收到Server的消息
 
 #### Screen/Click
 - 实现Screen相关的代码转移
 - - **优先实现DevScreen**
 - - - 后台输入
-- - - **是否应该更换pygame的方式实现透明窗口**
+- - - 使用tkinter实现透明窗口,并将DevScreen迁移到Server
+- - Client和Server的Socket传输新增type处理:log,screen,在文字最前方以|||分为head,content
 - 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
 
 #### Web
 - 网页排版提高大屏幕利用率:宽屏时左右两列布局,左边为每日情况,右边为配置信息,下方对应保存信息按钮,底部横跨一页为作者信息(与目前相同), 每日信息需要sticky类似b站动态页面的左侧直播板块, 竖屏时变换为1列布局
+- - 内网穿透后资源路径改变,如favicon应放入static内的文件夹中,不能存放于根目录
 
 #### Common
 

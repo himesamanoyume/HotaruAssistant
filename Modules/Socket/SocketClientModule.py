@@ -23,17 +23,22 @@ class SocketClientModule:
     def LogSendToServer(cls, level, msg):
         # 之后根据level对INFO ERROR等调整颜色
         if level == 'INFO':
-            text = f"\033[92m{level}\033[0m|{msg}"
+            text = f"log|||\033[92m{level}\033[0m|{msg}"
             cls.clientSocket.send(text.encode())
         elif level == 'WARNING':
-            text = f"\033[93m{level}\033[0m|{msg}"
+            text = f"log|||\033[93m{level}\033[0m|{msg}"
             cls.clientSocket.send(text.encode())
         elif level == 'ERROR':
-            text = f"\033[91m{level}\033[0m|{msg}"
+            text = f"log|||\033[91m{level}\033[0m|{msg}"
             cls.clientSocket.send(text.encode())
         else:
-            text = f"{level}|{msg}"
+            text = f"log|||{level}|{msg}"
             cls.clientSocket.send(text.encode())
+
+    @classmethod
+    def LogScreenSendToServer(cls, msg):
+        text = f"screen|||{msg}"
+        cls.clientSocket.send(text.encode())
 
         
         

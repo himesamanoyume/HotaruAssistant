@@ -1,8 +1,9 @@
-import math,pyautogui,pygame,pygame,win32api,win32con,win32gui,time,threading,base64,requests
-from Hotaru.Client.LogClientHotaru import logClientMgr
+import math,pyautogui,win32api,win32con,win32gui,time,threading,base64,requests,tkinter
+# from Hotaru.Client.LogClientHotaru import logClientMgr
+from tkinter import *
 
 
-class DevScreenSubModule:
+class DevScreenModule:
     def GetWindow(self, title):
         windows = pyautogui.getWindowsWithTitle(title)
         if windows:
@@ -35,45 +36,50 @@ class DevScreenSubModule:
             return screenshotPos
         
     def InitDevScreenLoop(self):
-        pygame.init()
         self.window = self.GetWindow("崩坏：星穹铁道")
 
         if self.window:
             # 初始化
-            screenshotPos = self.GetHonkaiWindowsInfo(self.window)
-            windowWidth = screenshotPos[2]
-            windowHeight = screenshotPos[3]
-            self.windowScreen = pygame.display.set_mode((windowWidth, windowHeight), pygame.SWSURFACE)
-            pygame.display.set_caption("DevScreen")
-            self.hwnd = pygame.display.get_wm_info()["window"]
-            win32gui.SetWindowLong(self.hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(
-                self.hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)
-            win32gui.SetLayeredWindowAttributes(self.hwnd, win32api.RGB(255, 0, 128), 0, win32con.LWA_COLORKEY)
-            win32gui.SetWindowPos(self.hwnd, win32con.HWND_TOPMOST, screenshotPos[0], screenshotPos[1], screenshotPos[2], screenshotPos[3], win32con.SWP_NOSIZE)
-            self.windowScreen.fill((255, 0, 128))
+            def OnSize(evt):
+                screenshot_pos = self.GetHonkaiWindowsInfo(self.window)
+                window_x = screenshot_pos[0]
+                window_y = screenshot_pos[1]
+                window_width = screenshot_pos[2]
+                window_height = screenshot_pos[3]
+                
+                TRANSCOLOUR = 'gray'
+                tk.wm_attributes('-transparentcolor', TRANSCOLOUR)
+                tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
+                tk.title('测试窗口')
+                # tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
+                tk.configure(width=evt.width,height=evt.height)
+                canvas.create_rectangle(0, 0, canvas.winfo_width(), canvas.winfo_height(), fill=TRANSCOLOUR, outline=TRANSCOLOUR)
 
-            # font = pygame.font.SysFont("Times New Roman", 54)
-            # # 要展示的文本
-            # text = []
-            # # 设置文本位置
-            # text.append((font.render("transparent window", 0, (255, 100, 0)), (20, 10)))
-            # text.append((font.render("ESC to exit", 0, (255, 100, 100)), (20, 100)))
-            logClientMgr.Info("DevScreen完成初始化")
+            tk = tkinter.Tk()
+            tk.attributes("-topmost", 1)
+
+            TRANSCOLOUR = 'gray'
+            tk.wm_attributes('-transparentcolor', TRANSCOLOUR)
+
+            canvas = Canvas(tk)
+            canvas.pack(fill=BOTH,expand=Y)
+            
+            tk.bind('<Configure>', OnSize)
+            tk.mainloop()
             return True
         else:
             return False
         
-    def ShowText(self, text):
-        for t in text:
-            self.windowScreen.blit(t[0], t[1])
+    # def ShowText(self, text):
+    #     for t in text:
+    #         self.windowScreen.blit(t[0], t[1])
 
     def StartLoop(self):
         thread = threading.Thread(target=self.Loop)
         thread.start()
 
     def LoopTemp(self):
-        while True:
-            print("111")
+        print("111")
 
     def Loop(self):
 
