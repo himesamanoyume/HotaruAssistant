@@ -53,9 +53,6 @@ def main(action=None):
             config.reload()
             for index in range(len(config.multi_login_accounts)):
                 uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
-
-            for index in range(len(config.multi_login_accounts)):
-                uidStr = str(config.multi_login_accounts[index]).split('-')[1][:9]
                 if uidStr in config.blacklist_uid:
                     logger.warning(f"{uidStr}【正在黑名单中】")
                     continue
@@ -84,7 +81,6 @@ def main(action=None):
                 Utils.detectIsNoneButNoSave(config.universe_fate, uidStr, '巡猎')
                 Utils.detectIsNoneButNoSave(config.universe_team, uidStr, {})
                 Utils.detectIsNoneButNoSave(config.universe_score, uidStr, '0/1')
-                Utils.detectIsNoneButNoSave(config.universe_fin, uidStr, False)
 
                 if Utils.is_next_4_am(config.last_run_timestamp, uidStr, False):
                     config.daily_tasks_score[uidStr] = 0

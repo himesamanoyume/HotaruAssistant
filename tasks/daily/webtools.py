@@ -19,6 +19,7 @@ css.close()
 class WebTools:
     def official_notice():
         r = requests.get("https://hkrpg-api.mihoyo.com/common/hkrpg_cn/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&bundle_id=hkrpg_cn&channel_id=1&level=1&platform=pc&region=prod_gf_cn&uid=1")
+        # if r.status_code == 200:
         data = json.loads(r.text)
         data=data['data']['pic_list'][0]['type_list'][0]['list']
         datalist = list()
