@@ -15,7 +15,7 @@ class ScreenMgr:
     
     def DevScreen(self):
         pass
-        # if configClientMgr.GetConfigValue(configClientMgr.mConfig.mKey.DEV_SCREEN_ENABLE):
+        # if configClientMgr.GetConfigValue(configClientMgr.mKey.DEV_SCREEN_ENABLE):
         #     if self.mScreenModule.mDevScreen.InitDevScreenLoop():
         #         logClientMgr.Info("DevScreen正在开启")
         #         self.mScreenModule.mDevScreen.StartLoop()

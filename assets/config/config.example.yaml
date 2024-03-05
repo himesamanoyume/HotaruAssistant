@@ -78,7 +78,7 @@ daily_tasks: {} # 每日实训
 daily_tasks_score: {} # 活跃度
 daily_tasks_fin: {} # 是否完成实训
 
-last_run_timestamp: {} # 上次运行日常的时间戳
+last_run_timestamp: 0 # 上次运行日常的时间戳
 
 universe_enable: true # 启用模拟宇宙
 universe_bonus_enable: true # 领取沉浸奖励

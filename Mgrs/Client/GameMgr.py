@@ -1,6 +1,6 @@
 
 from Hotaru.Client.LogClientHotaru import logClientMgr
-from Game.Setup.SetupGame import SetupGame
+from Game.Base.Base import Base
 
 class GameMgr:
     mInstance = None
@@ -13,5 +13,13 @@ class GameMgr:
     
     @staticmethod
     def SetupGame():
-        SetupGame.SetupGame()
+        Base.SetupGame()
+
+    @staticmethod
+    def DetectNewAccounts():
+        Base.DetectNewAccount()
+
+    @staticmethod
+    def ReadyToStart(uid):
+        Base.ReadyToStart(uid)
         

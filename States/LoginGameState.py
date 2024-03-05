@@ -1,5 +1,4 @@
 from States import *
-from Hotaru.Client.StateHotaru import stateMgr
 
 class LoginGameState(BaseState):
 

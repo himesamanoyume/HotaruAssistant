@@ -22,7 +22,7 @@ class UpdateModule:
     
     @classmethod
     def DetectVersionUpdate(cls):
-        if not configServerMgr.GetConfigValue(configServerMgr.mConfig.mKey.CHECK_UPDATE):
+        if not configServerMgr.GetConfigValue(configServerMgr.mKey.CHECK_UPDATE):
             logServerMgr.Error("检测更新未开启")
             return False
         logServerMgr.Info("开始检测更新")

@@ -37,7 +37,7 @@ class SocketServerModule:
                 cls.LogHeadHandle(data.decode('utf-8'))
                 
             except Exception as e:
-                logServerMgr.Error(f"发生异常?:{e}")
+                logServerMgr.Error(f"发生异常:{e}")
                 break
     
     @classmethod

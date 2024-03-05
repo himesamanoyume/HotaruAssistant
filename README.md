@@ -153,10 +153,6 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
-Mgr import BaseState
-Hotaru import Mgr,States
-
-
 #### State
 - 要求实现两个状态能来回切换甚至达成循环
 
@@ -173,9 +169,16 @@ Hotaru import Mgr,States
 - - - 后台输入
 - - - 使用tkinter实现透明窗口,并将DevScreen迁移到Server
 - - ~~Client和Server的Socket传输新增type处理:log,screen,在文字最前方以|||分为head,content~~
-- **实现Server启动时不显示DevScreen,当Client检测到游戏窗口时通过POST请求,使DevScreen激活**
+- **实现Server启动时不显示DevScreen,当Client检测到游戏窗口时通过POST请求,使DevScreen激活**[4]
 - - 实现Socket Screen消息处理到DevScreen产生方框等
 - 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
+
+#### GameLoop
+
+- 实现根据config初始化登录列表[1(应该在何处实现列表的循环?)]：将InitState中检查部分移到AppClient.Main中,且同位置进行列表循环,旧项目中的detectIsNoneButNoSave相关交由InitState处理
+- 实现want_register_accounts[2]
+- 实现启动游戏[3]
+- - 实现每隔一段时间Server保存
 
 #### Web
 - 网页排版提高大屏幕利用率:宽屏时左右两列布局,左边为每日情况,右边为配置信息,下方对应保存信息按钮,底部横跨一页为作者信息(与目前相同), 每日信息需要sticky类似b站动态页面的左侧直播板块, 竖屏时变换为1列布局
