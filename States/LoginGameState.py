@@ -1,6 +1,5 @@
 from States import *
 from Hotaru.Client.StateHotaru import stateMgr
-from .CompleteDailyState import CompleteDailyState
 
 class LoginGameState(BaseState):
 
@@ -8,10 +7,12 @@ class LoginGameState(BaseState):
 
     def OnBegin(self):
         logClientMgr.Info(f"{self.mStateName} Begin")
+        return False
 
     def OnRunning(self):
         logClientMgr.Info(f"{self.mStateName} Running")
-        return stateMgr.Transition(CompleteDailyState())
+        return False
 
     def OnExit(self):
         logClientMgr.Info(f"{self.mStateName} Exit")
+        return False

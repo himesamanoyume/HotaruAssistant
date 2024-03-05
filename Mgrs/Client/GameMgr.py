@@ -1,5 +1,6 @@
-from Modules.Client.GameControllerModule import GameControllerModule
+
 from Hotaru.Client.LogClientHotaru import logClientMgr
+from Game.Setup.SetupGame import SetupGame
 
 class GameMgr:
     mInstance = None
@@ -7,6 +8,10 @@ class GameMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mGameControllerModule = GameControllerModule()
 
         return cls.mInstance
+    
+    @staticmethod
+    def SetupGame():
+        SetupGame.SetupGame()
+        

@@ -153,6 +153,10 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
+Mgr import BaseState
+Hotaru import Mgr,States
+
+
 #### State
 - 要求实现两个状态能来回切换甚至达成循环
 
@@ -168,7 +172,9 @@ OBS录制|&cross;|&check;
 - - **优先实现DevScreen**
 - - - 后台输入
 - - - 使用tkinter实现透明窗口,并将DevScreen迁移到Server
-- - Client和Server的Socket传输新增type处理:log,screen,在文字最前方以|||分为head,content
+- - ~~Client和Server的Socket传输新增type处理:log,screen,在文字最前方以|||分为head,content~~
+- **实现Server启动时不显示DevScreen,当Client检测到游戏窗口时通过POST请求,使DevScreen激活**
+- - 实现Socket Screen消息处理到DevScreen产生方框等
 - 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
 
 #### Web
