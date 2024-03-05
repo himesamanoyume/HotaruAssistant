@@ -175,6 +175,8 @@ OBS录制|&cross;|&check;
 
 #### GameLoop
 
+- config获取值时需要多一个类型的参数表示bool或int / 寻找其他yaml的多文件读取不冲突方式 **(舍弃server为主的config系统,config模块改为通用Module,新增一个在修改值,获取值时都保存时间戳,当距离上一次时间戳大于5时先重载config,且新增一个线程每隔20秒自动保存一次)**[0]
+- - 有最后一次保存时间,最后一次修改时间，当修改时间与保存相差5秒以上时,应临时读取配置的最后一次保存时间,如果临时配置的保存时间更大，说明配置文件更加新，因此将该临时配置变量替换当前配置，再进行保存，同时记录时间戳
 - 实现根据config初始化登录列表[1(应该在何处实现列表的循环?)]：将InitState中检查部分移到AppClient.Main中,且同位置进行列表循环,旧项目中的detectIsNoneButNoSave相关交由InitState处理
 - 实现want_register_accounts[2]
 - 实现启动游戏[3]

@@ -44,7 +44,6 @@ class DetectNewAccountState(BaseState):
                     return
 
                 multiLoginAccounts = configClientMgr.GetConfigValue(configClientMgr.mKey.MULTI_LOGIN_ACCOUNTS, None)
-
                 if multiLoginAccounts == {}:
                     tempList = list()
                     tempList.append(item['reg_path'])

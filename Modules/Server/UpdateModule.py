@@ -22,10 +22,10 @@ class UpdateModule:
     
     @classmethod
     def DetectVersionUpdate(cls):
-        if not configServerMgr.GetConfigValue(configServerMgr.mKey.CHECK_UPDATE):
+        logServerMgr.Info("开始检测更新")
+        if not configServerMgr.mConfig[configServerMgr.mKey.CHECK_UPDATE]:
             logServerMgr.Error("检测更新未开启")
             return False
-        logServerMgr.Info("开始检测更新")
 
         try:
             with open("./assets/config/version.txt", 'r', encoding='utf-8') as txtFile:

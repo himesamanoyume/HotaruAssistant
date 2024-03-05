@@ -10,7 +10,7 @@ from Game.Base.Base import Base
 
 class AppClient:
     def Main(self):
-        configClientMgr.mConfig.IsAgreeDisclaimer()
+        configClientMgr.mConfig.IsAgreed2Disclaimer()
         ocrClientMgr.CheckPath()
         # gameMgr.SetupGame()
         gameMgr.DetectNewAccounts()

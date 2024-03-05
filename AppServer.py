@@ -12,12 +12,13 @@ from Hotaru.Server.OcrServerHotaru import ocrServerMgr
 class AppServer:
     def Main():
         logServerMgr.Info("HotaruAssistant - Server...启动!")
-        configServerMgr.mConfig.IsAgreeDisclaimer()
-        updateMgr.mUpdate.DetectVersionUpdate()
+        configServerMgr.mConfigModule.IsAgreed2Disclaimer()
+        # updateMgr.mUpdate.DetectVersionUpdate()
         ocrServerMgr.CheckPath()
-        # logServerMgr.Info("哈哈")
+        configServerMgr.mConfig[configServerMgr.mKey.RECORDING_ENABLE] = True
         webMgr.StartWeb()
         socketServerMgr.StartSocket()
+        
         
 
 if __name__ == "__main__":

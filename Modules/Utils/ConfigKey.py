@@ -1,5 +1,6 @@
 
-class ConfigKeySubModule:
+class ConfigKey:
+    LAST_TIME_SAVE_TIMESTAMP = 'last_time_save_timestamp'
     DEV_SCREEN_ENABLE = 'dev_screen_enable'
     EMAIL = 'email'
     REG_PATH = 'reg_path'

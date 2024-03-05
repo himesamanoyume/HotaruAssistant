@@ -1,3 +1,3 @@
 import sys,questionary,requests,json,os
-from .ConfigKeySubModule import ConfigKeySubModule
+from ..Utils.ConfigKey import ConfigKey
 from pylnk3 import Lnk
