@@ -8,7 +8,6 @@ from Hotaru.Server.SocketServerHotaru import socketServerMgr
 from Hotaru.Server.UpdateHotaru import updateMgr
 from Hotaru.Server.OcrServerHotaru import ocrServerMgr
 
-
 class AppServer:
     def Main():
         logServerMgr.Info("HotaruAssistant - Server...启动!")

@@ -1,15 +1,9 @@
 import math,pyautogui,win32api,win32con,win32gui,time,threading,base64,requests,tkinter
-# from Hotaru.Client.LogClientHotaru import logClientMgr
+from Hotaru.Client.LogClientHotaru import logClientMgr,log
 from tkinter import *
 
 
 class DevScreenModule:
-    def GetWindow(self, title):
-        windows = pyautogui.getWindowsWithTitle(title)
-        if windows:
-            window = windows[0]
-            return window
-        return False
 
     def IsApplicationFullscreen(self, window):
         screenWidth, screenHeight = pyautogui.size()
@@ -35,8 +29,8 @@ class DevScreenModule:
             screenshotPos = int(left + width * crop[0]), int(top + height * crop[1]), int(width * crop[2]), int(height * crop[3])
             return screenshotPos
         
-    def InitDevScreenLoop(self):
-        self.window = self.GetWindow("崩坏：星穹铁道")
+    def InitDevScreenLoop(self, window):
+        self.window = window
 
         if self.window:
             # 初始化
@@ -50,7 +44,7 @@ class DevScreenModule:
                 TRANSCOLOUR = 'gray'
                 tk.wm_attributes('-transparentcolor', TRANSCOLOUR)
                 tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
-                tk.title('测试窗口')
+                tk.title('DevScreen')
                 # tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
                 tk.configure(width=evt.width,height=evt.height)
                 canvas.create_rectangle(0, 0, canvas.winfo_width(), canvas.winfo_height(), fill=TRANSCOLOUR, outline=TRANSCOLOUR)
@@ -66,58 +60,3 @@ class DevScreenModule:
             
             tk.bind('<Configure>', OnSize)
             tk.mainloop()
-            return True
-        else:
-            return False
-        
-    # def ShowText(self, text):
-    #     for t in text:
-    #         self.windowScreen.blit(t[0], t[1])
-
-    def StartLoop(self):
-        thread = threading.Thread(target=self.Loop)
-        thread.start()
-
-    def LoopTemp(self):
-        print("111")
-
-    def Loop(self):
-
-        done = 0
-        pygame_focus = False
-
-        while not done:
-            time.sleep(0.5)
-            print("111")
-            screenshotPos = self.GetHonkaiWindowsInfo(self.window)
-            windowX = screenshotPos[0]
-            windowY = screenshotPos[1]
-            
-            # win32gui.SetWindowPos(self.hwnd, win32con.HWND_TOPMOST, windowX, windowY, screenshotPos[2], screenshotPos[3], win32con.SWP_NOSIZE)
-
-            # for event in pygame.event.get():
-            #     # print(event)
-            #     if event.type == pygame.WINDOWFOCUSGAINED:
-            #         pygame_focus = True
-            #     elif event.type == pygame.WINDOWFOCUSLOST:
-            #         pygame_focus = False
-            #     elif event.type == pygame.QUIT:
-            #         done = 1
-            #     elif event.type == pygame.KEYDOWN:
-            #         if event.key == pygame.K_ESCAPE:
-            #             done = 1
-            #     elif event.type == pygame.WINDOWMOVED:
-            #         windowX = event.x
-            #         windowY = event.y
-            #         # if window_x < 0:
-            #         #     window_x = 0
-            #         # if window_y < 0:
-            #         #     window_y = 0
-            #     # elif event.type == pygame.VIDEORESIZE:
-            #     #     window_width, window_height = event.size
-
-            # # 设置透明
-            # self.windowScreen.fill((255, 0, 128))
-            # # 显示文字
-            # # self.ShowText()
-            # pygame.display.update()

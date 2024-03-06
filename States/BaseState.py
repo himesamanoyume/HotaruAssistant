@@ -9,13 +9,13 @@ class BaseState(object):
     mStateName = 'BaseState'
 
     def OnBegin(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} BaseBegin"))
+        # log.info(logClientMgr.Info(f"{self.mStateName} BaseBegin"))
         return False
 
     def OnRunning(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} BaseRunning"))
+        # log.info(logClientMgr.Info(f"{self.mStateName} BaseRunning"))
         return False
 
     def OnExit(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} BaseExit"))
+        # log.info(logClientMgr.Info(f"{self.mStateName} BaseExit"))
         return False

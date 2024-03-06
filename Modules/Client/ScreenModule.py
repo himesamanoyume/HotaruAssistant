@@ -1,66 +1,70 @@
 # from .DetectScreenSubModule import DetectScreenSubModule
 # from .ScreenshotScreenSubModule import ScreenshotScreenSubModule
 # from .ResulotionScreenSubModule import ResulotionScreenSubModule
+from .DevScreenModule import DevScreenModule
 import threading,time,json,sys
 from Hotaru.Client.LogClientHotaru import logClientMgr,log
 from collections import deque
 
 class ScreenModule:
-    mInstance = None
 
-    def __init__(cls, configPath="./assets/config/screens.json"):
-        if cls.mInstance is None:
-            pass
-            # cls.mDetectScreen = DetectScreenSubModule()
-            # cls.mScreenshot = ScreenshotScreenSubModule()
-            # cls.mResulotionScreen = ResulotionScreenSubModule()
-            # cls.currentScreen = None
-            # cls.screenMap = {}
-            # cls.lock = threading.Lock()  # 创建一个锁，用于线程同步
-            # cls.SetupScreensFromConfig(configPath)
-            # cls.green = "\033[92m"
-            # cls.reset = "\033[0m"
+    def __init__(self, configPath="./assets/config/screens.json"):
+        self.mDevScreen = DevScreenModule()
+        self.currentScreen = None
+        self.screenMap = {}
+        self.SetupScreensFromConfig(configPath)
+        self.green = "\033[92m"
+        self.reset = "\033[0m"
+        # if cls.mInstance is None:
+        #     pass
+        #     # cls.mDetectScreen = DetectScreenSubModule()
+        #     # cls.mScreenshot = ScreenshotScreenSubModule()
+        #     # cls.mResulotionScreen = ResulotionScreenSubModule()
+        #     # cls.currentScreen = None
+        #     # cls.screenMap = {}
+        #     # cls.lock = threading.Lock()  # 创建一个锁，用于线程同步
+        #     # cls.SetupScreensFromConfig(configPath)
+        #     # cls.green = "\033[92m"
+        #     # cls.reset = "\033[0m"
 
-        return cls.mInstance
+        # return cls.mInstance
+
+    def AddScreen(self, id, name, imagePath, actions):
+            """
+            添加一个新界面到界面管理器，并指定其识别图片路径、可切换的目标界面及操作序列
+            :param id: 新界面的唯一标识
+            :param name: 新界面的名称
+            :param imagePath: 用于识别界面的图片路径
+            :param actions: 可切换的目标界面及操作序列
+            """
+            self.screenMap[id] = {'name': name, 'image_path': imagePath, 'actions': actions}
     
-    # @classmethod
-    # def SetupScreensFromConfig(cls, configPath):
-    #     """
-    #     从配置文件路径中获取界面配置信息，并添加到界面管理器
-    #     :param configPath: 配置文件路径
-    #     """
+    def SetupScreensFromConfig(self, configPath):
+        """
+        从配置文件路径中获取界面配置信息，并添加到界面管理器
+        :param configPath: 配置文件路径
+        """
 
-    #     @classmethod
-    #     def addScreen(cls, id, name, imagePath, actions):
-    #         """
-    #         添加一个新界面到界面管理器，并指定其识别图片路径、可切换的目标界面及操作序列
-    #         :param id: 新界面的唯一标识
-    #         :param name: 新界面的名称
-    #         :param imagePath: 用于识别界面的图片路径
-    #         :param actions: 可切换的目标界面及操作序列
-    #         """
-    #         cls.screenMap[id] = {'name': name, 'image_path': imagePath, 'actions': actions}
-
-    #     try:
-    #         with open(configPath, 'r', encoding='utf-8') as file:
-    #             for config in json.load(file):
-    #                 id = config["id"]
-    #                 name = config["name"]
-    #                 imagePath = config["image_path"]
-    #                 actions = config["actions"]
-    #                 addScreen(id, name, imagePath, actions)
-    #     except FileNotFoundError:
-    #         nowtime = time.time()
-    #         logClientMgr.Error(f"{nowtime}配置文件不存在：{configPath}")
-    #         raise Exception (f"{nowtime},配置文件不存在：{configPath}")
-    #         # input(_("按回车键关闭窗口. . ."))
-    #         # sys.exit(1)
-    #     except Exception as e:
-    #         nowtime = time.time()
-    #         logClientMgr.Error(f"{nowtime},配置文件解析失败：{e}")
-    #         raise Exception (f"{nowtime},配置文件解析失败：{e}")
-    #         # input(_("按回车键关闭窗口. . ."))
-    #         # sys.exit(1)
+        try:
+            with open(configPath, 'r', encoding='utf-8') as file:
+                for config in json.load(file):
+                    id = config["id"]
+                    name = config["name"]
+                    imagePath = config["image_path"]
+                    actions = config["actions"]
+                    self.AddScreen(id, name, imagePath, actions)
+        except FileNotFoundError:
+            nowtime = time.time()
+            logClientMgr.Error(f"{nowtime}配置文件不存在：{configPath}")
+            raise Exception (f"{nowtime},配置文件不存在：{configPath}")
+            # input(_("按回车键关闭窗口. . ."))
+            # sys.exit(1)
+        except Exception as e:
+            nowtime = time.time()
+            logClientMgr.Error(f"{nowtime},配置文件解析失败：{e}")
+            raise Exception (f"{nowtime},配置文件解析失败：{e}")
+            # input(_("按回车键关闭窗口. . ."))
+            # sys.exit(1)
         
     # @classmethod
     # def GetName(cls, id):

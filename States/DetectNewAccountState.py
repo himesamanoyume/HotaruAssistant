@@ -1,17 +1,17 @@
 from States import *
 from Hotaru.Client.ConfigClientHotaru import configClientMgr
-from Modules.Utils.ClientData import ClientData
+from Modules.Utils.Data import Data
 from Modules.Utils.Date import Date
 
 class DetectNewAccountState(BaseState):
     mStateName = 'DetectNewAccountState'
 
     def OnBegin(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} Begin"))
+        # log.info(logClientMgr.Info(f"{self.mStateName} Begin"))
         return False
 
     def OnRunning(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} Running"))
+        # log.info(logClientMgr.Info(f"{self.mStateName} Running"))
         log.info(logClientMgr.Info("正在检测是否有新注册表加入"))
         wantRegisterAccounts = configClientMgr.mConfig[configClientMgr.mKey.WANT_REGISTER_ACCOUNTS]
         if len(wantRegisterAccounts) > 1:
@@ -51,7 +51,7 @@ class DetectNewAccountState(BaseState):
                 else:
                     configClientMgr.mConfig[configClientMgr.mKey.MULTI_LOGIN_ACCOUNTS].append(item['reg_path'])
 
-                ClientData.loginList.append(f"{str(item['reg_path'])}")
+                Data.loginList.append(f"{str(item['reg_path'])}")
                 configClientMgr.mConfig[configClientMgr.mKey.NOTIFY_SMTP_TO][uid] = item['email']
                 configClientMgr.mConfig[configClientMgr.mKey.UNIVERSE_DIFFICULTY][uid] = item['universe_number']
                 configClientMgr.mConfig[configClientMgr.mKey.UNIVERSE_NUMBER][uid] = item['universe_difficulty']
@@ -60,5 +60,5 @@ class DetectNewAccountState(BaseState):
         return False
 
     def OnExit(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} Exit"))
+        # log.info(logClientMgr.Info(f"{self.mStateName} Exit"))
         return False
