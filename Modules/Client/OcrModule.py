@@ -1,5 +1,5 @@
 from .PPOcrApiSubModule import GetOcrApi
-from Hotaru.Client.LogClientHotaru import logClientMgr
+from Hotaru.Client.LogClientHotaru import logClientMgr,log
 from PIL import Image
 import os,io
 
@@ -11,15 +11,15 @@ class OcrModule:
     def InstanceOcr(self):
         if self.ocr is None:
             try:
-                logClientMgr.Debug("开始初始化OCR...")
+                log.debug(logClientMgr.Debug("开始初始化OCR..."))
                 self.ocr = GetOcrApi(self.exePath)
-                logClientMgr.Debug("初始化OCR完成")
+                log.debug(logClientMgr.Debug("初始化OCR完成"))
             except Exception as e:
-                logClientMgr.Error("初始化OCR失败：{e}").format(e=e)
+                log.error(logClientMgr.Error("初始化OCR失败：{e}").format(e=e))
                 self.ocr = None
-                logClientMgr.Info("请尝试重新下载或解压")
-                logClientMgr.Info("若 Win7 报错计算机中丢失 VCOMP140.DLL，请安装 VC运行库")
-                logClientMgr.Info("https://aka.ms/vs/17/release/vc_redist.x64.exe")
+                log.info(logClientMgr.Info("请尝试重新下载或解压"))
+                log.info(logClientMgr.Info("若 Win7 报错计算机中丢失 VCOMP140.DLL，请安装 VC运行库"))
+                log.info(logClientMgr.Info("https://aka.ms/vs/17/release/vc_redist.x64.exe"))
                 raise Exception (f"初始化OCR失败：{e}")
                 # input("按回车键关闭窗口. . ."))
                 # sys.exit(1)
@@ -32,7 +32,7 @@ class OcrModule:
     @staticmethod
     def ConvertFormat(result):
         if result['code'] != 100:
-            logClientMgr.Debug(result)
+            log.debug(logClientMgr.Debug(result))
             return False
         convertedResult = []
 
@@ -102,7 +102,7 @@ class OcrModule:
             modifiedDict = eval(originalStr)
             return modifiedDict
         except Exception as e:
-            logClientMgr.Error(e)
+            log.error(logClientMgr.Error(e))
             return r"{}"
 
     def RecognizeSingleLine(self, image, blacklist=None):

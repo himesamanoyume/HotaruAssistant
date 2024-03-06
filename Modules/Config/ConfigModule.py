@@ -4,7 +4,7 @@ from . import *
 # from Hotaru.Server.LogServerHotaru import logServerMgr
 from .BaseConfigModule import BaseConfigModule
 from Modules.Utils.ConfigKey import ConfigKey
-import time,threading
+import time
 
 class ConfigModule(BaseConfigModule):
 
@@ -21,22 +21,8 @@ class ConfigModule(BaseConfigModule):
             cls.mInstance.mConfigPath = "./config.yaml"
             cls.mInstance.LoadConfig()
             cls.mLastTimeSaveTimestamp = cls.mInstance.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]
+            
         return cls.mInstance
-    
-    def IsAgreed2Disclaimer(self):
-        if not self[ConfigKey.AGREED_TO_DISCLAIMER]:
-            self.ShowDisclaimer()
-            self.autoSaveThread = threading.Thread(target=self.AutoSave)
-            self.autoSaveThread.start()
-
-    def AutoSave(self):
-        while True:
-            time.sleep(1)
-            if time.time() - self.mLastTimeModifyTimestamp <= 5:
-                time.sleep(5)
-                if time.time() - self.mLastTimeModifyTimestamp >= 5:
-                    self.SaveConfig()
-                    self.logMgr.Info("配置文件已自动保存")
     
     def LoadConfig(self, configPath=None):
         configPath = self.mConfigPath if configPath is None else configPath
@@ -58,6 +44,20 @@ class ConfigModule(BaseConfigModule):
         with open(self.mConfigPath, 'w', encoding='utf-8') as file:
             self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] = time.time()
             self.mYaml.dump(self.mConfig, file)
+
+    def SetValue(self, key, value):
+        if key in self.mConfig:
+            tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
+            if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
+                self.mConfig = tempConfig
+
+            nowTime = time.time()
+            if nowTime - self.mLastTimeModifyTimestamp >= 5:
+                self.LoadConfig("./config.yaml")
+                self.mLastTimeModifyTimestamp = nowTime
+            self.mConfig[key] = value
+        else:
+            raise AttributeError(f"'{type(self).__name__}' object has no attribute '{key}'")
     
     @classmethod
     def DefaultConfig(cls, exampleConfigPath):
@@ -72,13 +72,15 @@ class ConfigModule(BaseConfigModule):
             sys.exit(1)
 
     
-    def DetectKeyIsExist(self, key:str, uid:str=None, defaultValue=0):
+    def DetectKeyIsExist(self, key, uid=None, defaultValue=0):
         try:
             if uid is None:
-                if self.mConfig[key] == ({} or None):
+                if self.mConfig[key] == {} or self.mConfig[key] == None:
                     self.mConfig[key] = defaultValue
             else:
-                if self.mConfig[key][uid] == ({} or None) or uid not in self.mConfig[key][uid].keys():
+                if self.mConfig[key] == {} or uid not in self.mConfig[key].keys():
+                    self.mConfig[key][uid] = defaultValue
+                elif self.mConfig[key][uid] == None:
                     self.mConfig[key][uid] = defaultValue
         except Exception as e:
             self.logMgr.Error(e)
@@ -105,7 +107,7 @@ class ConfigModule(BaseConfigModule):
                         
     def __getitem__(self, attr):
         if attr in self.mConfig:
-            self.logMgr.Info(f"获取值2:{attr}")
+            # self.logMgr.Info(f"获取值2:{attr}")
             tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
             if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
                 self.mConfig = tempConfig
@@ -119,7 +121,6 @@ class ConfigModule(BaseConfigModule):
                         
     def __getattr__(self, attr):
         if attr in self.mConfig:
-            self.logMgr.Info(f"获取值1:{attr}")
             tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
             if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
                 self.mConfig = tempConfig
@@ -131,19 +132,4 @@ class ConfigModule(BaseConfigModule):
             return self.mConfig[attr]
         raise AttributeError(f"'{type(self).__name__}' object has no attribute '{attr}'")
     
-    def ShowDisclaimer(self):
-        self.logMgr.Info("《免责声明》")
-        self.logMgr.Info('本软件是一个外部工具旨在自动化崩坏星轨的游戏玩法。它被设计成仅通过现有用户界面与游戏交互,并遵守相关法律法规。该软件包旨在提供简化和用户通过功能与游戏交互,并且它不打算以任何方式破坏游戏平衡或提供任何不公平的优势。该软件包不会以任何方式修改任何游戏文件或游戏代码。\nThis software is open source, free of charge and for learning and exchange purposes only. The developer team has the final right to interpret this project. All problems arising from the use of this software are not related to this project and the developer team. If you encounter a merchant using this software to practice on your behalf and charging for it, it may be the cost of equipment and time, etc. The problems and consequences arising from this software have nothing to do with it.\n本软件开源、免费，仅供学习交流使用。开发者团队拥有本项目的最终解释权。使用本软件产生的所有问题与本项目与开发者团队无关。若您遇到商家使用本软件进行代练并收费，可能是设备与时间等费用，产生的问题及后果与本软件无关。\n根据MiHoYo的 [崩坏:星穹铁道的公平游戏宣言]：\n"严禁使用外挂、加速器、脚本或其他破坏游戏公平性的第三方工具。"\n"一经发现，米哈游（下亦称“我们”）将视违规严重程度及违规次数，采取扣除违规收益、冻结游戏账号、永久封禁游戏账号等措施。"')
-        self.logMgr.Warning("就此离开，没人会受伤。否则，你们都会死...")
-        selectTitle = '你是否接受?'
-        options = dict()
-        options.update({"我接受":0})
-        options.update({"我拒绝":1})
-        option = questionary.select(selectTitle, list(options.keys())).ask()
-        value = options.get(option)
-        if value == 0:
-            self.mConfig[ConfigKey.AGREED_TO_DISCLAIMER] = True
-        else:
-            self.logMgr.Info("您未同意《免责声明》")
-            input("按回车键关闭窗口. . .")
-            sys.exit(0)
+    

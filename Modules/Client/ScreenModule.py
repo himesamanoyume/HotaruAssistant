@@ -2,7 +2,7 @@
 # from .ScreenshotScreenSubModule import ScreenshotScreenSubModule
 # from .ResulotionScreenSubModule import ResulotionScreenSubModule
 import threading,time,json,sys
-from Hotaru.Client.LogClientHotaru import logClientMgr
+from Hotaru.Client.LogClientHotaru import logClientMgr,log
 from collections import deque
 
 class ScreenModule:

@@ -1,4 +1,4 @@
-import sys,pyuac,atexit,os
+import sys,pyuac,atexit,os,time
 os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)))
 
 from Hotaru.Server.LogServerHotaru import logServerMgr
@@ -12,13 +12,11 @@ from Hotaru.Server.OcrServerHotaru import ocrServerMgr
 class AppServer:
     def Main():
         logServerMgr.Info("HotaruAssistant - Server...启动!")
-        configServerMgr.mConfigModule.IsAgreed2Disclaimer()
+        configServerMgr.IsAgreed2Disclaimer()
         # updateMgr.mUpdate.DetectVersionUpdate()
         ocrServerMgr.CheckPath()
-        configServerMgr.mConfig[configServerMgr.mKey.RECORDING_ENABLE] = True
         webMgr.StartWeb()
         socketServerMgr.StartSocket()
-        
         
 
 if __name__ == "__main__":

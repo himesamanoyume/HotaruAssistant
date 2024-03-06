@@ -26,12 +26,12 @@ class LoggerClientModule:
         self.ClearLog("./logs")
         
         file_handler = logging.FileHandler(f"./logs/{self.CurrentDatetime()}.log", encoding="utf-8")
-        file_formatter = logging.Formatter('├ %(levelname)s|%(asctime)s\n└ %(message)s')
+        file_formatter = logging.Formatter('├ %(levelname)s|%(asctime)s|%(filename)s:%(lineno)d\n└ %(message)s')
         file_handler.setFormatter(file_formatter)
         self.logger.addHandler(file_handler)
 
         console_handler = logging.StreamHandler()
-        console_formatter = ColoredFormatter('├ %(levelname)s|%(asctime)s\n└ %(message)s')
+        console_formatter = ColoredFormatter('├ %(levelname)s|%(asctime)s|%(filename)s:%(lineno)d\n└ %(message)s')
         console_handler.setFormatter(console_formatter)
         self.logger.addHandler(console_handler)
 
@@ -52,18 +52,18 @@ class LoggerClientModule:
     def GetLogger(self):
         return self.logger
     
-    def Info(self, msg, *args, **kwargs):
-        self.GetLogger().info(msg, *args, **kwargs)
+    # def Info(self, msg, *args, **kwargs):
+    #     self.GetLogger().info(msg, *args, **kwargs)
 
-    def Error(self, msg, *args, **kwargs):
-        self.GetLogger().error(msg, *args, **kwargs)
+    # def Error(self, msg, *args, **kwargs):
+    #     self.GetLogger().error(msg, *args, **kwargs)
 
-    def Warning(self, msg, *args, **kwargs):
-        self.GetLogger().warning(msg, *args, **kwargs)
+    # def Warning(self, msg, *args, **kwargs):
+    #     self.GetLogger().warning(msg, *args, **kwargs)
 
-    def Debug(self, msg, *args, **kwargs):
-        self.GetLogger().debug(msg, *args, **kwargs)
+    # def Debug(self, msg, *args, **kwargs):
+    #     self.GetLogger().debug(msg, *args, **kwargs)
 
-    def Hr(self, msg, *args, **kwargs):
-        self.GetLogger().hr(msg, *args, **kwargs)
+    # def Hr(self, msg, *args, **kwargs):
+    #     self.GetLogger().hr(msg, *args, **kwargs)
 

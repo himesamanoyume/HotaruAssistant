@@ -1,5 +1,4 @@
 
-from Modules.Client.LoggerClientModule import LoggerClientModule
 from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
 class LogClientMgr:
@@ -8,7 +7,7 @@ class LogClientMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mLoggerModule = LoggerClientModule()
+            # cls.mLoggerModule = LoggerClientModule()
             cls.Hr("HotaruAssistant - Client\n启动!")
             cls.Info("Client日志已加载")
 
@@ -18,19 +17,22 @@ class LogClientMgr:
     def Info(cls, msg, *args, **kwargs):
         msg = f"\033[91m[-1]\033[0m|临时流程|" + msg
         socketClientMgr.LogSendToServer("INFO", msg)
-        cls.mLoggerModule.Info(msg, *args, **kwargs)
+        return msg
+        # cls.mLoggerModule.GetLogger().info(msg, *args, **kwargs)
 
     @classmethod
     def Error(cls, msg, *args, **kwargs):
         msg = f"\033[91m[-1]\033[0m|临时流程|" + msg
         socketClientMgr.LogSendToServer("ERROR", msg)
-        cls.mLoggerModule.Error(msg, *args, **kwargs)
+        return msg
+        # cls.mLoggerModule.GetLogger().error(msg, *args, **kwargs)
 
     @classmethod
     def Warning(cls, msg, *args, **kwargs):
         msg = f"\033[91m[-1]\033[0m|临时流程|" + msg
         socketClientMgr.LogSendToServer("WARNING", msg)
-        cls.mLoggerModule.Warning(msg, *args, **kwargs)
+        return msg
+        # cls.mLoggerModule.GetLogger().warning(msg, *args, **kwargs)
 
     @classmethod
     def Screen(cls, msg):
@@ -39,13 +41,15 @@ class LogClientMgr:
     @classmethod
     def Debug(cls, msg, *args, **kwargs):
         msg = f"\033[91m[-1]\033[0m|临时流程|" + msg
-        cls.mLoggerModule.Debug(msg, *args, **kwargs)
+        return msg
+        # cls.mLoggerModule.GetLogger().debug(msg, *args, **kwargs)
 
     @classmethod
     def Hr(cls, msg, isLog = False, *args, **kwargs):
         if isLog:
             socketClientMgr.LogSendToServer("HR", msg)
-        cls.mLoggerModule.Hr(msg, *args, **kwargs)
+        return msg
+        # cls.mLoggerModule.GetLogger().hr(msg, *args, **kwargs)
 
 
 

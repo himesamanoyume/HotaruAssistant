@@ -5,15 +5,15 @@ class CompleteDailyState(BaseState):
     mStateName = 'CompleteDailyState'
 
     def OnBegin(self):
-        logClientMgr.Info(f"{self.mStateName} Begin")
+        log.info(logClientMgr.Info(f"{self.mStateName} Begin"))
         return False
 
     def OnRunning(self):
-        logClientMgr.Info(f"{self.mStateName} Running")
+        log.info(logClientMgr.Info(f"{self.mStateName} Running"))
         return False
 
     def OnExit(self):
-        logClientMgr.Info(f"{self.mStateName} Exit")
+        log.info(logClientMgr.Info(f"{self.mStateName} Exit"))
         return False
 
 

@@ -1,8 +1,8 @@
 
 from Modules.Utils.ConfigKey import ConfigKey
-# from Modules.Config.ConfigClientModule import ConfigClientModule
 from Modules.Config.ConfigModule import ConfigModule
-from Hotaru.Client.LogClientHotaru import logClientMgr
+from Hotaru.Client.LogClientHotaru import logClientMgr,log
+import sys
 
 class ConfigClientMgr:
     mInstance = None
@@ -10,24 +10,15 @@ class ConfigClientMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            # cls.mConfig = ConfigClientModule()
-            cls.mConfig = ConfigModule(logClientMgr)
+            cls.mConfigModule = ConfigModule(logClientMgr)
+            cls.mConfig = cls.mConfigModule.mConfig
             cls.mKey = ConfigKey()
 
         return cls.mInstance
     
-    # @classmethod
-    # def SetConfigValue(cls, key:str, uid, value=0):
-    #     cls.mConfig.SetConfigValue(key, uid, value)
-
-    # @classmethod
-    # def DelConfigKey(cls, key:str, uid):
-    #     cls.mConfig.DelConfigKey(key, uid)
-
-    # @classmethod
-    # def AppendConfigValue(cls, key:str, uid, value=0):
-    #     cls.mConfig.AppendConfigValue(key, uid, value)
-
-    # @classmethod
-    # def GetConfigValue(cls, key:str, uid):
-    #     return cls.mConfig.GetConfigValue(key, uid)
+    def IsAgreed2Disclaimer(self):
+        if not self.mConfig[self.mKey.AGREED_TO_DISCLAIMER]:
+            log.error(logClientMgr.Error("你未同意《免责声明》, 需要先启动Server并同意"))
+            input("按回车键关闭窗口. . .")
+            sys.exit(0)
+    
