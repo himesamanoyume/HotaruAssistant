@@ -14,10 +14,8 @@ Pillow
 Numpy
 opencv-python
 onepush
-winotify
 markdown
 cpufeature
-PyQt-Fluent-Widgets
 pylnk3
 flask
 questionary

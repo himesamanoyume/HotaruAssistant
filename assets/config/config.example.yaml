@@ -1,0 +1,118 @@
+last_time_save_timestamp: 0
+check_update: true # 检测更新
+agreed_to_disclaimer: false # false为未接受
+dev_screen_enable: false # 是否开启透明窗口
+recording_enable: false # 是否录制
+last_running_uid: '111111111' # 最后运行的UID
+blacklist_uid: # UID黑名单,uid后可以注释黑名单原因
+- '111111111' # 太帅
+- '222222222' # 太帅
+cdkey_list: {} # 兑换码列表
+next_loop_time: 12 # 下一次循环开始所等待的时间 单位:小时
+multi_login_accounts: {} # 多账号注册表位置
+want_register_accounts: # 启动游戏前先进行注册,111111111为示例,不要删除!
+  '111111111':
+    email: ''
+    reg_path: ''
+    universe_team:
+    - Bronya
+    - Blade
+    - JingLiu
+    - JingYuan
+    universe_fate: 4
+    universe_number: 3
+    universe_difficulty: 1
+
+python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
+pypi_mirror_urls: # pypi 镜像列表
+- https://mirrors.cloud.tencent.com/pypi/simple/
+- https://mirrors.aliyun.com/pypi/simple/
+- https://pypi.org/simple/
+
+game_title_name: 崩坏：星穹铁道 # 窗口标题
+game_process_name: StarRail # 进程名
+game_path: D:\Star Rail\Game\StarRail.exe # 游戏路径,注意不是启动器的exe
+
+instance_type: {} # 副本类型: 侵蚀隧洞、凝滞虚影、拟造花萼（金）、拟造花萼（赤）、模拟宇宙
+instance_names: {} # 副本名称
+
+power_needs: # 副本所需开拓力
+  拟造花萼（金）: 10
+  拟造花萼（赤）: 10
+  凝滞虚影: 30
+  侵蚀隧洞: 40
+  历战余响: 30
+instance_team_enable: false # 打副本时自动切换队伍
+instance_team_number: '1' # 队伍编号
+use_reserved_trailblaze_power: False # 使用后备开拓力
+use_fuel: False # 使用燃料
+
+echo_of_war_enable: {} # 体力优先完成3次「历战余响」
+echo_of_war_timestamp: {} # 上次完成3次「历战余响」的时间戳（每周运行）
+echo_of_war_times: {} # 历战余响次数
+
+relic_salvage_enable: {} # 是否分解遗器
+relic_salvage_5star_enable: {} # 若允许分解遗器,是否分解5星遗器
+relic_salvage_4star_enable: {} # 若允许分解遗器,是否分解4星遗器
+relic_salvage_5star_to_exp: {} # 若分解5星遗器,是否分解成遗器经验材料
+relic_threshold_count: {} # 触发遗器超标的数量
+
+borrow_character_enable: false # 强制使用支援角色
+borrow_character_from: # 使用指定好友的支援角色
+- 好友1
+- 好友2
+- 好友3
+borrow_character: # 支援角色优先级
+- Bronya
+- Huohuo
+- FuXuan
+- RuanMei
+- Luocha
+- Bailu
+
+dispatch_enable: true # 领取委托奖励
+mail_enable: true # 领取邮件奖励
+assist_enable: true # 领取支援奖励
+
+daily_himeko_try_enable: true # 通过 “姬子试用” 完成任务
+daily_tasks: {} # 每日实训
+daily_tasks_score: {} # 活跃度
+daily_tasks_fin: {} # 是否完成实训
+
+last_run_timestamp: {} # 上次运行日常的时间戳
+
+universe_enable: true # 启用模拟宇宙
+universe_bonus_enable: true # 领取沉浸奖励
+universe_fin: {} # 是否模拟宇宙满分
+universe_score: {} # 模拟宇宙积分
+universe_count: 2 # 运行次数
+universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
+universe_timeout: 0.67 # 模拟宇宙超时（单位小时）
+universe_requirements: false # 是否安装过依赖（更新后会重置为false）
+universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
+universe_number: {} # 第几宇宙
+universe_difficulty: {} # 什么难度
+universe_fate: {} # 什么命途 0存护1记忆2虚无3丰饶4巡猎5毁灭6欢愉7繁育
+universe_team: {} # 阵容
+
+forgottenhall_stars: {} # 忘却之庭星数
+forgottenhall_levels: {} # 忘却之庭通过层数
+purefiction_stars: {} # 虚构叙事星数
+purefiction_levels: {} # 虚构叙事层数
+
+hotkey_technique: e # 游戏内设置的秘技按键
+hotkey_obs_start: '[' # obs开始录制的快捷键
+hotkey_obs_stop: ']' # obs开始录制的快捷键
+
+# 消息通知
+# 邮箱 smtp 通知
+# 注意部分邮箱密码部分需要填写授权码（比如QQ邮箱）
+notify_smtp_enable: false
+notify_smtp_host: ''
+notify_smtp_user: ''
+notify_smtp_password: ''
+notify_smtp_From: '' # 可选参数
+notify_smtp_To: {} # 可选参数
+notify_smtp_port: '587' # 可选参数 587,465
+notify_smtp_ssl: '' # 可选参数
+notify_smtp_master: '' # 正在控制该脚本的使用者的专用邮箱

@@ -1,32 +1,19 @@
-from States.State import State
-from Mgrs.HotaruMgr import LogMgr
-from Mgrs.HotaruMgr import ConfigMgr
+from States import *
 
-class CompleteDailyState:
+class CompleteDailyState(BaseState):
 
     mStateName = 'CompleteDailyState'
 
-    @classmethod
-    def Init(cls):
-        state = State(
-            cls.mStateName,
-            lambda:cls.OnBegin(), 
-            lambda:cls.OnRunning(),
-            lambda:cls.OnExit()
-        )
-        
-        return state
+    def OnBegin(self):
+        log.info(logClientMgr.Info(f"{self.mStateName} Begin"))
+        return False
 
-    @classmethod
-    def OnBegin(cls):
-        LogMgr.Info(f"{cls.mStateName} Begin")
+    def OnRunning(self):
+        log.info(logClientMgr.Info(f"{self.mStateName} Running"))
+        return False
 
-    @classmethod
-    def OnRunning(cls):
-        LogMgr.Info(f"{cls.mStateName} Running")
-
-    @classmethod
-    def OnExit(cls):
-        LogMgr.Info(f"{cls.mStateName} Exit")
+    def OnExit(self):
+        log.info(logClientMgr.Info(f"{self.mStateName} Exit"))
+        return False
 
 

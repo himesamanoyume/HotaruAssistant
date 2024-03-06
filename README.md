@@ -47,115 +47,6 @@ HotaruAssistant · 流萤小助手<br>
 - 识别/点击都以限定时间内快速重复尝试为主
 - 打死我也不用蛇形命名
 
-预期项目结构
-
-```mermaid
-graph TB
-
-HotaruAssistant-->Modules
-HotaruAssistant-->States
-States-->BaseState
-States-->IdleState
-States-->WaitingState
-States-->CompleteDailyState
-States-->CompleteUniverseState
-States-->CompletePowerState
-Modules-->Client
-Client-->ClickModule
-Client-->InputModule最好支持后台输入
-Client-->OcrModule
-Client-->ScreenModule
-ScreenModule-->ScreenshotSubModule
-ScreenModule-->DetectScreenSubModule
-ScreenModule-->DevScreenSubModule,透明窗口
-ScreenModule-->ResulotionScreenSubModule
-Modules-->Server
-Server-->WebModule
-Server-->NotifyModule
-Server-->DataModule
-Server-->UpdateModule
-Server-->LoggerModule
-Modules-->Json
-Json-->JsonModule
-Modules-->Config
-Config-->ConfigModule
-Modules-->Regigster
-Regigster-->RegigsterModule
-Modules-->Plugin
-Modules-->Task
-Modules-->BaseModule
-Modules-->Controller
-Controller-->GameControllerModule
-Controller-->WindowsControllerModule
-HotaruAssistant-->Mgrs
-Mgrs-->BaseMgr
-BaseMgr-->SocketServerSubMgr
-BaseMgr-->SocketClientSubMgr
-BaseMgr-->ConfigMgr
-BaseMgr-->JsonMgr
-BaseMgr-->LoggerMgr
-BaseMgr-->UtilsMgr
-BaseMgr-->StateMgr
-BaseMgr-->ClickMgr
-BaseMgr-->HotaruMgr
-BaseMgr-->ScreenMgr
-BaseMgr-->SocketMgr
-BaseMgr-->WebMgr
-BaseMgr-->TaskMgr
-UtilsMgr-->DevScreen
-ClientMgr-->ClickMgr
-ClientMgr-->SocketMgr
-ClientMgr-->ScreenMgr
-ClickMgr-->Click
-ClickMgr-->Input
-SocketMgr-->SocketClient
-SocketMgr-->SocketServer
-HotaruAssistant-->Assets
-Assets-->ScreenJson
-Assets-->ScreenImages
-```
-
-预期游戏结构
-
-```mermaid
-graph TB
-
-ScreenImages-->Login
-ScreenImages-->Idle
-ScreenImages-->Phone
-ScreenImages-->Map
-ScreenImages-->Fight
-Phone-->Guide
-Phone-->Honor纪行
-Phone-->Store
-Phone-->TravelLog活动
-Phone-->Warp祈愿
-Phone-->Assignments委托
-Phone-->Synthesize合成机
-Phone-->Inventory背包
-Phone-->Mails
-Phone-->More
-Guide-->Index副本
-Guide-->Daily
-Guide-->Treasures深渊
-Index副本-->Universe
-Index副本-->CalyxGolden金花
-Index副本-->CalyxCrimson赤花
-Index副本-->Shadow凝滞虚影
-Index副本-->Corrision侵蚀隧洞
-Index副本-->War历战余响
-Treasures深渊-->Hall忘却之庭
-Treasures深渊-->Fiction虚构叙事
-Warp祈愿-->HimekoTry
-Synthesize合成机-->Synthesis合成
-Synthesize合成机-->Exchange转化
-Inventory背包-->Relics遗器
-More-->Profile
-More-->Wallpaper
-
-```
-
-
 </details>
 
 ## 声明
@@ -262,24 +153,56 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
-- **先将项目结构文件和函数名称定义写好,之后逐渐将老代码逻辑重构至新代码**
+#### State
+- 要求实现两个状态能来回切换甚至达成循环
+
+#### Update
+- 需要Update单独作为一个应用程序,因为下载器是不会随版本更新而变化的
+
+#### Socket
+- [低优先级]Client向Server发送心跳包,同时Server也要进行回应,当任何一方长期未接收到心跳包时,判定对方离线并做相应处理,如Client发现Server没了,则直接中止程序
+- BUG:启动Client时会莫名其妙收到Server的消息
+
+#### Screen/Click
+- 实现Screen相关的代码转移
+- - **优先实现DevScreen**
+- - - 后台输入
+- - - 使用tkinter实现透明窗口,并将DevScreen迁移到Server
+- - ~~Client和Server的Socket传输新增type处理:log,screen,在文字最前方以|||分为head,content~~
+- **实现Server启动时不显示DevScreen,当Client检测到游戏窗口时通过POST请求,使DevScreen激活**[4]
+- - 实现Socket Screen消息处理到DevScreen产生方框等
+- 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
+
+#### GameLoop
+
+- 有最后一次保存时间,最后一次修改时间，当修改时间与保存相差5秒以上时,应临时读取配置的最后一次保存时间,如果临时配置的保存时间更大，说明配置文件更加新，因此将该临时配置变量替换当前配置，再进行保存，同时记录时间戳[0]
+- 实现根据config初始化登录列表[1(应该在何处实现列表的循环?)]：将InitState中检查部分移到AppClient.Main中,且同位置进行列表循环,旧项目中的detectIsNoneButNoSave相关交由InitState处理
+- 实现want_register_accounts[2]
+- 实现启动游戏[3]
+- - 实现每隔一段时间Server保存
+
+#### Web
+- 网页排版提高大屏幕利用率:宽屏时左右两列布局,左边为每日情况,右边为配置信息,下方对应保存信息按钮,底部横跨一页为作者信息(与目前相同), 每日信息需要sticky类似b站动态页面的左侧直播板块, 竖屏时变换为1列布局
+- - 内网穿透后资源路径改变,如favicon应放入static内的文件夹中,不能存放于根目录
+
+#### Common
+
+- 日常轮次时已获取模拟宇宙积分 若该次检测到已满分 则不尝试进行模拟宇宙轮次 当然选择刷模拟宇宙的情况除外
 - 如果完成了每日 则还原显示剧情中天台中视角流萤仰望天空图片 否则没有(流萤上线实装)
-- Socket->Log->Config->...
-- 服务器启动后 根据uid读取配置加载 并创建为实例，此后每隔一段时间保存到config文件，只能通过webui直接修改实例，服务器运行期间都以实例的配置为准，config只在第一次加载时起效
-- update.exe新增选项选择更新全体或单独更新assets
-- - assets也有版本号,v2.x.0a/v2.x.0b,meta json中存放
+- 启动游戏时,获取该进程的pid进行管理,以用于多开游戏时关闭特定进程的游戏
+- 深渊最近更新页面，检测即将更新的项目的倒计时
+- 获取倒计时时 根据时间计算出结算时间,用于显示在后台
+- ~~update.exe新增选项选择更新全体或单独更新assets~~
+- - ~~assets也有版本号,v2.x.0.a/v2.x.0.b,meta json中存放~~
 - 模拟宇宙改造成程序运行
 - 自动战斗检测一直持续到超时或战斗结束
-- 截图工具加上滚动条，新增透明窗口 不断显示检测区域
-- 后台新增调整循环结束后配置
 - 后台新增是否开启daily_himeko_try_enable,after_finish
 - 更换头图至秘密基地
 - 教程写明更清晰的使用步骤(从blog中移动)
-- 配置文件去除multi_login
 
 ## 1.xTODO
 
-- (预计v1.8.4.4之后)完成每日时截图界面与邮件一并发送防止显示完成了每日但实际上并没有的情况
+- 完成每日时截图界面与邮件一并发送防止显示完成了每日但实际上并没有的情况
 
 ## 1.x低优先级
 
