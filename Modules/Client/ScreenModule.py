@@ -1,33 +1,57 @@
 # from .DetectScreenSubModule import DetectScreenSubModule
 # from .ScreenshotScreenSubModule import ScreenshotScreenSubModule
 # from .ResulotionScreenSubModule import ResulotionScreenSubModule
-from .DevScreenModule import DevScreenModule
+from .DevScreenSubModule import DevScreenSubModule
 import threading,time,json,sys
-from Hotaru.Client.LogClientHotaru import logClientMgr,log
+from Hotaru.Client.LogClientHotaru import logMgr,log
 from collections import deque
+import pyautogui,win32gui
 
 class ScreenModule:
 
     def __init__(self, configPath="./assets/config/screens.json"):
-        self.mDevScreen = DevScreenModule()
+        self.mDevScreen = DevScreenSubModule()
         self.currentScreen = None
         self.screenMap = {}
         self.SetupScreensFromConfig(configPath)
         self.green = "\033[92m"
         self.reset = "\033[0m"
-        # if cls.mInstance is None:
-        #     pass
-        #     # cls.mDetectScreen = DetectScreenSubModule()
-        #     # cls.mScreenshot = ScreenshotScreenSubModule()
-        #     # cls.mResulotionScreen = ResulotionScreenSubModule()
-        #     # cls.currentScreen = None
-        #     # cls.screenMap = {}
-        #     # cls.lock = threading.Lock()  # 创建一个锁，用于线程同步
-        #     # cls.SetupScreensFromConfig(configPath)
-        #     # cls.green = "\033[92m"
-        #     # cls.reset = "\033[0m"
 
-        # return cls.mInstance
+    @staticmethod
+    def SwitchToWindow(title, maxRetries, isGameWindow = True):
+        for i in range(maxRetries):
+            windows = pyautogui.getWindowsWithTitle(title)
+            if not windows:
+                continue
+            for window in windows:
+                if window.title == title:
+                    if isGameWindow:
+                        try:
+                            hwnd = win32gui.FindWindow("UnityWndClass", title)
+                            win32gui.GetWindowRect(hwnd)
+                        except Exception as e:
+                            continue
+                    try:
+                        window.restore()
+                        window.activate()
+                    except Exception as e:
+                        log.warning(logMgr.Warning(e))
+                    time.sleep(2)
+                    if window.isActive:
+                        if isGameWindow:
+                            try:
+                                hwnd = win32gui.FindWindow("UnityWndClass", title)
+                                win32gui.GetWindowRect(hwnd)
+                                return True
+                            except Exception as e:
+                                log.warning(logMgr.Warning(e))
+                    log.warning(logMgr.Warning("切换窗口失败,尝试ALT+TAB"))
+                    pyautogui.hotkey('alt', 'tab')
+                    time.sleep(2)
+                    continue
+        return False
+
+
 
     def AddScreen(self, id, name, imagePath, actions):
             """
@@ -55,13 +79,13 @@ class ScreenModule:
                     self.AddScreen(id, name, imagePath, actions)
         except FileNotFoundError:
             nowtime = time.time()
-            logClientMgr.Error(f"{nowtime}配置文件不存在：{configPath}")
+            logMgr.Error(f"{nowtime}配置文件不存在：{configPath}")
             raise Exception (f"{nowtime},配置文件不存在：{configPath}")
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(1)
         except Exception as e:
             nowtime = time.time()
-            logClientMgr.Error(f"{nowtime},配置文件解析失败：{e}")
+            logMgr.Error(f"{nowtime},配置文件解析失败：{e}")
             raise Exception (f"{nowtime},配置文件解析失败：{e}")
             # input(_("按回车键关闭窗口. . ."))
             # sys.exit(1)

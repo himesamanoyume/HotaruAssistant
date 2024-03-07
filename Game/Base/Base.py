@@ -2,7 +2,7 @@ from States.InitState import InitState
 from States.StartGameState import StartGameState
 from States.LoginGameState import LoginGameState
 from Hotaru.Client.StateHotaru import stateMgr
-from Hotaru.Client.DataHotaru import data
+from Hotaru.Client.DataClientHotaru import data
 from States.DetectNewAccountState import DetectNewAccountState
 
 class Base:

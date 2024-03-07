@@ -1,6 +1,6 @@
 from States import *
-from Hotaru.Client.ConfigClientHotaru import configClientMgr
-from Modules.Utils.Data import Data
+from Hotaru.Client.ConfigClientHotaru import configMgr
+from Hotaru.Client.DataClientHotaru import data
 from Modules.Utils.Date import Date
 
 class InitState(BaseState):
@@ -13,38 +13,39 @@ class InitState(BaseState):
 
     def OnRunning(self):
         # log.info(logClientMgr.Info(f"{self.mStateName} Running Reload"))
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.RELIC_SALVAGE_ENABLE, Data.tempUid, False)
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.RELIC_SALVAGE_4STAR_ENABLE, Data.tempUid, True)
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.RELIC_SALVAGE_5STAR_ENABLE, Data.tempUid, False)
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.RELIC_SALVAGE_5STAR_TO_EXP, Data.tempUid, False)
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.RELIC_THRESHOLD_COUNT, Data.tempUid, 1450)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_ENABLE, data.tempUid, False)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_4STAR_ENABLE, data.tempUid, True)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_5STAR_ENABLE, data.tempUid, False)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_5STAR_TO_EXP, data.tempUid, False)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.RELIC_THRESHOLD_COUNT, data.tempUid, 1450)
 
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.ECHO_OF_WAR_ENABLE, Data.tempUid, False)
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.ECHO_OF_WAR_TIMES, Data.tempUid, 0)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.ECHO_OF_WAR_ENABLE, data.tempUid, False)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.ECHO_OF_WAR_TIMES, data.tempUid, 0)
 
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_FIN, Data.tempUid, False)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FIN, data.tempUid, False)
 
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_NUMBER, Data.tempUid, 3)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_NUMBER, data.tempUid, 3)
 
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_DIFFICULTY, Data.tempUid, 1)
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_FATE, Data.tempUid, '巡猎')
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_TEAM, Data.tempUid, {})
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_SCORE, Data.tempUid, '0/1')
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_DIFFICULTY, data.tempUid, 1)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FATE, data.tempUid, '巡猎')
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_TEAM, data.tempUid, {})
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SCORE, data.tempUid, '0/1')
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_BONUS_ENABLE, data.tempUid, False)
 
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.LAST_RUN_TIMESTAMP, Data.tempUid)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.LAST_RUN_TIMESTAMP, data.tempUid)
 
-        if Date.IsNext4AM(configClientMgr.mConfig[configClientMgr.mKey.LAST_RUN_TIMESTAMP][Data.tempUid], False):
+        if Date.IsNext4AM(configMgr.mConfig[configMgr.mKey.LAST_RUN_TIMESTAMP][data.tempUid], False):
             
-            configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.DAILY_TASKS_SCORE, Data.tempUid, '0/1')
-            configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.DAILY_TASKS_FIN, Data.tempUid, False)
-            configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.DAILY_TASKS, Data.tempUid, {})
+            configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_SCORE, data.tempUid, '0/1')
+            configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_FIN, data.tempUid, False)
+            configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS, data.tempUid, {})
 
-        configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_TIMESTAMP, Data.tempUid)
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_TIMESTAMP, data.tempUid)
 
-        if Date.IsNextMon4AM(configClientMgr.mConfig[configClientMgr.mKey.UNIVERSE_TIMESTAMP][Data.tempUid], False):
-            maxScore = str(configClientMgr.mConfig[configClientMgr.mKey.UNIVERSE_SCORE][Data.tempUid]).split('/')[1]
-            configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_SCORE, Data.tempUid, f"0/{maxScore}")
-            configClientMgr.mConfigModule.DetectKeyIsExist(configClientMgr.mKey.UNIVERSE_FIN, Data.tempUid, False)
+        if Date.IsNextMon4AM(configMgr.mConfig[configMgr.mKey.UNIVERSE_TIMESTAMP][data.tempUid], False):
+            maxScore = str(configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][data.tempUid]).split('/')[1]
+            configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SCORE, data.tempUid, f"0/{maxScore}")
+            configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FIN, data.tempUid, False)
 
         return False
 

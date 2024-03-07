@@ -1,5 +1,5 @@
-from Hotaru.Server.LogServerHotaru import logServerMgr
-from Hotaru.Server.ConfigServerHotaru import configServerMgr
+from Hotaru.Server.LogServerHotaru import logMgr
+from Hotaru.Server.ConfigServerHotaru import configMgr
 from urllib.parse import urlparse
 import requests, time
 import concurrent.futures
@@ -26,7 +26,7 @@ class FastestMirror:
     
     @staticmethod
     def GetPypiMirror(timeout=5):
-        return FastestMirror.FindFastestMirror(configServerMgr.mKey.PYPI_MIRROR_URLS, timeout)
+        return FastestMirror.FindFastestMirror(configMgr.mKey.PYPI_MIRROR_URLS, timeout)
 
     @staticmethod
     def FindFastestMirror(mirrorUrls, timeout=5):
@@ -38,13 +38,13 @@ class FastestMirror:
                 endTime = time.time()
                 if response.status_code == 200:
                     responseTime = endTime - startTime
-                    logServerMgr.Info(f"镜像: {urlparse(mirrorUrl).netloc} 响应时间: {responseTime}")
+                    logMgr.Info(f"镜像: {urlparse(mirrorUrl).netloc} 响应时间: {responseTime}")
                     return mirrorUrl
             except Exception:
                 pass
             return None
         
-        logServerMgr.Info("开始测速")
+        logMgr.Info("开始测速")
         with concurrent.futures.ThreadPoolExecutor() as executor:
             futureToMirror = {executor.submit(CheckMirror, mirrorUrl): mirrorUrl for mirrorUrl in mirrorUrls}
 
@@ -52,8 +52,8 @@ class FastestMirror:
                 result = future.result()
                 if result:
                     executor.shutdown()
-                    logServerMgr.Info(f"最快的镜像为: {urlparse(result).netloc}")
+                    logMgr.Info(f"最快的镜像为: {urlparse(result).netloc}")
                     return result
 
-        logServerMgr.Error(f"测速失败，使用默认镜像：{urlparse(mirrorUrls[0]).netloc}")
+        logMgr.Error(f"测速失败，使用默认镜像：{urlparse(mirrorUrls[0]).netloc}")
         return mirrorUrls[0]

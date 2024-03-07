@@ -1,5 +1,5 @@
-from Hotaru.Server.LogServerHotaru import logServerMgr
-from Hotaru.Server.ConfigServerHotaru import configServerMgr
+from Hotaru.Server.LogServerHotaru import logMgr
+from Hotaru.Server.ConfigServerHotaru import configMgr
 from Modules.Utils.FastestMirror import FastestMirror
 import requests,json,urllib.request,os,subprocess,tempfile,shutil,sys,questionary
 from packaging.version import parse
@@ -22,9 +22,9 @@ class UpdateModule:
     
     @classmethod
     def DetectVersionUpdate(cls):
-        logServerMgr.Info("开始检测更新")
-        if not configServerMgr.mConfig[configServerMgr.mKey.CHECK_UPDATE]:
-            logServerMgr.Error("检测更新未开启")
+        logMgr.Info("开始检测更新")
+        if not configMgr.mConfig[configMgr.mKey.CHECK_UPDATE]:
+            logMgr.Error("检测更新未开启")
             return False
 
         try:
@@ -62,17 +62,17 @@ class UpdateModule:
                 isNeedUpdate = False
 
                 if parse(cls.latestHotaruVersion.lstrip('v')) > parse(cls.currentHotaruVersion.lstrip('v')):
-                    logServerMgr.Warning(f"发现助手新版本：{cls.currentHotaruVersion} ——> {cls.latestHotaruVersion}\n需要退出Server并启动Update进行更新!")
+                    logMgr.Warning(f"发现助手新版本：{cls.currentHotaruVersion} ——> {cls.latestHotaruVersion}\n需要退出Server并启动Update进行更新!")
                     isLatestTxt = "[检测到助手新版本,应选择退出Server,之后请手动启动Update进行更新]"
                     isNeedUpdate = True
                 else:
-                    logServerMgr.Info(f"当前助手已是最新版本: {cls.currentAssetsVersion}, 开始检测资源版本")
+                    logMgr.Info(f"当前助手已是最新版本: {cls.currentAssetsVersion}, 开始检测资源版本")
                     if parse(cls.latestAssetsVersion.lstrip('v')) > parse(cls.currentAssetsVersion.lstrip('v')):
-                        logServerMgr.Warning(f"发现资源新版本：{cls.currentAssetsVersion} ——> {cls.latestAssetsVersion}\n需要退出Server并启动Update进行更新!")
+                        logMgr.Warning(f"发现资源新版本：{cls.currentAssetsVersion} ——> {cls.latestAssetsVersion}\n需要退出Server并启动Update进行更新!")
                         isLatestTxt = "[检测到资源新版本,应选择退出Server,之后请手动启动Update进行更新]"
                         isNeedUpdate = True
                     else:
-                        logServerMgr.Info(f"当前已是最新版本: {cls.currentAssetsVersion}")
+                        logMgr.Info(f"当前已是最新版本: {cls.currentAssetsVersion}")
 
                 if isNeedUpdate:
                     title = "选择退出Server/不更新并继续使用:"
@@ -86,10 +86,10 @@ class UpdateModule:
                     elif value == 1:
                         return
             else:
-                logServerMgr.Error("检测更新失败")
-                logServerMgr.Error(response.text)
+                logMgr.Error("检测更新失败")
+                logMgr.Error(response.text)
         except Exception as e:
-            logServerMgr.Error(f"检测更新失败:{e}")
+            logMgr.Error(f"检测更新失败:{e}")
             # logger.debug(e)
 
 
@@ -120,12 +120,12 @@ class UpdateModule:
     def DownloadFile(cls):
         while True:
             try:
-                logServerMgr.Info(f"开始下载: {cls.downloadUrl}")
+                logMgr.Info(f"开始下载: {cls.downloadUrl}")
                 cls.DownloadWithProgress(cls.downloadUrl, cls.downloadFilePath)
-                logServerMgr.Info(f"下载完成: {cls.downloadFilePath}")
+                logMgr.Info(f"下载完成: {cls.downloadFilePath}")
                 break
             except Exception as e:
-                logServerMgr.Error(f"下载失败: {e}")
+                logMgr.Error(f"下载失败: {e}")
                 input("按回车键重试. . .")
 
     @classmethod
@@ -134,10 +134,10 @@ class UpdateModule:
             try:
                 if not subprocess.run([cls.exePath, "x", cls.downloadFilePath, f"-o{cls.tempPath}", "-aoa"], shell=True, check=True):
                     raise Exception
-                logServerMgr.Info(f"解压完成：{cls.extractFolderPath}")
+                logMgr.Info(f"解压完成：{cls.extractFolderPath}")
                 break
             except Exception as e:
-                logServerMgr.Error(f"解压失败：{e}")
+                logMgr.Error(f"解压失败：{e}")
                 input("按回车键重试. . .")
 
     @classmethod
@@ -145,21 +145,21 @@ class UpdateModule:
         while True:
             try:
                 shutil.copytree(cls.extractFolderPath, cls.coverFolderPath, dirs_exist_ok=True)
-                logServerMgr.Info(f"覆盖完成：{cls.coverFolderPath}")
+                logMgr.Info(f"覆盖完成：{cls.coverFolderPath}")
                 break
             except Exception as e:
-                logServerMgr.Error(f"覆盖失败：{e}")
+                logMgr.Error(f"覆盖失败：{e}")
                 input("按回车键重试. . .")
 
     @classmethod
     def CleanUp(cls):
         try:
             os.remove(cls.downloadFilePath)
-            logServerMgr.Info(f"清理完成：{cls.downloadFilePath}")
+            logMgr.Info(f"清理完成：{cls.downloadFilePath}")
         except Exception as e:
-            logServerMgr.Warning(f"清理失败：{e}")
+            logMgr.Warning(f"清理失败：{e}")
         try:
             shutil.rmtree(cls.extractFolderPath)
-            logServerMgr.Info(f"清理完成：{cls.extractFolderPath}")
+            logMgr.Info(f"清理完成：{cls.extractFolderPath}")
         except Exception as e:
-            logServerMgr.Warning(f"清理失败：{e}")
+            logMgr.Warning(f"清理失败：{e}")

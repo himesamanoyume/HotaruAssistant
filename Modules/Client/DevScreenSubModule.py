@@ -1,9 +1,9 @@
 import math,pyautogui,win32api,win32con,win32gui,time,threading,base64,requests,tkinter
-from Hotaru.Client.LogClientHotaru import logClientMgr,log
+from Hotaru.Client.LogClientHotaru import logMgr,log
 from tkinter import *
 
 
-class DevScreenModule:
+class DevScreenSubModule:
 
     def IsApplicationFullscreen(self, window):
         screenWidth, screenHeight = pyautogui.size()

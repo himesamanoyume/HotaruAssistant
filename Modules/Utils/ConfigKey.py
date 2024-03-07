@@ -69,7 +69,6 @@ class ConfigKey:
     DAILY_TASKS_FIN = 'daily_tasks_fin'
     LAST_RUN_TIMESTAMP = 'last_run_timestamp'
     UNIVERSE_ENABLE = 'universe_enable'
-    UNIVERSE_BONUS_ENABLE = 'universe_bonus_enable'
     UNIVERSE_FIN = 'universe_fin'
     UNIVERSE_SCORE = 'universe_score'
     UNIVERSE_COUNT = 'universe_count'
@@ -78,3 +77,4 @@ class ConfigKey:
     FORGOTTENHALL_LEVELS = 'forgottenhall_levels'
     PUREFICTION_STARS = 'purefiction_stars'
     PUREFICTION_LEVELS = 'purefiction_levels'
+    UNIVERSE_BONUS_ENABLE = 'universe_bonus_enable'

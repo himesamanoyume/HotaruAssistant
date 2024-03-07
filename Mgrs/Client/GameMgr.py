@@ -1,5 +1,5 @@
 
-from Hotaru.Client.LogClientHotaru import logClientMgr
+from Hotaru.Client.LogClientHotaru import logMgr
 from Game.Base.Base import Base
 
 class GameMgr:

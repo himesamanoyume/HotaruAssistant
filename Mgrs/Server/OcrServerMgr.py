@@ -1,4 +1,4 @@
-from Hotaru.Server.LogServerHotaru import logServerMgr
+from Hotaru.Server.LogServerHotaru import logMgr
 import os,cpufeature
 
 if cpufeature.CPUFeature["AVX2"]:
@@ -33,5 +33,5 @@ class OcrServerMgr:
     @classmethod
     def CheckPath(cls):
         if not os.path.exists(ocrPath):
-            logServerMgr.Warning(f"OCR 路径不存在: {ocrPath}, 即将开始下载")
+            logMgr.Warning(f"OCR 路径不存在: {ocrPath}, 即将开始下载")
             cls.InstallOCR()

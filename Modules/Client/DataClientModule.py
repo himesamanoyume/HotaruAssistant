@@ -1,5 +1,5 @@
 
-class Data:
+class DataClient:
     tempUid = -1
     currentUid = -1
     loginDict = dict()

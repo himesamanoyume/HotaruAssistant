@@ -1,6 +1,6 @@
 
 from States.BaseState import BaseState
-from Hotaru.Client.LogClientHotaru import logClientMgr,log
+from Hotaru.Client.LogClientHotaru import logMgr,log
 import time
 
 
@@ -15,14 +15,14 @@ class StateMgr:
         return cls.mInstance
 
     def Transition(cls, state: BaseState):
-        log.info(logClientMgr.Info(f"状态将变换至:{state.mStateName}"))
+        log.info(logMgr.Info(f"状态将变换至:{state.mStateName}"))
         if not cls.mCurrentState is None:
             time.sleep(0.5)
             cls.mCurrentState.OnExit()
 
         time.sleep(0.5)
         cls.mCurrentState = state
-        log.info(logClientMgr.Info(f"状态已变换至:{state.mStateName}"))
+        log.info(logMgr.Info(f"状态已变换至:{state.mStateName}"))
 
         if not cls.mCurrentState.OnBegin():
             time.sleep(0.5)

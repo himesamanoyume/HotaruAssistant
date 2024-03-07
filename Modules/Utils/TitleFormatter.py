@@ -2,7 +2,7 @@
 
 class TitleFormatter:
     @staticmethod
-    def custom_len(s):
+    def CustomLen(s):
         length = 0
         for char in s:
             # 判断是否是中文字符和全角符号的Unicode范围
@@ -13,20 +13,25 @@ class TitleFormatter:
         return length
 
     @staticmethod
-    def format_title(title, level=0):
+    def FormatTitle(title, level=0):
         try:
             separator_length = 115
             title_lines = title.split('\n')
             separator = '+' + '-' * separator_length + '+'
-            title_length = TitleFormatter.custom_len(title)
+            title_length = TitleFormatter.CustomLen(title)
             half_separator_left = (separator_length - title_length) // 2
             half_separator_right = separator_length - title_length - half_separator_left
+
+            if level<0:
+                level = 0
+            elif level>2:
+                level = 2
 
             if level == 0:
                 formatted_title_lines = []
 
                 for line in title_lines:
-                    title_length_ = TitleFormatter.custom_len(line)
+                    title_length_ = TitleFormatter.CustomLen(line)
                     half_separator_left_ = (separator_length - title_length_) // 2
                     half_separator_right_ = separator_length - title_length_ - half_separator_left_
 

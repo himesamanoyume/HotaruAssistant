@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,abort,Response
-from Hotaru.Server.ConfigServerHotaru import configServerMgr
+from Hotaru.Server.ConfigServerHotaru import configMgr
 import json
 
 

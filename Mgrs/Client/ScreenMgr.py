@@ -1,5 +1,5 @@
-from Hotaru.Client.LogClientHotaru import logClientMgr,log
-from Hotaru.Client.ConfigClientHotaru import configClientMgr
+from Hotaru.Client.LogClientHotaru import logMgr,log
+from Hotaru.Client.ConfigClientHotaru import configMgr
 from Modules.Client.ScreenModule import ScreenModule
 import pyautogui
 
@@ -13,8 +13,6 @@ class ScreenMgr:
 
         return cls.mInstance
     
-    
-    
     def GetWindow(self, title):
         windows = pyautogui.getWindowsWithTitle(title)
         if windows:
@@ -22,12 +20,15 @@ class ScreenMgr:
             return self.window
         return False
     
+    def SwitchToWindow(self):
+        self.mScreenModule.SwitchToWindow()
+    
     def StartDevScreen(self):
-        if configClientMgr.mConfig[configClientMgr.mKey.DEV_SCREEN_ENABLE]:
-            log.info(logClientMgr.Info("DevScreen正在开启"))
+        if configMgr.mConfig[configMgr.mKey.DEV_SCREEN_ENABLE]:
+            log.info(logMgr.Info("DevScreen正在开启"))
             if self.window in "崩坏：星穹铁道":
                 self.mScreenModule.mDevScreen.InitDevScreenLoop()
             else:
-                log.warning(logClientMgr.Warning("未获取到游戏窗口,DevScreen无法开启"))
+                log.warning(logMgr.Warning("未获取到游戏窗口,DevScreen无法开启"))
         else:
-            log.info(logClientMgr.Info("DevScreen配置未启用"))
+            log.info(logMgr.Info("DevScreen配置未启用"))

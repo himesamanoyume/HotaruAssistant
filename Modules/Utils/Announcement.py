@@ -1,4 +1,5 @@
 import requests,json
+from Hotaru.Server.LogServerHotaru import logMgr
 
 class Announcement:
     def GetNotify():
@@ -7,7 +8,6 @@ class Announcement:
             data = json.loads(r.text)
             announcement = data['announcement']
             
-            print("\n--------------------公告--------------------\n")
+            logMgr.Hr("公告", 2)
             for item in announcement:
-                print(f"【{item['Title']}】:{item['Content']}")
-                print("\n--------------------------------------------\n")
+                logMgr.Hr(f"【{item['Title']}】:{item['Content']}")
