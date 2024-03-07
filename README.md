@@ -153,6 +153,9 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
+#### Announcement
+- ~~ann.json~~
+
 #### State
 - ~~要求实现两个状态能来回切换甚至达成循环~~
 
@@ -166,13 +169,14 @@ OBS录制|&cross;|&check;
 #### Screen/Click
 - 实现Screen相关的代码转移
 - - **优先实现DevScreen**
+- - - 在Client中启动DevScreen[3]
 - - - 后台输入
 - - 实现Socket Screen消息处理到DevScreen产生方框等
 - 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
 
 #### GameLoop
 
-- 实现want_register_accounts[1]
+- 实现want_register_accounts[1](切实保存到config中)
 - 实现启动游戏[2]
 
 #### Web

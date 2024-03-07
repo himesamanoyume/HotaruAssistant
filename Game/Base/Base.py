@@ -19,4 +19,3 @@ class Base:
     def SetupGame():
         stateMgr.Transition(StartGameState())
         stateMgr.Transition(LoginGameState())
-        stateMgr.Transition(StartGameState())

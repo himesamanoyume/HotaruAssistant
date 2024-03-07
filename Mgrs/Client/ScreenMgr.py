@@ -13,6 +13,8 @@ class ScreenMgr:
 
         return cls.mInstance
     
+    
+    
     def GetWindow(self, title):
         windows = pyautogui.getWindowsWithTitle(title)
         if windows:

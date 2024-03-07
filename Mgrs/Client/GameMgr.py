@@ -16,10 +16,21 @@ class GameMgr:
         Base.SetupGame()
 
     @staticmethod
+    def StopGame():
+        pass
+
+    @staticmethod
     def DetectNewAccounts():
         Base.DetectNewAccount()
 
     @staticmethod
     def ReadyToStart(uid):
         Base.ReadyToStart(uid)
-        
+
+    @staticmethod
+    def StartDaily(expectUid, lastUid):
+        pass
+
+    @staticmethod
+    def StartUniverse(expectUid, lastUid):
+        pass

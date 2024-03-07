@@ -20,15 +20,15 @@ class AppClient:
             input("按回车键关闭窗口. . .")
             sys.exit(0)
         else:
-            gameLoopThread = threading.Thread(target=self.GameLoop)
-            gameLoopThread.start()
+            hotaruLoopThread = threading.Thread(target=self.HotaruAssistantLoop)
+            hotaruLoopThread.start()
         
         while True:
             time.sleep(5)
         # input("按回车键关闭窗口. . .")
         # sys.exit(0)
 
-    def GameLoop(self):
+    def HotaruAssistantLoop(self):
         log.info(logClientMgr.Info("开始初始化循环列表"))
         optionsReg = dict()
 
@@ -48,9 +48,9 @@ class AppClient:
                                 else 
                                 uidStr + tempText + last_run_uidText) : index})
             
-        log.hr(logClientMgr.Hr("注意:选择轮次后将持续循环该轮次下的配置,不会出现轮次变更,因此建议直接选择全部轮次,若有单独轮次的需求可关闭后重新打开助手再进行选择"))
+        log.hr(logClientMgr.Hr("注意:选择轮次后将持续循环该轮次下的配置,不会出现轮次变更,因此建议若有单独轮次的需求可关闭后重新打开助手再进行选择"))
 
-        optionsAction = {"全部轮次:每日任务轮次+模拟宇宙轮次(推荐)": "all", "单独每日任务轮次": "daily", "单独模拟宇宙轮次": "universe"}
+        optionsAction = {"全部轮次:每日任务轮次+模拟宇宙轮次": "all", "单独每日任务轮次": "daily", "单独模拟宇宙轮次": "universe"}
 
         actionSelectTitle = "请选择进行的轮次:"
         actionSelectOption = questionary.select(actionSelectTitle, list(optionsAction.keys())).ask()
@@ -74,6 +74,58 @@ class AppClient:
             lastUID = str(data.loginList[len(data.loginList) - 1]).split('-')[1][:9]
             log.info(logClientMgr.Info(f"当前列表最后一个账号UID为:{lastUID}"))
             data.loopStartTimestamp = time.time()
+
+            firstTimeLogin = True
+            jumpValue = ''
+            jumpFin = False
+
+            if selectedAction == 'all':
+                count = 2
+            else:
+                count = 1
+
+            for turn in range(count):
+
+                for value in data.loginList:
+                    if not firstTimeLogin and not jumpFin:
+                        if not value == jumpValue:
+                            continue
+                        else:
+                            jumpFin = True
+
+                    uidStr2 = str(value).split('-')[1][:9]
+                    gameMgr.DetectNewAccounts()
+
+                    if isFirstTimeLoop:
+                        if firstTimeLogin:
+                            firstTimeLogin = False
+                            jumpValue = data.loginList[selectedReg]
+                            if jumpValue == value:
+                                jumpFin = True
+                            else:
+                                continue
+
+                    log.info(logClientMgr.Info(f"运行命令: cmd /C REG IMPORT {value}"))
+
+                    if os.system(f"cmd /C REG IMPORT {value}"):
+                        input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
+                        return False
+                    
+                    gameMgr.SetupGame()
+
+                    if count == 1:
+                        if selectedAction == 'daily':
+                            gameMgr.StartDaily(uidStr2, lastUID)
+                        elif selectedAction == 'universe':
+                            gameMgr.StartUniverse(uidStr2, lastUID)
+                    else:
+                        if turn == 0:
+                            gameMgr.StartDaily(uidStr2, lastUID)
+                        else:
+                            gameMgr.StartUniverse(uidStr2, lastUID)
+
+                    gameMgr.StopGame()
+
 
 
 def ExitHandler():
