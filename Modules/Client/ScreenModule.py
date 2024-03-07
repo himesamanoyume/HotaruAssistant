@@ -18,6 +18,21 @@ class ScreenModule:
         self.reset = "\033[0m"
 
     @staticmethod
+    def CheckAndSwitch(title):
+        return ScreenModule.SwitchToWindow(title, maxRetries=4)
+    
+    @staticmethod
+    def CheckResulotion(title, width, height):
+        hwnd = win32gui.FindWindow("UnityWndClass", title)
+        x, y, w, h = win32gui.GetClientRect(hwnd)
+        if w != width or h != height:
+            log.error(logMgr.Error(f"游戏分辨率 {w}*{h} 请在游戏设置内切换为 {width}*{height} 窗口或全屏运行"))
+            input("按回车键关闭窗口. . .")
+            sys.exit(1)
+        else:
+            log.debug(logMgr.Debug(f"游戏分辨率 {w}*{h}"))
+
+    @staticmethod
     def SwitchToWindow(title, maxRetries, isGameWindow = True):
         for i in range(maxRetries):
             windows = pyautogui.getWindowsWithTitle(title)

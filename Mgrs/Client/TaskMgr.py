@@ -1,8 +1,8 @@
 
-from Hotaru.Client.LogClientHotaru import logMgr
-from Game.Base.Base import Base
+from Hotaru.Client.LogClientHotaru import logMgr,log
+from Task.Base.Base import Base
 
-class GameMgr:
+class TaskMgr:
     mInstance = None
 
     def __new__(cls):

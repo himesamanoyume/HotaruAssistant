@@ -169,23 +169,23 @@ OBS录制|&cross;|&check;
 #### Screen/Click
 - 实现Screen相关的代码转移
 - - **优先实现DevScreen**
-- - - 在Client中启动DevScreen[3]
+- - - ~~在Client中启动DevScreen~~
+- - - 实现重复尝试为持续检测[3]
 - - - 后台输入
-- - 实现Socket Screen消息处理到DevScreen产生方框等
-- 截图工具加上滚动条，实现DevScreen,用于覆盖在游戏上的透明窗口,不断显示检测区域
+- - - 截图工具加上滚动条
 
 #### GameLoop
 
-- ~~实现want_register_accounts[1]切实保存到config中~~
-- 实现启动游戏[2]**check_path**
+- ~~实现want_register_accounts,切实保存到config中~~
+- ~~实现启动游戏~~
 
 #### Web
 - 网页排版提高大屏幕利用率:宽屏时左右两列布局,左边为每日情况,右边为配置信息,下方对应保存信息按钮,底部横跨一页为作者信息(与目前相同), 每日信息需要sticky类似b站动态页面的左侧直播板块, 竖屏时变换为1列布局
 - - 内网穿透后资源路径改变,如favicon应放入static内的文件夹中,不能存放于根目录
 
 #### Data
-- 于Server中存放所有游戏的pid,当新的Client尝试获取游戏窗口时,若该pid已存在于Server中,则尝试下一个窗口
-- - 因需要消息接收,SocketClient需要实现接收消息,Server需要于Data中管理Client,用于对指定Client发送消息
+- 于Server中存放所有游戏的pid,当新的Client尝试获取游戏窗口时,若该pid已存在于Server中,则尝试下一个窗口[2]
+- - 因需要消息接收,SocketClient需要实现接收消息,Server需要于Data中管理Client,用于对指定Client发送消息[1]
 
 
 #### Common

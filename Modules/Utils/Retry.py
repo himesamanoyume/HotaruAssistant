@@ -1,7 +1,9 @@
+from Hotaru.Client.LogClientHotaru import log,logMgr
 import time
 
 class Retry:
-    def RepeatAttempt(log, lambdaFunction, timeout = 10, repeatSleep = 0.5, logMgr = None):
+    @staticmethod
+    def RepeatAttempt(lambdaFunction, timeout = 10, repeatSleep = 0.5):
         startTime = time.time()
 
         while time.time() - startTime < timeout:
@@ -10,10 +12,8 @@ class Retry:
                 if result:
                     return result
             except Exception as e:
-                log.error(e)
-                if logMgr:
-                    logMgr.Error(e)
-            
+                log.error(logMgr.Error(e))
+                    
             time.sleep(repeatSleep)
         
         return False

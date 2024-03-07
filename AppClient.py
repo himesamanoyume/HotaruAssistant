@@ -5,7 +5,7 @@ from Hotaru.Client.LogClientHotaru import logMgr,log
 from Hotaru.Client.OcrHotaru import ocrMgr
 from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.ConfigClientHotaru import configMgr
-from Hotaru.Client.GameHotaru import gameMgr
+from Hotaru.Client.TaskHotaru import gameMgr
 from Hotaru.Client.DataClientHotaru import data
 
 class AppClient:
@@ -23,8 +23,12 @@ class AppClient:
             hotaruLoopThread = threading.Thread(target=self.HotaruAssistantLoop)
             hotaruLoopThread.start()
         
-        while True:
+
+        while data.currentGamePid == -1:
             time.sleep(5)
+
+        screenMgr.StartDevScreen()
+            
         # input("按回车键关闭窗口. . .")
         # sys.exit(0)
 

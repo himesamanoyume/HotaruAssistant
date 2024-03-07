@@ -1,5 +1,6 @@
 from States import *
 from Hotaru.Client.ScreenHotaru import screenMgr
+from Hotaru.Client.GameControlHotaru import gameMgr
 
 class StartGameState(BaseState):
 
@@ -7,7 +8,7 @@ class StartGameState(BaseState):
 
     def OnBegin(self):
         log.info(logMgr.Info("开始启动游戏"))
-
+        gameMgr.StartGame()
         return False
     
     def OnRunning(self):
