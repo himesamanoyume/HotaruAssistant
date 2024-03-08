@@ -1,6 +1,6 @@
 import socket,threading,datetime
 from Hotaru.Server.LogServerHotaru import logMgr
-from Hotaru.Server.DataServerHotaru import data
+from Hotaru.Server.DataServerHotaru import dataMgr
 
 class SocketServerModule:
     mInstance = None
@@ -25,7 +25,7 @@ class SocketServerModule:
         while True:
             clientSocket, clientAddress = cls.serverSocket.accept()
             logMgr.Info(f"客户端{clientAddress},已连接.")
-            data.clientDict.update({clientSocket : clientAddress})
+            dataMgr.clientDict.update({clientSocket : clientAddress})
             clientThread = threading.Thread(target=cls.HandleClient, args=(clientSocket,))
             clientThread.start()
 
@@ -41,12 +41,6 @@ class SocketServerModule:
             except Exception as e:
                 logMgr.Error(f"发生异常:{e}")
                 break
-
-    @staticmethod
-    def PidSendToClient(clientSocket, msg):
-        logMgr.Info("处理PID3")
-        text = f"pid|||{msg}"
-        clientSocket.send(text.encode())
     
     @staticmethod
     def HeartSendToClient(clientSocket):

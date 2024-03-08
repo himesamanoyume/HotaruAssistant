@@ -33,19 +33,22 @@ class DevScreenSubModule:
         if not window is None:
             # 初始化
             def OnSize(evt):
-                screenshot_pos = self.GetHonkaiWindowsInfo(window)
-                window_x = screenshot_pos[0]
-                window_y = screenshot_pos[1]
-                window_width = screenshot_pos[2]
-                window_height = screenshot_pos[3]
-                
-                TRANSCOLOUR = 'gray'
-                tk.wm_attributes('-transparentcolor', TRANSCOLOUR)
-                tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
-                tk.title('DevScreen')
-                # tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
-                tk.configure(width=evt.width,height=evt.height)
-                canvas.create_rectangle(0, 0, canvas.winfo_width(), canvas.winfo_height(), fill=TRANSCOLOUR, outline=TRANSCOLOUR)
+                try:
+                    screenshot_pos = self.GetHonkaiWindowsInfo(window)
+                    window_x = screenshot_pos[0]
+                    window_y = screenshot_pos[1]
+                    window_width = screenshot_pos[2]
+                    window_height = screenshot_pos[3]
+                    
+                    TRANSCOLOUR = 'gray'
+                    tk.wm_attributes('-transparentcolor', TRANSCOLOUR)
+                    tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
+                    tk.title('DevScreen')
+                    # tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
+                    tk.configure(width=evt.width,height=evt.height)
+                    canvas.create_rectangle(0, 0, canvas.winfo_width(), canvas.winfo_height(), fill=TRANSCOLOUR, outline=TRANSCOLOUR)
+                except Exception:
+                    tk.destroy()
 
             tk = tkinter.Tk()
             tk.attributes("-topmost", 1)
@@ -58,3 +61,5 @@ class DevScreenSubModule:
             
             tk.bind('<Configure>', OnSize)
             tk.mainloop()
+        
+            

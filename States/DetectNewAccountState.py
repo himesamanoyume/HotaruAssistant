@@ -1,6 +1,6 @@
 from States import *
 from Hotaru.Client.ConfigClientHotaru import configMgr
-from Hotaru.Client.DataClientHotaru import data
+from Hotaru.Client.DataClientHotaru import dataMgr
 from Modules.Utils.Date import Date
 
 class DetectNewAccountState(BaseState):
@@ -52,7 +52,7 @@ class DetectNewAccountState(BaseState):
                 else:
                     configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS].append(item['reg_path'])
 
-                data.loginList.append(f"{str(item['reg_path'])}")
+                dataMgr.loginList.append(f"{str(item['reg_path'])}")
                 configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_TO][uid] = item['email']
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_DIFFICULTY][uid] = item['universe_number']
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][uid] = item['universe_difficulty']

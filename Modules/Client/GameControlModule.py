@@ -3,7 +3,7 @@ from Hotaru.Client.ConfigClientHotaru import configMgr
 import os,sys,time,psutil
 from Hotaru.Client.AutoHotaru import autoMgr
 from Hotaru.Client.ScreenHotaru import screenMgr
-from Hotaru.Client.DataClientHotaru import data
+from Hotaru.Client.DataClientHotaru import dataMgr
 
 class GameControlModule:
 
@@ -12,7 +12,7 @@ class GameControlModule:
         # 通过进程名获取运行路径
         for proc in psutil.process_iter(attrs=['pid', 'name']):
             if name in proc.info['name']:
-                data.currentGamePid = proc.info['pid']
+                dataMgr.currentGamePid = proc.info['pid']
                 process = psutil.Process(proc.info['pid'])
                 return process.exe()
         return None
@@ -35,7 +35,7 @@ class GameControlModule:
         if os.system(f"cmd /C start \"\" \"{configMgr.mConfig[configMgr.mKey.GAME_PATH]}\""):
             return False
             
-        time.sleep(10)
+        time.sleep(20)
         if not autoMgr.RepeatAttempt(lambda: screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]), 180, 1):
             log.error(logMgr.Error("无法切换到游戏"))
             return False
@@ -58,6 +58,7 @@ class GameControlModule:
                 return False
             else:
                 log.info(logMgr.Info("游戏启动成功"))
+                GameControlModule.GetGameProcessPath(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME])
         else:
             log.info(logMgr.Info("游戏已经启动了"))
 

@@ -6,7 +6,7 @@ from Hotaru.Client.OcrHotaru import ocrMgr
 from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.ConfigClientHotaru import configMgr
 from Hotaru.Client.TaskHotaru import gameMgr
-from Hotaru.Client.DataClientHotaru import data
+from Hotaru.Client.DataClientHotaru import dataMgr
 from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
 class AppClient:
@@ -26,10 +26,11 @@ class AppClient:
             hotaruLoopThread.start()
         
 
-        while data.currentGamePid == -1:
+        while dataMgr.currentGamePid == -1:
             time.sleep(5)
 
-        screenMgr.StartDevScreen()
+        screenLoopThread = threading.Thread(target=screenMgr.StartDevScreen)
+        screenLoopThread.start()
             
         # input("按回车键关闭窗口. . .")
         # sys.exit(0)
@@ -46,8 +47,8 @@ class AppClient:
                 continue 
                 
             gameMgr.ReadyToStart(uidStr)
-            data.loginDict.update({f'{uidStr}' : f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}'})
-            data.loginList.append(f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}')
+            dataMgr.loginDict.update({f'{uidStr}' : f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}'})
+            dataMgr.loginList.append(f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}')
 
             tempText = f":活跃度:{configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][uidStr]},模拟宇宙积分:{configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uidStr]}"
 
@@ -74,15 +75,15 @@ class AppClient:
         isFirstTimeLoop = True
 
         while True:
-            data.ResetData()
+            dataMgr.ResetData()
             if not os.path.exists("./backup"):
                 os.makedirs("./backup")
 
             shutil.copy("./config.yaml",f"./backup/{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")
 
-            lastUID = str(data.loginList[len(data.loginList) - 1]).split('-')[1][:9]
+            lastUID = str(dataMgr.loginList[len(dataMgr.loginList) - 1]).split('-')[1][:9]
             log.info(logMgr.Info(f"当前列表最后一个账号UID为:{lastUID}"))
-            data.loopStartTimestamp = time.time()
+            dataMgr.loopStartTimestamp = time.time()
 
             firstTimeLogin = True
             jumpValue = ''
@@ -95,7 +96,7 @@ class AppClient:
 
             for turn in range(count):
 
-                for regStr in data.loginList:
+                for regStr in dataMgr.loginList:
                     if not firstTimeLogin and not jumpFin:
                         if not regStr == jumpValue:
                             continue
@@ -108,7 +109,7 @@ class AppClient:
                     if isFirstTimeLoop:
                         if firstTimeLogin:
                             firstTimeLogin = False
-                            jumpValue = data.loginList[selectedReg]
+                            jumpValue = dataMgr.loginList[selectedReg]
                             if jumpValue == regStr:
                                 jumpFin = True
                             else:
@@ -124,17 +125,17 @@ class AppClient:
 
                     if count == 1:
                         if selectedAction == 'daily':
-                            data.currentAction = "每日任务流程"
+                            dataMgr.currentAction = "每日任务流程"
                             gameMgr.StartDaily(uidStr2, lastUID)
                         elif selectedAction == 'universe':
-                            data.currentAction = "模拟宇宙流程"
+                            dataMgr.currentAction = "模拟宇宙流程"
                             gameMgr.StartUniverse(uidStr2, lastUID)
                     else:
                         if turn == 0:
-                            data.currentAction = "每日任务流程"
+                            dataMgr.currentAction = "每日任务流程"
                             gameMgr.StartDaily(uidStr2, lastUID)
                         else:
-                            data.currentAction = "模拟宇宙流程"
+                            dataMgr.currentAction = "模拟宇宙流程"
                             gameMgr.StartUniverse(uidStr2, lastUID)
 
                     input("按回车退出游戏")

@@ -1,4 +1,4 @@
-from Hotaru.Client.DataClientHotaru import data
+from Hotaru.Client.DataClientHotaru import dataMgr
 import socket,sys,threading,datetime,time
 
 class SocketClientModule:

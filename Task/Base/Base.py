@@ -2,7 +2,7 @@ from States.InitState import InitState
 from States.StartGameState import StartGameState
 from States.LoginGameState import LoginGameState
 from Hotaru.Client.StateHotaru import stateMgr
-from Hotaru.Client.DataClientHotaru import data
+from Hotaru.Client.DataClientHotaru import dataMgr
 from States.DetectNewAccountState import DetectNewAccountState
 
 class Base:
@@ -12,7 +12,7 @@ class Base:
 
     @staticmethod
     def BeReadyToStart(uid):
-        data.tempUid = uid
+        dataMgr.tempUid = uid
         stateMgr.Transition(InitState())
     
     @staticmethod

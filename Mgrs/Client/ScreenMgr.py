@@ -13,8 +13,6 @@ class ScreenMgr:
 
         return cls.mInstance
     
-    
-    
     def CheckAndSwitch(self, title):
         return self.mScreenModule.CheckAndSwitch(title)
 

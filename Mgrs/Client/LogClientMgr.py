@@ -1,4 +1,4 @@
-from Hotaru.Client.DataClientHotaru import data
+from Hotaru.Client.DataClientHotaru import dataMgr
 from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
 class LogClientMgr:
@@ -14,19 +14,19 @@ class LogClientMgr:
     
     @staticmethod
     def Info(msg, *args, **kwargs):
-        msg = f"\033[91m[-1]\033[0m|{data.currentAction}|{msg}"
+        msg = f"\033[91m[-1]\033[0m|{dataMgr.currentAction}|{msg}"
         socketClientMgr.LogSendToServer("INFO", msg)
         return msg
 
     @staticmethod
     def Error(msg, *args, **kwargs):
-        msg = f"\033[91m[-1]\033[0m|{data.currentAction}|{msg}"
+        msg = f"\033[91m[-1]\033[0m|{dataMgr.currentAction}|{msg}"
         socketClientMgr.LogSendToServer("ERROR", msg)
         return msg
 
     @staticmethod
     def Warning(msg, *args, **kwargs):
-        msg = f"\033[91m[-1]\033[0m|{data.currentAction}|{msg}"
+        msg = f"\033[91m[-1]\033[0m|{dataMgr.currentAction}|{msg}"
         socketClientMgr.LogSendToServer("WARNING", msg)
         return msg
 
@@ -36,7 +36,7 @@ class LogClientMgr:
 
     @staticmethod
     def Debug(msg, *args, **kwargs):
-        msg = f"\033[91m[-1]\033[0m|{data.currentAction}|{msg}"
+        msg = f"\033[91m[-1]\033[0m|{dataMgr.currentAction}|{msg}"
         return msg
 
     @staticmethod

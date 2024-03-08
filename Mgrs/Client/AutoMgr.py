@@ -14,4 +14,4 @@ class AutoMgr:
     
     @staticmethod
     def RepeatAttempt(lambdaFunction, timeout = 10, repeatSleep = 0.5):
-        Retry.RepeatAttempt(lambdaFunction, timeout, repeatSleep)
+        return Retry.RepeatAttempt(lambdaFunction, timeout, repeatSleep)
