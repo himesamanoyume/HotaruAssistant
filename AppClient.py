@@ -7,9 +7,11 @@ from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.ConfigClientHotaru import configMgr
 from Hotaru.Client.TaskHotaru import gameMgr
 from Hotaru.Client.DataClientHotaru import data
+from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
 class AppClient:
     def Main(self):
+        socketClientMgr.StartListenServer()
         configMgr.IsAgreed2Disclaimer()
         ocrMgr.CheckPath()
         # gameMgr.SetupGame()
@@ -122,15 +124,20 @@ class AppClient:
 
                     if count == 1:
                         if selectedAction == 'daily':
+                            data.currentAction = "每日任务流程"
                             gameMgr.StartDaily(uidStr2, lastUID)
                         elif selectedAction == 'universe':
+                            data.currentAction = "模拟宇宙流程"
                             gameMgr.StartUniverse(uidStr2, lastUID)
                     else:
                         if turn == 0:
+                            data.currentAction = "每日任务流程"
                             gameMgr.StartDaily(uidStr2, lastUID)
                         else:
+                            data.currentAction = "模拟宇宙流程"
                             gameMgr.StartUniverse(uidStr2, lastUID)
 
+                    input("按回车退出游戏")
                     gameMgr.StopGame()
 
 

@@ -12,6 +12,9 @@ class SocketClientMgr:
 
         return cls.mInstance
     
+    def StartListenServer(self):
+        self.mSocketClientModule.StartListenServer()
+    
     @classmethod
     def StartSocket(cls):
         cls.mSocketClientModule.StartSocket()
@@ -21,5 +24,9 @@ class SocketClientMgr:
         cls.mSocketClientModule.LogSendToServer(level, msg)
 
     @classmethod
-    def LogHeartSendToServer(cls, msg):
-        cls.mSocketClientModule.LogHeartSendToServer(msg)
+    def LogHeartSendToServer(cls):
+        cls.mSocketClientModule.HeartSendToServer()
+
+    @classmethod
+    def LogPidSendToServer(cls, pid, isReplace = True):
+        cls.mSocketClientModule.PidSendToServer(pid, isReplace)

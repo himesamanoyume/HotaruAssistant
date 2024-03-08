@@ -1,4 +1,4 @@
-
+from Hotaru.Client.DataClientHotaru import data
 from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
 class LogClientMgr:
@@ -14,29 +14,29 @@ class LogClientMgr:
     
     @staticmethod
     def Info(msg, *args, **kwargs):
-        msg = f"\033[91m[-1]\033[0m|临时流程|{msg}"
+        msg = f"\033[91m[-1]\033[0m|{data.currentAction}|{msg}"
         socketClientMgr.LogSendToServer("INFO", msg)
         return msg
 
     @staticmethod
     def Error(msg, *args, **kwargs):
-        msg = f"\033[91m[-1]\033[0m|临时流程|{msg}"
+        msg = f"\033[91m[-1]\033[0m|{data.currentAction}|{msg}"
         socketClientMgr.LogSendToServer("ERROR", msg)
         return msg
 
     @staticmethod
     def Warning(msg, *args, **kwargs):
-        msg = f"\033[91m[-1]\033[0m|临时流程|{msg}"
+        msg = f"\033[91m[-1]\033[0m|{data.currentAction}|{msg}"
         socketClientMgr.LogSendToServer("WARNING", msg)
         return msg
 
     @staticmethod
-    def Screen(msg):
-        socketClientMgr.LogHeartSendToServer(msg)
+    def Heart():
+        socketClientMgr.LogHeartSendToServer()
 
     @staticmethod
     def Debug(msg, *args, **kwargs):
-        msg = f"\033[91m[-1]\033[0m|临时流程|{msg}"
+        msg = f"\033[91m[-1]\033[0m|{data.currentAction}|{msg}"
         return msg
 
     @staticmethod

@@ -30,12 +30,10 @@ class DevScreenSubModule:
             return screenshotPos
         
     def InitDevScreenLoop(self, window):
-        self.window = window
-
-        if self.window:
+        if not window is None:
             # 初始化
             def OnSize(evt):
-                screenshot_pos = self.GetHonkaiWindowsInfo(self.window)
+                screenshot_pos = self.GetHonkaiWindowsInfo(window)
                 window_x = screenshot_pos[0]
                 window_y = screenshot_pos[1]
                 window_width = screenshot_pos[2]

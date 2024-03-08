@@ -42,10 +42,17 @@ class SocketServerModule:
                 logMgr.Error(f"发生异常:{e}")
                 break
 
-    def LogHeartSendToClient(clientSocket):
-        text = f"heart|||ServerOnline"
+    @staticmethod
+    def PidSendToClient(clientSocket, msg):
+        logMgr.Info("处理PID3")
+        text = f"pid|||{msg}"
         clientSocket.send(text.encode())
     
+    @staticmethod
+    def HeartSendToClient(clientSocket):
+        text = f"heart|||ServerOnline"
+        clientSocket.send(text.encode())
+            
     @classmethod
     def LogHeadHandle(cls, msg:str, clientSocket):
         head, content = msg.split("|||")
@@ -53,10 +60,8 @@ class SocketServerModule:
             logMgr.Socket(f"{content}")
             return
         elif head in ["heart"]:
-            print(f"收到客户端{data.clientDict[clientSocket]}心跳")
-            cls.LogHeartSendToClient(clientSocket)
-            return
-        elif head in ["pid"]:
+            # print(f"收到客户端{data.clientDict[clientSocket]}心跳")
+            cls.HeartSendToClient(clientSocket)
             return
 
         

@@ -12,11 +12,7 @@ class GameControlModule:
         # 通过进程名获取运行路径
         for proc in psutil.process_iter(attrs=['pid', 'name']):
             if name in proc.info['name']:
-
-                # 这里需要判断在Server中是否存在
                 data.currentGamePid = proc.info['pid']
-                # end
-
                 process = psutil.Process(proc.info['pid'])
                 return process.exe()
         return None

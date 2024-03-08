@@ -1,3 +1,4 @@
+from Hotaru.Client.DataClientHotaru import data
 import socket,sys,threading,datetime,time
 
 class SocketClientModule:
@@ -14,23 +15,27 @@ class SocketClientModule:
         try:
             cls.serverSocket.connect(('localhost', 3377))
             print("已连接上Server")
-            serverThread = threading.Thread(target=cls.HandleServer, args=(cls.serverSocket,))
-            serverThread.start()
-            cls.LogHeartSendToServer()
+            
+            
         except Exception:
             print("你在启动Client前必须先启动Server!")
             input("按回车键关闭窗口. . .")
             sys.exit(0)
 
+    def StartListenServer(self):
+        serverThread = threading.Thread(target=self.HandleServer, args=(self.serverSocket,))
+        serverThread.start()
+
     @classmethod
     def HandleServer(cls, serverSocket):
+        cls.HeartSendToServer()
         while True:
             try:
                 data = serverSocket.recv(1024)
                 if not data:
                     break
                 cls.LogHeadHandle(data.decode('utf-8'))
-                print("收到服务器心跳")
+                # print("收到服务器心跳")
             except Exception as e:
                 print(f"发生异常:{e}")
                 break
@@ -39,9 +44,11 @@ class SocketClientModule:
     def LogHeadHandle(cls, msg:str):
         head, content = msg.split("|||")
         if head in ["heart"]:
-            cls.LogHeartSendToServer()
+            cls.HeartSendToServer()
             return
-
+        elif head in ["pid"]:
+            cls.PidHandle(content)
+    
 
     @classmethod
     def LogSendToServer(cls, level, msg):
@@ -60,7 +67,7 @@ class SocketClientModule:
             cls.serverSocket.send(text.encode())
 
     @classmethod
-    def LogHeartSendToServer(cls):
+    def HeartSendToServer(cls):
         time.sleep(5)
         text = f"heart|||ClientOnlie"
         cls.serverSocket.send(text.encode())

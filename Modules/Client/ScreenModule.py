@@ -1,6 +1,7 @@
 # from .DetectScreenSubModule import DetectScreenSubModule
 # from .ScreenshotScreenSubModule import ScreenshotScreenSubModule
 # from .ResulotionScreenSubModule import ResulotionScreenSubModule
+from Hotaru.Client.ConfigClientHotaru import configMgr
 from .DevScreenSubModule import DevScreenSubModule
 import threading,time,json,sys
 from Hotaru.Client.LogClientHotaru import logMgr,log
@@ -17,6 +18,26 @@ class ScreenModule:
         self.green = "\033[92m"
         self.reset = "\033[0m"
 
+    def GetWindow(self, title):
+        windows = pyautogui.getWindowsWithTitle(title)
+        if not windows:
+            return False
+        for window in windows:
+            if window.title == title:
+                return window
+        # end
+    
+    def StartDevScreen(self):
+        if configMgr.mConfig[configMgr.mKey.DEV_SCREEN_ENABLE]:
+            log.info(logMgr.Info("DevScreen正在开启"))
+        
+            if self.GetWindow(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]).title in ["崩坏：星穹铁道"]:
+                self.mDevScreen.InitDevScreenLoop(self.window)
+            else:
+                log.warning(logMgr.Warning("未获取到游戏窗口,DevScreen无法开启"))
+        else:
+            log.info(logMgr.Info("DevScreen配置未启用"))
+
     @staticmethod
     def CheckAndSwitch(title):
         return ScreenModule.SwitchToWindow(title, maxRetries=4)
@@ -32,41 +53,34 @@ class ScreenModule:
         else:
             log.debug(logMgr.Debug(f"游戏分辨率 {w}*{h}"))
 
-    @staticmethod
-    def SwitchToWindow(title, maxRetries, isGameWindow = True):
+    def SwitchToWindow(self, title, maxRetries, isGameWindow = True):
         for i in range(maxRetries):
-            windows = pyautogui.getWindowsWithTitle(title)
-            if not windows:
-                continue
-            for window in windows:
-                if window.title == title:
-                    if isGameWindow:
-                        try:
-                            hwnd = win32gui.FindWindow("UnityWndClass", title)
-                            win32gui.GetWindowRect(hwnd)
-                        except Exception as e:
-                            continue
+            window = self.GetWindow(title)
+            if isGameWindow:
+                try:
+                    hwnd = win32gui.FindWindow("UnityWndClass", title)
+                    win32gui.GetWindowRect(hwnd)
+                except Exception as e:
+                    continue
+            try:
+                window.restore()
+                window.activate()
+            except Exception as e:
+                log.warning(logMgr.Warning(e))
+            time.sleep(2)
+            if window.isActive:
+                if isGameWindow:
                     try:
-                        window.restore()
-                        window.activate()
+                        hwnd = win32gui.FindWindow("UnityWndClass", title)
+                        win32gui.GetWindowRect(hwnd)
+                        return True
                     except Exception as e:
                         log.warning(logMgr.Warning(e))
-                    time.sleep(2)
-                    if window.isActive:
-                        if isGameWindow:
-                            try:
-                                hwnd = win32gui.FindWindow("UnityWndClass", title)
-                                win32gui.GetWindowRect(hwnd)
-                                return True
-                            except Exception as e:
-                                log.warning(logMgr.Warning(e))
-                    log.warning(logMgr.Warning("切换窗口失败,尝试ALT+TAB"))
-                    pyautogui.hotkey('alt', 'tab')
-                    time.sleep(2)
-                    continue
+            log.warning(logMgr.Warning("切换窗口失败,尝试ALT+TAB"))
+            pyautogui.hotkey('alt', 'tab')
+            time.sleep(2)
+            continue
         return False
-
-
 
     def AddScreen(self, id, name, imagePath, actions):
             """
