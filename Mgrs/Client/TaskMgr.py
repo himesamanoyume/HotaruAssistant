@@ -12,12 +12,12 @@ class TaskMgr:
         return cls.mInstance
     
     @staticmethod
-    def SetupGame():
-        Base.SetupGame()
+    def StartAndLoginGame():
+        Base.StartAndLoginGame()
 
     @staticmethod
     def StopGame():
-        pass
+        log.info(logMgr.Info("正在退出游戏"))
 
     @staticmethod
     def DetectNewAccounts():
@@ -25,7 +25,7 @@ class TaskMgr:
 
     @staticmethod
     def ReadyToStart(uid):
-        Base.ReadyToStart(uid)
+        Base.BeReadyToStart(uid)
 
     @staticmethod
     def StartDaily(expectUid, lastUid):

@@ -32,7 +32,7 @@ class LogClientMgr:
 
     @staticmethod
     def Screen(msg):
-        socketClientMgr.LogScreenSendToServer(msg)
+        socketClientMgr.LogHeartSendToServer(msg)
 
     @staticmethod
     def Debug(msg, *args, **kwargs):

@@ -33,5 +33,4 @@ class ConfigClientMgr:
                 time.sleep(5)
                 if time.time() - self.mConfigModule.mLastTimeModifyTimestamp >= 5:
                     self.mConfigModule.SaveConfig()
-                    log.info(logMgr.Info("配置文件已自动保存"))
     

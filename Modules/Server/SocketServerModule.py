@@ -1,5 +1,6 @@
 import socket,threading,datetime
 from Hotaru.Server.LogServerHotaru import logMgr
+from Hotaru.Server.DataServerHotaru import data
 
 class SocketServerModule:
     mInstance = None
@@ -24,6 +25,7 @@ class SocketServerModule:
         while True:
             clientSocket, clientAddress = cls.serverSocket.accept()
             logMgr.Info(f"客户端{clientAddress},已连接.")
+            data.clientDict.update({clientSocket : clientAddress})
             clientThread = threading.Thread(target=cls.HandleClient, args=(clientSocket,))
             clientThread.start()
 
@@ -34,20 +36,25 @@ class SocketServerModule:
                 data = clientSocket.recv(1024)
                 if not data:
                     break
-                cls.LogHeadHandle(data.decode('utf-8'))
+                cls.LogHeadHandle(data.decode('utf-8'), clientSocket)
                 
             except Exception as e:
                 logMgr.Error(f"发生异常:{e}")
                 break
+
+    def LogHeartSendToClient(clientSocket):
+        text = f"heart|||ServerOnline"
+        clientSocket.send(text.encode())
     
     @classmethod
-    def LogHeadHandle(cls, msg:str):
+    def LogHeadHandle(cls, msg:str, clientSocket):
         head, content = msg.split("|||")
         if head in ["log"]:
             logMgr.Socket(f"{content}")
             return
-        elif head in ["screen"]:
-            logMgr.Screen(f"{content}")
+        elif head in ["heart"]:
+            print(f"收到客户端{data.clientDict[clientSocket]}心跳")
+            cls.LogHeartSendToClient(clientSocket)
             return
         elif head in ["pid"]:
             return

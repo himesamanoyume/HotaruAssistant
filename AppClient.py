@@ -59,11 +59,11 @@ class AppClient:
 
         optionsAction = {"全部轮次:每日任务轮次+模拟宇宙轮次": "all", "单独每日任务轮次": "daily", "单独模拟宇宙轮次": "universe"}
 
-        actionSelectTitle = "请选择进行的轮次:"
+        actionSelectTitle = "请选择进行的轮次:\n"
         actionSelectOption = questionary.select(actionSelectTitle, list(optionsAction.keys())).ask()
         selectedAction = optionsAction.get(actionSelectOption)
 
-        regSelectTitle = "请选择UID进行作为首位启动游戏:"
+        regSelectTitle = "请选择UID进行作为首位启动游戏:\n"
         regSelectOption = questionary.select(regSelectTitle, list(optionsReg.keys())).ask()
         selectedReg = optionsReg.get(regSelectOption)
         
@@ -118,7 +118,7 @@ class AppClient:
                         input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
                         return False
                     
-                    gameMgr.SetupGame()
+                    gameMgr.StartAndLoginGame()
 
                     if count == 1:
                         if selectedAction == 'daily':

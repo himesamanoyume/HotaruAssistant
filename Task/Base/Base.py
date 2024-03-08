@@ -11,11 +11,11 @@ class Base:
         stateMgr.Transition(DetectNewAccountState())
 
     @staticmethod
-    def ReadyToStart(uid):
+    def BeReadyToStart(uid):
         data.tempUid = uid
         stateMgr.Transition(InitState())
     
     @staticmethod
-    def SetupGame():
+    def StartAndLoginGame():
         stateMgr.Transition(StartGameState())
         stateMgr.Transition(LoginGameState())

@@ -21,5 +21,5 @@ class SocketClientMgr:
         cls.mSocketClientModule.LogSendToServer(level, msg)
 
     @classmethod
-    def LogScreenSendToServer(cls, msg):
-        cls.mSocketClientModule.LogScreenSendToServer(msg)
+    def LogHeartSendToServer(cls, msg):
+        cls.mSocketClientModule.LogHeartSendToServer(msg)
