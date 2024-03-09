@@ -6,3 +6,5 @@ class ClickModule:
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
         return cls.mInstance
+    
+    

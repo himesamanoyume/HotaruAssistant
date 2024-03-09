@@ -2,8 +2,8 @@ import numpy as np,time,math,cv2
 
 class DetectScreenSubModule:
 
-    def __init__(self, window_title):
-        self.window_title = window_title
+    def __init__(self, windowTitle):
+        self.windowTitle = windowTitle
         self.screenshot = None
         self.InitDetectScreen()
     

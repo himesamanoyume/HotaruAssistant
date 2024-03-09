@@ -1,19 +1,18 @@
 from States import *
-from Hotaru.Server.ScreenHotaru import screenMgr
+from Hotaru.Client.ScreenHotaru import screenMgr
+from Hotaru.Client.GameControlHotaru import gameMgr
 
 class StartGameState(BaseState):
 
     mStateName = 'StartGameState'
 
     def OnBegin(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} Begin"))
-        # screenMgr.DevScreen()
-        logClientMgr.Screen("114,514,1919,818")
+        log.info(logMgr.Info("开始启动游戏"))
+        gameMgr.StartGame()
         return False
     
     def OnRunning(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} Running"))
         return False
 
     def OnExit(self):
-        log.info(logClientMgr.Info(f"{self.mStateName} Exit"))
+        return False

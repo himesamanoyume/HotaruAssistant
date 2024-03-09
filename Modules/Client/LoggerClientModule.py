@@ -35,7 +35,7 @@ class LoggerClientModule:
         console_handler.setFormatter(console_formatter)
         self.logger.addHandler(console_handler)
 
-        self.logger.hr = TitleFormatter.format_title
+        self.logger.hr = TitleFormatter.FormatTitle
 
         return self.logger
     

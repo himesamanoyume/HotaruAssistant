@@ -1,0 +1,3 @@
+
+class DataServer:
+    clientDict = dict()

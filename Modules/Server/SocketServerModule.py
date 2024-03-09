@@ -1,5 +1,6 @@
 import socket,threading,datetime
-from Hotaru.Server.LogServerHotaru import logServerMgr
+from Hotaru.Server.LogServerHotaru import logMgr
+from Hotaru.Server.DataServerHotaru import dataMgr
 
 class SocketServerModule:
     mInstance = None
@@ -14,7 +15,7 @@ class SocketServerModule:
         cls.serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         cls.serverSocket.bind(('localhost', 3377))
         cls.serverSocket.listen(0)
-        logServerMgr.Info("服务器已启动，正在等待客户端连接...")
+        logMgr.Info("服务器已启动，正在等待客户端连接...")
         accpetClientThread = threading.Thread(target=cls.AcceptClient, args=())
         accpetClientThread.start()
 
@@ -23,7 +24,8 @@ class SocketServerModule:
         # 可能需要记录连接的client到数据结构里,用于对指定client发送消息
         while True:
             clientSocket, clientAddress = cls.serverSocket.accept()
-            logServerMgr.Info(f"客户端{clientAddress},已连接.")
+            logMgr.Info(f"客户端{clientAddress},已连接.")
+            dataMgr.clientDict.update({clientSocket : clientAddress})
             clientThread = threading.Thread(target=cls.HandleClient, args=(clientSocket,))
             clientThread.start()
 
@@ -34,20 +36,26 @@ class SocketServerModule:
                 data = clientSocket.recv(1024)
                 if not data:
                     break
-                cls.LogHeadHandle(data.decode('utf-8'))
+                cls.LogHeadHandle(data.decode('utf-8'), clientSocket)
                 
             except Exception as e:
-                logServerMgr.Error(f"发生异常:{e}")
+                logMgr.Error(f"发生异常:{e}")
                 break
     
+    @staticmethod
+    def HeartSendToClient(clientSocket):
+        text = f"heart|||ServerOnline"
+        clientSocket.send(text.encode())
+            
     @classmethod
-    def LogHeadHandle(cls, msg:str):
+    def LogHeadHandle(cls, msg:str, clientSocket):
         head, content = msg.split("|||")
         if head in ["log"]:
-            logServerMgr.Socket(f"{content}")
+            logMgr.Socket(f"{content}")
             return
-        elif head in ["screen"]:
-            logServerMgr.Screen(f"{content}")
+        elif head in ["heart"]:
+            # print(f"收到客户端{data.clientDict[clientSocket]}心跳")
+            cls.HeartSendToClient(clientSocket)
             return
 
         

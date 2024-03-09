@@ -1,5 +1,5 @@
 
-from Modules.Socket.SocketServerModule import SocketServerModule
+from Modules.Server.SocketServerModule import SocketServerModule
 
 class SocketServerMgr:
     mInstance = None

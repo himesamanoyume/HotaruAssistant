@@ -42,7 +42,9 @@ class ConfigModule(BaseConfigModule):
 
     def SaveConfig(self):
         with open(self.mConfigPath, 'w', encoding='utf-8') as file:
-            self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] = time.time()
+            nowtime = time.time()
+            self.mLastTimeSaveTimestamp = nowtime
+            self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] = nowtime
             self.mYaml.dump(self.mConfig, file)
 
     def SetValue(self, key, value):
