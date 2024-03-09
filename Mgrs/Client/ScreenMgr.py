@@ -1,6 +1,7 @@
 from Hotaru.Client.LogClientHotaru import logMgr,log
 from Hotaru.Client.ConfigClientHotaru import configMgr
 from Modules.Client.ScreenModule import ScreenModule
+from Modules.Utils.Retry import Retry
 import pyautogui
 
 class ScreenMgr:
@@ -21,3 +22,8 @@ class ScreenMgr:
     
     def StartDevScreen(self):
         self.mScreenModule.StartDevScreen()
+
+    def ShowDetectArea(self, detectArea):
+        self.mScreenModule.mDevScreen.canvas.delete('all')
+        Retry.RepeatAttempt(lambda: self.mScreenModule.mDevScreen.ShowDetectArea(detectArea), 1)
+        self.mScreenModule.mDevScreen.canvas.delete('all')

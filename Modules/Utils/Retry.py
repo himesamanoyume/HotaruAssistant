@@ -5,7 +5,6 @@ class Retry:
     @staticmethod
     def RepeatAttempt(lambdaFunction, timeout = 10, repeatSleep = 0.5):
         startTime = time.time()
-
         while time.time() - startTime < timeout:
             try:
                 result = lambdaFunction()

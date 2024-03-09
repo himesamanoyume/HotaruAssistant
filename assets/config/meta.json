@@ -1,5 +1,15 @@
 {   
     "hotaru_assets_version" : "v2.0.0.a",
+    "announcement": [
+        {
+            "Title": "测试标题",
+            "Content": "测试内容"
+        },
+        {
+            "Title": "测试标题2",
+            "Content": "测试内容2"
+        }
+    ],
     "task_mappings":
     {
         "完成1个日常任务": "完成1个日常任务",

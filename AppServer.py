@@ -7,7 +7,7 @@ from Hotaru.Server.WebHotaru import webMgr
 from Hotaru.Server.SocketServerHotaru import socketServerMgr
 from Hotaru.Server.UpdateHotaru import updateMgr
 from Hotaru.Server.OcrServerHotaru import ocrServerMgr
-from Modules.Utils.Announcement import Announcement
+from Modules.Utils.Himesamanoyume import Himesamanoyume
 
 class AppServer:
     def Main():
@@ -15,7 +15,7 @@ class AppServer:
         configMgr.IsAgreed2Disclaimer()
         # updateMgr.mUpdate.DetectVersionUpdate()
         ocrServerMgr.CheckPath()
-        Announcement.GetNotify()
+        Himesamanoyume.PrincessDreamland()
         webMgr.StartWeb()
         socketServerMgr.StartSocket()
         

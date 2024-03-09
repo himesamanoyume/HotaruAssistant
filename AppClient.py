@@ -9,6 +9,7 @@ from Hotaru.Client.TaskHotaru import gameMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
 from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
+
 class AppClient:
     def Main(self):
         socketClientMgr.StartListenServer()
@@ -31,7 +32,7 @@ class AppClient:
 
         screenLoopThread = threading.Thread(target=screenMgr.StartDevScreen)
         screenLoopThread.start()
-            
+        
         # input("按回车键关闭窗口. . .")
         # sys.exit(0)
 
