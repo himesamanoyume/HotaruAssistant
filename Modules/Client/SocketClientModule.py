@@ -15,8 +15,6 @@ class SocketClientModule:
         try:
             cls.serverSocket.connect(('localhost', 3377))
             print("已连接上Server")
-            
-            
         except Exception:
             print("你在启动Client前必须先启动Server!")
             input("按回车键关闭窗口. . .")
@@ -46,10 +44,7 @@ class SocketClientModule:
         if head in ["heart"]:
             cls.HeartSendToServer()
             return
-        elif head in ["pid"]:
-            cls.PidHandle(content)
     
-
     @classmethod
     def LogSendToServer(cls, level, msg):
         # 之后根据level对INFO ERROR等调整颜色

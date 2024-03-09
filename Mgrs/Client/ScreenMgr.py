@@ -19,8 +19,5 @@ class ScreenMgr:
     def CheckResulotion(self, title, width, height):
         self.mScreenModule.CheckResulotion(title, width, height)
     
-    def SwitchToWindow(self, title, maxRetries=5):
-        self.mScreenModule.SwitchToWindow(title, maxRetries)
-    
     def StartDevScreen(self):
         self.mScreenModule.StartDevScreen()

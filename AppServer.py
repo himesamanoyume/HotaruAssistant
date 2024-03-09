@@ -11,7 +11,7 @@ from Modules.Utils.Announcement import Announcement
 
 class AppServer:
     def Main():
-        logMgr.Info("HotaruAssistant - Server...启动!")
+        logMgr.Hr("HotaruAssistant - Server\n启动!")
         configMgr.IsAgreed2Disclaimer()
         # updateMgr.mUpdate.DetectVersionUpdate()
         ocrServerMgr.CheckPath()
