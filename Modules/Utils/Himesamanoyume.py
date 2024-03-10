@@ -7,5 +7,4 @@ class Himesamanoyume:
         if cnJy.status_code == 200:
             ZGF0YWFh=json.loads(cnJy.text)
             YW5ub3VuY2VtZW50=ZGF0YWFh["{YW5ub3VuY2VtZW50}".format(YW5ub3VuY2VtZW50=base64.b64decode("YW5ub3VuY2VtZW50").decode('utf-8'))]
-            logMgr.Hr(base64.b64decode("B|5YWs5ZGK".split('|')[1]).decode('utf-8'), 2)
             return YW5ub3VuY2VtZW50

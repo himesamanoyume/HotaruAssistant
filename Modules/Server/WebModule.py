@@ -19,7 +19,7 @@ class WebModule:
 
     @mAppFlask.route('/')
     def Index():
-        # configMgr.mConfigModule.ReloadConfig()
+        configMgr.mConfigModule.ReloadConfig()
         noticeList = notifyMgr.CreateOfficialNotice()
 
         return render_template('index.html', loginList=WebModule.InitLoginList(), noticeList=noticeList, meta=dataMgr.meta, annList=dataMgr.YW5ub3VuY2VtZW50, configMgr=configMgr)

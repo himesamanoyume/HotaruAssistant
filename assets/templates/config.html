@@ -101,8 +101,8 @@ data-rt="{{uid}}"
     </div>
     <div class=post-txt-container>
         <div class=post-txt-container-title>
-            <h6 style=color:#66ccff id="配置信息">
-                配置信息
+            <h6 style=color:#66ccff id="开拓力使用配置">
+                开拓力使用配置
             </h6>
         </div>
         <section class=post-detail-txt style=color:#d9d9d9>
@@ -130,6 +130,20 @@ data-rt="{{uid}}"
                 <button class="link-button" id="change_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="change_instance_list()">替换</button>
                 <button class="link-button" id="append_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_instance_list()">添加至队尾</button>
             </p>
+        </section>
+    </div>
+</div>
+<div class="post">
+    <div class=post-Img-container> 
+    
+    </div>
+    <div class=post-txt-container>
+        <div class=post-txt-container-title>
+            <h6 style=color:#66ccff id="副本配置">
+                副本配置
+            </h6>
+        </div>
+        <section class=post-detail-txt style=color:#d9d9d9>
             <p>不同副本类型下的副本名称:</p>
             <p>拟造花萼（金）:
                 <select class=configSelect name=instance_name1>
@@ -173,21 +187,6 @@ data-rt="{{uid}}"
                         <option value="{{key}}" {% if key == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['历战余响'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
-            </p>
-            <p>是否开启分解遗器:
-                <input type="checkbox" name="relic_salvage_enable" {% if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_ENABLE][uid] %} checked {% endif %}>
-            </p>
-            <p>是否分解4星遗器:
-                <input type="checkbox" name="relic_salvage_4star_enable" {% if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_4STAR_ENABLE][uid] %} checked {% endif %}>
-            </p>
-            <p>是否分解5星遗器:
-                <input type="checkbox" name="relic_salvage_5star_enable" {% if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_5STAR_ENABLE][uid] %} checked {% endif %}>
-            </p>
-            <p>若分解5星遗器,是否分解为遗器经验材料:
-                <input type="checkbox" name="relic_salvage_5star_to_exp" {% if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_5STAR_TO_EXP][uid] %} checked {% endif %}>
-            </p>
-            <p>当遗器数量达到何值时触发遗器分解:
-                <input name="relic_threshold_count" value="{{configMgr.mConfig[configMgr.mKey.RELIC_THRESHOLD_COUNT][uid]}}" placeholder="1111" type="number" style="width: 150px;">
             </p>
             <p>模拟宇宙:
                 <select class=configSelect name=universe_number>
@@ -238,15 +237,12 @@ data-rt="{{uid}}"
                     </select>
                 </p>
             </p>
-            <p>绑定中的邮箱地址:
-                <input name="notify_smtp_To" type="email" style="width: 200px;" placeholder="123456789@qq.com" value="{{configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_TO][uid]}}">
-            </p>
+            
         </section>
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="temp1" onclick="">测试按钮1</button>
-    <button class="link-button" id="temp2" onclick="">测试按钮2</button>
+    <button class="link-button" id="temp1" onclick="">保存副本配置</button>
 </div>
 <div class="post">
     <div class=post-Img-container> 
@@ -254,17 +250,50 @@ data-rt="{{uid}}"
     </div>
     <div class=post-txt-container>
         <div class=post-txt-container-title>
-            <h4>
-                通用右侧标题1
-            </h4>
+            <h6 style=color:#66ccff id="开拓力使用配置">
+                遗器配置
+            </h6>
         </div>
         <section class=post-detail-txt style=color:#d9d9d9>
-            <p>啥也没有</p>
+            <p>是否开启分解遗器:
+                <input type="checkbox" name="relic_salvage_enable" {% if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_ENABLE][uid] %} checked {% endif %}>
+            </p>
+            <p>是否分解4星遗器:
+                <input type="checkbox" name="relic_salvage_4star_enable" {% if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_4STAR_ENABLE][uid] %} checked {% endif %}>
+            </p>
+            <p>是否分解5星遗器:
+                <input type="checkbox" name="relic_salvage_5star_enable" {% if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_5STAR_ENABLE][uid] %} checked {% endif %}>
+            </p>
+            <p>若分解5星遗器,是否分解为遗器经验材料:
+                <input type="checkbox" name="relic_salvage_5star_to_exp" {% if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_5STAR_TO_EXP][uid] %} checked {% endif %}>
+            </p>
+            <p>当遗器数量达到何值时触发遗器分解:
+                <input name="relic_threshold_count" value="{{configMgr.mConfig[configMgr.mKey.RELIC_THRESHOLD_COUNT][uid]}}" placeholder="1111" type="number" style="width: 150px;">
+            </p>
         </section>
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="temp1" onclick="">测试按钮1</button>
-    <button class="link-button" id="temp2" onclick="">测试按钮2</button>
+    <button class="link-button" id="temp1" onclick="">保存遗器配置</button>
+</div>
+<div class="post">
+    <div class=post-Img-container> 
+    
+    </div>
+    <div class=post-txt-container>
+        <div class=post-txt-container-title>
+            <h6 style=color:#66ccff id="杂项配置">
+                杂项配置
+            </h6>
+        </div>
+        <section class=post-detail-txt style=color:#d9d9d9>
+            <p>绑定中的邮箱地址:
+                <input name="notify_smtp_To" type="email" style="width: 200px;" placeholder="123456789@qq.com" value="{{configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_TO][uid]}}">
+            </p>
+        </section>
+    </div>
+</div>
+<div class="post-page">
+    <button class="link-button" id="temp1" onclick="">保存杂项配置</button>
 </div>
 {% endblock %}

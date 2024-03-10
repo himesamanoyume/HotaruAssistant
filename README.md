@@ -184,6 +184,10 @@ OBS录制|&cross;|&check;
 ##### Web大后期
 - 尝试实现页面串流游戏画面(类似云游戏)[纯娱乐性质想法,未检验可行性]
 
+#### Config
+
+- ReloadConfig实现先加载config判断其中时间戳是否为最新,根据此决定是否使用该config
+
 #### Data
 
 #### Common

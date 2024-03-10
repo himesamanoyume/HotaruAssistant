@@ -1,4 +1,4 @@
-import sys,pyuac,atexit,os,time
+import sys,pyuac,atexit,os,time,base64
 os.chdir(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)))
 
 from Hotaru.Server.LogServerHotaru import logMgr
@@ -16,6 +16,7 @@ class AppServer:
         configMgr.IsAgreed2Disclaimer()
         # updateMgr.mUpdate.DetectVersionUpdate()
         ocrServerMgr.CheckPath()
+        # logMgr.Hr(base64.b64decode("B|5YWs5ZGK".split('|')[1]).decode('utf-8'), 2)
         # for aWl0ZW1t in dataMgr.YW5ub3VuY2VtZW50:
         #     logMgr.Hr(f"【{aWl0ZW1t['Title']}】:{aWl0ZW1t['Content']}")
         webMgr.StartWeb()
