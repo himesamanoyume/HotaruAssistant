@@ -19,6 +19,23 @@
                         流萤的秘密基地
                     </a>
                     <div class="nav-container">
+                        <div class="nav-content">
+                            <a class="{% if url=='register' %}nav-link-active{% else %}nav-link{% endif %}" id="register"  href="/register">注册界面</a>             
+                        </div>
+                        <div class="nav-content">
+                            <a class="{% if url=='activate' %}nav-link-active{% else %}nav-link{% endif %}" id="activate"  href="/activate">激活界面</a>            
+                        </div>
+                        {% block nav %}
+
+                        {% endblock %}
+                        <div class="nav-content">
+                            <select class=configSelect id=nav-select-uid>
+                                <option value="">选择UID跳转</option>
+                                {% for loginUid in loginList %}
+                                <option value="{{loginUid}}">{% if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][loginUid] %}√|{% endif %}{{loginUid}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -26,62 +43,75 @@
         <main class=main>
             <div class=home-container>
                 <div class=post-container>
-                    <div class="post-left">
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                    <div class=post-left-content>
+                        <div class="post-left-sticky">
+                            {% block left_content %}
+                            <div class="post-left">
+                                <div class=post-Img-container> 
+                                </div>
+                                <div class=post-txt-container>
+                                    <div class=post-txt-container-title>
+                                        <h4>
+                                            通用左侧标题1
+                                        </h4>
+                                    </div>
+                                    <section class=post-detail-txt style=color:#d9d9d9>
+                                        {% for item in annList %}
+                                        <div style='background-color:#40405f;margin:10px 0 0 0;'>
+                                            <p style="margin: 0 20px 0 20px;"><b>{{item['Title']}}</b></p>
+                                            <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
+                                            {{item['Content']}}
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        <p>啥也没有</p>
+                                    </section>
+                                </div>
+                            </div>
+                            {% endblock %}
+                        </div>
                     </div>
                     <div class=post-content>
+                        {% block right_content %}
                         <div class="post">
-
+                            <div class=post-Img-container> 
+                            
+                            </div>
+                            <div class=post-txt-container>
+                                <div class=post-txt-container-title>
+                                    <h4>
+                                        通用右侧标题1
+                                    </h4>
+                                </div>
+                                <section class=post-detail-txt style=color:#d9d9d9>
+                                    <p>啥也没有</p>
+                                </section>
+                            </div>
                         </div>
-                        <div class="post">
-
+                        <div class="post-page">
+                            <button class="link-button" id="temp1" onclick="">测试按钮1</button>
+                            <button class="link-button" id="temp2" onclick="">测试按钮2</button>
                         </div>
-                        <div class="post">
-
+                        <div class="post" style="height: 800px;">
+                            <div class=post-Img-container> 
+                            
+                            </div>
+                            <div class=post-txt-container>
+                                <div class=post-txt-container-title>
+                                    <h4>
+                                        通用右侧标题2
+                                    </h4>
+                                </div>
+                                <section class=post-detail-txt style=color:#d9d9d9>
+                                    <p>啥也没有</p>
+                                </section>
+                            </div>
                         </div>
-                        <div class="post">
-
+                        <div class="post-page">
+                            <button class="link-button" id="temp3" onclick="">测试按钮3</button>
+                            <button class="link-button" id="temp4" onclick="">测试按钮4</button>
                         </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
-                        <div class="post">
-
-                        </div>
+                        {% endblock %}
                     </div>
                 </div>
                 <aside class=info-container>
@@ -108,7 +138,10 @@
                 Copyright © 2021-2024 @姫様の夢
             </div>
             <div class=footer-content>
-                <a href="./">HotaruAssistant</a> v1.8.4.4
+                本软件永久免费,若被收取了费用说明您被骗了!
+            </div>
+            <div class=footer-content>
+                <a href="./">HotaruAssistant</a> v2.0.0.alpha
             </div>
         </footer>
     </body>

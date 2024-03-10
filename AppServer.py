@@ -7,19 +7,20 @@ from Hotaru.Server.WebHotaru import webMgr
 from Hotaru.Server.SocketServerHotaru import socketServerMgr
 from Hotaru.Server.UpdateHotaru import updateMgr
 from Hotaru.Server.OcrServerHotaru import ocrServerMgr
-from Modules.Utils.Himesamanoyume import Himesamanoyume
+from Hotaru.Server.DataServerHotaru import dataMgr
 
 class AppServer:
     @staticmethod
     def Main():
         logMgr.Hr("HotaruAssistant - Server\n启动!")
-        # configMgr.IsAgreed2Disclaimer()
+        configMgr.IsAgreed2Disclaimer()
         # updateMgr.mUpdate.DetectVersionUpdate()
-        # ocrServerMgr.CheckPath()
-        # Himesamanoyume.PrincessDreamland()
-        # webMgr.StartWeb()
-        webMgr.StartDebugWeb()
-        # socketServerMgr.StartSocket()
+        ocrServerMgr.CheckPath()
+        # for aWl0ZW1t in dataMgr.YW5ub3VuY2VtZW50:
+        #     logMgr.Hr(f"【{aWl0ZW1t['Title']}】:{aWl0ZW1t['Content']}")
+        webMgr.StartWeb()
+        # webMgr.StartDebugWeb()
+        socketServerMgr.StartSocket()
         
 
 if __name__ == "__main__":

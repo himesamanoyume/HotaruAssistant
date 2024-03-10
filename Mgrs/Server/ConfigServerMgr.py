@@ -27,7 +27,7 @@ class ConfigServerMgr:
                     logMgr.Info("配置文件已自动保存")
     
     def IsAgreed2Disclaimer(self):
-        if not self.mConfig[ConfigKey.AGREED_TO_DISCLAIMER]:
+        if not self.mConfig[self.mKey.AGREED_TO_DISCLAIMER]:
             self.ShowDisclaimer()
 
         self.autoSaveThread = threading.Thread(target=self.AutoSave)
@@ -44,7 +44,7 @@ class ConfigServerMgr:
         option = questionary.select(selectTitle, list(options.keys())).ask()
         value = options.get(option)
         if value == 0:
-            self.mConfig[ConfigKey.AGREED_TO_DISCLAIMER] = True
+            self.mConfig[self.mKey.AGREED_TO_DISCLAIMER] = True
         else:
             logMgr.Info("您未同意《免责声明》")
             input("按回车键关闭窗口. . .")

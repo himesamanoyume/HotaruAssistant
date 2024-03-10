@@ -34,9 +34,22 @@ class InitState(BaseState):
 
         configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.LAST_RUN_TIMESTAMP, dataMgr.tempUid)
 
+        if configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE] == {} or dataMgr.tempUid not in configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE].keys():
+            configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataMgr.tempUid] = {}
+            configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataMgr.tempUid].append('拟造花萼（金）')
+
+        if configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES] == {} or dataMgr.tempUid not in configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES].keys():
+            configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.tempUid] = {}
+            configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.tempUid]['拟造花萼（金）'] = '雅利洛-回忆之蕾'
+            configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.tempUid]['拟造花萼（赤）'] = '毁灭之蕾1'
+            configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.tempUid]['凝滞虚影'] = '空海之形'
+            configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.tempUid]['侵蚀隧洞'] = '睿治之径'
+            configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.tempUid]['历战余响'] = '毁灭的开端'
+
+
         if Date.IsNext4AM(configMgr.mConfig[configMgr.mKey.LAST_RUN_TIMESTAMP][dataMgr.tempUid], False):
             
-            configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_SCORE, dataMgr.tempUid, '0/1')
+            configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_SCORE, dataMgr.tempUid, 0)
             configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_FIN, dataMgr.tempUid, False)
             configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS, dataMgr.tempUid, {})
 
