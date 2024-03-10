@@ -154,8 +154,7 @@ OBS录制|&cross;|&check;
 ## 2.0TODO
 
 #### Announcement
-- ~~ann.json~~
-- 改为读取github仓库里的json
+- ~~改为读取github仓库里的json~~
 
 #### State
 - ~~要求实现两个状态能来回切换甚至达成循环~~
@@ -164,15 +163,13 @@ OBS录制|&cross;|&check;
 - 需要Update单独作为一个应用程序,因为下载器是不会随版本更新而变化的
 
 #### Socket
-- [低优先级]Client向Server发送心跳包,同时Server也要进行回应,当任何一方长期未接收到心跳包时,判定对方离线并做相应处理,如Client发现Server没了,则直接中止程序
-- Server的Socket启动调后
+- [低优先级]~~Client向Server发送心跳包,同时Server也要进行回应~~,当任何一方长期未接收到心跳包时,判定对方离线并做相应处理,如Client发现Server没了,则直接中止程序
 
 #### Screen/Click
-- 实现Screen相关的代码转移
-- - **优先实现DevScreen**
-- - ~~实现根据指令显示方框[1]~~
-- - - 实现重复尝试为持续检测
-- - - 后台输入[2]
+- *实现Screen相关的代码转移*
+- - ~~实现根据指令显示方框~~
+- - **实现DetectScrren**[1]
+- - 实现输入[2]
 - - - 截图工具加上滚动条
 
 #### GameLoop

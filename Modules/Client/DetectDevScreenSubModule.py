@@ -3,71 +3,9 @@ from Hotaru.Client.LogClientHotaru import logMgr,log
 from Hotaru.Client.ConfigClientHotaru import configMgr
 from tkinter import *
 from Modules.Utils.GameWindow import GameWindow
-from PIL import Image, ImageTk
-from Modules.Utils.Retry import Retry
 
+class DetectDevScreenSubModule:
 
-class DevScreenSubModule:
-
-    def IsApplicationFullscreen(self, window):
-        screenWidth, screenHeight = pyautogui.size()
-        return (window.width, window.height) == (screenWidth, screenHeight)
-    
-    def GetWindowRegion(self, window):
-        # 边框
-        otherBorder = (window.width - 1920) // 2
-        upBorder = window.height - 1080 - otherBorder
-
-        if self.IsApplicationFullscreen(window):
-            return (window.left, window.top, window.width, window.height)
-        else:
-            return (window.left + otherBorder, window.top + upBorder, window.width -
-                    otherBorder - otherBorder, window.height - upBorder - otherBorder)
-
-    def GetWindowDevRegion(self, window):
-        # 边框
-        otherBorder = (window.width - 1920) // 2
-        upBorder = window.height - 1080 - otherBorder
-
-        if self.IsApplicationFullscreen(window):
-            return (window.left, window.top, window.width, window.height)
-        else:
-            return (window.left, window.top - upBorder, window.width -
-                    otherBorder - otherBorder, window.height)
-    
-    def GetHonkaiWindowsInfo(self, window, crop=(0, 0, 0, 0)):
-        if crop == (0, 0, 0, 0):
-            screenshotPos = self.GetWindowDevRegion(window)
-            return screenshotPos
-        else:
-            left, top, width, height = self.GetWindowDevRegion(window)
-            screenshotPos = int(left + width * crop[0]), int(top + height * crop[1]), int(width * crop[2]), int(height * crop[3])
-            return screenshotPos
-        
-    def TakeScreenshot(self, crop=(0, 0, 0, 0)):
-        # self.canvas.create_rectangle(50, 50, self.canvas.winfo_width() / 2, self.canvas.winfo_height() / 2, outline="red", width=3)
-        # self.isScreenshot = True
-        # time.sleep(1)
-        # --------
-        title = configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]
-        window = GameWindow.GetWindow(title)
-        if window:
-            if crop == (0, 0, 0, 0):
-                screenshotPos = self.GetWindowRegion(window)
-            else:
-                left, top, width, height = self.GetWindowRegion(window)
-                screenshotPos = int(left + width * crop[0]), int(top + height * crop[1]), int(width * crop[2]), int(height * crop[3])
-
-            GameWindow.SwitchToWindow(title, maxRetries=4)
-            self.screenshot = pyautogui.screenshot(region=screenshotPos)
-            self.isScreenshot = True
-        # -----------------
-            # return screenshot, screenshot_pos
-        # return False
-            
-    def CloseScreenshot(self):
-        self.isScreenshot = False
-        
     def ShowDetectArea(self, detectArea):
         self.canvas.create_rectangle(
             detectArea[0], detectArea[1], detectArea[2], detectArea[3], outline="red", width=3
@@ -151,17 +89,16 @@ class DevScreenSubModule:
             def OnSize(evt):
                 try:
                     time.sleep(0.01)
-                    screenshotPos = self.GetHonkaiWindowsInfo(window)
+                    screenshotPos = GameWindow.GetHonkaiWindowsInfo(window)
                     window_x = screenshotPos[0]
                     window_y = screenshotPos[1]
                     window_width = screenshotPos[2]
                     window_height = screenshotPos[3]
-                    
                     self.tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
                     
 
-                except Exception:
-                    log.error(logMgr.Error("窗口将自动关闭"))
+                except Exception as e:
+                    log.error(logMgr.Error(f"窗口将自动关闭:{e}"))
                     self.tk.destroy()
 
             self.tk = tkinter.Tk()
@@ -172,23 +109,10 @@ class DevScreenSubModule:
 
             TRANSCOLOUR = 'gray'
             self.tk.wm_attributes('-transparentcolor', TRANSCOLOUR)
-
             self.canvas = Canvas(self.tk)
             self.canvas.configure(bg=TRANSCOLOUR)
-
-            # self.canvas.bind("<ButtonPress-1>", self.OnButtonPress)
-            # self.canvas.bind("<B1-Motion>", self.OnMouseDrag)
-            # self.canvas.bind("<ButtonRelease-1>", self.OnButtonRelease)
-
             self.canvas.pack(fill=BOTH,expand=Y)
-
-            # self.takeScreenButton = tkinter.Button(self.tk, text="截图", command=self.TakeScreenshot)
-            # self.takeScreenButton.pack(side=tkinter.LEFT, padx=5, pady=5)
-            # self.save_screenshot_button = tkinter.Button(self.tk, text="保存完整截图", command=self.SaveScreenshot)
-            # self.save_screenshot_button.pack(side=tkinter.LEFT, padx=5, pady=5)
-            
             self.tk.bind('<Configure>', OnSize)
-            
             self.tk.mainloop()
         
             

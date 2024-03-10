@@ -2,7 +2,7 @@
 # from .ScreenshotScreenSubModule import ScreenshotScreenSubModule
 # from .ResulotionScreenSubModule import ResulotionScreenSubModule
 from Hotaru.Client.ConfigClientHotaru import configMgr
-from .DevScreenSubModule import DevScreenSubModule
+from .DetectDevScreenSubModule import DetectDevScreenSubModule
 from Hotaru.Client.LogClientHotaru import logMgr,log
 from collections import deque
 from Modules.Utils.GameWindow import GameWindow
@@ -11,7 +11,7 @@ import threading,time,json,sys,pyautogui,win32gui
 class ScreenModule:
 
     def __init__(self, configPath="./assets/config/screens.json"):
-        self.mDevScreen = DevScreenSubModule()
+        self.mDevScreen = DetectDevScreenSubModule()
         self.currentScreen = None
         self.screenMap = {}
         self.SetupScreensFromConfig(configPath)
