@@ -18,7 +18,7 @@ class WebModule:
 
     @mAppFlask.route('/')
     def Index():
-        return render_template('test.html')
+        return render_template('index.html')
     
     # @mAppFlask.route('/api/getConfigValue', methods=['POST'])
     # def GetConfigValue():

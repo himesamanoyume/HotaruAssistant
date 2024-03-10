@@ -10,6 +10,8 @@
         scroll-behavior: smooth
     }
 
+    
+
     img {
         transition-duration: .2s
     }
@@ -81,14 +83,6 @@
 
     .main>.home-container>.post-container>.main-post {
         box-shadow: 4px 4px 14px -13px #000
-    }
-
-    .main>.home-container>.post-container>.post {
-        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000
-    }
-
-    .main>.home-container>.post-container>.post:hover {
-        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000
     }
 
     body>.topTitle {
@@ -268,7 +262,11 @@
         width: 100%;
         height: 100%;
         border: 0;
-        padding: 0 15px 0 15px
+        padding: 0 7.5px 0 7.5px;
+        margin:0;
+        box-sizing:border-box;
+        max-width:100%;
+        display: flex;
     }
 
     input::-webkit-input-placeholder,
@@ -295,15 +293,13 @@
         text-align: center
     }
 
-    .post {
-        background-color: #2b2b2b;
+    .post-content {
         cursor: default;
         display: block;
+        margin: 0 7.5px 0 7.5px;
         min-height: 100px;
-        margin-top: 10px;
         width: 100%;
         border: 0;
-        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000;
         overflow-x: auto;
     }
 
@@ -1600,4 +1596,52 @@
         border-top: none;
         border-right:none;
         transform: rotate(-45deg);
+    }
+
+    .post-left {
+        position:sticky;
+        height: 100%;
+        top: 70px;
+        margin: 10px 7.5px 0 7.5px;
+        background-color: #2b2b2b;
+        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000;
+        cursor: default;
+        display: block;
+        min-height: 100px;
+        width: 100%;
+        border: 0;
+        overflow-x: auto;
+    }
+
+    @media screen and (max-width:1005px) {
+        .post-container{
+            display: block;
+            padding: 0 15px 0 15px;
+        }
+
+        .post-content{
+            margin: 0;
+        }
+
+        .post {
+            margin: 10px 0 0 0;
+        }
+
+        .post-left {
+            position:relative;
+            top: 0;
+            margin: 10px 0 0 0;
+        }
+    }
+
+    .post {
+        background-color: #2b2b2b;
+        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000;
+        cursor: default;
+        display: block;
+        min-height: 100px;
+        margin: 10px 0 0 0;
+        width: 100%;
+        border: 0;
+        overflow-x: auto;
     }

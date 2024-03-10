@@ -10,14 +10,16 @@ from Hotaru.Server.OcrServerHotaru import ocrServerMgr
 from Modules.Utils.Himesamanoyume import Himesamanoyume
 
 class AppServer:
+    @staticmethod
     def Main():
         logMgr.Hr("HotaruAssistant - Server\n启动!")
-        configMgr.IsAgreed2Disclaimer()
+        # configMgr.IsAgreed2Disclaimer()
         # updateMgr.mUpdate.DetectVersionUpdate()
-        ocrServerMgr.CheckPath()
-        Himesamanoyume.PrincessDreamland()
-        webMgr.StartWeb()
-        socketServerMgr.StartSocket()
+        # ocrServerMgr.CheckPath()
+        # Himesamanoyume.PrincessDreamland()
+        # webMgr.StartWeb()
+        webMgr.StartDebugWeb()
+        # socketServerMgr.StartSocket()
         
 
 if __name__ == "__main__":
@@ -31,9 +33,8 @@ if __name__ == "__main__":
             sys.exit(0)
     else:
         try:
-            AppServer.Main()
-            # atexit.register(exit_handler)
-            # main(sys.argv[1]) if len(sys.argv) > 1 else main()
+            appServer = AppServer()
+            appServer.Main()
         except KeyboardInterrupt:
             logMgr.Error("发生错误: 手动强制停止")
             input("按回车键关闭窗口. . .")
