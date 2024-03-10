@@ -10,6 +10,8 @@
         scroll-behavior: smooth
     }
 
+    
+
     img {
         transition-duration: .2s
     }
@@ -22,7 +24,7 @@
     }
 
     .webui_content{
-        max-width: 480px;
+        /* max-width: 480px; */
         display: inline-block;
     }
 
@@ -81,14 +83,6 @@
 
     .main>.home-container>.post-container>.main-post {
         box-shadow: 4px 4px 14px -13px #000
-    }
-
-    .main>.home-container>.post-container>.post {
-        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000
-    }
-
-    .main>.home-container>.post-container>.post:hover {
-        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000
     }
 
     body>.topTitle {
@@ -268,7 +262,11 @@
         width: 100%;
         height: 100%;
         border: 0;
-        padding: 0 15px 0 15px
+        padding: 0 7.5px 0 7.5px;
+        margin:0;
+        box-sizing:border-box;
+        max-width:100%;
+        display: flex;
     }
 
     input::-webkit-input-placeholder,
@@ -295,16 +293,14 @@
         text-align: center
     }
 
-    .post {
-        background-color: #2b2b2b;
+    .post-content {
         cursor: default;
         display: block;
+        margin: 0 7.5px 0 7.5px;
         min-height: 100px;
-        margin-top: 10px;
         width: 100%;
         border: 0;
-        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000;
-        overflow-x: auto;
+        /* overflow-x: auto; */
     }
 
     .newest-title {
@@ -555,8 +551,8 @@
 
     .post-txt-container-title {
         color: #d9d9d9;
-        padding: 15px 0 15px;
-        display: inline-block
+        display: inline-block;
+        width: 100%;
     }
 
     .post-txt-container-datetime {
@@ -1501,6 +1497,7 @@
     .post-txt-container-title h4,
     .post-txt-container-title h5,
     .post-txt-container-title h6 {
+        text-align: center;
         font-weight: 500;
         padding: 0 20px 0 20px;
         font-size: 28px;
@@ -1514,7 +1511,7 @@
     .post-txt-container-title:hover>h4,
     .post-txt-container-title:hover>h5,
     .post-txt-container-title:hover>h6 {
-        box-shadow: 3px 0 0 0 #66ccff inset, 950px 0 0 0 #40405f inset
+        box-shadow: 0 3px 0 0 #66ccff inset, 0 950px 0 0 #40405f inset
     }
 
     .relicContainer {
@@ -1601,3 +1598,72 @@
         border-right:none;
         transform: rotate(-45deg);
     }
+
+    .post-left {
+        /* position:sticky;
+        top: 90px; */
+        margin: 10px 0 0 0;
+        background-color: #2b2b2b;
+        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000;
+        cursor: default;
+        display: block;
+        min-height: 100px;
+        width: 100%;
+        border: 0;
+        overflow-x: auto;
+    }
+
+    .post {
+        background-color: #2b2b2b;
+        box-shadow: 0 0 0 0 #66ccff, 4px 4px 14px -13px #000;
+        cursor: default;
+        display: block;
+        min-height: 100px;
+        margin: 10px 0 0 0;
+        width: 100%;
+        border: 0;
+        overflow-x: auto;
+    }
+
+    .post-left-content {
+        cursor: default;
+        display: block;
+        margin: 0 7.5px 0 7.5px;
+        min-height: 100px;
+        width: 100%;
+        border: 0;
+        /* overflow-x: auto; */
+    }
+
+    .post-left-sticky{
+        position: sticky;
+        display: block;
+        top: 90px;
+    }
+
+    @media screen and (max-width:1005px) {
+        .post-container{
+            display: block;
+            padding: 0 15px 0 15px;
+        }
+
+        .post-content{
+            margin: 0;
+        }
+
+        .post {
+            margin: 10px 0 0 0;
+        }
+
+        .post-left {
+            position:relative;
+            top: 0;
+            margin: 10px 0 0 0;
+        }
+
+        .post-left-content{
+            margin: 0;
+        }
+    }
+
+    

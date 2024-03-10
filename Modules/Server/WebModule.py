@@ -1,7 +1,8 @@
 from flask import Flask,render_template,request,abort,Response
 from Hotaru.Server.ConfigServerHotaru import configMgr
 import json
-
+from Hotaru.Server.NotifyHotaru import notifyMgr
+from Hotaru.Server.DataServerHotaru import dataMgr
 
 class WebModule:
     mAppFlask = Flask(__name__, static_folder='../../assets/static', static_url_path='', template_folder='../../assets/templates')
@@ -18,39 +19,23 @@ class WebModule:
 
     @mAppFlask.route('/')
     def Index():
-        return render_template('test.html')
+        configMgr.mConfigModule.ReloadConfig()
+        noticeList = notifyMgr.CreateOfficialNotice()
+
+        return render_template('index.html', loginList=WebModule.InitLoginList(), noticeList=noticeList, meta=dataMgr.meta, annList=dataMgr.YW5ub3VuY2VtZW50, configMgr=configMgr)
     
-    # @mAppFlask.route('/api/getConfigValue', methods=['POST'])
-    # def GetConfigValue():
-    #     key = request.form.get('key')
-    #     uid = request.form.get('uid')
-    #     value = configServerMgr.GetConfigValue(key, uid)
-    #     print(f"{key}获取一个值:{value}")
-    #     data1 = {'value': value}
-    #     data2 = json.dumps(data1)
-    #     return Response(data2)
+    @staticmethod
+    def InitLoginList():
+        dataMgr.loginList.clear()
+        for index in range(len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS])):
+            uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index]).split('-')[1][:9]
+            dataMgr.loginList.append(f'{uidStr}')
+
+        return dataMgr.loginList
     
-    # @mAppFlask.route('/api/setConfigValue', methods=['POST'])
-    # def SetConfigValue():
-    #     key = request.form.get('key')
-    #     uid = request.form.get('uid')
-    #     value = request.form.get('value')
-    #     configServerMgr.SetConfigValue(key, uid, value)
-    #     return Response()
-    
-    # @mAppFlask.route('/api/appendConfigValue', methods=['POST'])
-    # def AppendConfigValue():
-    #     key = request.form.get('key')
-    #     uid = request.form.get('uid')
-    #     value = request.form.get('value')
-    #     configServerMgr.AppendConfigValue(key, uid, value)
-    #     return Response()
-    
-    # @mAppFlask.route('/api/delConfigKey', methods=['POST'])
-    # def DelConfigKey():
-    #     key = request.form.get('key')
-    #     uid = request.form.get('uid')
-    #     value = request.form.get('value')
-    #     configServerMgr.DelConfigKey(key, uid, value)
-    #     return Response()
+    @mAppFlask.route('/<uid>')
+    def ConfigSetting(uid):
+        configMgr.mConfigModule.ReloadConfig()
+        return render_template('config.html', uid=uid, loginList=WebModule.InitLoginList(), configMgr=configMgr, taskScore=dataMgr.taskScore, meta=dataMgr.meta, len=len(configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uid]))
+        
             

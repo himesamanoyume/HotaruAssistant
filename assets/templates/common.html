@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
         <meta content="流萤的秘密基地" name="title">
         <meta content="Himesamanoyume" name="author-name1">
         <meta content="Princess Dreamland" name="author-name2">
@@ -20,9 +20,6 @@
                     </a>
                     <div class="nav-container">
                         <div class="nav-content">
-                            <a class="{% if url=='notify' %}nav-link-active{% else %}nav-link{% endif %}" id="notify"  href="/notify">发布公告</a>
-                        </div>
-                        <div class="nav-content">
                             <a class="{% if url=='register' %}nav-link-active{% else %}nav-link{% endif %}" id="register"  href="/register">注册界面</a>             
                         </div>
                         <div class="nav-content">
@@ -35,7 +32,7 @@
                             <select class=configSelect id=nav-select-uid>
                                 <option value="">选择UID跳转</option>
                                 {% for loginUid in loginList %}
-                                <option value="{{loginUid}}">{% if config.daily_tasks_fin[loginUid] %}√|{% endif %}{{loginUid}}</option>
+                                <option value="{{loginUid}}">{% if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][loginUid] %}√|{% endif %}{{loginUid}}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -45,38 +42,77 @@
         </header>
         <main class=main>
             <div class=home-container>
-                <div class=post-container style=margin:0;box-sizing:border-box;max-width:100%;width:100%;height:100%;border:0>
-                    {% block toppostpage %}
-                        
-                    {% endblock %}
-                    <div class=post style=background-color:#2b2b2b>
-                        <div class=post-Img-container> 
-                            
-                        </div>
-                        <div style="text-align: center;">
-                            <img loading="lazy" src="{{ url_for('static', filename='/hotaru.png') }}" style="margin-top: 10px;width:100%;max-width:200px;">
-                        </div>
-                        <div class=post-txt-container>
-                            <div class=post-txt-container-title style=color:#d9d9d9>
-                                <h4 style=color:#66ccff>
-                                    {% block title %}
-                                    通用标题
-                                    {% endblock %}
-                                </h4>
+                <div class=post-container>
+                    <div class=post-left-content>
+                        <div class="post-left-sticky">
+                            {% block left_content %}
+                            <div class="post-left">
+                                <div class=post-Img-container> 
+                                </div>
+                                <div class=post-txt-container>
+                                    <div class=post-txt-container-title>
+                                        <h4>
+                                            通用左侧标题1
+                                        </h4>
+                                    </div>
+                                    <section class=post-detail-txt style=color:#d9d9d9>
+                                        {% for item in annList %}
+                                        <div style='background-color:#40405f;margin:10px 0 0 0;'>
+                                            <p style="margin: 0 20px 0 20px;"><b>{{item['Title']}}</b></p>
+                                            <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
+                                            {{item['Content']}}
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        <p>啥也没有</p>
+                                    </section>
+                                </div>
                             </div>
-                            <section class=post-detail-txt style=color:#d9d9d9>
-                            {% block section %}
-                                <p>啥也没有</p>
                             {% endblock %}
-                            </section>
-                            {% block post_datetime %}
-
-                            {% endblock%}
                         </div>
                     </div>
-                    {% block bottompostpage %}
-
-                    {% endblock %}
+                    <div class=post-content>
+                        {% block right_content %}
+                        <div class="post">
+                            <div class=post-Img-container> 
+                            
+                            </div>
+                            <div class=post-txt-container>
+                                <div class=post-txt-container-title>
+                                    <h4>
+                                        通用右侧标题1
+                                    </h4>
+                                </div>
+                                <section class=post-detail-txt style=color:#d9d9d9>
+                                    <p>啥也没有</p>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="post-page">
+                            <button class="link-button" id="temp1" onclick="">测试按钮1</button>
+                            <button class="link-button" id="temp2" onclick="">测试按钮2</button>
+                        </div>
+                        <div class="post" style="height: 800px;">
+                            <div class=post-Img-container> 
+                            
+                            </div>
+                            <div class=post-txt-container>
+                                <div class=post-txt-container-title>
+                                    <h4>
+                                        通用右侧标题2
+                                    </h4>
+                                </div>
+                                <section class=post-detail-txt style=color:#d9d9d9>
+                                    <p>啥也没有</p>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="post-page">
+                            <button class="link-button" id="temp3" onclick="">测试按钮3</button>
+                            <button class="link-button" id="temp4" onclick="">测试按钮4</button>
+                        </div>
+                        {% endblock %}
+                    </div>
                 </div>
                 <aside class=info-container>
                     <div class=info-container-inner id=info-container-inner>
@@ -87,10 +123,10 @@
                                 </div>
                             </div>
                             <div class=info-name style=color:#d9d9d9>
-                                <ruby>姫様の夢<rt class='ttt' data-rt='Ginka可爱捏'></rt></ruby>
+                                <ruby>姫様の夢<rt class='ttt' data-rt='等流萤'></rt></ruby>
                             </div>
                             <div class=info-txt style=color:#d9d9d9>
-                                Princess Dreamland
+                                Himesamanoyume
                             </div>
                         </div>
                     </div>
@@ -102,7 +138,10 @@
                 Copyright © 2021-2024 @姫様の夢
             </div>
             <div class=footer-content>
-                <a href="./">HotaruAssistant</a> v1.8.4.4
+                本软件永久免费,若被收取了费用说明您被骗了!
+            </div>
+            <div class=footer-content>
+                <a href="./">HotaruAssistant</a> v2.0.0.alpha
             </div>
         </footer>
     </body>

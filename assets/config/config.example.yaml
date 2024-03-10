@@ -42,10 +42,10 @@ power_needs: # 副本所需开拓力
   凝滞虚影: 30
   侵蚀隧洞: 40
   历战余响: 30
-instance_team_enable: false # 打副本时自动切换队伍
-instance_team_number: '1' # 队伍编号
-use_reserved_trailblaze_power: False # 使用后备开拓力
-use_fuel: False # 使用燃料
+instance_team_enable: {} # 打副本时自动切换队伍
+instance_team_number: {} # 队伍编号
+use_reserved_trailblaze_power: {} # 使用后备开拓力
+use_fuel: {} # 使用燃料
 
 echo_of_war_enable: {} # 体力优先完成3次「历战余响」
 echo_of_war_timestamp: {} # 上次完成3次「历战余响」的时间戳（每周运行）
@@ -57,7 +57,7 @@ relic_salvage_4star_enable: {} # 若允许分解遗器,是否分解4星遗器
 relic_salvage_5star_to_exp: {} # 若分解5星遗器,是否分解成遗器经验材料
 relic_threshold_count: {} # 触发遗器超标的数量
 
-borrow_character_enable: false # 强制使用支援角色
+borrow_character_enable: {} # 强制使用支援角色
 borrow_character_from: # 使用指定好友的支援角色
 - 好友1
 - 好友2

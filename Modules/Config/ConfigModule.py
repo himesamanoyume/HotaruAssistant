@@ -47,6 +47,9 @@ class ConfigModule(BaseConfigModule):
             self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] = nowtime
             self.mYaml.dump(self.mConfig, file)
 
+    def ReloadConfig(self):
+        self.LoadConfig("./config.yaml")
+
     def SetValue(self, key, value):
         if key in self.mConfig:
             tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")

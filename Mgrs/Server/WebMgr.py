@@ -11,13 +11,14 @@ class WebMgr:
 
         return cls.mInstance
     
-    @classmethod
-    def StartWeb(cls):
-        flaskThread = threading.Thread(target=cls.RunFlask)
+    def StartWeb(self):
+        flaskThread = threading.Thread(target=self.RunFlask)
         flaskThread.start()
-        # import webbrowser
-        # webbrowser.open('http://127.0.0.1:5000')
+        import webbrowser
+        webbrowser.open('http://127.0.0.1:5000')
 
-    @classmethod
-    def RunFlask(cls):
-        cls.mWebModule.run(host='0.0.0.0')
+    def StartDebugWeb(self):
+        self.mWebModule.run(host='0.0.0.0',debug=True)
+
+    def RunFlask(self):
+        self.mWebModule.run(host='0.0.0.0')

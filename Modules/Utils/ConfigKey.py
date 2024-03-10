@@ -1,5 +1,8 @@
 
 class ConfigKey:
+    INSTANCE_TEAM_ENABLE = 'instance_team_enable'
+    INSTANCE_TEAM_NUMBER = 'instance_team_number'
+    USE_FUEL = 'use_fuel'
     LAST_TIME_SAVE_TIMESTAMP = 'last_time_save_timestamp'
     DEV_SCREEN_ENABLE = 'dev_screen_enable'
     EMAIL = 'email'
@@ -47,7 +50,7 @@ class ConfigKey:
     INSTANCE_NAMES = 'instance_names'
     INSTANCE_TEAM_ENALBE = 'instance_team_enable'
     INSTANCE_TEAM_NUMBER = 'instance_team_number'
-    USE_RESERVED_TRAILBLAZE_POWER = 'use_reserved_trailblaz'
+    USE_RESERVED_TRAILBLAZE_POWER = 'use_reserved_trailblaze_power'
     USE_FUEL = 'use_fuel'
     ECHO_OF_WAR_ENABLE = 'echo_of_war_enable'
     ECHO_OF_WAR_TIMESTAMP = 'echo_of_war_timestamp'

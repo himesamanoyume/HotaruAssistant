@@ -1,6 +1,6 @@
 import pyautogui
 
-class ScreenshotScreenSubModule:
+class ScreenshotDevScreenModule:
     def __init__(self):
         pass
 

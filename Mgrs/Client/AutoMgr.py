@@ -1,4 +1,4 @@
-from Modules.Client.ClickModule import ClickModule
+from Modules.Client.DetectScreenModule import DetectScreenModule
 from Modules.Utils.Retry import Retry
 from Hotaru.Client.LogClientHotaru import log,logMgr
 
@@ -8,7 +8,6 @@ class AutoMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mClickModule = ClickModule()
 
         return cls.mInstance
     
