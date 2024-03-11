@@ -16,7 +16,7 @@
             <div class="nav-out"> 
                 <nav class=nav>
                     <a class=blogName id=nav-index href="./">
-                        <ruby>流萤的秘密基地<rt class='ttt' data-rt='{% block blogruby %} {% endblock %}'></rt></ruby>
+                        流萤的秘密基地
                     </a>
                     <div class="nav-container">
                         <div class="nav-content">
@@ -47,12 +47,13 @@
                         <div class="post-left-sticky">
                             {% block left_content %}
                             <div class="post-left">
-                                <div class=post-Img-container> 
+                                <div class=post-Img-container>
+                            
                                 </div>
                                 <div class=post-txt-container>
                                     <div class=post-txt-container-title>
-                                        <h4>
-                                            通用左侧标题1
+                                        <h4 style=color:#66ccff>
+                                            公告/活动/资讯
                                         </h4>
                                     </div>
                                     <section class=post-detail-txt style=color:#d9d9d9>
@@ -64,7 +65,16 @@
                                             </div>
                                         </div>
                                         {% endfor %}
-                                        <p>啥也没有</p>
+                                        <iframe src="https://webstatic.mihoyo.com/hkrpg/announcement/index.html?auth_appid=announcement&authkey_ver=1&bundle_id=hkrpg_cn&channel_id=1&game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&level=1&platform=pc&region=prod_gf_cn&sdk_presentation_style=fullscreen&sdk_screen_transparent=true&sign_type=2&uid=1&version=1.41#/" style="border: 0;background-color:#d5d5d5;height:35vmax;width:100%"></iframe>
+                                        {% for item in noticeList %}
+                                        <div style='background-color:#40405f;margin:10px 0 0 0;'>
+                                            <p style="margin: 0 20px 0 20px;"><b>{{item['title']}}</b></p>
+                                            <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
+                                            {{item['day']}} 天 {{item['hour']}} 时后结束<br>{{item['start_time']}} - {{item['end_time']}}
+                                            </div>
+                                            <div style="background-color: #66ccff;width:{{item['progress'] * 100}}%;max-width:100%;height:3px;"></div>
+                                        </div>
+                                        {% endfor %}
                                     </section>
                                 </div>
                             </div>
@@ -79,7 +89,7 @@
                             </div>
                             <div class=post-txt-container>
                                 <div class=post-txt-container-title>
-                                    <h4>
+                                    <h4 style=color:#66ccff>
                                         通用右侧标题1
                                     </h4>
                                 </div>
@@ -98,7 +108,7 @@
                             </div>
                             <div class=post-txt-container>
                                 <div class=post-txt-container-title>
-                                    <h4>
+                                    <h4 style=color:#66ccff>
                                         通用右侧标题2
                                     </h4>
                                 </div>

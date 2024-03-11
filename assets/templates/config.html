@@ -3,9 +3,6 @@
 {% block head %}
 流萤的秘密基地 | 管理
 {% endblock %}
-{% block blogruby %}
-{{uid}}
-{% endblock %}
 {% block left_content %}
 <div class="post-left">
     <div class=post-Img-container> 
@@ -14,7 +11,7 @@
     <div class=post-txt-container>
         <div class=post-txt-container-title>
             <h4 style=color:#66ccff>
-                每日情况
+                {{uid}}每日情况
             </h4>
         </div>
         <section class=post-detail-txt style=color:#d9d9d9>

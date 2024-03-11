@@ -1,5 +1,6 @@
 
 class ConfigKey:
+    CHECK_PRERELEASE_UPDATE = 'check_prerelease_update'
     INSTANCE_TEAM_ENABLE = 'instance_team_enable'
     INSTANCE_TEAM_NUMBER = 'instance_team_number'
     USE_FUEL = 'use_fuel'

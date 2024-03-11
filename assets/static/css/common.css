@@ -1511,7 +1511,7 @@
     .post-txt-container-title:hover>h4,
     .post-txt-container-title:hover>h5,
     .post-txt-container-title:hover>h6 {
-        box-shadow: 0 3px 0 0 #66ccff inset, 0 950px 0 0 #40405f inset
+        box-shadow: 0 3px 0 0 #66ccff inset, 0 50px 0 0 #40405f inset
     }
 
     .relicContainer {
