@@ -43,10 +43,10 @@
         <main class=main>
             <div class=home-container>
                 <div class=post-container>
-                    <div class=post-left-content>
-                        <div class="post-left-sticky">
+                    <div class=post-sub-container>
+                        <div class="post-container-sticky">
                             {% block left_content %}
-                            <div class="post-left">
+                            <div class="post">
                                 <div class=post-Img-container>
                             
                                 </div>
@@ -58,7 +58,7 @@
                                     </div>
                                     <section class=post-detail-txt style=color:#d9d9d9>
                                         {% for item in annList %}
-                                        <div style='background-color:#40405f;margin:10px 0 0 0;'>
+                                        <div style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;margin:10px 0 0 0;'>
                                             <p style="margin: 0 20px 0 20px;"><b>{{item['Title']}}</b></p>
                                             <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
                                             {{item['Content']}}
@@ -81,47 +81,49 @@
                             {% endblock %}
                         </div>
                     </div>
-                    <div class=post-content>
-                        {% block right_content %}
-                        <div class="post">
-                            <div class=post-Img-container> 
-                            
-                            </div>
-                            <div class=post-txt-container>
-                                <div class=post-txt-container-title>
-                                    <h4 style=color:#66ccff>
-                                        通用右侧标题1
-                                    </h4>
+                    <div class=post-sub-container>
+                        <div class="post-container-sticky">
+                            {% block right_content %}
+                            <div class="post">
+                                <div class=post-Img-container> 
+                                
                                 </div>
-                                <section class=post-detail-txt style=color:#d9d9d9>
-                                    <p>啥也没有</p>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="post-page">
-                            <button class="link-button" id="temp1" onclick="">测试按钮1</button>
-                            <button class="link-button" id="temp2" onclick="">测试按钮2</button>
-                        </div>
-                        <div class="post" style="height: 800px;">
-                            <div class=post-Img-container> 
-                            
-                            </div>
-                            <div class=post-txt-container>
-                                <div class=post-txt-container-title>
-                                    <h4 style=color:#66ccff>
-                                        通用右侧标题2
-                                    </h4>
+                                <div class=post-txt-container>
+                                    <div class=post-txt-container-title>
+                                        <h4 style=color:#66ccff>
+                                            通用右侧标题1
+                                        </h4>
+                                    </div>
+                                    <section class=post-detail-txt style=color:#d9d9d9>
+                                        <p>啥也没有</p>
+                                    </section>
                                 </div>
-                                <section class=post-detail-txt style=color:#d9d9d9>
-                                    <p>啥也没有</p>
-                                </section>
                             </div>
+                            <div class="post-page">
+                                <button class="link-button" id="temp1" onclick="">测试按钮1</button>
+                                <button class="link-button" id="temp2" onclick="">测试按钮2</button>
+                            </div>
+                            <div class="post">
+                                <div class=post-Img-container> 
+                                
+                                </div>
+                                <div class=post-txt-container>
+                                    <div class=post-txt-container-title>
+                                        <h4 style=color:#66ccff>
+                                            通用右侧标题2
+                                        </h4>
+                                    </div>
+                                    <section class=post-detail-txt style=color:#d9d9d9>
+                                        <p>啥也没有</p>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="post-page">
+                                <button class="link-button" id="temp3" onclick="">测试按钮3</button>
+                                <button class="link-button" id="temp4" onclick="">测试按钮4</button>
+                            </div>
+                            {% endblock %}
                         </div>
-                        <div class="post-page">
-                            <button class="link-button" id="temp3" onclick="">测试按钮3</button>
-                            <button class="link-button" id="temp4" onclick="">测试按钮4</button>
-                        </div>
-                        {% endblock %}
                     </div>
                 </div>
                 <aside class=info-container>

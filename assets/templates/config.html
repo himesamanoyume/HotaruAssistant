@@ -4,7 +4,7 @@
 流萤的秘密基地 | 管理
 {% endblock %}
 {% block left_content %}
-<div class="post-left">
+<div class="post">
     <div class=post-Img-container> 
         
     </div>
@@ -242,7 +242,7 @@ data-rt="{{uid}}"
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="temp1" onclick="">保存副本配置</button>
+    <button class="link-button" id="config_submitChange" onclick="config_submitChange()">保存副本配置</button>
 </div>
 <div class="post">
     <div class=post-Img-container> 
@@ -274,7 +274,7 @@ data-rt="{{uid}}"
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="temp1" onclick="">保存遗器配置</button>
+    <button class="link-button" id="relic_submitChange" onclick="relic_submitChange()">保存遗器配置</button>
 </div>
 <div class="post">
     <div class=post-Img-container> 
@@ -309,6 +309,6 @@ data-rt="{{uid}}"
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="temp1" onclick="">保存杂项配置</button>
+    <button class="link-button" id="config_misc_submitChange" onclick="config_misc_submitChange()">保存杂项配置</button>
 </div>
 {% endblock %}

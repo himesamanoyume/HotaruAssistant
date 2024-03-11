@@ -48,17 +48,6 @@ function config_submitChange(){
         var universe_team1 = $('select[name="universe_team1"]').val()
         var universe_team2 = $('select[name="universe_team2"]').val()
         var universe_team3 = $('select[name="universe_team3"]').val()
-        var relic_salvage_enable = $('input[name="relic_salvage_enable"]').prop('checked')
-        var relic_salvage_4star_enable = $('input[name="relic_salvage_4star_enable"]').prop('checked')
-        var relic_salvage_5star_enable = $('input[name="relic_salvage_5star_enable"]').prop('checked')
-        var relic_salvage_5star_to_exp = $('input[name="relic_salvage_5star_to_exp"]').prop('checked')
-        var relic_threshold_count = $('input[name="relic_threshold_count"]').val()
-        var uid = $('.body').attr('data-rt')
-
-        if (relic_threshold_count==''){
-            alert("触发遗器分解的数量不能为空")
-            return
-        }
 
         var json={
             "instance_name1":instance_name1,
@@ -74,6 +63,39 @@ function config_submitChange(){
             "universe_team1":universe_team1,
             "universe_team2":universe_team2,
             "universe_team3":universe_team3,
+        }
+
+
+        $.ajax({
+            url:"./"+uid+"/configsave",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
+        }).fail(function(){
+            alert("保存失败!")
+        })
+    }
+}
+
+function relic_submitChange(){
+    if(confirm("确定要保存吗?")){
+        var relic_salvage_enable = $('input[name="relic_salvage_enable"]').prop('checked')
+        var relic_salvage_4star_enable = $('input[name="relic_salvage_4star_enable"]').prop('checked')
+        var relic_salvage_5star_enable = $('input[name="relic_salvage_5star_enable"]').prop('checked')
+        var relic_salvage_5star_to_exp = $('input[name="relic_salvage_5star_to_exp"]').prop('checked')
+        var relic_threshold_count = $('input[name="relic_threshold_count"]').val()
+        var uid = $('.body').attr('data-rt')
+
+        if (relic_threshold_count==''){
+            alert("触发遗器分解的数量不能为空")
+            return
+        }
+
+        var json={
             "relic_salvage_enable":relic_salvage_enable,
             "relic_salvage_4star_enable":relic_salvage_4star_enable,
             "relic_salvage_5star_enable":relic_salvage_5star_enable,
@@ -88,7 +110,52 @@ function config_submitChange(){
         }
 
         $.ajax({
-            url:"./"+uid+"/configsave",
+            url:"./"+uid+"/relicsave",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
+        }).fail(function(){
+            alert("保存失败!")
+        })
+    }
+}
+
+function config_misc_submitChange(){
+    if(confirm("确定要保存吗?")){
+        var instance_team_enable = $('input[name="instance_team_enable"]').prop('checked')
+        var instance_team_number = $('input[name="instance_team_number"]').val()
+        var use_reserved_trailblaze_power = $('input[name="use_reserved_trailblaze_power"]').prop('checked')
+        var use_fuel = $('input[name="use_fuel"]').prop('checked')
+        var borrow_character_enable = $('input[name="borrow_character_enable"]').prop('checked')
+        var notify_smtp_To = $('input[name="notify_smtp_To"]').val()
+        var uid = $('.body').attr('data-rt')
+
+        if (relic_threshold_count==''){
+            alert("触发遗器分解的数量不能为空")
+            return
+        }
+
+        var json={
+            "instance_team_enable":instance_team_enable,
+            "instance_team_number":parseInt(instance_team_number),
+            "use_reserved_trailblaze_power":use_reserved_trailblaze_power,
+            "use_fuel":use_fuel,
+            "borrow_character_enable":borrow_character_enable,
+            "notify_smtp_To":notify_smtp_To
+        }
+
+
+        if (json['instance_team_number'] > 9 || json['instance_team_number'] < 1){
+            alert("队伍编号不合法")
+            return
+        }
+
+        $.ajax({
+            url:"./"+uid+"/configmiscsave",
             contentType:"application/json",
             data: JSON.stringify(json),
             type:"POST",
@@ -251,6 +318,9 @@ function smtp_submitChange(){
 
 function misc_submitChange(){
     if(confirm("确定要保存吗?")){
+        var check_update = $('input[name="check_update"]').val()
+        var check_prerelease_update = $('input[name="check_prerelease_update"]').val()
+        var checkbox = $('input[name="checkbox"]').val()
         var next_loop_time = $('input[name="next_loop_time"]').val()
         var hotkey_technique = $('input[name="hotkey_technique"]').val()
         var recording_enable = $('input[name="recording_enable"]').prop('checked')
@@ -271,6 +341,9 @@ function misc_submitChange(){
         }
 
         var json={
+            "check_update":check_update,
+            "check_prerelease_update":check_prerelease_update,
+            "checkbox":checkbox,
             "next_loop_time":parseFloat(next_loop_time),
             "hotkey_technique":hotkey_technique,
             "recording_enable":recording_enable,
@@ -294,76 +367,6 @@ function misc_submitChange(){
             }
         }).fail(function(){
             alert("保存失败!")
-        })
-    }
-}
-
-function announcement(){
-    if(confirm("确定发布全体公告吗?")){
-        var notify_title = $('input[name="notify_title"]').val()
-        var notify_content = $('#notify_content').val()
-
-        if (notify_title==''){
-            alert("标题不能为空")
-            return
-        }
-        if (notify_content==''){
-            alert("内容不能为空")
-            return
-        }
-
-        var json={
-            "notify_title":notify_title,
-            "notify_content":notify_content
-        }
-
-        $.ajax({
-            url:"./notify/announcement",
-            contentType:"application/json",
-            data: JSON.stringify(json),
-            type:"POST",
-            success: function(result){
-                alert(result)
-                location.reload()
-            }
-        }).fail(function(){
-            alert("发布失败!")
-        })
-    }
-}
-
-function announcement_single(){
-    if(confirm("确定发布单人通知吗?")){
-        var notify_title = $('input[name="notify_title"]').val()
-        var notify_content = $('#notify_content').val()
-        var notify_single = $('select[name="notify_single"]').val()
-
-        if (notify_title==''){
-            alert("标题不能为空")
-            return
-        }
-        if (notify_content==''){
-            alert("内容不能为空")
-            return
-        }
-
-        var json={
-            "notify_title":notify_title,
-            "notify_content":notify_content,
-            "notify_single":notify_single
-        }
-
-        $.ajax({
-            url:"./notify/single",
-            contentType:"application/json",
-            data: JSON.stringify(json),
-            type:"POST",
-            success: function(result){
-                alert(result)
-                location.reload()
-            }
-        }).fail(function(){
-            alert("发布失败!")
         })
     }
 }
