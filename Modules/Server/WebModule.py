@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,abort,Response
 from Hotaru.Server.ConfigServerHotaru import configMgr
-import json
+import json,base64
 from Hotaru.Server.NotifyHotaru import notifyMgr
 from Hotaru.Server.DataServerHotaru import dataMgr
 
@@ -21,8 +21,16 @@ class WebModule:
     def Index():
         configMgr.mConfigModule.ReloadConfig()
         noticeList = notifyMgr.CreateOfficialNotice()
+        if noticeList:
+            pass
+        else:
+            noticeList = [{"title":"未能获取到官方资讯,请刷新页面重试","day":"0","hour":"0", "start_time":"0","end_time":"0", "progress":1}]
+        if dataMgr.YW5ub3VuY2VtZW50:
+            annList = dataMgr.YW5ub3VuY2VtZW50
+        else:
+            annList = [{"Title":"{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8')),"Content":"{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8'))}]
 
-        return render_template('index.html', loginList=WebModule.InitLoginList(), noticeList=noticeList, meta=dataMgr.meta, annList=dataMgr.YW5ub3VuY2VtZW50, configMgr=configMgr)
+        return render_template('index.html', loginList=WebModule.InitLoginList(), noticeList=noticeList, meta=dataMgr.meta, annList=annList, configMgr=configMgr)
     
     @staticmethod
     def InitLoginList():

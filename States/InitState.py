@@ -36,7 +36,7 @@ class InitState(BaseState):
         configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.BORROW_CHARACTER_ENABLE, dataMgr.tempUid, False)
 
         configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.INSTANCE_TEAM_ENABLE, dataMgr.tempUid, False)
-        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.INSTANCE_TEAM_NUMBER, dataMgr.tempUid, '1')
+        configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.INSTANCE_TEAM_NUMBER, dataMgr.tempUid, 1)
         configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.USE_RESERVED_TRAILBLAZE_POWER, dataMgr.tempUid, False)
         configMgr.mConfigModule.DetectKeyIsExist(configMgr.mKey.USE_FUEL, dataMgr.tempUid, False)
 

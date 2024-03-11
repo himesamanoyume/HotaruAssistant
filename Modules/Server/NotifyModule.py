@@ -26,4 +26,8 @@ class NotifyModule:
                 _hour = int((totalTime - _day * 86400) // 3600)
                 datalist.append({"title":title,"start_time":start_time,"end_time":end_time,"progress": progress, "day":_day,"hour":_hour})
 
-        return datalist
+            return datalist
+        else:
+            return False
+
+        

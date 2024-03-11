@@ -110,8 +110,6 @@ OBS录制|&cross;|&check;
 
 > 强烈建议开启并配置SMTP服务,收取邮件通知
 
-![preview](./assets/screenshot/SMTP_preview.png)
-
 5. 启动Client
 
 此时应该能看到已激活的uid在列表中，按回车开启循环

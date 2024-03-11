@@ -13,15 +13,18 @@ class AppServer:
     @staticmethod
     def Main():
         logMgr.Hr("HotaruAssistant - Server\n启动!")
-        configMgr.IsAgreed2Disclaimer()
+        # configMgr.IsAgreed2Disclaimer()
         # updateMgr.mUpdate.DetectVersionUpdate()
-        ocrServerMgr.CheckPath()
-        # logMgr.Hr(base64.b64decode("B|5YWs5ZGK".split('|')[1]).decode('utf-8'), 2)
-        # for aWl0ZW1t in dataMgr.YW5ub3VuY2VtZW50:
-        #     logMgr.Hr(f"【{aWl0ZW1t['Title']}】:{aWl0ZW1t['Content']}")
-        webMgr.StartWeb()
-        # webMgr.StartDebugWeb()
-        socketServerMgr.StartSocket()
+        # ocrServerMgr.CheckPath()
+        logMgr.Hr(base64.b64decode("B|5YWs5ZGK".split('|')[1]).decode('utf-8'), 2)
+        if dataMgr.YW5ub3VuY2VtZW50:
+            for aWl0ZW1t in dataMgr.YW5ub3VuY2VtZW50:
+                logMgr.Hr(f"【{aWl0ZW1t['Title']}】:{aWl0ZW1t['Content']}")
+        else:
+            logMgr.Error("{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8')))
+        # webMgr.StartWeb()
+        webMgr.StartDebugWeb()
+        # socketServerMgr.StartSocket()
         
 
 if __name__ == "__main__":
