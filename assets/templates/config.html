@@ -11,7 +11,7 @@
     <div class=post-txt-container>
         <div class=post-txt-container-title>
             <h4 style=color:#66ccff>
-                {{uid}}每日情况
+                每日情况
             </h4>
         </div>
         <section class=post-detail-txt style=color:#d9d9d9>
@@ -85,6 +85,11 @@
             {% endif %}
             <p>星数:{{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][uid]}}/12</p></blockquote>
         </section>
+        <div class=post-txt-container-datetime style=color:#d9d9d9>
+            <span class=important style=background-color:#40405f;color:#66ccff>
+                [{{uid}}]
+            </span>
+        </div>
     </div>
 </div>
 <div class="post-page">

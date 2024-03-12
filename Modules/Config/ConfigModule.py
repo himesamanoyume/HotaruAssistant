@@ -62,6 +62,24 @@ class ConfigModule():
             self.mConfig[key] = value
         else:
             raise AttributeError(f"'{type(self).__name__}' object has no attribute '{key}'")
+        
+    def DelValue(self, key, uid:str=None):
+        if key in self.mConfig:
+            tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
+            if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
+                self.mConfig = tempConfig
+
+            nowTime = time.time()
+            if nowTime - self.mLastTimeModifyTimestamp >= 5:
+                self.LoadConfig("./config.yaml")
+                self.mLastTimeModifyTimestamp = nowTime
+
+            if uid:
+                del self.mConfig[key][uid]
+            else:
+                del self.mConfig[key]
+        else:
+            raise AttributeError(f"'{type(self).__name__}' object has no attribute '{key}'")
     
     @classmethod
     def DefaultConfig(cls, exampleConfigPath):

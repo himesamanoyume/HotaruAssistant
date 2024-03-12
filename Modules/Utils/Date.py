@@ -1,4 +1,4 @@
-from Hotaru.Client.LogClientHotaru import logMgr,log
+# from Hotaru.Client.LogClientHotaru import logMgr,log
 from datetime import datetime, timedelta
 
 class Date:
@@ -12,8 +12,8 @@ class Date:
         else:
             next_4am = dt_object.replace(
                 hour=4, minute=0, second=0, microsecond=0) + timedelta(days=1)
-        if isLog:
-            log.info(logMgr.Info(f"时间戳记录日期为{dt_object}"))
+        # if isLog:
+            # log.info(logMgr.Info(f"时间戳记录日期为{dt_object}"))
         if current_time >= next_4am:
             return True
         return False
@@ -30,8 +30,8 @@ class Date:
                 7 - dt_object.weekday()) % 7 if dt_object.weekday() != 0 else 7
             next_monday_4am = dt_object.replace(
                 hour=4, minute=0, second=0, microsecond=0) + timedelta(days=days_until_next_monday)
-        if isLog:
-            log.info(logMgr.Info(f"时间戳记录日期为{dt_object}"))
+        # if isLog:
+        #     log.info(logMgr.Info(f"时间戳记录日期为{dt_object}"))
         if current_time >= next_monday_4am:
             return True
         return False

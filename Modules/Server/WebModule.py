@@ -4,6 +4,7 @@ import json,base64
 from Hotaru.Server.NotifyHotaru import notifyMgr
 from Hotaru.Server.DataServerHotaru import dataMgr
 from Hotaru.Server.LogServerHotaru import logMgr
+from Modules.Utils.InitUidConfig import InitUidConfig
 
 class WebModule:
     mAppFlask = Flask(__name__, static_folder='../../assets/static', static_url_path='', template_folder='../../assets/templates')
@@ -140,6 +141,28 @@ class WebModule:
         logMgr.Info(f"{uid},遗器配置已改动")
         return Response(f"{uid},遗器配置已改动")
     
+    @mAppFlask.route('/register/save',methods=['POST'])
+    def RegisterSave():
+        # configMgr.mConfigModule.ReloadConfig()
+        data = request.get_json('data')
+        uid = data['reg_uid']
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid] = {}
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]['email'] = data['email']
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]['reg_path'] = f"./reg/starrail-{uid}.reg"
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]['email'] = data['email']
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]['universe_team'] = {}
+        tempList = list()
+        tempList.append(data['universe_team0'])
+        tempList.append(data['universe_team1'])
+        tempList.append(data['universe_team2'])
+        tempList.append(data['universe_team3'])
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]['universe_team'] = tempList
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]['universe_fate'] = data['universe_fate']
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]['universe_number'] = data['universe_number']
+        configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]['universe_difficulty'] = data['universe_difficulty']
+        logMgr.Info(f"{uid},已完成注册")
+        return Response(f"{uid},已完成注册")
+    
     @mAppFlask.route('/activate/save',methods=['POST'])
     def ActivateSave():
         # configMgr.mConfigModule.ReloadConfig()
@@ -173,7 +196,7 @@ class WebModule:
                 if configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS] == {}:
                     tempList = list()
                     tempList.append(item['reg_path'])
-                    configMgr.mConfig.SetValue(configMgr.mKey.WANT_REGISTER_ACCOUNTS, tempList)
+                    configMgr.mConfig.SetValue(configMgr.mKey.MULTI_LOGIN_ACCOUNTS, tempList)
                 else:
                     configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS].append(item['reg_path'])
 
@@ -185,8 +208,10 @@ class WebModule:
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FATE][uid] = item['universe_fate']
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid] = item['universe_team']
 
-                del configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]
-            logMgr.Info("注册表激活完成",uid)
+                InitUidConfig.InitUidDefaultConfig(configMgr, logMgr, uid)
+
+                configMgr.mConfig.DelValue(configMgr.mKey.WANT_REGISTER_ACCOUNTS, uid)
+            logMgr.Info(f"{uid},注册表激活完成")
             return Response(f"{uid},注册表激活完成!")
         else:
             logMgr.Warning("未检测到有新注册表加入")
@@ -197,7 +222,7 @@ class WebModule:
         # configMgr.mConfigModule.ReloadConfig()
         data = request.get_json('data')
         uid = data['uid']
-        del configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]
+        configMgr.mConfig.DelValue(configMgr.mKey.WANT_REGISTER_ACCOUNTS, uid)
         logMgr.Info("注册表删除成功")
         return Response("注册表删除成功")
     

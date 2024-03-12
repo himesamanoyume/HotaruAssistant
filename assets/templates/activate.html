@@ -15,6 +15,9 @@
             </h4>
         </div>
         <section class=post-detail-txt style=color:#d9d9d9>
+            <div class=post-txt-container-datetime>
+                您可以选择在此处激活,也可以启动Client时自动激活,激活的目的是让该UID对应的配置文件初始化,以便可以在网页端先调整配置再运行脚本,否则您将在全部默认的配置情况下运行脚本,这很可能会让脚本运行的任务不符合您的需求
+            </div>
             <p>选择要激活的UID:
                 <select class=configSelect name=activate_uid>
                     {% for item in configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS].items() %}
