@@ -48,6 +48,7 @@ function config_submitChange(){
         var universe_team1 = $('select[name="universe_team1"]').val()
         var universe_team2 = $('select[name="universe_team2"]').val()
         var universe_team3 = $('select[name="universe_team3"]').val()
+        var uid = $('.body').attr('data-rt')
 
         var json={
             "instance_name1":instance_name1,
@@ -133,11 +134,6 @@ function config_misc_submitChange(){
         var borrow_character_enable = $('input[name="borrow_character_enable"]').prop('checked')
         var notify_smtp_To = $('input[name="notify_smtp_To"]').val()
         var uid = $('.body').attr('data-rt')
-
-        if (relic_threshold_count==''){
-            alert("触发遗器分解的数量不能为空")
-            return
-        }
 
         var json={
             "instance_team_enable":instance_team_enable,
@@ -320,7 +316,7 @@ function misc_submitChange(){
     if(confirm("确定要保存吗?")){
         var check_update = $('input[name="check_update"]').val()
         var check_prerelease_update = $('input[name="check_prerelease_update"]').val()
-        var checkbox = $('input[name="checkbox"]').val()
+        var dev_screen_enable = $('input[name="dev_screen_enable"]').val()
         var next_loop_time = $('input[name="next_loop_time"]').val()
         var hotkey_technique = $('input[name="hotkey_technique"]').val()
         var recording_enable = $('input[name="recording_enable"]').prop('checked')
@@ -343,7 +339,7 @@ function misc_submitChange(){
         var json={
             "check_update":check_update,
             "check_prerelease_update":check_prerelease_update,
-            "checkbox":checkbox,
+            "dev_screen_enable":dev_screen_enable,
             "next_loop_time":parseFloat(next_loop_time),
             "hotkey_technique":hotkey_technique,
             "recording_enable":recording_enable,

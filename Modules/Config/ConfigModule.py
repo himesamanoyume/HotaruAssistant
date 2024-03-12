@@ -2,11 +2,10 @@
 from ruamel.yaml import YAML
 from . import *
 # from Hotaru.Server.LogServerHotaru import logServerMgr
-from .BaseConfigModule import BaseConfigModule
 from Modules.Utils.ConfigKey import ConfigKey
 import time
 
-class ConfigModule(BaseConfigModule):
+class ConfigModule():
 
     mInstance = None
     mLastTimeModifyTimestamp = 0
@@ -112,7 +111,6 @@ class ConfigModule(BaseConfigModule):
                         
     def __getitem__(self, attr):
         if attr in self.mConfig:
-            # self.logMgr.Info(f"获取值2:{attr}")
             tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
             if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
                 self.mConfig = tempConfig

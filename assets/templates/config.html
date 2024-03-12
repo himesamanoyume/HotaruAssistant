@@ -217,24 +217,31 @@ data-rt="{{uid}}"
                     <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][0] %} selected {% endif %}>{{meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
+                </p>
+                <p>
                     2号位:
                     <select class=configSelect name=universe_team1 >
                     {% for char in meta['角色'] %}
                     <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][1] %} selected {% endif %}>{{meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
+                </p>
+                <p>
                     3号位:
                     <select class=configSelect name=universe_team2 >
                     {% for char in meta['角色'] %}
                     <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][2] %} selected {% endif %}>{{meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
+                </p>
+                <p>
                     4号位:
                     <select class=configSelect name=universe_team3 >
                     {% for char in meta['角色'] %}
                     <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][3] %} selected {% endif %}>{{meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
+                </p>
                 </p>
             </p>
             

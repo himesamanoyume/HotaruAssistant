@@ -64,7 +64,7 @@ class GameControlModule:
 
             programPath = GameControlModule.GetGameProcessPath(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME])
             if programPath is not None and programPath != configMgr.mConfig[configMgr.mKey.GAME_PATH]:
-                configMgr.mConfigModule.SetValue(configMgr.mKey.GAME_PATH, programPath)
+                configMgr.mConfig.SetValue(configMgr.mKey.GAME_PATH, programPath)
                 log.info(logMgr.Info(f"游戏路径更新成功：{programPath}"))
 
             screenMgr.CheckResulotion(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME], 1920, 1080)

@@ -10,8 +10,7 @@ class ConfigClientMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mConfigModule = ConfigModule(logMgr)
-            cls.mConfig = cls.mConfigModule.mConfig
+            cls.mConfig = ConfigModule(logMgr)
             cls.mKey = ConfigKey()
 
         return cls.mInstance
@@ -28,9 +27,9 @@ class ConfigClientMgr:
     def AutoSave(self):
         while True:
             time.sleep(1)
-            if time.time() - self.mConfigModule.mLastTimeModifyTimestamp <= 5:
+            if time.time() - self.mConfig.mLastTimeModifyTimestamp <= 5:
                 log.info(logMgr.Info("检测到配置文件修改"))
                 time.sleep(5)
-                if time.time() - self.mConfigModule.mLastTimeModifyTimestamp >= 5:
-                    self.mConfigModule.SaveConfig()
+                if time.time() - self.mConfig.mLastTimeModifyTimestamp >= 5:
+                    self.mConfig.SaveConfig()
     

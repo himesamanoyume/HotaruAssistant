@@ -13,7 +13,8 @@ class AppServer:
     @staticmethod
     def Main():
         logMgr.Hr("HotaruAssistant - Server\n启动!")
-        # configMgr.IsAgreed2Disclaimer()
+        configMgr.IsAgreed2Disclaimer() # 联系着自动保存 不能注释
+        
         # updateMgr.mUpdate.DetectVersionUpdate()
         # ocrServerMgr.CheckPath()
         logMgr.Hr(base64.b64decode("B|5YWs5ZGK".split('|')[1]).decode('utf-8'), 2)

@@ -10,8 +10,7 @@ class ConfigServerMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mConfigModule = ConfigModule(logMgr)
-            cls.mConfig = cls.mConfigModule.mConfig
+            cls.mConfig = ConfigModule(logMgr)
             cls.mKey = ConfigKey()
 
         return cls.mInstance
@@ -19,11 +18,11 @@ class ConfigServerMgr:
     def AutoSave(self):
         while True:
             time.sleep(1)
-            if time.time() - self.mConfigModule.mLastTimeModifyTimestamp <= 5:
+            if time.time() - self.mConfig.mLastTimeModifyTimestamp <= 5:
                 logMgr.Info("检测到配置文件修改")
                 time.sleep(5)
-                if time.time() - self.mConfigModule.mLastTimeModifyTimestamp >= 5:
-                    self.mConfigModule.SaveConfig()
+                if time.time() - self.mConfig.mLastTimeModifyTimestamp >= 5:
+                    self.mConfig.SaveConfig()
                     logMgr.Info("配置文件已自动保存")
     
     def IsAgreed2Disclaimer(self):
@@ -44,7 +43,7 @@ class ConfigServerMgr:
         option = questionary.select(selectTitle, list(options.keys())).ask()
         value = options.get(option)
         if value == 0:
-            self.mConfigModule.SetValue(self.mKey.AGREED_TO_DISCLAIMER, True)
+            self.mConfig.SetValue(self.mKey.AGREED_TO_DISCLAIMER, True)
         else:
             logMgr.Info("您未同意《免责声明》")
             input("按回车键关闭窗口. . .")
