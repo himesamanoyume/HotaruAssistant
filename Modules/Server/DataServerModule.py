@@ -1,5 +1,6 @@
 import json
 from Modules.Utils.Himesamanoyume import Himesamanoyume
+from Modules.Utils.CheckVersion import CheckVersion
 
 class DataServer:
     clientDict = dict()
@@ -17,3 +18,4 @@ class DataServer:
     version_txt = open("./assets/config/version.txt", "r", encoding='utf-8')
     version = version_txt.read()
     version_txt.close()
+    isLatestTxt, isNeedUpdate = CheckVersion.CheckVersion()

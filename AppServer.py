@@ -14,7 +14,7 @@ class AppServer:
     def Main():
         logMgr.Hr("HotaruAssistant - Server\n启动!")
         configMgr.IsAgreed2Disclaimer() # 联系着自动保存 不能注释
-        
+
         # updateMgr.mUpdate.DetectVersionUpdate()
         # ocrServerMgr.CheckPath()
         logMgr.Hr(base64.b64decode("B|5YWs5ZGK".split('|')[1]).decode('utf-8'), 2)
@@ -23,8 +23,7 @@ class AppServer:
                 logMgr.Hr(f"【{aWl0ZW1t['Title']}】:{aWl0ZW1t['Content']}")
         else:
             logMgr.Error("{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8')))
-        # webMgr.StartWeb()
-        webMgr.StartDebugWeb()
+        webMgr.StartWeb(True)
         # socketServerMgr.StartSocket()
         
 

@@ -153,7 +153,7 @@ data-rt="{{uid}}"
             <p>拟造花萼（金）:
                 <select class=configSelect name=instance_name1>
                     <option value="无" {% if '无' == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['拟造花萼（金）'] %} selected {% endif %}>无</option>
-                    {% for key, value in meta['拟造花萼（金）'].items() %}
+                    {% for key, value in dataMgr.meta['拟造花萼（金）'].items() %}
                         <option value="{{key}}" {% if key == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['拟造花萼（金）'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
@@ -161,7 +161,7 @@ data-rt="{{uid}}"
             <p>拟造花萼（赤）:
                 <select class=configSelect name=instance_name2>
                     <option value="无" {% if '无' == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['拟造花萼（赤）'] %} selected {% endif %}>无</option>
-                    {% for key, value in meta['拟造花萼（赤）'].items() %}
+                    {% for key, value in dataMgr.meta['拟造花萼（赤）'].items() %}
                         <option value="{{key}}" {% if key == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['拟造花萼（赤）'] %} selected {% endif %}>{{key}}</option>
                     {% endfor %}
                 </select>
@@ -169,7 +169,7 @@ data-rt="{{uid}}"
             <p>凝滞虚影:
                 <select class=configSelect name=instance_name3>
                     <option value="无" {% if '无' == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['凝滞虚影'] %} selected {% endif %}>无</option>
-                    {% for key, value in meta['凝滞虚影'].items() %}
+                    {% for key, value in dataMgr.meta['凝滞虚影'].items() %}
                         <option value="{{key}}" {% if key == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['凝滞虚影'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
@@ -177,7 +177,7 @@ data-rt="{{uid}}"
             <p>侵蚀隧洞:
                 <select class=configSelect name=instance_name4>
                     <option value="无" {% if '无' == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['侵蚀隧洞'] %} selected {% endif %}>无</option>
-                    {% for key, value in meta['侵蚀隧洞'].items() %}
+                    {% for key, value in dataMgr.meta['侵蚀隧洞'].items() %}
                         <option value="{{key}}" {% if key == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['侵蚀隧洞'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
@@ -188,7 +188,7 @@ data-rt="{{uid}}"
             <p>历战余响:
                 <select class=configSelect name=instance_name5>
                     <option value="无" {% if '无' == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['历战余响'] %} selected {% endif %}>无</option>
-                    {% for key, value in meta['历战余响'].items() %}
+                    {% for key, value in dataMgr.meta['历战余响'].items() %}
                         <option value="{{key}}" {% if key == configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['历战余响'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
@@ -196,20 +196,20 @@ data-rt="{{uid}}"
             <p>模拟宇宙:
                 <select class=configSelect name=universe_number>
                     {% for key, value in meta['模拟宇宙'].items() %}
-                        <option value="{{key}}" {% if key == (configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][uid] | universe_number) %} selected {% endif %}>{{value}}({{meta['模拟宇宙遗器'][key]}})</option>
+                        <option value="{{key}}" {% if key == (configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][uid] | universe_number) %} selected {% endif %}>{{value}}({{dataMgr.meta['模拟宇宙遗器'][key]}})</option>
                     {% endfor %}
                 </select>
             </p>
             <p>模拟宇宙难度:
                 <select class=configSelect name=universe_difficulty>
-                    {% for key, value in meta['模拟宇宙难度'].items() %}
+                    {% for key, value in dataMgr.meta['模拟宇宙难度'].items() %}
                         <option value="{{key}}" {% if key == (configMgr.mConfig[configMgr.mKey.UNIVERSE_DIFFICULTY][uid] | universe_number) %} selected {% endif %}>{{value}}</option>
                     {% endfor %}
                 </select>
             </p>
             <p>模拟宇宙命途:
                 <select class=configSelect name=universe_fate>
-                    {% for key, value in meta['模拟宇宙命途'].items() %}
+                    {% for key, value in dataMgr.meta['模拟宇宙命途'].items() %}
                         <option value="{{key}}" {% if key == (configMgr.mConfig[configMgr.mKey.UNIVERSE_FATE][uid] | universe_number) %} selected {% endif %}>{{value}}</option>
                     {% endfor %}
                 </select>
@@ -218,32 +218,32 @@ data-rt="{{uid}}"
                 <p>
                     1号位:
                     <select class=configSelect name=universe_team0 >
-                    {% for char in meta['角色'] %}
-                    <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][0] %} selected {% endif %}>{{meta['角色'][char]}}</option>
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][0] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                 </p>
                 <p>
                     2号位:
                     <select class=configSelect name=universe_team1 >
-                    {% for char in meta['角色'] %}
-                    <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][1] %} selected {% endif %}>{{meta['角色'][char]}}</option>
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][1] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                 </p>
                 <p>
                     3号位:
                     <select class=configSelect name=universe_team2 >
-                    {% for char in meta['角色'] %}
-                    <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][2] %} selected {% endif %}>{{meta['角色'][char]}}</option>
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][2] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                 </p>
                 <p>
                     4号位:
                     <select class=configSelect name=universe_team3 >
-                    {% for char in meta['角色'] %}
-                    <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][3] %} selected {% endif %}>{{meta['角色'][char]}}</option>
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}" {% if char == configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid][3] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                 </p>

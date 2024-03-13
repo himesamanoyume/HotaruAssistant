@@ -17,6 +17,12 @@ class Notify:
         return annList
     
     @staticmethod
+    def CreateUpdateContent(dataMgr):
+        isLatestTxt = dataMgr.isLatestTxt
+        updateList = [{"Content":isLatestTxt}]
+        return updateList
+    
+    @staticmethod
     def CreateAnnListContent(dataMgr):
         annList = Notify.CreateAnnList(dataMgr)
         content = ''

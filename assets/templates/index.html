@@ -194,8 +194,8 @@
                 </div>
                 <p>选择一个角色插入到助战列表尾端:
                     <select class=configSelect name=add_borrow_character>
-                    {% for char in meta['角色'] %}
-                    <option value="{{char}}">{{meta['角色'][char]}}</option>
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                     <button class="link-button" id="append_borrow_character" style="width: 100px;min-width:5%;background-color:#40405f" onclick="AppendBorrowCharacter()">添加</button>
@@ -203,7 +203,7 @@
                 <p>将一个角色从助战列表中移除:
                     <select class=configSelect name=remove_borrow_character>
                     {% for char in configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER] %}
-                    <option value="{{char}}">{{meta['角色'][char]}}</option>
+                    <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                     <button class="link-button" id="remove_borrow_character" style="width: 100px;min-width:5%;background-color:#40405f" onclick="RemoveBorrowCharacter()">移除</button>

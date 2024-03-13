@@ -24,7 +24,15 @@ class WebModule:
         # configMgr.mConfigModule.ReloadConfig()
         noticeList, annList = WebModule.GetNoticeAndAnn()
 
-        return render_template('index.html', loginList=WebModule.InitLoginList(), noticeList=noticeList, meta=dataMgr.meta, annList=annList, configMgr=configMgr)
+        return render_template(
+            'index.html',
+            loginList=WebModule.InitLoginList(),
+            noticeList=noticeList,
+            dataMgr=dataMgr,
+            annList=annList,
+            configMgr=configMgr,
+            updateList=notifyMgr.CreateUpdateContent(dataMgr)
+            )
     
     @staticmethod
     def InitLoginList():
@@ -38,14 +46,31 @@ class WebModule:
     @mAppFlask.route('/<uid>')
     def ConfigSetting(uid):
         # configMgr.mConfigModule.ReloadConfig()
-        return render_template('config.html', uid=uid, loginList=WebModule.InitLoginList(), configMgr=configMgr, taskScore=dataMgr.taskScore, meta=dataMgr.meta, len=len(configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uid]))
+        return render_template(
+            'config.html', 
+            uid=uid, 
+            loginList=WebModule.InitLoginList(),
+            configMgr=configMgr, 
+            taskScore=dataMgr.taskScore, 
+            dataMgr=dataMgr, 
+            len=len(configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uid])
+            )
     
     @mAppFlask.route('/activate')
     def Activate():
         # configMgr.mConfigModule.ReloadConfig()
         noticeList, annList = WebModule.GetNoticeAndAnn()
 
-        return render_template('activate.html', loginList=WebModule.InitLoginList(), configMgr=configMgr, noticeList=noticeList, annList=annList, url='activate')
+        return render_template(
+            'activate.html', 
+            loginList=WebModule.InitLoginList(),
+            configMgr=configMgr,
+            dataMgr=dataMgr,
+            noticeList=noticeList, 
+            annList=annList, 
+            url='activate',
+            updateList=notifyMgr.CreateUpdateContent(dataMgr)
+            )
     
     @staticmethod
     def GetNoticeAndAnn():
@@ -59,7 +84,16 @@ class WebModule:
         # configMgr.mConfigModule.ReloadConfig()
         noticeList, annList = WebModule.GetNoticeAndAnn()
 
-        return render_template('register.html', loginList=WebModule.InitLoginList(), configMgr=configMgr, noticeList=noticeList, annList=annList, url='register', meta=dataMgr.meta)
+        return render_template(
+            'register.html', 
+            loginList=WebModule.InitLoginList(), 
+            configMgr=configMgr,
+            dataMgr=dataMgr,
+            noticeList=noticeList, 
+            annList=annList, 
+            url='register',
+            updateList=notifyMgr.CreateUpdateContent(dataMgr)
+            )
         
     @mAppFlask.route('/<uid>/dailysave',methods=['POST'])
     def DailySave(uid):

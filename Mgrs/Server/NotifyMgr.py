@@ -15,3 +15,6 @@ class NotifyMgr:
 
     def SendNotifySingle(self, title, content, configMgr, dataMgr, uid, singleTo=''):
         self.notify.SendNotifySingle(title, content, configMgr, dataMgr, uid, singleTo)
+
+    def CreateUpdateContent(self, dataMgr):
+        return self.notify.CreateUpdateContent(dataMgr)

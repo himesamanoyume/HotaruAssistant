@@ -45,15 +45,14 @@
                 <div class=post-container>
                     <div class=post-sub-container>
                         <div class="post-container-sticky">
-                            {% block left_content %}
                             <div class="post">
-                                <div class=post-Img-container>
-                            
+                                <div class=post-Img-container> 
+                                
                                 </div>
                                 <div class=post-txt-container>
                                     <div class=post-txt-container-title>
                                         <h4 style=color:#66ccff>
-                                            公告/活动/资讯
+                                            HotaruAssistant
                                         </h4>
                                     </div>
                                     <section class=post-detail-txt style=color:#d9d9d9>
@@ -65,6 +64,29 @@
                                             </div>
                                         </div>
                                         {% endfor %}
+                                        {% for item in updateList %}
+                                        <div style='background-color:#405f42;box-shadow:3px 0 0 0 #5fb743 inset;margin:10px 0 0 0;'>
+                                            <p style="margin: 0 20px 0 20px;"><b>新版本通知</b></p>
+                                            <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
+                                            {{item['Content']}}
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </section>
+                                </div>
+                            </div>
+                            {% block left_content %}
+                            <div class="post">
+                                <div class=post-Img-container>
+                            
+                                </div>
+                                <div class=post-txt-container>
+                                    <div class=post-txt-container-title>
+                                        <h4 style=color:#66ccff>
+                                            官方资讯
+                                        </h4>
+                                    </div>
+                                    <section class=post-detail-txt style=color:#d9d9d9>
                                         <iframe src="https://webstatic.mihoyo.com/hkrpg/announcement/index.html?auth_appid=announcement&authkey_ver=1&bundle_id=hkrpg_cn&channel_id=1&game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&level=1&platform=pc&region=prod_gf_cn&sdk_presentation_style=fullscreen&sdk_screen_transparent=true&sign_type=2&uid=1&version=1.41#/" style="border: 0;background-color:#d5d5d5;height:35vmax;width:100%"></iframe>
                                         {% for item in noticeList %}
                                         <div style='background-color:#40405f;margin:10px 0 0 0;'>
@@ -153,7 +175,7 @@
                 本软件永久免费,若被收取了费用说明您被骗了!
             </div>
             <div class=footer-content>
-                <a href="./">HotaruAssistant</a> {{version}}
+                <a href="./">HotaruAssistant</a> {{dataMgr.version}}
             </div>
         </footer>
     </body>
