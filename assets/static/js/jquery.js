@@ -5,7 +5,7 @@ $('#nav-select-uid').on('change', function(){
     window.location.replace("./"+uid);
 })
 
-function daily_submitChange(){
+function DailySubmitChange(){
     if(confirm("确定要保存吗?")){
         var daily_tasks_arr = [];
         $('input[name="daily_tasks"]').each(function(){
@@ -33,7 +33,7 @@ function daily_submitChange(){
     }
 }
 
-function config_submitChange(){
+function ConfigSubmitChange(){
     if(confirm("确定要保存吗?")){
         var instance_name1 = $('select[name="instance_name1"]').val()
         var instance_name2 = $('select[name="instance_name2"]').val()
@@ -82,7 +82,7 @@ function config_submitChange(){
     }
 }
 
-function relic_submitChange(){
+function RelicSubmitChange(){
     if(confirm("确定要保存吗?")){
         var relic_salvage_enable = $('input[name="relic_salvage_enable"]').prop('checked')
         var relic_salvage_4star_enable = $('input[name="relic_salvage_4star_enable"]').prop('checked')
@@ -125,7 +125,7 @@ function relic_submitChange(){
     }
 }
 
-function config_misc_submitChange(){
+function ConfigMiscSubmitChange(){
     if(confirm("确定要保存吗?")){
         var instance_team_enable = $('input[name="instance_team_enable"]').prop('checked')
         var instance_team_number = $('input[name="instance_team_number"]').val()
@@ -165,7 +165,7 @@ function config_misc_submitChange(){
     }
 }
 
-function activate_submitChange(){
+function ActivateSubmitChange(){
     if(confirm("确定要激活吗?")){
         var uid = $('select[name="activate_uid"]').val()
 
@@ -193,7 +193,7 @@ function activate_submitChange(){
     }
 }
 
-function del_activate_submitChange(){
+function DelActivateSubmitChange(){
     if(confirm("确定删除该激活信息吗?")){
         var uid = $('select[name="activate_uid"]').val()
 
@@ -221,7 +221,7 @@ function del_activate_submitChange(){
     }
 }
 
-function register_submitChange(){
+function RegisterSubmitChange(){
     if(confirm("确定要注册吗?")){
         var reg_uid = $('input[name="reg_uid"]').val()
         var email = $('input[name="email"]').val()
@@ -280,7 +280,7 @@ function register_submitChange(){
     }
 }
 
-function smtp_submitChange(){
+function SmtpSubmitChange(){
     if(confirm("确定要保存吗?")){
         var notify_smtp_enable = $('input[name="notify_smtp_enable"]').prop('checked')
         var notify_smtp_host = $('input[name="notify_smtp_host"]').val()
@@ -312,7 +312,7 @@ function smtp_submitChange(){
     }
 }
 
-function misc_submitChange(){
+function MiscSubmitChange(){
     if(confirm("确定要保存吗?")){
         var check_update = $('input[name="check_update"]').val()
         var check_prerelease_update = $('input[name="check_prerelease_update"]').val()
@@ -367,7 +367,7 @@ function misc_submitChange(){
     }
 }
 
-function change_instance_list(){
+function ChangeInstanceList(){
     var add_instance_type = $('select[name="add_instance_type"]').val()
 
     var temp = $('select[name="instance_type_list"]').val()
@@ -398,7 +398,7 @@ function change_instance_list(){
     }
 }
 
-function append_instance_list(){
+function AppendInstanceList(){
     var add_instance_type = $('select[name="add_instance_type"]').val()
 
     if(confirm("确定将【"+add_instance_type+"】添加至任务副本列表队尾吗?")){
@@ -424,7 +424,7 @@ function append_instance_list(){
     }
 }
 
-function remove_instance_list(){
+function RemoveInstanceList(){
     var temp = $('select[name="instance_type_list"]').val()
     var remove_instance_type_id = temp.split(':')[0]
     var remove_instance_type = temp.split(':')[1]
@@ -452,7 +452,7 @@ function remove_instance_list(){
     }
 }
 
-function append_cdkey_list(){
+function AppendCdkeyList(){
     if(confirm("确定添加该CDKEY至兑换码列表吗?")){
         var cdkey_list = $('input[name="cdkey_list"]').val()
 
@@ -480,7 +480,7 @@ function append_cdkey_list(){
     }
 }
 
-function remove_cdkey_list(){
+function RemoveCdkeyList(){
     if(confirm("确定将该CDKEY从兑换码列表中移除吗?")){
         var cdkey_list = $('select[name="cdkey_list"]').val()
 
@@ -508,7 +508,7 @@ function remove_cdkey_list(){
     }
 }
 
-function append_blacklist(){
+function AppendBlacklist(){
     if(confirm("确定添加该UID至黑名单吗?")){
         var blacklist_uid = $('input[name="blacklist_uid"]').val()
 
@@ -540,7 +540,7 @@ function append_blacklist(){
     }
 }
 
-function remove_blacklist(){
+function RemoveBlacklist(){
     if(confirm("确定将该UID从黑名单中移除吗?")){
         var blacklist_uid = $('select[name="blacklist_uid"]').val()
 
@@ -572,7 +572,7 @@ function remove_blacklist(){
     }
 }
 
-function append_borrow_character(){
+function AppendBorrowCharacter(){
     if(confirm("确定添加该角色插入到助战优先级列表的尾端吗?")){
         var borrow_character = $('select[name="add_borrow_character"]').val()
 
@@ -595,7 +595,7 @@ function append_borrow_character(){
     }
 }
 
-function remove_borrow_character(){
+function RemoveBorrowCharacter(){
     if(confirm("确定将该助战角色从优先级列表中移除吗?")){
         var borrow_character = $('select[name="remove_borrow_character"]').val()
 
@@ -614,6 +614,76 @@ function remove_borrow_character(){
             }
         }).fail(function(){
             alert("移除失败!")
+        })
+    }
+}
+
+function SendNotifyAll(){
+    if(confirm("确定发布全体公告吗?")){
+        var notify_title = $('input[name="notify_title"]').val()
+        var notify_content = $('#notify_content').val()
+
+        if (notify_title==''){
+            alert("标题不能为空")
+            return
+        }
+        if (notify_content==''){
+            alert("内容不能为空")
+            return
+        }
+
+        var json={
+            "notify_title":notify_title,
+            "notify_content":notify_content
+        }
+
+        $.ajax({
+            url:"./notify/all",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
+        }).fail(function(){
+            alert("发布失败!")
+        })
+    }
+}
+
+function SendNotifySingle(){
+    if(confirm("确定发布单人通知吗?")){
+        var notify_title = $('input[name="notify_title"]').val()
+        var notify_content = $('#notify_content').val()
+        var notify_single = $('select[name="notify_single"]').val()
+
+        if (notify_title==''){
+            alert("标题不能为空")
+            return
+        }
+        if (notify_content==''){
+            alert("内容不能为空")
+            return
+        }
+
+        var json={
+            "notify_title":notify_title,
+            "notify_content":notify_content,
+            "notify_single":notify_single
+        }
+
+        $.ajax({
+            url:"./notify/single",
+            contentType:"application/json",
+            data: JSON.stringify(json),
+            type:"POST",
+            success: function(result){
+                alert(result)
+                location.reload()
+            }
+        }).fail(function(){
+            alert("发布失败!")
         })
     }
 }

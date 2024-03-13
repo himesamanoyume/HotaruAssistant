@@ -57,7 +57,7 @@
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="smtp_submitChange" onclick="smtp_submitChange()">保存SMTP服务设置</button>
+    <button class="link-button" id="smtp_submitChange" onclick="SmtpSubmitChange()">保存SMTP服务设置</button>
 </div>
 <div class="post">
     <div class=post-Img-container> 
@@ -109,7 +109,7 @@
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="misc" onclick="misc_submitChange()">保存杂项设置</button>
+    <button class="link-button" id="misc" onclick="MiscSubmitChange()">保存杂项设置</button>
 </div>
 <div class="post">
     <div class=post-Img-container> 
@@ -128,7 +128,7 @@
                 </div>
                 <p>输入一个UID将其添加至黑名单:
                     <input name="blacklist_uid" type="number" style="width: 150px;" placeholder="111111111">
-                    <button class="link-button" id="append_blacklist" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_blacklist()">添加</button>
+                    <button class="link-button" id="append_blacklist" style="width: 100px;min-width:5%;background-color:#40405f" onclick="AppendBlacklist()">添加</button>
                 </p>
                 <p>将一个UID移除黑名单:
                     <select class=configSelect name=blacklist_uid>
@@ -140,7 +140,7 @@
                             {% endif %}
                         {% endfor %}
                     </select>
-                    <button class="link-button" id="remove_blacklist" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_blacklist()">移除</button>
+                    <button class="link-button" id="remove_blacklist" style="width: 100px;min-width:5%;background-color:#40405f" onclick="RemoveBlacklist()">移除</button>
                 </p>
                 </div>
         </section>
@@ -163,7 +163,7 @@
                 </div>
                 <p>输入一个CDKEY将其添加至兑换码列表:
                     <input name="cdkey_list" type="text" style="width: 150px;">
-                    <button class="link-button" id="append_cdkey_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_cdkey_list()">添加</button>
+                    <button class="link-button" id="append_cdkey_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="AppendCdkeyList()">添加</button>
                 </p>
                 <p>将一个CDKEY移除兑换码列表:
                     <select class=configSelect name=cdkey_list>
@@ -171,7 +171,7 @@
                             <option value="{{cdkey}}">{{cdkey}}</option>
                         {% endfor %}
                     </select>
-                    <button class="link-button" id="remove_cdkey_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_cdkey_list()">移除</button>
+                    <button class="link-button" id="remove_cdkey_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="RemoveCdkeyList()">移除</button>
                 </p>
                 </div>
         </section>
@@ -198,7 +198,7 @@
                     <option value="{{char}}">{{meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
-                    <button class="link-button" id="append_borrow_character" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_borrow_character()">添加</button>
+                    <button class="link-button" id="append_borrow_character" style="width: 100px;min-width:5%;background-color:#40405f" onclick="AppendBorrowCharacter()">添加</button>
                 </p>
                 <p>将一个角色从助战列表中移除:
                     <select class=configSelect name=remove_borrow_character>
@@ -206,7 +206,7 @@
                     <option value="{{char}}">{{meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
-                    <button class="link-button" id="remove_borrow_character" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_borrow_character()">移除</button>
+                    <button class="link-button" id="remove_borrow_character" style="width: 100px;min-width:5%;background-color:#40405f" onclick="RemoveBorrowCharacter()">移除</button>
                 </p>
             </div>
         </section>

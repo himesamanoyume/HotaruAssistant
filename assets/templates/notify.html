@@ -1,0 +1,46 @@
+{% extends 'common.html' %}
+{% block head %}
+流萤的秘密基地 | 公告
+{% endblock %}
+{% block right_content %}
+<div class="post">
+    <div class=post-Img-container> 
+    
+    </div>
+    <div class=post-txt-container>
+        <div class=post-txt-container-title>
+            <h6 style=color:#66ccff id="发布公告界面">
+                发布公告界面
+            </h6>
+        </div>
+        <section class=post-detail-txt style=color:#d9d9d9>
+            <p>标题:</p>
+            <p>
+                <input name="notify_title" type="text" style="width: 300px;" placeholder="标题">
+            </p>
+            <p>内容:</p>
+            <p>
+                <textarea id="notify_content" placeholder="内容"></textarea>
+            </p>
+            <p>单人通知发送给:
+                <select class=configSelect name=notify_single>
+                    {% for uid in loginList %}
+                    <option value="{{uid}}">{{uid}}|{{configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_TO][uid]}}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <div class=post-txt-container-datetime style=color:#d9d9d9>
+                确保已经开启并配置了SMTP服务<br>
+                全体公告将发送给所有激活中的UID绑定的邮箱<br>
+                并且全体公告还会额外发送一封邮件给脚本使用者绑定的专用邮箱,目前该邮箱为<span class="important">{{config.notify_smtp_master}}</span><br>
+                单人通知则只发送给选中的UID绑定的邮箱
+
+            </div>
+        </section>
+    </div>
+</div>
+<div class="post-page">
+    <button class="link-button" id="announcement" onclick="SendNotifyAll()">发送全体公告</button>
+    <button class="link-button" id="announcement_single" onclick="SendNotifySingle()">发送单人通知</button>
+</div>
+{% endblock %}

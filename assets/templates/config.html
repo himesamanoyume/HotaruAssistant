@@ -93,7 +93,7 @@
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="daily_submitChange" onclick="daily_submitChange()">保存每日情况</button>
+    <button class="link-button" id="daily_submitChange" onclick="DailySubmitChange()">保存每日情况</button>
 </div>
 {% endblock %}
 {% block uid %}
@@ -122,7 +122,7 @@ data-rt="{{uid}}"
                 </select>
             </p>
             <p>将【任务副本列表】选中的副本类型从任务副本列表中移除:
-                <button class="link-button" id="remove_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="remove_instance_list()">移除</button>
+                <button class="link-button" id="remove_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="RemoveInstanceList()">移除</button>
             </p>
             <p>选择一个副本将其替换掉【任务副本列表】选中的副本类型,或直接添加至任务副本列表队尾:
                 <select class=configSelect name=add_instance_type>
@@ -132,8 +132,8 @@ data-rt="{{uid}}"
                     <option value="拟造花萼（赤）">拟造花萼（赤）</option>
                     <option value="模拟宇宙">模拟宇宙</option>
                 </select>
-                <button class="link-button" id="change_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="change_instance_list()">替换</button>
-                <button class="link-button" id="append_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="append_instance_list()">添加至队尾</button>
+                <button class="link-button" id="change_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="ChangeInstanceList()">替换</button>
+                <button class="link-button" id="append_instance_list" style="width: 100px;min-width:5%;background-color:#40405f" onclick="AppendInstanceList()">添加至队尾</button>
             </p>
         </section>
     </div>
@@ -254,7 +254,7 @@ data-rt="{{uid}}"
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="config_submitChange" onclick="config_submitChange()">保存副本配置</button>
+    <button class="link-button" id="config_submitChange" onclick="ConfigSubmitChange()">保存副本配置</button>
 </div>
 <div class="post">
     <div class=post-Img-container> 
@@ -286,7 +286,7 @@ data-rt="{{uid}}"
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="relic_submitChange" onclick="relic_submitChange()">保存遗器配置</button>
+    <button class="link-button" id="relic_submitChange" onclick="RelicSubmitChange()">保存遗器配置</button>
 </div>
 <div class="post">
     <div class=post-Img-container> 
@@ -321,6 +321,6 @@ data-rt="{{uid}}"
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="config_misc_submitChange" onclick="config_misc_submitChange()">保存杂项配置</button>
+    <button class="link-button" id="config_misc_submitChange" onclick="ConfigMiscSubmitChange()">保存杂项配置</button>
 </div>
 {% endblock %}

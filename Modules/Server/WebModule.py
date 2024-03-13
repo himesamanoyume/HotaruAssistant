@@ -50,14 +50,7 @@ class WebModule:
     @staticmethod
     def GetNoticeAndAnn():
         noticeList = notifyMgr.CreateOfficialNotice()
-        if noticeList:
-            pass
-        else:
-            noticeList = [{"title":"未能获取到官方资讯,请刷新页面重试","day":"0","hour":"0", "start_time":"0","end_time":"0", "progress":1}]
-        if dataMgr.YW5ub3VuY2VtZW50:
-            annList = dataMgr.YW5ub3VuY2VtZW50
-        else:
-            annList = [{"Title":"{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8')),"Content":"{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8'))}]
+        annList = notifyMgr.CreateAnnList(dataMgr)
 
         return noticeList, annList
     
@@ -370,3 +363,24 @@ class WebModule:
 
         logMgr.Info(f"已移除助战角色:{dataMgr.meta['角色'][char]}")
         return Response(f"已移除助战角色:{dataMgr.meta['角色'][char]}")
+    
+    @mAppFlask.route('/notify')
+    def Notify():
+        noticeList, annList = WebModule.GetNoticeAndAnn()
+        return render_template('notify.html',configMgr=configMgr, url='notify',loginList=WebModule.InitLoginList(), noticeList=noticeList,annList=annList)
+
+    @mAppFlask.route('/notify/all',methods=['POST'])
+    def NotifyAll():
+
+        data = request.get_json('data')
+        notifyMgr.SendNotifyAll(f"全体公告:{data['notify_title']}", f"<p>{data['notify_content']}</p>", configMgr, dataMgr)
+        logMgr.Info("全体公告已发送")
+        return Response("全体公告已发送")
+
+    @mAppFlask.route('/notify/single',methods=['POST'])
+    def NotifySingle():
+
+        data = request.get_json('data')
+        notifyMgr.SendNotifySingle(f"单人通知:{data['notify_title']}", f"<p>{data['notify_content']}</p>", configMgr, dataMgr, data['notify_single'], configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_TO][data['notify_single']])
+        logMgr.Info("单人通知已发送")
+        return Response("单人通知已发送")
