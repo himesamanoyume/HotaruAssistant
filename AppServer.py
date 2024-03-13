@@ -23,7 +23,7 @@ class AppServer:
                 logMgr.Hr(f"【{aWl0ZW1t['Title']}】:{aWl0ZW1t['Content']}")
         else:
             logMgr.Error("{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8')))
-        webMgr.StartWeb(True)
+        webMgr.StartWeb()
         # socketServerMgr.StartSocket()
         
 

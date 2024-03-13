@@ -15,19 +15,12 @@
             </h4>
         </div>
         <section class=post-detail-txt style=color:#d9d9d9>
-            {% for item in annList %}
-            <div style='background-color:#40405f;margin:10px 0 0 0;'>
-                <p style="margin: 0 20px 0 20px;"><b>{{item['Title']}}</b></p>
-                <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
-                {{item['Content']}}
-                </div>
-            </div>
-            {% endfor %}
+            <p><strong>当前每日委托</strong></p>
             {% for key, value in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid].items() %}
                 <p>
                     <ruby>
                         {{key}}
-                        <rt class='ttt' data-rt='{{taskScore[key]}}'></rt>
+                        <rt class='ttt' data-rt='{{dataMgr.taskScore[key]}}'></rt>
                     </ruby>
                     :
                     <input type="checkbox" name="daily_tasks" {% if not configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid][key] %} checked {% endif %}>
@@ -93,7 +86,7 @@
     </div>
 </div>
 <div class="post-page">
-    <button class="link-button" id="daily_submitChange" onclick="DailySubmitChange()">保存每日情况</button>
+    <button class="link-button" id="daily_submitChange" onclick="DailySubmitChange()">保存每日委托情况</button>
 </div>
 {% endblock %}
 {% block uid %}
@@ -195,7 +188,7 @@ data-rt="{{uid}}"
             </p>
             <p>模拟宇宙:
                 <select class=configSelect name=universe_number>
-                    {% for key, value in meta['模拟宇宙'].items() %}
+                    {% for key, value in dataMgr.meta['模拟宇宙'].items() %}
                         <option value="{{key}}" {% if key == (configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][uid] | universe_number) %} selected {% endif %}>{{value}}({{dataMgr.meta['模拟宇宙遗器'][key]}})</option>
                     {% endfor %}
                 </select>

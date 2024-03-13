@@ -11,7 +11,7 @@
         <script src="{{ url_for('static', filename='js/jquery.js') }}" defer></script>
         <title>{% block head %}流萤的秘密基地 | 测试{% endblock %}</title>
     </head>
-    <body class=body style=background-color:#3a3a3a {% block uid %} {% endblock %}>
+    <body class=body {% block uid %} {% endblock %}>
         <header class=header>
             <div class="nav-out"> 
                 <nav class=nav>
@@ -52,12 +52,12 @@
                                 <div class=post-txt-container>
                                     <div class=post-txt-container-title>
                                         <h4 style=color:#66ccff>
-                                            HotaruAssistant
+                                            公告
                                         </h4>
                                     </div>
-                                    <section class=post-detail-txt style=color:#d9d9d9>
+                                    <section class=post-detail-txt>
                                         {% for item in annList %}
-                                        <div style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;margin:10px 0 0 0;'>
+                                        <div class="red-notify">
                                             <p style="margin: 0 20px 0 20px;"><b>{{item['Title']}}</b></p>
                                             <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
                                             {{item['Content']}}
@@ -65,7 +65,7 @@
                                         </div>
                                         {% endfor %}
                                         {% for item in updateList %}
-                                        <div style='background-color:#405f42;box-shadow:3px 0 0 0 #5fb743 inset;margin:10px 0 0 0;'>
+                                        <div class="green-notify">
                                             <p style="margin: 0 20px 0 20px;"><b>新版本通知</b></p>
                                             <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
                                             {{item['Content']}}
@@ -88,8 +88,11 @@
                                     </div>
                                     <section class=post-detail-txt style=color:#d9d9d9>
                                         <iframe src="https://webstatic.mihoyo.com/hkrpg/announcement/index.html?auth_appid=announcement&authkey_ver=1&bundle_id=hkrpg_cn&channel_id=1&game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&level=1&platform=pc&region=prod_gf_cn&sdk_presentation_style=fullscreen&sdk_screen_transparent=true&sign_type=2&uid=1&version=1.41#/" style="border: 0;background-color:#d5d5d5;height:35vmax;width:100%"></iframe>
+                                        <div class=post-txt-container-datetime style=color:#d9d9d9>
+                                            处理过后的简略公告不一定会显示,以官方活动页面为主
+                                        </div>
                                         {% for item in noticeList %}
-                                        <div style='background-color:#40405f;margin:10px 0 0 0;'>
+                                        <div class="purple-notify">
                                             <p style="margin: 0 20px 0 20px;"><b>{{item['title']}}</b></p>
                                             <div style="font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;">
                                             {{item['day']}} 天 {{item['hour']}} 时后结束<br>{{item['start_time']}} - {{item['end_time']}}

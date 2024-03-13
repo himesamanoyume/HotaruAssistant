@@ -782,7 +782,7 @@
     }
 
     .post-detail-txt>:first-child {
-        margin-top: 0
+        margin-top: 10px;
     }
 
     .post-detail-txt>:last-child {
@@ -1625,6 +1625,23 @@
         position: sticky;
         display: block;
         top: 90px;
+    }
+
+    .red-notify{
+        background-color:#5f4040;
+        box-shadow:3px 0 0 0 #d85959 inset;
+        margin:10px 0 0 0;
+    }
+
+    .green-notify{
+        background-color:#405f42;
+        box-shadow:3px 0 0 0 #5fb743 inset;
+        margin:10px 0 0 0;
+    }
+
+    .purple-notify{
+        background-color:#40405f;
+        margin:10px 0 0 0;
     }
 
     @media screen and (max-width:1005px) {

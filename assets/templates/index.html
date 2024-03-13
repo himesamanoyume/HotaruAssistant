@@ -86,6 +86,9 @@
                 <p>游戏内设置的秘技按键:
                     <input name="hotkey_technique" type="text" style="width: 60px;" placeholder="默认e" value="{{configMgr.mConfig[configMgr.mKey.HOTKEY_TECHNIQUE]}}">
                 </p>
+                <p>是否通过"姬子试用"完成任务:
+                    <input type="checkbox" name="daily_himeko_try_enable" {% if configMgr.mConfig[configMgr.mKey.DAILY_HIMEKO_TRY_ENABLE] %} checked {% endif %}>
+                </p>
                 <p>是否开启OBS录制:
                     <input type="checkbox" name="recording_enable" {% if configMgr.mConfig[configMgr.mKey.RECORDING_ENABLE] %} checked {% endif %}>
                 </p>

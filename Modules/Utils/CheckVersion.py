@@ -14,7 +14,7 @@ class CheckVersion:
                 currentAssetsVersion = json.load(jsonFile)['hotaru_assets_version']
                 jsonFile.close()
 
-            # response = requests.get(FastestMirror.GetGithubApiMirror("himesamanoyume","himesamanoyume","latest.json",1), timeout=3)
+            # response = requests.get(FastestMirror.GetGithubApiMirror("himesamanoyume","himesamanoyume",1), timeout=3)
             # if response.status_code == 200:
             #     data = json.loads(response.text)
                 
@@ -30,8 +30,8 @@ class CheckVersion:
 
                 # ——————————————————————————————————————————————————————————————————
 
-                latestHotaruVersion = "v2.0.1"
-                downloadAssetsUrl = "https://github.com/himesamanoyume/himesamanoyume/releases/download/v2.0.0/HotaruAssistantAssets_v2.0.1.b.zip"
+                latestHotaruVersion = "v2.0.0.alpha.0"
+                downloadAssetsUrl = "https://github.com/himesamanoyume/himesamanoyume/releases/download/v2.0.0/HotaruAssistantAssets_v2.0.0.alpha.0-1.zip"
                 latestAssetsVersion = downloadAssetsUrl.split("HotaruAssistantAssets_")[1].split(".zip")[0]
 
                 # ——————————————————————————————————————————————————————————————————

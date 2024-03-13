@@ -46,12 +46,15 @@ class WebModule:
     @mAppFlask.route('/<uid>')
     def ConfigSetting(uid):
         # configMgr.mConfigModule.ReloadConfig()
+        noticeList, annList = WebModule.GetNoticeAndAnn()
+
         return render_template(
             'config.html', 
             uid=uid, 
             loginList=WebModule.InitLoginList(),
-            configMgr=configMgr, 
-            taskScore=dataMgr.taskScore, 
+            configMgr=configMgr,
+            updateList=notifyMgr.CreateUpdateContent(dataMgr),
+            annList=annList,
             dataMgr=dataMgr, 
             len=len(configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uid])
             )
@@ -275,6 +278,7 @@ class WebModule:
         configMgr.mConfig.SetValue(configMgr.mKey.DEV_SCREEN_ENABLE, data['dev_screen_enable'])
         configMgr.mConfig.SetValue(configMgr.mKey.NEXT_LOOP_TIME, data['next_loop_time'])
         configMgr.mConfig.SetValue(configMgr.mKey.HOTKEY_TECHNIQUE, data['hotkey_technique'])
+        configMgr.mConfig.SetValue(configMgr.mKey.DAILY_HIMEKO_TRY_ENABLE, data['daily_himeko_try_enable'])
         configMgr.mConfig.SetValue(configMgr.mKey.RECORDING_ENABLE, data['recording_enable'])
         configMgr.mConfig.SetValue(configMgr.mKey.HOTKEY_OBS_START, data['hotkey_obs_start'])
         configMgr.mConfig.SetValue(configMgr.mKey.HOTKEY_OBS_STOP, data['hotkey_obs_stop'])

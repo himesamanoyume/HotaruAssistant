@@ -15,13 +15,15 @@ class FastestMirror:
         return FastestMirror.FindFastestMirror(mirrorUrls, timeout)
     
     @staticmethod
-    def GetGithubApiMirror(user, repo, file, timeout=5):
-        mirrorUrls = [
-            f"https://api.github.com/repos/{user}/{repo}/releases/latest",
-            f"https://cdn.jsdelivr.net/gh/himesamanoyume/HotaruAssistant@release/{file}",
-            f"https://ghproxy.com/https://raw.githubusercontent.com/himesamanoyume/HotaruAssistant/release/{file}",
-            f"https://github.moeyy.xyz/https://raw.githubusercontent.com/himesamanoyume/HotaruAssistant/release/{file}",
-        ]
+    def GetGithubApiMirror(user, repo, timeout=5, latest=True):
+        if latest:
+            mirrorUrls = [
+                f"https://api.github.com/repos/{user}/{repo}/releases/latest"
+            ]
+        else:
+            mirrorUrls = [
+                f"https://api.github.com/repos/{user}/{repo}/releases"
+            ]
         return FastestMirror.FindFastestMirror(mirrorUrls, timeout)
     
     @staticmethod

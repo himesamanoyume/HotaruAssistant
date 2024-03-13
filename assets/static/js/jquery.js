@@ -319,6 +319,7 @@ function MiscSubmitChange(){
         var dev_screen_enable = $('input[name="dev_screen_enable"]').val()
         var next_loop_time = $('input[name="next_loop_time"]').val()
         var hotkey_technique = $('input[name="hotkey_technique"]').val()
+        var daily_himeko_try_enable = $('input[name="daily_himeko_try_enable"]').prop('checked')
         var recording_enable = $('input[name="recording_enable"]').prop('checked')
         var hotkey_obs_start = $('input[name="hotkey_obs_start"]').val()
         var hotkey_obs_stop = $('input[name="hotkey_obs_stop"]').val()
@@ -342,6 +343,7 @@ function MiscSubmitChange(){
             "dev_screen_enable":dev_screen_enable,
             "next_loop_time":parseFloat(next_loop_time),
             "hotkey_technique":hotkey_technique,
+            "daily_himeko_try_enable":daily_himeko_try_enable,
             "recording_enable":recording_enable,
             "hotkey_obs_start":hotkey_obs_start,
             "hotkey_obs_stop":hotkey_obs_stop
