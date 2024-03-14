@@ -1,6 +1,7 @@
 from Hotaru.Client.LogClientHotaru import log, logMgr
 from Hotaru.Client.ConfigClientHotaru import configMgr
-import os,sys,time,psutil
+import os,sys,time,psutil,pyautogui
+from Modules.Utils.GameWindow import GameWindow
 from Modules.Utils.Retry import Retry
 from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
@@ -28,6 +29,18 @@ class GameControlModule:
             sys.exit(1)
 
     @staticmethod
+    def CheckAndClickEnter():
+        if screenMgr.mDetect.ClickElement("./assets/images/screen/click_enter.png", "image", 0.9):
+            return True
+        screenMgr.mDetect.ClickElement("./assets/images/base/confirm.png", "image", 0.9)
+
+        screenMgr.mDetect.ClickElement("./assets/images/base/restart.png", "image", 0.9)
+
+        screenMgr.mDetect.ClickElement("./assets/images/base/start_game.png", "image", 0.9)
+        return False
+        
+
+    @staticmethod
     def LaunchGame():
         log.info(logMgr.Info("启动游戏中..."))
 
@@ -36,17 +49,39 @@ class GameControlModule:
             return False
             
         time.sleep(20)
-        if not Retry.RepeatAttempt(lambda: screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]), 180, 1):
+        if not Retry.Re(lambda: screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]), 180, 1):
             log.error(logMgr.Error("无法切换到游戏"))
             return False
         
         screenMgr.CheckResulotion(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME], 1920, 1080)
 
+        if not Retry.Re(lambda: GameControlModule.CheckAndClickEnter(), 180, 1):
+            log.error(logMgr.Error("无法找到点击进入按钮"))
+            return False
+
+        if not Retry.Re(lambda: screenMgr.mScreen.GetCurrentScreen(), 180, 1):
+            log.error(logMgr.Error("无法进入主界面"))
+            return False
+        
         return True
 
     @staticmethod
     def StopGame():
-        pass
+        log.info(logMgr.Info("开始退出游戏"))
+        time.sleep(1)
+        if screenMgr.CheckAndSwitch(configMgr.mKey.GAME_TITLE_NAME):
+            time.sleep(1)
+            pyautogui.hotkey('alt','f4')
+            time.sleep(5)
+            if screenMgr.CheckAndSwitch(configMgr.mKey.GAME_TITLE_NAME):
+                log.info(logMgr.Info("游戏退出成功"))
+            else:
+                pyautogui.hotkey('alt', 'f4')
+                time.sleep(5)
+        else:
+            log.warning(logMgr.Warning("游戏已经退出了"))
+        return True
+
 
     @staticmethod
     def StartGame():

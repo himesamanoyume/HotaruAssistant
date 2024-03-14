@@ -151,6 +151,11 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
+### Task
+
+- 实现基础流程:启动游戏,登录进游戏,读取uid,退出游戏,下一流程,重复,退出游戏,等待,下一循环
+- **并且DevScreen显示识别区域**
+
 #### Announcement
 - **多线程展示**
 
@@ -163,9 +168,6 @@ OBS录制|&cross;|&check;
 
 #### Screen/Click
 *实现Screen相关的代码转移*
-
-- - 实现DetectScrren[0]**ClickModule改为ScreenClickSubModule**,**autoMgr.RepeatAttempt重点调整**画图找出screen和auto之间的关系
-- - 实现输入[1]
 - - - 截图工具加上滚动条
 
 #### GameLoop

@@ -1,17 +1,18 @@
 from States import *
-from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.GameControlHotaru import gameMgr
+from Hotaru.Client.DataClientHotaru import dataMgr
 
-class StartGameState(BaseState):
+class QuitGameState(BaseState):
 
-    mStateName = 'StartGameState'
+    mStateName = 'QuitGameState'
 
     def OnBegin(self):
         return False
-    
+
     def OnRunning(self):
-        gameMgr.StartGame()
+        gameMgr.StopGame()
         return False
 
     def OnExit(self):
+        dataMgr.ResetData()
         return False

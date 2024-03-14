@@ -4,6 +4,8 @@ from States.LoginGameState import LoginGameState
 from Hotaru.Client.StateHotaru import stateMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
 from States.DetectNewAccountState import DetectNewAccountState
+from States.QuitGameState import QuitGameState
+from States.WaitForNextLoopState import WaitForNextLoopState
 
 class Base:
     @staticmethod
@@ -16,6 +18,14 @@ class Base:
         stateMgr.Transition(InitState())
     
     @staticmethod
-    def StartAndLoginGame():
+    def StartGame():
         stateMgr.Transition(StartGameState())
         stateMgr.Transition(LoginGameState())
+
+    @staticmethod
+    def QuitGame():
+        stateMgr.Transition(QuitGameState())
+
+    @staticmethod
+    def WaitForNextLoop():
+        stateMgr.Transition(WaitForNextLoopState())

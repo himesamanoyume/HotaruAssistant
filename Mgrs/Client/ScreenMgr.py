@@ -10,23 +10,25 @@ class ScreenMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mScreenModule = ScreenModule()
+            cls.mScreen = ScreenModule()
+            cls.mDetect = cls.mScreen.mDetect
+            cls.mDevScreen = cls.mScreen.mDevScreen
 
         return cls.mInstance
     
     def GetCurrentScreen(self, autotry=True, maxRetries=5):
-        self.mScreenModule.GetCurrentScreen(autotry, maxRetries)
+        self.mScreen.GetCurrentScreen(autotry, maxRetries)
         
     def CheckAndSwitch(self, title):
-        return self.mScreenModule.CheckAndSwitch(title)
+        return self.mScreen.CheckAndSwitch(title)
 
     def CheckResulotion(self, title, width, height):
-        self.mScreenModule.CheckResulotion(title, width, height)
+        self.mScreen.CheckResulotion(title, width, height)
     
     def StartDevScreen(self):
-        self.mScreenModule.StartDevScreen()
+        self.mScreen.StartDevScreen()
 
     def ShowDetectArea(self, detectArea):
-        self.mScreenModule.mDevScreen.canvas.delete('all')
-        Retry.RepeatAttempt(lambda: self.mScreenModule.mDevScreen.ShowDetectArea(detectArea), 1)
-        self.mScreenModule.mDevScreen.canvas.delete('all')
+        self.mScreen.mDevScreen.canvas.delete('all')
+        Retry.Re(lambda: self.mScreen.mDevScreen.ShowDetectArea(detectArea), 1)
+        self.mScreen.mDevScreen.canvas.delete('all')

@@ -199,3 +199,71 @@ class ScreenModule:
                 break
         log.error(logMgr.Error("当前界面：未知"))
         return False
+    
+    def CheckScreen(self, targetScreen):
+        if self.mDetect.FindElement(self.screenMap[targetScreen]['image_path'], "image", 0.9):
+            self.currentScreen = targetScreen
+            return True
+        return False
+
+    def ChangeTo(self, targetScreen, maxRecursion=2):
+        """
+        切换到目标界面，，如果失败则退出进程
+        :param targetScreen: 目标界面
+        :param maxRecursion: 重试次数
+        """
+        if self.CheckScreen(targetScreen):
+            log.debug(logMgr.Debug(f"已经在 {self.GetName(targetScreen)} 界面"))
+            return
+
+        if not self.GetCurrentScreen():
+            nowtime = time.time()
+            log.info(logMgr.Info(f"{nowtime},请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
+            log.info(logMgr.Info("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
+            raise Exception (f"{nowtime},检测画面失败")
+            # input(_("按回车键关闭窗口. . ."))
+            # sys.exit(1)
+
+        path = self.FindShortestPath(self.currentScreen, targetScreen)
+        if path:
+            for i in range(len(path) - 1):
+                currentScreen = path[i]
+                nextScreen = path[i + 1]
+
+                operations = [action["actions_list"]
+                              for action in self.screenMap[currentScreen]['actions']
+                              if action["target_screen"] == nextScreen][0]
+                self.PerformOperations(operations)
+
+                for i in range(20):
+                    log.debug(logMgr.Debug(f"等待：{self.GetName(nextScreen)}"))
+                    if self.CheckScreen(nextScreen):
+                        break
+                    else:
+                        time.sleep(1)
+
+                if self.currentScreen != nextScreen:
+                    if maxRecursion > 0:
+                        log.warning(logMgr.Warning(f"切换到 {self.GetName(nextScreen)} 超时，准备重试"))
+                        self.ChangeTo(nextScreen, maxRecursion=maxRecursion - 1)
+                    else:
+                        nowtime = time.time()
+                        log.error(logMgr.Error(f"{nowtime},无法切换到 {self.GetName(nextScreen)},请确保你的账号已经解锁该功能,且不要在配置中选择你未解锁的副本或功能"))
+                        log.info(logMgr.Info("请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
+                        log.info(logMgr.Info("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
+                        raise Exception (f"{nowtime},无法切换到 {self.GetName(nextScreen)},请确保你的账号已经解锁该功能,且不要在配置中选择你未解锁的副本或功能")
+                        # input(_("按回车键关闭窗口. . ."))
+                        # sys.exit(1)
+
+                
+                log.info(logMgr.Info(f"切换到：{self.green + self.GetName(nextScreen) + self.reset}"))
+                time.sleep(1)
+            self.currentScreen = targetScreen  # 更新当前界面
+            return
+
+        log.debug(logMgr.Debug(f"无法从 {self.GetName(self.currentScreen)} 切换到 {self.GetName(targetScreen)}"))
+        nowtime = time.time()
+        log.error(logMgr.Error(f"{nowtime},无法从 {self.GetName(self.currentScreen)} 切换到 {self.GetName(targetScreen)}"))
+        raise Exception (f"{nowtime},无法从 {self.GetName(self.currentScreen)} 切换到 {self.GetName(targetScreen)}")
+        # input(_("按回车键关闭窗口. . ."))
+        # sys.exit(1)

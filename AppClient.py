@@ -5,7 +5,7 @@ from Hotaru.Client.LogClientHotaru import logMgr,log
 from Hotaru.Client.OcrHotaru import ocrMgr
 from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.ConfigClientHotaru import configMgr
-from Hotaru.Client.TaskHotaru import gameMgr
+from Hotaru.Client.TaskHotaru import taskMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
 from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
@@ -15,8 +15,7 @@ class AppClient:
         socketClientMgr.StartListenServer()
         configMgr.IsAgreed2Disclaimer()
         ocrMgr.CheckPath()
-        # gameMgr.SetupGame()
-        gameMgr.DetectNewAccounts()
+        taskMgr.DetectNewAccounts()
 
         if len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS]) == 0:
             log.warning(logMgr.Warning("你并没有填写注册表位置"))
@@ -47,7 +46,7 @@ class AppClient:
                 log.warning(logMgr.Warning(f"{uidStr}【正在黑名单中】"))
                 continue 
                 
-            gameMgr.ReadyToStart(uidStr)
+            taskMgr.ReadyToStart(uidStr)
             dataMgr.loginDict.update({f'{uidStr}' : f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}'})
             dataMgr.loginList.append(f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}')
 
@@ -75,13 +74,14 @@ class AppClient:
 
         isFirstTimeLoop = True
 
+        if not os.path.exists("./backup"):
+            os.makedirs("./backup")
+
+        shutil.copy("./config.yaml",f"./backup/{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")
+
         while True:
             dataMgr.ResetData()
-            if not os.path.exists("./backup"):
-                os.makedirs("./backup")
-
-            shutil.copy("./config.yaml",f"./backup/{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")
-
+            
             lastUID = str(dataMgr.loginList[len(dataMgr.loginList) - 1]).split('-')[1][:9]
             log.info(logMgr.Info(f"当前列表最后一个账号UID为:{lastUID}"))
             dataMgr.loopStartTimestamp = time.time()
@@ -105,7 +105,7 @@ class AppClient:
                             jumpFin = True
 
                     uidStr2 = str(regStr).split('-')[1][:9]
-                    gameMgr.DetectNewAccounts()
+                    taskMgr.DetectNewAccounts()
 
                     if isFirstTimeLoop:
                         if firstTimeLogin:
@@ -122,25 +122,27 @@ class AppClient:
                         input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
                         return False
                     
-                    gameMgr.StartAndLoginGame()
+                    taskMgr.StartGame()
 
                     if count == 1:
                         if selectedAction == 'daily':
                             dataMgr.currentAction = "每日任务流程"
-                            gameMgr.StartDaily(uidStr2, lastUID)
+                            taskMgr.StartDaily(uidStr2, lastUID)
                         elif selectedAction == 'universe':
                             dataMgr.currentAction = "模拟宇宙流程"
-                            gameMgr.StartUniverse(uidStr2, lastUID)
+                            taskMgr.StartUniverse(uidStr2, lastUID)
                     else:
                         if turn == 0:
                             dataMgr.currentAction = "每日任务流程"
-                            gameMgr.StartDaily(uidStr2, lastUID)
+                            taskMgr.StartDaily(uidStr2, lastUID)
                         else:
                             dataMgr.currentAction = "模拟宇宙流程"
-                            gameMgr.StartUniverse(uidStr2, lastUID)
+                            taskMgr.StartUniverse(uidStr2, lastUID)
 
-                    input("按回车退出游戏")
-                    gameMgr.StopGame()
+                    input("按回车退出游戏") # temp
+                    taskMgr.QuitGame()
+
+            taskMgr.WaitForNextLoop()
 
 
 
