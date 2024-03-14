@@ -82,7 +82,7 @@ class DetectScreenModule:
                 raise ValueError("读取图片失败")
             # screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2GRAY)
             if self.screenshot is None:
-                print("None")
+                log.error(logMgr.Error("截图为None"))
                 return
             screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2RGB)
             max_val, max_loc = self.ScaleAndMatchTemplate(screenshot, template, threshold, scale_range)

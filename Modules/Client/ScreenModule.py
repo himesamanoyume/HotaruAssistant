@@ -16,6 +16,7 @@ class ScreenModule:
         self.mDetect = DetectScreenModule(configMgr.mKey.GAME_TITLE_NAME)
         self.currentScreen = None
         self.screenMap = {}
+        self.lock = threading.Lock()  # 创建一个锁，用于线程同步
         self.SetupScreensFromConfig(configPath)
         self.green = "\033[92m"
         self.reset = "\033[0m"
@@ -154,12 +155,12 @@ class ScreenModule:
                     log.debug(logMgr.Debug(f"未知的操作: {function_name}"))
 
     def FindScreen(self, screenName, screen):
-        try:
-            if self.mDetect.FindElement(screen['image_path'], "image", 0.9, takeScreenshot=False):
-                with self.lock:  # 使用锁来保护对共享变量的访问
-                    self.currentScreen = screenName
-        except Exception as e:
-            log.debug(logMgr.Debug(f"识别界面出错：{e}"))
+            try:
+                if self.mDetect.FindElement(screen['image_path'], "image", 0.9, takeScreenshot=False):
+                    with self.lock:  # 使用锁来保护对共享变量的访问
+                        self.currentScreen = screenName
+            except Exception as e:
+                log.debug(logMgr.Debug(f"识别界面出错：{e}"))
 
     def GetCurrentScreen(self, autotry=True, maxRetries=5):
         """
