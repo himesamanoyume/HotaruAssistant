@@ -24,7 +24,7 @@ class AppServer:
         else:
             logMgr.Error("{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8')))
         webMgr.StartWeb()
-        # socketServerMgr.StartSocket()
+        socketServerMgr.StartSocket()
         
 
 if __name__ == "__main__":

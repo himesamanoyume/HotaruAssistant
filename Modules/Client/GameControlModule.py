@@ -1,7 +1,7 @@
 from Hotaru.Client.LogClientHotaru import log, logMgr
 from Hotaru.Client.ConfigClientHotaru import configMgr
 import os,sys,time,psutil
-from Hotaru.Client.AutoHotaru import autoMgr
+from Modules.Utils.Retry import Retry
 from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
 
@@ -36,7 +36,7 @@ class GameControlModule:
             return False
             
         time.sleep(20)
-        if not autoMgr.RepeatAttempt(lambda: screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]), 180, 1):
+        if not Retry.RepeatAttempt(lambda: screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]), 180, 1):
             log.error(logMgr.Error("无法切换到游戏"))
             return False
         

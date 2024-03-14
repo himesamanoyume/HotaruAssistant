@@ -1,8 +1,10 @@
 import numpy as np,time,math,cv2
 from Hotaru.Client.LogClientHotaru import log,logMgr
 from .OcrModule import OcrModule
+from Modules.Utils.Retry import Retry
 from .DetectDevScreenSubModule import DetectDevScreenSubModule
-from .ClickModule import ClickModule
+from .ClickScreenSubModule import ClickScreenSubModule
+from Modules.Utils.GameWindow import GameWindow
 
 class DetectScreenModule:
 
@@ -12,24 +14,30 @@ class DetectScreenModule:
         self.InitClickModule()
 
     def InitClickModule(self):
-        self.mouseClick = ClickModule.MouseClick
-        self.mouseDown = ClickModule.MouseDown
-        self.mouseUp = ClickModule.MouseUp
-        self.mouseMove = ClickModule.MouseMove
-        self.mouseScroll = ClickModule.MouseScroll
-        self.pressKey = ClickModule.PressKey
-        self.pressMouse = ClickModule.PressMouse
+        self.mouseClick = ClickScreenSubModule.MouseClick
+        self.mouseDown = ClickScreenSubModule.MouseDown
+        self.mouseUp = ClickScreenSubModule.MouseUp
+        self.mouseMove = ClickScreenSubModule.MouseMove
+        self.mouseScroll = ClickScreenSubModule.MouseScroll
+        self.pressKey = ClickScreenSubModule.PressKey
+        self.pressMouse = ClickScreenSubModule.PressMouse
+
+    def TakeScreenshot(self, crop=(0, 0, 0, 0)):
+        result = GameWindow.TakeScreenshot(crop)
+        if result:
+            self.screenshot, self.screenshot_pos = result
+        return result
 
     def GetImageInfo(self, image_path):
         template = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         return template.shape[::-1]
 
-    def ScaleAndMatchTemplate(self, screenshot, template, threshold=None, scale_range=None):
+    def ScaleAndMatchTemplate(self, screenshot, template, threshold=None, scaleRange=None):
         result = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
         _, max_val, _, max_loc = cv2.minMaxLoc(result)
 
-        if (threshold is None or max_val < threshold) and scale_range is not None:
-            for scale in np.arange(scale_range[0], scale_range[1] + 0.0001, 0.05):
+        if (threshold is None or max_val < threshold) and scaleRange is not None:
+            for scale in np.arange(scaleRange[0], scaleRange[1] + 0.0001, 0.05):
                 scaled_template = cv2.resize(template, None, fx=scale, fy=scale)
                 result = cv2.matchTemplate(screenshot, scaled_template, cv2.TM_CCOEFF_NORMED)
                 _, local_max_val, _, local_max_loc = cv2.minMaxLoc(result)
@@ -40,29 +48,29 @@ class DetectScreenModule:
 
         return max_val, max_loc
     
-    def FindElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, pixel_bgr=None):
+    def FindElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
         # 参数有些太多了，以后改
-        take_screenshot = False if not need_ocr else take_screenshot
-        max_retries = 1 if not take_screenshot else max_retries
-        for i in range(max_retries):
-            if take_screenshot and not DetectDevScreenSubModule.TakeScreenshot(crop):
+        takeScreenshot = False if not needOcr else takeScreenshot
+        maxRetries = 1 if not takeScreenshot else maxRetries
+        for i in range(maxRetries):
+            if takeScreenshot and not self.TakeScreenshot(crop):
                 continue
-            if find_type in ['image', 'text', "min_distance_text"]:
-                if find_type == 'image':
+            if findType in ['image', 'text', "min_distance_text"]:
+                if findType == 'image':
                     top_left, bottom_right = self.FindImageElement(
-                        target, threshold, scale_range, relative)
-                elif find_type == 'text':
-                    top_left, bottom_right = self.FindTextElement(target, include, need_ocr, relative)
-                elif find_type == 'min_distance_text':
-                    top_left, bottom_right = self.FindMinDistanceTextElement(target, source, source_type, include, need_ocr)
+                        target, threshold, scaleRange, relative)
+                elif findType == 'text':
+                    top_left, bottom_right = self.FindTextElement(target, include, needOcr, relative)
+                elif findType == 'min_distance_text':
+                    top_left, bottom_right = self.FindMinDistanceTextElement(target, source, sourceType, include, needOcr)
                 if top_left and bottom_right:
                     return top_left, bottom_right
-            elif find_type in ['image_count']:
-                return self.FindImageAndCount(target, threshold, pixel_bgr)
+            elif findType in ['image_count']:
+                return self.FindImageAndCount(target, threshold, pixelBgr)
             else:
                 raise ValueError("错误的类型")
 
-            if i < max_retries - 1:
+            if i < maxRetries - 1:
                 time.sleep(1)
         return None
 
@@ -73,6 +81,9 @@ class DetectScreenModule:
             if template is None:
                 raise ValueError("读取图片失败")
             # screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2GRAY)
+            if self.screenshot is None:
+                print("None")
+                return
             screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2RGB)
             max_val, max_loc = self.ScaleAndMatchTemplate(screenshot, template, threshold, scale_range)
             log.debug(logMgr.Debug(f"目标图片：{target} 相似度：{max_val}"))
@@ -218,14 +229,14 @@ class DetectScreenModule:
         x = (left + right) // 2 + offset[0]
         y = (top + bottom) // 2 + offset[1]
         if action == "click":
-            self.mouseClick(x, y)
+            Retry.RepeatAttempt(self.mouseClick(x, y))
         elif action == "down":
-            self.mouseDown(x, y)
+            Retry.RepeatAttempt(self.mouseDown(x, y))
         elif action == "move":
-            self.mouseMove(x, y)
+            Retry.RepeatAttempt(self.mouseMove(x, y))
         return True
 
-    def click_element(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):
+    def ClickElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):
         coordinates = self.FindElement(target, find_type, threshold, max_retries, crop, take_screenshot,
                                         relative, scale_range, include, need_ocr, source, source_type)
         if coordinates:
@@ -236,9 +247,9 @@ class DetectScreenModule:
             log.warning(logMgr.Warning(f"未找到目标!"))
         return False
 
-    def get_single_line_text(self, crop=(0, 0, 0, 0), blacklist=None, max_retries=3):
+    def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, max_retries=3):
         for i in range(max_retries):
-            self.screenshot, self.screenshot_pos = DetectDevScreenSubModule.TakeScreenshot(crop)
+            self.screenshot, self.screenshot_pos = self.TakeScreenshot(crop)
             ocr_result = OcrModule.RecognizeSingleLine(np.array(self.screenshot), blacklist)
             if ocr_result:
                 return ocr_result[0]

@@ -14,6 +14,9 @@ class ScreenMgr:
 
         return cls.mInstance
     
+    def GetCurrentScreen(self, autotry=True, maxRetries=5):
+        self.mScreenModule.GetCurrentScreen(autotry, maxRetries)
+        
     def CheckAndSwitch(self, title):
         return self.mScreenModule.CheckAndSwitch(title)
 

@@ -18,11 +18,13 @@ class FastestMirror:
     def GetGithubApiMirror(user, repo, timeout=5, latest=True):
         if latest:
             mirrorUrls = [
-                f"https://api.github.com/repos/{user}/{repo}/releases/latest"
+                f"https://api.github.com/repos/{user}/{repo}/releases/latest",
+                f"https://github.himesamanoyume.top/https://api.github.com/repos/{user}/{repo}/releases/latest"
             ]
         else:
             mirrorUrls = [
-                f"https://api.github.com/repos/{user}/{repo}/releases"
+                f"https://api.github.com/repos/{user}/{repo}/releases",
+                f"https://github.himesamanoyume.top/https://api.github.com/repos/{user}/{repo}/releases"
             ]
         return FastestMirror.FindFastestMirror(mirrorUrls, timeout)
     

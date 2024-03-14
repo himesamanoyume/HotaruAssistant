@@ -1,7 +1,7 @@
 from Hotaru.Client.LogClientHotaru import log,logMgr
 import pyautogui,time
 
-class ClickModule:
+class ClickScreenSubModule:
 
     pyautogui.FAILSAFE = False
 
@@ -35,13 +35,14 @@ class ClickModule:
             pyautogui.moveTo(x, y)
             log.debug(logMgr.Debug("鼠标移动 ({x}, {y})").format(x=x, y=y))
         except Exception as e:
-            log.error(logMgr.Error("鼠标移动出错：{e}").format(e=e))
+            log.error(logMgr.Error(f"鼠标移动出错：{e}"))
 
     @staticmethod
     def MouseScroll(count, direction=-1):
+        """  """
         for i in range(count):
             pyautogui.scroll(direction)
-        log.debug(logMgr.Debug("滚轮滚动 {x} 次").format(x=count * direction))
+        log.debug(logMgr.Debug(f"滚轮滚动 {count * direction} 次"))
 
     @staticmethod
     def PressKey(key, wait_time=0.2):

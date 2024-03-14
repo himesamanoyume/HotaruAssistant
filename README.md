@@ -164,7 +164,7 @@ OBS录制|&cross;|&check;
 #### Screen/Click
 *实现Screen相关的代码转移*
 
-- - 实现DetectScrren[0]
+- - 实现DetectScrren[0]**ClickModule改为ScreenClickSubModule**,**autoMgr.RepeatAttempt重点调整**画图找出screen和auto之间的关系
 - - 实现输入[1]
 - - - 截图工具加上滚动条
 
@@ -197,6 +197,7 @@ OBS录制|&cross;|&check;
 - 更换头图至秘密基地
 - 教程写明更清晰的使用步骤
 - blog和hotaru的重复css样式重新整理为common,hotaru,blog.css
+- pythonchecker module
 
 ## 1.xTODO
 
