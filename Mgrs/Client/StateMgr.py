@@ -24,7 +24,9 @@ class StateMgr:
         cls.mCurrentState = state
         log.info(logMgr.Info(f"状态已变换至:{state.mStateName}"))
 
-        if not cls.mCurrentState.OnBegin():
+        isNextState = cls.mCurrentState.OnBegin()
+        
+        if not isNextState:
             time.sleep(0.5)
             cls.mCurrentState.OnRunning()
             time.sleep(0.5)

@@ -11,6 +11,7 @@ class FastestMirror:
             downloadUrl,
             f"https://ghproxy.com/{downloadUrl}",
             f"https://github.moeyy.xyz/{downloadUrl}",
+            f"https://github.himesamanoyume.top/{downloadUrl}"
         ]
         return FastestMirror.FindFastestMirror(mirrorUrls, timeout)
     

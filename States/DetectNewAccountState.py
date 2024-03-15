@@ -7,11 +7,6 @@ class DetectNewAccountState(BaseState):
     mStateName = 'DetectNewAccountState'
 
     def OnBegin(self):
-        # log.info(logClientMgr.Info(f"{self.mStateName} Begin"))
-        return False
-
-    def OnRunning(self):
-        # log.info(logClientMgr.Info(f"{self.mStateName} Running"))
         log.info(logMgr.Info("正在检测是否有新注册表加入"))
         wantRegisterAccounts = configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS]
 
@@ -64,6 +59,8 @@ class DetectNewAccountState(BaseState):
             log.info(logMgr.Info("新注册表激活完成"))
         return False
 
+    def OnRunning(self):
+        return False
+
     def OnExit(self):
-        # log.info(logClientMgr.Info(f"{self.mStateName} Exit"))
         return False

@@ -10,14 +10,11 @@ class InitState(BaseState):
     mStateName = 'InitState'
 
     def OnBegin(self):
-        # log.info(logClientMgr.Info(f"{self.mStateName} Begin Reload"))
-        return False
-
-    def OnRunning(self):
-        # log.info(logClientMgr.Info(f"{self.mStateName} Running Reload"))
         InitUidConfig.InitUidDefaultConfig(configMgr, logMgr, dataMgr.tempUid)
         return False
 
+    def OnRunning(self):
+        return False
+
     def OnExit(self):
-        # log.info(logClientMgr.Info(f"{self.mStateName} Exit Reload"))
         return False

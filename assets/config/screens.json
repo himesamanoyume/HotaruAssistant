@@ -8,7 +8,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -19,7 +19,7 @@
                 "target_screen": "map",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "m"
                         ]
@@ -30,7 +30,7 @@
                 "target_screen": "stellar_warp",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "f3"
                         ]
@@ -42,7 +42,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/warp/stellar_warp.png",
                             "image",
@@ -62,7 +62,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -73,7 +73,7 @@
                 "target_screen": "guide2",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide.png",
                             "image",
@@ -87,7 +87,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide2.png",
                             "image",
@@ -106,7 +106,7 @@
                 "target_screen": "guide3",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide.png",
                             "image",
@@ -126,7 +126,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide3.png",
                             "image",
@@ -145,7 +145,7 @@
                 "target_screen": "guide4",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide.png",
                             "image",
@@ -165,7 +165,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide4.png",
                             "image",
@@ -184,7 +184,7 @@
                 "target_screen": "mail",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/mail.png",
                             "image",
@@ -193,7 +193,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/mail_reward.png",
                             "image",
@@ -207,7 +207,7 @@
                 "target_screen": "visa",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/more.png",
                             "image",
@@ -221,7 +221,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "漫游签证",
                             "text",
@@ -236,7 +236,7 @@
                 "target_screen": "cdkey",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/more.png",
                             "image",
@@ -250,7 +250,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "兑换码",
                             "text",
@@ -265,7 +265,7 @@
                 "target_screen": "wallpaper",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/more.png",
                             "image",
@@ -279,7 +279,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "手机壁纸",
                             "text",
@@ -294,7 +294,7 @@
                 "target_screen": "camera",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/camera.png",
                             "image",
@@ -308,7 +308,7 @@
                 "target_screen": "dispatch",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/dispatch.png",
                             "image",
@@ -321,7 +321,7 @@
                 "target_screen": "pass1",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/pass.png",
                             "image",
@@ -334,7 +334,7 @@
                 "target_screen": "bag_relics",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/bag.png",
                             "image",
@@ -348,7 +348,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/bag_relics.png",
                             "image",
@@ -362,7 +362,7 @@
                 "target_screen": "consumables",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/synthesis.png",
                             "image",
@@ -375,7 +375,7 @@
                 "target_screen": "bag_consumables",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/bag.png",
                             "image",
@@ -389,7 +389,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/bag_consumables.png",
                             "image",
@@ -403,7 +403,7 @@
                 "target_screen": "configure_team",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/configure_team.png",
                             "image",
@@ -417,7 +417,7 @@
                 "target_screen": "activity",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/menu/activity.png",
                             "image",
@@ -437,7 +437,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -455,7 +455,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/monthly_card.png",
                             "image",
@@ -470,7 +470,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/monthly_card.png",
                             "image",
@@ -491,7 +491,7 @@
                 "target_screen": "click_enter",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/start_game.png",
                             "image",
@@ -517,7 +517,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/click_enter.png",
                             "image",
@@ -543,7 +543,7 @@
                 "target_screen": "click_enter",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/login/protocol_agree.png",
                             "image",
@@ -563,7 +563,7 @@
                 "target_screen": "click_enter",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
@@ -583,7 +583,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/base/cancel.png",
                             "image",
@@ -597,7 +597,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -609,7 +609,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -627,7 +627,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -645,7 +645,7 @@
                 "target_screen": "universe_main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -663,7 +663,7 @@
                 "target_screen": "universe_main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -674,7 +674,7 @@
                 "target_screen": "universe_download_char",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/universe/download_char.png",
                             "image",
@@ -694,13 +694,13 @@
                 "target_screen": "universe_main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
                     },
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -711,7 +711,7 @@
                 "target_screen": "universe_select",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -729,7 +729,7 @@
                 "target_screen": "universe_report",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/universe/leave_temporarily.png",
                             "image",
@@ -743,7 +743,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
@@ -770,7 +770,7 @@
                 "target_screen": "universe_main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -788,7 +788,7 @@
                 "target_screen": "leave_temporarily",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -800,7 +800,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -818,7 +818,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/fight/retreat.png",
                             "image",
@@ -837,7 +837,7 @@
                 "target_screen": "fighting",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/fight/fight_continue.png",
                             "image",
@@ -857,7 +857,7 @@
                 "target_screen": "retreat",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -868,13 +868,13 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/fight/retreat.png",
                             "image",
@@ -900,7 +900,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/fight/fight_exit.png",
                             "image",
@@ -926,7 +926,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -937,7 +937,7 @@
                 "target_screen": "guide3",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide3.png",
                             "image",
@@ -956,7 +956,7 @@
                 "target_screen": "guide4",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide4.png",
                             "image",
@@ -982,7 +982,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -993,7 +993,7 @@
                 "target_screen": "guide2",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide2.png",
                             "image",
@@ -1012,7 +1012,7 @@
                 "target_screen": "guide4",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide4.png",
                             "image",
@@ -1031,7 +1031,7 @@
                 "target_screen": "universe_main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "传送",
                             "min_distance_text",
@@ -1053,7 +1053,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1064,7 +1064,7 @@
                 "target_screen": "guide2",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide2.png",
                             "image",
@@ -1083,7 +1083,7 @@
                 "target_screen": "guide3",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/guide/enter_guide3.png",
                             "image",
@@ -1108,7 +1108,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "忘却之庭",
                             "text",
@@ -1124,7 +1124,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "传送",
                             "text",
@@ -1134,7 +1134,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/forgottenhall/memory_of_chaos.png",
                             "image",
@@ -1154,7 +1154,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "虚构叙事",
                             "text",
@@ -1170,7 +1170,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "传送",
                             "text",
@@ -1192,7 +1192,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1210,7 +1210,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1228,7 +1228,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1246,7 +1246,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1264,7 +1264,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1282,7 +1282,7 @@
                 "target_screen": "camera",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1300,7 +1300,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1311,7 +1311,7 @@
                 "target_screen": "universe_extend",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/universe/universe_switch.png",
                             "image",
@@ -1332,7 +1332,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1343,7 +1343,7 @@
                 "target_screen": "universe_main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/universe/universe_switch.png",
                             "image",
@@ -1364,7 +1364,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1382,7 +1382,7 @@
                 "target_screen": "pass1",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/screen/start_srpass.png",
                             "image",
@@ -1403,7 +1403,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1414,7 +1414,7 @@
                 "target_screen": "pass2",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/pass/enter_pass2.png",
                             "image",
@@ -1434,7 +1434,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1445,7 +1445,7 @@
                 "target_screen": "pass1",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/pass/enter_pass1.png",
                             "image",
@@ -1465,7 +1465,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1476,7 +1476,7 @@
                 "target_screen": "material",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/synthesis/enter_material.png",
                             "image",
@@ -1496,7 +1496,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1514,13 +1514,13 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
                     },
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1538,7 +1538,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1549,7 +1549,7 @@
                 "target_screen": "consumables",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/synthesis/enter_consumables.png",
                             "image",
@@ -1569,7 +1569,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1587,7 +1587,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1598,7 +1598,7 @@
                 "target_screen": "memory",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/forgottenhall/memory.png",
                             "image",
@@ -1618,7 +1618,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1636,7 +1636,7 @@
                 "target_screen": "memory_of_chaos",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1648,7 +1648,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
@@ -1669,7 +1669,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1687,7 +1687,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1705,7 +1705,7 @@
                 "target_screen": "menu",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1723,7 +1723,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1734,7 +1734,7 @@
                 "target_screen": "himeko_try",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/warp/try.png",
                             "image",
@@ -1760,7 +1760,7 @@
                 "target_screen": "stellar_warp",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1771,7 +1771,7 @@
                 "target_screen": "himeko_try_banner",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/warp/start_try.png",
                             "image",
@@ -1797,7 +1797,7 @@
                 "target_screen": "himeko_prepare",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1815,7 +1815,7 @@
                 "target_screen": "himeko_try",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.pressKey",
+                        "action": "PressKey",
                         "args": [
                             "esc"
                         ]
@@ -1827,7 +1827,7 @@
                         ]
                     },
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
@@ -1884,7 +1884,7 @@
                 "target_screen": "start_game",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
@@ -1910,7 +1910,7 @@
                 "target_screen": "start_game",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
@@ -1936,7 +1936,7 @@
                 "target_screen": "start_game",
                 "actions_list": [
                     {
-                        "action": "self.mDetect.ClickElement",
+                        "action": "ClickElement",
                         "args": [
                             "./assets/images/base/restart.png",
                             "image",

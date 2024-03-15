@@ -52,7 +52,7 @@ class ClickScreenSubModule:
             pyautogui.keyUp(key)
             log.debug(logMgr.Debug("键盘按下 {key}").format(key=key))
         except Exception as e:
-            log.debug(logMgr.Debug("键盘按下 {key} 出错：{e}").format(key=key, e=e))
+            log.error(logMgr.Error("键盘按下 {key} 出错：{e}").format(key=key, e=e))
 
     @staticmethod
     def PressMouse(wait_time=0.2):
@@ -62,6 +62,6 @@ class ClickScreenSubModule:
             pyautogui.mouseUp()
             log.debug(logMgr.Debug("按下鼠标左键"))
         except Exception as e:
-            log.debug(logMgr.Debug("按下鼠标左键出错：{e}").format(e=e))
+            log.error(logMgr.Error("按下鼠标左键出错：{e}").format(e=e))
     
     

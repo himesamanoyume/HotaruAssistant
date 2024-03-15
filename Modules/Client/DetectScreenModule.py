@@ -229,11 +229,11 @@ class DetectScreenModule:
         x = (left + right) // 2 + offset[0]
         y = (top + bottom) // 2 + offset[1]
         if action == "click":
-            Retry.Re(self.mouseClick(x, y))
+            Retry.Re(lambda: self.mouseClick(x, y))
         elif action == "down":
-            Retry.Re(self.mouseDown(x, y))
+            Retry.Re(lambda: self.mouseDown(x, y))
         elif action == "move":
-            Retry.Re(self.mouseMove(x, y))
+            Retry.Re(lambda: self.mouseMove(x, y))
         return True
 
     def ClickElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):

@@ -3,15 +3,18 @@ import time
 
 class Retry:
     @staticmethod
-    def Re(lambdaFunction, timeout = 10, repeatSleep = 0.5):
+    def Re(lambdaFunction, timeout = 10, repeatSleep = 0.5, *args, **kwargs):
         startTime = time.time()
+        print("start")
         while time.time() - startTime < timeout:
             try:
-                result = lambdaFunction()
+                print(lambdaFunction)
+                result = lambdaFunction(*args, **kwargs)
+                print("end")
                 if result:
                     return result
             except Exception as e:
-                log.error(logMgr.Error(e))
+                log.error(logMgr.Error(f"重试报错: {e}"))
                     
             time.sleep(repeatSleep)
         
