@@ -20,6 +20,12 @@ class GameWindow:
         else:
             return (window.left + otherBorder, window.top + upBorder, window.width -
                     otherBorder - otherBorder, window.height - upBorder - otherBorder)
+        
+    @staticmethod
+    def GetWindowDevBorder(window):
+        otherBorder = (window.width - 1920) // 2
+        upBorder = window.height - 1080 - otherBorder
+        return upBorder
 
     @staticmethod
     def GetWindowDevRegion(window):

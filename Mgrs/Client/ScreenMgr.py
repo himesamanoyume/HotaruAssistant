@@ -19,12 +19,20 @@ class ScreenMgr:
         self.green = "\033[92m"
         self.reset = "\033[0m"
 
+    def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
+        """ 这种老是忘记return结果 """
+        t = threading.Thread(target=self.ShowDetectArea(crop))
+        t.start()
+        return self.mDetect.GetSingleLineText(crop, blacklist, maxRetries)
+
     def FindElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
+        """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea(crop))
         t.start()
         return self.mDetect.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, pixelBgr)
     
     def ClickElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):
+        """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea(crop))
         t.start()
         return self.mDetect.ClickElement(target, find_type, threshold, max_retries, crop, take_screenshot, relative, scale_range, include, need_ocr, source, source_type, offset, isLog)
@@ -54,11 +62,9 @@ class ScreenMgr:
         self.mScreen.StartDevScreen()
 
     def ShowDetectArea(self, detectArea):
-        log.warning(logMgr.Warning(f"尝试显示检测区域: {detectArea}"))
         if self.mDevScreen.isDevScreenRunning:
-            log.warning(logMgr.Warning(f"正在显示检测区域: {detectArea}"))
             self.mDevScreen.canvas.delete('all')
-            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), 1)
+            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), 2)
             self.mDevScreen.canvas.delete('all')
 
     @staticmethod

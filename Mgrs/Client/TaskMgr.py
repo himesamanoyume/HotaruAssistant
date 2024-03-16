@@ -2,7 +2,7 @@
 from Hotaru.Client.LogClientHotaru import logMgr,log
 from States.InitState import InitState
 from States.StartGameState import StartGameState
-from States.LoginGameState import LoginGameState
+from States.InitAccountState import InitAccountState
 from Hotaru.Client.StateHotaru import stateMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
 from States.DetectNewAccountState import DetectNewAccountState
@@ -22,7 +22,7 @@ class TaskMgr:
     def StartGame():
         dataMgr.currentAction = "登录流程"
         if stateMgr.Transition(StartGameState()):
-            stateMgr.Transition(LoginGameState())
+            stateMgr.Transition(InitAccountState())
             return True
             
     @staticmethod

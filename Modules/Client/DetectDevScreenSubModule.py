@@ -10,8 +10,18 @@ class DetectDevScreenSubModule:
         self.isDevScreenRunning = False
 
     def ShowDetectArea(self, detectArea):
+        temp0 = detectArea[0] * 1920
+        temp1 = detectArea[1] * 1080
+        temp2 = detectArea[2] * 1920
+        temp3 = detectArea[3] * 1080
+        detectArea = (temp2, temp3, temp0, temp1)
+
+        window = GameWindow.GetWindow(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME])
+        upBorder = GameWindow.GetWindowDevBorder(window)
+        
+        log.debug(logMgr.Debug(f"正在显示检测区域: ({temp0}, {temp1}, {temp2}, {temp3})"))
         self.canvas.create_rectangle(
-            detectArea[0]+3, detectArea[1]+3, detectArea[2]+3, detectArea[3]+3, outline="red", width=3
+            detectArea[2] - 3, detectArea[3] + upBorder - 3, detectArea[2] + detectArea[0] + 3, detectArea[3] + detectArea[1] + upBorder + 3, outline="red", width=3
         )
         
     def InitDevScreenLoop(self, window):

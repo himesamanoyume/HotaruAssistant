@@ -26,7 +26,7 @@ class DetectScreenModule:
     def TakeScreenshot(self, crop=(0, 0, 0, 0)):
         result = GameWindow.TakeScreenshot(crop)
         if result:
-            self.screenshot, self.screenshot_pos = result
+            self.screenshot, self.screenshotPos = result
         return result
 
     def GetImageInfo(self, image_path):
@@ -91,8 +91,8 @@ class DetectScreenModule:
             if threshold is None or max_val >= threshold:
                 channels, width, height = template.shape[::-1]
                 if relative == False:
-                    top_left = (max_loc[0] + self.screenshot_pos[0],
-                                max_loc[1] + self.screenshot_pos[1])
+                    top_left = (max_loc[0] + self.screenshotPos[0],
+                                max_loc[1] + self.screenshotPos[1])
                 else:
                     top_left = (max_loc[0], max_loc[1])
                 bottom_right = (top_left[0] + width, top_left[1] + height)
@@ -148,19 +148,19 @@ class DetectScreenModule:
             target = (target,)
         try:
             if need_ocr:
-                self.ocr_result = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
-            if not self.ocr_result:
+                self.ocrResult = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
+            if not self.ocrResult:
                 log.debug(logMgr.Debug(f"目标文字：{', '.join(target)} 未找到，没有识别出任何文字"))
                 return None, None
-            for box in self.ocr_result:
+            for box in self.ocrResult:
                 text = box[1][0]
                 # if (include is None and target == text) or (include and target in text) or (not include and target == text):
                 if ((include is None or not include) and text in target) or (include and any(t in text for t in target)):
-                    self.matched_text = next((t for t in target if t in text), None)
-                    log.debug(logMgr.Debug("目标文字：{target} 相似度：{max_val}").format(target=self.matched_text, max_val=box[1][1]))
+                    self.matchedText = next((t for t in target if t in text), None)
+                    log.debug(logMgr.Debug("目标文字：{target} 相似度：{max_val}").format(target=self.matchedText, max_val=box[1][1]))
                     if relative == False:
-                        top_left = (box[0][0][0] + self.screenshot_pos[0], box[0][0][1] + self.screenshot_pos[1])
-                        bottom_right = (box[0][2][0] + self.screenshot_pos[0], box[0][2][1] + self.screenshot_pos[1])
+                        top_left = (box[0][0][0] + self.screenshotPos[0], box[0][0][1] + self.screenshotPos[1])
+                        bottom_right = (box[0][2][0] + self.screenshotPos[0], box[0][2][1] + self.screenshotPos[1])
                     else:
                         top_left = (box[0][0][0], box[0][0][1])
                         bottom_right = (box[0][2][0], box[0][2][1])
@@ -173,56 +173,56 @@ class DetectScreenModule:
 
     def FindMinDistanceTextElement(self, target, source, source_type, include, need_ocr=True):
         if need_ocr:
-            self.ocr_result = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
+            self.ocrResult = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
 
-        source_pos = None
+        sourcePos = None
         if source_type == 'text':
-            if not self.ocr_result:
-                log.debug(logMgr.Debug("目标文字：{source} 未找到，没有识别出任何文字").format(source=source))
+            if not self.ocrResult:
+                log.debug(logMgr.Debug(f"目标文字：{source} 未找到，没有识别出任何文字"))
                 return None, None
             # log.debug(self.ocr_result)
-            for box in self.ocr_result:
+            for box in self.ocrResult:
                 text = box[1][0]
                 if ((include is None or not include) and source == text) or (include and source in text):
-                    log.debug(logMgr.Debug("目标文字：{source} 相似度：{max_val}").format(
-                        source=source, max_val=box[1][1]))
-                    source_pos = box[0][0]
+                    log.debug(logMgr.Debug("目标文字：{source} 相似度：{maxVal}").format(
+                        source=source, maxVal=box[1][1]))
+                    sourcePos = box[0][0]
                     break
         elif source_type == 'image':
-            source_pos, i = self.FindImageElement(source, 0.9, None, True)
+            sourcePos, i = self.FindImageElement(source, 0.9, None, True)
 
-        if source_pos is None:
-            log.debug(logMgr.Debug("目标内容：{source} 未找到").format(source=source))
+        if sourcePos is None:
+            log.debug(logMgr.Debug(f"目标内容：{source} 未找到"))
             return None, None
         else:
-            log.debug(logMgr.Debug("目标内容：{source} 坐标：{source_pos}").format(source=source, source_pos=source_pos))
+            log.debug(logMgr.Debug(f"目标内容：{source} 坐标：{sourcePos}"))
 
         # 兼容旧代码
         if isinstance(target, str):
             target = (target,)
-        target_pos = None
+        targetPos = None
         min_distance = float('inf')
-        for box in self.ocr_result:
+        for box in self.ocrResult:
             text = box[1][0]
             if ((include is None or not include) and text in target) or (include and any(t in text for t in target)):
                 matched_text = next((t for t in target if t in text), None)
                 pos = box[0]
                 # 如果target不在source右下角
-                if not ((pos[0][0] - source_pos[0]) > 0 and (pos[0][1] - source_pos[1]) > 0):
+                if not ((pos[0][0] - sourcePos[0]) > 0 and (pos[0][1] - sourcePos[1]) > 0):
                     continue
-                distance = math.sqrt((pos[0][0] - source_pos[0]) **
-                                     2 + (pos[0][1] - source_pos[1]) ** 2)
+                distance = math.sqrt((pos[0][0] - sourcePos[0]) **
+                                     2 + (pos[0][1] - sourcePos[1]) ** 2)
                 log.debug(logMgr.Debug("目标文字：{target} 相似度：{max_val} 距离：{min_distance}").format(target=matched_text, max_val=box[1][1], min_distance=distance))
                 if distance < min_distance:
                     min_target = matched_text
                     min_distance = distance
-                    target_pos = pos
-        if target_pos is None:
+                    targetPos = pos
+        if targetPos is None:
             log.debug(logMgr.Debug("目标文字：{target} 未找到，没有识别出匹配文字").format(target=", ".join(target)))
             return None, None
         log.debug(logMgr.Debug("目标文字：{target} 最短距离：{min_distance}").format(target=min_target, min_distance=min_distance))
-        top_left = (target_pos[0][0] + self.screenshot_pos[0], target_pos[0][1] + self.screenshot_pos[1])
-        bottom_right = (target_pos[2][0] + self.screenshot_pos[0], target_pos[2][1] + self.screenshot_pos[1])
+        top_left = (targetPos[0][0] + self.screenshotPos[0], targetPos[0][1] + self.screenshotPos[1])
+        bottom_right = (targetPos[2][0] + self.screenshotPos[0], targetPos[2][1] + self.screenshotPos[1])
         return top_left, bottom_right
 
     def ClickElementWithPos(self, coordinates, offset=(0, 0), action="click"):
@@ -237,9 +237,9 @@ class DetectScreenModule:
             self.mouseMove(x, y)
         return True
 
-    def ClickElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):
-        coordinates = self.FindElement(target, find_type, threshold, max_retries, crop, take_screenshot,
-                                        relative, scale_range, include, need_ocr, source, source_type)
+    def ClickElement(self, target, find_type, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
+        coordinates = self.FindElement(target, find_type, threshold, maxRetries, crop, takeScreenshot,
+                                        relative, scaleRange, include, needOcr, source, sourceType)
         if coordinates:
             if isLog:
                 log.info(logMgr.Info(f"成功找到目标"))
@@ -248,11 +248,11 @@ class DetectScreenModule:
             log.warning(logMgr.Warning(f"未找到目标!"))
         return False
 
-    def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, max_retries=3):
-        for i in range(max_retries):
-            self.screenshot, self.screenshot_pos = self.TakeScreenshot(crop)
-            ocr_result = ocrMgr.mOcr.RecognizeSingleLine(np.array(self.screenshot), blacklist)
-            if ocr_result:
-                return ocr_result[0]
+    def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
+        for i in range(maxRetries):
+            self.screenshot, self.screenshotPos = self.TakeScreenshot(crop)
+            ocrResult = ocrMgr.mOcr.RecognizeSingleLine(np.array(self.screenshot), blacklist)
+            if ocrResult:
+                return ocrResult[0]
         return None
     

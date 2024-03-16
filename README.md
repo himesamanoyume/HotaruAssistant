@@ -151,29 +151,36 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
+- **开始填充每日内容**
+- 日常轮次时已获取模拟宇宙积分 若该次检测到已满分 则不尝试进行模拟宇宙轮次,即使是选择的全部轮次 当然选择刷模拟宇宙的情况除外
+- 如果完成了每日,头图显示差异
+- 模拟宇宙改造成程序运行
+- 更换头图至秘密基地
+- 教程写明更清晰的使用步骤
+- blog和hotaru的重复css样式重新整理为common,hotaru,blog.css
+- pythonchecker module
+
 ### Task
+- ~~实现基础流程:启动游戏,登录进游戏,读取uid,退出游戏,下一流程,重复,退出游戏,等待,下一循环~~
 
-- 实现基础流程:~~启动游戏,登录进游戏~~,读取uid,~~退出游戏,下一流程,重复,退出游戏,等待,下一循环~~
-
-#### Announcement
+### Announcement
 - **多线程展示**
 
-#### State
+### State
 
-#### Update
+### Update
 
-#### Socket
+### Socket
 - [低优先级]~~Client向Server发送心跳包,同时Server也要进行回应~~,当任何一方长期未接收到心跳包时,判定对方离线并做相应处理,如Client发现Server没了,则直接中止程序
 
-#### Screen/Click
-*实现Screen相关的代码转移*
-- - - 截图工具加上滚动条
+### Screen/Click
+- 截图工具加上滚动条
 
-#### GameLoop
+### GameLoop
 
-#### Web
+### Web
 
-##### Web大后期
+#### Web大后期
 
 - 公告和更新检查等模块改为动态页面生成**关系到页面加载速度**
 - 实现可输入的input框
@@ -184,27 +191,17 @@ OBS录制|&cross;|&check;
 
 ### Notify
 
-#### Config
+### Config
 
 - 每隔一段时加载一次临时config,先用临时config判断当前时间戳是否为最新,根据此决定是否使用该config以及ReloadConfig
 
-#### Data
+### Data
 
-#### Common
-
-- 日常轮次时已获取模拟宇宙积分 若该次检测到已满分 则不尝试进行模拟宇宙轮次,即使是选择的全部轮次 当然选择刷模拟宇宙的情况除外
-- 如果完成了每日,头图显示差异
-- 模拟宇宙改造成程序运行
-- 更换头图至秘密基地
-- 教程写明更清晰的使用步骤
-- blog和hotaru的重复css样式重新整理为common,hotaru,blog.css
-- pythonchecker module
-
-## 1.xTODO
+## v1.xTODO
 
 - 完成每日时截图界面与邮件一并发送防止显示完成了每日但实际上并没有的情况
 
-## 1.x低优先级
+### v1.x低优先级
 
 - webui显示控制台log
 - 新增设置开启自动战斗继承和config项

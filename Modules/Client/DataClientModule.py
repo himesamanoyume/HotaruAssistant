@@ -4,6 +4,10 @@ class DataClient:
     tempUid = -1
     currentUid = -1
     currentGamePid = -1 # 初始值 不要动
+    currentPower = 2400
+    currentImmersifiers = 0
+    currentRelicCount = 0
+    currentHimekoTimes = 0
     loginDict = dict()
     loginList = list()
     loopStartTimestamp = 0
@@ -21,3 +25,7 @@ class DataClient:
         self.currentGamePid = -1
         self.loopStartTimestamp = 0
         self.currentAction = "临时流程"
+        self.currentPower = 2400
+        self.currentImmersifiers = 0
+        self.currentRelicCount = 0
+        self.currentHimekoTimes = 0
