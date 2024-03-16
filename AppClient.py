@@ -70,7 +70,7 @@ class AppClient:
         regSelectOption = questionary.select(regSelectTitle, list(optionsReg.keys())).ask()
         selectedReg = optionsReg.get(regSelectOption)
         
-        log.info(logMgr.Info(f"进行轮次:{actionSelectOption}, 首个启动UID:{regSelectOption[:9]}"))
+        log.info(logMgr.Info(f"进行轮次:{actionSelectOption}, 首个启动UID:{regSelectOption}"))
 
         isFirstTimeLoop = True
 
@@ -122,24 +122,23 @@ class AppClient:
                         input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
                         return False
                     
-                    taskMgr.StartGame()
-
-                    if count == 1:
-                        if selectedAction == 'daily':
-                            dataMgr.currentAction = "每日任务流程"
-                            taskMgr.StartDaily(uidStr2, lastUID)
-                        elif selectedAction == 'universe':
-                            dataMgr.currentAction = "模拟宇宙流程"
-                            taskMgr.StartUniverse(uidStr2, lastUID)
-                    else:
-                        if turn == 0:
-                            dataMgr.currentAction = "每日任务流程"
-                            taskMgr.StartDaily(uidStr2, lastUID)
+                    if taskMgr.StartGame():
+                        if count == 1:
+                            if selectedAction == 'daily':
+                                dataMgr.currentAction = "每日任务流程"
+                                taskMgr.StartDaily(uidStr2, lastUID)
+                            elif selectedAction == 'universe':
+                                dataMgr.currentAction = "模拟宇宙流程"
+                                taskMgr.StartUniverse(uidStr2, lastUID)
                         else:
-                            dataMgr.currentAction = "模拟宇宙流程"
-                            taskMgr.StartUniverse(uidStr2, lastUID)
+                            if turn == 0:
+                                dataMgr.currentAction = "每日任务流程"
+                                taskMgr.StartDaily(uidStr2, lastUID)
+                            else:
+                                dataMgr.currentAction = "模拟宇宙流程"
+                                taskMgr.StartUniverse(uidStr2, lastUID)
 
-                    input("按回车退出游戏") # temp
+                    # input("按回车退出游戏") # temp
                     taskMgr.QuitGame()
 
             taskMgr.WaitForNextLoop()

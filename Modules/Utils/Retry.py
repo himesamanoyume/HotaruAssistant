@@ -5,12 +5,10 @@ class Retry:
     @staticmethod
     def Re(lambdaFunction, timeout = 10, repeatSleep = 0.5, *args, **kwargs):
         startTime = time.time()
-        print("start")
         while time.time() - startTime < timeout:
             try:
-                print(lambdaFunction)
+                log.debug(logMgr.Debug(f"正在调用Re:{lambdaFunction}"))
                 result = lambdaFunction(*args, **kwargs)
-                print("end")
                 if result:
                     return result
             except Exception as e:

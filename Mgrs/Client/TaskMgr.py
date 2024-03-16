@@ -1,6 +1,13 @@
 
 from Hotaru.Client.LogClientHotaru import logMgr,log
-from Task.Base.Base import Base
+from States.InitState import InitState
+from States.StartGameState import StartGameState
+from States.LoginGameState import LoginGameState
+from Hotaru.Client.StateHotaru import stateMgr
+from Hotaru.Client.DataClientHotaru import dataMgr
+from States.DetectNewAccountState import DetectNewAccountState
+from States.QuitGameState import QuitGameState
+from States.WaitForNextLoopState import WaitForNextLoopState
 
 class TaskMgr:
     mInstance = None
@@ -13,28 +20,33 @@ class TaskMgr:
     
     @staticmethod
     def StartGame():
-        Base.StartGame()
-
+        if not stateMgr.Transition(StartGameState()):
+            stateMgr.Transition(LoginGameState())
+            return True
+            
     @staticmethod
     def QuitGame():
-        Base.QuitGame()
+        stateMgr.Transition(QuitGameState())
 
     @staticmethod
     def DetectNewAccounts():
-        Base.DetectNewAccount()
+        stateMgr.Transition(DetectNewAccountState())
 
     @staticmethod
     def ReadyToStart(uid):
-        Base.BeReadyToStart(uid)
+        dataMgr.tempUid = uid
+        stateMgr.Transition(InitState())
 
     @staticmethod
     def WaitForNextLoop():
-        Base.WaitForNextLoop()
+        stateMgr.Transition(WaitForNextLoopState())
 
     @staticmethod
     def StartDaily(expectUid, lastUid):
-        pass
+        log.info(logMgr.Info(f"{dataMgr.currentAction}:进入每日"))
+        return
 
     @staticmethod
     def StartUniverse(expectUid, lastUid):
-        pass
+        log.info(logMgr.Info(f"{dataMgr.currentAction}:进入模拟宇宙"))
+        return

@@ -10,21 +10,26 @@ class StartGameState(BaseState):
 
     def OnBegin(self):
         log.hr(logMgr.Hr("开始启动游戏"))
-        if not Retry.Re(lambda: StartGameState.StartGame(), 600, 1):
+        if not Retry.Re(lambda: StartGameState.IsGameRunning(), 600, 1):
             log.error(logMgr.Error("启动游戏超时，退出程序"))
             input("按回车键关闭窗口. . .")
             sys.exit(1)
         
         screenMgr.ChangeTo('menu')
-        if not Retry.Re(lambda: screenMgr.mDetect.FindElement("./assets/images/menu/journey.png", "image", 0.8)):
+
+        if not Retry.Re(lambda: screenMgr.FindElement("./assets/images/menu/journey.png", "image", 0.8)):
             log.info(logMgr.Info("检测到未使用无名路途壁纸"))
-            screenMgr.ChangeTo('wallpaper')
-            if Retry.Re(lambda: screenMgr.mDetect.FindElement("./assets/images/menu/wallpaper/journey.png", "image", 0.8)):
-                Retry.Re(lambda: screenMgr.mDetect.ClickElement("更换", "text", max_retries=4))
-            screenMgr.mDetect.pressKey("esc")
-            log.info(logMgr.Info("更换到无名路途壁纸成功"))
+            Retry.Re(lambda: screenMgr.ChangeTo('wallpaper'))
+            if Retry.Re(lambda: screenMgr.ClickElement("./assets/images/menu/wallpaper/journey.png", "image", 0.8)):
+                Retry.Re(lambda: screenMgr.ClickElement("更换", "text", max_retries=4))
+                screenMgr.PressKey("esc")
+                log.info(logMgr.Info("更换到无名路途壁纸成功"))
+            else:
+                return True
+        else:
+            return True
+        
         log.hr(logMgr.Hr("游戏启动完成"))
-        return False
     
     def OnRunning(self):
         return False
@@ -33,8 +38,8 @@ class StartGameState(BaseState):
         return False
     
     @staticmethod
-    def StartGame():
-        # 判断是否已经启动
+    def IsGameRunning():
+        log.info(logMgr.Info("判断是否已经启动"))
         if not screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]):
             if not StartGameState.LaunchGame():
                 log.error(logMgr.Error("游戏启动失败，退出游戏进程"))
@@ -69,7 +74,7 @@ class StartGameState(BaseState):
         
         screenMgr.CheckResulotion(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME], 1920, 1080)
 
-        if not Retry.Re(lambda: StartGameState.CheckAndClickEnter(), 180, 1):
+        if not Retry.Re(lambda: StartGameState.CheckAndClickEnter(), 60, 2):
             log.error(logMgr.Error("无法找到点击进入按钮"))
             return False
 
@@ -101,11 +106,14 @@ class StartGameState(BaseState):
 
     @staticmethod
     def CheckAndClickEnter():
-        if screenMgr.ClickElement("./assets/images/screen/click_enter.png", "image", 0.9):
-            return True
-        screenMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9)
-
-        screenMgr.ClickElement("./assets/images/base/restart.png", "image", 0.9)
-
-        screenMgr.ClickElement("./assets/images/screen/start_game.png", "image", 0.9)
+        
+        if screenMgr.FindElement("./assets/images/screen/click_enter.png", "image", 0.9):
+            return screenMgr.ClickElement("./assets/images/screen/click_enter.png", "image", 0.9)
+        else:
+            if screenMgr.FindElement("./assets/images/base/confirm.png", "image", 0.9):
+                screenMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9)
+            if screenMgr.FindElement("./assets/images/base/restart.png", "image", 0.9):
+                screenMgr.ClickElement("./assets/images/base/restart.png", "image", 0.9)
+            if screenMgr.FindElement("./assets/images/screen/start_game.png", "image", 0.9):
+                screenMgr.ClickElement("./assets/images/screen/start_game.png", "image", 0.9)
         return False

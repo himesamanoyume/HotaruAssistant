@@ -1,6 +1,6 @@
 from Hotaru.Client.LogClientHotaru import log,logMgr
 from Hotaru.Client.ConfigClientHotaru import configMgr
-import pyautogui,win32gui,time
+import pyautogui,win32gui,time,pygetwindow
 
 class GameWindow:
 
@@ -35,13 +35,16 @@ class GameWindow:
     
     @staticmethod
     def GetHonkaiWindowsInfo(window, crop=(0, 0, 0, 0)):
-        if crop == (0, 0, 0, 0):
-            screenshotPos = GameWindow.GetWindowDevRegion(window)
-            return screenshotPos
-        else:
-            left, top, width, height = GameWindow.GetWindowDevRegion(window)
-            screenshotPos = int(left + width * crop[0]), int(top + height * crop[1]), int(width * crop[2]), int(height * crop[3])
-            return screenshotPos
+        try:
+            if crop == (0, 0, 0, 0):
+                screenshotPos = GameWindow.GetWindowDevRegion(window)
+                return screenshotPos
+            else:
+                left, top, width, height = GameWindow.GetWindowDevRegion(window)
+                screenshotPos = int(left + width * crop[0]), int(top + height * crop[1]), int(width * crop[2]), int(height * crop[3])
+                return screenshotPos
+        except Exception:
+            return False
         
     @staticmethod
     def TakeScreenshot(crop=(0, 0, 0, 0)):
@@ -61,7 +64,7 @@ class GameWindow:
 
     @staticmethod
     def GetWindow(title):
-        windows = pyautogui.getWindowsWithTitle(title)
+        windows = pygetwindow.getWindowsWithTitle(title)
         if not windows:
             return False
         for window in windows:
@@ -72,6 +75,8 @@ class GameWindow:
     def SwitchToWindow(title, maxRetries, isGameWindow = True):
         for i in range(maxRetries):
             window = GameWindow.GetWindow(title)
+            if not window:
+                continue
             if isGameWindow:
                 try:
                     hwnd = win32gui.FindWindow("UnityWndClass", title)

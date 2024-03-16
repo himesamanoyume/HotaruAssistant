@@ -11,13 +11,12 @@ class WaitForNextLoopState(BaseState):
         return False
 
     def OnRunning(self):
-        total_time = time.time() - dataMgr.loopStartTimestamp
-        waitTime = Date.GetWaitTimeWithTotalTime(total_time)
+        waitTime = Date.GetWaitTimeWithTotalTime(configMgr)
         futureTime = Date.CalculateFutureTime(waitTime)
         log.info(logMgr.Info(f"将在{futureTime}后继续运行"))
         # time.sleep(20)
+        print(waitTime)
         time.sleep(waitTime)
-        return False
 
     def OnExit(self):
         return False

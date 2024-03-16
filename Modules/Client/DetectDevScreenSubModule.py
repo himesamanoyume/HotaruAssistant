@@ -23,11 +23,9 @@ class DetectDevScreenSubModule:
                     window_width = screenshotPos[2]
                     window_height = screenshotPos[3]
                     self.tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
-                    
-
                 except Exception as e:
-                    log.error(logMgr.Error(f"窗口将自动关闭:{e}"))
-                    self.tk.destroy()
+                    log.debug(logMgr.Debug(f"窗口将自动关闭:{e}"))
+                    self.tk.destroy()    
 
             self.tk = tkinter.Tk()
             self.tk.attributes("-topmost", 1)

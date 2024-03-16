@@ -1,4 +1,4 @@
-import random
+import random,time
 from datetime import datetime, timedelta
 
 class Date:
@@ -48,11 +48,8 @@ class Date:
         return int(time_until_next_4am.total_seconds())
     
     @staticmethod
-    def GetWaitTimeWithTotalTime(totalTime, configMgr):
-        # 距离体力到达配置文件指定的上限剩余秒数
-        waitTime = configMgr.mConfig[configMgr.mKey.NEXT_LOOP_TIME] * 3600 - totalTime
-        if waitTime < 0:
-            waitTime = 0
+    def GetWaitTimeWithTotalTime(configMgr):
+        waitTime = configMgr.mConfig[configMgr.mKey.NEXT_LOOP_TIME] * 3600
         # 距离第二天凌晨4点剩余秒数，+30避免显示3点59分不美观，#7
         waitTimeNextDay = Date.GetTimeNext4am() + random.randint(30, 600)
         # 取最小值

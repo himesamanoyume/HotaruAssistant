@@ -41,6 +41,7 @@ class ConfigModule():
 
     def SaveConfig(self):
         with open(self.mConfigPath, 'w', encoding='utf-8') as file:
+            self.logMgr.Info("Config已保存")
             nowtime = time.time()
             self.mLastTimeSaveTimestamp = nowtime
             self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] = nowtime
@@ -57,8 +58,10 @@ class ConfigModule():
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
+                self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
                 self.LoadConfig("./config.yaml")
                 self.mLastTimeModifyTimestamp = nowTime
+            self.logMgr.Info(f"config: {key}被修改")
             self.mConfig[key] = value
         else:
             raise AttributeError(f"'{type(self).__name__}' object has no attribute '{key}'")
@@ -71,6 +74,7 @@ class ConfigModule():
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
+                self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
                 self.LoadConfig("./config.yaml")
                 self.mLastTimeModifyTimestamp = nowTime
 
@@ -78,6 +82,7 @@ class ConfigModule():
                 del self.mConfig[key][uid]
             else:
                 del self.mConfig[key]
+            self.logMgr.Debug(f"config: {key}被删除")
         else:
             raise AttributeError(f"'{type(self).__name__}' object has no attribute '{key}'")
     
@@ -135,8 +140,11 @@ class ConfigModule():
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
+                self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
                 self.LoadConfig("./config.yaml")
                 self.mLastTimeModifyTimestamp = nowTime
+
+            self.logMgr.Debug(f"config: {attr}被获取")
             return self.mConfig[attr]
         raise AttributeError(f"'{type(self).__name__}' object has no attribute '{attr}'")
                         
@@ -148,8 +156,11 @@ class ConfigModule():
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
+                self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
                 self.LoadConfig("./config.yaml")
                 self.mLastTimeModifyTimestamp = nowTime
+
+            self.logMgr.Debug(f"config: {attr}被获取")
             return self.mConfig[attr]
         raise AttributeError(f"'{type(self).__name__}' object has no attribute '{attr}'")
     

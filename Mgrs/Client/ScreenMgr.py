@@ -18,9 +18,12 @@ class ScreenMgr:
         self.SetupScreensFromConfig(configPath)
         self.green = "\033[92m"
         self.reset = "\033[0m"
+
+    def FindElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
+        return self.mDetect.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, pixelBgr)
     
     def ClickElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):
-        self.mDetect.ClickElement(target, find_type, threshold, max_retries, crop, take_screenshot, relative, scale_range, include, need_ocr, source, source_type, offset, isLog)
+        return self.mDetect.ClickElement(target, find_type, threshold, max_retries, crop, take_screenshot, relative, scale_range, include, need_ocr, source, source_type, offset, isLog)
     
     def MouseClick(self,x,y):
         self.mDetect.mouseClick(x,y)
@@ -51,7 +54,8 @@ class ScreenMgr:
         Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), 1)
         self.mDevScreen.canvas.delete('all')
 
-    def CheckAndSwitch(self, title):
+    @staticmethod
+    def CheckAndSwitch(title):
         return GameWindow.SwitchToWindow(title, maxRetries=4)
     
     @staticmethod
@@ -157,15 +161,14 @@ class ScreenMgr:
             if hasattr(self, functionName):
                 func = getattr(self, functionName)
                 func(*parsed_args, **kwargs)
-                log.info(logMgr.Info(f"执行了一个操作: {func}"))
+                # log.info(logMgr.Info(f"执行了一个操作: {func}"))
             else:
-                # module_name, method_name = function_name.split('.')
                 moduleName, methodName = functionName.split('.')
                 module = globals().get(moduleName)
                 if module and hasattr(module, methodName):
                     method = getattr(module, methodName)
                     method(*parsed_args, **kwargs)
-                    log.info(logMgr.Info(f"执行了一个操作: {functionName}"))
+                    # log.info(logMgr.Info(f"执行了一个操作: {functionName}"))
                 else:
                     log.warning(logMgr.Warning(f"未知的操作: {functionName}"))
 

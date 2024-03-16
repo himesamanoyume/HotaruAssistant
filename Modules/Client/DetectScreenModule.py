@@ -1,6 +1,7 @@
 import numpy as np,time,math,cv2
 from Hotaru.Client.LogClientHotaru import log,logMgr
-from .OcrModule import OcrModule
+# from .OcrModule import OcrModule
+from Hotaru.Client.OcrHotaru import ocrMgr
 from Modules.Utils.Retry import Retry
 from .DetectDevScreenSubModule import DetectDevScreenSubModule
 from .ClickScreenSubModule import ClickScreenSubModule
@@ -147,7 +148,7 @@ class DetectScreenModule:
             target = (target,)
         try:
             if need_ocr:
-                self.ocr_result = OcrModule.RecognizeMultiLines(np.array(self.screenshot))
+                self.ocr_result = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
             if not self.ocr_result:
                 log.debug(logMgr.Debug(f"目标文字：{', '.join(target)} 未找到，没有识别出任何文字"))
                 return None, None
@@ -172,7 +173,7 @@ class DetectScreenModule:
 
     def FindMinDistanceTextElement(self, target, source, source_type, include, need_ocr=True):
         if need_ocr:
-            self.ocr_result = OcrModule.RecognizeMultiLines(np.array(self.screenshot))
+            self.ocr_result = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
 
         source_pos = None
         if source_type == 'text':
@@ -229,11 +230,11 @@ class DetectScreenModule:
         x = (left + right) // 2 + offset[0]
         y = (top + bottom) // 2 + offset[1]
         if action == "click":
-            Retry.Re(lambda: self.mouseClick(x, y))
+            self.mouseClick(x, y)
         elif action == "down":
-            Retry.Re(lambda: self.mouseDown(x, y))
+            self.mouseDown(x, y)
         elif action == "move":
-            Retry.Re(lambda: self.mouseMove(x, y))
+            self.mouseMove(x, y)
         return True
 
     def ClickElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):
@@ -250,7 +251,7 @@ class DetectScreenModule:
     def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, max_retries=3):
         for i in range(max_retries):
             self.screenshot, self.screenshot_pos = self.TakeScreenshot(crop)
-            ocr_result = OcrModule.RecognizeSingleLine(np.array(self.screenshot), blacklist)
+            ocr_result = ocrMgr.mOcr.RecognizeSingleLine(np.array(self.screenshot), blacklist)
             if ocr_result:
                 return ocr_result[0]
         return None

@@ -29,8 +29,7 @@ class OcrModule:
             self.ocr.exit()
             self.ocr = None
 
-    @staticmethod
-    def ConvertFormat(result):
+    def ConvertFormat(self, result):
         if result['code'] != 100:
             log.debug(logMgr.Debug(result))
             return False
@@ -106,7 +105,7 @@ class OcrModule:
             return r"{}"
 
     def RecognizeSingleLine(self, image, blacklist=None):
-        results = OcrModule.ConvertFormat(self.Run(image))
+        results = self.ConvertFormat(self.Run(image))
         if results:
             for i in range(len(results)):
                 lineText = results[i][1][0] if results and len(results[i]) > 0 else ""
@@ -117,5 +116,5 @@ class OcrModule:
         return None
 
     def RecognizeMultiLines(self, image):
-        result = OcrModule.ConvertFormat(self.Run(image))
+        result = self.ConvertFormat(self.Run(image))
         return result

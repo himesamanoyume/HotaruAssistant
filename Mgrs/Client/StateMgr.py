@@ -26,9 +26,9 @@ class StateMgr:
 
         isNextState = cls.mCurrentState.OnBegin()
         
-        if not isNextState:
+        if not isNextState or isNextState is None:
             time.sleep(0.5)
             cls.mCurrentState.OnRunning()
             time.sleep(0.5)
-
-        # return True
+        else:
+            return isNextState
