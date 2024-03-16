@@ -20,7 +20,8 @@ class TaskMgr:
     
     @staticmethod
     def StartGame():
-        if not stateMgr.Transition(StartGameState()):
+        dataMgr.currentAction = "登录流程"
+        if stateMgr.Transition(StartGameState()):
             stateMgr.Transition(LoginGameState())
             return True
             

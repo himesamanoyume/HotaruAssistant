@@ -10,7 +10,7 @@ class LoginGameState(BaseState):
         return False
 
     def OnRunning(self):
-        return False
+        screenMgr.ShowDetectArea((50, 50, 200, 200))
 
     def OnExit(self):
         return False

@@ -26,5 +26,9 @@ class LoggerServerModule:
         currentTime = datetime.datetime.now()
         print(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]\033[91mERROR\033[0m|\033[91m{msg}\033[0m")
 
+    def Debug(self, msg):
+        currentTime = datetime.datetime.now()
+        print(f"[{currentTime.hour:02d}:{currentTime.minute:02d}:{currentTime.second:02d}]\033[94mDEBUG\033[0m|\033[94m{msg}\033[0m")
+
     def Hr(self, msg, level=0):
         TitleFormatter.FormatTitle(msg, level)

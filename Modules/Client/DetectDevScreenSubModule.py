@@ -6,6 +6,9 @@ from Modules.Utils.GameWindow import GameWindow
 
 class DetectDevScreenSubModule:
 
+    def __init__(self):
+        self.isDevScreenRunning = False
+
     def ShowDetectArea(self, detectArea):
         self.canvas.create_rectangle(
             detectArea[0]+3, detectArea[1]+3, detectArea[2]+3, detectArea[3]+3, outline="red", width=3
@@ -39,6 +42,6 @@ class DetectDevScreenSubModule:
             self.canvas.configure(bg=TRANSCOLOUR)
             self.canvas.pack(fill=BOTH,expand=Y)
             self.tk.bind('<Configure>', OnSize)
-            self.tk.mainloop()
-        
+            self.isDevScreenRunning = True
+            self.tk.mainloop()   
             

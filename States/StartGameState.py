@@ -12,6 +12,7 @@ class StartGameState(BaseState):
         log.hr(logMgr.Hr("开始启动游戏"))
         if not Retry.Re(lambda: StartGameState.IsGameRunning(), 600, 1):
             log.error(logMgr.Error("启动游戏超时，退出程序"))
+            return False
             input("按回车键关闭窗口. . .")
             sys.exit(1)
         
@@ -25,11 +26,10 @@ class StartGameState(BaseState):
                 screenMgr.PressKey("esc")
                 log.info(logMgr.Info("更换到无名路途壁纸成功"))
             else:
-                return True
+                return False
         else:
+            log.hr(logMgr.Hr("游戏启动完成"))
             return True
-        
-        log.hr(logMgr.Hr("游戏启动完成"))
     
     def OnRunning(self):
         return False

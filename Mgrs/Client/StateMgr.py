@@ -15,14 +15,15 @@ class StateMgr:
         return cls.mInstance
 
     def Transition(cls, state: BaseState):
-        log.info(logMgr.Info(f"状态将变换至:{state.mStateName}"))
+        log.debug(logMgr.Debug(f"状态将变换至:{state.mStateName}"))
         if not cls.mCurrentState is None:
             time.sleep(0.5)
+            log.debug(logMgr.Debug(f"正在退出状态:{cls.mCurrentState.mStateName}"))
             cls.mCurrentState.OnExit()
 
         time.sleep(0.5)
         cls.mCurrentState = state
-        log.info(logMgr.Info(f"状态已变换至:{state.mStateName}"))
+        log.debug(logMgr.Debug(f"状态已变换至:{state.mStateName}"))
 
         isNextState = cls.mCurrentState.OnBegin()
         

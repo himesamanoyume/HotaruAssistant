@@ -2,7 +2,7 @@ from Hotaru.Client.LogClientHotaru import logMgr,log
 from Hotaru.Client.ConfigClientHotaru import configMgr
 from Modules.Client.ScreenModule import ScreenModule
 from Modules.Utils.Retry import Retry
-import threading,time,json,sys,win32gui
+import threading,time,json,sys,win32gui,threading
 from Modules.Utils.GameWindow import GameWindow
 from collections import deque
 
@@ -20,9 +20,13 @@ class ScreenMgr:
         self.reset = "\033[0m"
 
     def FindElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
+        t = threading.Thread(target=self.ShowDetectArea(crop))
+        t.start()
         return self.mDetect.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, pixelBgr)
     
     def ClickElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):
+        t = threading.Thread(target=self.ShowDetectArea(crop))
+        t.start()
         return self.mDetect.ClickElement(target, find_type, threshold, max_retries, crop, take_screenshot, relative, scale_range, include, need_ocr, source, source_type, offset, isLog)
     
     def MouseClick(self,x,y):
@@ -50,9 +54,12 @@ class ScreenMgr:
         self.mScreen.StartDevScreen()
 
     def ShowDetectArea(self, detectArea):
-        self.mDevScreen.canvas.delete('all')
-        Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), 1)
-        self.mDevScreen.canvas.delete('all')
+        log.warning(logMgr.Warning(f"尝试显示检测区域: {detectArea}"))
+        if self.mDevScreen.isDevScreenRunning:
+            log.warning(logMgr.Warning(f"正在显示检测区域: {detectArea}"))
+            self.mDevScreen.canvas.delete('all')
+            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), 1)
+            self.mDevScreen.canvas.delete('all')
 
     @staticmethod
     def CheckAndSwitch(title):

@@ -154,8 +154,6 @@ OBS录制|&cross;|&check;
 ### Task
 
 - 实现基础流程:~~启动游戏,登录进游戏~~,读取uid,~~退出游戏,下一流程,重复,退出游戏,等待,下一循环~~
-- **并且DevScreen显示识别区域**
-- DevScreen根据当前流程决定是否要生成DevScreen窗口
 
 #### Announcement
 - **多线程展示**
