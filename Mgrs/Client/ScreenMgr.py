@@ -19,6 +19,12 @@ class ScreenMgr:
         self.green = "\033[92m"
         self.reset = "\033[0m"
 
+    def TakeScreenshot(self, crop=(0, 0, 0, 0)):
+        """ 这种老是忘记return结果 """
+        t = threading.Thread(target=self.ShowDetectArea(crop))
+        t.start()
+        return self.mDetect.TakeScreenshot(crop)
+
     def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
         """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea(crop))

@@ -15,6 +15,15 @@ class ConfigClientMgr:
 
         return cls.mInstance
     
+    def SaveTimestampByUid(self, key, uid):
+        if key == {}:
+            self.mConfig[key][uid] = 0
+            self.mConfig[key][uid] = time.time()
+        else:
+            self.mConfig[key][uid] = time.time()
+        
+        return True
+    
     def IsAgreed2Disclaimer(self):
         if not self.mConfig[self.mKey.AGREED_TO_DISCLAIMER]:
             log.error(logMgr.Error("你未同意《免责声明》, 需要先启动Server并同意"))

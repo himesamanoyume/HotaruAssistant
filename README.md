@@ -158,10 +158,10 @@ OBS录制|&cross;|&check;
 - 更换头图至秘密基地
 - 教程写明更清晰的使用步骤
 - blog和hotaru的重复css样式重新整理为common,hotaru,blog.css
-- pythonchecker module
+- dataMgr新增以json存储的每日总情况,单次运行情况
+- BUG: config由于连续加载可能会导致内容丢失
 
 ### Task
-- ~~实现基础流程:启动游戏,登录进游戏,读取uid,退出游戏,下一流程,重复,退出游戏,等待,下一循环~~
 
 ### Announcement
 - **多线程展示**

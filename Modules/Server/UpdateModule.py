@@ -43,7 +43,7 @@ class UpdateModule:
             logMgr.Warning(isLatestTxt)
 
 
-    def DownloadWithProgress(downloadUrl, savePath):
+    def DownloadWithProgress(self, downloadUrl, savePath):
         response = urllib.request.urlopen(downloadUrl)
         file_size = int(response.info().get('Content-Length', -1))
 
