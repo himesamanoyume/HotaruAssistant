@@ -12,9 +12,7 @@ class StartGameState(BaseState):
         log.hr(logMgr.Hr("开始启动游戏"))
         if not Retry.Re(lambda: StartGameState.IsGameRunning(), 600, 1):
             log.error(logMgr.Error("启动游戏超时，退出程序"))
-            return False
-            input("按回车键关闭窗口. . .")
-            sys.exit(1)
+            return True
         
         screenMgr.ChangeTo('menu')
 
@@ -22,7 +20,7 @@ class StartGameState(BaseState):
             log.info(logMgr.Info("检测到未使用无名路途壁纸"))
             Retry.Re(lambda: screenMgr.ChangeTo('wallpaper'))
             if Retry.Re(lambda: screenMgr.ClickElement("./assets/images/menu/wallpaper/journey.png", "image", 0.8)):
-                Retry.Re(lambda: screenMgr.ClickElement("更换", "text", max_retries=4))
+                Retry.Re(lambda: screenMgr.ClickElement("更换", "text", maxRetries=4))
                 screenMgr.PressKey("esc")
                 log.info(logMgr.Info("更换到无名路途壁纸成功"))
             else:

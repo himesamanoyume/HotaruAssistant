@@ -8,6 +8,9 @@ from Hotaru.Client.DataClientHotaru import dataMgr
 from States.DetectNewAccountState import DetectNewAccountState
 from States.QuitGameState import QuitGameState
 from States.WaitForNextLoopState import WaitForNextLoopState
+from States.GetPowerState import GetPowerState
+from States.InitDailyTasksState import InitDailyTasksState
+from States.RunningDailyTasksState import RunningDailyTasksState
 
 class TaskMgr:
     mInstance = None
@@ -23,10 +26,11 @@ class TaskMgr:
         dataMgr.currentAction = "登录流程"
         if stateMgr.Transition(StartGameState()):
             stateMgr.Transition(InitAccountState())
-            return True
+            stateMgr.Transition(GetPowerState())
+            return True # 为True时才会进行每日任务流程或模拟宇宙流程
             
     @staticmethod
-    def QuitGame():
+    def QuitGame(uid:str, lastUid:str):
         stateMgr.Transition(QuitGameState())
 
     @staticmethod
@@ -43,11 +47,15 @@ class TaskMgr:
         stateMgr.Transition(WaitForNextLoopState())
 
     @staticmethod
-    def StartDaily(expectUid, lastUid):
-        log.info(logMgr.Info(f"{dataMgr.currentAction}:进入每日"))
-        return
+    def StartDaily():
+        log.hr(logMgr.Hr(f"进入{dataMgr.currentAction}"))
+        # InitDailyTasksState返回True时将跳过每日任务流程
+        if not stateMgr.Transition(InitDailyTasksState()):
+            stateMgr.Transition(RunningDailyTasksState())
+        else:
+            pass
 
     @staticmethod
-    def StartUniverse(expectUid, lastUid):
-        log.info(logMgr.Info(f"{dataMgr.currentAction}:进入模拟宇宙"))
+    def StartUniverse():
+        log.hr(logMgr.Hr(f"进入{dataMgr.currentAction}"))
         return

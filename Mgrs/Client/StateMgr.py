@@ -25,11 +25,11 @@ class StateMgr:
         cls.mCurrentState = state
         log.debug(logMgr.Debug(f"状态已变换至:{state.mStateName}"))
 
-        isNextState = cls.mCurrentState.OnBegin()
-        
-        if not isNextState or isNextState is None:
+        not2NextState = cls.mCurrentState.OnBegin()
+        # 当OnBegin中返回值为True时,意味着该状态被强行打断,将不会执行OnRunning
+        if not not2NextState:
             time.sleep(0.5)
             cls.mCurrentState.OnRunning()
             time.sleep(0.5)
         else:
-            return isNextState
+            return not2NextState

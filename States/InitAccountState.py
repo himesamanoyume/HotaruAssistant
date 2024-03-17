@@ -81,7 +81,7 @@ class InitAccountState(BaseState):
             if screenMgr.FindElement(receive_path, "image", 0.9) or screenMgr.FindElement(receive_fin_path, "image", 0.9):
                 log.hr(logMgr.Hr("检测到巡星之礼奖励"), 2)
                 while screenMgr.ClickElement(receive_path, "image", 0.9) or screenMgr.ClickElement(receive_fin_path, "image", 0.9):
-                    screenMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, max_retries=10)
+                    screenMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10)
                     time.sleep(1)
                 log.info(logMgr.Info("领取巡星之礼奖励完成"))
 
@@ -133,3 +133,4 @@ class InitAccountState(BaseState):
             configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataMgr.currentUid] = tempScore
 
         return configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataMgr.currentUid]
+    

@@ -130,24 +130,24 @@ class DetectScreenModule:
                 match_count += 1
         return match_count
 
-    def FindImageAndCount(self, target, threshold, pixel_bgr):
+    def FindImageAndCount(self, target, threshold, pixelBgr):
         try:
             template = cv2.imread(target, cv2.IMREAD_GRAYSCALE)
             screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2RGB)
             bw_map = np.zeros(screenshot.shape[:2], dtype=np.uint8)
             # 遍历每个像素并判断与目标像素的相似性
-            bw_map[np.sum((screenshot - pixel_bgr) ** 2, axis=-1) <= 800] = 255
+            bw_map[np.sum((screenshot - pixelBgr) ** 2, axis=-1) <= 800] = 255
             return DetectScreenModule.CountTemplateMatches(bw_map, template, threshold)
         except Exception as e:
             log.error(logMgr.Error(f"寻找图片并计数出错：{e}"))
             return None
 
-    def FindTextElement(self, target, include, need_ocr=True, relative=False):
+    def FindTextElement(self, target, include, needOcr=True, relative=False):
         # 兼容旧代码
         if isinstance(target, str):
             target = (target,)
         try:
-            if need_ocr:
+            if needOcr:
                 self.ocrResult = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
             if not self.ocrResult:
                 log.debug(logMgr.Debug(f"目标文字：{', '.join(target)} 未找到，没有识别出任何文字"))
@@ -237,8 +237,8 @@ class DetectScreenModule:
             self.mouseMove(x, y)
         return True
 
-    def ClickElement(self, target, find_type, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
-        coordinates = self.FindElement(target, find_type, threshold, maxRetries, crop, takeScreenshot,
+    def ClickElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
+        coordinates = self.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot,
                                         relative, scaleRange, include, needOcr, source, sourceType)
         if coordinates:
             if isLog:

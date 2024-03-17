@@ -4,7 +4,7 @@ import json,base64
 from Hotaru.Server.NotifyHotaru import notifyMgr
 from Hotaru.Server.DataServerHotaru import dataMgr
 from Hotaru.Server.LogServerHotaru import logMgr
-from Modules.Utils.InitUidConfig import Utils
+from Modules.Utils.InitUidConfig import InitUidConfig
 
 class WebModule:
     mAppFlask = Flask(__name__, static_folder='../../assets/static', static_url_path='', template_folder='../../assets/templates')
@@ -238,7 +238,7 @@ class WebModule:
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FATE][uid] = item['universe_fate']
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid] = item['universe_team']
 
-                Utils.InitUidDefaultConfig(configMgr, logMgr, uid)
+                InitUidConfig.InitUidDefaultConfig(configMgr, logMgr, uid)
 
                 configMgr.mConfig.DelValue(configMgr.mKey.WANT_REGISTER_ACCOUNTS, uid)
             logMgr.Info(f"{uid},注册表激活完成")

@@ -159,6 +159,7 @@ OBS录制|&cross;|&check;
 - 教程写明更清晰的使用步骤
 - blog和hotaru的重复css样式重新整理为common,hotaru,blog.css
 - dataMgr新增以json存储的每日总情况,单次运行情况
+- 每日检测时间戳时应清除daily_tasks_score,daily_tasks_fin
 - BUG: config由于连续加载可能会导致内容丢失
 
 ### Task

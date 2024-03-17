@@ -37,11 +37,15 @@ class ScreenMgr:
         t.start()
         return self.mDetect.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, pixelBgr)
     
-    def ClickElement(self, target, find_type, threshold=None, max_retries=1, crop=(0, 0, 0, 0), take_screenshot=True, relative=False, scale_range=None, include=None, need_ocr=True, source=None, source_type=None, offset=(0, 0), isLog=False):
+    def ClickElementWithPos(self, coordinates, offset=(0, 0), action="click"):
+        """ 这种老是忘记return结果 """
+        return self.mDetect.ClickElementWithPos(coordinates, offset, action)
+    
+    def ClickElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
         """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea(crop))
         t.start()
-        return self.mDetect.ClickElement(target, find_type, threshold, max_retries, crop, take_screenshot, relative, scale_range, include, need_ocr, source, source_type, offset, isLog)
+        return self.mDetect.ClickElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, offset, isLog)
     
     def MouseClick(self,x,y):
         self.mDetect.mouseClick(x,y)
@@ -70,7 +74,7 @@ class ScreenMgr:
     def ShowDetectArea(self, detectArea):
         if self.mDevScreen.isDevScreenRunning:
             self.mDevScreen.canvas.delete('all')
-            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), 2)
+            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), 3)
             self.mDevScreen.canvas.delete('all')
 
     @staticmethod

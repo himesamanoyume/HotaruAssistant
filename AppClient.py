@@ -126,20 +126,20 @@ class AppClient:
                         if count == 1:
                             if selectedAction == 'daily':
                                 dataMgr.currentAction = "每日任务流程"
-                                taskMgr.StartDaily(uidStr2, lastUID)
+                                taskMgr.StartDaily()
                             elif selectedAction == 'universe':
                                 dataMgr.currentAction = "模拟宇宙流程"
-                                taskMgr.StartUniverse(uidStr2, lastUID)
+                                taskMgr.StartUniverse()
                         else:
                             if turn == 0:
                                 dataMgr.currentAction = "每日任务流程"
-                                taskMgr.StartDaily(uidStr2, lastUID)
+                                taskMgr.StartDaily()
                             else:
                                 dataMgr.currentAction = "模拟宇宙流程"
-                                taskMgr.StartUniverse(uidStr2, lastUID)
+                                taskMgr.StartUniverse()
 
                     # input("按回车退出游戏") # temp
-                    taskMgr.QuitGame()
+                    taskMgr.QuitGame(uidStr2, lastUID)
 
             taskMgr.WaitForNextLoop()
 
