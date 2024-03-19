@@ -5,3 +5,5 @@ from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
 from Hotaru.Client.OcrHotaru import ocrMgr
 from Modules.Utils.Retry import Retry
+from Modules.Utils.Date import Date
+import time

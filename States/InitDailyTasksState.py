@@ -81,19 +81,13 @@ class InitDailyTasksState(BaseState):
             screenMgr.PressMouse()
             time.sleep(3)
 
-            def WaitFight():
-                screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3)
-                time.sleep(1)
-
-                if not screenMgr.FindElement("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
-                    log.info(logMgr.Info("尝试开启二倍速"))
-                    screenMgr.PressKey("b")
-                    time.sleep(0.5)
-                elif screenMgr.FindElement("./assets/images/fight/fight_again.png", "image", 0.9) or screenMgr.FindElement("./assets/images/fight/fight_fail.png", "image", 0.9):
-                    log.info(logMgr.Info("检测到战斗失败/重试"))
-                    return
+            for i in range(10):
+                if screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3):
+                    break
+                else:    
+                    time.sleep(1)
                     
-            Retry.ReThread(lambda: WaitFight(), 120, 1)
+            Retry.ReThread(lambda: BaseState.Fight.WaitFight("姬子试用"), 240, 1)
 
             time.sleep(1)
             screenMgr.PressKey("a")

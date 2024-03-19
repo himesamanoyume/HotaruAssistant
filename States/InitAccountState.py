@@ -65,7 +65,7 @@ class InitAccountState(BaseState):
         else:
             log.info(logMgr.Info("日常任务\033[91m未刷新\033[0m"))
 
-        InitAccountState.CalcDailyTasksScore()
+        BaseState.CalcDailyTasksScore()
 
 
     def OnExit(self):
@@ -114,23 +114,4 @@ class InitAccountState(BaseState):
                         dataMgr.tempDailyTasksList[dataMgr.currentUid][task_name] = True
                     break
     
-    @staticmethod
-    def CalcDailyTasksScore():
-        configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataMgr.currentUid] = 0
-        tempScore = 0
-        i=0
-        for key, value in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid].items():
-            # Utils._content.update({f'daily_0{i}_score':f'{Utils._task_score_mappings[key]}'})
-            i+=1
-            if not value:
-                tempScore += dataMgr.meta['task_score_mappings'][key]
-        
-        if tempScore >= 500:
-            configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataMgr.currentUid] = 500
-            configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid] = True
-            return configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataMgr.currentUid]
-        elif not configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
-            configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataMgr.currentUid] = tempScore
-
-        return configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataMgr.currentUid]
     
