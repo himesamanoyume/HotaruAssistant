@@ -36,7 +36,6 @@ class GetPowerState(BaseState):
     def OnRunning(self):
         return False
 
-
     def OnExit(self):
         return False
     

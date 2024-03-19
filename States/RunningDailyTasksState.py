@@ -24,7 +24,10 @@ class RunningDailyTasksState(BaseState):
                     if dataMgr.dailyTasksFunctions[f"{taskName}"]():
                         log.info(logMgr.Info(f"{taskName}已完成"))
                         configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid][taskName] = False
-                        RunningDailyTasksState.ShowDailyTasksScore(taskName)                     
+                        # RunningDailyTasksState.ShowDailyTasksScore(taskName)
+                        if taskName in dataMgr.meta['task_score_mappings'].keys():
+                            log.info(logMgr.Info(f"{taskName}的活跃度为{dataMgr.meta['task_score_mappings'][taskName]}"))
+                            BaseState.CalcDailyTasksScore()                  
                     else:
                         if not configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
                             log.warning(logMgr.Warning(f"【{taskName}】可能对应选项\033[91m未开启\033[0m,请自行解决"))
@@ -48,8 +51,8 @@ class RunningDailyTasksState(BaseState):
     def OnExit(self):
         return False
     
-    @staticmethod
-    def ShowDailyTasksScore(taskName):
-        if taskName in dataMgr.meta['task_score_mappings'].keys():
-            log.info(logMgr.Info(f"{taskName}的活跃度为{dataMgr.meta['task_score_mappings'][taskName]}"))
-            BaseState.CalcDailyTasksScore()
+    # @staticmethod
+    # def ShowDailyTasksScore(taskName):
+    #     if taskName in dataMgr.meta['task_score_mappings'].keys():
+    #         log.info(logMgr.Info(f"{taskName}的活跃度为{dataMgr.meta['task_score_mappings'][taskName]}"))
+    #         BaseState.CalcDailyTasksScore()

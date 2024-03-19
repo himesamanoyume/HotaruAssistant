@@ -11,6 +11,7 @@ from States.WaitForNextLoopState import WaitForNextLoopState
 from States.GetPowerState import GetPowerState
 from States.InitDailyTasksState import InitDailyTasksState
 from States.RunningDailyTasksState import RunningDailyTasksState
+from States.DailyEchoOfWarState import DailyEchoOfWarState
 
 class TaskMgr:
     mInstance = None
@@ -26,7 +27,6 @@ class TaskMgr:
         dataMgr.currentAction = "登录流程"
         if stateMgr.Transition(StartGameState()):
             stateMgr.Transition(InitAccountState())
-            stateMgr.Transition(GetPowerState())
             return True # 为True时才会进行每日任务流程或模拟宇宙流程
             
     @staticmethod
@@ -52,6 +52,13 @@ class TaskMgr:
         # InitDailyTasksState返回True时将跳过每日任务流程
         if not stateMgr.Transition(InitDailyTasksState()):
             stateMgr.Transition(RunningDailyTasksState())
+            stateMgr.Transition(GetPowerState())
+            if not stateMgr.Transition(DailyEchoOfWarState()):
+                # 如果有历战余响可打,打完后需要再获取一次体力
+                stateMgr.Transition(GetPowerState())
+            stateMgr.Transition()# 进行刷副本清体力
+
+
         else:
             pass
 

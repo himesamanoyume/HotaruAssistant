@@ -1,7 +1,8 @@
 from States import *
 import time, datetime
+from .BaseFightState import BaseFightState
 
-class InitDailyTasksState(BaseState):
+class InitDailyTasksState(BaseFightState, BaseState):
 
     mStateName = 'InitDailyTasksState'
 
@@ -87,7 +88,7 @@ class InitDailyTasksState(BaseState):
                 else:    
                     time.sleep(1)
                     
-            Retry.ReThread(lambda: BaseState.Fight.WaitFight("姬子试用"), 240, 1)
+            Retry.ReThread(lambda: BaseFightState.WaitFight("姬子试用"), 240, 1)
 
             time.sleep(1)
             screenMgr.PressKey("a")

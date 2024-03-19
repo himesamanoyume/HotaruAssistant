@@ -1,7 +1,8 @@
 from States import *
 import time, datetime
+from .BaseFightState import BaseFightState
 
-class DailyEchoOfWarState(BaseState):
+class DailyEchoOfWarState(BaseFightState, BaseState):
 
     mStateName = 'DailyEchoOfWarState'
 
@@ -14,8 +15,10 @@ class DailyEchoOfWarState(BaseState):
             else:
                 if not Date.IsNextMon4AM(configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_TIMESTAMP], dataMgr.currentUid):
                     log.info(logMgr.Info("历战余响尚\033[91m未刷新\033[0m"))
+                    return True
         else:
             log.info(logMgr.Info("历战余响\033[91m未开启\033[0m"))
+            return True
         
 
         log.hr(logMgr.Hr("历战余响部分结束"), 2)
@@ -60,7 +63,7 @@ class DailyEchoOfWarState(BaseState):
                 configMgr.SaveTimestampByUid(configMgr.mKey.ECHO_OF_WAR_TIMESTAMP, dataMgr.currentUid)
 
             # Utils._temp += "<p>"+f'历战余响 - {config.instance_names[Utils.get_uid()]["历战余响"]} - 1次</p>'
-            return BaseState.RunInstances("历战余响", configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.currentUid]["历战余响"], 30, min(rewardCount, maxCount))
+            return BaseFightState.RunInstances("历战余响", configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.currentUid]["历战余响"], 30, min(rewardCount, maxCount))
         except Exception as e:
             log.error(logMgr.Error(f"历战余响失败: {e}"))
             return False
