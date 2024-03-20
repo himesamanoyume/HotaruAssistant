@@ -20,7 +20,6 @@ class DailyEchoOfWarState(BaseFightState, BaseState):
             log.info(logMgr.Info("历战余响\033[91m未开启\033[0m"))
             return True
         
-
         log.hr(logMgr.Hr("历战余响部分结束"), 2)
 
     def OnRunning(self):

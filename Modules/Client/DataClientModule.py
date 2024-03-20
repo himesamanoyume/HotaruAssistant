@@ -17,6 +17,8 @@ class DataClient:
     dailyTasksHasBeenChecked = False
     tempDailyTasksList = {}
     dailyTasksFunctions = {}
+    currentUniverseScore = 0
+    maxCurrentUniverseScore = 1
     css = open("./assets/static/css/common.css", 'r', encoding='utf-8')
     htmlStyle = css.read()
     css.close()
@@ -42,4 +44,5 @@ class DataClient:
         self.dailyTasksHasBeenChecked = False
         self.currentDailyTasksScore = 0
         self.dailyTasksFunctions = {}
-
+        self.currentUniverseScore = 0
+        self.maxCurrentUniverseScore = 1

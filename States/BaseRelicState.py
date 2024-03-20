@@ -155,7 +155,7 @@ class BaseRelicState(BaseState):
         return
 
     @staticmethod
-    def salvage():
+    def SalvageRelics():
         try:
             log.hr(logMgr.Hr("准备分解遗器"), 2)
             # screen.get_current_screen()
@@ -227,7 +227,7 @@ class BaseRelicState(BaseState):
             dataMgr.currentRelicCount = int(relicCountText)
             if dataMgr.currentRelicCount >= configMgr.mConfig[configMgr.mKey.RELIC_THRESHOLD_COUNT][dataMgr.currentUid]:
                 log.warning(logMgr.Warning("检测到遗器数量超标"))
-                BaseRelicState.salvage()
+                BaseRelicState.SalvageRelics()
                 BaseRelicState.DetectRelicCount()
 
         except Exception as e:
@@ -235,7 +235,7 @@ class BaseRelicState(BaseState):
         return False
     
     @staticmethod
-    def salvage():
+    def SalvageRelics():
         try:
             log.hr(logMgr.Hr("准备分解遗器"), 2)
             # screen.get_current_screen()

@@ -8,10 +8,14 @@ from Hotaru.Client.DataClientHotaru import dataMgr
 from States.DetectNewAccountState import DetectNewAccountState
 from States.QuitGameState import QuitGameState
 from States.WaitForNextLoopState import WaitForNextLoopState
-from States.GetPowerState import GetPowerState
+from States.GetPowerInfoState import GetPowerInfoState
 from States.InitDailyTasksState import InitDailyTasksState
 from States.RunningDailyTasksState import RunningDailyTasksState
 from States.DailyEchoOfWarState import DailyEchoOfWarState
+from States.DailyClearPowerState import DailyClearPowerState
+from States.GetUniverseInfoState import GetUniverseInfoState
+from States.GetRelicsInfoState import GetRelicsInfoState
+from States.GetFAndPInfoState import GetFAndPInfoState
 
 class TaskMgr:
     mInstance = None
@@ -51,14 +55,21 @@ class TaskMgr:
         log.hr(logMgr.Hr(f"进入{dataMgr.currentAction}"))
         # InitDailyTasksState返回True时将跳过每日任务流程
         if not stateMgr.Transition(InitDailyTasksState()):
+            # 做每日
             stateMgr.Transition(RunningDailyTasksState())
-            stateMgr.Transition(GetPowerState())
+            stateMgr.Transition(GetPowerInfoState())
             if not stateMgr.Transition(DailyEchoOfWarState()):
                 # 如果有历战余响可打,打完后需要再获取一次体力
-                stateMgr.Transition(GetPowerState())
-            stateMgr.Transition()# 进行刷副本清体力
-
-
+                stateMgr.Transition(GetPowerInfoState())
+            # 清体力
+            stateMgr.Transition(DailyClearPowerState())
+            # 获取体力信息
+            stateMgr.Transition(GetPowerInfoState())
+            # 获取模拟宇宙积分信息
+            stateMgr.Transition(GetUniverseInfoState())
+            # 获取遗器,副本倒计时信息
+            stateMgr.Transition(GetRelicsInfoState())
+            stateMgr.Transition(GetFAndPInfoState())
         else:
             pass
 
