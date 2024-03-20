@@ -82,13 +82,26 @@ class InitDailyTasksState(BaseFightState, BaseState):
             screenMgr.PressMouse()
             time.sleep(3)
 
-            for i in range(10):
-                if screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3):
-                    break
-                else:    
-                    time.sleep(1)
-                    
-            Retry.ReThread(lambda: BaseFightState.WaitFight("姬子试用"), 240, 1)
+            Retry.Re(lambda: screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=1), 30)
+
+            # for i in range(10):
+            #     if screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3):
+            #         break
+            #     else:    
+            #         time.sleep(1)
+            
+            # bug #
+            # Retry.ReThread(lambda: InitDailyTasksState.HimekoWaitFight, 240, 1)
+            if screenMgr.FindElement("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+                pass
+            else:
+                log.info(logMgr.Info("尝试开启二倍速"))
+                screenMgr.PressKey("b")
+                time.sleep(0.5)
+                if screenMgr.FindElement("./assets/images/fight/fight_again.png", "image", 0.9) or screenMgr.FindElement("./assets/images/fight/fight_fail.png", "image", 0.9):
+                    log.info(logMgr.Info("检测到战斗失败/重试"))
+                    return False
+            # end #
 
             time.sleep(1)
             screenMgr.PressKey("a")
@@ -210,4 +223,16 @@ class InitDailyTasksState(BaseFightState, BaseState):
         else:
             log.warning(logMgr.Warning("未开启姬子试用,跳过"))
             return False
+        
+    @staticmethod
+    def HimekoWaitFight():
+        if screenMgr.FindElement("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+            pass
+        else:
+            log.info(logMgr.Info("尝试开启二倍速"))
+            screenMgr.PressKey("b")
+            time.sleep(0.5)
+            if screenMgr.FindElement("./assets/images/fight/fight_again.png", "image", 0.9) or screenMgr.FindElement("./assets/images/fight/fight_fail.png", "image", 0.9):
+                log.info(logMgr.Info("检测到战斗失败/重试"))
+                return
     

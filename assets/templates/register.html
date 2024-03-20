@@ -46,30 +46,38 @@
             </p>
             <p>模拟宇宙的队友(不能重复):</p>
             <p>
+                <p>
                 1号位:
-                <select class=configSelect name=universe_team0 >
-                {% for char in dataMgr.meta['角色'] %}
-                <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
-                {% endfor %}
-                </select>
-                2号位:
-                <select class=configSelect name=universe_team1 >
-                {% for char in dataMgr.meta['角色'] %}
-                <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
-                {% endfor %}
-                </select>
-                3号位:
-                <select class=configSelect name=universe_team2 >
-                {% for char in dataMgr.meta['角色'] %}
-                <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
-                {% endfor %}
-                </select>
-                4号位:
-                <select class=configSelect name=universe_team3 >
-                {% for char in dataMgr.meta['角色'] %}
-                <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
-                {% endfor %}
-                </select>
+                    <select class=configSelect name=universe_team0 >
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
+                    {% endfor %}
+                    </select>
+                </p>
+                <p>
+                    2号位:
+                    <select class=configSelect name=universe_team1 >
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
+                    {% endfor %}
+                    </select>
+                </p>
+                <p>
+                    3号位:
+                    <select class=configSelect name=universe_team2 >
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
+                    {% endfor %}
+                    </select>
+                </p>
+                <p>
+                    4号位:
+                    <select class=configSelect name=universe_team3 >
+                    {% for char in dataMgr.meta['角色'] %}
+                    <option value="{{char}}">{{dataMgr.meta['角色'][char]}}</option>
+                    {% endfor %}
+                    </select>
+                </p>
             </p>
         </section>
     </div>

@@ -42,17 +42,6 @@ class DailyClearPowerState(BaseRelicState, BaseState):
             log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}"))
             return False
         
-        # if totalNumber is None:
-        #     # number刷的次数
-        #     totalNumber = dataMgr.currentPower // powerNeed
-        #     if totalNumber < 1:
-        #         log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}"))
-        #         return False
-        # else:
-        #     if powerNeed * totalNumber > dataMgr.currentPower:
-        #         log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}*{totalNumber}"))
-        #         return False
-        
         # Utils._temp += "<p>"+f'{instanceType} - {instanceName} - {number}次</p>'
 
         log.hr(logMgr.Hr(f"开始刷{instanceType} - {instanceName}，总计{totalNumber}次"), 2)

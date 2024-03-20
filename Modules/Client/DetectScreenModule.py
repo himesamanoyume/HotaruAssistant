@@ -1,9 +1,6 @@
 import numpy as np,time,math,cv2
 from Hotaru.Client.LogClientHotaru import log,logMgr
-# from .OcrModule import OcrModule
 from Hotaru.Client.OcrHotaru import ocrMgr
-from Modules.Utils.Retry import Retry
-from .DetectDevScreenSubModule import DetectDevScreenSubModule
 from .ClickScreenSubModule import ClickScreenSubModule
 from Modules.Utils.GameWindow import GameWindow
 

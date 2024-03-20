@@ -3,12 +3,12 @@ import time,threading
 
 class Retry:
     @staticmethod
-    def ReThread(lambdaFunction, timeout = 10, repeatSleep = 0.5, *args, **kwargs):
+    def ReThread(lambdaFunction, timeout = 10, repeatSleep = 1, *args, **kwargs):
         t = threading.Thread(target=Retry.Re(lambdaFunction, timeout, repeatSleep, *args, **kwargs))
         t.start()
         
     @staticmethod
-    def Re(lambdaFunction, timeout = 10, repeatSleep = 0.5, *args, **kwargs):
+    def Re(lambdaFunction, timeout = 10, repeatSleep = 1, *args, **kwargs):
         startTime = time.time()
         while time.time() - startTime < timeout:
             try:

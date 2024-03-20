@@ -41,7 +41,7 @@ class AppClient:
 
         for index in range(len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS])):
 
-            uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS]).split('-')[1][:9]
+            uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index]).split('-')[1][:9]
             if uidStr in configMgr.mConfig[configMgr.mKey.BLACKLIST_UID]:
                 log.warning(logMgr.Warning(f"{uidStr}【正在黑名单中】"))
                 continue 

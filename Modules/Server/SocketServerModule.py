@@ -37,10 +37,8 @@ class SocketServerModule:
                 if not data:
                     break
                 cls.LogHeadHandle(data.decode('utf-8'), clientSocket)
-                
             except Exception as e:
                 logMgr.Error(f"发生异常:{e}")
-                break
     
     @staticmethod
     def HeartSendToClient(clientSocket):

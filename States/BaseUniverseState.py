@@ -34,10 +34,11 @@ class BaseUniverseState(BaseState):
 
     @staticmethod
     def GetUniverseScore():
-        score_crop = (267.0 / 1920, 738.0 / 1080, 271.0 / 1920, 57.0 / 1080)
+        screenMgr.ChangeTo('universe_main')
+        scoreCrop = (267.0 / 1920, 738.0 / 1080, 271.0 / 1920, 57.0 / 1080)
         time.sleep(1)
         try:
-            scoreAndMaxScore = screenMgr.GetSingleLineText(crop=score_crop, blacklist=[], maxRetries=5)
+            scoreAndMaxScore = screenMgr.GetSingleLineText(crop=scoreCrop, blacklist=[], maxRetries=5)
             log.info(logMgr.Info(f"识别到文字为:{scoreAndMaxScore}"))
             configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][dataMgr.currentUid] = scoreAndMaxScore
 
