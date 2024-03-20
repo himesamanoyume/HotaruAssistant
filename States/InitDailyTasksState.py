@@ -82,16 +82,17 @@ class InitDailyTasksState(BaseFightState, BaseState):
             screenMgr.PressMouse()
             time.sleep(3)
 
-            Retry.Re(lambda: screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=1), 30)
+            # Retry.Re(lambda: screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=1), 30)
 
-            # for i in range(10):
-            #     if screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3):
-            #         break
-            #     else:    
-            #         time.sleep(1)
+            for i in range(10):
+                if screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3):
+                    break
+                else:    
+                    time.sleep(1)
             
             # bug #
             # Retry.ReThread(lambda: InitDailyTasksState.HimekoWaitFight, 240, 1)
+                    
             if screenMgr.FindElement("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
                 pass
             else:
@@ -198,8 +199,8 @@ class InitDailyTasksState(BaseFightState, BaseState):
 
             time.sleep(2)
             for i in range(20):
-                if screenMgr.FindElement("./assets/images/himeko/himeko_skill.png", "image", 0.9, maxRetries=10):
-                    if screenMgr.ClickElement("./assets/images/himeko/himeko_skill.png", "image", 0.9, maxRetries=5):
+                if screenMgr.FindElement("./assets/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=10, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
+                    if screenMgr.ClickElement("./assets/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=5, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
                         log.info(logMgr.Info("姬子已开启终结技"))
                         break
                 else:

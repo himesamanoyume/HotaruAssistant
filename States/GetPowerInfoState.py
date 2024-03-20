@@ -21,7 +21,7 @@ class GetPowerInfoState(BaseState):
                     elif configMgr.mConfig[configMgr.mKey.USE_FUEL][dataMgr.currentUid] and screenMgr.ClickElement("./assets/images/share/trailblaze_power/fuel.png", "image", 0.9, scaleRange=(0.95, 0.95)):
                         GetPowerInfoState.MoveButtonAndConfirm()
                     # # 开启使用星琼
-                    # elif config.stellar_jade and auto.click_element("./assets/images/share/trailblaze_power/stellar_jade.png", "image", 0.9, scale_range=(0.95, 0.95)):
+                    # elif config.stellar_jade and auto.click_element("./assets/images/share/trailblaze_power/stellar_jade.png", "image", 0.9, scaleRange=(0.95, 0.95)):
                     #     pass
                     else:
                         screenMgr.PressKey("esc")

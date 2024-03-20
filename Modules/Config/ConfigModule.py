@@ -28,11 +28,11 @@ class ConfigModule():
         try:
             with open(configPath, 'r', encoding='utf-8') as file:
                 loadedConfig = self.mYaml.load(file)
-                if loadedConfig:
+                if loadedConfig and loadedConfig['last_time_save_timestamp'] - self.mLastTimeSaveTimestamp >= 5:
                     self.DetectGamePath(loadedConfig)
                     self.mConfig.update(loadedConfig)
                     self.SaveConfig()
-                self.logMgr.Info("Config文件已加载")
+                    self.logMgr.Info("Config文件已加载")
         except FileNotFoundError:
             self.logMgr.Error("Config文件未找到")
             self.SaveConfig()

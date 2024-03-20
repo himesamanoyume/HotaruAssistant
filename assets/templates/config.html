@@ -105,12 +105,12 @@ data-rt="{{uid}}"
         </div>
         <section class=post-detail-txt style=color:#d9d9d9>
             <p>今天每日清开拓力时将要打的副本类型:
-                <span class="important">{{instance_type[0]}}</span>
+                <span class="important">{{instance_type[uid][0]}}</span>
             </p>
             <p>任务副本列表:
                 <select class=configSelect name=instance_type_list>
                     {% for i in range(0, len) %}
-                        <option value="{{i}}:{{instance_type[i]}}">{{instance_type[i]}}</option>
+                        <option value="{{i}}:{{instance_type[uid][i]}}">{{instance_type[uid][i]}}</option>
                     {% endfor %}
                 </select>
             </p>
@@ -145,33 +145,33 @@ data-rt="{{uid}}"
             <p>不同副本类型下的副本名称:</p>
             <p>拟造花萼（金）:
                 <select class=configSelect name=instance_name1>
-                    <option value="无" {% if '无' == instance_names['拟造花萼（金）'] %} selected {% endif %}>无</option>
+                    <option value="无" {% if '无' == instance_names[uid]['拟造花萼（金）'] %} selected {% endif %}>无</option>
                     {% for key, value in dataMgr.meta['拟造花萼（金）'].items() %}
-                        <option value="{{key}}" {% if key == instance_names['拟造花萼（金）'] %} selected {% endif %}>{{key}}({{value}})</option>
+                        <option value="{{key}}" {% if key == instance_names[uid]['拟造花萼（金）'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
             </p>
             <p>拟造花萼（赤）:
                 <select class=configSelect name=instance_name2>
-                    <option value="无" {% if '无' == instance_names['拟造花萼（赤）'] %} selected {% endif %}>无</option>
+                    <option value="无" {% if '无' == instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>无</option>
                     {% for key, value in dataMgr.meta['拟造花萼（赤）'].items() %}
-                        <option value="{{key}}" {% if key == instance_names['拟造花萼（赤）'] %} selected {% endif %}>{{key}}</option>
+                        <option value="{{key}}" {% if key == instance_names[uid]['拟造花萼（赤）'] %} selected {% endif %}>{{key}}</option>
                     {% endfor %}
                 </select>
             </p>
             <p>凝滞虚影:
                 <select class=configSelect name=instance_name3>
-                    <option value="无" {% if '无' == instance_names['凝滞虚影'] %} selected {% endif %}>无</option>
+                    <option value="无" {% if '无' == instance_names[uid]['凝滞虚影'] %} selected {% endif %}>无</option>
                     {% for key, value in dataMgr.meta['凝滞虚影'].items() %}
-                        <option value="{{key}}" {% if key == instance_names['凝滞虚影'] %} selected {% endif %}>{{key}}({{value}})</option>
+                        <option value="{{key}}" {% if key == instance_names[uid]['凝滞虚影'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
             </p>
             <p>侵蚀隧洞:
                 <select class=configSelect name=instance_name4>
-                    <option value="无" {% if '无' == instance_names['侵蚀隧洞'] %} selected {% endif %}>无</option>
+                    <option value="无" {% if '无' == instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>无</option>
                     {% for key, value in dataMgr.meta['侵蚀隧洞'].items() %}
-                        <option value="{{key}}" {% if key == instance_names['侵蚀隧洞'] %} selected {% endif %}>{{key}}({{value}})</option>
+                        <option value="{{key}}" {% if key == instance_names[uid]['侵蚀隧洞'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
             </p>
@@ -180,9 +180,9 @@ data-rt="{{uid}}"
             </p>
             <p>历战余响:
                 <select class=configSelect name=instance_name5>
-                    <option value="无" {% if '无' == instance_names['历战余响'] %} selected {% endif %}>无</option>
+                    <option value="无" {% if '无' == instance_names[uid]['历战余响'] %} selected {% endif %}>无</option>
                     {% for key, value in dataMgr.meta['历战余响'].items() %}
-                        <option value="{{key}}" {% if key == instance_names['历战余响'] %} selected {% endif %}>{{key}}({{value}})</option>
+                        <option value="{{key}}" {% if key == instance_names[uid]['历战余响'] %} selected {% endif %}>{{key}}({{value}})</option>
                     {% endfor %}
                 </select>
             </p>
@@ -203,7 +203,7 @@ data-rt="{{uid}}"
             <p>模拟宇宙命途:
                 <select class=configSelect name=universe_fate>
                     {% for key, value in dataMgr.meta['模拟宇宙命途'].items() %}
-                        <option value="{{key}}" {% if key == (universe_fate | universe_number) %} selected {% endif %}>{{value}}</option>
+                        <option value="{{key}}" {% if key == (universe_fate[uid] | universe_number) %} selected {% endif %}>{{value}}</option>
                     {% endfor %}
                 </select>
             </p>
@@ -212,7 +212,7 @@ data-rt="{{uid}}"
                     1号位:
                     <select class=configSelect name=universe_team0 >
                     {% for char in dataMgr.meta['角色'] %}
-                    <option value="{{char}}" {% if char == universe_team[0] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
+                    <option value="{{char}}" {% if char == universe_team[uid][0] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                 </p>
@@ -220,7 +220,7 @@ data-rt="{{uid}}"
                     2号位:
                     <select class=configSelect name=universe_team1 >
                     {% for char in dataMgr.meta['角色'] %}
-                    <option value="{{char}}" {% if char == universe_team[1] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
+                    <option value="{{char}}" {% if char == universe_team[uid][1] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                 </p>
@@ -228,7 +228,7 @@ data-rt="{{uid}}"
                     3号位:
                     <select class=configSelect name=universe_team2 >
                     {% for char in dataMgr.meta['角色'] %}
-                    <option value="{{char}}" {% if char == universe_team[2] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
+                    <option value="{{char}}" {% if char == universe_team[uid][2] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                 </p>
@@ -236,7 +236,7 @@ data-rt="{{uid}}"
                     4号位:
                     <select class=configSelect name=universe_team3 >
                     {% for char in dataMgr.meta['角色'] %}
-                    <option value="{{char}}" {% if char == universe_team[3] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
+                    <option value="{{char}}" {% if char == universe_team[uid][3] %} selected {% endif %}>{{dataMgr.meta['角色'][char]}}</option>
                     {% endfor %}
                     </select>
                 </p>

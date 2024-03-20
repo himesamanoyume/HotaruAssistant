@@ -72,7 +72,7 @@ class DetectScreenModule:
                 time.sleep(1)
         return None
 
-    def FindImageElement(self, target, threshold, scale_range, relative=False):
+    def FindImageElement(self, target, threshold, scaleRange, relative=False):
         try:
             # template = cv2.imread(target, cv2.IMREAD_GRAYSCALE)
             template = cv2.imread(target)
@@ -83,7 +83,7 @@ class DetectScreenModule:
                 log.error(logMgr.Error("截图为None"))
                 return
             screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2RGB)
-            max_val, max_loc = self.ScaleAndMatchTemplate(screenshot, template, threshold, scale_range)
+            max_val, max_loc = self.ScaleAndMatchTemplate(screenshot, template, threshold, scaleRange)
             log.debug(logMgr.Debug(f"目标图片：{target} 相似度：{max_val}"))
             if threshold is None or max_val >= threshold:
                 channels, width, height = template.shape[::-1]

@@ -151,10 +151,13 @@ OBS录制|&cross;|&check;
 
 ## 2.0TODO
 
-- **开始填充每日内容**
-- ~~新增不清除canvas的ShowDetect,用于WaitFight时显示所有红框~~
-- WaitFight战斗结束时未能进行处理
-- 优化:姬子试用直接猛破盾即可
+- **WaitFight战斗结束时未能进行处理**:
+- - 无法识别到战斗结束
+- - 重试报错:'NoneType' object is not subscriptable(似乎是由于yaml异常保存导致config内容丢失,因为加载不到任何配置文件)
+- - BUG:Config会在战斗中重复加载**LoadConfig()逻辑需要调整**
+- - 优化:战斗中会因为放终结技隐藏界面导致取消自动战斗
+- - ~~选择支援角色出错:ScreenMgr.ClickElement() got an unexpected keyword argument 'scale_range'~~
+- 优化:姬子试用流程可缩减,姬子终结技识别率降低(0.4)
 - 日常轮次时已获取模拟宇宙积分 若该次检测到已满分 则不尝试进行模拟宇宙轮次,即使是选择的全部轮次 当然选择刷模拟宇宙的情况除外
 - 如果完成了每日,头图显示差异
 - 模拟宇宙改造成程序运行
@@ -167,8 +170,6 @@ OBS录制|&cross;|&check;
 - Build脚本中会显示预计构建版本号,用以检查脚本/资源版本号错漏
 
 ### Universe
-
-- BUG:从书本直接传送对应模拟宇宙时界面不再会自动切换到对应宇宙了
 
 ### Task
 

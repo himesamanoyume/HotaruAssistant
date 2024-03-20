@@ -39,6 +39,7 @@ class SocketServerModule:
                 cls.LogHeadHandle(data.decode('utf-8'), clientSocket)
             except Exception as e:
                 logMgr.Error(f"发生异常:{e}")
+                return
     
     @staticmethod
     def HeartSendToClient(clientSocket):
