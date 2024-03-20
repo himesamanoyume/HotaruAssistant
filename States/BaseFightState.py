@@ -43,6 +43,7 @@ class BaseFightState(BaseRelicState, BaseState):
         instanceName = instanceName.replace("潘灼之形", "灼之形")
         instanceName = instanceName.replace("熠灼之形", "灼之形")
         instanceName = instanceName.replace("蛀星的旧靥", "蛀星的旧")
+
         if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_ENABLE][dataMgr.currentUid]:
             BaseState.ChangeTeam(configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataMgr.currentUid])
         screenMgr.ChangeTo('guide3')
@@ -58,75 +59,76 @@ class BaseFightState(BaseRelicState, BaseState):
         instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         screenMgr.ClickElement("./assets/images/screen/guide/power.png", "image", maxRetries=10)
         Flag = False
-        instance_map_type = ''
-        import json
-        rb = open("./assets/config/ruby_detail.json", 'r', encoding='utf-8')
-        ruby = json.load(rb)
-        rb.close()
+        instanceMapType = ''
+
         if instanceType in ['拟造花萼（赤）']:
-            source = f"./assets/images/screen/guide/aka/{ruby['拟造花萼（赤）'][instanceName]}.png"
+            source = f"./assets/images/screen/guide/aka/{dataMgr.meta['拟造花萼（赤）'][instanceName]}.png"
             for i in range(7):
-                if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  source_type="image"):
+                if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
                     Flag = True
                     break
-                elif screenMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  source_type="image"):
+                elif screenMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
                     log.info("该副本限时开放中,但你并没有解锁该副本")
                     Flag = True
                     break
-                if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  source_type="image"):
+                if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
                     nowtime = time.time()
-                    log.error(logMgr.Error(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本"))
-                    raise Exception(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                    log.error(logMgr.Error(f"{nowtime},{instanceName}:你似乎没有解锁这个副本?总之无法传送到该副本"))
+                    raise Exception(f"{nowtime},{instanceName}:你似乎没有解锁这个副本?总之无法传送到该副本")
                     
                 screenMgr.MouseScroll(18, -1)
                 # 等待界面完全停止
                 time.sleep(1)
         elif instanceType in ['拟造花萼（金）']:
-            instance_map, instance_map_type = instanceName.split('-')
-            instance_map_name = ruby['星球'][instance_map]
+            instanceMap, instanceMapType = instanceName.split('-')
+            instance_map_name = dataMgr.meta['星球'][instanceMap]
+            
             for i in range(2):
                 if screenMgr.ClickElement(f"./assets/images/screen/guide/{instance_map_name}_on.png", "image", 0.9, maxRetries=10) or screenMgr.ClickElement(f"./assets/images/screen/guide/{instance_map_name}_off.png", "image", 0.9, maxRetries=10):
-                    if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=instance_map_type):
+                    if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceMapType):
                         Flag = True
                         break
-                    elif screenMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=instance_map_type, source_type="text"):
+                    elif screenMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceMapType, sourceType="text"):
                         log.info("该副本限时开放中,但你并没有解锁该副本")
                         Flag = True
                         break
-                    if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=instance_map_type, source_type="text"):
+                    if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceMapType, sourceType="text"):
                         nowtime = time.time()
-                        log.error(logMgr.Error(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本"))
-                        raise Exception(f"{nowtime},{instance_map_type}:你似乎没有解锁这个副本?总之无法传送到该副本")
+                        log.error(logMgr.Error(f"{nowtime},{instanceMapType}:你似乎没有解锁这个副本?总之无法传送到该副本"))
+                        raise Exception(f"{nowtime},{instanceMapType}:你似乎没有解锁这个副本?总之无法传送到该副本")
                     
                 # 等待界面完全停止
                 time.sleep(1)     
         else:
             for i in range(7):
-                if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, source_type="text"):
+                if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, sourceType="text"):
                     Flag = True
                     break
-                elif screenMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, source_type="text"):
+                elif screenMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, sourceType="text"):
                     log.info("该副本限时开放中,但你并没有解锁该副本")
                     Flag = True
                     break
-                if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, source_type="text"):
+                if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, sourceType="text"):
                     nowtime = time.time()
                     log.error(logMgr.Error(f"{nowtime},{instanceName}:你似乎没有解锁这个副本?总之无法传送到该副本"))
                     raise Exception(f"{nowtime},{instanceName}:你似乎没有解锁这个副本?总之无法传送到该副本")
                 screenMgr.MouseScroll(18, -1)
                 # 等待界面完全停止
                 time.sleep(1)
-            
+        
         if not Flag:
             log.error(logMgr.Error("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
             return False
+        
         # 验证传送是否成功
-        if not screenMgr.FindElement(instanceName.replace("2", ""), "text", maxRetries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
-            if not screenMgr.FindElement(instance_map_type, "text", maxRetries=20, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
+        if not screenMgr.FindElement(instanceName.replace("2", ""), "text", maxRetries=10, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
+            if not screenMgr.FindElement(instanceMapType, "text", maxRetries=10, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
                 log.error(logMgr.Error("⚠️刷副本未完成 - 传送可能失败⚠️"))
                 return False
+            
         fullCount = totalCount // 6
         incomplete_count = totalCount - fullCount * 6
+
         log.info(logMgr.Info(f"按单次体力需求计算次数:{totalCount},按6次为完整一次计算:{fullCount},按扣除完整次数剩下次数计算:{incomplete_count}"))
         if "拟造花萼" in instanceType:
             

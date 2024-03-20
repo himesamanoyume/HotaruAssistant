@@ -171,12 +171,12 @@ class DetectScreenModule:
             log.error(logMgr.Error("寻找文字：{target} 出错：{e}").format(target=", ".join(target), e=e))
             return None, None
 
-    def FindMinDistanceTextElement(self, target, source, source_type, include, need_ocr=True):
-        if need_ocr:
+    def FindMinDistanceTextElement(self, target, source, sourceType, include, needOcr=True):
+        if needOcr:
             self.ocrResult = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
 
         sourcePos = None
-        if source_type == 'text':
+        if sourceType == 'text':
             if not self.ocrResult:
                 log.debug(logMgr.Debug(f"目标文字：{source} 未找到，没有识别出任何文字"))
                 return None, None
@@ -188,7 +188,7 @@ class DetectScreenModule:
                         source=source, maxVal=box[1][1]))
                     sourcePos = box[0][0]
                     break
-        elif source_type == 'image':
+        elif sourceType == 'image':
             sourcePos, i = self.FindImageElement(source, 0.9, None, True)
 
         if sourcePos is None:

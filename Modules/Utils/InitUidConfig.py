@@ -52,22 +52,31 @@ class InitUidConfig:
                 configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['侵蚀隧洞'] = '睿治之径'
                 configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['历战余响'] = '毁灭的开端'
 
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_SCORE, uid, 0)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_FIN, uid, False)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS, uid, {})
 
             if Date.IsNext4AM(configMgr.mConfig[configMgr.mKey.LAST_RUN_TIMESTAMP][uid], False):
+                configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][uid] = 0
+                configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][uid] = False
+                configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid] = {}
                 
-                configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_SCORE, uid, 0)
-                configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_FIN, uid, False)
-                configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS, uid, {})
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_TIMESTAMP, uid)
+            maxScore = str(configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uid]).split('/')[1]
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SCORE, uid, f"0/{maxScore}")
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FIN, uid, False)
 
             if Date.IsNextMon4AM(configMgr.mConfig[configMgr.mKey.UNIVERSE_TIMESTAMP][uid], False):
-                maxScore = str(configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uid]).split('/')[1]
-                configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SCORE, uid, f"0/{maxScore}")
-                configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FIN, uid, False)
+                configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uid] = f"0/{maxScore}"
+                configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][uid] = False
 
             return True
 
         except Exception as e:
             logMgr.Error(f"发生错误:{e}")
             return False
+
+    @staticmethod
+    def NextDayReset():
+        pass

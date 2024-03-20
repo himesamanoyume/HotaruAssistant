@@ -11,7 +11,6 @@ class InitState(BaseState):
 
     def OnBegin(self):
         InitUidConfig.InitUidDefaultConfig(configMgr, logMgr, dataMgr.tempUid)
-        return False
 
     def OnRunning(self):
         return False

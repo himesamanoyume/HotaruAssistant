@@ -1,10 +1,4 @@
 from States import *
-from Hotaru.Client.ScreenHotaru import screenMgr
-from Hotaru.Client.DataClientHotaru import dataMgr
-from Hotaru.Client.LogClientHotaru import log,logMgr
-from Hotaru.Client.OcrHotaru import ocrMgr
-from Modules.Utils.Date import Date
-import time
 
 class InitAccountState(BaseState):
 

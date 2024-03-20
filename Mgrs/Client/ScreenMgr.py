@@ -21,19 +21,19 @@ class ScreenMgr:
 
     def TakeScreenshot(self, crop=(0, 0, 0, 0)):
         """ 这种老是忘记return结果 """
-        t = threading.Thread(target=self.ShowDetectArea(crop))
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop, ))
         t.start()
         return self.mDetect.TakeScreenshot(crop)
 
     def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
         """ 这种老是忘记return结果 """
-        t = threading.Thread(target=self.ShowDetectArea(crop))
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop, ))
         t.start()
         return self.mDetect.GetSingleLineText(crop, blacklist, maxRetries)
 
     def FindElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
         """ 这种老是忘记return结果 """
-        t = threading.Thread(target=self.ShowDetectArea(crop))
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop, ))
         t.start()
         return self.mDetect.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, pixelBgr)
     
@@ -43,7 +43,7 @@ class ScreenMgr:
     
     def ClickElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
         """ 这种老是忘记return结果 """
-        t = threading.Thread(target=self.ShowDetectArea(crop))
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop, ))
         t.start()
         return self.mDetect.ClickElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, offset, isLog)
     

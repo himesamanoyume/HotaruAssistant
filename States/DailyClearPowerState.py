@@ -36,16 +36,22 @@ class DailyClearPowerState(BaseRelicState, BaseState):
             return False
         log.hr(logMgr.Hr(f"准备{instanceType}"), 2)
         powerNeed = configMgr.mConfig[configMgr.mKey.POWER_NEEDS][configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataMgr.currentUid][0]]
-        if totalNumber is None:
-            # number刷的次数
-            totalNumber = dataMgr.currentPower // powerNeed
-            if totalNumber < 1:
-                log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}"))
-                return False
-        else:
-            if powerNeed * totalNumber > dataMgr.currentPower:
-                log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}*{totalNumber}"))
-                return False
+
+        totalNumber = dataMgr.currentPower // powerNeed
+        if totalNumber < 1:
+            log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}"))
+            return False
+        
+        # if totalNumber is None:
+        #     # number刷的次数
+        #     totalNumber = dataMgr.currentPower // powerNeed
+        #     if totalNumber < 1:
+        #         log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}"))
+        #         return False
+        # else:
+        #     if powerNeed * totalNumber > dataMgr.currentPower:
+        #         log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}*{totalNumber}"))
+        #         return False
         
         # Utils._temp += "<p>"+f'{instanceType} - {instanceName} - {number}次</p>'
 

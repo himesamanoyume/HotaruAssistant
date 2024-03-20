@@ -64,7 +64,7 @@ class InitDailyTasksState(BaseFightState, BaseState):
 
     @staticmethod
     def HimekoTry():
-        if configMgr.mConfig[configMgr.mKey.DAILY_HIMEKO_TRY_ENABLE][dataMgr.currentUid]:
+        if configMgr.mConfig[configMgr.mKey.DAILY_HIMEKO_TRY_ENABLE]:
             screenMgr.ChangeTo("himeko_prepare")
             log.info(logMgr.Info("开始进行姬子试用"))
             screenMgr.PressKey("w", 6)

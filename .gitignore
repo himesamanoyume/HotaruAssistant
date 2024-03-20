@@ -180,7 +180,7 @@ pyrightconfig.json
 
 # Test
 /tests
-/test.py
+/AppTest.py
 /testFun.py
 
 # HotaruAssistant
