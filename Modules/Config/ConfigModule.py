@@ -65,7 +65,7 @@ class ConfigModule():
     def DelValue(self, key, uid:str=None):
         if key in self.mConfig:
             self.ReloadConfig()
-            
+
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
                 self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
@@ -86,6 +86,7 @@ class ConfigModule():
             with open(exampleConfigPath, 'r', encoding='utf-8') as file:
                 loadedConfig = cls.mInstance.mYaml.load(file)
                 if loadedConfig:
+                    cls.logMgr.Info("Config文件已首次加载")
                     return loadedConfig
         except FileNotFoundError:
             input("初始配置文件未找到,检查assets是否完整")

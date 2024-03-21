@@ -42,7 +42,7 @@ class DetectDevScreenSubModule:
 
             self.tk = tkinter.Tk()
             self.tk.attributes("-topmost", 1)
-            self.tk.title('DevScreen')
+            self.tk.title('Hotaru Assistant - SamDevScreen')
             self.isScreenshot = False
             self.selectionRect = None
 

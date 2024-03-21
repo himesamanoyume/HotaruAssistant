@@ -152,12 +152,19 @@ OBS录制|&cross;|&check;
 ## 2.0TODO
 
 - 重试报错:'NoneType' object is not subscriptable(似乎是由于yaml异常保存导致config内容丢失,因为加载不到任何配置文件)
-- BUG:Config会在战斗中重复加载
-- BUG:[使用支援角色并获得战斗胜利1次]已完成时依然会选择支援
+- 重试报错:'bool' object has no attribute 'width'
+
+- BUG:记录历战余响是否为下周时dt_object = datetime.fromtimestamp(**timestamp**)没有传入到int类型的值:'CommentedMap' object cannot be interpreted as an integer
+
+- BUG:目前config逻辑没有进行保存
+- BUG:Config会在战斗中重复加载,同时临时config也需要管理，多次加载会导致报错
+- - Error loading YAML config from ./config.yaml: expected '<document start>', but found ('<block mapping start>',)
+- - Error loading YAML config from ./config.yaml: while constructing a mapping in "./config.yaml", line 1, column 1
+- - found duplicate key "last_time_save_timestamp" with value "1711034046.386518" (original value: "1711034046.386518") in "./config.yaml", line 177, column 1
+
+- 每次操作之间间隔太久，需要继续优化[重构完成后]
+- 模拟宇宙连续查看了两次积分[是否符合需求]
 - 优化:姬子试用流程可缩减~~,姬子终结技识别率降低(0.4)~~
-- BUG:识别模拟宇宙积分
-- - ~~进入模拟宇宙主界面时不会点传送~~
-- - ~~进入主界面时识别是否为扩展装置时会提前识别积分导致字符串分离报错(没有做好每周首次进入界面弹出提示的处理,直接进行了分数检测导致错误)~~
 - 日常轮次时已获取模拟宇宙积分 若该次检测到已满分 则不尝试进行模拟宇宙轮次,即使是选择的全部轮次 当然选择刷模拟宇宙的情况除外
 - 如果完成了每日,头图显示差异
 - 模拟宇宙改造成程序运行

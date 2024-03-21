@@ -68,7 +68,7 @@ class BaseState(object):
     
     @staticmethod
     def BorrowCharacter():
-        if not (("使用支援角色并获得战斗胜利1次" in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid]["使用支援角色并获得战斗胜利1次"]) or configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER_ENABLE]):
+        if not (("使用支援角色并获得战斗胜利1次" in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid]["使用支援角色并获得战斗胜利1次"]) or configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER_ENABLE][dataMgr.currentUid]):
             return True
         if not screenMgr.ClickElement("支援", "text", maxRetries=10, crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
             log.error(logMgr.Error("找不到支援按钮"))

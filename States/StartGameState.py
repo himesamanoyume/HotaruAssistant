@@ -75,6 +75,8 @@ class StartGameState(BaseState):
         if not Retry.Re(lambda: StartGameState.CheckAndClickEnter(), 60, 2):
             log.error(logMgr.Error("无法找到点击进入按钮"))
             return False
+        
+        time.sleep(5)
 
         if not Retry.Re(lambda: screenMgr.GetCurrentScreen(), 180, 1):
             log.error(logMgr.Error("无法进入主界面"))

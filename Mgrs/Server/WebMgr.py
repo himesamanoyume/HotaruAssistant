@@ -17,8 +17,8 @@ class WebMgr:
         else:
             flaskThread = threading.Thread(target=self.RunFlask, args=(isDebug, ))
             flaskThread.start()
-            import webbrowser
-            webbrowser.open('http://127.0.0.1:5000')
+            # import webbrowser
+            # webbrowser.open('http://127.0.0.1:5000')
 
     def RunFlask(self, isDebug=False):
         self.mWebModule.run(host='0.0.0.0',debug=isDebug)

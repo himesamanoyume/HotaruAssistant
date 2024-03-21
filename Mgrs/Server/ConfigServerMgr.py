@@ -17,13 +17,11 @@ class ConfigServerMgr:
     
     def AutoSave(self):
         while True:
-            time.sleep(5)
-            if time.time() - self.mConfig.mLastTimeModifyTimestamp <= 5:
-                logMgr.Info("检测到配置文件修改")
-                time.sleep(5)
-                if time.time() - self.mConfig.mLastTimeModifyTimestamp >= 5:
-                    self.mConfig.SaveConfig()
-                    logMgr.Info("配置文件已自动保存")
+            time.sleep(4)
+            nowtime = time.time()
+            if nowtime - self.mConfig.mLastTimeSaveTimestamp >= 5 and nowtime - self.mConfig.mLastTimeSaveTimestamp <= 5:
+                self.mConfig.SaveConfig()
+                logMgr.Info("Server:配置文件进行自动保存")
     
     def IsAgreed2Disclaimer(self):
         if not self.mConfig[self.mKey.AGREED_TO_DISCLAIMER]:
