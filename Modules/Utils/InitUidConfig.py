@@ -19,7 +19,7 @@ class InitUidConfig:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_NUMBER, uid, 3)
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_DIFFICULTY, uid, 1)
-            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FATE, uid, '巡猎')
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FATE, uid, 4)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_TEAM, uid, {})
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SCORE, uid, '0/1')
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_BONUS_ENABLE, uid, False)

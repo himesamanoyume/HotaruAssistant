@@ -35,10 +35,11 @@ class ConfigClientMgr:
 
     def AutoSave(self):
         while True:
-            time.sleep(1)
-            if time.time() - self.mConfig.mLastTimeModifyTimestamp <= 5:
+            time.sleep(5)
+            nowtime = time.time()
+            if nowtime - self.mConfig.mLastTimeModifyTimestamp < 5:
+                print(f"{nowtime - self.mConfig.mLastTimeModifyTimestamp}\n")
                 log.info(logMgr.Info("检测到配置文件修改"))
                 time.sleep(5)
                 if time.time() - self.mConfig.mLastTimeModifyTimestamp >= 5:
                     self.mConfig.SaveConfig()
-    

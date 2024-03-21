@@ -1,7 +1,6 @@
 
 from ruamel.yaml import YAML
 from . import *
-# from Hotaru.Server.LogServerHotaru import logServerMgr
 from Modules.Utils.ConfigKey import ConfigKey
 import time
 
@@ -18,7 +17,6 @@ class ConfigModule():
             cls.mInstance.mYaml = YAML()
             cls.mInstance.mConfig = cls.mInstance.DefaultConfig("./assets/config/config.example.yaml")
             cls.mInstance.mConfigPath = "./config.yaml"
-            cls.mInstance.LoadConfig()
             cls.mLastTimeSaveTimestamp = cls.mInstance.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]
             
         return cls.mInstance
@@ -27,12 +25,12 @@ class ConfigModule():
         configPath = self.mConfigPath if configPath is None else configPath
         try:
             with open(configPath, 'r', encoding='utf-8') as file:
-                loadedConfig = self.mYaml.load(file)
-                if loadedConfig and loadedConfig['last_time_save_timestamp'] - self.mLastTimeSaveTimestamp >= 5:
-                    self.DetectGamePath(loadedConfig)
-                    self.mConfig.update(loadedConfig)
+                tempLoadConfig = self.mYaml.load(file)
+                # 说明配置文件最后保存的时间戳比脚本中的要新,因此替换掉脚本中加载的配置文件
+                if tempLoadConfig['last_time_save_timestamp'] - self.mLastTimeSaveTimestamp >= 5:
+                    self.mConfig.update(tempLoadConfig)
                     self.SaveConfig()
-                    self.logMgr.Info("Config文件已加载")
+                    self.logMgr.Info("Config文件已重载")
         except FileNotFoundError:
             self.logMgr.Error("Config文件未找到")
             self.SaveConfig()
@@ -52,14 +50,12 @@ class ConfigModule():
 
     def SetValue(self, key, value):
         if key in self.mConfig:
-            tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
-            if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
-                self.mConfig = tempConfig
+            self.ReloadConfig()
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
                 self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
-                self.LoadConfig("./config.yaml")
+                self.ReloadConfig()
                 self.mLastTimeModifyTimestamp = nowTime
             self.logMgr.Info(f"config: {key}被修改")
             self.mConfig[key] = value
@@ -68,14 +64,12 @@ class ConfigModule():
         
     def DelValue(self, key, uid:str=None):
         if key in self.mConfig:
-            tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
-            if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
-                self.mConfig = tempConfig
-
+            self.ReloadConfig()
+            
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
                 self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
-                self.LoadConfig("./config.yaml")
+                self.ReloadConfig()
                 self.mLastTimeModifyTimestamp = nowTime
 
             if uid:
@@ -92,13 +86,11 @@ class ConfigModule():
             with open(exampleConfigPath, 'r', encoding='utf-8') as file:
                 loadedConfig = cls.mInstance.mYaml.load(file)
                 if loadedConfig:
-                    # print("初始配置文件已加载")
                     return loadedConfig
         except FileNotFoundError:
             input("初始配置文件未找到,检查assets是否完整")
             sys.exit(1)
 
-    
     def DetectKeyIsExist(self, key, uid=None, defaultValue=0):
         try:
             if uid is None:
@@ -134,9 +126,7 @@ class ConfigModule():
                         
     def __getitem__(self, attr):
         if attr in self.mConfig:
-            tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
-            if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
-                self.mConfig = tempConfig
+            self.ReloadConfig()
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
@@ -150,9 +140,7 @@ class ConfigModule():
                         
     def __getattr__(self, attr):
         if attr in self.mConfig:
-            tempConfig = self.DefaultConfig("./assets/config/config.example.yaml")
-            if tempConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] > self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP]:
-                self.mConfig = tempConfig
+            self.ReloadConfig()
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:

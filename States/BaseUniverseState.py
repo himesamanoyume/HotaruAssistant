@@ -34,7 +34,6 @@ class BaseUniverseState(BaseState):
 
     @staticmethod
     def GetUniverseScore():
-        screenMgr.ChangeTo('universe_main')
         scoreCrop = (267.0 / 1920, 738.0 / 1080, 271.0 / 1920, 57.0 / 1080)
         time.sleep(1)
         try:
@@ -59,6 +58,30 @@ class BaseUniverseState(BaseState):
             log.error(logMgr.Error(f"识别模拟宇宙积分失败: {e}"))
             configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][dataMgr.currentUid] = '0/1'
             log.warning(logMgr.Warning("因读取模拟宇宙积分失败,程序中止"))
+
+    @staticmethod
+    def OpenUniverseScoreScreen():
+        screenMgr.ChangeTo("universe_main")
+        time.sleep(2)
+        # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
+        if screenMgr.FindElement("./assets/images/screen/universe/universe_score.png", "image", 0.9, maxRetries=10):
+            log.info(logMgr.Info("检测到模拟宇宙本周首次进入界面"))
+            time.sleep(1)
+            currentScore, maxScore = BaseUniverseState.GetUniverseScore()
+            screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=10)
+
+        elif screenMgr.ClickElement("./assets/images/universe/universe_reward.png", "image", 0.9, maxRetries=10):
+            log.info(logMgr.Info("正在点开积分界面"))
+            time.sleep(1)
+            currentScore, maxScore = BaseUniverseState.GetUniverseScore()
+            if screenMgr.FindElement("./assets/images/universe/one_key_receive.png", "image", 0.9, maxRetries=10):
+                time.sleep(0.5)
+                if screenMgr.FindElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=10):
+                    time.sleep(0.5)
+                    log.info(logMgr.Info("🎉模拟宇宙积分奖励已领取🎉"))
+                    screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=10)
+        
+        return currentScore, maxScore
 
     @staticmethod
     def GetImmersifier():

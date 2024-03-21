@@ -17,7 +17,7 @@ class ConfigServerMgr:
     
     def AutoSave(self):
         while True:
-            time.sleep(1)
+            time.sleep(5)
             if time.time() - self.mConfig.mLastTimeModifyTimestamp <= 5:
                 logMgr.Info("检测到配置文件修改")
                 time.sleep(5)
