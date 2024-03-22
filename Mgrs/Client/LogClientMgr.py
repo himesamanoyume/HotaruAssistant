@@ -37,6 +37,7 @@ class LogClientMgr:
     @staticmethod
     def Debug(msg, *args, **kwargs):
         msg = f"\033[91m[{dataMgr.currentUid}]\033[0m|{dataMgr.currentAction}|{msg}"
+        socketClientMgr.LogSendToServer("DEBUG", msg)
         return msg
 
     @staticmethod

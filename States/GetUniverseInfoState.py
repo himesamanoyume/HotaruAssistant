@@ -6,10 +6,9 @@ class GetUniverseInfoState(BaseUniverseState, BaseState):
     mStateName = 'GetUniverseScoreState'
 
     def OnBegin(self):
-        currentScore, maxScore = BaseUniverseState.OpenUniverseScoreScreen()
+        currentScore, maxScore = BaseUniverseState.GetUniverseReward()
         dataMgr.currentUniverseScore = currentScore
         dataMgr.maxCurrentUniverseScore = maxScore
-        BaseUniverseState.GetUniverseReward()
         BaseUniverseState.GetImmersifier()
 
     def OnRunning(self):

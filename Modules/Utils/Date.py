@@ -4,13 +4,13 @@ from datetime import datetime, timedelta
 class Date:
     @staticmethod
     def IsNext4AM(timestamp, isLog = True):
-        dt_object = datetime.fromtimestamp(timestamp)
+        dtObject = datetime.fromtimestamp(timestamp)
         current_time = datetime.now()
-        if dt_object.hour < 4:
-            next_4am = dt_object.replace(
+        if dtObject.hour < 4:
+            next_4am = dtObject.replace(
                 hour=4, minute=0, second=0, microsecond=0)
         else:
-            next_4am = dt_object.replace(
+            next_4am = dtObject.replace(
                 hour=4, minute=0, second=0, microsecond=0) + timedelta(days=1)
         # if isLog:
             # log.info(logMgr.Info(f"时间戳记录日期为{dt_object}"))
@@ -20,15 +20,15 @@ class Date:
     
     @staticmethod
     def IsNextMon4AM(timestamp, isLog = True):
-        dt_object = datetime.fromtimestamp(timestamp)
+        dtObject = datetime.fromtimestamp(timestamp)
         current_time = datetime.now()
-        if dt_object.weekday() == 0 and dt_object.hour < 4:
-            next_monday_4am = dt_object.replace(
+        if dtObject.weekday() == 0 and dtObject.hour < 4:
+            next_monday_4am = dtObject.replace(
                 hour=4, minute=0, second=0, microsecond=0)
         else:
             days_until_next_monday = (
-                7 - dt_object.weekday()) % 7 if dt_object.weekday() != 0 else 7
-            next_monday_4am = dt_object.replace(
+                7 - dtObject.weekday()) % 7 if dtObject.weekday() != 0 else 7
+            next_monday_4am = dtObject.replace(
                 hour=4, minute=0, second=0, microsecond=0) + timedelta(days=days_until_next_monday)
         # if isLog:
         #     log.info(logMgr.Info(f"时间戳记录日期为{dt_object}"))

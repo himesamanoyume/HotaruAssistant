@@ -27,7 +27,7 @@ class ConfigModule():
             with open(configPath, 'r', encoding='utf-8') as file:
                 tempLoadConfig = self.mYaml.load(file)
                 # 说明配置文件最后保存的时间戳比脚本中的要新,因此替换掉脚本中加载的配置文件
-                if tempLoadConfig['last_time_save_timestamp'] - self.mLastTimeSaveTimestamp >= 5:
+                if tempLoadConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] - self.mLastTimeSaveTimestamp >= 5:
                     self.mConfig.update(tempLoadConfig)
                     self.SaveConfig()
                     self.logMgr.Info("Config文件已重载")
@@ -35,7 +35,7 @@ class ConfigModule():
             self.logMgr.Error("Config文件未找到")
             self.SaveConfig()
         except Exception as e:
-            self.logMgr.Error(f"Error loading YAML config from {configPath}: {e}")
+            self.logMgr.Error(f"加载YAML配置文件 {configPath}出错: {e}")
 
     def SaveConfig(self):
         with open(self.mConfigPath, 'w', encoding='utf-8') as file:

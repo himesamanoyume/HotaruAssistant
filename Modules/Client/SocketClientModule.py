@@ -57,6 +57,9 @@ class SocketClientModule:
         elif level == 'ERROR':
             text = f"log|||\033[91m{level}\033[0m|{msg}"
             cls.serverSocket.send(text.encode())
+        elif level == 'DEBUG':
+            text = f"log|||\033[94m{level}\033[0m|{msg}"
+            cls.serverSocket.send(text.encode())
         else:
             text = f"log|||{level}|{msg}"
             cls.serverSocket.send(text.encode())

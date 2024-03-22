@@ -192,5 +192,5 @@ pyrightconfig.json
 /records/*
 /reg/*
 /*.bat
-/build_workflows.py
+/AppBuild.py
 /.history
