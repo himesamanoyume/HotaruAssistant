@@ -20,14 +20,11 @@ class ScreenMgr:
         self.reset = "\033[0m"
 
     def TakeScreenshot(self, crop=(0, 0, 0, 0)):
-        # """ 这种老是忘记return结果 """
-        # t = threading.Thread(target=self.ShowDetectArea, args=(crop, ))
-        # t.start()
         return self.mDetect.TakeScreenshot(crop)
 
     def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
         """ 这种老是忘记return结果 """
-        t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
+        t = threading.Thread(target=self.ShowMultiDetectArea, args=(crop, maxRetries,))
         t.start()
         return self.mDetect.GetSingleLineText(crop, blacklist, maxRetries)
 
@@ -85,14 +82,28 @@ class ScreenMgr:
 
     def ShowDetectArea(self, detectArea, maxRetries=1):
         if self.mDevScreen.isDevScreenRunning:
-            self.mDevScreen.canvas.delete('all')
-            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), maxRetries)
-            self.mDevScreen.canvas.delete('all')
+            try:
+                if not self.mDevScreen.tk is None:
+                    self.mDevScreen.canvas.delete('all')
+
+                self.mDevScreen.ShowDetectArea(detectArea)
+                time.sleep(maxRetries+3)
+
+                if not self.mDevScreen.tk is None:
+                    self.mDevScreen.canvas.delete('all')
+            except Exception as e:
+                log.error(logMgr.Error(f"canvas删除元素失败,:{e}"))
 
     def ShowMultiDetectArea(self, detectArea, maxRetries=1):
         if self.mDevScreen.isDevScreenRunning:
-            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), maxRetries)
-            self.mDevScreen.canvas.delete('all')
+            try:
+                self.mDevScreen.ShowDetectArea(detectArea)
+                time.sleep(maxRetries+3)
+                
+                if not self.mDevScreen.tk is None:
+                    self.mDevScreen.canvas.delete('all')
+            except Exception as e:
+                log.error(logMgr.Error(f"canvas删除元素失败:{e}"))
 
     @staticmethod
     def CheckAndSwitch(title):

@@ -1,6 +1,6 @@
 import pyautogui,tkinter,os,time
 from Hotaru.Client.LogClientHotaru import logMgr,log
-from Hotaru.Client.ConfigClientHotaru import configMgr
+from Hotaru.Client.DataClientHotaru import dataMgr
 from tkinter import *
 from Modules.Utils.GameWindow import GameWindow
 
@@ -16,7 +16,7 @@ class DetectDevScreenSubModule:
         temp3 = detectArea[3] * 1080
         detectArea = (temp2, temp3, temp0, temp1)
 
-        window = GameWindow.GetWindow(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME])
+        window = GameWindow.GetWindow(dataMgr.gameTitleName)
         if window:
             upBorder = GameWindow.GetWindowDevBorder(window)
             
@@ -24,6 +24,8 @@ class DetectDevScreenSubModule:
             self.canvas.create_rectangle(
                 detectArea[2] - 3, detectArea[3] + upBorder - 3, detectArea[2] + detectArea[0] + 3, detectArea[3] + detectArea[1] + upBorder + 3, outline="red", width=3
             )
+        else:
+            self.isDevScreenRunning = False
         
     def InitDevScreenLoop(self, window):
         if not window is None:
@@ -32,7 +34,7 @@ class DetectDevScreenSubModule:
                 try:
                     time.sleep(0.01)
                     screenshotPos = GameWindow.GetHonkaiWindowsInfo(window)
-                    if not screenshotPos:
+                    if not screenshotPos == False:
                         window_x = screenshotPos[0]
                         window_y = screenshotPos[1]
                         window_width = screenshotPos[2]
@@ -42,17 +44,21 @@ class DetectDevScreenSubModule:
                         log.debug(logMgr.Debug(f"未检测到游戏窗口,DevScreen将自动关闭"))
                         self.isDevScreenRunning = False
                         self.tk.destroy() 
+                        self.tk = None
                 except Exception as e:
                     log.debug(logMgr.Debug(f"DevScreen将自动关闭:{e}"))
                     self.isDevScreenRunning = False
                     self.tk.destroy()    
+                    self.tk = None
 
             self.tk = tkinter.Tk()
             self.tk.attributes("-topmost", 1)
             self.tk.title('Hotaru Assistant - SamDevScreen')
             self.isScreenshot = False
             self.selectionRect = None
+            time.sleep(2)
             if GameWindow.IsApplicationFullscreen(window):
+                log.debug(logMgr.Debug(f"DevScreen开启全屏模式"))
                 self.tk.overrideredirect(True)
 
             TRANSCOLOUR = 'gray'

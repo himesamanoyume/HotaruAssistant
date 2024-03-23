@@ -20,6 +20,7 @@ class DataClient:
     currentUniverseScore = 0
     maxCurrentUniverseScore = 1
     isDetectUniverseScoreAndFinished = False
+    gameTitleName = ''
     css = open("./assets/static/css/common.css", 'r', encoding='utf-8')
     htmlStyle = css.read()
     css.close()

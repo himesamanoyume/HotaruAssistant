@@ -3,11 +3,6 @@ import time,threading
 
 class Retry:
     @staticmethod
-    def ReThread(lambdaFunction, timeout = 10, repeatSleep = 1, *args, **kwargs):
-        t = threading.Thread(target=Retry.Re(lambdaFunction, timeout, repeatSleep, *args, **kwargs))
-        t.start()
-        
-    @staticmethod
     def Re(lambdaFunction, timeout = 10, repeatSleep = 1, *args, **kwargs):
         startTime = time.time()
         while time.time() - startTime < timeout:
@@ -20,5 +15,4 @@ class Retry:
                 log.error(logMgr.Error(f"重试报错: {e}"))
                     
             time.sleep(repeatSleep)
-        
-        return False
+        # return False

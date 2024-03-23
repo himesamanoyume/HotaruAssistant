@@ -16,7 +16,7 @@ class ScreenModule:
         if configMgr.mConfig[configMgr.mKey.DEV_SCREEN_ENABLE]:
             log.info(logMgr.Info("DevScreen正在等待开启"))
             while not dataMgr.currentAction == "临时流程":
-                window = GameWindow.GetWindow(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME])
+                window = GameWindow.GetWindow(dataMgr.gameTitleName)
                 if not window is False:
                     self.mDevScreen.InitDevScreenLoop(window)
                 else:

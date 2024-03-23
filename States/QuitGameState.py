@@ -12,11 +12,11 @@ class QuitGameState(BaseState):
     def OnBegin(self):
         log.info(logMgr.Info("开始退出游戏"))
         time.sleep(1)
-        if screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]):
+        if screenMgr.CheckAndSwitch(dataMgr.gameTitleName):
             time.sleep(1)
             if not QuitGameState.TerminateProcess(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME]):
                 time.sleep(5)
-                if screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]):
+                if screenMgr.CheckAndSwitch(dataMgr.gameTitleName):
                     log.info(logMgr.Info("游戏退出成功"))
                 else:
                     pyautogui.hotkey('alt', 'f4')

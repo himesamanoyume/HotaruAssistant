@@ -12,6 +12,7 @@ from Hotaru.Server.DataServerHotaru import dataMgr
 class AppServer:
     @staticmethod
     def Main():
+        os.system('cls' if os.name == 'nt' else 'clear')
         logMgr.Hr("HotaruAssistant - Server\n启动!")
         configMgr.IsAgreed2Disclaimer() # 联系着自动保存 不能注释
 

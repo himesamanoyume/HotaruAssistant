@@ -22,9 +22,9 @@ class GetFAndPInfoState(BaseState):
     def GetForgottenHallInfo():
         screenMgr.ChangeTo('guide4')
         # guide4_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
-        guide4_little_crop=(250.0 / 1920, 413.0 / 1080, 432.0 / 1920, 488.0 / 1080)
+        guide4LittleCrop=(250.0 / 1920, 413.0 / 1080, 432.0 / 1920, 488.0 / 1080)
         # little_crop指第一行不在范围内的坐标
-        if screenMgr.ClickElement("忘却之庭", "text", maxRetries=20, crop=guide4_little_crop):
+        if screenMgr.ClickElement("忘却之庭", "text", maxRetries=20, crop=guide4LittleCrop):
             time.sleep(1)
             countdownTextCrop=(1484.0 / 1920, 556.0 / 1080, 135.0 / 1920, 27.0 / 1080)
             levelTextCrop=(1312.0 / 1920, 641.0 / 1080, 95.0 / 1920, 31.0 / 1080)
@@ -54,9 +54,9 @@ class GetFAndPInfoState(BaseState):
     def GetPureFictionInfo():
         screenMgr.ChangeTo('guide4')
         # guide4_crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
-        guide4_little_crop=(250.0 / 1920, 413.0 / 1080, 432.0 / 1920, 488.0 / 1080)
+        guide4LittleCrop=(250.0 / 1920, 413.0 / 1080, 432.0 / 1920, 488.0 / 1080)
         # little_crop指第一行不在范围内的坐标
-        if screenMgr.ClickElement("虚构叙事", "text", maxRetries=20, crop=guide4_little_crop):
+        if screenMgr.ClickElement("虚构叙事", "text", maxRetries=20, crop=guide4LittleCrop):
             time.sleep(1)
             countdownTextCrop=(1484.0 / 1920, 556.0 / 1080, 135.0 / 1920, 27.0 / 1080)
             levelTextCrop=(1312.0 / 1920, 641.0 / 1080, 95.0 / 1920, 31.0 / 1080)

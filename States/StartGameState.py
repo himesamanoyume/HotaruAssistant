@@ -38,7 +38,7 @@ class StartGameState(BaseState):
     @staticmethod
     def IsGameRunning():
         log.info(logMgr.Info("判断是否已经启动"))
-        if not screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]):
+        if not screenMgr.CheckAndSwitch(dataMgr.gameTitleName):
             if not StartGameState.LaunchGame():
                 log.error(logMgr.Error("游戏启动失败，退出游戏进程"))
                 # GameControlModule.StopGame()
@@ -54,7 +54,7 @@ class StartGameState(BaseState):
                 configMgr.mConfig.SetValue(configMgr.mKey.GAME_PATH, programPath)
                 log.info(logMgr.Info(f"游戏路径更新成功：{programPath}"))
 
-            screenMgr.CheckResulotion(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME], 1920, 1080)
+            screenMgr.CheckResulotion(dataMgr.gameTitleName, 1920, 1080)
         return True
     
     @staticmethod
@@ -66,11 +66,11 @@ class StartGameState(BaseState):
             return False
             
         time.sleep(20)
-        if not Retry.Re(lambda: screenMgr.CheckAndSwitch(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]), 180, 1):
+        if not Retry.Re(lambda: screenMgr.CheckAndSwitch(dataMgr.gameTitleName), 180, 1):
             log.error(logMgr.Error("无法切换到游戏"))
             return False
         
-        screenMgr.CheckResulotion(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME], 1920, 1080)
+        screenMgr.CheckResulotion(dataMgr.gameTitleName, 1920, 1080)
 
         if not Retry.Re(lambda: StartGameState.CheckAndClickEnter(), 60, 2):
             log.error(logMgr.Error("无法找到点击进入按钮"))

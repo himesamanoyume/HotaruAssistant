@@ -13,22 +13,22 @@ class BaseUniverseState(BaseState):
         screenMgr.ChangeTo("universe_main")
         time.sleep(2)
         # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
-        if screenMgr.FindElement("./assets/images/screen/universe/universe_score.png", "image", 0.9, maxRetries=10):
+        if screenMgr.FindElement("./assets/images/screen/universe/universe_score.png", "image", 0.9, maxRetries=3):
             log.info(logMgr.Info("检测到模拟宇宙本周首次进入界面"))
             time.sleep(1)
             currentScore, maxScore = BaseUniverseState.GetUniverseScore()
-            screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=10)
+            screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3)
 
-        elif screenMgr.ClickElement("./assets/images/universe/universe_reward.png", "image", 0.9, maxRetries=10):
+        elif screenMgr.ClickElement("./assets/images/universe/universe_reward.png", "image", 0.9, maxRetries=3):
             log.info(logMgr.Info("正在点开积分界面"))
             time.sleep(1)
             currentScore, maxScore = BaseUniverseState.GetUniverseScore()
-            if screenMgr.ClickElement("./assets/images/universe/one_key_receive.png", "image", 0.9, maxRetries=10):
+            if screenMgr.ClickElement("./assets/images/universe/one_key_receive.png", "image", 0.9, maxRetries=3):
                 time.sleep(0.5)
-                if screenMgr.FindElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=10):
+                if screenMgr.FindElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3):
                     time.sleep(0.5)
                     log.info(logMgr.Info("🎉模拟宇宙积分奖励已领取🎉"))
-                    screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=10)
+                    screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3)
         
         return currentScore, maxScore
 
