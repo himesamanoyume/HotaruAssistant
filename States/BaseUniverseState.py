@@ -49,6 +49,8 @@ class BaseUniverseState(BaseState):
             if int(currentScore) == int(maxScore):
                 log.info(logMgr.Info(f"模拟宇宙积分已满"))
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataMgr.currentUid] = True
+                dataMgr.isDetectUniverseScoreAndFinished = True
+                configMgr.SaveTimestampByUid(configMgr.mKey.UNIVERSE_TIMESTAMP, dataMgr.currentUid)
             else:
                 log.info(logMgr.Info(f"模拟宇宙积分未满"))
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataMgr.currentUid] = False

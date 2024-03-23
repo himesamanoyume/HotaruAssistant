@@ -20,6 +20,7 @@ class ScreenModule:
                 if not window is False:
                     self.mDevScreen.InitDevScreenLoop(window)
                 else:
+                    self.mDevScreen.isDevScreenRunning = False
                     log.warning(logMgr.Warning("未获取到游戏窗口,DevScreen无法开启"))
                         
                 log.info(logMgr.Info("等待窗口..."))

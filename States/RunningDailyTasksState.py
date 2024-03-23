@@ -43,7 +43,7 @@ class RunningDailyTasksState(BaseState):
         log.info(logMgr.Info(f"已完成:\033[93m{count}/{len(configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid])}\033[0m"))
         BaseState.CalcDailyTasksScore()
 
-        log.hr(logMgr.Hr("每日部分结束"), 2)
+        log.hr(logMgr.Hr("完成日常任务部分结束"), 2)
 
     def OnRunning(self):
         return False

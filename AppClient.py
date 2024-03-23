@@ -31,9 +31,6 @@ class AppClient:
 
         screenLoopThread = threading.Thread(target=screenMgr.StartDevScreen)
         screenLoopThread.start()
-        
-        # input("按回车键关闭窗口. . .")
-        # sys.exit(0)
 
     def HotaruAssistantLoop(self):
         log.info(logMgr.Info("开始初始化循环列表"))
@@ -116,29 +113,66 @@ class AppClient:
                             else:
                                 continue
 
-                    log.info(logMgr.Info(f"运行命令: cmd /C REG IMPORT {regStr}"))
+                    # log.info(logMgr.Info(f"运行命令: cmd /C REG IMPORT {regStr}"))
 
-                    if os.system(f"cmd /C REG IMPORT {regStr}"):
-                        input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
-                        return False
+                    # if os.system(f"cmd /C REG IMPORT {regStr}"):
+                    #     input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
+                    #     return False
                     
-                    if taskMgr.StartGame():
-                        if count == 1:
-                            if selectedAction == 'daily':
-                                dataMgr.currentAction = "每日任务流程"
-                                taskMgr.StartDaily()
-                            elif selectedAction == 'universe':
-                                dataMgr.currentAction = "模拟宇宙流程"
-                                taskMgr.StartUniverse()
-                        else:
-                            if turn == 0:
-                                dataMgr.currentAction = "每日任务流程"
-                                taskMgr.StartDaily()
-                            else:
-                                dataMgr.currentAction = "模拟宇宙流程"
-                                taskMgr.StartUniverse()
+                    # if taskMgr.StartGame():
+                    #     if count == 1:
+                    #         if selectedAction == 'daily':
+                    #             dataMgr.currentAction = "每日任务流程"
+                    #             taskMgr.StartDaily()
+                    #         elif selectedAction == 'universe':
+                    #             dataMgr.currentAction = "模拟宇宙流程"
+                    #             taskMgr.StartUniverse()
+                    #     else:
+                    #         if turn == 0:
+                    #             dataMgr.currentAction = "每日任务流程"
+                    #             taskMgr.StartDaily()
+                    #         else:
+                    #             if not dataMgr.isDetectUniverseScoreAndFinish:
+                    #                 dataMgr.currentAction = "模拟宇宙流程"
+                    #                 taskMgr.StartUniverse()
+                    
+                    if count == 1:
 
-                    # input("按回车退出游戏") # temp
+                        log.info(logMgr.Info(f"运行命令: cmd /C REG IMPORT {regStr}"))
+                        if os.system(f"cmd /C REG IMPORT {regStr}"):
+                            input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
+                            return False
+                        if selectedAction == 'daily':
+                            if taskMgr.StartGame():
+                                dataMgr.currentAction = "每日任务流程"
+                                taskMgr.StartDaily()
+                        elif selectedAction == 'universe':
+                            if taskMgr.StartGame():
+                                dataMgr.currentAction = "模拟宇宙流程"
+                                taskMgr.StartUniverse()
+                    else:
+                        if turn == 0:
+
+                            log.info(logMgr.Info(f"运行命令: cmd /C REG IMPORT {regStr}"))
+                            if os.system(f"cmd /C REG IMPORT {regStr}"):
+                                input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
+                                return False
+                            if taskMgr.StartGame():
+                                dataMgr.currentAction = "每日任务流程"
+                                taskMgr.StartDaily()
+                        else:
+                            if not dataMgr.isDetectUniverseScoreAndFinished:
+
+                                log.info(logMgr.Info(f"运行命令: cmd /C REG IMPORT {regStr}"))
+                                if os.system(f"cmd /C REG IMPORT {regStr}"):
+                                    input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
+                                    return False
+                                if taskMgr.StartGame():
+                                    dataMgr.currentAction = "模拟宇宙流程"
+                                    taskMgr.StartUniverse()
+
+                                dataMgr.isDetectUniverseScoreAndFinished = False
+
                     taskMgr.QuitGame(uidStr2, lastUID)
 
             taskMgr.WaitForNextLoop()

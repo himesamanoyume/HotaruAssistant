@@ -45,7 +45,7 @@ class DailyEchoOfWarState(BaseFightState, BaseState):
                         log.info(logMgr.Info(f"历战余响本周可领取奖励次数：{text}"))
                         rewardCount = int(text.split("/")[0])
 
-                        configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_ENABLE][dataMgr.currentUid] = rewardCount
+                        configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_TIMES][dataMgr.currentUid] = rewardCount
                         return rewardCount
         else:
             return False

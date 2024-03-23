@@ -38,7 +38,7 @@ class SocketServerModule:
                     break
                 cls.LogHeadHandle(data.decode('utf-8'), clientSocket)
             except Exception as e:
-                logMgr.Error(f"发生异常:{e}")
+                logMgr.Error(f"处理Client消息发生异常:{e}")
                 return
     
     @staticmethod
@@ -48,7 +48,19 @@ class SocketServerModule:
             
     @classmethod
     def LogHeadHandle(cls, msg:str, clientSocket):
-        head, content = msg.split("|||")
+        temp = msg.split("|||")
+        head = temp[0]
+        content = temp[1]
+        if len(temp) > 2 and len(temp) % 2 == 0:
+            for i in range(len(temp) - 2):
+                if temp[i+2] in ["log"]:
+                    logMgr.Socket(f"{temp[i+3]}")
+                    return
+                elif temp[i+2] in ["heart"]:
+                    # print(f"收到客户端{data.clientDict[clientSocket]}心跳")
+                    cls.HeartSendToClient(clientSocket)
+                    return
+        
         if head in ["log"]:
             logMgr.Socket(f"{content}")
             return

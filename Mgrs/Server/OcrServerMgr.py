@@ -10,6 +10,7 @@ else:
 
 class OcrServerMgr:
     mInstance = None
+    """ Server端的OCR仅用来检查路径 """
     
     def __new__(cls):
         if cls.mInstance is None:

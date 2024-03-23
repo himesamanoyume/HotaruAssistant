@@ -54,7 +54,6 @@ class ConfigModule():
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
-                self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
                 self.ReloadConfig()
                 self.mLastTimeModifyTimestamp = nowTime
             self.logMgr.Info(f"config: {key}被修改")
@@ -68,7 +67,6 @@ class ConfigModule():
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
-                self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
                 self.ReloadConfig()
                 self.mLastTimeModifyTimestamp = nowTime
 
@@ -131,7 +129,6 @@ class ConfigModule():
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
-                self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
                 self.LoadConfig("./config.yaml")
                 self.mLastTimeModifyTimestamp = nowTime
 
@@ -145,7 +142,6 @@ class ConfigModule():
 
             nowTime = time.time()
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
-                self.logMgr.Debug(f"config: nowtime:{nowTime}, mLastTimeModifyTimestamp: {self.mLastTimeModifyTimestamp}")
                 self.LoadConfig("./config.yaml")
                 self.mLastTimeModifyTimestamp = nowTime
 

@@ -3,6 +3,8 @@ from Hotaru.Client.LogClientHotaru import log,logMgr
 from Hotaru.Client.OcrHotaru import ocrMgr
 from .ClickScreenSubModule import ClickScreenSubModule
 from Modules.Utils.GameWindow import GameWindow
+from Hotaru.Client.DataClientHotaru import dataMgr
+from Hotaru.Client.ConfigClientHotaru import configMgr
 
 class DetectScreenModule:
 
@@ -45,6 +47,39 @@ class DetectScreenModule:
                     max_loc = local_max_loc
 
         return max_val, max_loc
+    
+    def ClickElementQuest(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, need_ocr=True, source=None, offset=(0, 0)):
+        coordinates = self.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot,
+                                        relative, scaleRange, include, need_ocr, source)
+        if coordinates:
+            log.warning(logMgr.Warning("检测到每日任务待领取"))
+            return self.ClickElementWithPosQuest(coordinates, offset)
+        return False
+    
+    def ClickElementWithPosQuest(self, coordinates, offset=(0, 0), action="click"):
+        self.TakeScreenshot(crop=(297.0 / 1920, 478.0 / 1080, 246.0 / 1920, 186.0 / 1080))
+        time.sleep(2)
+        result = ocrMgr.mOcr.RecognizeMultiLines(self.screenshot)
+        result_keyword = result[0][1][0]
+        time.sleep(0.5)
+        for mappingsKeyword, taskName in dataMgr.meta["task_mappings"].items():
+            if mappingsKeyword in result_keyword:
+                if taskName in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid][taskName] == True:
+                    configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid][taskName] = False
+                    log.warning(logMgr.Warning(f"keyword:{mappingsKeyword}----->{taskName}:进行了点击,任务已经完成"))
+                else:
+                    log.warning(logMgr.Warning(f"keyword:{mappingsKeyword}----->{taskName}:进行了点击,但可能配置项中之前已完成修改或未识别成功"))
+                break
+        (left, top), (right, bottom) = coordinates
+        x = (left + right) // 2 + offset[0]
+        y = (top + bottom) // 2 + offset[1]
+        if action == "click":
+            self.mouseClick(x, y)
+        elif action == "down":
+            self.mouseDown(x, y)
+        elif action == "move":
+            self.mouseMove(x, y)
+        return True
     
     def FindElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
         # 参数有些太多了，以后改

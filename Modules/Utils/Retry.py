@@ -12,7 +12,7 @@ class Retry:
         startTime = time.time()
         while time.time() - startTime < timeout:
             try:
-                log.debug(logMgr.Debug(f"正在调用Re:{lambdaFunction}"))
+                # log.debug(logMgr.Debug(f"正在调用Re:{lambdaFunction}"))
                 result = lambdaFunction(*args, **kwargs)
                 if result:
                     return result

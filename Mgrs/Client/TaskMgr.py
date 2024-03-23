@@ -16,6 +16,7 @@ from States.DailyClearPowerState import DailyClearPowerState
 from States.GetUniverseInfoState import GetUniverseInfoState
 from States.GetRelicsInfoState import GetRelicsInfoState
 from States.GetFAndPInfoState import GetFAndPInfoState
+from States.DailyGetRewardState import DailyGetRewardState
 
 class TaskMgr:
     mInstance = None
@@ -63,6 +64,7 @@ class TaskMgr:
                 stateMgr.Transition(GetPowerInfoState())
             # 清体力
             stateMgr.Transition(DailyClearPowerState())
+            stateMgr.Transition(DailyGetRewardState())
             # 获取体力信息
             stateMgr.Transition(GetPowerInfoState())
             # 获取模拟宇宙积分信息

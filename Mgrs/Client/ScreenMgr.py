@@ -20,9 +20,9 @@ class ScreenMgr:
         self.reset = "\033[0m"
 
     def TakeScreenshot(self, crop=(0, 0, 0, 0)):
-        """ 这种老是忘记return结果 """
-        t = threading.Thread(target=self.ShowDetectArea, args=(crop, ))
-        t.start()
+        # """ 这种老是忘记return结果 """
+        # t = threading.Thread(target=self.ShowDetectArea, args=(crop, ))
+        # t.start()
         return self.mDetect.TakeScreenshot(crop)
 
     def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
@@ -37,7 +37,13 @@ class ScreenMgr:
         t.start()
         return self.mDetect.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, pixelBgr)
     
-    def FindMultiElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
+    def ClickElementQuest(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, offset=(0, 0)):
+        """ 这种老是忘记return结果 """
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
+        t.start()
+        return self.mDetect.ClickElementQuest(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, offset)
+
+    def FindElementWithShowMultiArea(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
         """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowMultiDetectArea, args=(crop, maxRetries,))
         t.start()
@@ -80,12 +86,12 @@ class ScreenMgr:
     def ShowDetectArea(self, detectArea, maxRetries=1):
         if self.mDevScreen.isDevScreenRunning:
             self.mDevScreen.canvas.delete('all')
-            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), maxRetries + 1)
+            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), maxRetries)
             self.mDevScreen.canvas.delete('all')
 
     def ShowMultiDetectArea(self, detectArea, maxRetries=1):
         if self.mDevScreen.isDevScreenRunning:
-            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), maxRetries + 1)
+            Retry.Re(lambda: self.mDevScreen.ShowDetectArea(detectArea), maxRetries)
             self.mDevScreen.canvas.delete('all')
 
     @staticmethod

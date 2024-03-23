@@ -17,12 +17,13 @@ class DetectDevScreenSubModule:
         detectArea = (temp2, temp3, temp0, temp1)
 
         window = GameWindow.GetWindow(configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME])
-        upBorder = GameWindow.GetWindowDevBorder(window)
-        
-        log.debug(logMgr.Debug(f"正在显示检测区域: ({temp0}, {temp1}, {temp2}, {temp3})"))
-        self.canvas.create_rectangle(
-            detectArea[2] - 3, detectArea[3] + upBorder - 3, detectArea[2] + detectArea[0] + 3, detectArea[3] + detectArea[1] + upBorder + 3, outline="red", width=3
-        )
+        if window:
+            upBorder = GameWindow.GetWindowDevBorder(window)
+            
+            log.debug(logMgr.Debug(f"正在显示检测区域: ({temp0}, {temp1}, {temp2}, {temp3})"))
+            self.canvas.create_rectangle(
+                detectArea[2] - 3, detectArea[3] + upBorder - 3, detectArea[2] + detectArea[0] + 3, detectArea[3] + detectArea[1] + upBorder + 3, outline="red", width=3
+            )
         
     def InitDevScreenLoop(self, window):
         if not window is None:
@@ -31,13 +32,19 @@ class DetectDevScreenSubModule:
                 try:
                     time.sleep(0.01)
                     screenshotPos = GameWindow.GetHonkaiWindowsInfo(window)
-                    window_x = screenshotPos[0]
-                    window_y = screenshotPos[1]
-                    window_width = screenshotPos[2]
-                    window_height = screenshotPos[3]
-                    self.tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
+                    if not screenshotPos:
+                        window_x = screenshotPos[0]
+                        window_y = screenshotPos[1]
+                        window_width = screenshotPos[2]
+                        window_height = screenshotPos[3]
+                        self.tk.geometry(f'{window_width}x{window_height}+{window_x}+{window_y}')
+                    else:
+                        log.debug(logMgr.Debug(f"未检测到游戏窗口,DevScreen将自动关闭"))
+                        self.isDevScreenRunning = False
+                        self.tk.destroy() 
                 except Exception as e:
-                    log.debug(logMgr.Debug(f"窗口将自动关闭:{e}"))
+                    log.debug(logMgr.Debug(f"DevScreen将自动关闭:{e}"))
+                    self.isDevScreenRunning = False
                     self.tk.destroy()    
 
             self.tk = tkinter.Tk()
@@ -45,6 +52,8 @@ class DetectDevScreenSubModule:
             self.tk.title('Hotaru Assistant - SamDevScreen')
             self.isScreenshot = False
             self.selectionRect = None
+            if GameWindow.IsApplicationFullscreen(window):
+                self.tk.overrideredirect(True)
 
             TRANSCOLOUR = 'gray'
             self.tk.wm_attributes('-transparentcolor', TRANSCOLOUR)

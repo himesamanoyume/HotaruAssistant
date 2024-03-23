@@ -11,21 +11,21 @@ class BaseFightState(BaseRelicState, BaseState):
 
     @staticmethod
     def WaitFight(instanceName):
-        if screenMgr.FindMultiElement("./assets/images/fight/fight_again.png", "image", 0.9):
+        if screenMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_again.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗结束"))
             return True
         
-        if screenMgr.FindMultiElement("./assets/images/fight/fight_fail.png", "image", 0.9):
+        if screenMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_fail.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗失败/重试"))
             nowtime = time.time()
             log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战斗超时或战败"))
             raise Exception(f"{nowtime},挑战{instanceName}时战斗超时或战败")
         
-        if not screenMgr.FindMultiElement("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+        if not screenMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
             log.info(logMgr.Info("尝试开启二倍速"))
             screenMgr.PressKey("b")
 
-        if not screenMgr.FindMultiElement("./assets/images/base/not_auto.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080), maxRetries=5):
+        if not screenMgr.FindElementWithShowMultiArea("./assets/images/base/not_auto.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
             log.info(logMgr.Info("尝试开启自动战斗"))
             screenMgr.PressKey("v")
 
