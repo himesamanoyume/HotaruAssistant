@@ -166,7 +166,7 @@ class Relics:
                 Relics.rubbish_relic()
         elif propCount == 4 and usefulPropCount == 0:
             Relics.rubbish_relic()
-        elif propCount == 4 and usefulPropCount == 1:
+        elif propCount == 4 and usefulPropCount == 1: # 主词条也会被算在有效词条中导致4词条的主词条双暴衣被标记胚子,副词条垃圾，为
             if relicPart in '躯干' and mainPropName in ['暴击率','暴击伤害']:
                 logger.warning(gu(f"发现躯干胚子"))
                 Relics.create_relic_content(relicName, relicPart, relicList)

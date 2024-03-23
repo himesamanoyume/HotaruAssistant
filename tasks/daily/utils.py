@@ -100,8 +100,8 @@ class Utils:
             Utils._uid = auto.get_single_line_text(crop=uid_crop, blacklist=[], max_retries=9)
             if Utils._uid == None:
                 nowtime = time.time()
-                logger.error(getUid(f"{nowtime},读取UID错误:{e}"))
-                raise Exception(f"{nowtime},读取UID错误:{e}")
+                logger.error(getUid(f"读取UID错误"))
+                raise Exception(f"读取UID错误")
             Utils._content = dict()
             Utils._temp = ''
             Utils._power = 250
