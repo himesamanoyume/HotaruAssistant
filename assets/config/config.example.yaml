@@ -85,7 +85,7 @@ last_run_timestamp: {} # 上次运行日常的时间戳
 universe_bonus_enable: {} # 是否领取沉浸奖励
 universe_fin: {} # 是否模拟宇宙满分
 universe_score: {} # 模拟宇宙积分
-universe_count: 2 # 运行次数
+universe_count: 2 # 运行次数,基本弃用
 universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
 universe_timeout: 0.67 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）

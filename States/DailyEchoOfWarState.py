@@ -1,5 +1,5 @@
 from States import *
-import time, datetime
+import time
 from .BaseFightState import BaseFightState
 
 class DailyEchoOfWarState(BaseFightState, BaseState):
@@ -9,9 +9,9 @@ class DailyEchoOfWarState(BaseFightState, BaseState):
     def OnBegin(self):
         log.hr(logMgr.Hr("进入历战余响部分"), 2)
         if configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_ENABLE][dataMgr.currentUid]:
-            rewardCount = DailyEchoOfWarState.EchoOfWarGetTimes()
+            rewardCount = self.EchoOfWarGetTimes()
             if rewardCount > 0:
-                DailyEchoOfWarState.EchoOfWarStart(rewardCount)
+                self.EchoOfWarStart(rewardCount)
             else:
                 if not Date.IsNextMon4AM(configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_TIMESTAMP][dataMgr.currentUid], dataMgr.currentUid):
                     log.info(logMgr.Info("历战余响尚\033[91m未刷新\033[0m"))
@@ -50,8 +50,7 @@ class DailyEchoOfWarState(BaseFightState, BaseState):
         else:
             return False
                     
-    @staticmethod
-    def EchoOfWarStart(rewardCount):
+    def EchoOfWarStart(self, rewardCount):
         try:
             log.hr(logMgr.Hr("准备历战余响"), 2)
             maxCount = dataMgr.currentPower // 30
@@ -62,7 +61,7 @@ class DailyEchoOfWarState(BaseFightState, BaseState):
                 configMgr.SaveTimestampByUid(configMgr.mKey.ECHO_OF_WAR_TIMESTAMP, dataMgr.currentUid)
 
             # Utils._temp += "<p>"+f'历战余响 - {config.instance_names[Utils.get_uid()]["历战余响"]} - 1次</p>'
-            return BaseFightState.RunInstances("历战余响", configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.currentUid]["历战余响"], 30, min(rewardCount, maxCount))
+            return self.RunInstances("历战余响", configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.currentUid]["历战余响"], 30, min(rewardCount, maxCount))
         except Exception as e:
             log.error(logMgr.Error(f"历战余响失败: {e}"))
             return False

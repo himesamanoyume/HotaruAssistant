@@ -227,12 +227,14 @@ class BaseRelicState(BaseState):
             dataMgr.currentRelicCount = int(relicCountText)
             if dataMgr.currentRelicCount >= configMgr.mConfig[configMgr.mKey.RELIC_THRESHOLD_COUNT][dataMgr.currentUid]:
                 log.warning(logMgr.Warning("检测到遗器数量超标"))
-                BaseRelicState.SalvageRelics()
-                BaseRelicState.DetectRelicCount()
+                if not BaseRelicState.SalvageRelics():
+                    BaseRelicState.DetectRelicCount()
+                else:
+                    return True
 
         except Exception as e:
             log.error(logMgr.Error(f"检测遗器数量失败: {e}"))
-        return False
+        return True
     
     @staticmethod
     def SalvageRelics():
@@ -241,7 +243,7 @@ class BaseRelicState(BaseState):
             # screen.get_current_screen()
             if not configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_ENABLE][dataMgr.currentUid]:
                 log.info(logMgr.Info("检测到分解遗器未开启,跳过分解遗器"))
-                return
+                return True
             screenMgr.ChangeTo('bag_relics')
             if screenMgr.ClickElement("分解", "text", max_retries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
                 if screenMgr.ClickElement("分解", "text", max_retries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
@@ -282,10 +284,11 @@ class BaseRelicState(BaseState):
                                             time.sleep(1)
                                             log.info(logMgr.Info(f"分解遗器{count}件完成"))
                                             screenMgr.ChangeTo('main')
-                                            return True
+                                            return False
                             else:
                                 log.error(logMgr.Error("分解遗器失败: 没有多余的遗器可供分解"))
                                 screenMgr.ChangeTo('main')
+                                return True
                 log.error(logMgr.Error("分解遗器失败"))
                 return True
         except Exception as e:

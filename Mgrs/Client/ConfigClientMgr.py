@@ -37,6 +37,6 @@ class ConfigClientMgr:
         while True:
             time.sleep(4)
             nowtime = time.time()
-            if nowtime - self.mConfig.mLastTimeSaveTimestamp >= 5 and nowtime - self.mConfig.mLastTimeModifyTimestamp <= 5:
+            if nowtime - self.mConfig.mLastTimeSaveTimestamp >= 5 and nowtime - self.mConfig.mLastTimeModifyTimestamp <= 10:
                 self.mConfig.SaveConfig()
                 logMgr.Info("Client:配置文件进行自动保存")

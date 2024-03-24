@@ -200,6 +200,5 @@ pyrightconfig.json
 /AppServer.py
 /Mgrs/Server/*
 /Modules/Server/*
-/Modules/Utils/Command.py
 /Modules/Utils/FastestMirror.py
 /Modules/Utils/PythonChecker.py

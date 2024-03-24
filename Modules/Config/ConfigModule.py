@@ -2,7 +2,7 @@
 from ruamel.yaml import YAML
 from . import *
 from Modules.Utils.ConfigKey import ConfigKey
-import time
+import time,threading
 
 class ConfigModule():
 
@@ -125,25 +125,25 @@ class ConfigModule():
                         
     def __getitem__(self, attr):
         if attr in self.mConfig:
-            self.ReloadConfig()
-
-            nowTime = time.time()
-            if nowTime - self.mLastTimeModifyTimestamp >= 5:
-                self.LoadConfig("./config.yaml")
-                self.mLastTimeModifyTimestamp = nowTime
+            
+            t = threading.Thread(target=self.SetTimestamp)
+            t.start()
 
             self.logMgr.Debug(f"config: {attr}被获取")
             return self.mConfig[attr]
         raise AttributeError(f"'{type(self).__name__}' object has no attribute '{attr}'")
+    
+    def SetTimestamp(self):
+        self.nowTime = time.time()
+        if self.nowTime - self.mLastTimeModifyTimestamp >= 5:
+            self.ReloadConfig()
+            self.mLastTimeModifyTimestamp = self.nowTime
                         
     def __getattr__(self, attr):
         if attr in self.mConfig:
-            self.ReloadConfig()
 
-            nowTime = time.time()
-            if nowTime - self.mLastTimeModifyTimestamp >= 5:
-                self.LoadConfig("./config.yaml")
-                self.mLastTimeModifyTimestamp = nowTime
+            t = threading.Thread(target=self.SetTimestamp)
+            t.start()
 
             self.logMgr.Debug(f"config: {attr}被获取")
             return self.mConfig[attr]

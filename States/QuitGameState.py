@@ -14,7 +14,7 @@ class QuitGameState(BaseState):
         time.sleep(1)
         if screenMgr.CheckAndSwitch(dataMgr.gameTitleName):
             time.sleep(1)
-            if not QuitGameState.TerminateProcess(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME]):
+            if not self.TerminateProcess(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME]):
                 time.sleep(5)
                 if screenMgr.CheckAndSwitch(dataMgr.gameTitleName):
                     log.info(logMgr.Info("游戏退出成功"))

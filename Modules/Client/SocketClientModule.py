@@ -67,7 +67,7 @@ class SocketClientModule:
     @classmethod
     def HeartSendToServer(cls):
         time.sleep(5)
-        text = f"heart|||ClientOnline"
+        text = f"heart|||ClientOnlie"
         cls.serverSocket.send(text.encode())
 
         

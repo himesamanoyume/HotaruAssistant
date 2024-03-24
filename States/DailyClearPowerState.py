@@ -1,8 +1,7 @@
 from States import *
 from .BaseFightState import BaseFightState
-from .BaseRelicState import BaseRelicState
 
-class DailyClearPowerState(BaseRelicState, BaseState):
+class DailyClearPowerState(BaseFightState, BaseState):
 
     mStateName = 'DailyClearPowerState'
 
@@ -18,8 +17,8 @@ class DailyClearPowerState(BaseRelicState, BaseState):
                 log.info(logMgr.Info(f"跳过清体力,{configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataMgr.currentUid][0]}未开启"))
                 return False
         
-        BaseRelicState.DetectRelicCount()
-        BaseRelicState.SkipForRelicCount()
+        self.DetectRelicCount()
+        self.SkipForRelicCount()
 
         if dataMgr.currentPower <= 9:
             log.info(logMgr.Info(f"跳过清体力,体力太低"))
@@ -45,7 +44,7 @@ class DailyClearPowerState(BaseRelicState, BaseState):
         # Utils._temp += "<p>"+f'{instanceType} - {instanceName} - {number}次</p>'
 
         log.hr(logMgr.Hr(f"开始刷{instanceType} - {instanceName}，总计{totalNumber}次"), 2)
-        BaseFightState.RunInstances(instanceType, instanceName, powerNeed, totalNumber)
+        self.RunInstances(instanceType, instanceName, powerNeed, totalNumber)
         log.hr(logMgr.Hr("完成"), 2)
 
     def OnRunning(self):

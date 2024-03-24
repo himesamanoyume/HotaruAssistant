@@ -14,6 +14,7 @@ class InitDailyTasksState(BaseFightState, BaseState):
                 "累计消灭20个敌人": lambda: InitDailyTasksState.HimekoTryBeat20Enemies()
             }
         else:
+            log.warning(logMgr.Warning("跳过每日任务流程"))
             return True
 
     def OnRunning(self):

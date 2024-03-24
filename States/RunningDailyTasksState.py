@@ -27,7 +27,7 @@ class RunningDailyTasksState(BaseState):
                         # RunningDailyTasksState.ShowDailyTasksScore(taskName)
                         if taskName in dataMgr.meta['task_score_mappings'].keys():
                             log.info(logMgr.Info(f"{taskName}的活跃度为{dataMgr.meta['task_score_mappings'][taskName]}"))
-                            BaseState.CalcDailyTasksScore()                  
+                            self.CalcDailyTasksScore()                  
                     else:
                         if not configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
                             log.warning(logMgr.Warning(f"【{taskName}】可能对应选项\033[91m未开启\033[0m,请自行解决"))
@@ -41,7 +41,7 @@ class RunningDailyTasksState(BaseState):
             count = count + 1 if not value else count
 
         log.info(logMgr.Info(f"已完成:\033[93m{count}/{len(configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid])}\033[0m"))
-        BaseState.CalcDailyTasksScore()
+        self.CalcDailyTasksScore()
 
         log.hr(logMgr.Hr("完成日常任务部分结束"), 2)
 

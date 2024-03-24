@@ -29,7 +29,9 @@ class StateMgr:
         # 当OnBegin中返回值为True时,意味着该状态被强行打断,将不会执行OnRunning
         if not not2NextState:
             time.sleep(0.2)
-            cls.mCurrentState.OnRunning()
-            time.sleep(0.2)
+            if not cls.mCurrentState.OnRunning():
+                time.sleep(0.2)
+            else:
+                return True
         else:
             return not2NextState

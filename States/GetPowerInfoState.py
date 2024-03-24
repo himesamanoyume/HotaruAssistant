@@ -16,10 +16,10 @@ class GetPowerInfoState(BaseState):
                 if screenMgr.FindElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=10):
                     # 开启使用后备开拓力
                     if configMgr.mConfig[configMgr.mKey.USE_RESERVED_TRAILBLAZE_POWER][dataMgr.currentUid] and screenMgr.ClickElement("./assets/images/share/trailblaze_power/reserved_trailblaze_power.png", "image", 0.9, scaleRange=(0.95, 0.95)):
-                        GetPowerInfoState.MoveButtonAndConfirm()
+                        self.MoveButtonAndConfirm()
                     # 开启使用燃料
                     elif configMgr.mConfig[configMgr.mKey.USE_FUEL][dataMgr.currentUid] and screenMgr.ClickElement("./assets/images/share/trailblaze_power/fuel.png", "image", 0.9, scaleRange=(0.95, 0.95)):
-                        GetPowerInfoState.MoveButtonAndConfirm()
+                        self.MoveButtonAndConfirm()
                     # # 开启使用星琼
                     # elif config.stellar_jade and auto.click_element("./assets/images/share/trailblaze_power/stellar_jade.png", "image", 0.9, scaleRange=(0.95, 0.95)):
                     #     pass
@@ -27,10 +27,10 @@ class GetPowerInfoState(BaseState):
                         screenMgr.PressKey("esc")
 
         screenMgr.ChangeTo('map')
-        dataMgr.currentPower = GetPowerInfoState.GetPower(trailblazePowerCrop)
+        dataMgr.currentPower = self.GetPower(trailblazePowerCrop)
         log.info(logMgr.Info(f"🟣开拓力: {dataMgr.currentPower}"))
         # Utils._content.update({'new_power':f'{dataMgr.currentPower}'})
-        log.info(logMgr.Info(f"开拓力回满时间为:{GetPowerInfoState.GetFullPowerTime(dataMgr.currentPower)}"))
+        log.info(logMgr.Info(f"开拓力回满时间为:{self.GetFullPowerTime(dataMgr.currentPower)}"))
         # Utils._content.update({'full_power_time':f'{Utils.getFullPowerTime(dataMgr.currentPower)}'})
 
     def OnRunning(self):

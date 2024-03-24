@@ -1,7 +1,6 @@
 from States import *
 from Hotaru.Client.ConfigClientHotaru import configMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
-from Modules.Utils.Date import Date
 
 class DetectNewAccountState(BaseState):
     mStateName = 'DetectNewAccountState'

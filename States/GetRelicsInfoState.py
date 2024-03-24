@@ -6,7 +6,7 @@ class GetRelicsInfoState(BaseRelicState, BaseState):
     mStateName = 'GetRelicsInfoState'
 
     def OnBegin(self):
-        BaseRelicState.DetectRelicCount()
+        return BaseRelicState.DetectRelicCount()
 
     def OnRunning(self):
         return False

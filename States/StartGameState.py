@@ -10,7 +10,7 @@ class StartGameState(BaseState):
 
     def OnBegin(self):
         log.hr(logMgr.Hr("开始启动游戏"))
-        if not Retry.Re(lambda: StartGameState.IsGameRunning(), 600, 1):
+        if not Retry.Re(lambda: self.IsGameRunning(), 600, 1):
             log.error(logMgr.Error("启动游戏超时，退出程序"))
             return True
         
@@ -35,21 +35,20 @@ class StartGameState(BaseState):
     def OnExit(self):
         return False
     
-    @staticmethod
-    def IsGameRunning():
+    def IsGameRunning(self):
         log.info(logMgr.Info("判断是否已经启动"))
         if not screenMgr.CheckAndSwitch(dataMgr.gameTitleName):
-            if not StartGameState.LaunchGame():
+            if not self.LaunchGame():
                 log.error(logMgr.Error("游戏启动失败，退出游戏进程"))
                 # GameControlModule.StopGame()
                 return True
             else:
                 log.info(logMgr.Info("游戏启动成功"))
-                StartGameState.GetGameProcessPath(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME])
+                self.GetGameProcessPath(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME])
         else:
             log.info(logMgr.Info("游戏已经启动了"))
 
-            programPath = StartGameState.GetGameProcessPath(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME])
+            programPath = self.GetGameProcessPath(configMgr.mConfig[configMgr.mKey.GAME_PROCESS_NAME])
             if programPath is not None and programPath != configMgr.mConfig[configMgr.mKey.GAME_PATH]:
                 configMgr.mConfig.SetValue(configMgr.mKey.GAME_PATH, programPath)
                 log.info(logMgr.Info(f"游戏路径更新成功：{programPath}"))
@@ -57,11 +56,10 @@ class StartGameState(BaseState):
             screenMgr.CheckResulotion(dataMgr.gameTitleName, 1920, 1080)
         return True
     
-    @staticmethod
-    def LaunchGame():
+    def LaunchGame(self):
         log.info(logMgr.Info("启动游戏中..."))
 
-        StartGameState.CheckGamePath(configMgr.mConfig[configMgr.mKey.GAME_PATH])
+        self.CheckGamePath(configMgr.mConfig[configMgr.mKey.GAME_PATH])
         if os.system(f"cmd /C start \"\" \"{configMgr.mConfig[configMgr.mKey.GAME_PATH]}\""):
             return False
             
@@ -72,7 +70,7 @@ class StartGameState(BaseState):
         
         screenMgr.CheckResulotion(dataMgr.gameTitleName, 1920, 1080)
 
-        if not Retry.Re(lambda: StartGameState.CheckAndClickEnter(), 60, 2):
+        if not Retry.Re(lambda: self.CheckAndClickEnter(), 60, 2):
             log.error(logMgr.Error("无法找到点击进入按钮"))
             return False
         

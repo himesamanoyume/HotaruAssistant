@@ -142,10 +142,10 @@ class AppClient:
                                     dataMgr.isDetectUniverseScoreAndFinished = False
 
                         taskMgr.SendNotify()
-                        taskMgr.QuitGame(uidStr2, lastUID)
+                        taskMgr.QuitGame()
                     except Exception as e:
                         taskMgr.SendExceptionNotify()
-                        taskMgr.QuitGame(uidStr2, lastUID)
+                        taskMgr.QuitGame()
 
             taskMgr.WaitForNextLoop()
 

@@ -48,18 +48,18 @@ class InitAccountState(BaseState):
                     # logger.info(text)
 
             if "巡星之礼" in activityList:
-                InitAccountState.GetReward()
+                self.GetReward()
             if "巡光之礼" in activityList:
-                InitAccountState.GetReward()
+                self.GetReward()
 
             screenMgr.ChangeTo("guide2")
-            InitAccountState.StartDetectDailyTasks()
+            self.StartDetectDailyTasks()
             configMgr.mConfig.SetValue(configMgr.mKey.DAILY_TASKS, dataMgr.tempDailyTasksList)
             configMgr.SaveTimestampByUid(configMgr.mKey.LAST_RUN_TIMESTAMP, dataMgr.currentUid)
         else:
             log.info(logMgr.Info("日常任务\033[91m未刷新\033[0m"))
 
-        BaseState.CalcDailyTasksScore()
+        self.CalcDailyTasksScore()
 
 
     def OnExit(self):
@@ -79,19 +79,18 @@ class InitAccountState(BaseState):
                     time.sleep(1)
                 log.info(logMgr.Info("领取巡星之礼奖励完成"))
 
-    @staticmethod
-    def StartDetectDailyTasks():
+    def StartDetectDailyTasks(self):
         crop = (243.0 / 1920, 377.0 / 1080, 1428.0 / 1920, 528.0 / 1080)
         if configMgr.mConfig[configMgr.mKey.DAILY_TASKS] == {}:
             dataMgr.tempDailyTasksList = {}
         else:
             dataMgr.tempDailyTasksList = configMgr.mConfig[configMgr.mKey.DAILY_TASKS]
 
-        InitAccountState.DetectDailyTasks(crop)
+        self.DetectDailyTasks(crop)
         screenMgr.ClickElement("./assets/images/quest/activity.png", "image", 0.95, crop=crop)
         screenMgr.MouseScroll(50, -1)
         time.sleep(0)
-        InitAccountState.DetectDailyTasks(crop)
+        self.DetectDailyTasks(crop)
         dataMgr.dailyTasksHasBeenChecked = True
 
     @staticmethod
