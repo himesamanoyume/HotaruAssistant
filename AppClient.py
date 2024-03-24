@@ -118,29 +118,34 @@ class AppClient:
                     if os.system(f"cmd /C REG IMPORT {regStr}"):
                         input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
                         return False
-                    if count == 1:
-                        if selectedAction == 'daily':
-                            if taskMgr.StartGame():
-                                dataMgr.currentAction = "每日任务流程"
-                                # taskMgr.StartDaily()
-                        elif selectedAction == 'universe':
-                            if taskMgr.StartGame():
-                                dataMgr.currentAction = "模拟宇宙流程"
-                                taskMgr.StartUniverse()
-                    else:
-                        if turn == 0:
-                            if taskMgr.StartGame():
-                                dataMgr.currentAction = "每日任务流程"
-                                taskMgr.StartDaily()
-                        else:
-                            if not dataMgr.isDetectUniverseScoreAndFinished or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2] == '模拟宇宙':
+                    try:
+                        if count == 1:
+                            if selectedAction == 'daily':
+                                if taskMgr.StartGame():
+                                    dataMgr.currentAction = "每日任务流程"
+                                    taskMgr.StartDaily()
+                            elif selectedAction == 'universe':
                                 if taskMgr.StartGame():
                                     dataMgr.currentAction = "模拟宇宙流程"
                                     taskMgr.StartUniverse()
+                        else:
+                            if turn == 0:
+                                if taskMgr.StartGame():
+                                    dataMgr.currentAction = "每日任务流程"
+                                    taskMgr.StartDaily()
+                            else:
+                                if not dataMgr.isDetectUniverseScoreAndFinished or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2] == '模拟宇宙':
+                                    if taskMgr.StartGame():
+                                        dataMgr.currentAction = "模拟宇宙流程"
+                                        taskMgr.StartUniverse()
 
-                                dataMgr.isDetectUniverseScoreAndFinished = False
+                                    dataMgr.isDetectUniverseScoreAndFinished = False
 
-                    taskMgr.QuitGame(uidStr2, lastUID)
+                        taskMgr.SendNotify()
+                        taskMgr.QuitGame(uidStr2, lastUID)
+                    except Exception as e:
+                        taskMgr.SendExceptionNotify()
+                        taskMgr.QuitGame(uidStr2, lastUID)
 
             taskMgr.WaitForNextLoop()
 

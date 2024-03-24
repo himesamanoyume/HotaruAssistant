@@ -17,6 +17,8 @@ from States.GetUniverseInfoState import GetUniverseInfoState
 from States.GetRelicsInfoState import GetRelicsInfoState
 from States.GetFAndPInfoState import GetFAndPInfoState
 from States.DailyGetRewardState import DailyGetRewardState
+from States.SendEmailState import SendEmailState
+from States.SendEmailExceptionState import SendEmailExceptionState
 
 class TaskMgr:
     mInstance = None
@@ -37,6 +39,14 @@ class TaskMgr:
     @staticmethod
     def QuitGame(uid:str, lastUid:str):
         stateMgr.Transition(QuitGameState())
+
+    @staticmethod
+    def SendNotify():
+        stateMgr.Transition(SendEmailState())
+
+    @staticmethod
+    def SendExceptionNotify():
+        stateMgr.Transition(SendEmailExceptionState())
 
     @staticmethod
     def DetectNewAccounts():

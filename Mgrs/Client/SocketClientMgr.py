@@ -27,6 +27,6 @@ class SocketClientMgr:
     def LogHeartSendToServer(cls):
         cls.mSocketClientModule.HeartSendToServer()
 
-    @classmethod
-    def LogPidSendToServer(cls, pid, isReplace = True):
-        cls.mSocketClientModule.PidSendToServer(pid, isReplace)
+    # @classmethod
+    # def LogPidSendToServer(cls, pid, isReplace = True):
+    #     cls.mSocketClientModule.PidSendToServer(pid, isReplace)
