@@ -194,3 +194,12 @@ pyrightconfig.json
 /*.bat
 /AppBuild.py
 /.history
+/Hotaru/Server/*
+/assets/static/*
+/assets/templates/*
+/AppServer.py
+/Mgrs/Server/*
+/Modules/Server/*
+/Modules/Utils/Command.py
+/Modules/Utils/FastestMirror.py
+/Modules/Utils/PythonChecker.py
