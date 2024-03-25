@@ -120,7 +120,7 @@ class Notify:
                                         </div>
                                     </div>
                                     <div class=info-name style=color:#d9d9d9>
-                                        <ruby>姫様の夢<rt class='ttt' data-rt='等流萤'></rt></ruby>
+                                        <ruby>姫様の夢<rt class='ttt' data-rt='我现在就要玩蓝色星原'></rt></ruby>
                                     </div>
                                     <div class=info-txt style=color:#d9d9d9>
                                         Himesamanoyume

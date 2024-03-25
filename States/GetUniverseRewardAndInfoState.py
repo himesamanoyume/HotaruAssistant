@@ -3,7 +3,7 @@ from .BaseUniverseState import BaseUniverseState
 
 class GetUniverseRewardAndInfoState(BaseUniverseState, BaseState):
 
-    mStateName = 'GetUniverseScoreState'
+    mStateName = 'GetUniverseRewardAndInfoState'
 
     def OnBegin(self):
         currentScore, maxScore = BaseUniverseState.GetUniverseReward()

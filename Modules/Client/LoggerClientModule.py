@@ -9,13 +9,13 @@ class LoggerClientModule:
 
     mInstance = None
 
-    def __new__(cls, level="INFO"):
+    def __new__(cls, level="DEBUG"):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
             cls.mInstance.InitLogger(level)
         return cls.mInstance
     
-    def InitLogger(self, level="INFO"):
+    def InitLogger(self, level="DEBUG"):
         self.logger = logging.getLogger("HotaruAssistant")
         self.logger.propagate = False
         self.logger.setLevel(level)

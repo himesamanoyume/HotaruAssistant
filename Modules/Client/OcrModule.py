@@ -15,7 +15,7 @@ class OcrModule:
                 self.ocr = GetOcrApi(self.exePath)
                 log.debug(logMgr.Debug("初始化OCR完成"))
             except Exception as e:
-                log.error(logMgr.Error("初始化OCR失败：{e}").format(e=e))
+                log.error(logMgr.Error(f"初始化OCR失败：{e}"))
                 self.ocr = None
                 log.info(logMgr.Info("请尝试重新下载或解压"))
                 log.info(logMgr.Info("若 Win7 报错计算机中丢失 VCOMP140.DLL，请安装 VC运行库"))

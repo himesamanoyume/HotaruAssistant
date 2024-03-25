@@ -228,9 +228,11 @@ class BaseRelicState(BaseState):
             if dataMgr.currentRelicCount >= configMgr.mConfig[configMgr.mKey.RELIC_THRESHOLD_COUNT][dataMgr.currentUid]:
                 log.warning(logMgr.Warning("检测到遗器数量超标"))
                 if not BaseRelicState.SalvageRelics():
-                    BaseRelicState.DetectRelicCount()
+                    return BaseRelicState.DetectRelicCount()
                 else:
                     return True
+            else:
+                return False
 
         except Exception as e:
             log.error(logMgr.Error(f"检测遗器数量失败: {e}"))

@@ -144,6 +144,7 @@ class AppClient:
                         taskMgr.SendNotify()
                         taskMgr.QuitGame()
                     except Exception as e:
+                        log.error(logMgr.Error(e))
                         taskMgr.SendExceptionNotify()
                         taskMgr.QuitGame()
 

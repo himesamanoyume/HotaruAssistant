@@ -16,7 +16,6 @@ class UniverseClearState(BaseUniverseState):
         log.info(logMgr.Info("开始校准"))
         if Command.SubprocessWithTimeout([configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "align_angle.py"], 60, configMgr.mConfig[configMgr.mKey.UNIVERSE_PATH], configMgr.env):
             
-            screenMgr.ChangeTo('universe_main')
             log.info(logMgr.Info("开始模拟宇宙"))
         else:
             log.error(logMgr.Error("校准失败"))
@@ -108,7 +107,7 @@ class UniverseClearState(BaseUniverseState):
                 # Utils._content['universe_number'] = f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>模拟宇宙难度选择有误,请告知我检查配置</p></blockquote>"
 
         for i in range(5):
-            if screenMgr.ClickElement("传送", "min_distance_text", crop=instance_name_crop, include=True, source=worldNumber, source_type="text"):
+            if screenMgr.ClickElement("传送", "min_distance_text", crop=instance_name_crop, include=True, source=worldNumber, sourceType="text"):
                 Flag = True
                 break
             screenMgr.MouseScroll(20, -1)
@@ -116,7 +115,7 @@ class UniverseClearState(BaseUniverseState):
             time.sleep(1)
         if not Flag:
             log.error(logMgr.Error("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
-            return False
+            return True
 
         time.sleep(3)
         

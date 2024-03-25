@@ -11,20 +11,24 @@ class BaseFightState(BaseRelicState, BaseState):
 
     @staticmethod
     def WaitFight(instanceName):
+        screenMgr.PressKey("w")
         if screenMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_again.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗结束"))
             return True
         
+        screenMgr.PressKey("w")
         if screenMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_fail.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗失败/重试"))
             nowtime = time.time()
             log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战斗超时或战败"))
             raise Exception(f"{nowtime},挑战{instanceName}时战斗超时或战败")
         
+        screenMgr.PressKey("w")
         if not screenMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
             log.info(logMgr.Info("尝试开启二倍速"))
             screenMgr.PressKey("b")
 
+        screenMgr.PressKey("w")
         if not screenMgr.FindElementWithShowMultiArea("./assets/images/base/not_auto.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
             log.info(logMgr.Info("尝试开启自动战斗"))
             screenMgr.PressKey("v")
@@ -117,7 +121,7 @@ class BaseFightState(BaseRelicState, BaseState):
         
         if not Flag:
             log.error(logMgr.Error("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
-            return False
+            return True
         
         # 验证传送是否成功
         if not screenMgr.FindElement(instanceName.replace("1" or "2" or "3" or "4", ""), "text", maxRetries=10, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
@@ -177,10 +181,10 @@ class BaseFightState(BaseRelicState, BaseState):
                         if instanceType == "侵蚀隧洞":
                             BaseRelicState.InstanceGetRelic()
                         time.sleep(1)
-                        screenMgr.ClickElement("./assets/images/fight/fight_again.png", "image", 0.9, maxRetries=10)
-                        if instanceType == "历战余响":
-                            time.sleep(1)
-                            screenMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9) 
+                        screenMgr.ClickElement("./assets/images/fight/fight_again.png", "image", 0.9, maxRetries=5)
+                        # if instanceType == "历战余响":
+                        #     time.sleep(1)
+                        #     screenMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=5) 
                         time.sleep(1) 
                 else:
                     if fullCount > 0:

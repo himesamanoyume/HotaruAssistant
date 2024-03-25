@@ -136,8 +136,9 @@ class ConfigModule():
     def SetTimestamp(self):
         self.nowTime = time.time()
         if self.nowTime - self.mLastTimeModifyTimestamp >= 5:
-            self.ReloadConfig()
             self.mLastTimeModifyTimestamp = self.nowTime
+            self.ReloadConfig()
+            self.logMgr.Info("Config已重载")
                         
     def __getattr__(self, attr):
         if attr in self.mConfig:

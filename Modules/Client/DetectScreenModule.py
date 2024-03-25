@@ -189,7 +189,7 @@ class DetectScreenModule:
                 # if (include is None and target == text) or (include and target in text) or (not include and target == text):
                 if ((include is None or not include) and text in target) or (include and any(t in text for t in target)):
                     self.matchedText = next((t for t in target if t in text), None)
-                    log.debug(logMgr.Debug("目标文字：{target} 相似度：{max_val}").format(target=self.matchedText, max_val=box[1][1]))
+                    log.debug(logMgr.Debug(f"目标文字：{self.matchedText} 相似度：{box[1][1]}"))
                     if relative == False:
                         top_left = (box[0][0][0] + self.screenshotPos[0], box[0][0][1] + self.screenshotPos[1])
                         bottom_right = (box[0][2][0] + self.screenshotPos[0], box[0][2][1] + self.screenshotPos[1])
@@ -197,10 +197,10 @@ class DetectScreenModule:
                         top_left = (box[0][0][0], box[0][0][1])
                         bottom_right = (box[0][2][0], box[0][2][1])
                     return top_left, bottom_right
-            log.debug(logMgr.Debug("目标文字：{target} 未找到，没有识别出匹配文字").format(target=", ".join(target)))
+            log.debug(logMgr.Debug(f"目标文字：{', '.join(target)} 未找到，没有识别出匹配文字"))
             return None, None
         except Exception as e:
-            log.error(logMgr.Error("寻找文字：{target} 出错：{e}").format(target=", ".join(target), e=e))
+            log.error(logMgr.Error(f"寻找文字：{', '.join(target)} 出错：{e}"))
             return None, None
 
     def FindMinDistanceTextElement(self, target, source, sourceType, include, needOcr=True):
@@ -216,8 +216,7 @@ class DetectScreenModule:
             for box in self.ocrResult:
                 text = box[1][0]
                 if ((include is None or not include) and source == text) or (include and source in text):
-                    log.debug(logMgr.Debug("目标文字：{source} 相似度：{maxVal}").format(
-                        source=source, maxVal=box[1][1]))
+                    log.debug(logMgr.Debug(f"目标文字：{source} 相似度：{box[1][1]}"))
                     sourcePos = box[0][0]
                     break
         elif sourceType == 'image':
@@ -233,26 +232,26 @@ class DetectScreenModule:
         if isinstance(target, str):
             target = (target,)
         targetPos = None
-        min_distance = float('inf')
+        minDistance = float('inf')
         for box in self.ocrResult:
             text = box[1][0]
             if ((include is None or not include) and text in target) or (include and any(t in text for t in target)):
-                matched_text = next((t for t in target if t in text), None)
+                matchedText = next((t for t in target if t in text), None)
                 pos = box[0]
                 # 如果target不在source右下角
                 if not ((pos[0][0] - sourcePos[0]) > 0 and (pos[0][1] - sourcePos[1]) > 0):
                     continue
                 distance = math.sqrt((pos[0][0] - sourcePos[0]) **
                                      2 + (pos[0][1] - sourcePos[1]) ** 2)
-                log.debug(logMgr.Debug("目标文字：{target} 相似度：{max_val} 距离：{min_distance}").format(target=matched_text, max_val=box[1][1], min_distance=distance))
-                if distance < min_distance:
-                    min_target = matched_text
-                    min_distance = distance
+                log.debug(logMgr.Debug(f"目标文字：{matchedText} 相似度：{box[1][1]} 距离：{distance}"))
+                if distance < minDistance:
+                    minTarget = matchedText
+                    minDistance = distance
                     targetPos = pos
         if targetPos is None:
-            log.debug(logMgr.Debug("目标文字：{target} 未找到，没有识别出匹配文字").format(target=", ".join(target)))
+            log.debug(logMgr.Debug(f"目标文字：{', '.join(target)} 未找到，没有识别出匹配文字"))
             return None, None
-        log.debug(logMgr.Debug("目标文字：{target} 最短距离：{min_distance}").format(target=min_target, min_distance=min_distance))
+        log.debug(logMgr.Debug(f"目标文字：{minTarget} 最短距离：{minDistance}"))
         top_left = (targetPos[0][0] + self.screenshotPos[0], targetPos[0][1] + self.screenshotPos[1])
         bottom_right = (targetPos[2][0] + self.screenshotPos[0], targetPos[2][1] + self.screenshotPos[1])
         return top_left, bottom_right

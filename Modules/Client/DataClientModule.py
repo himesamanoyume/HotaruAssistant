@@ -31,6 +31,22 @@ class DataClient:
     meta = json.load(metaFile)
     metaFile.close()
     YW5ub3VuY2VtZW50 = Himesamanoyume.PrincessDreamland()
+    notifyContent = {
+        "上号时长": "",
+        "下线时开拓力": 0,
+        "遗器数量": 0,
+        "副本情况":{
+            "历战余响":0,
+            "侵蚀隧洞":0,
+            "凝滞虚影":0,
+            "拟造花萼（金）":0,
+            "拟造花萼（赤）":0,
+            "模拟宇宙":0
+        },
+        "混沌回忆倒计时": "",
+        "虚构叙事倒计时": "",
+        "遗器胚子":{}
+    }
 
     def ResetData(self):
         self.tempUid = '-1'
@@ -48,3 +64,19 @@ class DataClient:
         self.dailyTasksFunctions = {}
         self.currentUniverseScore = 0
         self.maxCurrentUniverseScore = 1
+        self.notifyContent = {
+            "上号时长": "",
+            "下线时开拓力": 0,
+            "遗器数量": 0,
+            "副本情况":{
+                "历战余响":0,
+                "侵蚀隧洞":0,
+                "凝滞虚影":0,
+                "拟造花萼（金）":0,
+                "拟造花萼（赤）":0,
+                "模拟宇宙":0
+            },
+            "混沌回忆倒计时": "",
+            "虚构叙事倒计时": "",
+            "遗器胚子":{}
+        }

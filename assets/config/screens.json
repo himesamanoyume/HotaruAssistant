@@ -77,7 +77,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -91,7 +91,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide2.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -110,7 +110,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -130,7 +130,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide3.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -149,7 +149,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -188,8 +188,8 @@
                         "args": [
                             "./assets/images/menu/mail.png",
                             "image",
-                            0.95,
-                            "crop=(0.95, 0.1, 0.05, 0.6)"
+                            0.8,
+                            "crop=(0.8, 0.1, 0.05, 0.6)"
                         ]
                     },
                     {
@@ -197,8 +197,8 @@
                         "args": [
                             "./assets/images/menu/mail_reward.png",
                             "image",
-                            0.95,
-                            "crop=(0.95, 0.1, 0.05, 0.6)"
+                            0.8,
+                            "crop=(0.8, 0.1, 0.05, 0.6)"
                         ]
                     }
                 ]
@@ -211,7 +211,7 @@
                         "args": [
                             "./assets/images/menu/more.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -240,7 +240,7 @@
                         "args": [
                             "./assets/images/menu/more.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -269,7 +269,7 @@
                         "args": [
                             "./assets/images/menu/more.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -298,8 +298,8 @@
                         "args": [
                             "./assets/images/menu/camera.png",
                             "image",
-                            0.95,
-                            "crop=(0.95, 0.1, 0.05, 0.6)"
+                            0.8,
+                            "crop=(0.8, 0.1, 0.05, 0.6)"
                         ]
                     }
                 ]
@@ -312,7 +312,7 @@
                         "args": [
                             "./assets/images/menu/dispatch.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -325,7 +325,7 @@
                         "args": [
                             "./assets/images/menu/pass.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -338,7 +338,7 @@
                         "args": [
                             "./assets/images/menu/bag.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -352,7 +352,7 @@
                         "args": [
                             "./assets/images/menu/bag_relics.png",
                             "image",
-                            0.95,
+                            0.8,
                             2
                         ]
                     }
@@ -366,7 +366,7 @@
                         "args": [
                             "./assets/images/menu/synthesis.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -379,7 +379,7 @@
                         "args": [
                             "./assets/images/menu/bag.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -393,7 +393,7 @@
                         "args": [
                             "./assets/images/menu/bag_consumables.png",
                             "image",
-                            0.95,
+                            0.8,
                             2
                         ]
                     }
@@ -407,7 +407,7 @@
                         "args": [
                             "./assets/images/menu/configure_team.png",
                             "image",
-                            0.95,
+                            0.8,
                             2
                         ]
                     }
@@ -421,7 +421,7 @@
                         "args": [
                             "./assets/images/menu/activity.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -495,7 +495,7 @@
                         "args": [
                             "./assets/images/screen/start_game.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -521,7 +521,7 @@
                         "args": [
                             "./assets/images/screen/click_enter.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -547,7 +547,7 @@
                         "args": [
                             "./assets/images/login/protocol_agree.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -567,7 +567,7 @@
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -587,7 +587,7 @@
                         "args": [
                             "./assets/images/base/cancel.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -678,7 +678,7 @@
                         "args": [
                             "./assets/images/screen/universe/download_char.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -822,7 +822,7 @@
                         "args": [
                             "./assets/images/fight/retreat.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -841,7 +841,7 @@
                         "args": [
                             "./assets/images/fight/fight_continue.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -878,7 +878,7 @@
                         "args": [
                             "./assets/images/fight/retreat.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -904,7 +904,7 @@
                         "args": [
                             "./assets/images/fight/fight_exit.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -941,7 +941,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide3.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -997,7 +997,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide2.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -1069,7 +1069,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide2.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -1088,7 +1088,7 @@
                         "args": [
                             "./assets/images/screen/guide/enter_guide3.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -1139,7 +1139,7 @@
                         "args": [
                             "./assets/images/forgottenhall/memory_of_chaos.png",
                             "image",
-                            0.95,
+                            0.8,
                             2
                         ]
                     }
@@ -1419,7 +1419,7 @@
                         "args": [
                             "./assets/images/pass/enter_pass2.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -1450,7 +1450,7 @@
                         "args": [
                             "./assets/images/pass/enter_pass1.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -1481,7 +1481,7 @@
                         "args": [
                             "./assets/images/synthesis/enter_material.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -1554,7 +1554,7 @@
                         "args": [
                             "./assets/images/synthesis/enter_consumables.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -1603,7 +1603,7 @@
                         "args": [
                             "./assets/images/forgottenhall/memory.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     }
                 ]
@@ -1653,7 +1653,7 @@
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
-                            0.95,
+                            0.8,
                             2
                         ]
                     }
@@ -1889,7 +1889,7 @@
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -1915,7 +1915,7 @@
                         "args": [
                             "./assets/images/base/confirm.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
@@ -1941,7 +1941,7 @@
                         "args": [
                             "./assets/images/base/restart.png",
                             "image",
-                            0.95
+                            0.8
                         ]
                     },
                     {
