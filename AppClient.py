@@ -157,24 +157,28 @@ def ExitHandler():
     ocrMgr.mOcr.ExitOcr()
 
 if __name__ == "__main__":
-    if not pyuac.isUserAdmin():
-        try:
-            pyuac.runAsAdmin(wait=False)
-            sys.exit(0)
-        except Exception:
-            log.error(logMgr.Error("管理员权限获取失败"))
-            input("按回车键关闭窗口. . .")
-            sys.exit(0)
-    else:
-        try:
-            atexit.register(ExitHandler)
-            appClient = AppClient()
-            appClient.Main()
-        except KeyboardInterrupt:
-            log.error(logMgr.Error("发生错误: 手动强制停止"))
-            input("按回车键关闭窗口. . .")
-            sys.exit(0)
-        except Exception as e:
-            log.error(logMgr.Error(f"发生错误: {e}"))
-            input("按回车键关闭窗口. . .")
-            sys.exit(0)
+    try:
+        if not pyuac.isUserAdmin():
+            try:
+                pyuac.runAsAdmin(wait=False)
+                sys.exit(0)
+            except Exception:
+                log.error(logMgr.Error("管理员权限获取失败"))
+                input("按回车键关闭窗口. . .")
+                sys.exit(0)
+        else:
+            try:
+                atexit.register(ExitHandler)
+                appClient = AppClient()
+                appClient.Main()
+            except KeyboardInterrupt:
+                log.error(logMgr.Error("发生错误: 手动强制停止"))
+                input("按回车键关闭窗口. . .")
+                sys.exit(0)
+            except Exception as e:
+                log.error(logMgr.Error(f"发生错误: {e}"))
+                input("按回车键关闭窗口. . .")
+                sys.exit(0)
+    except Exception as e:
+        print(e)
+        input("...")

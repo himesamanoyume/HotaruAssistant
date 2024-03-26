@@ -1,9 +1,5 @@
 from States import *
-from Hotaru.Client.DataClientHotaru import dataMgr
-from Hotaru.Client.OcrHotaru import ocrMgr
-from Hotaru.Client.ScreenHotaru import screenMgr
-import os,sys,time,psutil,pyautogui
-from Modules.Utils.Retry import Retry
+import time,psutil,pyautogui
 
 class QuitGameState(BaseState):
 

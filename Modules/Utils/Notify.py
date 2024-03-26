@@ -27,7 +27,7 @@ class Notify:
         annList = Notify.CreateAnnList(dataMgr)
         content = ''
         for item in annList:
-            content += f"<div style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'><b>{item['Title']}</b></p><div style='font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;'>{item['Content']}</div></div>"
+            content += f"<div style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'><b>{item['Title']}</b></p><p style='font-size: 12px;line-height: 20px;display: inline-block;transition-duration: .2s;'>{item['Content']}</p></div>"
 
         return content
     
@@ -62,7 +62,7 @@ class Notify:
         datalist = Notify.CreateOfficialNotice()
         content = '<p>简易官方资讯,进度条仅代表邮件发送时距离结束的进度!</p>'
         for item in datalist:
-            content += f"<div style='background-color:#40405f;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'><b>{item['title']}</b></p><div style='font-size: 12px;line-height: 20px;padding: 0 20px;display: inline-block;transition-duration: .2s;'>{item['day']} 天 {item['hour']} 时后结束<br>{item['start_time']} - {item['end_time']}</div><div style='background-color: #66ccff;width:{item['progress'] * 100}%;max-width:100%;height:3px;'></div></div>"
+            content += f"<div style='background-color:#40405f;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'><b>{item['title']}</b></p><p style='font-size: 12px;line-height: 20px;display: inline-block;transition-duration: .2s;'>{item['day']} 天 {item['hour']} 时后结束<br>{item['start_time']} - {item['end_time']}</p><div style='background-color: #66ccff;width:{item['progress'] * 100}%;max-width:100%;height:3px;'></div></div>"
 
         return content
 
@@ -182,7 +182,7 @@ class Notify:
         return sendHostEmail
 
     @staticmethod
-    def SendNotifyAll(title, content, configMgr, dataMgr):
+    def SendNotifyAll(title, subTitle, content, configMgr, dataMgr):
         sendHostEmail = Notify.LoginSMTP(configMgr)
         
         detailContent = content
@@ -195,7 +195,7 @@ class Notify:
             emailObject['From'] = configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM]
 
             htmlStr=f"""
-                {Notify.CreateHeadContent(title, dataMgr)}
+                {Notify.CreateHeadContent(subTitle, dataMgr)}
                                             <section class=post-detail-txt style=color:#d9d9d9>
                                                 {Notify.CreateAnnListContent(dataMgr)}
                                                 {Notify.CreateOfficialNoticeContent()}
@@ -228,7 +228,7 @@ class Notify:
         sendHostEmail.quit()
 
     @staticmethod
-    def SendNotifySingle(title, content, configMgr, dataMgr, uid, singleTo=''):
+    def SendNotifySingle(title, subTitle, content, configMgr, dataMgr, uid):
         sendHostEmail = Notify.LoginSMTP(configMgr)
         
         detailContent = content
@@ -242,7 +242,7 @@ class Notify:
         detailContent, universeContent = Notify.CreateConfigContent(detailContent, uid, dataMgr, configMgr)
 
         htmlStr=f"""
-            {Notify.CreateHeadContent(title, dataMgr)}
+            {Notify.CreateHeadContent(subTitle, dataMgr)}
                                             <section class=post-detail-txt style=color:#d9d9d9>
                                                 {Notify.CreateAnnListContent(dataMgr)}
                                                 {Notify.CreateOfficialNoticeContent()}
@@ -271,10 +271,11 @@ class Notify:
         emailObject.attach(MIMEText(html,'html','utf-8'))
         emailObject['To'] = configMgr.mConfig[ConfigKey.NOTIFY_SMTP_MASTER]
 
-        sendHostEmail.sendmail(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM], singleTo, str(emailObject))
+        sendHostEmail.sendmail(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_TO][uid], str(emailObject))
         sendHostEmail.sendmail(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_USER], str(emailObject))
 
         sendHostEmail.quit()
+        return True
 
     
 

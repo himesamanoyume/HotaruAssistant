@@ -60,7 +60,6 @@ class DailyEchoOfWarState(BaseFightState, BaseState):
             elif rewardCount <= maxCount:
                 configMgr.SaveTimestampByUid(configMgr.mKey.ECHO_OF_WAR_TIMESTAMP, dataMgr.currentUid)
 
-            # Utils._temp += "<p>"+f'历战余响 - {config.instance_names[Utils.get_uid()]["历战余响"]} - 1次</p>'
             return self.RunInstances("历战余响", configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataMgr.currentUid]["历战余响"], 30, min(rewardCount, maxCount))
         except Exception as e:
             log.error(logMgr.Error(f"历战余响失败: {e}"))

@@ -39,6 +39,8 @@ class GetFAndPInfoState(BaseState):
                 starText = screenMgr.GetSingleLineText(crop=starTextCrop, blacklist=[], maxRetries=3)
                 log.info(logMgr.Info(f"忘却之庭刷新倒计时:{countdownText},层数:{levelText},星数:{starText}"))
                 # Utils._content['fh_countdownText'] = countdownText
+                dataMgr.notifyContent["混沌回忆倒计时"] = countdownText
+
                 level = levelText.split('/')[0]
                 star = starText.split('/')[0]
                 configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataMgr.currentUid] = int(level)
@@ -71,6 +73,8 @@ class GetFAndPInfoState(BaseState):
                 starText = screenMgr.GetSingleLineText(crop=starTextCrop, blacklist=[], maxRetries=3)
                 log.info(logMgr.Info(f"虚构叙事刷新倒计时:{countdownText},层数:{levelText},星数:{starText}"))
                 # Utils._content['pf_countdownText'] = countdownText
+
+                dataMgr.notifyContent["虚构叙事倒计时"] = countdownText
                 level = levelText.split('/')[0]
                 star = starText.split('/')[0]
                 configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataMgr.currentUid] = int(level)

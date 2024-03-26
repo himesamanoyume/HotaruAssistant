@@ -16,6 +16,7 @@ class UniverseClearState(BaseUniverseState):
         log.info(logMgr.Info("开始校准"))
         if Command.SubprocessWithTimeout([configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "align_angle.py"], 60, configMgr.mConfig[configMgr.mKey.UNIVERSE_PATH], configMgr.env):
             
+            screenMgr.ChangeTo('guide3')
             log.info(logMgr.Info("开始模拟宇宙"))
         else:
             log.error(logMgr.Error("校准失败"))
@@ -75,7 +76,7 @@ class UniverseClearState(BaseUniverseState):
                 self.RunUniverse()
 
                 log.info(logMgr.Info("🎉模拟宇宙已完成1次🎉"))
-                # Utils._temp += f'<p>模拟宇宙已完成1次</p>'
+                dataMgr.notifyContent["副本情况"]["模拟宇宙"] += 1
                 return False
             else:
                 log.error(logMgr.Error("模拟宇宙失败"))

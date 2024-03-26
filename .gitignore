@@ -181,7 +181,6 @@ pyrightconfig.json
 # Test
 /tests
 /AppTest.py
-/testFun.py
 
 # HotaruAssistant
 /*config.yaml
@@ -193,7 +192,6 @@ pyrightconfig.json
 /reg/*
 /*.bat
 /AppBuild.py
-/.history
 /Hotaru/Server/*
 /assets/static/*
 /assets/templates/*

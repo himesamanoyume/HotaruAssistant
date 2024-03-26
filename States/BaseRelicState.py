@@ -140,6 +140,23 @@ class BaseRelicState(BaseState):
         #     else:
         #         Utils._content['relic_content'] += f"<p>{prop}</p>"
         # Utils._content['relic_content'] += "</div></div>"
+
+        isMain = True
+        subPropList = list()
+        for prop in relicList:
+            if isMain:
+                mainProp = prop
+                isMain = False
+            else:
+                subPropList.append(prop)
+
+        dataMgr.notifyContent["遗器胚子"].append({
+            "遗器名称": relicName,
+            "遗器部位": relicPart,
+            "遗器主词条": mainProp,
+            "遗器副词条": subPropList
+        })
+
         time.sleep(1)
         if screenMgr.ClickElement("./assets/images/fight/relic_lock.png", "image", 0.9, maxRetries=5):
             log.info(logMgr.Info("胚子已锁定"))
@@ -225,6 +242,8 @@ class BaseRelicState(BaseState):
             log.info(logMgr.Info(f"遗器数量:{relicCountText}"))
             relicCountText = relicCountText.split('/')[0]
             dataMgr.currentRelicCount = int(relicCountText)
+            
+            dataMgr.notifyContent["遗器数量"] = dataMgr.currentRelicCount
             if dataMgr.currentRelicCount >= configMgr.mConfig[configMgr.mKey.RELIC_THRESHOLD_COUNT][dataMgr.currentUid]:
                 log.warning(logMgr.Warning("检测到遗器数量超标"))
                 if not BaseRelicState.SalvageRelics():

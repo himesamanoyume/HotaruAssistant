@@ -44,6 +44,7 @@ class GetPowerInfoState(BaseState):
         remainingPower = 240 - power
         timestamp = remainingPower * 360 + time.time()
         _datetime = datetime.datetime.fromtimestamp(timestamp)
+        dataMgr.notifyContent["开拓力回满时间"] = _datetime
         return _datetime
     
     @staticmethod

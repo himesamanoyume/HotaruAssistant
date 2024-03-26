@@ -41,8 +41,6 @@ class DailyClearPowerState(BaseFightState, BaseState):
             log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}"))
             return False
         
-        # Utils._temp += "<p>"+f'{instanceType} - {instanceName} - {number}次</p>'
-
         log.hr(logMgr.Hr(f"开始刷{instanceType} - {instanceName}，总计{totalNumber}次"), 2)
         self.RunInstances(instanceType, instanceName, powerNeed, totalNumber)
         log.hr(logMgr.Hr("完成"), 2)

@@ -174,8 +174,9 @@ class BaseFightState(BaseRelicState, BaseState):
                             screenMgr.PressMouse()
                             time.sleep(3)
                     for i in range(totalCount - 1):
-                        if Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 300, 1):
+                        if Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 600, 30):
                             log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(1)"))
+                            dataMgr.notifyContent["副本情况"][instanceType] += (i+1)
                         else:
                             return True
                         if instanceType == "侵蚀隧洞":
@@ -189,25 +190,29 @@ class BaseFightState(BaseRelicState, BaseState):
                 else:
                     if fullCount > 0:
                         for i in range(fullCount - 1):
-                            if Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 300, 1):
+                            if Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 600, 30):
                                 log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(2)"))
+                                dataMgr.notifyContent["副本情况"][instanceType] += (i+1)
                             else:
                                 return True
                             if not (fullCount == 1 and incomplete_count == 0):
                                 screenMgr.ClickElement("./assets/images/fight/fight_again.png", "image", 0.9, maxRetries=10)
                 
                 # 这是最后一次战斗在循环之外的等待战斗
-                if not Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 300, 1):
+                if not Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 600, 30):
                     return True
                 
                 if instanceType == "侵蚀隧洞":
                     BaseRelicState.InstanceGetRelic()
                 if fullCount > 0:
                     log.info(logMgr.Info(f"{fullCount*6}次{instanceType}副本完成(3)"))
+                    dataMgr.notifyContent["副本情况"][instanceType] += fullCount*6
                 elif instanceType == "凝滞虚影" or "侵蚀隧洞" :
                     log.info(logMgr.Info(f"{totalCount}次{instanceType}副本完成(4)"))
+                    dataMgr.notifyContent["副本情况"][instanceType] += totalCount
                 else:
                     log.info(logMgr.Info(f"{incomplete_count}次{instanceType}副本完成(5)"))
+                    dataMgr.notifyContent["副本情况"][instanceType] += incomplete_count
                 # 速度太快，点击按钮无效
                 time.sleep(1)
                 screenMgr.ClickElement("./assets/images/fight/fight_exit.png", "image", 0.9, maxRetries=10)
