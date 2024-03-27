@@ -10,7 +10,7 @@ class SendEmailState(BaseNotifyState):
     def OnBegin(self):
         if configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_ENABLE]:
             self.SetNotifyContent()
-            # 一个字符串content,全是后续内容在+=,并作为变量传入Notify.SendNotifySingle
+            
             content = ''
             content += f"<p>本次上号总计花费时长:{dataMgr.notifyContent['上号时长']}</p>"
 
@@ -77,7 +77,7 @@ class SendEmailState(BaseNotifyState):
                         content += f"<p>{relicSubProp}</p>"
 
                 content += "</div></div></div>"
-            # end
+            
             if dataMgr.currentAction == "每日任务流程":
                 if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
                     notifyMgr.SendNotifySingle(title=f"UID:{dataMgr.currentUid},每日已完成", subTitle=f"上号详细/{dataMgr.currentAction}", content=content, configMgr=configMgr, dataMgr=dataMgr, uid=dataMgr.currentUid)

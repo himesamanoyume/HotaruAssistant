@@ -21,6 +21,7 @@ class DataClient:
     maxCurrentUniverseScore = 1
     isDetectUniverseScoreAndFinished = False
     gameTitleName = ''
+    tempText = ''
     css = open("./assets/static/css/common.css", 'r', encoding='utf-8')
     htmlStyle = css.read()
     css.close()
@@ -65,6 +66,7 @@ class DataClient:
         self.dailyTasksFunctions = {}
         self.currentUniverseScore = 0
         self.maxCurrentUniverseScore = 1
+        self.tempText = ''
         self.notifyContent = {
             "上号时长": "",
             "下线时开拓力": 0,

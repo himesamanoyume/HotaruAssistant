@@ -15,7 +15,7 @@ class DailyClearPowerState(BaseFightState, BaseState):
 
             if instanceName == "无":
                 log.info(logMgr.Info(f"跳过清体力,{configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataMgr.currentUid][0]}未开启"))
-                return False
+                return True
         
         self.DetectRelicCount()
         self.SkipForRelicCount()
@@ -39,11 +39,12 @@ class DailyClearPowerState(BaseFightState, BaseState):
         totalNumber = dataMgr.currentPower // powerNeed
         if totalNumber < 1:
             log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}"))
-            return False
+            return True
         
         log.hr(logMgr.Hr(f"开始刷{instanceType} - {instanceName}，总计{totalNumber}次"), 2)
         self.RunInstances(instanceType, instanceName, powerNeed, totalNumber)
         log.hr(logMgr.Hr("完成"), 2)
+        return False
 
     def OnRunning(self):
         return False

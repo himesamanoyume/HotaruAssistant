@@ -113,6 +113,8 @@ class AppClient:
                                 jumpFin = True
                             else:
                                 continue
+                    else:
+                        taskMgr.ReadyToStart(uidStr2)
                     
                     log.info(logMgr.Info(f"运行命令: cmd /C REG IMPORT {regStr}"))
                     if os.system(f"cmd /C REG IMPORT {regStr}"):
@@ -145,9 +147,10 @@ class AppClient:
                         taskMgr.QuitGame()
                     except Exception as e:
                         log.error(logMgr.Error(e))
-                        taskMgr.SendExceptionNotify()
+                        taskMgr.SendExceptionNotify(e)
                         taskMgr.QuitGame()
 
+            isFirstTimeLoop = False
             taskMgr.WaitForNextLoop()
 
 

@@ -20,6 +20,7 @@ from States.GetRewardState import GetRewardState
 from States.SendEmailState import SendEmailState
 from States.SendEmailExceptionState import SendEmailExceptionState
 from States.UniverseClearState import UniverseClearState
+from States.CheckCdkeyState import CheckCdkeyState
 
 class TaskMgr:
     mInstance = None
@@ -46,7 +47,8 @@ class TaskMgr:
         stateMgr.Transition(SendEmailState())
 
     @staticmethod
-    def SendExceptionNotify():
+    def SendExceptionNotify(e):
+        dataMgr.tempText = e
         stateMgr.Transition(SendEmailExceptionState())
 
     @staticmethod
@@ -74,11 +76,13 @@ class TaskMgr:
                 # 如果有历战余响可打,打完后需要再获取一次体力信息
                 stateMgr.Transition(GetPowerInfoState())
             # 清体力
-            stateMgr.Transition(DailyClearPowerState())
+            if not stateMgr.Transition(DailyClearPowerState()):
+                # 如果有清体力可打,打完后需要再获取一次体力信息
+                stateMgr.Transition(GetPowerInfoState())
             # 领奖励
             stateMgr.Transition(GetRewardState())
-            # 获取体力信息
-            stateMgr.Transition(GetPowerInfoState())
+            # 检查兑换码
+            stateMgr.Transition(CheckCdkeyState())
             # 获取模拟宇宙积分/沉浸器信息
             stateMgr.Transition(GetUniverseRewardAndInfoState())
             # 获取遗器,副本倒计时信息

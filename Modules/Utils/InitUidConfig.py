@@ -76,7 +76,3 @@ class InitUidConfig:
         except Exception as e:
             logMgr.Error(f"发生错误:{e}")
             return False
-
-    @staticmethod
-    def NextDayReset():
-        pass
