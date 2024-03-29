@@ -1,6 +1,7 @@
 from States import *
 from .BaseUniverseState import BaseUniverseState
 from Modules.Utils.Command import Command
+import math
 
 class UniverseClearState(BaseUniverseState):
 
@@ -87,7 +88,7 @@ class UniverseClearState(BaseUniverseState):
         time.sleep(1)
 
         # 传送
-        instance_name_crop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
+        instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         screenMgr.ClickElement("./assets/images/screen/guide/power.png", "image", maxRetries=10)
         Flag = False
         match configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataMgr.currentUid]:
@@ -103,17 +104,20 @@ class UniverseClearState(BaseUniverseState):
                 worldNumber = '第七世界'
             case 8:
                 worldNumber = '第八世界'
+            case 9:
+                worldNumber = '第九世界'
             case _:
                 worldNumber = '第三世界'
                 # Utils._content['universe_number'] = f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>模拟宇宙难度选择有误,请告知我检查配置</p></blockquote>"
 
-        for i in range(5):
-            if screenMgr.ClickElement("传送", "min_distance_text", crop=instance_name_crop, include=True, source=worldNumber, sourceType="text"):
+        for i in range(math.ceil(len(dataMgr.meta["模拟宇宙"]) / 3)):
+            if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=worldNumber, sourceType="text"):
                 Flag = True
                 break
-            screenMgr.MouseScroll(20, -1)
-            # 等待界面完全停止
-            time.sleep(1)
+            else:
+                screenMgr.MouseScroll(20, -1)
+                # 等待界面完全停止
+                time.sleep(1)
         if not Flag:
             log.error(logMgr.Error("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
             return True
@@ -126,7 +130,7 @@ class UniverseClearState(BaseUniverseState):
             log.warning(logMgr.Warning("难度设置不合法,进行难度5"))
             d = 5
         if configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataMgr.currentUid] in [5,6,7,8] and d > 4:
-            log.warning(logMgr.Warning("第五、第六、第七、第八世界暂不支持难度4以上,进行难度4"))
+            log.warning(logMgr.Warning("第五、第六、第七、第八、第九世界暂不支持难度4以上,进行难度4"))
             d = 4
         
         # 用嵌套函数
@@ -219,9 +223,13 @@ class UniverseClearState(BaseUniverseState):
             log.error(logMgr.Error(f"{nowtime},模拟宇宙清理队伍失败"))
             raise Exception(f"{nowtime},模拟宇宙清理队伍失败")
         
-        for i in range(4):
-            screenMgr.ClickElementWithPos(((663+i*105, 837),(663+i*105, 837)))
+        point = screenMgr.FindElement("下载角色", "text", 0.9, maxRetries=2)
+        downloadCharTopLeftX = point[0][0]
+        downloadCharTopLeftY = point[0][1]
+        for i in range(4):  
+            screenMgr.ClickElementWithPos(((downloadCharTopLeftX + 60 + i*105, downloadCharTopLeftY + 80), (downloadCharTopLeftX + 60 + i*105, downloadCharTopLeftY + 80)))
             time.sleep(1)
+            
         if screenMgr.FindElement("./assets/images/universe/all_clear_team.png", "image", 0.95, takeScreenshot=True):
             log.info(logMgr.Info("队伍已清空"))
             return

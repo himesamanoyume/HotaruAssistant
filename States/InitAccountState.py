@@ -29,7 +29,7 @@ class InitAccountState(BaseState):
                 if configMgr.mConfig[configMgr.mKey.LAST_RUN_TIMESTAMP][dataMgr.currentUid] == 0:
                     pass
                 else:
-                    configMgr.mConfig[configMgr.mKey.LAST_RUN_TIMESTAMP][dataMgr.currentUid].remove(configMgr.mConfig[configMgr.mKey.LAST_RUN_TIMESTAMP][dataMgr.currentUid][0])
+                    configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataMgr.currentUid].remove(configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataMgr.currentUid][0])
 
             screenMgr.ChangeTo('activity')
             activityList = []

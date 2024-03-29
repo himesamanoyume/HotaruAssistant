@@ -15,11 +15,11 @@ class BaseRelicState(BaseState):
         log.info(logMgr.Info("开始检测遗器"))
         point = screenMgr.FindElement("./assets/images/fight/fight_reward.png", "image", 0.9, maxRetries=2)
         
-        success_reward_top_left_x = point[0][0]
-        success_reward_top_left_y = point[0][1]
+        successRewardTopLeftX = point[0][0]
+        successRewardTopLeftY = point[0][1]
         for i in range(2):
             for j in range(7):    
-                screenMgr.ClickElementWithPos(((success_reward_top_left_x -380 + j *120, success_reward_top_left_y + 40 + i * 120), (success_reward_top_left_x -380 + 120 + j *120, success_reward_top_left_y + 40 + 120 + i * 120)))
+                screenMgr.ClickElementWithPos(((successRewardTopLeftX -380 + j *120, successRewardTopLeftY + 40 + i * 120), (successRewardTopLeftX -380 + 120 + j *120, successRewardTopLeftY + 40 + 120 + i * 120)))
                     
                 if not screenMgr.FindElement("./assets/images/fight/5star.png", "image", 0.9, maxRetries=2):
                     if screenMgr.ClickElement("./assets/images/fight/relic_info_close.png", "image", 0.9, maxRetries=3):

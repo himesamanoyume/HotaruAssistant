@@ -1,5 +1,6 @@
 from States import *
 from .BaseRelicState import BaseRelicState
+import math
 
 class BaseFightState(BaseRelicState, BaseState):
 
@@ -66,27 +67,27 @@ class BaseFightState(BaseRelicState, BaseState):
 
         if instanceType in ['拟造花萼（赤）']:
             source = f"./assets/images/screen/guide/aka/{dataMgr.meta['拟造花萼（赤）'][instanceName]}.png"
-            for i in range(7):
-                if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
-                    Flag = True
-                    break
-                elif screenMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
+            for i in range(math.ceil(len(dataMgr.meta[instanceType]) / 3)):
+                if screenMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
                     log.info("该副本限时开放中,但你并没有解锁该副本")
                     Flag = True
                     break
-                if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
+                elif screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
                     nowtime = time.time()
                     log.error(logMgr.Error(f"{nowtime},{instanceName}:你似乎没有解锁这个副本?总之无法传送到该副本"))
                     raise Exception(f"{nowtime},{instanceName}:你似乎没有解锁这个副本?总之无法传送到该副本")
-                    
-                screenMgr.MouseScroll(18, -1)
-                # 等待界面完全停止
-                time.sleep(1)
+                elif screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
+                    Flag = True
+                    break
+                else:
+                    screenMgr.MouseScroll(18, -1)
+                    # 等待界面完全停止
+                    time.sleep(1)
         elif instanceType in ['拟造花萼（金）']:
             instanceMap, instanceMapType = instanceName.split('-')
             instance_map_name = dataMgr.meta['星球'][instanceMap]
 
-            for i in range(2):
+            for i in range(math.ceil((len(dataMgr.meta[instanceType]) / 3) / 3)):
                 if screenMgr.ClickElement(f"./assets/images/screen/guide/{instance_map_name}_on.png", "image", 0.9, maxRetries=10) or screenMgr.ClickElement(f"./assets/images/screen/guide/{instance_map_name}_off.png", "image", 0.9, maxRetries=10):
                     if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceMapType):
                         Flag = True
@@ -95,15 +96,15 @@ class BaseFightState(BaseRelicState, BaseState):
                         log.info("该副本限时开放中,但你并没有解锁该副本")
                         Flag = True
                         break
-                    if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceMapType, sourceType="text"):
+                    elif screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceMapType, sourceType="text"):
                         nowtime = time.time()
                         log.error(logMgr.Error(f"{nowtime},{instanceMapType}:你似乎没有解锁这个副本?总之无法传送到该副本"))
                         raise Exception(f"{nowtime},{instanceMapType}:你似乎没有解锁这个副本?总之无法传送到该副本")
-                    
-                # 等待界面完全停止
-                time.sleep(1)     
+                else:
+                    # 等待界面完全停止
+                    time.sleep(1)     
         else:
-            for i in range(7):
+            for i in range(math.ceil(len(dataMgr.meta[instanceType]) / 3)):
                 if screenMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, sourceType="text"):
                     Flag = True
                     break
@@ -111,21 +112,22 @@ class BaseFightState(BaseRelicState, BaseState):
                     log.info("该副本限时开放中,但你并没有解锁该副本")
                     Flag = True
                     break
-                if screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, sourceType="text"):
+                elif screenMgr.ClickElement("追踪", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceName, sourceType="text"):
                     nowtime = time.time()
                     log.error(logMgr.Error(f"{nowtime},{instanceName}:你似乎没有解锁这个副本?总之无法传送到该副本"))
                     raise Exception(f"{nowtime},{instanceName}:你似乎没有解锁这个副本?总之无法传送到该副本")
-                screenMgr.MouseScroll(18, -1)
-                # 等待界面完全停止
-                time.sleep(1)
+                else:
+                    screenMgr.MouseScroll(18, -1)
+                    # 等待界面完全停止
+                    time.sleep(1)
         
         if not Flag:
             log.error(logMgr.Error("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
             return True
         
         # 验证传送是否成功
-        time.sleep(2)
-        if not screenMgr.FindElement(instanceName.replace("1" or "2" or "3" or "4", ""), "text", maxRetries=10, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
+        time.sleep(5)
+        if not screenMgr.FindElement(instanceName.replace("1", "").replace("2", "").replace("3", "").replace("4", ""), "text", maxRetries=5, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
             if not screenMgr.FindElement(instanceMapType, "text", maxRetries=10, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
                 log.error(logMgr.Error("⚠️刷副本未完成 - 传送可能失败⚠️"))
                 return False
@@ -163,7 +165,7 @@ class BaseFightState(BaseRelicState, BaseState):
                     log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时开拓力不足,但却触发了挑战,请检查"))
                     raise Exception(f"{nowtime},挑战{instanceName}时开拓力不足,但却触发了挑战,请检查")
                 
-                if screenMgr.FindElement("./assets/images/fight/char_dead.png", "image", 0.9):
+                elif screenMgr.FindElement("./assets/images/fight/char_dead.png", "image", 0.9):
                     nowtime = time.time()
                     log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时有角色处于无法战斗的状态,请检查"))
                     raise Exception(f"{nowtime},挑战{instanceName}时有角色处于无法战斗的状态,请检查")
