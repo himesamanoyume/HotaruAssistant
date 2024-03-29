@@ -34,7 +34,7 @@ class SendEmailState(BaseNotifyState):
             if dataMgr.notifyContent['副本情况']['模拟宇宙'] > 0:
                 content += f"<p>模拟宇宙:{dataMgr.meta['模拟宇宙'][str(configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataMgr.currentUid])]} - {dataMgr.notifyContent['副本情况']['模拟宇宙']}次</p>"
 
-            content += f"<p>下线时开拓力:<span class=important style=background-color:#40405f;color:#66ccff>{dataMgr.notifyContent['下线时开拓力']}</span></p></p>"
+            content += f"<p>下线时开拓力:<span class=important style=background-color:#40405f;color:#66ccff>{dataMgr.currentPower}</span></p></p>"
 
             content += f"<p><strong>每日完成情况</strong></p>"
 

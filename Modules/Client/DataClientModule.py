@@ -34,7 +34,6 @@ class DataClient:
     YW5ub3VuY2VtZW50 = Himesamanoyume.PrincessDreamland()
     notifyContent = {
         "上号时长": "",
-        "下线时开拓力": 0,
         "开拓力回满时间": "",
         "遗器数量": 0,
         "副本情况":{
@@ -69,7 +68,6 @@ class DataClient:
         self.tempText = ''
         self.notifyContent = {
             "上号时长": "",
-            "下线时开拓力": 0,
             "开拓力回满时间": "",
             "遗器数量": 0,
             "副本情况":{

@@ -124,6 +124,7 @@ class BaseFightState(BaseRelicState, BaseState):
             return True
         
         # 验证传送是否成功
+        time.sleep(2)
         if not screenMgr.FindElement(instanceName.replace("1" or "2" or "3" or "4", ""), "text", maxRetries=10, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
             if not screenMgr.FindElement(instanceMapType, "text", maxRetries=10, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
                 log.error(logMgr.Error("⚠️刷副本未完成 - 传送可能失败⚠️"))
@@ -176,7 +177,6 @@ class BaseFightState(BaseRelicState, BaseState):
                     for i in range(totalCount - 1):
                         if Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 600, 30):
                             log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(1)"))
-                            dataMgr.notifyContent["副本情况"][instanceType] += (i+1)
                         else:
                             return True
                         if instanceType == "侵蚀隧洞":
@@ -192,7 +192,6 @@ class BaseFightState(BaseRelicState, BaseState):
                         for i in range(fullCount - 1):
                             if Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 600, 30):
                                 log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(2)"))
-                                dataMgr.notifyContent["副本情况"][instanceType] += (i+1)
                             else:
                                 return True
                             if not (fullCount == 1 and incomplete_count == 0):

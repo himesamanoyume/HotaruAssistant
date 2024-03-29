@@ -115,18 +115,18 @@ class GetRewardState(object):
 
     @staticmethod
     def PerformDispatches():
-        for i in range(4):
-            log.info(logMgr.Info(f"正在进行第{i + 1}次委托"))
+        log.info(logMgr.Info(f"正在进行委托"))
 
-            if not GetRewardState.PerformDispatchAndCheck(crop=(298.0 / 1920, 153.0 / 1080, 1094.0 / 1920, 122.0 / 1080)):
-                return
+        if not GetRewardState.PerformDispatchAndCheck(crop=(298.0 / 1920, 153.0 / 1080, 1094.0 / 1920, 122.0 / 1080)):
+            return
 
-            if not GetRewardState.PerformDispatchAndCheck(crop=(660 / 1920, 280 / 1080, 170 / 1920, 600 / 1080)):
-                return
+        # if not GetRewardState.PerformDispatchAndCheck(crop=(660 / 1920, 280 / 1080, 170 / 1920, 600 / 1080)):
+        #     return
 
-            screenMgr.ClickElement("./assets/images/dispatch/receive.png", "image", 0.9, maxRetries=10)
-            screenMgr.ClickElement("./assets/images/dispatch/again.png", "image", 0.9, maxRetries=10)
-            time.sleep(4)
+        screenMgr.ClickElement("./assets/images/dispatch/all_receive.png", "image", 0.9, maxRetries=10)
+        screenMgr.ClickElement("./assets/images/dispatch/again.png", "image", 0.9, maxRetries=10)
+        time.sleep(4)
+            
 
     @staticmethod
     def PerformDispatchAndCheck(crop):

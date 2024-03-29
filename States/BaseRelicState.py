@@ -131,15 +131,6 @@ class BaseRelicState(BaseState):
     @staticmethod
     def CreateRelicContent(relicName, relicPart, relicList):
         log.info(logMgr.Info("正在生成胚子信息"))
-        # Utils._content['relic_content'] += f"<div class=relic><p><strong>{relicName}</strong><br><span style=font-size:10px>{relicPart}</span></p>"
-        # isMain = True
-        # for prop in relicList:
-        #     if isMain:
-        #         Utils._content['relic_content'] += f"<div class=relicPropContainer><p><span class=important style=color:#d97d22;background-color:#40405f;font-size:14px><strong>{prop}</strong></span></p>"
-        #         isMain = False
-        #     else:
-        #         Utils._content['relic_content'] += f"<p>{prop}</p>"
-        # Utils._content['relic_content'] += "</div></div>"
 
         isMain = True
         subPropList = list()
@@ -186,18 +177,18 @@ class BaseRelicState(BaseState):
                     if screenMgr.ClickElement("./assets/images/relic/fast_select.png", "image", 0.9, maxRetries=10):
                         # 等待筛选界面弹出
                         time.sleep(1)
-                        fast_select_crop=(439.0 / 1920, 357.0 / 1080, 1018.0 / 1920, 448.0 / 1080)
-                        screenMgr.ClickElement("全选已弃置", "text", maxRetries=10, crop=fast_select_crop)
+                        fastSelectCrop=(439.0 / 1920, 357.0 / 1080, 1018.0 / 1920, 448.0 / 1080)
+                        screenMgr.ClickElement("全选已弃置", "text", maxRetries=10, crop=fastSelectCrop)
                         time.sleep(0.5)
-                        screenMgr.ClickElement("3星及以下", "text", maxRetries=10, crop=fast_select_crop)
+                        screenMgr.ClickElement("3星及以下", "text", maxRetries=10, crop=fastSelectCrop)
                         time.sleep(0.5)
                         if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_4STAR_ENABLE][dataMgr.currentUid]:
-                            screenMgr.ClickElement("4星及以下", "text", maxRetries=10, crop=fast_select_crop)
+                            screenMgr.ClickElement("4星及以下", "text", maxRetries=10, crop=fastSelectCrop)
                             time.sleep(0.5)
                         if configMgr.mConfig[configMgr.mKey.RELIC_SALVAGE_5STAR_ENABLE][dataMgr.currentUid]:
-                            screenMgr.ClickElement("5星及以下", "text", maxRetries=10, crop=fast_select_crop)
+                            screenMgr.ClickElement("5星及以下", "text", maxRetries=10, crop=fastSelectCrop)
                             time.sleep(0.5)
-                        if screenMgr.ClickElement("确认", "text", maxRetries=10, crop=fast_select_crop):
+                        if screenMgr.ClickElement("确认", "text", maxRetries=10, crop=fastSelectCrop):
                             time.sleep(3)
                             countText = screenMgr.GetSingleLineText((616.0 / 1920, 871.0 / 1080, 110.0 / 1920, 37.0 / 1080), [], 5)
                             count = countText.split('/')[0]
@@ -236,8 +227,8 @@ class BaseRelicState(BaseState):
             log.hr(logMgr.Hr("准备检测遗器数量"), 2)
             # screen.get_current_screen()
             screenMgr.ChangeTo('bag_relics')
-            relic_count_crop=(1021.0 / 1920, 974.0 / 1080, 131.0 / 1920, 33.0 / 1080)
-            relicCountText = screenMgr.GetSingleLineText(relic_count_crop, ['遗','器','数','量'], maxRetries=5)
+            relicCountCrop = (1620.0 / 1920, 43.0 / 1080, 142.0 / 1920, 46.0 / 1080)
+            relicCountText = screenMgr.GetSingleLineText(relicCountCrop, ['遗','器','数','量'], maxRetries=5)
             relicCountText = relicCountText.replace('量','')
             log.info(logMgr.Info(f"遗器数量:{relicCountText}"))
             relicCountText = relicCountText.split('/')[0]
