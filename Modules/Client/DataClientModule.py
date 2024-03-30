@@ -22,6 +22,7 @@ class DataClient:
     isDetectUniverseScoreAndFinished = False
     gameTitleName = ''
     tempText = ''
+    passRemaining = ''
     css = open("./assets/static/css/common.css", 'r', encoding='utf-8')
     htmlStyle = css.read()
     css.close()
@@ -66,6 +67,7 @@ class DataClient:
         self.currentUniverseScore = 0
         self.maxCurrentUniverseScore = 1
         self.tempText = ''
+        self.passRemaining = ''
         self.notifyContent = {
             "上号时长": "",
             "开拓力回满时间": "",

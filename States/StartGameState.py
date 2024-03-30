@@ -104,7 +104,6 @@ class StartGameState(BaseState):
 
     @staticmethod
     def CheckAndClickEnter():
-        
         if screenMgr.FindElement("./assets/images/screen/click_enter.png", "image", 0.9):
             return screenMgr.ClickElement("./assets/images/screen/click_enter.png", "image", 0.9)
         else:
@@ -114,4 +113,6 @@ class StartGameState(BaseState):
                 screenMgr.ClickElement("./assets/images/base/restart.png", "image", 0.9)
             if screenMgr.FindElement("./assets/images/screen/start_game.png", "image", 0.9):
                 screenMgr.ClickElement("./assets/images/screen/start_game.png", "image", 0.9)
+            if screenMgr.FindElement("./assets/images/login/protocol.png", "image", 0.9):
+                screenMgr.ClickElement("./assets/images/login/protocol_agree.png", "image", 0.9)
         return False

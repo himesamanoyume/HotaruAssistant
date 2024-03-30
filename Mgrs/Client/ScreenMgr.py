@@ -332,5 +332,15 @@ class ScreenMgr:
         nowtime = time.time()
         log.error(logMgr.Error(f"{nowtime},无法从 {self.GetName(self.currentScreen)} 切换到 {self.GetName(targetScreen)}"))
         raise Exception (f"{nowtime},无法从 {self.GetName(self.currentScreen)} 切换到 {self.GetName(targetScreen)}")
-        # input(_("按回车键关闭窗口. . ."))
-        # sys.exit(1)
+    
+    @staticmethod
+    def NeedLoginError():
+        nowtime = time.time()
+        log.error(logMgr.Error(f"{nowtime},检测到需要登录,可能是注册表不正确或已更改了密码"))
+        raise Exception(f"{nowtime},检测到需要登录,可能是注册表不正确或已更改了密码")
+    
+    @staticmethod
+    def RelicFullError():
+        nowtime = time.time()
+        log.error(logMgr.Error(f"{nowtime},检测到背包遗器已满,本次运行已中断,如有需要请在配置中开启自动分解遗器选项,或手动上号清理并保持空位富余"))
+        raise Exception(f"{nowtime},检测到背包遗器已满,本次运行已中断,如有需要请在配置中开启自动分解遗器选项,或手动上号清理并保持空位富余")

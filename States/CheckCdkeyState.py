@@ -6,6 +6,9 @@ class CheckCdkeyState(BaseState):
     mStateName = 'CheckCdkeyState'
 
     def OnBegin(self):
+        if not len(configMgr.mConfig[configMgr.mKey.CDKEY_LIST]) > 0:
+            log.info(logMgr.Info("未检测到有兑换码"))
+            return False
         screenMgr.ChangeTo("cdkey")
         for cdkey in configMgr.mConfig[configMgr.mKey.CDKEY_LIST]:
             log.info(logMgr.Info("检测到有兑换码"))

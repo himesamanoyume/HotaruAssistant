@@ -21,6 +21,7 @@ from States.SendEmailState import SendEmailState
 from States.SendEmailExceptionState import SendEmailExceptionState
 from States.UniverseClearState import UniverseClearState
 from States.CheckCdkeyState import CheckCdkeyState
+from States.CheckStoreState import CheckStoreState
 
 class TaskMgr:
     mInstance = None
@@ -85,9 +86,10 @@ class TaskMgr:
             stateMgr.Transition(CheckCdkeyState())
             # 获取模拟宇宙积分/沉浸器信息
             stateMgr.Transition(GetUniverseRewardAndInfoState())
-            # 获取遗器,副本倒计时信息
+            # 获取遗器,副本倒计时,月卡倒计时信息
             stateMgr.Transition(GetRelicsInfoState())
             stateMgr.Transition(GetFAndPInfoState())
+            stateMgr.Transition(CheckStoreState())
         else:
             pass
 
@@ -105,6 +107,7 @@ class TaskMgr:
         stateMgr.Transition(GetPowerInfoState())
         # 获取模拟宇宙积分信息
         stateMgr.Transition(GetUniverseRewardAndInfoState())
-        # 获取遗器,副本倒计时信息
+        # 获取遗器,副本倒计时信息,月卡倒计时信息
         stateMgr.Transition(GetRelicsInfoState())
         stateMgr.Transition(GetFAndPInfoState())
+        stateMgr.Transition(CheckStoreState())

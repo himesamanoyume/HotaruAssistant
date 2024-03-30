@@ -1849,7 +1849,7 @@
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "Utils.relic_full_error",
+                        "action": "RelicFullError",
                         "args": [
                             
                         ]
@@ -1867,7 +1867,7 @@
                 "target_screen": "start_game",
                 "actions_list": [
                     {
-                        "action": "Utils.need_login_error",
+                        "action": "NeedLoginError",
                         "args": [
                             
                         ]

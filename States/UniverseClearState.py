@@ -124,6 +124,18 @@ class UniverseClearState(BaseUniverseState):
 
         time.sleep(3)
         
+        if not screenMgr.FindElement("./assets/images/screen/universe/download_char.png", "image", 0.9, maxRetries=3):
+            point = screenMgr.FindElement(worldNumber, "text", crop=(812.0 / 1920, 514.0 / 1080, 236.0 / 1920, 46.0 / 1080), maxRetries=3)
+            universeStarTopLeftX = point[0][0]
+            universeStarTopLeftY = point[0][1]
+            screenMgr.ClickElementWithPos(((universeStarTopLeftX + 450, universeStarTopLeftY), (universeStarTopLeftX + 450, universeStarTopLeftY)))
+            time.sleep(0.5)
+            if screenMgr.FindElement("./assets/images/screen/universe/download_char.png", "image", 0.9, maxRetries=5):
+                pass
+            else:
+                log.error(logMgr.Error("⚠️刷副本未完成 - 未能进入模拟宇宙下载角色界面⚠️"))
+                return True
+        
         # 选择难度,0不是难度
         d = configMgr.mConfig[configMgr.mKey.UNIVERSE_DIFFICULTY][dataMgr.currentUid]
         if not d in [1,2,3,4,5]:
@@ -138,7 +150,7 @@ class UniverseClearState(BaseUniverseState):
 
         time.sleep(1)
 
-        if screenMgr.ClickElement("./assets/images/screen/universe/download_char.png", "image", 0.9,maxRetries=10):
+        if screenMgr.ClickElement("./assets/images/screen/universe/download_char.png", "image", 0.9,maxRetries=5):
             time.sleep(1)
             self.ClearTeam(1)
 

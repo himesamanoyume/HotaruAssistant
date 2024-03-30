@@ -61,11 +61,11 @@ class GameWindow:
             else:
                 left, top, width, height = GameWindow.GetWindowRegion(window)
                 screenshotPos = int(left + width * crop[0]), int(top + height * crop[1]), int(width * crop[2]), int(height * crop[3])
-
             GameWindow.SwitchToWindow(dataMgr.gameTitleName, maxRetries=4)
             screenshot = pyautogui.screenshot(region=screenshotPos)
             return screenshot, screenshotPos
-        return False
+        else:
+            return False
 
     @staticmethod
     def GetWindow(title):

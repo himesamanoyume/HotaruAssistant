@@ -30,7 +30,7 @@ class BaseFightState(BaseRelicState, BaseState):
             screenMgr.PressKey("b")
 
         screenMgr.PressKey("w")
-        if not screenMgr.FindElementWithShowMultiArea("./assets/images/base/not_auto.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+        if not screenMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
             log.info(logMgr.Info("尝试开启自动战斗"))
             screenMgr.PressKey("v")
 

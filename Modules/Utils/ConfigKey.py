@@ -62,7 +62,6 @@ class ConfigKey:
     RELIC_SALVAGE_5STAR_TO_EXP = 'relic_salvage_5star_to_exp'
     RELIC_THRESHOLD_COUNT = 'relic_threshold_count'
     BORROW_CHARACTER_ENABLE = 'borrow_character_enable'
-    BORROW_CHARACTER_FROM = 'borrow_character_from'
     BORROW_CHARACTER = 'borrow_character'
     DISPATCH_ENABLE = 'dispatch_enable'
     MAIL_ENABLE = 'mail_enable'

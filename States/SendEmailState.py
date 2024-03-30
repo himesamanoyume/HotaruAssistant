@@ -14,6 +14,9 @@ class SendEmailState(BaseNotifyState):
             content = ''
             content += f"<p>本次上号总计花费时长:{dataMgr.notifyContent['上号时长']}</p>"
 
+            if dataMgr.passRemaining != '':
+                content += f"<p>月卡剩余:<span class=important style=background-color:#40405f;color:#66ccff>{dataMgr.passRemaining}</span></p>"
+
             content += f"<p><strong>开拓力去向:</strong>"
 
             if dataMgr.notifyContent['副本情况']['历战余响'] > 0:

@@ -11,7 +11,7 @@ class SendEmailExceptionState(BaseNotifyState):
         if configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_ENABLE]:
             self.SetNotifyContent()
             
-            content = dataMgr.tempText
+            content = f"<span class=important style=background-color:#40405f;color:#66ccff>{dataMgr.tempText}</span>"
             
             if dataMgr.currentAction == "每日任务流程":
                 if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
@@ -24,12 +24,12 @@ class SendEmailExceptionState(BaseNotifyState):
                 notifyMgr.SendNotifySingle(title=f"UID:{dataMgr.currentUid},模拟宇宙异常", subTitle=f"异常状态/{dataMgr.currentAction}", content=content, configMgr=configMgr, dataMgr=dataMgr, uid=dataMgr.currentUid)
                 log.info(logMgr.Info("SMTP邮件通知发送完成"))
             else:
-                log.error(logMgr.Error("异常的Action"))
+                log.error(logMgr.Error("异常流程"))
+                notifyMgr.SendNotifySingle(title=f"UID:{dataMgr.currentUid},异常流程", subTitle=f"异常状态/异常流程", content=content, configMgr=configMgr, dataMgr=dataMgr, uid=dataMgr.currentUid)
                 return True
         else:
             log.info(logMgr.Info("未开启SMTP服务"))
-
-        return False
+            return False
 
     def OnRunning(self):
         return False

@@ -3,9 +3,6 @@ from Hotaru.Client.LogClientHotaru import logMgr,log
 from Hotaru.Client.ConfigClientHotaru import configMgr
 from Hotaru.Client.ScreenHotaru import screenMgr
 from Hotaru.Client.DataClientHotaru import dataMgr
-from Hotaru.Client.OcrHotaru import ocrMgr
-from Modules.Utils.Retry import Retry
-from Modules.Utils.Date import Date
 import time
 
 class BaseState(object):
@@ -80,47 +77,6 @@ class BaseState(object):
             return False
 
         try:
-            # 尝试优先使用指定用户名的支援角色
-            if configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER_FROM]:
-                screenMgr.ClickElement("UID", "text", maxRetries=10, crop=(18.0 / 1920, 15.0 / 1080, 572.0 / 1920, 414.0 / 1080), include=True)
-                time.sleep(0.5)
-                for i in range(3):
-                    if screenMgr.ClickElement(configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER_FROM], "text", crop=(196 / 1920, 167 / 1080, 427 / 1920, 754 / 1080), include=True):
-                        # 找到角色的对应处理
-                        if not screenMgr.ClickElement("入队", "text", maxRetries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
-                            log.error(logMgr.Error("找不到入队按钮"))
-                            return False
-                        # 等待界面加载
-                        time.sleep(0.5)
-                        result = screenMgr.FindElement(("解除支援", "取消"), "text", maxRetries=10, include=True)
-                        if result:
-                            if screenMgr.mDetect.matchedText == "解除支援":
-                                if "使用支援角色并获得战斗胜利1次" in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid]:
-                                    configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid]["使用支援角色并获得战斗胜利1次"] = False
-                                return True
-                            elif screenMgr.mDetect.matchedText == "取消":
-                                screenMgr.ClickElementWithPos(result)
-                                screenMgr.FindElement("支援列表", "text", maxRetries=10, crop=(234 / 1920, 78 / 1080, 133 / 1920, 57 / 1080))
-                                continue
-                        else:
-                            return False
-                    screenMgr.MouseScroll(27, -1)
-                    # 等待界面完全停止
-                    time.sleep(1)
-
-                log.info(logMgr.Info("找不到指定用户名的支援角色，尝试按照优先级选择"))
-                # 重新打开支援页面，防止上一次的滚动位置影响
-                screenMgr.PressKey("esc")
-                time.sleep(0.5)
-                if not screenMgr.ClickElement("支援", "text", maxRetries=10, crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
-                    log.error(logMgr.Error("找不到支援按钮"))
-                    return False
-                # 等待界面加载
-                time.sleep(0.5)
-                if not screenMgr.FindElement("支援列表", "text", maxRetries=10, crop=(234 / 1920, 78 / 1080, 133 / 1920, 57 / 1080)):
-                    log.error(logMgr.Error("未进入支援列表"))
-                    return False
-
             for name in configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER]:
                 if screenMgr.ClickElement("./assets/images/character/" + name + ".png", "image", 0.8, maxRetries=1, scaleRange=(0.9, 0.9), crop=(57 / 1920, 143 / 1080, 140 / 1920, 814 / 1080)):
                     if not screenMgr.ClickElement("入队", "text", maxRetries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):

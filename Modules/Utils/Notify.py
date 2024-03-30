@@ -146,7 +146,11 @@ class Notify:
         return asideContent
 
     @staticmethod
-    def CreateHeadContent(title, dataMgr):
+    def CreateHeadContent(title, dataMgr, configMgr):
+        if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
+            img = f""
+        else:
+            img = f""
         headContent = f"""
         <div class=body style=background-color:#3a3a3a>
             <style>{dataMgr.htmlStyle}</style>
@@ -164,7 +168,7 @@ class Notify:
                                 <div class="post-container-sticky">
                                     <div class=post style=background-color:#2b2b2b>
                                         <div class=post-Img-container>
-                                            
+                                            {img}
                                         </div>
                                         <div class=post-txt-container>
                                             <div class=post-txt-container-title style=color:#d9d9d9>
@@ -242,7 +246,7 @@ class Notify:
         detailContent, universeContent = Notify.CreateConfigContent(detailContent, uid, dataMgr, configMgr)
 
         htmlStr=f"""
-            {Notify.CreateHeadContent(subTitle, dataMgr)}
+            {Notify.CreateHeadContent(subTitle, dataMgr, configMgr)}
                                             <section class=post-detail-txt style=color:#d9d9d9>
                                                 {Notify.CreateAnnListContent(dataMgr)}
                                                 {Notify.CreateOfficialNoticeContent()}
