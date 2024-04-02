@@ -30,7 +30,7 @@ class ConfigModule():
                 if tempLoadConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] - self.mLastTimeSaveTimestamp >= 5:
                     self.mConfig.update(tempLoadConfig)
                     self.SaveConfig()
-                    self.logMgr.Info("Config文件已重载")
+                    self.logMgr.Debug("Config文件已重载")
         except FileNotFoundError:
             self.logMgr.Error("Config文件未找到")
             self.SaveConfig()
@@ -56,7 +56,7 @@ class ConfigModule():
             if nowTime - self.mLastTimeModifyTimestamp >= 5:
                 self.ReloadConfig()
                 self.mLastTimeModifyTimestamp = nowTime
-            self.logMgr.Info(f"config: {key}被修改")
+            self.logMgr.Debug(f"config: {key}被修改")
             self.mConfig[key] = value
         else:
             raise AttributeError(f"'{type(self).__name__}' object has no attribute '{key}'")
@@ -84,7 +84,7 @@ class ConfigModule():
             with open(exampleConfigPath, 'r', encoding='utf-8') as file:
                 loadedConfig = cls.mInstance.mYaml.load(file)
                 if loadedConfig:
-                    cls.logMgr.Info("Config文件已首次加载")
+                    cls.logMgr.Debug("Config文件已首次加载")
                     return loadedConfig
         except FileNotFoundError:
             input("初始配置文件未找到,检查assets是否完整")
@@ -138,7 +138,7 @@ class ConfigModule():
         if self.nowTime - self.mLastTimeModifyTimestamp >= 5:
             self.mLastTimeModifyTimestamp = self.nowTime
             self.ReloadConfig()
-            self.logMgr.Info("Config已重载")
+            self.logMgr.Debug("Config已重载")
                         
     def __getattr__(self, attr):
         if attr in self.mConfig:

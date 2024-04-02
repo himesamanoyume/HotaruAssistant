@@ -49,7 +49,7 @@ class TaskMgr:
 
     @staticmethod
     def SendExceptionNotify(e):
-        dataMgr.tempText = f"<p>{e}</p>"
+        dataMgr.tempText = e
         stateMgr.Transition(SendEmailExceptionState())
 
     @staticmethod

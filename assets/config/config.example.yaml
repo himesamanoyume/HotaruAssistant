@@ -3,7 +3,6 @@ check_update: true # 检测更新
 check_prerelease_update: false # 若检测更新,是否检测pre-release通道
 agreed_to_disclaimer: false # false为未接受
 dev_screen_enable: false # 是否开启透明窗口
-recording_enable: false # 是否录制
 last_running_uid: '111111111' # 最后运行的UID
 blacklist_uid: # UID黑名单,uid后可以注释黑名单原因
 - '111111111' # 太帅
@@ -97,8 +96,6 @@ purefiction_stars: {} # 虚构叙事星数
 purefiction_levels: {} # 虚构叙事层数
 
 hotkey_technique: e # 游戏内设置的秘技按键
-hotkey_obs_start: '[' # obs开始录制的快捷键
-hotkey_obs_stop: ']' # obs开始录制的快捷键
 
 # 消息通知
 # 邮箱 smtp 通知

@@ -1,4 +1,4 @@
-import sys,pyuac,os,questionary,time,pyautogui
+import sys,pyuac,os,questionary,pyautogui
 from Hotaru.Client.LogClientHotaru import logMgr,log
 from Hotaru.Client.OcrHotaru import ocrMgr
 from Hotaru.Client.ScreenHotaru import screenMgr
@@ -118,7 +118,7 @@ class AppTools:
 import tkinter as tk
 from tkinter import simpledialog
 from PIL import Image, ImageTk
-import os
+import os,atexit
 
 class ScreenshotApp:
     def __init__(self, root, screenshot):
@@ -244,6 +244,10 @@ class ScreenshotApp:
         else:
             tk.messagebox.showinfo("结果", "还没有选择区域呢")
 
+def ExitHandler():
+    # 退出 OCR
+    ocrMgr.mOcr.ExitOcr()
+
 if __name__ == '__main__':
 
     if not pyuac.isUserAdmin():
@@ -258,6 +262,7 @@ if __name__ == '__main__':
         try:
             if not os.path.exists("./reg"):
                 os.mkdir("./reg")
+            atexit.register(ExitHandler)
             AppTools.main()
             input("按回车键关闭窗口. . .")
             sys.exit(0)

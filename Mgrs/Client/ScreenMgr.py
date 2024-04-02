@@ -307,7 +307,7 @@ class ScreenMgr:
                     if self.CheckScreen(nextScreen):
                         break
                     else:
-                        time.sleep(1)
+                        time.sleep(0.5)
 
                 if self.currentScreen != nextScreen:
                     if maxRecursion > 0:
@@ -324,7 +324,7 @@ class ScreenMgr:
 
                 
                 log.info(logMgr.Info(f"切换到：{self.green + self.GetName(nextScreen) + self.reset}"))
-                time.sleep(1)
+                time.sleep(0.5)
             self.currentScreen = targetScreen  # 更新当前界面
             return
 

@@ -2,6 +2,7 @@ import random,json,requests,time,smtplib,base64
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
 from email.header import Header
 from Modules.Utils.ConfigKey import ConfigKey
 
@@ -148,15 +149,15 @@ class Notify:
     @staticmethod
     def CreateHeadContent(title, dataMgr, configMgr):
         if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
-            img = f""
+            img = f"<section class=post-detail-txt style=color:#d9d9d9><p>流萤秘密基地头图但暂时没有流萤.png</p></section>"
         else:
-            img = f""
+            img = f"<img loading='lazy' src='cid:bgNoHotaru'>"
         headContent = f"""
         <div class=body style=background-color:#3a3a3a>
             <style>{dataMgr.htmlStyle}</style>
                 <header class=header style=position:sticky>
                     <nav class=nav style='margin:0 15px;justify-content:center;background-color:#2b2b2b'>
-                        <span class=blogName style=color:#d9d9d9;text-align:center; id=nav-index>
+                        <span class=blogName style=color:#d9d9d9;text-align:center;font-size:x-large; id=nav-index>
                             流萤的秘密基地
                         </span>
                     </nav>
@@ -167,7 +168,7 @@ class Notify:
                             <div class=post-sub-container>
                                 <div class="post-container-sticky">
                                     <div class=post style=background-color:#2b2b2b>
-                                        <div class=post-Img-container>
+                                        <div class=post-Img-container style=max-height:none>
                                             {img}
                                         </div>
                                         <div class=post-txt-container>
@@ -273,6 +274,20 @@ class Notify:
 
         html = f"{htmlStr}"
         emailObject.attach(MIMEText(html,'html','utf-8'))
+        if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][uid]:
+            pass
+            # with open('./assets/static/img/bg_Hotaru.png', 'rb') as hotaruPng:
+            #     bgHotaru = MIMEImage(hotaruPng.read())
+            #     bgHotaru.add_header('Content-ID', '<bgHotaru>')
+            #     emailObject.attach(bgHotaru)
+            #     hotaruPng.close()
+        else:
+            with open('./assets/static/img/bg_noHotaru.png', 'rb') as noHotaruPng:
+                bgNoHotaru = MIMEImage(noHotaruPng.read())
+                bgNoHotaru.add_header('Content-ID', '<bgNoHotaru>')
+                emailObject.attach(bgNoHotaru)
+                noHotaruPng.close()
+
         emailObject['To'] = configMgr.mConfig[ConfigKey.NOTIFY_SMTP_MASTER]
 
         sendHostEmail.sendmail(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_TO][uid], str(emailObject))

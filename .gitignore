@@ -183,6 +183,7 @@ pyrightconfig.json
 /AppTest.py
 
 # HotaruAssistant
+new_screens.json
 /*config.yaml
 /backup/*
 /logs
@@ -193,7 +194,7 @@ pyrightconfig.json
 /*.bat
 /AppBuild.py
 /Hotaru/Server/*
-/assets/static/*
+/assets/static/js/*
 /assets/templates/*
 /AppServer.py
 /Mgrs/Server/*

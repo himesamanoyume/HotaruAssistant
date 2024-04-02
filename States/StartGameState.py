@@ -70,7 +70,7 @@ class StartGameState(BaseState):
         
         screenMgr.CheckResulotion(dataMgr.gameTitleName, 1920, 1080)
 
-        if not Retry.Re(lambda: self.CheckAndClickEnter(), 60, 2):
+        if not Retry.Re(lambda: self.CheckAndClickEnter(), 180, 2):
             log.error(logMgr.Error("无法找到点击进入按钮"))
             return False
         

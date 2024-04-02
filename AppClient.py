@@ -125,6 +125,7 @@ class AppClient:
                             if selectedAction == 'daily':
                                 if taskMgr.StartGame():
                                     dataMgr.currentAction = "每日任务流程"
+                                    # raise Exception("测试异常")
                                     taskMgr.StartDaily()
                             elif selectedAction == 'universe':
                                 if taskMgr.StartGame():

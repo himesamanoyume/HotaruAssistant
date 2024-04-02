@@ -26,7 +26,17 @@ HotaruAssistant · 流萤小助手<br>
 - 随缘更新,没有群(但我在原作者群里),不写Changelog
 - 基本不回答问题
 
-**老版本代码已迁移到了old分支**
+## 预览
+
+不一定仍是实际画面
+
+![web_preview](./assets/screenshot/web_preview.png)
+
+<center><p>WEBUI</p></center>
+
+![smtp_preview](./assets/screenshot/smtp_preview.png)
+
+<center><p>SMTP</p></center>
 
 ## 功能对比
 
@@ -45,7 +55,6 @@ HotaruAssistant · 流萤小助手<br>
 锄大地|&check;|&cross;
 消息推送|&check;|仅支持邮件
 UI|QT客户端|WebUI
-OBS录制|&cross;|&check;(准备取消)
 
 > 其中模拟宇宙调用的 [Auto_Simulated_Universe](https://github.com/himesamanoyume/Auto_Simulated_Universe) 项目也是为我自己适配本项目所修改的fork,非原版模拟宇宙,锄大地功能已经剔除
 
@@ -56,34 +65,6 @@ OBS录制|&cross;|&check;(准备取消)
 - 确保已安装Python 3.11.1及以上版本, 调用的模拟宇宙模块为源码运行
 
 > 本项目用于在一个后台用户上完成所有账号的日常周常,若有锄大地等需求建议使用[原版三月七助手](https://github.com/moesnow/March7thAssistant)每个账号开一个用户单独运作,或者直接单独使用原项目仓库中提到的[原版模拟宇宙自动化](https://github.com/CHNZYX/Auto_Simulated_Universe)和[原版锄大地自动化](https://github.com/linruowuyin/Fhoe-Rail)项目
-
-## 下载安装
-
-前往 [Releases](https://github.com/himesamanoyume/HotaruAssistant/releases/latest) 下载
-
-检测更新 双击 `Update.exe`
-
-## 如何使用
-
-1. 启动Server
-
-自动打开webui，查看控制台显示的网页ip地址，记录第二个，你将可以在同一局域网环境内用电脑手机浏览器打开，远程修改配置
-
-2. 若为第一次使用: 启动Register获取注册表
-
-因为支持多账号登录，总不可能傻傻地再输密码，因此需要使用Register登录游戏获取注册表，之后将通过导入注册表完成快速登录。每一个uid对应一个注册表，注册表也以uid命名
-
-3. webui激活uid配置
-
-当获取注册表之后，此时该uid已被列入激活列表，此时你需要到webui的激活界面，填写基础配置信息，进行激活
-
-4. 可选:在首次启动前先在webui的UID总览里修改配置
-
-> 强烈建议开启并配置SMTP服务,收取邮件通知
-
-5. 启动Client
-
-此时应该能看到已激活的uid在列表中，按回车开启循环
 
 ---
 
@@ -98,18 +79,13 @@ OBS录制|&cross;|&check;(准备取消)
 4词条1双暴|无视|无视|胚子:双暴主词条|无视|无视|无视
 4词条2双暴|胚子|胚子|胚子|胚子|胚子|胚子
 
-## 2.0预览版前重要TODO
-
-- CreateHeadContent完善头图部分
-- 识别相关改进(抄袭原版)
-- - screens.json相关一并优化(抄袭原版)
-- js混淆(集合作为Build中的一步)
-
 ## 2.0TODO
 
-- 启动游戏时若遇到更新无法处理,重试次数太少跳过太快
-- 新增角色死亡处理(目前是尝试1,2,3,4切换角色，如果出现需要复活的界面,则跳转到传送点)
-- 模拟宇宙似乎没有领沉浸奖励
+- 识别相关改进(抄袭原版)[似乎暂时不需要]
+- - ~~screens.json相关一并优化~~(抄袭原版)[似乎暂时不需要]
+- 新增角色死亡处理(目前是激化尝试1,2,3,4切换角色，如果出现需要复活的界面,则跳转到传送点)
+- 模拟宇宙似乎没有领沉浸奖励(似乎是由于模拟宇宙脚本识别不到交互)
+- 检查模拟宇宙积分与扩展装置到模拟宇宙主界面之间的切换
 - 也许可以把当前State一起打印
 - 每次操作之间间隔太久，需要继续优化[重构完成后]
 - 优化:姬子试用流程可缩减[重构完成后]
@@ -164,7 +140,6 @@ OBS录制|&cross;|&check;(准备取消)
 
 ### v1.x低优先级
 
-- webui显示控制台log
 - 新增设置开启自动战斗继承和config项
 - 当一个事件距离开始不超过1天时 记为新活动开始发送通知
 - Bug:模拟宇宙进行过程中非正常退出时,下次上号仍会处于模拟宇宙中,此时脚本无法识别当前情景（懒得修,自己手动退出模拟宇宙）

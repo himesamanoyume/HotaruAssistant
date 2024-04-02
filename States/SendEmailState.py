@@ -55,13 +55,13 @@ class SendEmailState(BaseNotifyState):
 
             content += f"<p><strong>当前遗器数量</strong></p><blockquote style='background-color:rgb({(64 + (95 - 64)*(dataMgr.currentRelicCount / 2000))}, 64, {(95 - (95 - 64)*(dataMgr.currentRelicCount / 2000))});box-shadow: 3px 0 0 0 rgb({(102 + (216 - 102)*(dataMgr.currentRelicCount / 2000))}, {(204 - (204 - 89)*(dataMgr.currentRelicCount / 2000))}, {(255 - (255 - 89)*(dataMgr.currentRelicCount / 2000))}) inset;'><p>{dataMgr.currentRelicCount}/2000</p></blockquote>"
 
-            content += f"<p><strong>最新一期忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,这里不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{dataMgr.notifyContent['混沌回忆倒计时']}</p>"
+            content += f"<p><strong>最新一期忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,脚本不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{dataMgr.notifyContent['混沌回忆倒计时']}</p>"
 
             content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataMgr.currentUid] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataMgr.currentUid]}/12</p></blockquote>"
 
             content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataMgr.currentUid] == 36 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataMgr.currentUid]}/36</p></blockquote>"
 
-            content += f"<p><strong>最新一期虚构叙事</strong></p><div class=post-txt-container-datetime>注意,这里不支持虚构叙事代打,仅提供信息提示</div><p>距离刷新:{dataMgr.notifyContent['虚构叙事倒计时']}</p>"
+            content += f"<p><strong>最新一期虚构叙事</strong></p><div class=post-txt-container-datetime>注意,脚本不支持虚构叙事代打,仅提供信息提示</div><p>距离刷新:{dataMgr.notifyContent['虚构叙事倒计时']}</p>"
 
             content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataMgr.currentUid] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataMgr.currentUid]}/4</p></blockquote>"
 

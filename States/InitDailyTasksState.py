@@ -32,17 +32,17 @@ class InitDailyTasksState(BaseFightState, BaseState):
             if screenMgr.ClickElement("./assets/images/synthesis/filter.png", "image", 0.9, maxRetries=10):
                 # 等待筛选界面弹出
                 time.sleep(1)
-                if screenMgr.ClickElement("通用培养材料", "text", maxRetries=10, crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
+                if screenMgr.ClickElement("通用培养材料", "text", maxRetries=3, crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
                     time.sleep(1)
                     if screenMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=10):
                         time.sleep(1)
                         # 多次重试避免选中没反应
-                        for i in range(10):
-                            screenMgr.ClickElement("./assets/images/synthesis/nuclear.png", "image", 0.9, maxRetries=10)
-                            if screenMgr.FindElement("./assets/images/synthesis/nuclear_selected.png", "image", 0.9, maxRetries=10):
-                                if screenMgr.ClickElement("./assets/images/synthesis/synthesis_button.png", "image", 0.9, maxRetries=10):
-                                    if screenMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=10):
-                                        if screenMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10):
+                        for i in range(3):
+                            screenMgr.ClickElement("./assets/images/synthesis/nuclear.png", "image", 0.9, maxRetries=3)
+                            if screenMgr.FindElement("./assets/images/synthesis/nuclear_selected.png", "image", 0.6, maxRetries=3, crop=(1137.0 / 1920, 327.0 / 1080, 98.0 / 1920, 83.0 / 1080)):
+                                if screenMgr.ClickElement("./assets/images/synthesis/synthesis_button.png", "image", 0.9, maxRetries=3):
+                                    if screenMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=3):
+                                        if screenMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=3):
                                             log.info(logMgr.Info("合成材料完成"))
                                             return True
                                 break
