@@ -8,10 +8,10 @@ import requests,json
 class Update:
     mInstance = None
 
-    def __new__(cls, logMgr):
+    def __new__(cls, log):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.logMgr = logMgr
+            cls.log = log
         return cls.mInstance
     
     def Run(self):
@@ -45,12 +45,12 @@ class Update:
     def DownloadFile(self):
         while True:
             try:
-                self.logMgr.Info(f"开始下载: {self.downloadUrl}")
+                self.log.info(f"开始下载: {self.downloadUrl}")
                 self.DownloadWithProgress(self.downloadUrl, self.downloadFilePath)
-                self.logMgr.Info(f"下载完成: {self.downloadFilePath}")
+                self.log.info(f"下载完成: {self.downloadFilePath}")
                 break
             except Exception as e:
-                self.logMgr.Error(f"下载失败: {e}")
+                self.log.error(f"下载失败: {e}")
                 input("按回车键重试. . .")
 
     def ExtractFile(self):
@@ -58,33 +58,33 @@ class Update:
             try:
                 if not subprocess.run([self.exePath, "x", self.downloadFilePath, f"-o{self.tempPath}", "-aoa"], shell=True, check=True):
                     raise Exception
-                self.logMgr.Info(f"解压完成：{self.extractFolderPath}")
+                self.log.info(f"解压完成：{self.extractFolderPath}")
                 break
             except Exception as e:
-                self.logMgr.Error(f"解压失败：{e}")
+                self.log.error(f"解压失败：{e}")
                 input("按回车键重试. . .")
 
     def CoverFolder(self):
         while True:
             try:
                 shutil.copytree(self.extractFolderPath, self.coverFolderPath, dirs_exist_ok=True)
-                self.logMgr.Info(f"覆盖完成：{self.coverFolderPath}")
+                self.log.info(f"覆盖完成：{self.coverFolderPath}")
                 break
             except Exception as e:
-                self.logMgr.Error(f"覆盖失败：{e}")
+                self.log.error(f"覆盖失败：{e}")
                 input("按回车键重试. . .")
 
     def CleanUp(self):
         try:
             os.remove(self.downloadFilePath)
-            self.logMgr.Info(f"清理完成：{self.downloadFilePath}")
+            self.log.info(f"清理完成：{self.downloadFilePath}")
         except Exception as e:
-            self.logMgr.Warning(f"清理失败：{e}")
+            self.log.warning(f"清理失败：{e}")
         try:
             shutil.rmtree(self.extractFolderPath)
-            self.logMgr.Info(f"清理完成：{self.extractFolderPath}")
+            self.log.info(f"清理完成：{self.extractFolderPath}")
         except Exception as e:
-            self.logMgr.Warning(f"清理失败：{e}")
+            self.log.warning(f"清理失败：{e}")
 
     @staticmethod
     def CheckVersion(isCheckPreRelease):
@@ -96,7 +96,7 @@ class Update:
                 currentAssetsVersion = json.load(jsonFile)['hotaru_assets_version']
                 jsonFile.close()
 
-            response = requests.get(FastestMirror.GetGithubApiMirror("himesamanoyume","himesamanoyume", 5, isCheckPreRelease), timeout=3)
+            response = requests.get(FastestMirror.GetGithubApiMirror("himesamanoyume","HotaruAssistant", 5, isCheckPreRelease), timeout=3)
             if response.status_code == 200:
                 data = json.loads(response.text)
                 if isCheckPreRelease:

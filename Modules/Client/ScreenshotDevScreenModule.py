@@ -114,8 +114,8 @@ class ScreenshotDevScreenModule:
     def ocr_selection(self):
         if self.selection_rect:
             width, height, x, y = self.get_selection_info()
-            from Hotaru.Client.OcrHotaru import ocrMgr
-            result = ocrMgr.mOcr.RecognizeMultiLines(self.screenshot.crop((x, y, x + width, y + height)))
+            from Hotaru.Client.OcrClientHotaru import ocrClientMgr
+            result = ocrClientMgr.mOcr.RecognizeMultiLines(self.screenshot.crop((x, y, x + width, y + height)))
             text = ""
             Flag = True
             for box in result:

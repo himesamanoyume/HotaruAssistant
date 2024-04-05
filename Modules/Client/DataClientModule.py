@@ -1,7 +1,7 @@
 from Modules.Utils.Himesamanoyume import Himesamanoyume
 import json
 
-class DataClient:
+class DataClientModule:
     tempUid = '-1'
     currentUid = '-1'
     currentGamePid = -1 # 初始值 不要动

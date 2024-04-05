@@ -1,5 +1,4 @@
 ruamel.yaml
-pyyaml
 colorama
 packaging
 pyuac
@@ -9,13 +8,10 @@ psutil
 pyautogui
 pygetwindow
 requests
-imageio
-Pillow
 Numpy
-opencv-python
-onepush
-markdown
 cpufeature
 pylnk3
 flask
 questionary
+pywin32==306
+opencv-python

@@ -1,0 +1,48 @@
+from States.Client import *
+import pyperclip
+
+class CheckCdkeyState(BaseClientState):
+
+    mStateName = 'CheckCdkeyState'
+
+    def OnBegin(self):
+        if not len(configMgr.mConfig[configMgr.mKey.CDKEY_LIST]) > 0:
+            log.info(logMgr.Info("未检测到有兑换码"))
+            return False
+        screenClientMgr.ChangeTo("cdkey")
+        for cdkey in configMgr.mConfig[configMgr.mKey.CDKEY_LIST]:
+            log.info(logMgr.Info("检测到有兑换码"))
+            time.sleep(1)
+            pyperclip.copy(cdkey)
+            if screenClientMgr.ClickElement("./assets/images/screen/cdkey/cdkey_copy.png", "image", 0.9, maxRetries=5):
+                time.sleep(0.5)
+                if screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=5):
+                    time.sleep(0.5)
+                    if screenClientMgr.FindElement("./assets/images/screen/cdkey/cdkey_fast.png", "image", 0.9, maxRetries=5):
+                        log.warning(logMgr.Warning(f"{cdkey},兑换过快,5秒后重试"))
+                        time.sleep(5)
+                        if screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=5):
+                            time.sleep(0.5)
+                            if screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=5):
+                                log.info(logMgr.Info(f"{cdkey},兑换成功"))
+                                time.sleep(1)
+                                screenClientMgr.ChangeTo("cdkey")
+                                continue
+                    elif screenClientMgr.FindElement("./assets/images/screen/cdkey/cdkey_repeat.png", "image", 0.9, maxRetries=5):
+                        log.warning(logMgr.Warning(f"{cdkey},已被兑换过了"))
+                        time.sleep(1)
+                        if screenClientMgr.ClickElement("./assets/images/screen/cdkey/cdkey_clear.png", "image", 0.9, maxRetries=5):
+                            continue
+                    elif screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=5):
+                        log.info(logMgr.Info(f"{cdkey},兑换成功"))
+                        time.sleep(1)
+                        screenClientMgr.ChangeTo("cdkey")
+                        continue
+                        
+        screenClientMgr.ChangeTo("menu")
+
+    def OnRunning(self):
+        return False
+
+    def OnExit(self):
+        return False

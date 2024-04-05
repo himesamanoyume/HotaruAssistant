@@ -1,5 +1,5 @@
 from Hotaru.Client.ConfigClientHotaru import configMgr
-from Hotaru.Client.DataClientHotaru import dataMgr
+from Hotaru.Client.DataClientHotaru import dataClientMgr
 from .DetectDevScreenSubModule import DetectDevScreenSubModule
 from .DetectScreenModule import DetectScreenModule
 from Hotaru.Client.LogClientHotaru import logMgr,log
@@ -15,8 +15,8 @@ class ScreenModule:
     def StartDevScreen(self):
         if configMgr.mConfig[configMgr.mKey.DEV_SCREEN_ENABLE]:
             log.info(logMgr.Info("DevScreen正在等待开启"))
-            while not dataMgr.currentAction == "临时流程":
-                window = GameWindow.GetWindow(dataMgr.gameTitleName)
+            while not dataClientMgr.currentAction == "临时流程":
+                window = GameWindow.GetWindow(dataClientMgr.gameTitleName)
                 if not window is False:
                     self.mDevScreen.InitDevScreenLoop(window)
                 else:

@@ -2,7 +2,7 @@ from Modules.Utils.Date import Date
 
 class InitUidConfig:
     @staticmethod
-    def InitUidDefaultConfig(configMgr, logMgr, uid):
+    def InitUidDefaultConfig(configMgr, log, logMgr, uid):
         try:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_ENABLE, uid, False)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_4STAR_ENABLE, uid, True)
@@ -74,5 +74,5 @@ class InitUidConfig:
             return True
 
         except Exception as e:
-            logMgr.Error(f"发生错误:{e}")
+            log.error(logMgr.Error(f"发生错误:{e}"))
             return False

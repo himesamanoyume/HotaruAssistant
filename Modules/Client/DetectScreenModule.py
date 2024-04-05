@@ -1,9 +1,9 @@
 import numpy as np,time,math,cv2
 from Hotaru.Client.LogClientHotaru import log,logMgr
-from Hotaru.Client.OcrHotaru import ocrMgr
+from Hotaru.Client.OcrClientHotaru import ocrClientMgr
 from .ClickScreenSubModule import ClickScreenSubModule
 from Modules.Utils.GameWindow import GameWindow
-from Hotaru.Client.DataClientHotaru import dataMgr
+from Hotaru.Client.DataClientHotaru import dataClientMgr
 from Hotaru.Client.ConfigClientHotaru import configMgr
 
 class DetectScreenModule:
@@ -59,13 +59,13 @@ class DetectScreenModule:
     def ClickElementWithPosQuest(self, coordinates, offset=(0, 0), action="click"):
         self.TakeScreenshot(crop=(297.0 / 1920, 478.0 / 1080, 246.0 / 1920, 186.0 / 1080))
         time.sleep(2)
-        result = ocrMgr.mOcr.RecognizeMultiLines(self.screenshot)
+        result = ocrClientMgr.mOcr.RecognizeMultiLines(self.screenshot)
         result_keyword = result[0][1][0]
         time.sleep(0.5)
-        for mappingsKeyword, taskName in dataMgr.meta["task_mappings"].items():
+        for mappingsKeyword, taskName in dataClientMgr.meta["task_mappings"].items():
             if mappingsKeyword in result_keyword:
-                if taskName in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid][taskName] == True:
-                    configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataMgr.currentUid][taskName] = False
+                if taskName in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid][taskName] == True:
+                    configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid][taskName] = False
                     log.warning(logMgr.Warning(f"keyword:{mappingsKeyword}----->{taskName}:进行了点击,任务已经完成"))
                 else:
                     log.warning(logMgr.Warning(f"keyword:{mappingsKeyword}----->{taskName}:进行了点击,但可能配置项中之前已完成修改或未识别成功"))
@@ -180,7 +180,7 @@ class DetectScreenModule:
             target = (target,)
         try:
             if needOcr:
-                self.ocrResult = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
+                self.ocrResult = ocrClientMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
             if not self.ocrResult:
                 log.debug(logMgr.Debug(f"目标文字：{', '.join(target)} 未找到，没有识别出任何文字"))
                 return None, None
@@ -205,7 +205,7 @@ class DetectScreenModule:
 
     def FindMinDistanceTextElement(self, target, source, sourceType, include, needOcr=True):
         if needOcr:
-            self.ocrResult = ocrMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
+            self.ocrResult = ocrClientMgr.mOcr.RecognizeMultiLines(np.array(self.screenshot))
 
         sourcePos = None
         if sourceType == 'text':
@@ -282,7 +282,7 @@ class DetectScreenModule:
     def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
         for i in range(maxRetries):
             self.screenshot, self.screenshotPos = self.TakeScreenshot(crop)
-            ocrResult = ocrMgr.mOcr.RecognizeSingleLine(np.array(self.screenshot), blacklist)
+            ocrResult = ocrClientMgr.mOcr.RecognizeSingleLine(np.array(self.screenshot), blacklist)
             if ocrResult:
                 return ocrResult[0]
         return None

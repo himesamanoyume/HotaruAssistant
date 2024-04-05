@@ -1,4 +1,5 @@
 last_time_save_timestamp: 0
+log_level: 'INFO'
 check_update: true # 检测更新
 check_prerelease_update: false # 若检测更新,是否检测pre-release通道
 agreed_to_disclaimer: false # false为未接受
@@ -70,7 +71,6 @@ dispatch_enable: true # 领取委托奖励
 mail_enable: true # 领取邮件奖励
 assist_enable: true # 领取支援奖励
 
-daily_himeko_try_enable: true # 通过 “姬子试用” 完成任务
 daily_tasks: {} # 每日实训
 daily_tasks_score: {} # 活跃度
 daily_tasks_fin: {} # 是否完成实训

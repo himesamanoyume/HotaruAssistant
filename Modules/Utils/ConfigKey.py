@@ -1,6 +1,7 @@
 
 class ConfigKey:
     CHECK_PRERELEASE_UPDATE = 'check_prerelease_update'
+    LOG_LEVEL = 'log_level'
     INSTANCE_TEAM_ENABLE = 'instance_team_enable'
     INSTANCE_TEAM_NUMBER = 'instance_team_number'
     USE_FUEL = 'use_fuel'
@@ -63,7 +64,6 @@ class ConfigKey:
     DISPATCH_ENABLE = 'dispatch_enable'
     MAIL_ENABLE = 'mail_enable'
     ASSIST_ENABLE = 'assist_enable'
-    DAILY_HIMEKO_TRY_ENABLE = 'daily_himeko_try_enable'
     DAILY_TASKS = 'daily_tasks'
     DAILY_TASKS_SCORE = 'daily_tasks_score'
     DAILY_TASKS_FIN = 'daily_tasks_fin'

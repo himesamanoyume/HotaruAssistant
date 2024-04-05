@@ -1,6 +1,6 @@
 import pyautogui,tkinter,os,time
 from Hotaru.Client.LogClientHotaru import logMgr,log
-from Hotaru.Client.DataClientHotaru import dataMgr
+from Hotaru.Client.DataClientHotaru import dataClientMgr
 from tkinter import *
 from Modules.Utils.GameWindow import GameWindow
 
@@ -16,7 +16,7 @@ class DetectDevScreenSubModule:
         temp3 = detectArea[3] * 1080
         detectArea = (temp2, temp3, temp0, temp1)
 
-        window = GameWindow.GetWindow(dataMgr.gameTitleName)
+        window = GameWindow.GetWindow(dataClientMgr.gameTitleName)
         if window:
             upBorder = GameWindow.GetWindowDevBorder(window)
             

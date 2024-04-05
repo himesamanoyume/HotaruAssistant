@@ -1,2 +1,2 @@
-from Modules.Client.DataClientModule import DataClient
-dataMgr = DataClient()
+from Modules.Client.DataClientModule import DataClientModule
+dataClientMgr = DataClientModule()

@@ -1,8 +1,7 @@
 
 from Modules.Utils.ConfigKey import ConfigKey
-from Modules.Config.ConfigModule import ConfigModule
-from Hotaru.Client.LogClientHotaru import logMgr,log
-import sys,threading,time
+from Modules.Common.ConfigModule import ConfigModule
+import time
 
 class ConfigClientMgr:
     mInstance = None
@@ -10,7 +9,7 @@ class ConfigClientMgr:
     def __new__(cls):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
-            cls.mConfig = ConfigModule(logMgr)
+            cls.mConfig = ConfigModule()
             cls.mKey = ConfigKey()
 
         return cls.mInstance
@@ -24,19 +23,3 @@ class ConfigClientMgr:
         
         return True
     
-    def IsAgreed2Disclaimer(self):
-        if not self.mConfig[self.mKey.AGREED_TO_DISCLAIMER]:
-            log.error(logMgr.Error("你未同意《免责声明》, 需要先启动Server并同意"))
-            input("按回车键关闭窗口. . .")
-            sys.exit(0)
-        else:
-            self.autoSaveThread = threading.Thread(target=self.AutoSave)
-            self.autoSaveThread.start()
-
-    def AutoSave(self):
-        while True:
-            time.sleep(4)
-            nowtime = time.time()
-            if nowtime - self.mConfig.mLastTimeSaveTimestamp >= 5 and nowtime - self.mConfig.mLastTimeModifyTimestamp <= 10:
-                self.mConfig.SaveConfig()
-                logMgr.Info("Client:配置文件进行自动保存")

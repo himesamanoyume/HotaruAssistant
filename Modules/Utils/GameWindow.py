@@ -1,5 +1,5 @@
 from Hotaru.Client.LogClientHotaru import log,logMgr
-from Hotaru.Client.DataClientHotaru import dataMgr
+from Hotaru.Client.DataClientHotaru import dataClientMgr
 import pyautogui,win32gui,time,pygetwindow
 
 class GameWindow:
@@ -54,14 +54,14 @@ class GameWindow:
         
     @staticmethod
     def TakeScreenshot(crop=(0, 0, 0, 0)):
-        window = GameWindow.GetWindow(dataMgr.gameTitleName)
+        window = GameWindow.GetWindow(dataClientMgr.gameTitleName)
         if window:
             if crop == (0, 0, 0, 0):
                 screenshotPos = GameWindow.GetWindowRegion(window)
             else:
                 left, top, width, height = GameWindow.GetWindowRegion(window)
                 screenshotPos = int(left + width * crop[0]), int(top + height * crop[1]), int(width * crop[2]), int(height * crop[3])
-            GameWindow.SwitchToWindow(dataMgr.gameTitleName, maxRetries=4)
+            GameWindow.SwitchToWindow(dataClientMgr.gameTitleName, maxRetries=4)
             screenshot = pyautogui.screenshot(region=screenshotPos)
             return screenshot, screenshotPos
         else:

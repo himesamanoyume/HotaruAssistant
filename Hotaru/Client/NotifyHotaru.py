@@ -1,2 +1,2 @@
-from Mgrs.Common.NotifyMgr import NotifyMgr
+from Mgrs.Base.NotifyMgr import NotifyMgr
 notifyMgr = NotifyMgr()

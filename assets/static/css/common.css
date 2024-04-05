@@ -1655,10 +1655,6 @@
         }
 
         .post {
-            margin: 10px 0 0 0;
-        }
-
-        .post {
             position:relative;
             top: 0;
             margin: 10px 0 0 0;
@@ -1669,4 +1665,15 @@
         }
     }
 
-    
+    .post-sticky-container{
+        background-color: unset;
+        margin: 0;
+        position: relative;
+        overflow: unset;
+        box-shadow: none;
+    }
+
+    .post-page-sticky{
+        bottom: 10px;
+        position: sticky;
+    }
