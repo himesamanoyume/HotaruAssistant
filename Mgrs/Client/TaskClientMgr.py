@@ -4,6 +4,7 @@ from Hotaru.Client.StateClientHotaru import stateClientMgr
 from Hotaru.Client.DataClientHotaru import dataClientMgr
 from States.Client.ClientStartGameState import ClientStartGameState
 from States.Client.ClientInitAccountState import ClientInitAccountState
+from States.Client.ToolsInitAccountState import ToolsInitAccountState
 from States.Client.QuitGameState import QuitGameState
 from States.Client.SendEmailState import SendEmailState
 from States.Client.SendEmailExceptionState import SendEmailExceptionState
@@ -32,31 +33,37 @@ class TaskClientMgr(TaskBaseMgr):
 
         return cls.mInstance
     
-    def StartGame(self):
-        self.dataMgr.currentAction = "登录流程"
-        if self.stateMgr.Transition(ClientStartGameState()):
-            self.stateMgr.Transition(ClientInitAccountState())
+    def ClientStartGame(self):
+        dataClientMgr.currentAction = "登录流程"
+        if stateClientMgr.Transition(ClientStartGameState()):
+            stateClientMgr.Transition(ClientInitAccountState())
+            return True # 为True时才会进行每日任务流程或模拟宇宙流程
+        
+    def ToolsStartGame(self):
+        dataClientMgr.currentAction = "登录流程"
+        if stateClientMgr.Transition(ClientStartGameState()):
+            stateClientMgr.Transition(ToolsInitAccountState())
             return True # 为True时才会进行每日任务流程或模拟宇宙流程
             
     def QuitGame(self):
-        self.stateMgr.Transition(QuitGameState())
+        stateClientMgr.Transition(QuitGameState())
 
     def SendNotify(self):
-        self.stateMgr.Transition(SendEmailState())
+        stateClientMgr.Transition(SendEmailState())
 
     def SendExceptionNotify(self, e):
-        self.dataMgr.tempText = e
-        self.stateMgr.Transition(SendEmailExceptionState())
+        dataClientMgr.tempText = e
+        stateClientMgr.Transition(SendEmailExceptionState())
 
     def DetectNewAccounts(self):
-        self.stateMgr.Transition(DetectNewAccountState())
+        stateClientMgr.Transition(DetectNewAccountState())
 
     def ReadyToStart(self, uid):
-        self.dataMgr.tempUid = uid
-        self.stateMgr.Transition(InitState())
+        dataClientMgr.tempUid = uid
+        stateClientMgr.Transition(InitState())
 
     def WaitForNextLoop(self):
-        self.stateMgr.Transition(WaitForNextLoopState())
+        stateClientMgr.Transition(WaitForNextLoopState())
     
     @staticmethod
     def StartDaily():

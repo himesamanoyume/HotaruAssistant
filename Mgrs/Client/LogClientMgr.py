@@ -1,3 +1,4 @@
+from Hotaru.Client.ConfigClientHotaru import configMgr
 from Hotaru.Client.DataClientHotaru import dataClientMgr
 from Hotaru.Client.SocketClientHotaru import socketClientMgr
 
@@ -37,7 +38,8 @@ class LogClientMgr:
     @staticmethod
     def Debug(msg, *args, **kwargs):
         msg = f"\033[91m[{dataClientMgr.currentUid}]\033[0m|{dataClientMgr.currentAction}|{msg}"
-        socketClientMgr.LogSendToServer("DEBUG", msg)
+        if configMgr.mConfig[configMgr.mKey.LOG_LEVEL] == "DEBUG":
+            socketClientMgr.LogSendToServer("DEBUG", msg)
         return msg
 
     @staticmethod

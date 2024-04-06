@@ -51,7 +51,7 @@ class Update:
                 break
             except Exception as e:
                 self.log.error(f"下载失败: {e}")
-                input("按回车键重试. . .")
+                input("可以按回车键重试,或重开程序尝试获取到其他下载链接. . .")
 
     def ExtractFile(self):
         while True:

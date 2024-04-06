@@ -123,22 +123,22 @@ class AppClient:
                     try:
                         if count == 1:
                             if selectedAction == 'daily':
-                                if taskClientMgr.StartGame():
+                                if taskClientMgr.ClientStartGame():
                                     dataClientMgr.currentAction = "每日任务流程"
                                     # raise Exception("测试异常")
                                     taskClientMgr.StartDaily()
                             elif selectedAction == 'universe':
-                                if taskClientMgr.StartGame():
+                                if taskClientMgr.ClientStartGame():
                                     dataClientMgr.currentAction = "模拟宇宙流程"
                                     taskClientMgr.StartUniverse()
                         else:
                             if turn == 0:
-                                if taskClientMgr.StartGame():
+                                if taskClientMgr.ClientStartGame():
                                     dataClientMgr.currentAction = "每日任务流程"
                                     taskClientMgr.StartDaily()
                             else:
                                 if not dataClientMgr.isDetectUniverseScoreAndFinished or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2] == '模拟宇宙':
-                                    if taskClientMgr.StartGame():
+                                    if taskClientMgr.ClientStartGame():
                                         dataClientMgr.currentAction = "模拟宇宙流程"
                                         taskClientMgr.StartUniverse()
 
@@ -177,7 +177,7 @@ class AppTools:
         dataClientMgr.gameTitleName = configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]
         log.hr(logMgr.Hr("在进行选择前,需要通读对应选项下的说明,若注册表修改操作不当可能导致游戏画面等设置全部被清空!!!本人概不负责", True))
         input("按回车进行下一步")
-        log.hr(logMgr.Hr("1.如果需要获取注册表,则需要先手动把游戏、Client都退出!!!截图则不需要", True))
+        log.hr(logMgr.Hr("1.如果需要使用工具箱获取注册表,则需要先手动把游戏退出!!!使用工具箱截图则不需要", True))
         input("现在请手动关闭游戏,之后按回车进行下一步")
         log.hr(logMgr.Hr("2.检查config.yaml中的game_path是否正确填入!!!", True))
         input("按回车进行下一步")
@@ -236,27 +236,31 @@ class AppTools:
             input("按回车进行下一步")
             log.hr(logMgr.Hr("2.a.若担心操作不当,可以再把temp-full.reg备份到其他位置,每次进行【获取新的注册表】时都会覆盖temp-full.reg,操作不当可能会导致没有任何内容的注册表覆盖掉temp-full.reg的情况发生", True))
             input("按回车进行下一步")
-            log.hr(logMgr.Hr("3.启动游戏后,需要在10分钟内输入账号密码登录并进入游戏,否则判定为启动游戏失败", True))
+            log.hr(logMgr.Hr("3.启动游戏后,需要在10分钟内输入账号密码登录,否则判定为启动游戏失败", True))
             input("按回车进行下一步")
-            log.hr(logMgr.Hr("4.等待左下角显示UID后,切换到脚本窗口,按下回车识别UID,如果识别错误也可自行输入", True))
+            log.hr(logMgr.Hr("4.登录完成之后可以不点击进入游戏,脚本将自动识别进入游戏按钮,进入游戏后会自动识别UID,如果识别错误也可自行输入", True))
             input("按回车进行下一步")
             log.hr(logMgr.Hr("5.然后你将获得对应UID账号的注册表文件(位于根目录./reg文件夹中,名称为starrail-xxxxxxxxx.reg)", True))
             input("按回车进行下一步")
-            log.hr(logMgr.Hr("6.退出游戏,重新运行Regsiter,选择重新导入注册表,或直接双击temp-full.reg导入注册表,即可完成", True))
+            log.hr(logMgr.Hr("6.退出游戏,关闭程序再重新运行工具箱,选择重新导入注册表,或直接双击temp-full.reg导入注册表,即可完成", True))
             input("若已阅读完毕,按回车开始获取注册表")
             # 保存完整的注册表
             log.info(logMgr.Info("正在保存完整的注册表"))
+            if not os.path.exists("./reg"):
+                os.makedirs("./reg")
             os.system(f"cmd /C reg export HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 ./reg/temp-full.reg /y")
             # 删除所有注册表
             log.info(logMgr.Info("正在删除所有注册表"))
             os.system(f"cmd /C reg delete HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 /f")
             input("此刻已生成temp-full.reg文件,你可以选择在这个空档进行文件备份,或按回车正式开始启动游戏...")
             # 等待游戏启动并登录
-            if taskClientMgr.StartGame():
+            if taskClientMgr.ToolsStartGame():
+                log.info(logMgr.Info(f"识别UID:{dataClientMgr.currentUid},是否正确?根据情况选择下列选项:"))
+                pyautogui.hotkey('alt', 'tab')
                 options_reg2 = dict()
                 options_reg2.update({f"正确,直接导出":0})
                 options_reg2.update({"错误,手动输入UID":1})
-                option_ = questionary.select(f"识别UID:{taskClientMgr.currentUid},是否正确?根据情况选择下列选项:", list(options_reg2.keys())).ask()
+                option_ = questionary.select(f"识别UID:{dataClientMgr.currentUid},是否正确?根据情况选择下列选项:", list(options_reg2.keys())).ask()
                 pyautogui.hotkey('alt', 'tab')
                 value = options_reg2.get(option_)
                 if value == 0:
@@ -271,6 +275,7 @@ class AppTools:
                 log.info("重新导入完整注册表")
                 os.system(f"cmd /C reg import ./reg/temp-full.reg")
                 log.info("完成,你已可以退出游戏,若要激活账号,需要到WEB后台的注册界面进行")
+                pyautogui.hotkey('alt', 'tab')
             else:
                 log.error(logMgr.Error(f"启动游戏超时"))
                 input("按回车键关闭窗口. . .")
