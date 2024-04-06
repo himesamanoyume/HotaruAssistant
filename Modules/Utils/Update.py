@@ -104,6 +104,9 @@ class Update:
                         if item["prerelease"]:
                             data = item
                             break
+
+                    data = data[0]
+                    
                 latestHotaruVersion = data["tag_name"]
                 latestHotaruDownloadUrl = None
                 latestHotaruAssetsDownloadUrl = None
@@ -130,7 +133,7 @@ class Update:
                         isNeedUpdate = True
                         isAssetsUpdate = True
                     else:
-                        isLatestTxt = f"当前助手和资源包皆已是最新版本: {currentAssetsVersion}, {currentAssetsVersion}"
+                        isLatestTxt = f"当前助手和资源包皆已是最新版本: {currentHotaruVersion}, {currentAssetsVersion}"
 
                 return isLatestTxt, isNeedUpdate, isAssetsUpdate, latestHotaruDownloadUrl, latestHotaruAssetsDownloadUrl
             else:
