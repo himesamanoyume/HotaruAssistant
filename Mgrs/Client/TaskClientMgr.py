@@ -99,6 +99,8 @@ class TaskClientMgr(TaskBaseMgr):
         # 获取遗器,副本倒计时信息
         if not stateClientMgr.Transition(GetRelicsInfoState()):
             # 如果遗器数量未超标,则进行获取模拟宇宙积分/沉浸器信息,开始模拟宇宙
+            # 获取体力信息
+            stateClientMgr.Transition(GetPowerInfoState())
             stateClientMgr.Transition(GetUniverseRewardAndInfoState())
             stateClientMgr.Transition(UniverseClearState())
         # 领奖励
