@@ -82,7 +82,6 @@ class AppClient:
             
             lastUID = str(dataClientMgr.loginList[len(dataClientMgr.loginList) - 1]).split('-')[1][:9]
             log.info(logMgr.Info(f"当前列表最后一个账号UID为:{lastUID}"))
-            dataClientMgr.loopStartTimestamp = time.time()
 
             firstTimeLogin = True
             jumpValue = ''
@@ -131,11 +130,16 @@ class AppClient:
                                 if taskClientMgr.ClientStartGame():
                                     dataClientMgr.currentAction = "模拟宇宙流程"
                                     taskClientMgr.StartUniverse()
+
+                            taskClientMgr.SendNotify()
+                            taskClientMgr.QuitGame()
                         else:
                             if turn == 0:
                                 if taskClientMgr.ClientStartGame():
                                     dataClientMgr.currentAction = "每日任务流程"
                                     taskClientMgr.StartDaily()
+                                    taskClientMgr.SendNotify()
+                                    taskClientMgr.QuitGame()
                             else:
                                 if not dataClientMgr.isDetectUniverseScoreAndFinished or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2] == '模拟宇宙':
                                     if taskClientMgr.ClientStartGame():
@@ -143,9 +147,10 @@ class AppClient:
                                         taskClientMgr.StartUniverse()
 
                                     dataClientMgr.isDetectUniverseScoreAndFinished = False
+                                    taskClientMgr.SendNotify()
+                                    taskClientMgr.QuitGame()
 
-                        taskClientMgr.SendNotify()
-                        taskClientMgr.QuitGame()
+                        
                     except Exception as e:
                         log.error(logMgr.Error(e))
                         taskClientMgr.SendExceptionNotify(e)

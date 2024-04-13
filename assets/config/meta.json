@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.0.0-0",
+    "hotaru_assets_version" : "v2.0.0.1-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "版本重构,老版本配置文件不可用",
-            "Content": "若下载了本软件早于v2.0.0的版本,需要重新自行下载最新版本,弃用老版本,老版本的更新器无法将老版更新到最新版"
+            "Title": "v2.0.0.1更新",
+            "Content": "修复了一些bug"
         }
     ],
     "task_mappings":

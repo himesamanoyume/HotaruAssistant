@@ -28,7 +28,7 @@ class SocketBaseModule:
         cls.HeartSendToServer()
         while True:
             try:
-                data = serverSocket.recv(1024)
+                data = serverSocket.recv(2048)
                 if not data:
                     break
                 cls.LogHeadHandle(data.decode('utf-8'))

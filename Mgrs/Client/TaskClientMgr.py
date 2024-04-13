@@ -23,7 +23,7 @@ from States.Client.GetRewardState import GetRewardState
 from States.Client.UniverseClearState import UniverseClearState
 from States.Client.CheckCdkeyState import CheckCdkeyState
 from States.Client.CheckStoreState import CheckStoreState
-
+import time
 from Mgrs.Base.TaskBaseMgr import TaskBaseMgr
 
 class TaskClientMgr(TaskBaseMgr):
@@ -35,6 +35,7 @@ class TaskClientMgr(TaskBaseMgr):
     
     def ClientStartGame(self):
         dataClientMgr.currentAction = "登录流程"
+        dataClientMgr.loopStartTimestamp = time.time()
         if stateClientMgr.Transition(ClientStartGameState()):
             stateClientMgr.Transition(ClientInitAccountState())
             return True # 为True时才会进行每日任务流程或模拟宇宙流程
