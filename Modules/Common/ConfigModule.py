@@ -38,7 +38,7 @@ class ConfigModule():
 
     def SaveConfig(self):
         with open(self.mConfigPath, 'w', encoding='utf-8') as file:
-            print("Config已保存")
+            # print("Config已保存")
             nowtime = time.time()
             self.mLastTimeSaveTimestamp = nowtime
             self.mConfig[ConfigKey.LAST_TIME_SAVE_TIMESTAMP] = nowtime
@@ -137,7 +137,7 @@ class ConfigModule():
         if self.nowTime - self.mLastTimeModifyTimestamp >= 5:
             self.mLastTimeModifyTimestamp = self.nowTime
             self.ReloadConfig()
-            print("Config已重载")
+            # print("Config已重载")
                         
     def __getattr__(self, attr):
         if attr in self.mConfig:

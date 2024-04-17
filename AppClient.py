@@ -60,13 +60,19 @@ class AppClient:
 
         optionsAction = {"全部轮次:每日任务轮次+模拟宇宙轮次": "all", "单独每日任务轮次": "daily", "单独模拟宇宙轮次": "universe"}
 
-        actionSelectTitle = "请选择进行的轮次:\n"
-        actionSelectOption = questionary.select(actionSelectTitle, list(optionsAction.keys())).ask()
+        actionSelectOption = questionary.select("请选择进行的轮次:\n", list(optionsAction.keys())).ask()
         selectedAction = optionsAction.get(actionSelectOption)
 
-        regSelectTitle = "请选择UID进行作为首位启动游戏:\n"
-        regSelectOption = questionary.select(regSelectTitle, list(optionsReg.keys())).ask()
+        regSelectOption = questionary.select("请选择UID进行作为首位启动游戏:\n", list(optionsReg.keys())).ask()
         selectedReg = optionsReg.get(regSelectOption)
+
+        optionsSleep = {"直接开始运行": False, f"先等待{configMgr.mConfig[configMgr.mKey.NEXT_LOOP_TIME]}小时再运行": True}
+
+        sleepSelectOption = questionary.select("请选择直接开始还是先进行等待:\n", list(optionsSleep.keys())).ask()
+        selectedSleep = optionsSleep.get(sleepSelectOption)
+
+        if selectedSleep:
+            taskClientMgr.WaitForNextLoop()
         
         log.info(logMgr.Info(f"进行轮次:{actionSelectOption}, 首个启动UID:{regSelectOption}"))
 

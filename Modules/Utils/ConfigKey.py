@@ -1,5 +1,6 @@
 
 class ConfigKey:
+    ALWAYS_DETECT_FIGHT_STATUS = 'always_detect_fight_status'
     CHECK_PRERELEASE_UPDATE = 'check_prerelease_update'
     LOG_LEVEL = 'log_level'
     INSTANCE_TEAM_ENABLE = 'instance_team_enable'

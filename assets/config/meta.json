@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.0.0.1-0",
+    "hotaru_assets_version" : "v2.0.1-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.0.1更新",
-            "Content": "修复了一些bug"
+            "Title": "v2.0.1更新内容",
+            "Content": "秘密基地主页杂项设置中新增战斗相关选项,新增流程启动时选择先等待还是直接开始。砂金等v2.0.1-1资源更新"
         }
     ],
     "task_mappings":

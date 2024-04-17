@@ -11,7 +11,7 @@ class BaseFightState(BaseRelicState, BaseClientState):
     mStateName = 'BaseFightState'
 
     @staticmethod
-    def WaitFight(instanceName):
+    def AlwaysWaitFight(instanceName):
         screenClientMgr.PressKey("w")
         if screenClientMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_again.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗结束"))
@@ -33,6 +33,42 @@ class BaseFightState(BaseRelicState, BaseClientState):
         if not screenClientMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
             log.info(logMgr.Info("尝试开启自动战斗"))
             screenClientMgr.PressKey("v")
+
+    @staticmethod
+    def EnableWaitFight(instanceName):
+        time.sleep(5)
+        for i in range(20):
+            if not screenClientMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+                log.info(logMgr.Info("尝试开启二倍速"))
+                screenClientMgr.PressKey("b")
+            else:
+                log.info(logMgr.Info("二倍速已开启"))
+                break
+
+        time.sleep(5)
+        for i in range(20):
+            if not screenClientMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
+                log.info(logMgr.Info("尝试开启自动战斗"))
+                screenClientMgr.PressKey("v")
+            else:
+                log.info(logMgr.Info("自动战斗已开启"))
+                break
+
+        log.info(logMgr.Info("等待战斗"))
+
+        return Retry.Re(lambda: BaseFightState.CheckFight(instanceName), 600)
+
+    @staticmethod
+    def CheckFight(instanceName):
+        if screenClientMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_again.png", "image", 0.9):
+            log.info(logMgr.Info("检测到战斗结束"))
+            return True
+        
+        if screenClientMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_fail.png", "image", 0.9):
+            log.info(logMgr.Info("检测到战斗失败/重试"))
+            nowtime = time.time()
+            log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战斗超时或战败"))
+            raise Exception(f"{nowtime},挑战{instanceName}时战斗超时或战败")
 
     @staticmethod
     def RunInstances(instanceType, instanceName, aTimesNeedPower, totalCount):
@@ -177,10 +213,26 @@ class BaseFightState(BaseRelicState, BaseClientState):
                             screenClientMgr.PressMouse()
                             time.sleep(3)
                     for i in range(totalCount - 1):
-                        if Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 600, 30):
-                            log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(1)"))
-                        else:
-                            return True
+
+                        if configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ALWAYS':
+                            if Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), 600, 30):
+                                log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(1)"))
+                            else:
+                                return True
+                            
+                        elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ENABLE':
+                            if BaseFightState.EnableWaitFight(instanceName):
+                                log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(1)"))
+                            else:
+                                return True
+                            
+                        elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'DISABLE':
+                            if Retry.Re(lambda: BaseFightState.CheckFight(instanceName), 600):
+                                log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(1)"))
+                            else:
+                                return True
+
+
                         if instanceType == "侵蚀隧洞":
                             BaseRelicState.InstanceGetRelic()
                         time.sleep(1)
@@ -192,19 +244,43 @@ class BaseFightState(BaseRelicState, BaseClientState):
                 else:
                     if fullCount > 0:
                         for i in range(fullCount - 1):
-                            if Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 600, 30):
-                                log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(2)"))
-                            else:
-                                return True
+                            if configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ALWAYS':
+                                if Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), 600, 30):
+                                    log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(2)"))
+                                else:
+                                    return True
+                                
+                            elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ENABLE':
+                                if BaseFightState.EnableWaitFight(instanceName):
+                                    log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(2)"))
+                                else:
+                                    return True
+                                
+                            elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'DISABLE':
+                                if Retry.Re(lambda: BaseFightState.CheckFight(instanceName), 600):
+                                    log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(2)"))
+                                else:
+                                    return True
+                                
                             if not (fullCount == 1 and incomplete_count == 0):
                                 screenClientMgr.ClickElement("./assets/images/fight/fight_again.png", "image", 0.9, maxRetries=10)
                 
                 # 这是最后一次战斗在循环之外的等待战斗
-                if not Retry.Re(lambda: BaseFightState.WaitFight(instanceName), 600, 30):
-                    return True
-                
+                if configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ALWAYS':
+                    if not Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), 600, 30):
+                        return True
+                    
+                elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ENABLE':
+                    if not BaseFightState.EnableWaitFight(instanceName):
+                        return True
+                    
+                elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'DISABLE':
+                    if not Retry.Re(lambda: BaseFightState.CheckFight(instanceName), 600):
+                        return True
+
                 if instanceType == "侵蚀隧洞":
                     BaseRelicState.InstanceGetRelic()
+
                 if fullCount > 0:
                     log.info(logMgr.Info(f"{fullCount*6}次{instanceType}副本完成(3)"))
                     dataClientMgr.notifyContent["副本情况"][instanceType] += fullCount*6

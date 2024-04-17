@@ -4,6 +4,7 @@ check_update: true # 检测更新
 check_prerelease_update: false # 若检测更新,是否检测pre-release通道
 agreed_to_disclaimer: false # false为未接受
 dev_screen_enable: false # 是否开启透明窗口
+always_detect_fight_status: ALWAYS # 是否持续检测战斗中的自动战斗与二倍速状态
 last_running_uid: '111111111' # 最后运行的UID
 blacklist_uid: # UID黑名单,uid后可以注释黑名单原因
 - '111111111' # 太帅
