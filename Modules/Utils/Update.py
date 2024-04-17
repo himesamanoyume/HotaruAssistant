@@ -104,8 +104,6 @@ class Update:
                         if item["prerelease"]:
                             data = item
                             break
-
-                    data = data[0]
                     
                 latestHotaruVersion = data["tag_name"]
                 latestHotaruDownloadUrl = None
