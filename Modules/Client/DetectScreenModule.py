@@ -1,4 +1,4 @@
-import numpy as np,time,math,cv2
+import numpy as np,time,math,cv2,os
 from Hotaru.Client.LogClientHotaru import log,logMgr
 from Hotaru.Client.OcrClientHotaru import ocrClientMgr
 from .ClickScreenSubModule import ClickScreenSubModule
@@ -27,6 +27,14 @@ class DetectScreenModule:
         if result:
             self.screenshot, self.screenshotPos = result
         return result
+    
+    def TakeDailyScreenshot(self, crop=(0,0,0,0)):
+        result = GameWindow.TakeScreenshot(crop)
+        if result:
+            if not os.path.exists(f"screenshots/{dataClientMgr.currentUid}"):
+                os.makedirs(f"screenshots/{dataClientMgr.currentUid}")
+            screenshotPath = f"{os.path.abspath('screenshots')}/{dataClientMgr.currentUid}/daily.png"
+            self.screenshot.save(screenshotPath)
 
     def GetImageInfo(self, image_path):
         template = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)

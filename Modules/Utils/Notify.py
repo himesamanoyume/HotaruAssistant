@@ -1,4 +1,4 @@
-import random,json,requests,time,smtplib,base64
+import random,json,requests,time,smtplib,base64,os
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -287,6 +287,13 @@ class Notify:
                 bgNoHotaru.add_header('Content-ID', '<bgNoHotaru>')
                 emailObject.attach(bgNoHotaru)
                 noHotaruPng.close()
+
+        if os.path.exists(f'./screenshots/{dataMgr.currentUid}/daily.png'):
+            with open(f'./screenshots/{dataMgr.currentUid}/daily.png', 'rb') as dailyScreenshotPng:
+                dailyScreenshot = MIMEImage(dailyScreenshotPng.read())
+                dailyScreenshot.add_header('Content-ID', '<dailyImg>')
+                emailObject.attach(dailyScreenshot)
+                dailyScreenshotPng.close()
 
         emailObject['To'] = configMgr.mConfig[ConfigKey.NOTIFY_SMTP_MASTER]
 

@@ -77,6 +77,8 @@ class TaskClientMgr(TaskBaseMgr):
             if not stateClientMgr.Transition(DailyEchoOfWarState()):
                 # 如果有历战余响可打,打完后需要再获取一次体力信息
                 stateClientMgr.Transition(GetPowerInfoState())
+                # 再获取一次历战余响信息
+                stateClientMgr.Transition(DailyEchoOfWarState())
             # 清体力
             if not stateClientMgr.Transition(DailyClearPowerState()):
                 # 如果有清体力可打,打完后需要再获取一次体力信息

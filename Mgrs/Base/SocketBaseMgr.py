@@ -1,5 +1,6 @@
 
 from Modules.Common.SocketBaseModule import SocketBaseModule
+import socket
 
 class SocketBaseMgr:
     mInstance = None
@@ -9,11 +10,12 @@ class SocketBaseMgr:
             cls.mInstance = super().__new__(cls)
             cls.mSocketBaseModule = SocketBaseModule()
             cls.StartSocket(name)
+            cls.mIsConnected = False
 
         return cls.mInstance
     
     def StartListenServer(self):
-        self.mSocketBaseModule.StartListenServer()
+        self.mIsConnected = self.mSocketBaseModule.StartListenServer()
     
     @classmethod
     def StartSocket(cls, name = "Base"):
@@ -21,8 +23,16 @@ class SocketBaseMgr:
 
     @classmethod
     def LogSendToServer(cls, level, msg):
+        if cls.mSocketBaseModule.serverSocket.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR) == 0 and cls.mIsConnected:
+            cls.StartSocket(cls.mSocketBaseModule.name)
+            cls.mSocketBaseModule.StartListenServer()
+
         cls.mSocketBaseModule.LogSendToServer(level, msg)
 
     @classmethod
     def LogHeartSendToServer(cls):
+        if cls.mSocketBaseModule.serverSocket.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR) == 0 and cls.mIsConnected:
+            cls.StartSocket(cls.mSocketBaseModule.name)
+            cls.mSocketBaseModule.StartListenServer()
+
         cls.mSocketBaseModule.HeartSendToServer()

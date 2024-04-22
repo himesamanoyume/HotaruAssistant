@@ -1,6 +1,7 @@
 from States.Client import *
 from .BaseNotifyState import BaseNotifyState
 from Hotaru.Client.NotifyHotaru import notifyMgr
+import os
 
 class SendEmailState(BaseNotifyState):
 
@@ -38,7 +39,12 @@ class SendEmailState(BaseNotifyState):
 
             content += f"<p>下线时开拓力:<span class=important style=background-color:#40405f;color:#66ccff>{dataClientMgr.currentPower}</span></p></p>"
 
-            content += f"<p><strong>每日完成情况</strong></p>"
+            if os.path.exists(f'./screenshots/{dataClientMgr.currentUid}/daily.png'):
+                img = f"<img loading='lazy' src='cid:dailyImg'>"
+            else:
+                img = f"<p>未检测到每日任务截图</p>"
+
+            content += f"<p><strong>每日完成情况</strong></p>{img}<div class=post-txt-container-datetime>注意,如果截图中每日未完成但脚本显示已完成,建议立刻到后台修改每日完成情况,以免导致运行当天的每日任务流程时脚本不会去完成剩下的每日任务</div>"
 
             for taskName, taskValue in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid].items():
 

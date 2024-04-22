@@ -44,13 +44,13 @@ class GetRewardState(object):
 
         # 每日实训和无名勋礼需要实时检测
         screenClientMgr.ChangeTo('menu')
-        if screenClientMgr.FindElement("./assets/images/menu/quest_reward.png", "image", 0.95):
+        if screenClientMgr.FindElement("./assets/images/menu/quest_reward.png", "image", 0.8):
             flag = True
             log.hr(logMgr.Hr("检测到每日实训奖励"), 2)
             self.GetQuestReward()
             log.info(logMgr.Info("领取每日实训奖励完成"))
         screenClientMgr.ChangeTo('menu')
-        if screenClientMgr.FindElement("./assets/images/menu/pass_reward.png", "image", 0.95):
+        if screenClientMgr.FindElement("./assets/images/menu/pass_reward.png", "image", 0.8):
             flag = True
             log.hr(logMgr.Hr("检测到无名勋礼奖励"), 2)
             GetRewardState.GetPassReward()
@@ -82,6 +82,7 @@ class GetRewardState(object):
         screenClientMgr.FindElement("./assets/images/screen/guide/guide2.png", "image", 0.9, maxRetries=10)
         # 判断完成
         BaseClientState.CalcDailyTasksScore()
+        screenClientMgr.TakeDailyScreenshot()
         if screenClientMgr.FindElement("./assets/images/quest/500.png", "image", 0.95, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):
             # config.set_value("daily_tasks", {})
             log.info(logMgr.Info("🎉每日实训已完成🎉"))

@@ -10,6 +10,7 @@ class SocketBaseModule:
     
     @classmethod
     def StartSocket(cls, name="Base"):
+        cls.name = name
         cls.serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             cls.serverSocket.connect(('localhost', 3377))
@@ -22,6 +23,7 @@ class SocketBaseModule:
     def StartListenServer(self):
         serverThread = threading.Thread(target=self.HandleServer, args=(self.serverSocket,))
         serverThread.start()
+        return True
 
     @classmethod
     def HandleServer(cls, serverSocket):

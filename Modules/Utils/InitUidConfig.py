@@ -1,4 +1,5 @@
 from Modules.Utils.Date import Date
+import os,shutil
 
 class InitUidConfig:
     @staticmethod
@@ -60,6 +61,8 @@ class InitUidConfig:
                 configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][uid] = 0
                 configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][uid] = False
                 configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid] = {}
+                if os.path.exists(f"./screenshots/{uid}"):
+                    shutil.rmtree(f"./screenshots/{uid}")
                 
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_TIMESTAMP, uid)

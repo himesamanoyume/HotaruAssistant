@@ -280,12 +280,12 @@ class AppTools:
                     uid = input("手动输入UID:\n")
                 # end
                 # 导出对应账号注册表
-                log.info("导出对应账号注册表")
+                log.info(logMgr.Info("导出对应账号注册表"))
                 os.system(f"cmd /C reg export HKEY_CURRENT_USER\Software\miHoYo\崩坏：星穹铁道 ./reg/starrail-{uid}.reg /y")
                 # 重新导入完整注册表
-                log.info("重新导入完整注册表")
+                log.info(logMgr.Info("重新导入完整注册表"))
                 os.system(f"cmd /C reg import ./reg/temp-full.reg")
-                log.info("完成,你已可以退出游戏,若要激活账号,需要到WEB后台的注册界面进行")
+                log.info(logMgr.Info("完成,你已可以退出游戏,若要激活账号,需要到WEB后台的注册界面进行"))
                 pyautogui.hotkey('alt', 'tab')
             else:
                 log.error(logMgr.Error(f"启动游戏超时"))
