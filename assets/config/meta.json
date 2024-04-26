@@ -1,5 +1,5 @@
 {   
-    "hotaru_assets_version" : "v2.0.2-0",
+    "hotaru_assets_version" : "v2.0.2-1",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
@@ -7,7 +7,11 @@
         },
         {
             "Title": "v2.0.2更新内容",
-            "Content": "修复bug。砂金等v2.0.2-1资源更新(不抽砂金,等原作者传)"
+            "Content": "修复bug"
+        },
+        {
+            "Title": "v2.0.2-1资源更新内容",
+            "Content": "(1)修复新增兑换码失败的bug, 如果config.yaml中cdkey_list的值为{}, 需要改成[], 否则秘密基地的新增兑换码功能无法使用。(2)随便截了个砂金的图"
         }
     ],
     "task_mappings":
@@ -85,11 +89,11 @@
         "Misha": "2.0:米莎",
         "Sparkle": "2.0:花火",
         "Acheron": "2.1:黄泉",
-        "Gallagher": "2.1加拉赫"
+        "Gallagher": "2.1加拉赫",
+        "Aventurine": "2.1:砂金"
     },
     "未实装角色":
     {
-        "Aventurine": "2.1:砂金",
         "Boothill":"2.2波提欧",
         "Robin": "2.2知更鸟",
         "Firefly": "2.3流萤"
