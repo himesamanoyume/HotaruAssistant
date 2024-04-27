@@ -9,7 +9,7 @@ from Modules.Utils.ConfigKey import ConfigKey
 class Notify:
 
     @staticmethod
-    def CreateAnnList(dataMgr):
+    def GetGithubAnnList(dataMgr):
         if dataMgr.YW5ub3VuY2VtZW50:
             annList = dataMgr.YW5ub3VuY2VtZW50
         else:
@@ -18,14 +18,14 @@ class Notify:
         return annList
     
     @staticmethod
-    def CreateUpdateContent(dataMgr):
+    def CreateHotaruUpdateContent(dataMgr):
         isLatestTxt = dataMgr.isLatestTxt
         updateList = [{"Content":isLatestTxt}]
         return updateList
     
     @staticmethod
-    def CreateAnnListContent(dataMgr):
-        annList = Notify.CreateAnnList(dataMgr)
+    def CreateGithubAnnListContent(dataMgr):
+        annList = Notify.GetGithubAnnList(dataMgr)
         content = ''
         for item in annList:
             content += f"<div style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'><b>{item['Title']}</b></p><p style='font-size: 12px;line-height: 20px;display: inline-block;transition-duration: .2s;'>{item['Content']}</p></div>"
@@ -33,40 +33,59 @@ class Notify:
         return content
     
     @staticmethod
-    def CreateOfficialNotice():
+    def CalcProgress(startTime, endTime):
+        startTimestamp = time.mktime(time.strptime(startTime, "%Y-%m-%d %H:%M:%S"))
+        endTimestamp = time.mktime(time.strptime(endTime, "%Y-%m-%d %H:%M:%S"))
+        progress = (time.time() - startTimestamp) / (endTimestamp - startTimestamp)
+        totalTime = endTimestamp - time.time()
+        day = int(totalTime // 86400)
+        hour = int((totalTime - day * 86400) // 3600)
+        return progress, day, hour
+
+    @staticmethod
+    def GetOfficialAnnList(isInfomation = True):
         r = requests.get("https://hkrpg-api.mihoyo.com/common/hkrpg_cn/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&bundle_id=hkrpg_cn&channel_id=1&level=1&platform=pc&region=prod_gf_cn&uid=1")
         if r.status_code == 200:
             data = json.loads(r.text)
-            data=data['data']['pic_list'][0]['type_list'][0]['list']
-            noticeList = list()
+            if isInfomation:
+                data = data['data']['pic_list'][0]['type_list'][0]['list']
+            else:
+                data = data['data']['list'][0]['list']
+
+            dataList = list()
             for item in data:
                 title = item['title']
                 if title == '':
                     continue
+
                 startTime = item['start_time']
                 endTime = item['end_time']
-                startTimestamp = time.mktime(time.strptime(startTime, "%Y-%m-%d %H:%M:%S"))
-                endTimestamp = time.mktime(time.strptime(endTime, "%Y-%m-%d %H:%M:%S"))
-                progress = (time.time() - startTimestamp) / (endTimestamp - startTimestamp)
-                totalTime = endTimestamp - time.time()
-                day = int(totalTime // 86400)
-                hour = int((totalTime - day * 86400) // 3600)
-                noticeList.append({"title":title,"start_time":startTime,"end_time":endTime,"progress": progress, "day":day, "hour":hour})
+                progress, day, hour = Notify.CalcProgress(startTime, endTime)
+                dataList.append({"title":title,"start_time":startTime,"end_time":endTime,"progress": progress, "day":day, "hour":hour})
 
-            return noticeList
+            return dataList
         else:
-            noticeList = [{"title":"未能获取到官方资讯,请刷新页面重试","day":"0","hour":"0", "start_time":"0","end_time":"0", "progress":1}]
-            return noticeList
-        
+            if isInfomation:
+                dataList = [{"title":"未能获取到官方资讯,请刷新页面重试","day":"0","hour":"0", "start_time":"0","end_time":"0", "progress":1}]
+            else:
+                dataList = [{"title":"未能获取到官方公告,请刷新页面重试","day":"0","hour":"0", "start_time":"0","end_time":"0", "progress":1}]
+            return dataList
+                
     @staticmethod
-    def CreateOfficialNoticeContent():
-        datalist = Notify.CreateOfficialNotice()
-        content = '<p>简易官方资讯,进度条仅代表邮件发送时距离结束的进度!</p>'
+    def CreateOfficialContent(isInfomation = True):
+        datalist = Notify.GetOfficialAnnList(isInfomation)
+        if isInfomation:
+            content = "<p>简易官方资讯,进度条仅代表邮件发送时距离结束的进度!</p><div style='display: inline-flex;justify-content: space-between;flex-wrap: wrap;-ms-flex-wrap: wrap;-webkit-flex-wrap: wrap;flex: none;'>"
+        else:
+            content = "<p>简易官方公告,进度条仅代表邮件发送时距离结束的进度!</p><div style='display: inline-flex;justify-content: space-between;flex-wrap: wrap;-ms-flex-wrap: wrap;-webkit-flex-wrap: wrap;flex: none;'>"
+        
         for item in datalist:
-            content += f"<div style='background-color:#40405f;margin:10px 0 0 0;'><p style='margin: 0 20px 0 20px;'><b>{item['title']}</b></p><p style='font-size: 12px;line-height: 20px;display: inline-block;transition-duration: .2s;'>{item['day']} 天 {item['hour']} 时后结束<br>{item['start_time']} - {item['end_time']}</p><div style='background-color: #66ccff;width:{item['progress'] * 100}%;max-width:100%;height:3px;'></div></div>"
+            content += f"<div style='background-color:#40405f;margin:10px 0 0 0;width:49.3%;position:relative;'><p style='margin: 0 20px 0 20px;'><b>{item['title']}</b></p><p style='font-size: 12px;line-height: 20px;display: inline-block;transition-duration: .2s;'>{item['day']} 天 {item['hour']} 时后结束<br>{item['start_time']} - {item['end_time']}</p><div style='background-color: #66ccff;width:{item['progress'] * 100}%;max-width:100%;height:3px;bottom:0;position:absolute;'></div></div>"
+
+        content += '</div>'
 
         return content
-
+    
     @staticmethod
     def CreateConfigContent(detailContent, uid, dataMgr, configMgr):
         detailContent += f"<hr style=background:#d9d9d9><p><strong>配置详细</strong></p><div class=post-txt-container-datetime>该配置显示了当要挑战副本时会选择什么副本,如果配置与需求不符或需求有变化需要到后台进行调整</div>"
@@ -202,9 +221,10 @@ class Notify:
             htmlStr=f"""
                 {Notify.CreateHeadContent(subTitle, dataMgr)}
                                             <section class=post-detail-txt style=color:#d9d9d9>
-                                                {Notify.CreateAnnListContent(dataMgr)}
-                                                {Notify.CreateOfficialNoticeContent()}
+                                                {Notify.CreateGithubAnnListContent(dataMgr)}
                                                 {detailContent}
+                                                <hr style=background:#d9d9d9>
+                                                {Notify.CreateOfficialContent(False)}
                                             </section>
                                             <p>
                                                 <div class=post-txt-container-datetime style=color:#d9d9d9>
@@ -249,9 +269,10 @@ class Notify:
         htmlStr=f"""
             {Notify.CreateHeadContent(subTitle, dataMgr, configMgr)}
                                             <section class=post-detail-txt style=color:#d9d9d9>
-                                                {Notify.CreateAnnListContent(dataMgr)}
-                                                {Notify.CreateOfficialNoticeContent()}
+                                                {Notify.CreateGithubAnnListContent(dataMgr)}
                                                 <p>{detailContent}{universeContent}</p>
+                                                <hr style=background:#d9d9d9>
+                                                {Notify.CreateOfficialContent(False)}
                                             </section>
                                             <p>
                                                 <div class=post-txt-container-datetime style=color:#d9d9d9>

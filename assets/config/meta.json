@@ -1,17 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.0.2-1",
+    "hotaru_assets_version" : "v2.0.3-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.2更新内容",
-            "Content": "修复bug"
-        },
-        {
-            "Title": "v2.0.2-1资源更新内容",
-            "Content": "(1)修复新增兑换码失败的bug, 如果config.yaml中cdkey_list的值为{}, 需要改成[], 否则秘密基地的新增兑换码功能无法使用。(2)随便截了个砂金的图"
+            "Title": "v2.0.3更新内容",
+            "Content": "把官方资讯换成了官方公告,虽然公告的数量很多,但是真正需要的信息都在公告里,有些活动例如「异器盈界300%」不会显示在资讯当中"
         }
     ],
     "task_mappings":

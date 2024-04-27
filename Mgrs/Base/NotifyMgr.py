@@ -4,11 +4,11 @@ class NotifyMgr:
     def __init__(self):
         self.notify = Notify()
 
-    def CreateOfficialNotice(self):
-        return self.notify.CreateOfficialNotice()
+    def GetOfficialAnnList(self, isInformation = True):
+        return self.notify.GetOfficialAnnList(isInformation)
     
-    def CreateAnnList(self, dataMgr):
-        return self.notify.CreateAnnList(dataMgr)
+    def GetGithubAnnList(self, dataMgr):
+        return self.notify.GetGithubAnnList(dataMgr)
     
     def SendNotifyAll(self, title, content, configMgr, dataMgr):
         self.notify.SendNotifyAll(title, content, configMgr, dataMgr)
@@ -17,4 +17,4 @@ class NotifyMgr:
         self.notify.SendNotifySingle(title, subTitle, content, configMgr, dataMgr, uid)
 
     def CreateUpdateContent(self, dataMgr):
-        return self.notify.CreateUpdateContent(dataMgr)
+        return self.notify.CreateHotaruUpdateContent(dataMgr)

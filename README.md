@@ -44,7 +44,7 @@ HotaruAssistant · 流萤小助手<br>
 
 功能|原版|此版
 --|--|--
-**多账号支持**|&cross;|&check;
+**多账号支持**|不好说|&check;
 **遗器胚子识别**|&cross;|&check;(暂不支持模拟宇宙遗器)
 遗器自动分解|&check;|&check;
 清体力|&check;|&check;
@@ -102,9 +102,6 @@ UI|QT客户端|WebUI
 
 ### Task
 
-### Announcement
-- **多线程展示**
-
 ### State
 
 ### Update
@@ -121,7 +118,6 @@ UI|QT客户端|WebUI
 
 #### Web大后期
 
-- 公告和更新检查等模块改为动态页面生成
 - 实现可输入的input框
 - 公告新增带图片显示内容
 - - 是否需要内网穿透保护页面
