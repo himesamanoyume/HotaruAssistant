@@ -60,17 +60,31 @@ class SendEmailState(BaseNotifyState):
 
             content += f"<p><strong>当前遗器数量</strong></p><blockquote style='background-color:rgb({(64 + (95 - 64)*(dataClientMgr.currentRelicCount / 2000))}, 64, {(95 - (95 - 64)*(dataClientMgr.currentRelicCount / 2000))});box-shadow: 3px 0 0 0 rgb({(102 + (216 - 102)*(dataClientMgr.currentRelicCount / 2000))}, {(204 - (204 - 89)*(dataClientMgr.currentRelicCount / 2000))}, {(255 - (255 - 89)*(dataClientMgr.currentRelicCount / 2000))}) inset;'><p>{dataClientMgr.currentRelicCount}/2000</p></blockquote>"
 
-            content += f"<p><strong>最新一期忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,脚本不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{dataClientMgr.notifyContent['混沌回忆倒计时']}</p>"
+            content += f"<p><strong>最新一期忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,脚本不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{dataClientMgr.notifyContent['混沌回忆1倒计时']}</p>"
 
-            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataClientMgr.currentUid] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataClientMgr.currentUid]}/12</p></blockquote>"
+            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataClientMgr.currentUid][0] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataClientMgr.currentUid][0]}/12</p></blockquote>"
 
-            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataClientMgr.currentUid] == 36 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataClientMgr.currentUid]}/36</p></blockquote>"
+            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataClientMgr.currentUid][0] == 36 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataClientMgr.currentUid][0]}/36</p></blockquote>"
 
-            content += f"<p><strong>最新一期虚构叙事</strong></p><div class=post-txt-container-datetime>注意,脚本不支持虚构叙事代打,仅提供信息提示</div><p>距离刷新:{dataClientMgr.notifyContent['虚构叙事倒计时']}</p>"
+            if not dataClientMgr.notifyContent['混沌回忆2层数'] == -1:
+                content += f"<p><strong>上期忘却之庭 - 混沌回忆</strong></p><p>距离刷新:{dataClientMgr.notifyContent['混沌回忆2倒计时']}</p>"
 
-            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid]}/4</p></blockquote>"
+                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataClientMgr.currentUid][1] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataClientMgr.currentUid][1]}/12</p></blockquote>"
 
-            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid]}/12</p></blockquote>"
+                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataClientMgr.currentUid][1] == 36 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataClientMgr.currentUid][1]}/36</p></blockquote>"
+
+            content += f"<p><strong>最新一期虚构叙事</strong></p><div class=post-txt-container-datetime>注意,脚本不支持虚构叙事代打,仅提供信息提示</div><p>距离刷新:{dataClientMgr.notifyContent['虚构叙事1倒计时']}</p>"
+
+            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][0] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][0]}/4</p></blockquote>"
+
+            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][0] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][0]}/12</p></blockquote>"
+
+            if not dataClientMgr.notifyContent['虚构叙事2层数'] == -1:
+                content += f"<p><strong>上期虚构叙事</strong></p><p>距离刷新:{dataClientMgr.notifyContent['虚构叙事2倒计时']}</p>"
+
+                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][1] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][1]}/4</p></blockquote>"
+
+                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][1] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][1]}/12</p></blockquote>"
 
             content += f"<p><strong>预计满开拓力时间</strong></p><blockquote><p>{dataClientMgr.notifyContent['开拓力回满时间']}</p></blockquote>"
 

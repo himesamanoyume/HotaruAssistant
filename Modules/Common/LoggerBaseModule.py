@@ -8,7 +8,7 @@ class LoggerBaseModule:
 
     mInstance = None
 
-    def __new__(cls, level="INFO", loggerName = "HotaruAssistantBase", fileHandlerHead = 'base', formatter = '├ %(levelname)s|%(asctime)s|%(filename)s:%(lineno)d\n└ %(message)s', coloredFormatter = '├ %(levelname)s|%(asctime)s|%(filename)s:%(lineno)d\n└ %(message)s'):
+    def __new__(cls, level="INFO", loggerName = "HotaruAssistantBase", fileHandlerHead = 'base', formatter = '├ %(levelname)s | %(asctime)s | %(filename)s:%(lineno)d\n└ %(message)s', coloredFormatter = '├ %(levelname)s | %(asctime)s | %(filename)s:%(lineno)d\n└ %(message)s'):
         if cls.mInstance is None:
             cls.mInstance = super().__new__(cls)
             cls.mInstance.InitLogger(level, loggerName, fileHandlerHead, formatter, coloredFormatter)

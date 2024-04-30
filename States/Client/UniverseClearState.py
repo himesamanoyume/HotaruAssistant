@@ -30,6 +30,7 @@ class UniverseClearState(BaseUniverseState):
         return False
     
     def RunUniverse(self):
+        log.info(logMgr.Info("进入到执行模拟宇宙部分"))
         command = [configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "states.py"]
         time.sleep(0.5)
         if not dataClientMgr.currentUniverseScore < dataClientMgr.maxCurrentUniverseScore:
@@ -71,6 +72,7 @@ class UniverseClearState(BaseUniverseState):
 
                 if configMgr.mConfig[configMgr.mKey.UNIVERSE_BONUS_ENABLE][dataClientMgr.currentUid]:
                     # 此时领取积分奖励
+                    log.info(logMgr.Info("尝试领取一遍积分奖励"))
                     self.GetUniverseReward()
                     # end
 

@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.0.3-0",
+    "hotaru_assets_version" : "v2.0.4-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.3更新内容",
-            "Content": "把官方资讯换成了官方公告,虽然公告的数量很多,但是真正需要的信息都在公告里,有些活动例如「异器盈界300%」不会显示在资讯当中"
+            "Title": "v2.0.4更新内容",
+            "Content": "现在能够识别多个混沌回忆或虚构叙事信息了"
         }
     ],
     "task_mappings":

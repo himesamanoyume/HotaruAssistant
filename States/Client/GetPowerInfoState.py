@@ -3,7 +3,7 @@ import time, datetime
 
 class GetPowerInfoState(BaseClientState):
 
-    mStateName = 'GetPowerState'
+    mStateName = 'GetPowerInfoState'
 
     def OnBegin(self):
         trailblazePowerCrop = (1588.0 / 1920, 35.0 / 1080, 198.0 / 1920, 56.0 / 1080)

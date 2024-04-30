@@ -6,7 +6,7 @@ class GetRewardState(object):
     OnBegin(), OnRunning()的返回值为True时, 代表状态将在此处结束, 不进行OnExit()以外的后续流程
     """
 
-    mStateName = 'DailyGetRewardState'
+    mStateName = 'GetRewardState'
 
     def OnBegin(self):
         log.hr(logMgr.Hr("开始领奖励"), 0)

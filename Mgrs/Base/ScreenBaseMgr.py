@@ -75,6 +75,9 @@ class ScreenBaseMgr:
         self.mDetect.mouseMove(x, y)
 
     def MouseScroll(self, count, direction=-1):
+        """
+        -1为下,1为上
+        """
         self.mDetect.mouseScroll(count, direction)
 
     def PressKey(self, key, wait_time=0.2):

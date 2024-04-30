@@ -39,7 +39,6 @@ class ClickScreenSubModule:
 
     @staticmethod
     def MouseScroll(count, direction=-1):
-        """  """
         for i in range(count):
             pyautogui.scroll(direction)
         log.debug(logMgr.Debug(f"滚轮滚动 {count * direction} 次"))

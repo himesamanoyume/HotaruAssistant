@@ -19,7 +19,12 @@ class BaseRelicState(BaseClientState):
         successRewardTopLeftY = point[0][1]
         for i in range(2):
             for j in range(7):    
-                screenClientMgr.ClickElementWithPos(((successRewardTopLeftX -380 + j *120, successRewardTopLeftY + 40 + i * 120), (successRewardTopLeftX -380 + 120 + j *120, successRewardTopLeftY + 40 + 120 + i * 120)))
+                screenClientMgr.ClickElementWithPos(
+                    (
+                        (successRewardTopLeftX -380 + j *120, successRewardTopLeftY + 40 + i * 120),
+                        (successRewardTopLeftX -380 + 120 + j *120, successRewardTopLeftY + 40 + 120 + i * 120)
+                    )
+                )
                     
                 if not screenClientMgr.FindElement("./assets/images/fight/5star.png", "image", 0.9, maxRetries=2):
                     if screenClientMgr.ClickElement("./assets/images/fight/relic_info_close.png", "image", 0.9, maxRetries=3):

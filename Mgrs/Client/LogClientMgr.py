@@ -15,19 +15,19 @@ class LogClientMgr:
     
     @staticmethod
     def Info(msg, *args, **kwargs):
-        msg = f"\033[91m[{dataClientMgr.currentUid}]\033[0m|{dataClientMgr.currentAction}|{msg}"
+        msg = f"[{dataClientMgr.currentUid}] | {dataClientMgr.currentAction} | {msg}"
         socketClientMgr.LogSendToServer("INFO", msg)
         return msg
 
     @staticmethod
     def Error(msg, *args, **kwargs):
-        msg = f"\033[91m[{dataClientMgr.currentUid}]\033[0m|{dataClientMgr.currentAction}|{msg}"
+        msg = f"[{dataClientMgr.currentUid}] | {dataClientMgr.currentAction} | {msg}"
         socketClientMgr.LogSendToServer("ERROR", msg)
         return msg
 
     @staticmethod
     def Warning(msg, *args, **kwargs):
-        msg = f"\033[91m[{dataClientMgr.currentUid}]\033[0m|{dataClientMgr.currentAction}|{msg}"
+        msg = f"[{dataClientMgr.currentUid}] | {dataClientMgr.currentAction} | {msg}"
         socketClientMgr.LogSendToServer("WARNING", msg)
         return msg
 
@@ -37,7 +37,7 @@ class LogClientMgr:
 
     @staticmethod
     def Debug(msg, *args, **kwargs):
-        msg = f"\033[91m[{dataClientMgr.currentUid}]\033[0m|{dataClientMgr.currentAction}|{msg}"
+        msg = f"[{dataClientMgr.currentUid}] | {dataClientMgr.currentAction} | {msg}"
         if configMgr.mConfig[configMgr.mKey.LOG_LEVEL] == "DEBUG":
             socketClientMgr.LogSendToServer("DEBUG", msg)
         return msg
