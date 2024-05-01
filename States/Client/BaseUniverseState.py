@@ -41,21 +41,19 @@ class BaseUniverseState(BaseClientState):
             log.info(logMgr.Info(f"识别到文字为:{scoreAndMaxScore}"))
             configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][dataClientMgr.currentUid] = scoreAndMaxScore
 
-            currentScore = scoreAndMaxScore.split('/')[0]
-            maxScore = scoreAndMaxScore.split('/')[1]
+            currentScore, maxScore = scoreAndMaxScore.split('/')
 
             log.info(logMgr.Info(f"识别到当前积分为:{currentScore}"))
             log.info(logMgr.Info(f"识别到积分上限为:{maxScore}"))
-            if int(currentScore) == int(maxScore):
+            if currentScore == maxScore:
                 log.info(logMgr.Info(f"模拟宇宙积分已满"))
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataClientMgr.currentUid] = True
-                dataClientMgr.isDetectUniverseScoreAndFinished = True
                 configMgr.SaveTimestampByUid(configMgr.mKey.UNIVERSE_TIMESTAMP, dataClientMgr.currentUid)
             else:
                 log.info(logMgr.Info(f"模拟宇宙积分未满"))
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataClientMgr.currentUid] = False
                 
-            return int(currentScore), int(maxScore)
+            return currentScore, maxScore
         except Exception as e:
             log.error(logMgr.Error(f"识别模拟宇宙积分失败: {e}"))
             configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][dataClientMgr.currentUid] = '0/1'

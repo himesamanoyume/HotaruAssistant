@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.0.4-0",
+    "hotaru_assets_version" : "v2.0.5-dev-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.4更新内容",
-            "Content": "现在能够识别多个混沌回忆或虚构叙事信息了"
+            "Title": "v2.0.5-dev更新内容",
+            "Content": "遗器副本战斗结束支持检测所有产出的五星遗器词条。修复bug。新增开启模拟宇宙速通模式选项。"
         }
     ],
     "task_mappings":
@@ -92,7 +92,8 @@
     {
         "Boothill":"2.2波提欧",
         "Robin": "2.2知更鸟",
-        "Firefly": "2.3流萤"
+        "Firefly": "2.3流萤",
+        "Jade": "2.3翡翠"
     },
     "拟造花萼（金）":
     {

@@ -24,6 +24,7 @@ class InitUidConfig:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_TEAM, uid, {})
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SCORE, uid, '0/1')
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_BONUS_ENABLE, uid, False)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SPEED_ENABLE, uid, False)
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.BORROW_CHARACTER_ENABLE, uid, False)
 

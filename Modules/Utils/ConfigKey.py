@@ -79,3 +79,4 @@ class ConfigKey:
     PUREFICTION_STARS = 'purefiction_stars'
     PUREFICTION_LEVELS = 'purefiction_levels'
     UNIVERSE_BONUS_ENABLE = 'universe_bonus_enable'
+    UNIVERSE_SPEED_ENABLE = 'universe_speed_enable'

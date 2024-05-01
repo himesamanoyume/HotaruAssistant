@@ -147,12 +147,12 @@ class AppClient:
                                     taskClientMgr.SendNotify()
                                     taskClientMgr.QuitGame()
                             else:
-                                if not dataClientMgr.isDetectUniverseScoreAndFinished or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2] == '模拟宇宙':
+                                currentScore, maxScore = configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uidStr2].split('/')
+                                if int(currentScore) < int(maxScore) or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2] == '模拟宇宙':
                                     if taskClientMgr.ClientStartGame():
                                         dataClientMgr.currentAction = "模拟宇宙流程"
                                         taskClientMgr.StartUniverse()
 
-                                    dataClientMgr.isDetectUniverseScoreAndFinished = False
                                     taskClientMgr.SendNotify()
                                     taskClientMgr.QuitGame()
 

@@ -17,71 +17,95 @@ class BaseRelicState(BaseClientState):
         
         successRewardTopLeftX = point[0][0]
         successRewardTopLeftY = point[0][1]
-        for i in range(2):
-            for j in range(7):    
-                screenClientMgr.ClickElementWithPos(
-                    (
-                        (successRewardTopLeftX -380 + j *120, successRewardTopLeftY + 40 + i * 120),
-                        (successRewardTopLeftX -380 + 120 + j *120, successRewardTopLeftY + 40 + 120 + i * 120)
+
+        def CheckRelicLoop():
+            for i in range(2):
+                for j in range(7):    
+                    screenClientMgr.ClickElementWithPos(
+                        (
+                            (successRewardTopLeftX -380 + j *120, successRewardTopLeftY + 40 + i * 120),
+                            (successRewardTopLeftX -380 + 120 + j *120, successRewardTopLeftY + 40 + 120 + i * 120)
+                        )
                     )
-                )
-                    
-                if not screenClientMgr.FindElement("./assets/images/fight/5star.png", "image", 0.9, maxRetries=2):
-                    if screenClientMgr.ClickElement("./assets/images/fight/relic_info_close.png", "image", 0.9, maxRetries=3):
-                        time.sleep(0.5)
-                    else:
-                        break
-                else:
-                    time.sleep(0.5)
-                    relicName = screenClientMgr.GetSingleLineText(relicNameCrop, blacklist=[], maxRetries=5)
-                    relicPart = screenClientMgr.GetSingleLineText(crop=(515.0 / 1920, 726.0 / 1080, 91.0 / 1920, 35.0 / 1080),blacklist=['+','0'], maxRetries=3)
-                    log.info(logMgr.Info(f"{relicName}:{relicPart}"))
-                    screenClientMgr.TakeScreenshot(crop=relicPropCrop)
-                    time.sleep(0.5)
-                    
-                    isProp = False
-                    tempMainPropName = ''
-                    propCount = -1
-                    usefulPropCount = 0
-                    relicList = list()
-                    isMainProp = True
-                    result = ocrClientMgr.mOcr.RecognizeMultiLines(screenClientMgr.mDetect.screenshot)
-                    time.sleep(0.5)
-                    tempListValue = ''
-                    for box in result:
-                        text = box[1][0]
-                        if text in ['暴击率','暴击伤害','生命值','攻击力','防御力','能量恢复效率','效果命中','效果抵抗','速度','击破特攻','治疗量加成','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成']:
-                            if isMainProp:
-                                tempMainPropName = text
-                            tempListValue = f'{text}:'
-                            isProp = True
-                            if text in ['暴击率','暴击伤害']:
-                                usefulPropCount += 1
-                            continue
-                        elif isProp:
-                            if isMainProp:
-                                isMainProp = False
-                            # tempPropValue = text
-                            tempListValue += f'{text}'
-                            isProp = False
-                            propCount += 1
+                        
+                    if not screenClientMgr.FindElement("./assets/images/fight/5star.png", "image", 0.9, maxRetries=1):
+                        if screenClientMgr.ClickElement("./assets/images/fight/relic_info_close.png", "image", 0.9, maxRetries=3):
+                            time.sleep(0.5)
+
+                            log.info(logMgr.Info(i))
+                            log.info(logMgr.Info(j))
+
+                            if i == 1 and j == 6:
+                                time.sleep(0.5)
+                                screenClientMgr.MouseMove(successRewardTopLeftX, successRewardTopLeftY + 200)
+                                screenClientMgr.MouseScroll(8, -1)
+                                time.sleep(0.5)
+                                CheckRelicLoop()
                         else:
-                            continue
-                        # log.info(logMgr.Info(f"{tempListValue}")
-                        relicList.append(tempListValue)
-                    
-                    # log.info(logMgr.Info(f"{propCount}")
-                    # log.info(logMgr.Info(f"{usefulPropCount}")
-                    allPropText = '词条:'
-                    for key in relicList:
-                        allPropText += f'{key},'
-                    log.info(logMgr.Info(allPropText))
-                    log.info(logMgr.Info(f"总词条数:{propCount},有效词条:{usefulPropCount}"))
-                    BaseRelicState.IsGoodRelic(relicName, relicPart, relicList, propCount, usefulPropCount, tempMainPropName)
-                    
-                    time.sleep(0.5)
-                    if screenClientMgr.ClickElement("./assets/images/fight/relic_info_close.png", "image", 0.9, maxRetries=3):
+                            break
+                    else:
                         time.sleep(0.5)
+                        relicName = screenClientMgr.GetSingleLineText(relicNameCrop, blacklist=[], maxRetries=5)
+                        relicPart = screenClientMgr.GetSingleLineText(crop=(515.0 / 1920, 726.0 / 1080, 91.0 / 1920, 35.0 / 1080),blacklist=['+','0'], maxRetries=3)
+                        log.info(logMgr.Info(f"{relicName}:{relicPart}"))
+                        screenClientMgr.TakeScreenshot(crop=relicPropCrop)
+                        time.sleep(0.5)
+                        
+                        isProp = False
+                        tempMainPropName = ''
+                        propCount = -1
+                        usefulPropCount = 0
+                        relicList = list()
+                        isMainProp = True
+                        result = ocrClientMgr.mOcr.RecognizeMultiLines(screenClientMgr.mDetect.screenshot)
+                        time.sleep(0.5)
+                        tempListValue = ''
+                        for box in result:
+                            text = box[1][0]
+                            if text in ['暴击率','暴击伤害','生命值','攻击力','防御力','能量恢复效率','效果命中','效果抵抗','速度','击破特攻','治疗量加成','量子属性伤害加成','风属性伤害加成','火属性伤害加成','雷属性伤害加成','冰属性伤害加成','虚数属性伤害加成']:
+                                if isMainProp:
+                                    tempMainPropName = text
+                                tempListValue = f'{text}:'
+                                isProp = True
+                                if text in ['暴击率','暴击伤害']:
+                                    usefulPropCount += 1
+                                continue
+                            elif isProp:
+                                if isMainProp:
+                                    isMainProp = False
+                                # tempPropValue = text
+                                tempListValue += f'{text}'
+                                isProp = False
+                                propCount += 1
+                            else:
+                                continue
+                            # log.info(logMgr.Info(f"{tempListValue}")
+                            relicList.append(tempListValue)
+                        
+                        # log.info(logMgr.Info(f"{propCount}")
+                        # log.info(logMgr.Info(f"{usefulPropCount}")
+                        allPropText = '词条:'
+                        for key in relicList:
+                            allPropText += f'{key},'
+                        log.info(logMgr.Info(allPropText))
+                        log.info(logMgr.Info(f"总词条数:{propCount},有效词条:{usefulPropCount}"))
+                        BaseRelicState.IsGoodRelic(relicName, relicPart, relicList, propCount, usefulPropCount, tempMainPropName)
+                        
+                        time.sleep(0.5)
+                        if screenClientMgr.ClickElement("./assets/images/fight/relic_info_close.png", "image", 0.9, maxRetries=3):
+                            time.sleep(0.5)
+
+                        log.info(logMgr.Info(i))
+                        log.info(logMgr.Info(j))
+
+                        if i == 1 and j == 6:
+                            time.sleep(0.5)
+                            screenClientMgr.MouseMove(successRewardTopLeftX, successRewardTopLeftY + 200)
+                            screenClientMgr.MouseScroll(8, -1)
+                            time.sleep(0.5)
+                            CheckRelicLoop()
+
+        CheckRelicLoop()
 
     @staticmethod
     def IsGoodRelic(relicName, relicPart, relicList, propCount, usefulPropCount, mainPropName):

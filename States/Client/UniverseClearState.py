@@ -45,18 +45,19 @@ class UniverseClearState(BaseUniverseState):
             self.SelectUniverse()
             if dataClientMgr.currentUniverseScore == 0:
                 log.info(logMgr.Info("积分为0,鉴定为首次进行模拟宇宙"))
-                if dataClientMgr.currentImmersifiers > 0:
-                    command.append("--bonus=1")
             elif dataClientMgr.currentUniverseScore == dataClientMgr.maxCurrentUniverseScore:
                 log.info(logMgr.Info("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
-                if dataClientMgr.currentImmersifiers > 0:
-                    command.append("--bonus=1")
-                if not configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0] == '模拟宇宙':
-                    log.info(logMgr.Info("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
-                    return False
+                # if not configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0] == '模拟宇宙':
+                #     log.info(logMgr.Info("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
+                #     return False
             else:
                 log.info(logMgr.Info("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
+
+            if configMgr.mConfig[configMgr.mKey.UNIVERSE_BONUS_ENABLE][dataClientMgr.currentUid]:
                 command.append("--bonus=1")
+                
+            if configMgr.mConfig[configMgr.mKey.UNIVERSE_SPEED_ENABLE][dataClientMgr.currentUid]:
+                command.append("--speed=1")
             
             command.append(f"--nums=1")
                 
@@ -70,11 +71,10 @@ class UniverseClearState(BaseUniverseState):
                 configMgr.SaveTimestampByUid(configMgr.mKey.UNIVERSE_TIMESTAMP, dataClientMgr.currentUid)
                 # end
 
-                if configMgr.mConfig[configMgr.mKey.UNIVERSE_BONUS_ENABLE][dataClientMgr.currentUid]:
-                    # 此时领取积分奖励
-                    log.info(logMgr.Info("尝试领取一遍积分奖励"))
-                    self.GetUniverseReward()
-                    # end
+                # 此时领取积分奖励
+                log.info(logMgr.Info("尝试领取一遍积分奖励"))
+                self.GetUniverseReward()
+                # end
 
                 self.RunUniverse()
 
@@ -93,24 +93,8 @@ class UniverseClearState(BaseUniverseState):
         instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         screenClientMgr.ClickElement("./assets/images/screen/guide/power.png", "image", maxRetries=10)
         Flag = False
-        match configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid]:
-            case 3:
-                worldNumber = '第三世界'
-            case 4:
-                worldNumber = '第四世界'
-            case 5:
-                worldNumber = '第五世界'
-            case 6:
-                worldNumber = '第六世界'
-            case 7:
-                worldNumber = '第七世界'
-            case 8:
-                worldNumber = '第八世界'
-            case 9:
-                worldNumber = '第九世界'
-            case _:
-                worldNumber = '第三世界'
-                # Utils._content['universe_number'] = f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'><p>模拟宇宙难度选择有误,请告知我检查配置</p></blockquote>"
+
+        worldNumber = dataClientMgr.meta["模拟宇宙"][f"{configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid]}"]
 
         for i in range(math.ceil(len(dataClientMgr.meta["模拟宇宙"]) / 3)):
             if screenClientMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=worldNumber, sourceType="text"):
@@ -144,7 +128,7 @@ class UniverseClearState(BaseUniverseState):
             log.warning(logMgr.Warning("难度设置不合法,进行难度5"))
             d = 5
         if configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid] in [5,6,7,8] and d > 4:
-            log.warning(logMgr.Warning("第五、第六、第七、第八、第九世界暂不支持难度4以上,进行难度4"))
+            log.warning(logMgr.Warning("第五及以上世界暂不支持难度4以上,进行难度4"))
             d = 4
         
         # 用嵌套函数

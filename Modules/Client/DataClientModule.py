@@ -19,7 +19,6 @@ class DataClientModule:
     dailyTasksFunctions = {}
     currentUniverseScore = 0
     maxCurrentUniverseScore = 1
-    isDetectUniverseScoreAndFinished = False
     gameTitleName = ''
     tempText = ''
     passRemaining = ''

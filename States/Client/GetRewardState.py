@@ -164,12 +164,8 @@ class GetRewardState(object):
             time.sleep(2)
         screenClientMgr.ChangeTo('pass1')
         time.sleep(1)
-        # 判断是否解锁了"无名客的荣勋"
-        if screenClientMgr.FindElement("./assets/images/pass/lock.png", "image", 0.9):
+        if screenClientMgr.ClickElement("./assets/images/pass/one_key_receive.png", "image", 0.8):
             time.sleep(1)
-            # 若没解锁则领取奖励
-            if screenClientMgr.ClickElement("./assets/images/pass/one_key_receive.png", "image", 0.8):
-                time.sleep(1)
-                screenClientMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10)
-                time.sleep(1)
+            screenClientMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10)
+            time.sleep(1)
         
