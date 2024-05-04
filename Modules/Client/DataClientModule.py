@@ -7,7 +7,7 @@ class DataClientModule:
     currentGamePid = -1 # 初始值 不要动
     currentPower = 2400
     currentImmersifiers = 0
-    currentRelicCount = 0
+    currentRelicsCount = 0
     currentHimekoTimes = 0
     loginDict = dict()
     loginList = list()
@@ -63,7 +63,7 @@ class DataClientModule:
         self.currentAction = "临时流程"
         self.currentPower = 2400
         self.currentImmersifiers = 0
-        self.currentRelicCount = 0
+        self.currentRelicsCount = 0
         self.currentHimekoTimes = 0
         self.tempDailyTasksList = {}
         self.dailyTasksHasBeenChecked = False

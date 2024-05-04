@@ -70,12 +70,12 @@ class ClientInitAccountState(BaseClientState):
         screenClientMgr.ChangeTo('activity')
         if screenClientMgr.ClickElement("巡星之礼", "text", None, crop=(46.0 / 1920, 107.0 / 1080, 222.0 / 1920, 848.0 / 1080)):
             time.sleep(1)
-            receive_path = "./assets/images/activity/giftof/receive.png"
-            receive_fin_path = "./assets/images/activity/giftof/receive_fin.png"
+            receive_path = "./assets/static/images/activity/giftof/receive.png"
+            receive_fin_path = "./assets/static/images/activity/giftof/receive_fin.png"
             if screenClientMgr.FindElement(receive_path, "image", 0.9) or screenClientMgr.FindElement(receive_fin_path, "image", 0.9):
                 log.hr(logMgr.Hr("检测到巡星之礼奖励"), 2)
                 while screenClientMgr.ClickElement(receive_path, "image", 0.9) or screenClientMgr.ClickElement(receive_fin_path, "image", 0.9):
-                    screenClientMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10)
+                    screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
                     time.sleep(1)
                 log.info(logMgr.Info("领取巡星之礼奖励完成"))
 
@@ -87,7 +87,7 @@ class ClientInitAccountState(BaseClientState):
             dataClientMgr.tempDailyTasksList = configMgr.mConfig[configMgr.mKey.DAILY_TASKS]
 
         self.DetectDailyTasks(crop)
-        screenClientMgr.ClickElement("./assets/images/quest/activity.png", "image", 0.95, crop=crop)
+        screenClientMgr.ClickElement("./assets/static/images/quest/activity.png", "image", 0.95, crop=crop)
         screenClientMgr.MouseScroll(50, -1)
         time.sleep(0)
         self.DetectDailyTasks(crop)

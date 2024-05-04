@@ -15,7 +15,7 @@ class CheckStoreState(BaseClientState):
     
     def ExpressSupplyPass(self):
         screenClientMgr.ChangeTo('menu')
-        if screenClientMgr.ClickElement("./assets/images/menu/store.png", "image", 0.9, maxRetries=3):
+        if screenClientMgr.ClickElement("./assets/static/images/menu/store.png", "image", 0.9, maxRetries=3):
             temp = screenClientMgr.GetSingleLineText(crop=(511.0 / 1920, 885.0 / 1080, 398.0 / 1920, 51.0 / 1080), maxRetries=3)
             if not temp == None:
                 remainingText = temp.split('：')[1]

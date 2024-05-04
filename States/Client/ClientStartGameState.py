@@ -14,10 +14,10 @@ class ClientStartGameState(BaseClientState):
         
         screenClientMgr.ChangeTo('menu')
 
-        if not Retry.Re(lambda: screenClientMgr.FindElement("./assets/images/menu/journey.png", "image", 0.8)):
+        if not Retry.Re(lambda: screenClientMgr.FindElement("./assets/static/images/menu/journey.png", "image", 0.8)):
             log.info(logMgr.Info("检测到未使用无名路途壁纸"))
             Retry.Re(lambda: screenClientMgr.ChangeTo('wallpaper'))
-            if Retry.Re(lambda: screenClientMgr.ClickElement("./assets/images/menu/wallpaper/journey.png", "image", 0.8)):
+            if Retry.Re(lambda: screenClientMgr.ClickElement("./assets/static/images/menu/wallpaper/journey.png", "image", 0.8)):
                 Retry.Re(lambda: screenClientMgr.ClickElement("更换", "text", maxRetries=4))
                 screenClientMgr.PressKey("esc")
                 log.info(logMgr.Info("更换到无名路途壁纸成功"))
@@ -102,15 +102,15 @@ class ClientStartGameState(BaseClientState):
 
     @staticmethod
     def CheckAndClickEnter():
-        if screenClientMgr.FindElement("./assets/images/screen/click_enter.png", "image", 0.9):
-            return screenClientMgr.ClickElement("./assets/images/screen/click_enter.png", "image", 0.9)
+        if screenClientMgr.FindElement("./assets/static/images/screen/click_enter.png", "image", 0.9):
+            return screenClientMgr.ClickElement("./assets/static/images/screen/click_enter.png", "image", 0.9)
         else:
-            if screenClientMgr.FindElement("./assets/images/base/confirm.png", "image", 0.9):
-                screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9)
-            if screenClientMgr.FindElement("./assets/images/base/restart.png", "image", 0.9):
-                screenClientMgr.ClickElement("./assets/images/base/restart.png", "image", 0.9)
-            if screenClientMgr.FindElement("./assets/images/screen/start_game.png", "image", 0.9):
-                screenClientMgr.ClickElement("./assets/images/screen/start_game.png", "image", 0.9)
-            if screenClientMgr.FindElement("./assets/images/login/protocol.png", "image", 0.9):
-                screenClientMgr.ClickElement("./assets/images/login/protocol_agree.png", "image", 0.9)
+            if screenClientMgr.FindElement("./assets/static/images/base/confirm.png", "image", 0.9):
+                screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9)
+            if screenClientMgr.FindElement("./assets/static/images/base/restart.png", "image", 0.9):
+                screenClientMgr.ClickElement("./assets/static/images/base/restart.png", "image", 0.9)
+            if screenClientMgr.FindElement("./assets/static/images/screen/start_game.png", "image", 0.9):
+                screenClientMgr.ClickElement("./assets/static/images/screen/start_game.png", "image", 0.9)
+            if screenClientMgr.FindElement("./assets/static/images/login/protocol.png", "image", 0.9):
+                screenClientMgr.ClickElement("./assets/static/images/login/protocol_agree.png", "image", 0.9)
         return False

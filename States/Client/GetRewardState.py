@@ -15,11 +15,11 @@ class GetRewardState(object):
         rewardList = []
 
         rewardMapping = {
-            "mail": lambda: screenClientMgr.FindElement("./assets/images/menu/mail_reward.png", "image", 0.9, takeScreenshot=False, crop=(0.95, 0.1, 0.05, 0.6)),
-            "assist": lambda: screenClientMgr.FindElement("./assets/images/menu/assist_reward.png", "image", 0.9, takeScreenshot=False),
-            "dispatch": lambda: screenClientMgr.FindElement("./assets/images/menu/dispatch_reward.png", "image", 0.95, takeScreenshot=False),
-            # "quest": lambda: screenMgr.FindElement("./assets/images/menu/quest_reward.png", "image", 0.95, take_screenshot=False),
-            # "srpass": lambda: screenMgr.FindElement("./assets/images/menu/pass_reward.png", "image", 0.95, take_screenshot=False),
+            "mail": lambda: screenClientMgr.FindElement("./assets/static/images/menu/mail_reward.png", "image", 0.9, takeScreenshot=False, crop=(0.95, 0.1, 0.05, 0.6)),
+            "assist": lambda: screenClientMgr.FindElement("./assets/static/images/menu/assist_reward.png", "image", 0.9, takeScreenshot=False),
+            "dispatch": lambda: screenClientMgr.FindElement("./assets/static/images/menu/dispatch_reward.png", "image", 0.95, takeScreenshot=False),
+            # "quest": lambda: screenMgr.FindElement("./assets/static/images/menu/quest_reward.png", "image", 0.95, take_screenshot=False),
+            # "srpass": lambda: screenMgr.FindElement("./assets/static/images/menu/pass_reward.png", "image", 0.95, take_screenshot=False),
         }
 
         for rewardName, rewardFunction in rewardMapping.items():
@@ -44,13 +44,13 @@ class GetRewardState(object):
 
         # 每日实训和无名勋礼需要实时检测
         screenClientMgr.ChangeTo('menu')
-        if screenClientMgr.FindElement("./assets/images/menu/quest_reward.png", "image", 0.8):
+        if screenClientMgr.FindElement("./assets/static/images/menu/quest_reward.png", "image", 0.8):
             flag = True
             log.hr(logMgr.Hr("检测到每日实训奖励"), 2)
             self.GetQuestReward()
             log.info(logMgr.Info("领取每日实训奖励完成"))
         screenClientMgr.ChangeTo('menu')
-        if screenClientMgr.FindElement("./assets/images/menu/pass_reward.png", "image", 0.8):
+        if screenClientMgr.FindElement("./assets/static/images/menu/pass_reward.png", "image", 0.8):
             flag = True
             log.hr(logMgr.Hr("检测到无名勋礼奖励"), 2)
             GetRewardState.GetPassReward()
@@ -72,18 +72,18 @@ class GetRewardState(object):
         screenClientMgr.ChangeTo('guide2')
         time.sleep(1)
         # 领取活跃度
-        while screenClientMgr.ClickElementQuest("./assets/images/quest/receive.png", "image", 0.9, crop=(284.0 / 1920, 785.0 / 1080, 274.0 / 1920, 93.0 / 1080)):
+        while screenClientMgr.ClickElementQuest("./assets/static/images/quest/receive.png", "image", 0.9, crop=(284.0 / 1920, 785.0 / 1080, 274.0 / 1920, 93.0 / 1080)):
             time.sleep(1)
         # 领取奖励
-        if screenClientMgr.ClickElement("./assets/images/quest/gift.png", "image", 0.9, maxRetries=10, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):
+        if screenClientMgr.ClickElement("./assets/static/images/quest/gift.png", "image", 0.9, maxRetries=10, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):
             time.sleep(1)
-            screenClientMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10)
+            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
         time.sleep(1)
-        screenClientMgr.FindElement("./assets/images/screen/guide/guide2.png", "image", 0.9, maxRetries=10)
+        screenClientMgr.FindElement("./assets/static/images/screen/guide/guide2.png", "image", 0.9, maxRetries=10)
         # 判断完成
         BaseClientState.CalcDailyTasksScore()
         screenClientMgr.TakeDailyScreenshot()
-        if screenClientMgr.FindElement("./assets/images/quest/500.png", "image", 0.95, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):
+        if screenClientMgr.FindElement("./assets/static/images/quest/500.png", "image", 0.95, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):
             # config.set_value("daily_tasks", {})
             log.info(logMgr.Info("🎉每日实训已完成🎉"))
             # Base.send_notification_with_screenshot(_("🎉每日实训已完成🎉"))
@@ -98,8 +98,8 @@ class GetRewardState(object):
             return False
 
         screenClientMgr.ChangeTo('mail')
-        if screenClientMgr.ClickElement("./assets/images/mail/receive_all.png", "image", 0.9):
-            screenClientMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10)
+        if screenClientMgr.ClickElement("./assets/static/images/mail/receive_all.png", "image", 0.9):
+            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
 
     @staticmethod
     def GetDispatchReward(uid):
@@ -124,8 +124,8 @@ class GetRewardState(object):
         # if not GetRewardState.PerformDispatchAndCheck(crop=(660 / 1920, 280 / 1080, 170 / 1920, 600 / 1080)):
         #     return
 
-        screenClientMgr.ClickElement("./assets/images/dispatch/all_receive.png", "image", 0.9, maxRetries=10)
-        screenClientMgr.ClickElement("./assets/images/dispatch/again.png", "image", 0.9, maxRetries=10)
+        screenClientMgr.ClickElement("./assets/static/images/dispatch/all_receive.png", "image", 0.9, maxRetries=10)
+        screenClientMgr.ClickElement("./assets/static/images/dispatch/again.png", "image", 0.9, maxRetries=10)
         time.sleep(4)
             
 
@@ -139,10 +139,10 @@ class GetRewardState(object):
 
     @staticmethod
     def ClickCompleteDispatch(crop):
-        # width, height = screenMgr.get_image_info("./assets/images/dispatch/reward.png")
+        # width, height = screenMgr.get_image_info("./assets/static/images/dispatch/reward.png")
         # offset = (-2 * width, 2 * height)
         offset = (-34, 34)  # 以后改相对坐标偏移
-        return screenClientMgr.ClickElement("./assets/images/dispatch/reward.png", "image", 0.9, maxRetries=8, offset=offset, crop=crop)
+        return screenClientMgr.ClickElement("./assets/static/images/dispatch/reward.png", "image", 0.9, maxRetries=8, offset=offset, crop=crop)
 
     @staticmethod
     def GetAssistReward():
@@ -151,21 +151,21 @@ class GetRewardState(object):
             return False
 
         screenClientMgr.ChangeTo('visa')
-        if screenClientMgr.ClickElement("./assets/images/assist/gift.png", "image", 0.9):
-            screenClientMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10)
+        if screenClientMgr.ClickElement("./assets/static/images/assist/gift.png", "image", 0.9):
+            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
     
     @staticmethod
     def GetPassReward():
         # 先判断是否能领取经验
         screenClientMgr.ChangeTo('pass2')
         time.sleep(1)
-        if screenClientMgr.ClickElement("./assets/images/pass/one_key_receive.png", "image", 0.8):
+        if screenClientMgr.ClickElement("./assets/static/images/pass/one_key_receive.png", "image", 0.8):
             # 等待可能出现的升级动画
             time.sleep(2)
         screenClientMgr.ChangeTo('pass1')
         time.sleep(1)
-        if screenClientMgr.ClickElement("./assets/images/pass/one_key_receive.png", "image", 0.8):
+        if screenClientMgr.ClickElement("./assets/static/images/pass/one_key_receive.png", "image", 0.8):
             time.sleep(1)
-            screenClientMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=10)
+            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
             time.sleep(1)
         

@@ -92,39 +92,52 @@ class Notify:
         detailContent += f"<p>今天每日清开拓力时将要打的副本类型:<span class=important style=background-color:#40405f;color:#66ccff>{configMgr.mConfig[ConfigKey.INSTANCE_TYPE][uid][0]}</span></p>"
         detailContent += f"<p>不同副本类型下的副本名称:</p>"
 
-        nizaohuaejinText = ''
-        nizaohuaejinText = dataMgr.meta['拟造花萼（金）'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['拟造花萼（金）']]
+        goldenText = ''
+        goldenText = dataMgr.meta['拟造花萼（金）'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['拟造花萼（金）']]
 
-        ningzhixuyingText = ''
-        ningzhixuyingText = dataMgr.meta['凝滞虚影'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['凝滞虚影']]
+        crimsonText = ''
+        crimsonText = dataMgr.meta['拟造花萼（赤）'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['拟造花萼（赤）']][0]
 
-        qinshisuidongText = ''
-        qinshisuidongText = dataMgr.meta['侵蚀隧洞'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['侵蚀隧洞']]
+        shadowText = ''
+        shadowText = dataMgr.meta['凝滞虚影'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['凝滞虚影']][0]
 
-        lizhanyuxiangText = ''
-        lizhanyuxiangText = dataMgr.meta['历战余响'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['历战余响']]
+        cavernText = ''
+        cavernText = dataMgr.meta['侵蚀隧洞'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['侵蚀隧洞']][0]
 
-        detailContent += f"<p>拟造花萼（金）:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['拟造花萼（金）']}<rt class='ttt' style='background-color: unset;' data-rt='{nizaohuaejinText}'></rt></ruby></span></p>"
-        detailContent += f"<p>拟造花萼（赤）:<span class=important style=background-color:#40405f;color:#66ccff>{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['拟造花萼（赤）']}</span></p>"
-        detailContent += f"<p>凝滞虚影:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['凝滞虚影']}<rt class='ttt' style='background-color: unset;' data-rt='{ningzhixuyingText}'></rt></ruby></span></p>"
-        detailContent += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['侵蚀隧洞']}<rt class='ttt' style='background-color: unset;' data-rt='{qinshisuidongText}'></rt></ruby></span></p>"
+        echoofwarText = ''
+        echoofwarText = dataMgr.meta['历战余响'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['历战余响']]
+
+        detailContent += f"<p>拟造花萼（金）:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{goldenText}<rt class='ttt' style='background-color: unset;' data-rt='{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['拟造花萼（金）']}'></rt></ruby></span></p>"
+
+        detailContent += f"<p>拟造花萼（赤）:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{crimsonText}<rt class='ttt' style='background-color: unset;' data-rt='{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['拟造花萼（赤）']}'></rt></ruby></span></p>"
+
+        detailContent += f"<p>凝滞虚影:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{shadowText}<rt class='ttt' style='background-color: unset;' data-rt='{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['凝滞虚影']}'></rt></ruby></span></p>"
+
+        detailContent += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{cavernText}<rt class='ttt' style='background-color: unset;' data-rt='{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['侵蚀隧洞']}'></rt></ruby></span></p>"
+
         detailContent += f"<p>是否清空3次历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.ECHO_OF_WAR_ENABLE][uid] else '否'}</span></p>"
-        detailContent += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['历战余响']}<rt class='ttt' style='background-color: unset;' data-rt='{lizhanyuxiangText}'></rt></ruby></span></p>"
-        detailContent += f"<p>是否分解遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.RELIC_SALVAGE_ENABLE][uid] else '否'}</span></p>"
-        detailContent += f"<p>若开启分解,是否分解4星遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.RELIC_SALVAGE_4STAR_ENABLE][uid] else '否'}</span></p>"
-        detailContent += f"<p>若开启分解,是否分解5星遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.RELIC_SALVAGE_5STAR_ENABLE][uid] else '否'}</span></p>"
-        detailContent += f"<p>若分解5星遗器,是否分解为遗器经验材料:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.RELIC_SALVAGE_5STAR_TO_EXP][uid] else '否'}</span></p>"
-        detailContent += f"<p>当遗器数量达到何值时触发遗器分解:<span class=important style=background-color:#40405f;color:#66ccff>{configMgr.mConfig[ConfigKey.RELIC_THRESHOLD_COUNT][uid]}</span></p>"
+
+        detailContent += f"<p>历战余响:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{echoofwarText}<rt class='ttt' style='background-color: unset;' data-rt='{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['历战余响']}'></rt></ruby></span></p>"
+
+        detailContent += f"<p>是否分解遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.RELICS_SALVAGE_ENABLE][uid] else '否'}</span></p>"
+
+        detailContent += f"<p>若开启分解,是否分解4星遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.RELICS_SALVAGE_4STAR_ENABLE][uid] else '否'}</span></p>"
+
+        detailContent += f"<p>若开启分解,是否分解5星遗器:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.RELICS_SALVAGE_5STAR_ENABLE][uid] else '否'}</span></p>"
+
+        detailContent += f"<p>若分解5星遗器,是否分解为遗器经验材料:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.RELICS_SALVAGE_5STAR_TO_EXP][uid] else '否'}</span></p>"
+
+        detailContent += f"<p>当遗器数量达到何值时触发遗器分解:<span class=important style=background-color:#40405f;color:#66ccff>{configMgr.mConfig[ConfigKey.RELICS_THRESHOLD_COUNT][uid]}</span></p>"
 
         if configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid] in [3,4,5,6,7,8]:
-            worldNumber = dataMgr.meta['模拟宇宙'][str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid])]
-            worldRelic = dataMgr.meta['模拟宇宙遗器'][str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid])]
+            worldNumber = dataMgr.meta['模拟宇宙'][str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid])]['名称']
+            worldRelics = dataMgr.meta['模拟宇宙'][str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid])]['遗器']
         else:
             worldNumber = '世界选择有误'
-            worldRelic = ''
+            worldRelics = ''
 
         universeContent = ''
-        universeContent += f"<p>模拟宇宙:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{worldNumber}<rt class='ttt' style='background-color: unset;' data-rt='{worldRelic}'></rt></ruby></span></p>"
+        universeContent += f"<p>模拟宇宙:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{worldRelics}<rt class='ttt' style='background-color: unset;' data-rt='{worldNumber}'></rt></ruby></span></p>"
 
         return detailContent, universeContent
 
@@ -303,7 +316,7 @@ class Notify:
             #     emailObject.attach(bgHotaru)
             #     hotaruPng.close()
         else:
-            with open('./assets/static/img/bg_noHotaru.png', 'rb') as noHotaruPng:
+            with open('./assets/static/images/web/bg_noHotaru.png', 'rb') as noHotaruPng:
                 bgNoHotaru = MIMEImage(noHotaruPng.read())
                 bgNoHotaru.add_header('Content-ID', '<bgNoHotaru>')
                 emailObject.attach(bgNoHotaru)

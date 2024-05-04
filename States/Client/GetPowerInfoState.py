@@ -11,17 +11,17 @@ class GetPowerInfoState(BaseClientState):
         if configMgr.mConfig[configMgr.mKey.USE_RESERVED_TRAILBLAZE_POWER][dataClientMgr.currentUid] or configMgr.mConfig[configMgr.mKey.USE_FUEL][dataClientMgr.currentUid]:
             screenClientMgr.ChangeTo('map')
             # 打开开拓力补充界面
-            if screenClientMgr.ClickElement("./assets/images/share/trailblaze_power/trailblaze_power.png", "image", 0.9, crop=trailblazePowerCrop):
+            if screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/trailblaze_power.png", "image", 0.9, crop=trailblazePowerCrop):
                 # 等待界面加载
-                if screenClientMgr.FindElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                if screenClientMgr.FindElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
                     # 开启使用后备开拓力
-                    if configMgr.mConfig[configMgr.mKey.USE_RESERVED_TRAILBLAZE_POWER][dataClientMgr.currentUid] and screenClientMgr.ClickElement("./assets/images/share/trailblaze_power/reserved_trailblaze_power.png", "image", 0.9, scaleRange=(0.95, 0.95)):
+                    if configMgr.mConfig[configMgr.mKey.USE_RESERVED_TRAILBLAZE_POWER][dataClientMgr.currentUid] and screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/reserved_trailblaze_power.png", "image", 0.9, scaleRange=(0.95, 0.95)):
                         self.MoveButtonAndConfirm()
                     # 开启使用燃料
-                    elif configMgr.mConfig[configMgr.mKey.USE_FUEL][dataClientMgr.currentUid] and screenClientMgr.ClickElement("./assets/images/share/trailblaze_power/fuel.png", "image", 0.9, scaleRange=(0.95, 0.95)):
+                    elif configMgr.mConfig[configMgr.mKey.USE_FUEL][dataClientMgr.currentUid] and screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/fuel.png", "image", 0.9, scaleRange=(0.95, 0.95)):
                         self.MoveButtonAndConfirm()
                     # # 开启使用星琼
-                    # elif config.stellar_jade and auto.click_element("./assets/images/share/trailblaze_power/stellar_jade.png", "image", 0.9, scaleRange=(0.95, 0.95)):
+                    # elif config.stellar_jade and auto.click_element("./assets/static/images/share/trailblaze_power/stellar_jade.png", "image", 0.9, scaleRange=(0.95, 0.95)):
                     #     pass
                     else:
                         screenClientMgr.PressKey("esc")
@@ -49,17 +49,17 @@ class GetPowerInfoState(BaseClientState):
     
     @staticmethod
     def MoveButtonAndConfirm():
-        if screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=10):
-            result = screenClientMgr.FindElement("./assets/images/share/trailblaze_power/button.png", "image", 0.9, maxRetries=10)
+        if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
+            result = screenClientMgr.FindElement("./assets/static/images/share/trailblaze_power/button.png", "image", 0.9, maxRetries=10)
             if result:
                 screenClientMgr.ClickElementWithPos(result, action="down")
                 time.sleep(0.5)
-                result = screenClientMgr.FindElement("./assets/images/share/trailblaze_power/plus.png", "image", 0.9)
+                result = screenClientMgr.FindElement("./assets/static/images/share/trailblaze_power/plus.png", "image", 0.9)
                 if result:
                     screenClientMgr.ClickElementWithPos(result, action="move")
                     time.sleep(0.5)
                     screenClientMgr.MouseUp()
-                    if screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
                         time.sleep(1)
                         screenClientMgr.PressKey("esc")
                         if screenClientMgr.CheckScreen("map"):

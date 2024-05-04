@@ -1,12 +1,12 @@
 {   
-    "hotaru_assets_version" : "v2.0.5-dev-0",
+    "hotaru_assets_version" : "v2.0.6-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.5-dev更新内容",
+            "Title": "v2.0.6更新内容",
             "Content": "遗器副本战斗结束支持检测所有产出的五星遗器词条。修复bug。新增开启模拟宇宙速通模式选项。"
         }
     ],
@@ -109,68 +109,164 @@
     },
     "星球":
     {
-        "雅利洛": "yaliluo",
-        "仙舟（罗浮）": "luofu",
-        "匹诺康尼": "pinuokangni"
+        "雅利洛": "JariloVI",
+        "仙舟（罗浮）": "TheXianzhouLuofu",
+        "匹诺康尼": "Penacony"
     },
-    "凝滞虚影":
+    "凝滞虚影": 
     {
-        "空海之形": "量子1",
-        "巽风之形": "风1",
-        "鸣雷之形": "雷1",
-        "炎华之形": "火1",
-        "锋芒之形": "物理",
-        "霜晶之形": "冰1",
-        "幻光之形": "虚数1",
-        "冰棱之形": "冰2",
-        "震厄之形": "雷2",
-        "孽兽之形": "量子2",
-        "燔灼之形": "火2",
-        "天人之形": "风2",
-        "幽府之形": "物理2",
-        "偃偶之形": "虚数2",
-        "冰酿之形": "冰3",
-        "焦炙之形": "量子3",
-        "嗔怒之形": "火3"
+        "空海之形": [
+            "量子1/虚幻铸铁",
+            "/images/screen/guide/shadow/Quantum1.png"
+        ],
+        "巽风之形": [
+            "风1/暴风之眼",
+            "/images/screen/guide/shadow/Wind1.png"
+        ],
+        "鸣雷之形": [
+            "雷1/往日之影的雷冠",
+            "/images/screen/guide/shadow/Lighting1.png"
+        ],
+        "炎华之形": [
+            "火1/恒温晶壳",
+            "/images/screen/guide/shadow/Fire1.png"
+        ],
+        "锋芒之形": [
+            "物理1/铁狼碎齿",
+            "/images/screen/guide/shadow/Physical1.png"
+        ],
+        "霜晶之形": [
+            "冰1/风雪之角",
+            "/images/screen/guide/shadow/Ice1.png"
+        ],
+        "幻光之形": [
+            "虚数1/往日之影的金饰",
+            "/images/screen/guide/shadow/Imaginary1.png"
+        ],
+        "冰棱之形": [
+            "冰2/苦寒晶壳",
+            "/images/screen/guide/shadow/Ice2.png"
+        ],
+        "震厄之形": [
+            "雷2/炼形者雷枝",
+            "/images/screen/guide/shadow/Lighting2.png"
+        ],
+        "偃偶之形": [
+            "虚数2/镇灵敕符",
+            "/images/screen/guide/shadow/Imaginary2.png"
+        ],
+        "孽兽之形": [
+            "量子2/苍猿之钉",
+            "/images/screen/guide/shadow/Quantum2.png"
+        ],
+        "燔灼之形": [
+            "火2/过热钢刃",
+            "/images/screen/guide/shadow/Fire2.png"
+        ],
+        "天人之形": [
+            "风2/天人遗垢",
+            "/images/screen/guide/shadow/Wind2.png"
+        ],
+        "幽府之形": [
+            "物理2/幽府通令",
+            "/images/screen/guide/shadow/Physical2.png"
+        ],
+        "冰酿之形": [
+            "冰3/冷藏梦箱",
+            "/images/screen/guide/shadow/Ice3.png"
+        ],
+        "焦炙之形": [
+            "量子3/炙梦喷枪",
+            "/images/screen/guide/shadow/Quantum3.png"
+        ],
+        "嗔怒之形": [
+            "火3/忿火之心",
+            "/images/screen/guide/shadow/Fire3.png"
+        ]
     },
     "侵蚀隧洞":
     {
-        "霜风之径": "冰/风套",
-        "迅拳之径": "物理/击破套",
-        "漂泊之径": "奶/快枪手套",
-        "睿治之径": "铁卫/量子套",
-        "圣颂之径": "防御/雷套",
-        "野焰之径": "火/虚数套",
-        "药使之径": "莳者/信使套",
-        "幽冥之径": "大公/系囚套",
-        "梦潜之径": "先驱/钟表匠"
+        "霜风之径": [
+            "密林卧雪的猎人/晨昏交界的翔鹰",
+            "/images/screen/guide/cavern/shuangfeng.png"
+        ],
+        "迅拳之径": [
+            "街头出身的拳王/流星追迹的怪盗",
+            "/images/screen/guide/cavern/xunquan.png"
+        ],
+        "漂泊之径": [
+            "云无留迹的过客/野穗伴行的快枪手",
+            "/images/screen/guide/cavern/piaobo.png"
+        ],
+        "睿治之径": [
+            "戍卫风雪的铁卫/繁星璀璨的天才",
+            "/images/screen/guide/cavern/ruizhi.png"
+        ],
+        "圣颂之径": [
+            "净庭教宗的圣骑士/激奏雷电的乐队",
+            "/images/screen/guide/cavern/shengsong.png"
+        ],
+        "野焰之径": [
+            "熔岩锻铸的火匠/盗匪荒漠的废土客",
+            "/images/screen/guide/cavern/yeyan.png"
+        ],
+        "药使之径": [
+            "宝命长存的莳者/骇域漫游的信使",
+            "/images/screen/guide/cavern/yaoshi.png"
+        ],
+        "幽冥之径": [
+            "毁烬焚骨的大公/幽锁深牢的系囚",
+            "/images/screen/guide/cavern/youming.png"
+        ],
+        "梦潜之径": [
+            "死水深潜的先驱/机心戏梦的钟表匠",
+            "/images/screen/guide/cavern/mengqian.png"
+        ]
     },
     "历战余响":
     {
         "毁灭的开端": "末日兽",
-        "寒潮的落幕": "可可利亚",
-        "不死的神实": "幻胧",
-        "蛀星的旧靥": "碎星王虫"
+        "寒潮的落幕": "可可利亚·虚妄之母",
+        "不死的神实": "不死神实·幻胧",
+        "蛀星的旧靥": "碎星王虫·斯喀拉卡巴兹(拟造)"
     },
     "模拟宇宙":
     {
-        "3": "第三世界",
-        "4": "第四世界",
-        "5": "第五世界",
-        "6": "第六世界",
-        "7": "第七世界",
-        "8": "第八世界",
-        "9": "第九世界"
-    },
-    "模拟宇宙遗器":
-    {
-        "3": "封印站/仙舟套",
-        "4": "击破套/翁瓦克",
-        "5": "泛银河/差分机",
-        "6": "筑城者/萨尔索图",
-        "7": "繁星/龙骨套",
-        "8": "匹诺康尼/苍穹战线",
-        "9": "茨冈尼亚/高天神国"
+        "3": {
+            "名称":"第三世界",
+            "遗器":"太空封印站/不老者的仙舟",
+            "图片":"/images/screen/guide/universe/universe3relics.png"
+        },
+        "4": {
+            "名称":"第四世界",
+            "遗器":"盗贼公国塔利亚/生命的翁瓦克",
+            "图片":"/images/screen/guide/universe/universe4relics.png"
+        },
+        "5": {
+            "名称":"第五世界",
+            "遗器":"泛银河商业公司/星体差分机",
+            "图片":"/images/screen/guide/universe/universe5relics.png"
+        },
+        "6": {
+            "名称":"第六世界",
+            "遗器":"筑城者的贝洛伯格/停转的萨尔索图",
+            "图片":"/images/screen/guide/universe/universe6relics.png"
+        },
+        "7": {
+            "名称":"第七世界",
+            "遗器":"繁星竞技场/折断的龙骨",
+            "图片":"/images/screen/guide/universe/universe7relics.png"
+        },
+        "8": {
+            "名称":"第八世界",
+            "遗器":"苍穹战线格拉默/梦想之地匹诺康尼",
+            "图片":"/images/screen/guide/universe/universe8relics.png"
+        },
+        "9": {
+            "名称":"第九世界",
+            "遗器":"无主荒星茨冈尼亚/出云显世与高天神国",
+            "图片":"/images/screen/guide/universe/universe9relics.png"
+        }
     },
     "模拟宇宙难度":
     {
@@ -194,18 +290,54 @@
     },
     "拟造花萼（赤）":
     {
-        "毁灭之蕾1": "huimie1",
-        "存护之蕾1": "cunhu1",
-        "巡猎之蕾1": "xunlie1",
-        "丰饶之蕾1": "fengrao1",
-        "智识之蕾1": "zhishi1",
-        "同谐之蕾1": "tongxie1",
-        "虚无之蕾1": "xuwu1",
-        "毁灭之蕾2": "huimie2",
-        "虚无之蕾2": "xuwu2",
-        "同谐之蕾2": "tongxie2",
-        "丰饶之蕾2": "fengrao2",
-        "存护之蕾2": "cunhu2"
+        "毁灭之蕾1": [
+            "净世残刃",
+            "/images/screen/guide/crimson/Destruction1.png"
+        ],
+        "存护之蕾1": [
+            "琥珀的坚守",
+            "/images/screen/guide/crimson/Preservation1.png"
+        ],
+        "巡猎之蕾1": [
+            "逐星之矢",
+            "/images/screen/guide/crimson/TheHunt1.png"
+        ],
+        "丰饶之蕾1": [
+            "永恒之花",
+            "/images/screen/guide/crimson/Abundance1.png"
+        ],
+        "智识之蕾1": [
+            "智识之钥",
+            "/images/screen/guide/crimson/Erudition1.png"
+        ],
+        "同谐之蕾1": [
+            "群星乐章",
+            "/images/screen/guide/crimson/Harmony1.png"
+        ],
+        "虚无之蕾1": [
+            "沉沦黑曜",
+            "/images/screen/guide/crimson/Nihility1.png"
+        ],
+        "毁灭之蕾2": [
+            "月狂獠牙",
+            "/images/screen/guide/crimson/Destruction2.png"
+        ],
+        "虚无之蕾2": [
+            "焚天之魔",
+            "/images/screen/guide/crimson/Nihility2.png"
+        ],
+        "同谐之蕾2": [
+            "天外乐章",
+            "/images/screen/guide/crimson/Harmony2.png"
+        ],
+        "丰饶之蕾2": [
+            "万相果实",
+            "/images/screen/guide/crimson/Abundance2.png"
+        ],
+        "存护之蕾2": [
+            "神体琥珀",
+            "/images/screen/guide/crimson/Preservation2.png"
+            ]
     },
     "小技巧":
     [

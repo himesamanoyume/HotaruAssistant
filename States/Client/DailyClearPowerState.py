@@ -17,8 +17,8 @@ class DailyClearPowerState(BaseFightState, BaseClientState):
                 log.info(logMgr.Info(f"跳过清体力,{configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]}未开启"))
                 return True
         
-        self.DetectRelicCount()
-        self.SkipForRelicCount()
+        self.DetectRelicsCount()
+        self.SkipForRelicsCount()
 
         if dataClientMgr.currentPower <= 9:
             log.info(logMgr.Info(f"跳过清体力,体力太低"))

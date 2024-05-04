@@ -5,11 +5,11 @@ class InitUidConfig:
     @staticmethod
     def InitUidDefaultConfig(configMgr, log, logMgr, uid):
         try:
-            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_ENABLE, uid, False)
-            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_4STAR_ENABLE, uid, True)
-            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_5STAR_ENABLE, uid, False)
-            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELIC_SALVAGE_5STAR_TO_EXP, uid, False)
-            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELIC_THRESHOLD_COUNT, uid, 1450)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELICS_SALVAGE_ENABLE, uid, False)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELICS_SALVAGE_4STAR_ENABLE, uid, True)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELICS_SALVAGE_5STAR_ENABLE, uid, False)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELICS_SALVAGE_5STAR_TO_EXP, uid, False)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELICS_THRESHOLD_COUNT, uid, 1450)
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.ECHO_OF_WAR_ENABLE, uid, False)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.ECHO_OF_WAR_TIMES, uid, 3)

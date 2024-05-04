@@ -29,20 +29,20 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
             log.hr(logMgr.Hr("准备合成材料"), 2)
             screenClientMgr.ChangeTo('material')
             # 筛选规则
-            if screenClientMgr.ClickElement("./assets/images/synthesis/filter.png", "image", 0.9, maxRetries=10):
+            if screenClientMgr.ClickElement("./assets/static/images/synthesis/filter.png", "image", 0.9, maxRetries=10):
                 # 等待筛选界面弹出
                 time.sleep(1)
                 if screenClientMgr.ClickElement("通用培养材料", "text", maxRetries=3, crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
                     time.sleep(1)
-                    if screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
                         time.sleep(1)
                         # 多次重试避免选中没反应
                         for i in range(3):
-                            screenClientMgr.ClickElement("./assets/images/synthesis/nuclear.png", "image", 0.9, maxRetries=3)
-                            if screenClientMgr.FindElement("./assets/images/synthesis/nuclear_selected.png", "image", 0.6, maxRetries=3, crop=(1137.0 / 1920, 327.0 / 1080, 98.0 / 1920, 83.0 / 1080)):
-                                if screenClientMgr.ClickElement("./assets/images/synthesis/synthesis_button.png", "image", 0.9, maxRetries=3):
-                                    if screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=3):
-                                        if screenClientMgr.ClickElement("./assets/images/base/click_close.png", "image", 0.9, maxRetries=3):
+                            screenClientMgr.ClickElement("./assets/static/images/synthesis/nuclear.png", "image", 0.9, maxRetries=3)
+                            if screenClientMgr.FindElement("./assets/static/images/synthesis/nuclear_selected.png", "image", 0.6, maxRetries=3, crop=(1137.0 / 1920, 327.0 / 1080, 98.0 / 1920, 83.0 / 1080)):
+                                if screenClientMgr.ClickElement("./assets/static/images/synthesis/synthesis_button.png", "image", 0.9, maxRetries=3):
+                                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
+                                        if screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3):
                                             log.info(logMgr.Info("合成材料完成"))
                                             return True
                                 break
@@ -82,10 +82,10 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
         screenClientMgr.PressMouse()
         time.sleep(3)
 
-        # Retry.Re(lambda: screenMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9,maxRetries=1), 30)
+        # Retry.Re(lambda: screenMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9,maxRetries=1), 30)
 
         for i in range(10):
-            if screenClientMgr.ClickElement("./assets/images/himeko/close.png", "image", 0.9, maxRetries=3):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=3):
                 break
             else:    
                 time.sleep(1)
@@ -93,13 +93,13 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
         # bug #
         # Retry.ReThread(lambda: InitDailyTasksState.HimekoWaitFight, 240, 1)
                 
-        if screenClientMgr.FindElement("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(16180 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+        if screenClientMgr.FindElement("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(16180 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
             pass
         else:
             log.info(logMgr.Info("尝试开启二倍速"))
             screenClientMgr.PressKey("b")
             time.sleep(0.5)
-            if screenClientMgr.FindElement("./assets/images/fight/fight_again.png", "image", 0.9) or screenClientMgr.FindElement("./assets/images/fight/fight_fail.png", "image", 0.9):
+            if screenClientMgr.FindElement("./assets/static/images/fight/fight_again.png", "image", 0.9) or screenClientMgr.FindElement("./assets/static/images/fight/fight_fail.png", "image", 0.9):
                 log.info(logMgr.Info("检测到战斗失败/重试"))
                 return False
         # end #
@@ -113,13 +113,13 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
             screenClientMgr.PressKey("a")
             screenClientMgr.PressKey("a")
             screenClientMgr.PressKey("a")
-            if screenClientMgr.ClickElement("./assets/images/himeko/himeko_q.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/himeko_q.png", "image", 0.9, maxRetries=5):
                 log.info(logMgr.Info("姬子已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/herta_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/herta_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选黑塔已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/natasha_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/natasha_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选娜塔莎已使用普攻"))
                 break
 
@@ -127,13 +127,13 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
         screenClientMgr.PressKey("d")
         time.sleep(0.5)
         for i in range(20):
-            if screenClientMgr.ClickElement("./assets/images/himeko/herta_q.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/herta_q.png", "image", 0.9, maxRetries=5):
                 log.info(logMgr.Info("黑塔已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/himeko_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/himeko_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选姬子已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/natasha_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/natasha_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选娜塔莎已使用普攻"))
                 break
 
@@ -145,43 +145,43 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
             screenClientMgr.PressKey("a")
             screenClientMgr.PressKey("a")
             screenClientMgr.PressKey("a")
-            if screenClientMgr.ClickElement("./assets/images/himeko/natasha_q.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/natasha_q.png", "image", 0.9, maxRetries=5):
                 log.info(logMgr.Info("娜塔莎已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/himeko_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/himeko_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选姬子已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/herta_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/herta_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选黑塔已使用普攻"))
                 break
 
         time.sleep(10)
         for i in range(20):
-            if screenClientMgr.ClickElement("./assets/images/himeko/himeko_q.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/himeko_q.png", "image", 0.9, maxRetries=5):
                 log.info(logMgr.Info("姬子已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/herta_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/herta_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选黑塔已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/natasha_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/natasha_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选娜塔莎已使用普攻"))
                 break
 
         time.sleep(2)
         for i in range(20):
-            if screenClientMgr.ClickElement("./assets/images/himeko/herta_q.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/herta_q.png", "image", 0.9, maxRetries=5):
                 log.info(logMgr.Info("黑塔已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/himeko_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/himeko_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选姬子已使用普攻"))
                 break
-            elif screenClientMgr.ClickElement("./assets/images/himeko/natasha_q.png", "image", 0.9, maxRetries=2):
+            elif screenClientMgr.ClickElement("./assets/static/images/himeko/natasha_q.png", "image", 0.9, maxRetries=2):
                 log.info(logMgr.Info("备选娜塔莎已使用普攻"))
                 break
         
         time.sleep(2)
         for i in range(20):
-            if screenClientMgr.ClickElement("./assets/images/himeko/natasha_e.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/natasha_e.png", "image", 0.9, maxRetries=5):
                 log.info(logMgr.Info("娜塔莎已激活战技"))
                 break
             else:
@@ -190,7 +190,7 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
 
         time.sleep(2)
         for i in range(20):
-            if screenClientMgr.ClickElement("./assets/images/himeko/natasha_active_q.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/natasha_active_q.png", "image", 0.9, maxRetries=5):
                 log.info(logMgr.Info("娜塔莎已释放战技"))
                 break
             else:
@@ -199,8 +199,8 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
 
         time.sleep(2)
         for i in range(20):
-            if screenClientMgr.FindElement("./assets/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=10, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
-                if screenClientMgr.ClickElement("./assets/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=5, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
+            if screenClientMgr.FindElement("./assets/static/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=10, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
+                if screenClientMgr.ClickElement("./assets/static/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=5, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
                     log.info(logMgr.Info("姬子已开启终结技"))
                     break
             else:
@@ -209,7 +209,7 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
 
         time.sleep(3)
         for i in range(20):
-            if screenClientMgr.ClickElement("./assets/images/himeko/himeko_space.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.ClickElement("./assets/static/images/himeko/himeko_space.png", "image", 0.9, maxRetries=5):
                 log.info(logMgr.Info("姬子已施放终结技"))
                 break
             else:
@@ -224,13 +224,13 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
         
     @staticmethod
     def HimekoWaitFight():
-        if screenClientMgr.FindElement("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+        if screenClientMgr.FindElement("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
             pass
         else:
             log.info(logMgr.Info("尝试开启二倍速"))
             screenClientMgr.PressKey("b")
             time.sleep(0.5)
-            if screenClientMgr.FindElement("./assets/images/fight/fight_again.png", "image", 0.9) or screenClientMgr.FindElement("./assets/images/fight/fight_fail.png", "image", 0.9):
+            if screenClientMgr.FindElement("./assets/static/images/fight/fight_again.png", "image", 0.9) or screenClientMgr.FindElement("./assets/static/images/fight/fight_fail.png", "image", 0.9):
                 log.info(logMgr.Info("检测到战斗失败/重试"))
                 return
     

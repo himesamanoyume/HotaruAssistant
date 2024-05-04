@@ -1,12 +1,12 @@
 from States.Client import *
-from .BaseRelicState import BaseRelicState
+from .BaseRelicsState import BaseRelicsState
 
-class GetRelicsInfoState(BaseRelicState, BaseClientState):
+class GetRelicsInfoState(BaseRelicsState, BaseClientState):
 
     mStateName = 'GetRelicsInfoState'
 
     def OnBegin(self):
-        return BaseRelicState.DetectRelicCount()
+        return BaseRelicsState.DetectRelicsCount()
 
     def OnRunning(self):
         return False

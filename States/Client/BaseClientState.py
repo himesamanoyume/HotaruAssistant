@@ -69,7 +69,7 @@ class BaseClientState(BaseState):
 
         try:
             for name in configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER]:
-                if screenClientMgr.ClickElement("./assets/images/character/" + name + ".png", "image", 0.8, maxRetries=1, scaleRange=(0.9, 0.9), crop=(57 / 1920, 143 / 1080, 140 / 1920, 814 / 1080)):
+                if screenClientMgr.ClickElement("./assets/static/images/character/" + name + ".png", "image", 0.8, maxRetries=1, scaleRange=(0.9, 0.9), crop=(57 / 1920, 143 / 1080, 140 / 1920, 814 / 1080)):
                     if not screenClientMgr.ClickElement("入队", "text", maxRetries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
                         log.error(logMgr.Error("找不到入队按钮"))
                         return False

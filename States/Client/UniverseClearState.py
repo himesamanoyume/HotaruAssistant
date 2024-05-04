@@ -91,10 +91,10 @@ class UniverseClearState(BaseUniverseState):
 
         # 传送
         instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
-        screenClientMgr.ClickElement("./assets/images/screen/guide/power.png", "image", maxRetries=10)
+        screenClientMgr.ClickElement("./assets/static/images/screen/guide/power.png", "image", maxRetries=10)
         Flag = False
 
-        worldNumber = dataClientMgr.meta["模拟宇宙"][f"{configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid]}"]
+        worldNumber = dataClientMgr.meta["模拟宇宙"]["名称"][f"{configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid]}"]
 
         for i in range(math.ceil(len(dataClientMgr.meta["模拟宇宙"]) / 3)):
             if screenClientMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=worldNumber, sourceType="text"):
@@ -110,13 +110,13 @@ class UniverseClearState(BaseUniverseState):
 
         time.sleep(3)
         
-        if not screenClientMgr.FindElement("./assets/images/screen/universe/download_char.png", "image", 0.9, maxRetries=3):
+        if not screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=3):
             point = screenClientMgr.FindElement(worldNumber, "text", crop=(812.0 / 1920, 514.0 / 1080, 236.0 / 1920, 46.0 / 1080), maxRetries=3)
             universeStarTopLeftX = point[0][0]
             universeStarTopLeftY = point[0][1]
             screenClientMgr.ClickElementWithPos(((universeStarTopLeftX + 450, universeStarTopLeftY), (universeStarTopLeftX + 450, universeStarTopLeftY)))
             time.sleep(0.5)
-            if screenClientMgr.FindElement("./assets/images/screen/universe/download_char.png", "image", 0.9, maxRetries=5):
+            if screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=5):
                 pass
             else:
                 log.error(logMgr.Error("⚠️刷副本未完成 - 未能进入模拟宇宙下载角色界面⚠️"))
@@ -136,7 +136,7 @@ class UniverseClearState(BaseUniverseState):
 
         time.sleep(1)
 
-        if screenClientMgr.ClickElement("./assets/images/screen/universe/download_char.png", "image", 0.9,maxRetries=5):
+        if screenClientMgr.ClickElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9,maxRetries=5):
             time.sleep(1)
             self.ClearTeam(1)
 
@@ -147,10 +147,10 @@ class UniverseClearState(BaseUniverseState):
                 if charCount == 4:
                     break
                 log.info(logMgr.Info(f"{character}"))
-                if not screenClientMgr.ClickElement(f"./assets/images/character/{character}.png","image", 0.85, maxRetries=10, takeScreenshot=True):
+                if not screenClientMgr.ClickElement(f"./assets/static/images/character/{character}.png","image", 0.85, maxRetries=10, takeScreenshot=True):
                     time.sleep(0.5)
                     screenClientMgr.MouseScroll(30, -1)
-                    if not screenClientMgr.ClickElement(f"./assets/images/character/{character}.png", "image", 0.85, maxRetries=10, takeScreenshot=True):
+                    if not screenClientMgr.ClickElement(f"./assets/static/images/character/{character}.png", "image", 0.85, maxRetries=10, takeScreenshot=True):
                         time.sleep(0.5)
                         screenClientMgr.MouseScroll(30, 1)
                         continue
@@ -178,17 +178,17 @@ class UniverseClearState(BaseUniverseState):
             log.error(logMgr.Error(f"难度{d}不合法"))
             return
 
-        if not screenClientMgr.ClickElement(f"./assets/images/universe/on_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
+        if not screenClientMgr.ClickElement(f"./assets/static/images/universe/on_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
                 log.info(logMgr.Info(f"未选中难度{d},尝试选择难度{d}"))
                 time.sleep(0.5)
-                if screenClientMgr.ClickElement(f"./assets/images/universe/off_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
+                if screenClientMgr.ClickElement(f"./assets/static/images/universe/off_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
                     log.info(logMgr.Info(f"检查是否选中难度{d}"))
                     time.sleep(0.5)
                     # 此处尝试无识别直接点击难度位置
                     # screenMgr.ClickElement_with_pos(((135, 160+(d-1)*110),(135, 160+(d-1)*110)))
-                    if screenClientMgr.ClickElement(f"./assets/images/universe/on_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
+                    if screenClientMgr.ClickElement(f"./assets/static/images/universe/on_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
                         time.sleep(0.5)
-                        if screenClientMgr.FindElement("./assets/images/screen/universe/download_char.png", "image", 0.9, maxRetries=10):
+                        if screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=10):
                             time.sleep(0.5)
                             log.info(logMgr.Info(f"已选中难度{d}"))
                             return
@@ -206,7 +206,7 @@ class UniverseClearState(BaseUniverseState):
                     self.SelectUniverseDifficulty(d-1)
                     return
         else:
-            if not screenClientMgr.FindElement("./assets/images/screen/universe/download_char.png", "image", 0.9, maxRetries=10):
+            if not screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=10):
                 time.sleep(0.5)
                 log.warning(logMgr.Warning(f"已选中难度{d},但该难度未解锁,嵌套进入难度{d-1}"))
                 self.SelectUniverseDifficulty(d-1)
@@ -228,7 +228,7 @@ class UniverseClearState(BaseUniverseState):
             screenClientMgr.ClickElementWithPos(((downloadCharTopLeftX + 60 + i*105, downloadCharTopLeftY + 80), (downloadCharTopLeftX + 60 + i*105, downloadCharTopLeftY + 80)))
             time.sleep(1)
             
-        if screenClientMgr.FindElement("./assets/images/universe/all_clear_team.png", "image", 0.95, takeScreenshot=True):
+        if screenClientMgr.FindElement("./assets/static/images/universe/all_clear_team.png", "image", 0.95, takeScreenshot=True):
             log.info(logMgr.Info("队伍已清空"))
             return
         else:

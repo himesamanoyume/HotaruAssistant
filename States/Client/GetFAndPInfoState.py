@@ -41,7 +41,7 @@ class GetFAndPInfoState(BaseClientState):
 
             turn = 1
 
-            if screenClientMgr.FindElement("./assets/images/screen/guide/check_detail.png", "image", 0.9, maxRetries=2, crop=(693.0 / 1920, 656.0 / 1080, 965.0 / 1920, 287.0 / 1080)):
+            if screenClientMgr.FindElement("./assets/static/images/screen/guide/check_detail.png", "image", 0.9, maxRetries=2, crop=(693.0 / 1920, 656.0 / 1080, 965.0 / 1920, 287.0 / 1080)):
                 turn = 2
                 cropList.append((area2CountdownCrop, area2LevelStarCrop))
             

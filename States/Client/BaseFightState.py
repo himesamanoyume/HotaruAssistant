@@ -1,8 +1,8 @@
 from States.Client import *
-from .BaseRelicState import BaseRelicState
+from .BaseRelicsState import BaseRelicsState
 import math
 
-class BaseFightState(BaseRelicState, BaseClientState):
+class BaseFightState(BaseRelicsState, BaseClientState):
 
     """
     OnBegin(), OnRunning()的返回值为True时, 代表状态将在此处结束, 不进行OnExit()以外的后续流程
@@ -13,24 +13,24 @@ class BaseFightState(BaseRelicState, BaseClientState):
     @staticmethod
     def AlwaysWaitFight(instanceName):
         screenClientMgr.PressKey("w")
-        if screenClientMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_again.png", "image", 0.9):
+        if screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/fight/fight_again.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗结束"))
             return True
         
         screenClientMgr.PressKey("w")
-        if screenClientMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_fail.png", "image", 0.9):
+        if screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/fight/fight_fail.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗失败/重试"))
             nowtime = time.time()
             log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战败"))
             raise Exception(f"{nowtime},挑战{instanceName}时战败")
         
         screenClientMgr.PressKey("w")
-        if not screenClientMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+        if not screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
             log.info(logMgr.Info("尝试开启二倍速"))
             screenClientMgr.PressKey("b")
 
         screenClientMgr.PressKey("w")
-        if not screenClientMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
+        if not screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
             log.info(logMgr.Info("尝试开启自动战斗"))
             screenClientMgr.PressKey("v")
 
@@ -38,7 +38,7 @@ class BaseFightState(BaseRelicState, BaseClientState):
     def EnableWaitFight(instanceName):
         time.sleep(5)
         for i in range(20):
-            if not screenClientMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+            if not screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
                 log.info(logMgr.Info("尝试开启二倍速"))
                 screenClientMgr.PressKey("b")
             else:
@@ -47,7 +47,7 @@ class BaseFightState(BaseRelicState, BaseClientState):
 
         time.sleep(5)
         for i in range(20):
-            if not screenClientMgr.FindElementWithShowMultiArea("./assets/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
+            if not screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
                 log.info(logMgr.Info("尝试开启自动战斗"))
                 screenClientMgr.PressKey("v")
             else:
@@ -60,11 +60,11 @@ class BaseFightState(BaseRelicState, BaseClientState):
 
     @staticmethod
     def CheckFight(instanceName):
-        if screenClientMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_again.png", "image", 0.9):
+        if screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/fight/fight_again.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗结束"))
             return True
         
-        if screenClientMgr.FindElementWithShowMultiArea("./assets/images/fight/fight_fail.png", "image", 0.9):
+        if screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/fight/fight_fail.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗失败/重试"))
             nowtime = time.time()
             log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战败"))
@@ -97,12 +97,12 @@ class BaseFightState(BaseRelicState, BaseClientState):
         time.sleep(1)
         # 传送
         instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
-        screenClientMgr.ClickElement("./assets/images/screen/guide/power.png", "image", maxRetries=10)
+        screenClientMgr.ClickElement("./assets/static/images/screen/guide/power.png", "image", maxRetries=10)
         Flag = False
         instanceMapType = ''
 
         if instanceType in ['拟造花萼（赤）']:
-            source = f"./assets/images/screen/guide/aka/{dataClientMgr.meta['拟造花萼（赤）'][instanceName]}.png"
+            source = f"./assets/static/{dataClientMgr.meta['拟造花萼（赤）'][instanceName][1]}"
             for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 3)):
                 if screenClientMgr.ClickElement("进入", "min_distance_text", crop=instanceNameCrop, include=True, source=source,  sourceType="image"):
                     log.info("该副本限时开放中,但你并没有解锁该副本")
@@ -124,7 +124,7 @@ class BaseFightState(BaseRelicState, BaseClientState):
             instance_map_name = dataClientMgr.meta['星球'][instanceMap]
 
             for i in range(math.ceil((len(dataClientMgr.meta[instanceType]) / 3) / 3)):
-                if screenClientMgr.ClickElement(f"./assets/images/screen/guide/{instance_map_name}_on.png", "image", 0.9, maxRetries=10) or screenClientMgr.ClickElement(f"./assets/images/screen/guide/{instance_map_name}_off.png", "image", 0.9, maxRetries=10):
+                if screenClientMgr.ClickElement(f"./assets/static/images/screen/guide/{instance_map_name}_on.png", "image", 0.9, maxRetries=10) or screenClientMgr.ClickElement(f"./assets/static/images/screen/guide/{instance_map_name}_off.png", "image", 0.9, maxRetries=10):
                     if screenClientMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=instanceMapType):
                         Flag = True
                         break
@@ -178,7 +178,7 @@ class BaseFightState(BaseRelicState, BaseClientState):
                 log.error(logMgr.Error("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
                 # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
                 return False
-            result = screenClientMgr.FindElement("./assets/images/screen/guide/plus.png", "image", 0.9, maxRetries=10,
+            result = screenClientMgr.FindElement("./assets/static/images/screen/guide/plus.png", "image", 0.9, maxRetries=10,
                                     crop=(1174.0 / 1920, 775.0 / 1080, 738.0 / 1920, 174.0 / 1080))
             if fullCount == 0:
                 for i in range(incomplete_count - 1):
@@ -191,17 +191,17 @@ class BaseFightState(BaseRelicState, BaseClientState):
         if screenClientMgr.ClickElement("挑战", "text", maxRetries=10, needOcr=True):
             if instanceType == "历战余响":
                 time.sleep(1)
-                screenClientMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9)
+                screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9)
             if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid] == False:
                 BaseClientState.BorrowCharacter()
             if screenClientMgr.ClickElement("开始挑战", "text", maxRetries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
                 time.sleep(1)
-                if screenClientMgr.FindElement("./assets/images/fight/no_power.png", "image", 0.9):
+                if screenClientMgr.FindElement("./assets/static/images/fight/no_power.png", "image", 0.9):
                     nowtime = time.time()
                     log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时开拓力不足,但却触发了挑战,请检查"))
                     raise Exception(f"{nowtime},挑战{instanceName}时开拓力不足,但却触发了挑战,请检查")
                 
-                elif screenClientMgr.FindElement("./assets/images/fight/char_dead.png", "image", 0.9):
+                elif screenClientMgr.FindElement("./assets/static/images/fight/char_dead.png", "image", 0.9):
                     nowtime = time.time()
                     log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时有角色处于无法战斗的状态,请检查"))
                     raise Exception(f"{nowtime},挑战{instanceName}时有角色处于无法战斗的状态,请检查")
@@ -237,12 +237,12 @@ class BaseFightState(BaseRelicState, BaseClientState):
 
 
                         if instanceType == "侵蚀隧洞":
-                            BaseRelicState.InstanceGetRelic()
+                            BaseRelicsState.InstanceGetRelics()
                         time.sleep(1)
-                        screenClientMgr.ClickElement("./assets/images/fight/fight_again.png", "image", 0.9, maxRetries=5)
+                        screenClientMgr.ClickElement("./assets/static/images/fight/fight_again.png", "image", 0.9, maxRetries=5)
                         # if instanceType == "历战余响":
                         #     time.sleep(1)
-                        #     screenMgr.ClickElement("./assets/images/base/confirm.png", "image", 0.9, maxRetries=5) 
+                        #     screenMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=5) 
                         time.sleep(1) 
                 else:
                     if fullCount > 0:
@@ -269,7 +269,7 @@ class BaseFightState(BaseRelicState, BaseClientState):
                                 raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")
                                 
                             if not (fullCount == 1 and incomplete_count == 0):
-                                screenClientMgr.ClickElement("./assets/images/fight/fight_again.png", "image", 0.9, maxRetries=10)
+                                screenClientMgr.ClickElement("./assets/static/images/fight/fight_again.png", "image", 0.9, maxRetries=10)
                 
                 # 这是最后一次战斗在循环之外的等待战斗
                 if configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ALWAYS':
@@ -288,7 +288,7 @@ class BaseFightState(BaseRelicState, BaseClientState):
                         raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")
 
                 if instanceType == "侵蚀隧洞":
-                    BaseRelicState.InstanceGetRelic()
+                    BaseRelicsState.InstanceGetRelics()
 
                 if fullCount > 0:
                     log.info(logMgr.Info(f"{fullCount*6}次{instanceType}副本完成(3)"))
@@ -301,7 +301,7 @@ class BaseFightState(BaseRelicState, BaseClientState):
                     dataClientMgr.notifyContent["副本情况"][instanceType] += incomplete_count
                 # 速度太快，点击按钮无效
                 time.sleep(1)
-                screenClientMgr.ClickElement("./assets/images/fight/fight_exit.png", "image", 0.9, maxRetries=10)
+                screenClientMgr.ClickElement("./assets/static/images/fight/fight_exit.png", "image", 0.9, maxRetries=10)
                 time.sleep(2)
                 if fullCount > 0 and incomplete_count > 0:
                     BaseFightState.RunInstances(instanceType, instanceName, aTimesNeedPower, incomplete_count)

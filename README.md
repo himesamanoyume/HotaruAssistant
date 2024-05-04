@@ -1,6 +1,6 @@
 <div>
 <p>
-    <img src="./assets/screenshot/Hotaru.png" align="right">
+    <img src="./assets/static/icon/favicon.ico" align="right">
 </p>
 
 <h1>
@@ -13,10 +13,10 @@ HotaruAssistant · 流萤小助手<br>
 
 原项目地址[https://github.com/moesnow/March7thAssistant](https://github.com/moesnow/March7thAssistant)
 
-<p>
+<!-- <p>
     <img alt="" src="https://img.shields.io/github/v/release/himesamanoyume/HotaruAssistant?style=flat-square&color=4096d8" />
     <img alt="" src="https://img.shields.io/github/downloads/himesamanoyume/HotaruAssistant/total?style=flat-square&color=f18cb9" />
-</p>
+</p> -->
 
 </div>
 
@@ -44,8 +44,8 @@ HotaruAssistant · 流萤小助手<br>
 
 功能|原版|此版
 --|--|--
-**多账号支持**|不好说|&check;
 **遗器胚子识别**|&cross;|&check;(暂不支持模拟宇宙遗器)
+多账号支持|&check;|&check;
 遗器自动分解|&check;|&check;
 清体力|&check;|&check;
 每日实训|&check;|&check;
@@ -83,6 +83,7 @@ UI|QT客户端|WebUI
 
 ## 2.0TODO
 
+- ~~更新时不论是否资源更新,都把assets文件夹删除再覆盖~~(待验证)
 - 修复BUG:~~模拟宇宙期间 不会在打完之后去领取积分奖励，导致沉浸器会积攒下来~~(待验证)
 
 - webui的某些样式回归为css文件而不是内嵌，例如某些link-button

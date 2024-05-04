@@ -58,7 +58,7 @@ class SendEmailState(BaseNotifyState):
 
             content += f"<p><strong>当前历战余响次数</strong></p>"+(f"<blockquote>" if configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_TIMES][dataClientMgr.currentUid] == 0 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_TIMES][dataClientMgr.currentUid]}/3</p></blockquote>"
 
-            content += f"<p><strong>当前遗器数量</strong></p><blockquote style='background-color:rgb({(64 + (95 - 64)*(dataClientMgr.currentRelicCount / 2000))}, 64, {(95 - (95 - 64)*(dataClientMgr.currentRelicCount / 2000))});box-shadow: 3px 0 0 0 rgb({(102 + (216 - 102)*(dataClientMgr.currentRelicCount / 2000))}, {(204 - (204 - 89)*(dataClientMgr.currentRelicCount / 2000))}, {(255 - (255 - 89)*(dataClientMgr.currentRelicCount / 2000))}) inset;'><p>{dataClientMgr.currentRelicCount}/2000</p></blockquote>"
+            content += f"<p><strong>当前遗器数量</strong></p><blockquote style='background-color:rgb({(64 + (95 - 64)*(dataClientMgr.currentRelicsCount / 2000))}, 64, {(95 - (95 - 64)*(dataClientMgr.currentRelicsCount / 2000))});box-shadow: 3px 0 0 0 rgb({(102 + (216 - 102)*(dataClientMgr.currentRelicsCount / 2000))}, {(204 - (204 - 89)*(dataClientMgr.currentRelicsCount / 2000))}, {(255 - (255 - 89)*(dataClientMgr.currentRelicsCount / 2000))}) inset;'><p>{dataClientMgr.currentRelicsCount}/2000</p></blockquote>"
 
             content += f"<p><strong>最新一期忘却之庭 - 混沌回忆</strong></p><div class=post-txt-container-datetime>注意,脚本不支持忘却之庭代打,仅提供信息提示</div><p>距离刷新:{dataClientMgr.notifyContent['混沌回忆1倒计时']}</p>"
 
@@ -91,23 +91,23 @@ class SendEmailState(BaseNotifyState):
             tempContent = ''
 
             if len(dataClientMgr.notifyContent['遗器胚子']) > 0:
-                for relicItem in dataClientMgr.notifyContent['遗器胚子']:
+                for relicsItem in dataClientMgr.notifyContent['遗器胚子']:
                     
                     tempList = ''
-                    for relicSubProp in relicItem['遗器副词条']:
-                        tempList += f"<p>{relicSubProp}</p>"
+                    for relicsSubProp in relicsItem['遗器副词条']:
+                        tempList += f"<p>{relicsSubProp}</p>"
 
                     tempContent += f"""
-                    <div class='relic'>
+                    <div class='relics'>
                         <p>
-                            <strong>{relicItem['遗器名称']}</strong>
+                            <strong>{relicsItem['遗器名称']}</strong>
                             <br>
-                            <span style=font-size:10px>{relicItem['遗器部位']}</span>
+                            <span style=font-size:10px>{relicsItem['遗器部位']}</span>
                         </p>
-                        <div class='relicPropContainer'>
+                        <div class='relicsPropContainer'>
                             <p>
                                 <span class=important style=color:#d97d22;background-color:#40405f;font-size:14px>
-                                <strong>{relicItem['遗器主词条']}</strong>
+                                <strong>{relicsItem['遗器主词条']}</strong>
                                 </span>
                             </p>
                             {tempList}
@@ -120,7 +120,7 @@ class SendEmailState(BaseNotifyState):
                 <p>
                     <strong>遗器胚子</strong>
                 </p>
-                <div class='relicContainer'>
+                <div class='relicsContainer'>
                     {tempContent}
                 </div>
                 """

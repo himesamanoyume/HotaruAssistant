@@ -2,7 +2,7 @@
     {
         "name": "主界面",
         "id": "main",
-        "image_path": "./assets/images/screen/main.png",
+        "image_path": "./assets/static/images/screen/main.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -44,7 +44,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/warp/stellar_warp.png",
+                            "./assets/static/images/warp/stellar_warp.png",
                             "image",
                             0.9
                         ]
@@ -56,7 +56,7 @@
     {
         "name": "手机菜单",
         "id": "menu",
-        "image_path": "./assets/images/menu/more.png",
+        "image_path": "./assets/static/images/menu/more.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -75,7 +75,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide.png",
+                            "./assets/static/images/screen/guide/enter_guide.png",
                             "image",
                             0.8
                         ]
@@ -89,7 +89,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide2.png",
+                            "./assets/static/images/screen/guide/enter_guide2.png",
                             "image",
                             0.8
                         ]
@@ -108,7 +108,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide.png",
+                            "./assets/static/images/screen/guide/enter_guide.png",
                             "image",
                             0.8
                         ]
@@ -128,7 +128,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide3.png",
+                            "./assets/static/images/screen/guide/enter_guide3.png",
                             "image",
                             0.8
                         ]
@@ -147,7 +147,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide.png",
+                            "./assets/static/images/screen/guide/enter_guide.png",
                             "image",
                             0.8
                         ]
@@ -167,7 +167,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide4.png",
+                            "./assets/static/images/screen/guide/enter_guide4.png",
                             "image",
                             0.85
                         ]
@@ -186,7 +186,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/mail.png",
+                            "./assets/static/images/menu/mail.png",
                             "image",
                             0.8,
                             "crop=(1829.0 / 1920, 11.0 / 1080, 79.0 / 1920, 1008.0 / 1080)"
@@ -195,7 +195,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/mail_reward.png",
+                            "./assets/static/images/menu/mail_reward.png",
                             "image",
                             0.5,
                             "crop=(0.8, 0.1, 0.05, 0.6)"
@@ -209,7 +209,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/more.png",
+                            "./assets/static/images/menu/more.png",
                             "image",
                             0.8
                         ]
@@ -238,7 +238,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/more.png",
+                            "./assets/static/images/menu/more.png",
                             "image",
                             0.8
                         ]
@@ -267,7 +267,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/more.png",
+                            "./assets/static/images/menu/more.png",
                             "image",
                             0.8
                         ]
@@ -296,7 +296,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/camera.png",
+                            "./assets/static/images/menu/camera.png",
                             "image",
                             0.8,
                             "crop=(0.8, 0.1, 0.05, 0.6)"
@@ -310,7 +310,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/dispatch.png",
+                            "./assets/static/images/menu/dispatch.png",
                             "image",
                             0.8
                         ]
@@ -323,7 +323,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/pass.png",
+                            "./assets/static/images/menu/pass.png",
                             "image",
                             0.8
                         ]
@@ -336,7 +336,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/bag.png",
+                            "./assets/static/images/menu/bag.png",
                             "image",
                             0.8
                         ]
@@ -350,7 +350,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/bag_relics.png",
+                            "./assets/static/images/menu/bag_relics.png",
                             "image",
                             0.8,
                             2
@@ -364,7 +364,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/synthesis.png",
+                            "./assets/static/images/menu/synthesis.png",
                             "image",
                             0.8
                         ]
@@ -377,7 +377,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/bag.png",
+                            "./assets/static/images/menu/bag.png",
                             "image",
                             0.8
                         ]
@@ -391,7 +391,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/bag_consumables.png",
+                            "./assets/static/images/menu/bag_consumables.png",
                             "image",
                             0.8,
                             2
@@ -405,7 +405,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/configure_team.png",
+                            "./assets/static/images/menu/configure_team.png",
                             "image",
                             0.8,
                             2
@@ -419,7 +419,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/menu/activity.png",
+                            "./assets/static/images/menu/activity.png",
                             "image",
                             0.8
                         ]
@@ -431,7 +431,7 @@
     {
         "name": "地图",
         "id": "map",
-        "image_path": "./assets/images/screen/map.png",
+        "image_path": "./assets/static/images/screen/map.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -449,7 +449,7 @@
     {
         "name": "月卡",
         "id": "monthly_card",
-        "image_path": "./assets/images/screen/monthly_card.png",
+        "image_path": "./assets/static/images/screen/monthly_card.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -457,7 +457,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/monthly_card.png",
+                            "./assets/static/images/screen/monthly_card.png",
                             "image",
                             0.88,
                             10
@@ -472,7 +472,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/monthly_card.png",
+                            "./assets/static/images/screen/monthly_card.png",
                             "image",
                             0.88,
                             10
@@ -485,7 +485,7 @@
     {
         "name": "启动游戏",
         "id": "start_game",
-        "image_path": "./assets/images/screen/start_game.png",
+        "image_path": "./assets/static/images/screen/start_game.png",
         "actions": [
             {
                 "target_screen": "click_enter",
@@ -493,7 +493,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/start_game.png",
+                            "./assets/static/images/screen/start_game.png",
                             "image",
                             0.8
                         ]
@@ -511,7 +511,7 @@
     {
         "name": "点击进入",
         "id": "click_enter",
-        "image_path": "./assets/images/screen/click_enter.png",
+        "image_path": "./assets/static/images/screen/click_enter.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -519,7 +519,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/click_enter.png",
+                            "./assets/static/images/screen/click_enter.png",
                             "image",
                             0.8
                         ]
@@ -537,7 +537,7 @@
     {
         "name": "用户协议",
         "id": "protocol",
-        "image_path": "./assets/images/login/protocol.png",
+        "image_path": "./assets/static/images/login/protocol.png",
         "actions": [
             {
                 "target_screen": "click_enter",
@@ -545,7 +545,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/login/protocol_agree.png",
+                            "./assets/static/images/login/protocol_agree.png",
                             "image",
                             0.8
                         ]
@@ -557,7 +557,7 @@
     {
         "name": "有角色处于无法战斗状态",
         "id": "char_dead",
-        "image_path": "./assets/images/fight/char_dead.png",
+        "image_path": "./assets/static/images/fight/char_dead.png",
         "actions": [
             {
                 "target_screen": "click_enter",
@@ -565,7 +565,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/base/confirm.png",
+                            "./assets/static/images/base/confirm.png",
                             "image",
                             0.8
                         ]
@@ -577,7 +577,7 @@
     {
         "name": "补充开拓力",
         "id": "no_power",
-        "image_path": "./assets/images/fight/no_power.png",
+        "image_path": "./assets/static/images/fight/no_power.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -585,7 +585,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/base/cancel.png",
+                            "./assets/static/images/base/cancel.png",
                             "image",
                             0.8
                         ]
@@ -621,7 +621,7 @@
     {
         "name": "虚构叙事",
         "id": "pure_fiction",
-        "image_path": "./assets/images/purefiction/pure_fiction_main.png",
+        "image_path": "./assets/static/images/purefiction/pure_fiction_main.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -639,7 +639,7 @@
     {
         "name": "模拟宇宙-积分奖励",
         "id": "universe_score",
-        "image_path": "./assets/images/screen/universe/universe_score.png",
+        "image_path": "./assets/static/images/screen/universe/universe_score.png",
         "actions": [
             {
                 "target_screen": "universe_main",
@@ -657,7 +657,7 @@
     {
         "name": "模拟宇宙-选择难度",
         "id": "universe_select",
-        "image_path": "./assets/images/screen/universe/download_char.png",
+        "image_path": "./assets/static/images/screen/universe/download_char.png",
         "actions": [
             {
                 "target_screen": "universe_main",
@@ -676,7 +676,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/universe/download_char.png",
+                            "./assets/static/images/screen/universe/download_char.png",
                             "image",
                             0.8
                         ]
@@ -688,7 +688,7 @@
     {
         "name": "模拟宇宙-下载初始角色",
         "id": "universe_download_char",
-        "image_path": "./assets/images/screen/universe/char_detail.png",
+        "image_path": "./assets/static/images/screen/universe/char_detail.png",
         "actions": [
             {
                 "target_screen": "universe_main",
@@ -723,7 +723,7 @@
     {
         "name": "退出「模拟宇宙」",
         "id": "leave_temporarily",
-        "image_path": "./assets/images/screen/universe/leave_temporarily.png",
+        "image_path": "./assets/static/images/screen/universe/leave_temporarily.png",
         "actions": [
             {
                 "target_screen": "universe_report",
@@ -731,7 +731,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/universe/leave_temporarily.png",
+                            "./assets/static/images/screen/universe/leave_temporarily.png",
                             "image",
                             0.9
                         ]
@@ -745,7 +745,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/base/confirm.png",
+                            "./assets/static/images/base/confirm.png",
                             "image",
                             0.9,
                             10
@@ -764,7 +764,7 @@
     {
         "name": "模拟宇宙-分析报告",
         "id": "universe_report",
-        "image_path": "./assets/images/screen/universe/universe_report.png",
+        "image_path": "./assets/static/images/screen/universe/universe_report.png",
         "actions": [
             {
                 "target_screen": "universe_main",
@@ -782,7 +782,7 @@
     {
         "name": "模拟宇宙-地图",
         "id": "universe_map",
-        "image_path": "./assets/images/screen/universe/universe_map.png",
+        "image_path": "./assets/static/images/screen/universe/universe_map.png",
         "actions": [
             {
                 "target_screen": "leave_temporarily",
@@ -812,7 +812,7 @@
     {
         "name": "撤退",
         "id": "retreat",
-        "image_path": "./assets/images/fight/retreat.png",
+        "image_path": "./assets/static/images/fight/retreat.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -820,7 +820,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/fight/retreat.png",
+                            "./assets/static/images/fight/retreat.png",
                             "image",
                             0.8
                         ]
@@ -839,7 +839,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/fight/fight_continue.png",
+                            "./assets/static/images/fight/fight_continue.png",
                             "image",
                             0.8
                         ]
@@ -851,7 +851,7 @@
     {
         "name": "战斗中",
         "id": "fighting",
-        "image_path": "./assets/images/fight/fighting.png",
+        "image_path": "./assets/static/images/fight/fighting.png",
         "actions": [
             {
                 "target_screen": "retreat",
@@ -876,7 +876,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/fight/retreat.png",
+                            "./assets/static/images/fight/retreat.png",
                             "image",
                             0.8
                         ]
@@ -894,7 +894,7 @@
     {
         "name": "退出关卡",
         "id": "fight_exit",
-        "image_path": "./assets/images/fight/fight_exit.png",
+        "image_path": "./assets/static/images/fight/fight_exit.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -902,7 +902,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/fight/fight_exit.png",
+                            "./assets/static/images/fight/fight_exit.png",
                             "image",
                             0.8
                         ]
@@ -920,7 +920,7 @@
     {
         "name": "星际和平指南-每日实训",
         "id": "guide2",
-        "image_path": "./assets/images/screen/guide/guide2.png",
+        "image_path": "./assets/static/images/screen/guide/guide2.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -939,7 +939,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide3.png",
+                            "./assets/static/images/screen/guide/enter_guide3.png",
                             "image",
                             0.8
                         ]
@@ -958,7 +958,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide4.png",
+                            "./assets/static/images/screen/guide/enter_guide4.png",
                             "image",
                             0.85
                         ]
@@ -976,7 +976,7 @@
     {
         "name": "星际和平指南-生存索引",
         "id": "guide3",
-        "image_path": "./assets/images/screen/guide/guide3.png",
+        "image_path": "./assets/static/images/screen/guide/guide3.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -995,7 +995,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide2.png",
+                            "./assets/static/images/screen/guide/enter_guide2.png",
                             "image",
                             0.8
                         ]
@@ -1014,7 +1014,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide4.png",
+                            "./assets/static/images/screen/guide/enter_guide4.png",
                             "image",
                             0.85
                         ]
@@ -1048,7 +1048,7 @@
     {
         "name": "星际和平指南-逐光捡金",
         "id": "guide4",
-        "image_path": "./assets/images/screen/guide/guide4.png",
+        "image_path": "./assets/static/images/screen/guide/guide4.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1067,7 +1067,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide2.png",
+                            "./assets/static/images/screen/guide/enter_guide2.png",
                             "image",
                             0.8
                         ]
@@ -1086,7 +1086,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/guide/enter_guide3.png",
+                            "./assets/static/images/screen/guide/enter_guide3.png",
                             "image",
                             0.8
                         ]
@@ -1137,7 +1137,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/forgottenhall/memory_of_chaos.png",
+                            "./assets/static/images/forgottenhall/memory_of_chaos.png",
                             "image",
                             0.8,
                             2
@@ -1187,7 +1187,7 @@
     {
         "name": "邮箱",
         "id": "mail",
-        "image_path": "./assets/images/screen/mail.png",
+        "image_path": "./assets/static/images/screen/mail.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1205,7 +1205,7 @@
     {
         "name": "漫游签证",
         "id": "visa",
-        "image_path": "./assets/images/screen/visa.png",
+        "image_path": "./assets/static/images/screen/visa.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1223,7 +1223,7 @@
     {
         "name": "兑换码",
         "id": "cdkey",
-        "image_path": "./assets/images/screen/cdkey/cdkey_menu.png",
+        "image_path": "./assets/static/images/screen/cdkey/cdkey_menu.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1241,7 +1241,7 @@
     {
         "name": "手机壁纸",
         "id": "wallpaper",
-        "image_path": "./assets/images/screen/wallpaper.png",
+        "image_path": "./assets/static/images/screen/wallpaper.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1259,7 +1259,7 @@
     {
         "name": "相机",
         "id": "camera",
-        "image_path": "./assets/images/screen/camera.png",
+        "image_path": "./assets/static/images/screen/camera.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -1277,7 +1277,7 @@
     {
         "name": "照片预览",
         "id": "photo_preview",
-        "image_path": "./assets/images/screen/photo_preview.png",
+        "image_path": "./assets/static/images/screen/photo_preview.png",
         "actions": [
             {
                 "target_screen": "camera",
@@ -1295,7 +1295,7 @@
     {
         "name": "模拟宇宙-主界面",
         "id": "universe_main",
-        "image_path": "./assets/images/screen/universe/universe_main.png",
+        "image_path": "./assets/static/images/screen/universe/universe_main.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -1314,7 +1314,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/universe/universe_switch.png",
+                            "./assets/static/images/screen/universe/universe_switch.png",
                             "image",
                             0.9,
                             10
@@ -1327,7 +1327,7 @@
     {
         "name": "模拟宇宙-扩展装置",
         "id": "universe_extend",
-        "image_path": "./assets/images/screen/universe/universe_extend.png",
+        "image_path": "./assets/static/images/screen/universe/universe_extend.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -1346,7 +1346,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/universe/universe_switch.png",
+                            "./assets/static/images/screen/universe/universe_switch.png",
                             "image",
                             0.9,
                             10
@@ -1359,7 +1359,7 @@
     {
         "name": "委托",
         "id": "dispatch",
-        "image_path": "./assets/images/screen/dispatch.png",
+        "image_path": "./assets/static/images/screen/dispatch.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1377,7 +1377,7 @@
     {
         "name": "开启无名勋礼",
         "id": "start_srpass",
-        "image_path": "./assets/images/screen/start_srpass.png",
+        "image_path": "./assets/static/images/screen/start_srpass.png",
         "actions": [
             {
                 "target_screen": "pass1",
@@ -1385,7 +1385,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/screen/start_srpass.png",
+                            "./assets/static/images/screen/start_srpass.png",
                             "image",
                             0.9,
                             10
@@ -1398,7 +1398,7 @@
     {
         "name": "无名勋礼-奖励",
         "id": "pass1",
-        "image_path": "./assets/images/screen/pass/pass1.png",
+        "image_path": "./assets/static/images/screen/pass/pass1.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1417,7 +1417,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/pass/enter_pass2.png",
+                            "./assets/static/images/pass/enter_pass2.png",
                             "image",
                             0.8
                         ]
@@ -1429,7 +1429,7 @@
     {
         "name": "无名勋礼-任务",
         "id": "pass2",
-        "image_path": "./assets/images/screen/pass/pass2.png",
+        "image_path": "./assets/static/images/screen/pass/pass2.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1448,7 +1448,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/pass/enter_pass1.png",
+                            "./assets/static/images/pass/enter_pass1.png",
                             "image",
                             0.8
                         ]
@@ -1460,7 +1460,7 @@
     {
         "name": "合成-消耗品合成",
         "id": "consumables",
-        "image_path": "./assets/images/screen/synthesis/consumables.png",
+        "image_path": "./assets/static/images/screen/synthesis/consumables.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1479,7 +1479,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/synthesis/enter_material.png",
+                            "./assets/static/images/synthesis/enter_material.png",
                             "image",
                             0.8
                         ]
@@ -1491,7 +1491,7 @@
     {
         "name": "背包-遗器",
         "id": "bag_relics",
-        "image_path": "./assets/images/screen/bag/bag_relics.png",
+        "image_path": "./assets/static/images/screen/bag/bag_relics.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1509,7 +1509,7 @@
     {
         "name": "背包-遗器分解",
         "id": "bag_salvage",
-        "image_path": "./assets/images/screen/bag/bag_salvage.png",
+        "image_path": "./assets/static/images/screen/bag/bag_salvage.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1533,7 +1533,7 @@
     {
         "name": "合成-材料合成",
         "id": "material",
-        "image_path": "./assets/images/screen/synthesis/material.png",
+        "image_path": "./assets/static/images/screen/synthesis/material.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1552,7 +1552,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/synthesis/enter_consumables.png",
+                            "./assets/static/images/synthesis/enter_consumables.png",
                             "image",
                             0.8
                         ]
@@ -1564,7 +1564,7 @@
     {
         "name": "背包-消耗品",
         "id": "bag_consumables",
-        "image_path": "./assets/images/screen/bag/bag_consumables.png",
+        "image_path": "./assets/static/images/screen/bag/bag_consumables.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1582,7 +1582,7 @@
     {
         "name": "忘却之庭-混沌回忆",
         "id": "memory_of_chaos",
-        "image_path": "./assets/images/screen/forgottenhall/memory_of_chaos.png",
+        "image_path": "./assets/static/images/screen/forgottenhall/memory_of_chaos.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -1601,7 +1601,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/forgottenhall/memory.png",
+                            "./assets/static/images/forgottenhall/memory.png",
                             "image",
                             0.8
                         ]
@@ -1613,7 +1613,7 @@
     {
         "name": "忘却之庭-回忆",
         "id": "memory",
-        "image_path": "./assets/images/screen/forgottenhall/memory.png",
+        "image_path": "./assets/static/images/screen/forgottenhall/memory.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -1631,7 +1631,7 @@
     {
         "name": "忘却之庭-准备战斗",
         "id": "prepare_fight",
-        "image_path": "./assets/images/forgottenhall/prepare_fight.png",
+        "image_path": "./assets/static/images/forgottenhall/prepare_fight.png",
         "actions": [
             {
                 "target_screen": "memory_of_chaos",
@@ -1651,7 +1651,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/base/confirm.png",
+                            "./assets/static/images/base/confirm.png",
                             "image",
                             0.8,
                             2
@@ -1664,7 +1664,7 @@
     {
         "name": "队伍",
         "id": "configure_team",
-        "image_path": "./assets/images/screen/configure_team.png",
+        "image_path": "./assets/static/images/screen/configure_team.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -1682,7 +1682,7 @@
     {
         "name": "活动",
         "id": "activity",
-        "image_path": "./assets/images/screen/activity.png",
+        "image_path": "./assets/static/images/screen/activity.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1700,7 +1700,7 @@
     {
         "name": "角色活动跃迁",
         "id": "character_warp",
-        "image_path": "./assets/images/screen/warp/character_warp.png",
+        "image_path": "./assets/static/images/screen/warp/character_warp.png",
         "actions": [
             {
                 "target_screen": "menu",
@@ -1718,7 +1718,7 @@
     {
         "name": "常驻跃迁",
         "id": "stellar_warp",
-        "image_path": "./assets/images/screen/warp/stellar_warp.png",
+        "image_path": "./assets/static/images/screen/warp/stellar_warp.png",
         "actions": [
             {
                 "target_screen": "main",
@@ -1737,7 +1737,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/warp/try.png",
+                            "./assets/static/images/warp/try.png",
                             "image",
                             0.9
                         ]
@@ -1755,7 +1755,7 @@
     {
         "name": "姬子试用",
         "id": "himeko_try",
-        "image_path": "./assets/images/screen/warp/himeko_try.png",
+        "image_path": "./assets/static/images/screen/warp/himeko_try.png",
         "actions": [
             {
                 "target_screen": "stellar_warp",
@@ -1774,7 +1774,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/warp/start_try.png",
+                            "./assets/static/images/warp/start_try.png",
                             "image",
                             0.9
                         ]
@@ -1792,7 +1792,7 @@
     {
         "name": "姬子试用-弹窗",
         "id": "himeko_try_banner",
-        "image_path": "./assets/images/screen/warp/himeko_try_banner.png",
+        "image_path": "./assets/static/images/screen/warp/himeko_try_banner.png",
         "actions": [
             {
                 "target_screen": "himeko_prepare",
@@ -1810,7 +1810,7 @@
     {
         "name": "姬子试用-准备战斗",
         "id": "himeko_prepare",
-        "image_path": "./assets/images/screen/warp/himeko_prepare.png",
+        "image_path": "./assets/static/images/screen/warp/himeko_prepare.png",
         "actions": [
             {
                 "target_screen": "himeko_try",
@@ -1830,7 +1830,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/base/confirm.png",
+                            "./assets/static/images/base/confirm.png",
                             "image",
                             0.9,
                             10
@@ -1842,14 +1842,14 @@
     },
     {
         "name": "遗器已满",
-        "id": "relic_full",
-        "image_path": "./assets/images/fight/relic_full.png",
+        "id": "relics_full",
+        "image_path": "./assets/static/images/fight/relics_full.png",
         "actions":[
             {
                 "target_screen": "main",
                 "actions_list": [
                     {
-                        "action": "RelicFullError",
+                        "action": "RelicsFullError",
                         "args": [
                             
                         ]
@@ -1861,7 +1861,7 @@
     {
         "name": "需要登录",
         "id": "need_login",
-        "image_path": "./assets/images/login/need_login.png",
+        "image_path": "./assets/static/images/login/need_login.png",
         "actions":[
             {
                 "target_screen": "start_game",
@@ -1879,7 +1879,7 @@
     {
         "name": "强制下线",
         "id": "force_offline",
-        "image_path": "./assets/images/base/force_offline.png",
+        "image_path": "./assets/static/images/base/force_offline.png",
         "actions":[
             {
                 "target_screen": "start_game",
@@ -1887,7 +1887,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/base/confirm.png",
+                            "./assets/static/images/base/confirm.png",
                             "image",
                             0.8
                         ]
@@ -1905,7 +1905,7 @@
     {
         "name": "断开连接",
         "id": "server_offline",
-        "image_path": "./assets/images/base/server_offline.png",
+        "image_path": "./assets/static/images/base/server_offline.png",
         "actions":[
             {
                 "target_screen": "start_game",
@@ -1913,7 +1913,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/base/confirm.png",
+                            "./assets/static/images/base/confirm.png",
                             "image",
                             0.8
                         ]
@@ -1931,7 +1931,7 @@
     {
         "name": "全局分发错误",
         "id": "start_offline",
-        "image_path": "./assets/images/base/start_offline.png",
+        "image_path": "./assets/static/images/base/start_offline.png",
         "actions":[
             {
                 "target_screen": "start_game",
@@ -1939,7 +1939,7 @@
                     {
                         "action": "ClickElement",
                         "args": [
-                            "./assets/images/base/restart.png",
+                            "./assets/static/images/base/restart.png",
                             "image",
                             0.8
                         ]

@@ -67,6 +67,8 @@ class Update:
     def CoverFolder(self):
         while True:
             try:
+                if "./assets" in self.downloadFilePath:
+                    os.remove(self.downloadFilePath)
                 shutil.copytree(self.extractFolderPath, self.coverFolderPath, dirs_exist_ok=True)
                 self.log.info(f"覆盖完成：{self.coverFolderPath}")
                 break
