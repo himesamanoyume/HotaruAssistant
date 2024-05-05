@@ -17,7 +17,6 @@ HotaruAssistant · 流萤小助手<br>
     <img alt="" src="https://img.shields.io/github/v/release/himesamanoyume/HotaruAssistant?style=flat-square&logo=github&labelColor=40405f&color=66ccff" />
 </p>
 
-
 </div>
 
 ## 声明
