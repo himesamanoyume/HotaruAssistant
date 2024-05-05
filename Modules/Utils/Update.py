@@ -1,5 +1,5 @@
 
-import urllib.request,os,subprocess,tempfile,shutil
+import urllib.request,os,subprocess,tempfile,shutil,questionary
 from packaging.version import parse
 from tqdm import tqdm
 from Modules.Utils.FastestMirror import FastestMirror
@@ -34,24 +34,45 @@ class Update:
 
             urllib.request.urlretrieve(downloadUrl, savePath, reporthook=update_bar)
 
-    def InitUpdateHandler(self, downloadUrl, coverFolderPath, extractFileName):
+    def InitUpdateHandler(self, originalDownloadUrl, downloadUrl, coverFolderPath, extractFileName):
         self.exePath = os.path.abspath("./assets/7z/7za.exe")
         self.tempPath = tempfile.gettempdir()
+        self.originalDownloadUrl = originalDownloadUrl
         self.downloadUrl = downloadUrl
         self.downloadFilePath = os.path.join(self.tempPath, os.path.basename(downloadUrl))
         self.coverFolderPath = coverFolderPath
         self.extractFolderPath = os.path.join(self.tempPath, os.path.basename(extractFileName))
 
     def DownloadFile(self):
+        value = 0
         while True:
             try:
-                self.log.info(f"开始下载: {self.downloadUrl}")
-                self.DownloadWithProgress(self.downloadUrl, self.downloadFilePath)
-                self.log.info(f"下载完成: {self.downloadFilePath}")
+                if value == 0:
+                    self.log.info(f"开始下载: {self.downloadUrl}")
+                    self.DownloadWithProgress(self.downloadUrl, self.downloadFilePath)
+                    self.log.info(f"下载完成: {self.downloadFilePath}")
+                elif value == 1:
+                    title = "选择一个链接进行下载:"
+                    optionsReg = dict()
+                    optionsReg.update({f"0:{self.originalDownloadUrl}":self.originalDownloadUrl})
+                    optionsReg.update({f"1:https://ghproxy.com/{self.originalDownloadUrl}":f"https://ghproxy.com/{self.originalDownloadUrl}"})
+                    optionsReg.update({f"2:https://github.moeyy.xyz/{self.originalDownloadUrl}":f"https://github.moeyy.xyz/{self.originalDownloadUrl}"})
+                    optionsReg.update({f"3:https://github.himesamanoyume.top/{self.originalDownloadUrl}":f"https://github.himesamanoyume.top/{self.originalDownloadUrl}"})
+                    option = questionary.select(title, list(optionsReg.keys())).ask()
+                    url = optionsReg.get(option)
+                    self.log.info(f"开始下载: {url}")
+                    self.DownloadWithProgress(url, self.downloadFilePath)
+                    self.log.info(f"下载完成: {url}")
                 break
             except Exception as e:
                 self.log.error(f"下载失败: {e}")
-                input("可以按回车键重试,或重开程序尝试获取到其他下载链接. . .")
+                title = "可选择直接重试,或重开程序尝试获取到其他下载链接,或关闭/开启VPN再进行尝试,或选择特定链接下载:"
+                optionsReg = dict()
+                optionsReg.update({f"0:直接重试":0})
+                optionsReg.update({"1:选择特定链接下载":1})
+                option = questionary.select(title, list(optionsReg.keys())).ask()
+                value = optionsReg.get(option)
+
 
     def ExtractFile(self):
         while True:
@@ -67,8 +88,8 @@ class Update:
     def CoverFolder(self):
         while True:
             try:
-                if "./assets" in self.downloadFilePath:
-                    os.remove(self.downloadFilePath)
+                if os.path.exists(os.path.abspath("./assets")):
+                    shutil.rmtree(os.path.abspath("./assets"))
                 shutil.copytree(self.extractFolderPath, self.coverFolderPath, dirs_exist_ok=True)
                 self.log.info(f"覆盖完成：{self.coverFolderPath}")
                 break
@@ -98,12 +119,15 @@ class Update:
                 currentAssetsVersion = json.load(jsonFile)['hotaru_assets_version']
                 jsonFile.close()
 
-            response = requests.get(FastestMirror.GetGithubApiMirror("himesamanoyume","HotaruAssistant", 5, isCheckPreRelease), timeout=3)
+            response = requests.get(FastestMirror.GetGithubApiMirror("himesamanoyume","HotaruAssistant", 5), timeout=3)
             if response.status_code == 200:
                 data = json.loads(response.text)
-                if isCheckPreRelease:
-                    for item in data:
-                        if item["prerelease"]:
+                for item in data:
+                    if isCheckPreRelease:
+                        data = item
+                        break
+                    else:
+                        if not item["prerelease"]:
                             data = item
                             break
                     

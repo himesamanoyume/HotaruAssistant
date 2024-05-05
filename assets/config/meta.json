@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.0.6-0",
+    "hotaru_assets_version" : "v2.0.6.1-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.6更新内容",
-            "Content": "流萤的秘密基地某些选项支持图片显示。一些资源文件的变更。"
+            "Title": "v2.0.6.1更新内容",
+            "Content": "修复bug。流萤的秘密基地某些选项支持图片显示。一些资源文件的变更。"
         }
     ],
     "task_mappings":
@@ -182,6 +182,10 @@
         "嗔怒之形": [
             "火3/忿火之心",
             "/images/screen/guide/shadow/Fire3.png"
+        ],
+        "职司之形": [
+            "物理3/星际和平工作证",
+            "/images/screen/guide/shadow/Physical3.png"
         ]
     },
     "侵蚀隧洞":
@@ -228,7 +232,8 @@
         "毁灭的开端": "末日兽",
         "寒潮的落幕": "可可利亚·虚妄之母",
         "不死的神实": "不死神实·幻胧",
-        "蛀星的旧靥": "碎星王虫·斯喀拉卡巴兹(拟造)"
+        "蛀星的旧靥": "碎星王虫·斯喀拉卡巴兹(拟造)",
+        "尘梦的赞礼": "「齐响诗班」神主日"
     },
     "模拟宇宙":
     {
@@ -337,7 +342,11 @@
         "存护之蕾2": [
             "神体琥珀",
             "/images/screen/guide/crimson/Preservation2.png"
-            ]
+        ],
+        "巡猎之蕾2": [
+            "逆时一击",
+            "/images/screen/guide/crimson/TheHunt2.png"
+        ]
     },
     "小技巧":
     [
