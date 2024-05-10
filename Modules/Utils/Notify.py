@@ -1,4 +1,4 @@
-import random,json,requests,time,smtplib,base64,os
+import json,requests,time,smtplib,base64,os
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText

@@ -16,13 +16,13 @@ class BaseUniverseState(BaseClientState):
         if screenClientMgr.FindElement("./assets/static/images/screen/universe/universe_score.png", "image", 0.9, maxRetries=3):
             log.info(logMgr.Info("检测到模拟宇宙本周首次进入界面"))
             time.sleep(1)
-            currentScore, maxScore = BaseUniverseState.GetUniverseScore()
+            BaseUniverseState.GetUniverseScore()
             screenClientMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=3)
 
         elif screenClientMgr.ClickElement("./assets/static/images/universe/universe_reward.png", "image", 0.9, maxRetries=3):
             log.info(logMgr.Info("正在点开积分界面"))
             time.sleep(1)
-            currentScore, maxScore = BaseUniverseState.GetUniverseScore()
+            BaseUniverseState.GetUniverseScore()
             if screenClientMgr.ClickElement("./assets/static/images/universe/one_key_receive.png", "image", 0.9, maxRetries=3):
                 time.sleep(0.5)
                 if screenClientMgr.FindElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=3):
@@ -30,7 +30,6 @@ class BaseUniverseState(BaseClientState):
                     log.info(logMgr.Info("🎉模拟宇宙积分奖励已领取🎉"))
                     screenClientMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=3)
         
-        return currentScore, maxScore
 
     @staticmethod
     def GetUniverseScore():
@@ -45,6 +44,7 @@ class BaseUniverseState(BaseClientState):
 
             log.info(logMgr.Info(f"识别到当前积分为:{currentScore}"))
             log.info(logMgr.Info(f"识别到积分上限为:{maxScore}"))
+
             if currentScore == maxScore:
                 log.info(logMgr.Info(f"模拟宇宙积分已满"))
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataClientMgr.currentUid] = True
@@ -52,7 +52,9 @@ class BaseUniverseState(BaseClientState):
             else:
                 log.info(logMgr.Info(f"模拟宇宙积分未满"))
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataClientMgr.currentUid] = False
-                
+            
+            dataClientMgr.currentUniverseScore = currentScore
+            dataClientMgr.maxCurrentUniverseScore = maxScore
             return currentScore, maxScore
         except Exception as e:
             log.error(logMgr.Error(f"识别模拟宇宙积分失败: {e}"))

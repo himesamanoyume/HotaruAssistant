@@ -35,7 +35,7 @@ class SendEmailState(BaseNotifyState):
                 content += f"<p>侵蚀隧洞:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid]['侵蚀隧洞']} - {dataClientMgr.notifyContent['副本情况']['侵蚀隧洞']}次</p>"
 
             if dataClientMgr.notifyContent['副本情况']['模拟宇宙'] > 0:
-                content += f"<p>模拟宇宙:{dataClientMgr.meta['模拟宇宙'][str(configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid])]} - {dataClientMgr.notifyContent['副本情况']['模拟宇宙']}次</p>"
+                content += f"<p>模拟宇宙:{dataClientMgr.meta['模拟宇宙'][str(configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid])]['名称']} - {dataClientMgr.notifyContent['副本情况']['模拟宇宙']}次</p>"
 
             content += f"<p>下线时开拓力:<span class=important style=background-color:#40405f;color:#66ccff>{dataClientMgr.currentPower}</span></p></p>"
 

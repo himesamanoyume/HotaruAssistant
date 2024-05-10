@@ -33,58 +33,56 @@ class UniverseClearState(BaseUniverseState):
         log.info(logMgr.Info("进入到执行模拟宇宙部分"))
         command = [configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "states.py"]
         time.sleep(0.5)
-        if not dataClientMgr.currentUniverseScore < dataClientMgr.maxCurrentUniverseScore:
-            if (configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0] == '模拟宇宙' and dataClientMgr.currentImmersifiers < 4):
-                log.info(logMgr.Info("鉴定为沉浸器数量不足,跳过"))
-                return True
-          
+
+        if dataClientMgr.currentImmersifiers < 4:
+            log.info(logMgr.Info("鉴定为沉浸器数量不足,跳过"))
+            return True
+        
         time.sleep(0.5)
-
-        if configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0] == '模拟宇宙' or not configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataClientMgr.currentUid]:
             
-            self.SelectUniverse()
-            if dataClientMgr.currentUniverseScore == 0:
-                log.info(logMgr.Info("积分为0,鉴定为首次进行模拟宇宙"))
-            elif dataClientMgr.currentUniverseScore == dataClientMgr.maxCurrentUniverseScore:
-                log.info(logMgr.Info("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
-                # if not configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0] == '模拟宇宙':
-                #     log.info(logMgr.Info("鉴定为正在每日任务中,最大积分且清体力不为模拟宇宙的情况下将直接跳过"))
-                #     return False
-            else:
-                log.info(logMgr.Info("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
+        self.SelectUniverse()
 
-            if configMgr.mConfig[configMgr.mKey.UNIVERSE_BONUS_ENABLE][dataClientMgr.currentUid]:
-                command.append("--bonus=1")
-                
-            if configMgr.mConfig[configMgr.mKey.UNIVERSE_SPEED_ENABLE][dataClientMgr.currentUid]:
-                command.append("--speed=1")
+        if dataClientMgr.currentUniverseScore == 0:
+            log.info(logMgr.Info("积分为0,鉴定为首次进行模拟宇宙"))
+        elif dataClientMgr.currentUniverseScore == dataClientMgr.maxCurrentUniverseScore:
+            log.info(logMgr.Info("积分为最大积分,鉴定为完成周常后额外进行模拟宇宙"))
+        else:
+            log.info(logMgr.Info("积分不为0也不为最大积分,鉴定为不是首次进行模拟宇宙"))
+
+        if configMgr.mConfig[configMgr.mKey.UNIVERSE_BONUS_ENABLE][dataClientMgr.currentUid]:
+            command.append("--bonus=1")
             
-            command.append(f"--nums=1")
-                
+        if configMgr.mConfig[configMgr.mKey.UNIVERSE_SPEED_ENABLE][dataClientMgr.currentUid]:
+            command.append("--speed=1")
+        
+        command.append(f"--nums=1")
+            
+        # end
+        log.info(logMgr.Info("将开始进行模拟宇宙"))
+        command.append(f"--fate={configMgr.mConfig[configMgr.mKey.UNIVERSE_FATE][dataClientMgr.currentUid]}")
+        
+        if Command.SubprocessWithTimeout(command, configMgr.mConfig[configMgr.mKey.UNIVERSE_TIMEOUT] * 3600, configMgr.mConfig[configMgr.mKey.UNIVERSE_PATH], configMgr.env):
+        
+            screenClientMgr.ChangeTo('main')
+            # 此时保存运行的时间戳
+            configMgr.SaveTimestampByUid(configMgr.mKey.UNIVERSE_TIMESTAMP, dataClientMgr.currentUid)
             # end
-            log.info(logMgr.Info("将开始进行模拟宇宙"))
-            command.append(f"--fate={configMgr.mConfig[configMgr.mKey.UNIVERSE_FATE][dataClientMgr.currentUid]}")
-            if Command.SubprocessWithTimeout(command, configMgr.mConfig[configMgr.mKey.UNIVERSE_TIMEOUT] * 3600, configMgr.mConfig[configMgr.mKey.UNIVERSE_PATH], configMgr.env):
-            
-                screenClientMgr.ChangeTo('main')
-                # 此时保存运行的时间戳
-                configMgr.SaveTimestampByUid(configMgr.mKey.UNIVERSE_TIMESTAMP, dataClientMgr.currentUid)
-                # end
 
-                # 此时领取积分奖励
-                log.info(logMgr.Info("尝试领取一遍积分奖励"))
-                self.GetUniverseReward()
-                # end
-
-                self.RunUniverse()
-
-                log.info(logMgr.Info("🎉模拟宇宙已完成1次🎉"))
-                dataClientMgr.notifyContent["副本情况"]["模拟宇宙"] += 1
-                return False
-            else:
-                log.error(logMgr.Error("模拟宇宙失败"))
-                return True
+            # 此时领取积分奖励
+            log.info(logMgr.Info("尝试领取一遍积分奖励"))
+            self.GetUniverseReward()
+            self.GetImmersifier()
             # end
+
+            self.RunUniverse()
+
+            log.info(logMgr.Info("🎉模拟宇宙已完成1次🎉"))
+            dataClientMgr.notifyContent["副本情况"]["模拟宇宙"] += 1
+            return False
+        else:
+            log.error(logMgr.Error("模拟宇宙失败"))
+            return True
+        # end
     
     def SelectUniverse(self):
         time.sleep(1)
@@ -94,7 +92,7 @@ class UniverseClearState(BaseUniverseState):
         screenClientMgr.ClickElement("./assets/static/images/screen/guide/power.png", "image", maxRetries=10)
         Flag = False
 
-        worldNumber = dataClientMgr.meta["模拟宇宙"]["名称"][f"{configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid]}"]
+        worldNumber = dataClientMgr.meta["模拟宇宙"][f"{configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid]}"]["名称"]
 
         for i in range(math.ceil(len(dataClientMgr.meta["模拟宇宙"]) / 3)):
             if screenClientMgr.ClickElement("传送", "min_distance_text", crop=instanceNameCrop, include=True, source=worldNumber, sourceType="text"):

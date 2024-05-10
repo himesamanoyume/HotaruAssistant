@@ -71,8 +71,6 @@ class TaskClientMgr(TaskBaseMgr):
         log.hr(logMgr.Hr(f"进入{dataClientMgr.currentAction}"))
         # InitDailyTasksState返回True时将跳过每日任务流程
         if not stateClientMgr.Transition(InitDailyTasksState()):
-            # 做每日
-            stateClientMgr.Transition(RunningDailyTasksState())
             stateClientMgr.Transition(GetPowerInfoState())
             if not stateClientMgr.Transition(DailyEchoOfWarState()):
                 # 如果有历战余响可打,打完后需要再获取一次体力信息
@@ -83,6 +81,10 @@ class TaskClientMgr(TaskBaseMgr):
             if not stateClientMgr.Transition(DailyClearPowerState()):
                 # 如果有清体力可打,打完后需要再获取一次体力信息
                 stateClientMgr.Transition(GetPowerInfoState())
+                # 领奖励
+                stateClientMgr.Transition(GetRewardState())
+            # 做每日
+            stateClientMgr.Transition(RunningDailyTasksState())
             # 领奖励
             stateClientMgr.Transition(GetRewardState())
             # 检查兑换码

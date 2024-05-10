@@ -152,6 +152,7 @@ class GetRewardState(object):
 
         screenClientMgr.ChangeTo('visa')
         if screenClientMgr.ClickElement("./assets/static/images/assist/gift.png", "image", 0.9):
+            log.info(logMgr.Info("支援奖励已领取"))
             screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
     
     @staticmethod

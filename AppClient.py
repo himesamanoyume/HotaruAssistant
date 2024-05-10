@@ -73,6 +73,14 @@ class AppClient:
 
         if selectedSleep:
             taskClientMgr.WaitForNextLoop()
+            for index in range(len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS])):
+
+                uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index]).split('-')[1][:9]
+                if uidStr in configMgr.mConfig[configMgr.mKey.BLACKLIST_UID]:
+                    log.warning(logMgr.Warning(f"{uidStr}【正在黑名单中】"))
+                    continue 
+                    
+                taskClientMgr.ReadyToStart(uidStr)
         
         log.info(logMgr.Info(f"进行轮次:{actionSelectOption}, 首个启动UID:{regSelectOption}"))
 
@@ -148,7 +156,7 @@ class AppClient:
                                     taskClientMgr.QuitGame()
                             else:
                                 currentScore, maxScore = configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uidStr2].split('/')
-                                if int(currentScore) < int(maxScore) or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2] == '模拟宇宙':
+                                if int(currentScore) < int(maxScore) or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2][0] == '模拟宇宙':
                                     if taskClientMgr.ClientStartGame():
                                         dataClientMgr.currentAction = "模拟宇宙流程"
                                         taskClientMgr.StartUniverse()
