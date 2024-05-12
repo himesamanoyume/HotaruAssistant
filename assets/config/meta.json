@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.0.7-0",
+    "hotaru_assets_version" : "v2.0.8-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.7更新内容",
-            "Content": "修复bug。适配崩铁2.2。"
+            "Title": "v2.0.8更新内容",
+            "Content": "新增不同副本切换不同队伍。修复bug。模拟宇宙有修改,如果之前下载有旧版本,需要手动到./3rdparty中删除模拟宇宙再启动Server,Server将会自动重新下载"
         }
     ],
     "task_mappings":

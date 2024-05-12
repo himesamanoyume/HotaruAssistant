@@ -103,7 +103,7 @@ class UniverseClearState(BaseUniverseState):
                 # 等待界面完全停止
                 time.sleep(1)
         if not Flag:
-            log.error(logMgr.Error("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+            log.error(logMgr.Error("⚠️刷模拟宇宙未完成 - 没有找到指定世界名称⚠️"))
             return True
 
         time.sleep(3)

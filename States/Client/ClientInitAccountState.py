@@ -38,19 +38,17 @@ class ClientInitAccountState(BaseClientState):
             result = ocrClientMgr.mOcr.RecognizeMultiLines(screenClientMgr.mDetect.screenshot)
             if not result:
                 log.info(logMgr.Info("未检测到任何活动"))
-                # logger.hr(_("完成"), 2)
                 return
 
             for box in result:
                 text = box[1][0]
                 if len(text) >= 4:
                     activityList.append(text)
-                    # logger.info(text)
 
             if "巡星之礼" in activityList:
-                self.GetReward()
+                self.GetReward("巡星之礼")
             if "巡光之礼" in activityList:
-                self.GetReward()
+                self.GetReward("巡光之礼")
 
             screenClientMgr.ChangeTo("guide2")
             self.StartDetectDailyTasks()
@@ -66,23 +64,23 @@ class ClientInitAccountState(BaseClientState):
         return False
     
     @staticmethod
-    def GetReward():
+    def GetReward(targetText="巡星之礼"):
         screenClientMgr.ChangeTo('activity')
-        # 部分活动在选中情况下 OCR 识别困难
-        if screenClientMgr.ClickElement("锋芒斩露", "text", None, crop=(53.0 / 1920, 109.0 / 1080, 190.0 / 1920, 846.0 / 1080), include=True):
-            time.sleep(2)
-            if screenClientMgr.ClickElement("巡星之礼", "text", None, crop=(46.0 / 1920, 107.0 / 1080, 222.0 / 1920, 848.0 / 1080)):
-                time.sleep(1)
-                receive_path = "./assets/static/images/activity/giftof/receive.png"
-                receive_fin_path = "./assets/static/images/activity/giftof/receive_fin.png"
-                if screenClientMgr.FindElement(receive_path, "image", 0.9) or screenClientMgr.FindElement(receive_fin_path, "image", 0.9):
-                    log.hr(logMgr.Hr("检测到巡星之礼奖励"), 2)
-                    while screenClientMgr.ClickElement(receive_path, "image", 0.9) or screenClientMgr.ClickElement(receive_fin_path, "image", 0.9):
-                        screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
-                        time.sleep(1)
-                    log.info(logMgr.Info("领取巡星之礼奖励完成"))
+        
+        if screenClientMgr.ClickElement(targetText, "text", None, crop=(46.0 / 1920, 107.0 / 1080, 222.0 / 1920, 848.0 /1080)):
+            time.sleep(1)
+            receive_path = "./assets/static/images/activity/giftof/receive.png"
+            receive_fin_path = "./assets/static/images/activity/giftof/receive_fin.png"
+            if screenClientMgr.FindElement(receive_path, "image", 0.9) or screenClientMgr.FindElement(receive_fin_path, "image", 0.9):
+                log.hr(logMgr.Hr(f"检测到{targetText}奖励"), 2)
+                while screenClientMgr.ClickElement(receive_path, "image", 0.9) or screenClientMgr.ClickElement(receive_fin_path, "image", 0.9):
+                    screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
+                    time.sleep(1)
+                log.info(logMgr.Info(f"领取{targetText}奖励完成"))
+            else:
+                log.warning(logMgr.Warning(f"未能领取{targetText}奖励"))
         else:
-            log.warning(logMgr.Warning("未能领取巡星之礼奖励"))
+            log.warning(logMgr.Warning(f"未能领取{targetText}奖励"))
 
     def StartDetectDailyTasks(self):
         crop = (243.0 / 1920, 377.0 / 1080, 1428.0 / 1920, 528.0 / 1080)

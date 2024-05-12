@@ -95,8 +95,8 @@ class BaseRelicsState(BaseClientState):
                         if screenClientMgr.ClickElement("./assets/static/images/fight/relics_info_close.png", "image", 0.9, maxRetries=3):
                             time.sleep(0.5)
 
-                        log.info(logMgr.Info(i))
-                        log.info(logMgr.Info(j))
+                        # log.info(logMgr.Info(i))
+                        # log.info(logMgr.Info(j))
 
                         if i == 1 and j == 6:
                             time.sleep(0.5)

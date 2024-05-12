@@ -72,6 +72,8 @@ class TaskClientMgr(TaskBaseMgr):
         # InitDailyTasksState返回True时将跳过每日任务流程
         if not stateClientMgr.Transition(InitDailyTasksState()):
             stateClientMgr.Transition(GetPowerInfoState())
+            # 获取模拟宇宙积分/沉浸器信息
+            stateClientMgr.Transition(GetUniverseRewardAndInfoState())
             if not stateClientMgr.Transition(DailyEchoOfWarState()):
                 # 如果有历战余响可打,打完后需要再获取一次体力信息
                 stateClientMgr.Transition(GetPowerInfoState())
@@ -89,8 +91,6 @@ class TaskClientMgr(TaskBaseMgr):
             stateClientMgr.Transition(GetRewardState())
             # 检查兑换码
             stateClientMgr.Transition(CheckCdkeyState())
-            # 获取模拟宇宙积分/沉浸器信息
-            stateClientMgr.Transition(GetUniverseRewardAndInfoState())
             # 获取遗器,副本倒计时,月卡倒计时信息
             stateClientMgr.Transition(GetRelicsInfoState())
             stateClientMgr.Transition(GetFAndPInfoState())

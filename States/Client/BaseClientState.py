@@ -38,20 +38,46 @@ class BaseClientState(BaseState):
         teamName = f"0{str(team)}"
         log.info(logMgr.Info(f"准备切换到队伍{teamName}"))
         screenClientMgr.ChangeTo("configure_team")
-        if screenClientMgr.ClickElement(teamName, "text", maxRetries=10, crop=(311.0 / 1920, 15.0 / 1080, 1376.0 / 1920, 100.0 / 1080)):
-            # 等待界面切换
-            time.sleep(1)
-            result = screenClientMgr.FindElement(("已启用", "启用队伍"), "text", maxRetries=10, crop=(1507.0 / 1920, 955.0 / 1080, 336.0 / 1920, 58.0 / 1080))
-            if result:
-                if screenClientMgr.mDetect.matchedText == "已启用":
-                    log.info(logMgr.Info(f"已经是队伍{teamName}了"))
-                    screenClientMgr.ChangeTo("main")
-                    return True
-                elif screenClientMgr.mDetect.matchedText == "启用队伍":
-                    screenClientMgr.ClickElementWithPos(result)
-                    if screenClientMgr.FindElement("已启用", "text", maxRetries=10, crop=(1507.0 / 1920, 955.0 / 1080, 336.0 / 1920, 58.0 / 1080)):
-                        log.info(logMgr.Info(f"切换到队伍{teamName}成功"))
+
+        def SelectTeam():
+            if screenClientMgr.ClickElement(teamName, "text", maxRetries=3, crop=(311.0 / 1920, 15.0 / 1080, 1376.0 / 1920, 100.0 / 1080)):
+                # 等待界面切换
+                time.sleep(1)
+                result = screenClientMgr.FindElement(("已启用", "启用队伍", "快速编队", "开始挑战"), "text", maxRetries=3, crop=(1507.0 / 1920, 955.0 / 1080, 336.0 / 1920, 58.0 / 1080))
+                if result:
+                    if screenClientMgr.mDetect.matchedText == "开始挑战":
+                        log.info(logMgr.Info(f"正在使用队伍{teamName}进行挑战"))
                         return True
+                    elif screenClientMgr.mDetect.matchedText == "已启用":
+                        log.info(logMgr.Info(f"已经是队伍{teamName}了"))
+                        screenClientMgr.ChangeTo("main")
+                        return True
+                    elif screenClientMgr.mDetect.matchedText == "启用队伍":
+                        screenClientMgr.ClickElementWithPos(result)
+                        if screenClientMgr.FindElement("已启用", "text", maxRetries=10, crop=(1507.0 / 1920, 955.0 / 1080, 336.0 / 1920, 58.0 / 1080)):
+                            log.info(logMgr.Info(f"切换到队伍{teamName}成功"))
+                            return True
+                    elif screenClientMgr.mDetect.matchedText == "快速编队":
+                        log.error(logMgr.Error("该队伍编号没有设置任何角色,取消切换队伍"))
+                        return True
+            else:
+                return False
+                        
+        if screenClientMgr.FindElement("./assets/static/images/menu/configure_team_ui.png", "image", 0.9, 3):
+            point = screenClientMgr.FindElement("./assets/static/images/menu/configure_team_ui.png", "image", 0.9, 3)
+            teamTopLeftX = point[0][0]
+            teamTopLeftY = point[0][1]
+            screenClientMgr.MouseMove(teamTopLeftX + 800, teamTopLeftY)
+            if SelectTeam():
+                return True
+            else:
+                screenClientMgr.MouseScroll(10, -1 if (team - 5) >= 0 else 1)
+                if SelectTeam():
+                    return True
+                else:
+                    screenClientMgr.MouseScroll(10, 1 if (team - 5) >= 0 else -1)
+                    return SelectTeam()
+            
         return False
     
     @staticmethod

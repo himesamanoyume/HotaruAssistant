@@ -29,7 +29,6 @@ class InitUidConfig:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.BORROW_CHARACTER_ENABLE, uid, False)
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.INSTANCE_TEAM_ENABLE, uid, False)
-            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.INSTANCE_TEAM_NUMBER, uid, 1)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.USE_RESERVED_TRAILBLAZE_POWER, uid, False)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.USE_FUEL, uid, False)
 
@@ -46,6 +45,15 @@ class InitUidConfig:
                 tempList.append('拟造花萼（金）')
                 configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uid] = tempList
 
+            if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER] == {} or uid not in configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER].keys() or not isinstance(configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid], dict):
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid] = {}
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['默认配队'] = 0
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['拟造花萼（金）'] = 0
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['拟造花萼（赤）'] = 0
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['凝滞虚影'] = 0
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['侵蚀隧洞'] = 0
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['历战余响'] = 0
+            
             if configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES] == {} or uid not in configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES].keys():
                 configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid] = {}
                 configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['拟造花萼（金）'] = '雅利洛-回忆之蕾'

@@ -84,8 +84,6 @@ class BaseFightState(BaseRelicsState, BaseClientState):
         instanceName = instanceName.replace("熠灼之形", "灼之形")
         instanceName = instanceName.replace("蛀星的旧靥", "蛀星的旧")
 
-        if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_ENABLE][dataClientMgr.currentUid]:
-            BaseClientState.ChangeTeam(configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid])
         screenClientMgr.ChangeTo('guide3')
         instanceTypeCrop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
         if not screenClientMgr.ClickElement(instanceType, "text", crop=instanceTypeCrop):
@@ -194,6 +192,16 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                 screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9)
             if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid] == False:
                 BaseClientState.BorrowCharacter()
+
+            if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_ENABLE][dataClientMgr.currentUid]:
+                if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid][instanceType] == 0:
+                    if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid]['默认配队'] == 0:
+                        log.info(logMgr.Info(f"不进行切换配队"))
+                    else:
+                        BaseClientState.ChangeTeam(configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid]['默认配队'])
+                else:
+                    BaseClientState.ChangeTeam(configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid][instanceType])
+            
             if screenClientMgr.ClickElement("开始挑战", "text", maxRetries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
                 time.sleep(1)
                 if screenClientMgr.FindElement("./assets/static/images/fight/no_power.png", "image", 0.9):
