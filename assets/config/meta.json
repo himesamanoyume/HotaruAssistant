@@ -41,8 +41,8 @@
         "Asta": "1.0:艾丝妲",
         "Bailu": "1.0:白露",
         "Bronya": "1.0:布洛妮娅",
-        "CaelumDestruction": "1.0:男物主",
-        "CaelumPreservation": "1.0:男火主",
+        "CaelusDestruction": "1.0:毁灭物理男主",
+        "CaelusPreservation": "1.0:存护火男主",
         "Clara": "1.0:克拉拉",
         "DanHeng": "1.0:丹恒",
         "Gepard": "1.0:杰帕德",
@@ -58,8 +58,8 @@
         "Sushang": "1.0:素裳",
         "Seele": "1.0:希儿",
         "Serval": "1.0:希露瓦",
-        "StelleDestruction": "1.0:女物主",
-        "StellePreservation": "1.0:女火主",
+        "StelleDestruction": "1.0:毁灭物理女主",
+        "StellePreservation": "1.0:存护火女主",
         "Tingyun": "1.0:停云",
         "Welt": "1.0:瓦尔特",
         "Yanqing": "1.0:彦卿",
@@ -87,13 +87,23 @@
         "Acheron": "2.1:黄泉",
         "Gallagher": "2.1加拉赫",
         "Aventurine": "2.1:砂金",
-        "Robin": "2.2知更鸟"
+        "Robin": "2.2:知更鸟",
+        "CaelusHormony": "2.2:同谐虚无男主",
+        "StelleHormony": "2.2:同谐虚无女主"
     },
     "未实装角色":
     {
-        "Boothill":"2.2波提欧",
-        "Firefly": "2.3流萤",
-        "Jade": "2.3翡翠"
+        "Boothill":"2.2:波提欧",
+        "Firefly": "2.3:流萤",
+        "Jade": "2.3:翡翠",
+        "CaelusNihility": "虚无男主",
+        "StelleNihility": "虚无女主",
+        "CaelusErudition": "智识男主",
+        "StelleErudition": "智识女主",
+        "CaelusAbundance": "丰饶男主",
+        "StelleAbundance": "丰饶女主",
+        "CaelusTheHunt": "巡猎男主",
+        "StelleTheHunt": "巡猎女主"
     },
     "拟造花萼（金）":
     {
