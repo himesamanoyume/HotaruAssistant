@@ -1,5 +1,5 @@
 {   
-    "hotaru_assets_version" : "v2.0.8.1-0",
+    "hotaru_assets_version" : "v2.0.8.1-1",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
@@ -88,8 +88,8 @@
         "Gallagher": "2.1加拉赫",
         "Aventurine": "2.1:砂金",
         "Robin": "2.2:知更鸟",
-        "CaelusHormony": "2.2:同谐虚无男主",
-        "StelleHormony": "2.2:同谐虚无女主"
+        "CaelusHormony": "2.2:同谐虚数男主",
+        "StelleHormony": "2.2:同谐虚数女主"
     },
     "未实装角色":
     {
