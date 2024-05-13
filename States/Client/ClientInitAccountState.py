@@ -33,6 +33,11 @@ class ClientInitAccountState(BaseClientState):
 
             screenClientMgr.ChangeTo('activity')
             activityList = []
+            
+            # 部分活动在选中情况下 OCR 识别困难
+            screenClientMgr.ClickElement("锋芒斩露", "text", None, crop=(53.0 / 1920, 109.0 / 1080, 190.0 / 1920, 846.0 / 1080), include=True)
+            time.sleep(1)
+
             screenClientMgr.TakeScreenshot(crop=(46.0 / 1920, 107.0 / 1080, 222.0 / 1920, 848.0 / 1080))
 
             result = ocrClientMgr.mOcr.RecognizeMultiLines(screenClientMgr.mDetect.screenshot)
