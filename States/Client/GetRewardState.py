@@ -31,12 +31,16 @@ class GetRewardState(object):
             flag = True
             if "mail" in rewardList:
                 log.hr(logMgr.Hr("检测到邮件奖励"), 2)
-                self.GetMailReward()
-                log.info(logMgr.Info("邮件奖励完成"))
+                if self.GetMailReward():
+                    log.info(logMgr.Info("邮件奖励完成"))
+                else:
+                    log.warning(logMgr.Warning("支援奖励未完成"))
             if "assist" in rewardList:
                 log.hr(logMgr.Hr("检测到支援奖励"), 2)
-                self.GetAssistReward()
-                log.info(logMgr.Info("支援奖励完成"))
+                if self.GetAssistReward():
+                    log.info(logMgr.Info("支援奖励完成"))
+                else:
+                    log.warning(logMgr.Warning("支援奖励未完成"))
             if "dispatch" in rewardList:
                 log.hr(logMgr.Hr("检测到委托奖励"), 2)
                 self.GetDispatchReward(dataClientMgr.currentUid)
@@ -99,7 +103,12 @@ class GetRewardState(object):
 
         screenClientMgr.ChangeTo('mail')
         if screenClientMgr.ClickElement("./assets/static/images/mail/receive_all.png", "image", 0.9):
+            log.info(logMgr.Info("邮件奖励已领取"))
             screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
+            return True
+        else:
+            log.info(logMgr.Info("邮件奖励w未领取"))
+            return False
 
     @staticmethod
     def GetDispatchReward(uid):
@@ -153,7 +162,11 @@ class GetRewardState(object):
         screenClientMgr.ChangeTo('visa')
         if screenClientMgr.ClickElement("./assets/static/images/assist/gift.png", "image", 0.9):
             log.info(logMgr.Info("支援奖励已领取"))
-            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
+            screenClientMgr.ClickElement("点击空白处继续", "text", 0.8, maxRetries=3)
+            return True
+        else:
+            log.warning(logMgr.Warning("支援奖励未领取"))
+            return False
     
     @staticmethod
     def GetPassReward():

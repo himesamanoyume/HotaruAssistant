@@ -34,9 +34,10 @@ class UniverseClearState(BaseUniverseState):
         command = [configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "states.py"]
         time.sleep(0.5)
 
-        if dataClientMgr.currentImmersifiers < 4:
-            log.info(logMgr.Info("鉴定为沉浸器数量不足,跳过"))
-            return True
+        if not dataClientMgr.currentUniverseScore < dataClientMgr.maxCurrentUniverseScore:
+            if dataClientMgr.currentImmersifiers < 4:
+                log.info(logMgr.Info("鉴定为沉浸器数量不足,跳过"))
+                return True
         
         time.sleep(0.5)
             
