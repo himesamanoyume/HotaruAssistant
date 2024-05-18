@@ -190,9 +190,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
             if instanceType == "历战余响":
                 time.sleep(1)
                 screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9)
-            if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid] == False:
-                BaseClientState.BorrowCharacter()
-
+            
             if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_ENABLE][dataClientMgr.currentUid]:
                 if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid][instanceType] == 0:
                     if configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid]['默认配队'] == 0:
@@ -201,6 +199,9 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                         BaseClientState.ChangeTeam(configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid]['默认配队'])
                 else:
                     BaseClientState.ChangeTeam(configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][dataClientMgr.currentUid][instanceType])
+
+            if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid] == False:
+                BaseClientState.BorrowCharacter()
             
             if screenClientMgr.ClickElement("开始挑战", "text", maxRetries=10, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
                 time.sleep(1)

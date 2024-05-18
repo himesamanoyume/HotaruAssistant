@@ -127,8 +127,8 @@ class DetectScreenModule:
                 return
             screenshot = cv2.cvtColor(np.array(self.screenshot), cv2.COLOR_BGR2RGB)
             max_val, max_loc = self.ScaleAndMatchTemplate(screenshot, template, threshold, scaleRange)
-            log.debug(logMgr.Debug(f"目标图片：{target} 相似度：{max_val}"))
             if threshold is None or max_val >= threshold:
+                log.debug(logMgr.Debug(f"目标图片：{target} 相似度：{max_val}"))
                 channels, width, height = template.shape[::-1]
                 if relative == False:
                     top_left = (max_loc[0] + self.screenshotPos[0],
