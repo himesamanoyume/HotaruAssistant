@@ -118,9 +118,9 @@ class GetRewardState(object):
 
         screenClientMgr.ChangeTo('dispatch')
         # 适配低性能电脑，中间的界面不一定加载出了
-        screenClientMgr.FindElement("专属材料", "text", maxRetries=10, crop=(298.0 / 1920, 153.0 / 1080, 1094.0 / 1920, 122.0 / 1080))
-        GetRewardState.PerformDispatches()
-        if "派遣1次委托" in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid]["派遣1次委托"]:
+        screenClientMgr.FindElement("专属材料", "text", maxRetries=3, crop=(298.0 / 1920, 153.0 / 1080, 1094.0 / 1920, 122.0 / 1080))
+        
+        if GetRewardState.PerformDispatches() and "派遣1次委托" in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid]["派遣1次委托"]:
             configMgr.mConfig[configMgr.mKey.DAILY_TASKS][uid]["派遣1次委托"] = False
 
     @staticmethod
@@ -128,7 +128,7 @@ class GetRewardState(object):
         log.info(logMgr.Info(f"正在进行委托"))
 
         if not GetRewardState.PerformDispatchAndCheck(crop=(298.0 / 1920, 153.0 / 1080, 1094.0 / 1920, 122.0 / 1080)):
-            return
+            return False
 
         # if not GetRewardState.PerformDispatchAndCheck(crop=(660 / 1920, 280 / 1080, 170 / 1920, 600 / 1080)):
         #     return
@@ -136,6 +136,7 @@ class GetRewardState(object):
         screenClientMgr.ClickElement("./assets/static/images/dispatch/all_receive.png", "image", 0.9, maxRetries=10)
         screenClientMgr.ClickElement("./assets/static/images/dispatch/again.png", "image", 0.9, maxRetries=10)
         time.sleep(4)
+        return True
             
 
     @staticmethod
@@ -143,8 +144,10 @@ class GetRewardState(object):
         if not GetRewardState.ClickCompleteDispatch(crop):
             log.warning(logMgr.Warning("未检测到已完成的委托"))
             return False
-        time.sleep(0.5)
-        return True
+        else:
+            log.info(logMgr.Info("检测到已完成的委托"))
+            time.sleep(0.5)
+            return True
 
     @staticmethod
     def ClickCompleteDispatch(crop):

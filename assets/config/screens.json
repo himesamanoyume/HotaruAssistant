@@ -447,6 +447,28 @@
         ]
     },
     {
+        "name": "地图-朝露公馆",
+        "id": "inside_map1",
+        "image_path": "./assets/static/images/screen/inside_map1.png",
+        "actions": [
+            {
+                "target_screen": "map",
+                "actions_list": [
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "返回",
+                            "text",
+                            "0.8",
+                            "crop=(1691.0 / 1920, 113.0 / 1080, 149.0 / 1920, 53.0 / 1080)"
+
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "name": "月卡",
         "id": "monthly_card",
         "image_path": "./assets/static/images/screen/monthly_card.png",
