@@ -220,7 +220,7 @@ class DetectScreenModule:
             if not self.ocrResult:
                 log.debug(logMgr.Debug(f"目标文字：{source} 未找到，没有识别出任何文字"))
                 return None, None
-            # log.debug(self.ocr_result)
+            log.debug(logMgr.Debug(self.ocrResult))
             for box in self.ocrResult:
                 text = box[1][0]
                 if ((include is None or not include) and source == text) or (include and source in text):

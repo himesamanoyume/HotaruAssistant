@@ -56,7 +56,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
 
         log.info(logMgr.Info("等待战斗"))
 
-        return Retry.Re(lambda: BaseFightState.CheckFight(instanceName), 600)
+        return Retry.Re(lambda: BaseFightState.CheckFight(instanceName), configMgr.mKey[configMgr.mKey.WAIT_FIGHT_TIMEOUT_TIME] * 10)
 
     @staticmethod
     def CheckFight(instanceName):
@@ -156,15 +156,17 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                     time.sleep(1)
         
         if not Flag:
-            log.error(logMgr.Error("⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
-            return True
+            nowtime = time.time()
+            log.error(logMgr.Error(f"{nowtime},⚠️刷副本未完成 - 没有找到指定副本名称⚠️"))
+            raise Exception(f"{nowtime},⚠️刷副本未完成 - 没有找到指定副本名称⚠️")
         
         # 验证传送是否成功
         time.sleep(5)
         if not screenClientMgr.FindElement(instanceName.replace("1", "").replace("2", "").replace("3", "").replace("4", ""), "text", maxRetries=5, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
             if not screenClientMgr.FindElement(instanceMapType, "text", maxRetries=10, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
-                log.error(logMgr.Error("⚠️刷副本未完成 - 传送可能失败⚠️"))
-                return False
+                nowtime = time.time()
+                log.error(logMgr.Error(f"{nowtime},⚠️刷副本未完成 - 传送可能失败⚠️"))
+                raise Exception(f"{nowtime},⚠️刷副本未完成 - 传送可能失败⚠️")
             
         fullCount = totalCount // 6
         incomplete_count = totalCount - fullCount * 6
@@ -173,9 +175,10 @@ class BaseFightState(BaseRelicsState, BaseClientState):
         if "拟造花萼" in instanceType:
             
             if not 0 <= fullCount or not 0 <= incomplete_count <= 6:
-                log.error(logMgr.Error("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
-                # Base.send_notification_with_screenshot(_("⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
-                return False
+                nowtime = time.time()
+                log.error(logMgr.Error(f"{nowtime},⚠️刷副本未完成 - 拟造花萼次数错误⚠️"))
+                raise Exception(f"{nowtime},⚠️刷副本未完成 - 拟造花萼次数错误⚠️")
+
             result = screenClientMgr.FindElement("./assets/static/images/screen/guide/plus.png", "image", 0.9, maxRetries=10,
                                     crop=(1174.0 / 1920, 775.0 / 1080, 738.0 / 1920, 174.0 / 1080))
             if fullCount == 0:
@@ -224,7 +227,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                     for i in range(totalCount - 1):
 
                         if configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ALWAYS':
-                            if Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), 600, 30):
+                            if Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), configMgr.mKey[configMgr.mKey.WAIT_FIGHT_TIMEOUT_TIME] * 10, 30):
                                 log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(1)"))
                             else:
                                 nowtime = time.time()
@@ -240,7 +243,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                                 raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")
                             
                         elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'DISABLE':
-                            if Retry.Re(lambda: BaseFightState.CheckFight(instanceName), 600):
+                            if Retry.Re(lambda: BaseFightState.CheckFight(instanceName), configMgr.mKey[configMgr.mKey.WAIT_FIGHT_TIMEOUT_TIME] * 10):
                                 log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(1)"))
                             else:
                                 nowtime = time.time()
@@ -260,7 +263,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                     if fullCount > 0:
                         for i in range(fullCount - 1):
                             if configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ALWAYS':
-                                if Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), 600, 30):
+                                if Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), configMgr.mKey[configMgr.mKey.WAIT_FIGHT_TIMEOUT_TIME] * 10, 30):
                                     log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(2)"))
                                 else:
                                     nowtime = time.time()
@@ -276,7 +279,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                                     raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")
                                 
                             elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'DISABLE':
-                                if Retry.Re(lambda: BaseFightState.CheckFight(instanceName), 600):
+                                if Retry.Re(lambda: BaseFightState.CheckFight(instanceName), configMgr.mKey[configMgr.mKey.WAIT_FIGHT_TIMEOUT_TIME] * 10):
                                     log.info(logMgr.Info(f"第{i+1}次{instanceType}副本完成(2)"))
                                 else:
                                     nowtime = time.time()
@@ -288,7 +291,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                 
                 # 这是最后一次战斗在循环之外的等待战斗
                 if configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'ALWAYS':
-                    if not Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), 600, 30):
+                    if not Retry.Re(lambda: BaseFightState.AlwaysWaitFight(instanceName), configMgr.mKey[configMgr.mKey.WAIT_FIGHT_TIMEOUT_TIME] * 10, 30):
                         nowtime = time.time()
                         log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战斗超时"))
                         raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")
@@ -300,7 +303,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                         raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")
                     
                 elif configMgr.mConfig[configMgr.mKey.ALWAYS_DETECT_FIGHT_STATUS] == 'DISABLE':
-                    if not Retry.Re(lambda: BaseFightState.CheckFight(instanceName), 600):
+                    if not Retry.Re(lambda: BaseFightState.CheckFight(instanceName), configMgr.mKey[configMgr.mKey.WAIT_FIGHT_TIMEOUT_TIME] * 10):
                         nowtime = time.time()
                         log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战斗超时"))
                         raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")

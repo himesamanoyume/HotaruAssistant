@@ -1,4 +1,3 @@
-from Modules.Utils.Himesamanoyume import Himesamanoyume
 import json
 
 class DataClientModule:
@@ -31,7 +30,6 @@ class DataClientModule:
     metaFile = open("./assets/config/meta.json", 'r', encoding='utf-8')
     meta = json.load(metaFile)
     metaFile.close()
-    YW5ub3VuY2VtZW50 = Himesamanoyume.PrincessDreamland()
     notifyContent = {
         "上号时长": "",
         "开拓力回满时间": "",

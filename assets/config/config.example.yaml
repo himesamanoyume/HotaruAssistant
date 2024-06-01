@@ -11,6 +11,7 @@ blacklist_uid: # UID黑名单,uid后可以注释黑名单原因
 - '222222222' # 太帅
 cdkey_list: [] # 兑换码列表
 next_loop_time: 12 # 下一次循环开始所等待的时间 单位:小时
+wait_fight_timeout_time: 12 # 战斗超时时长 单位:分钟
 multi_login_accounts: {} # 多账号注册表位置
 want_register_accounts: # 启动游戏前先进行注册,111111111为示例,不要删除!
   '111111111':

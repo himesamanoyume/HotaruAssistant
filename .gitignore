@@ -201,3 +201,4 @@ new_screens.json
 /Modules/Server/*
 /Modules/Utils/FastestMirror.py
 /Modules/Utils/PythonChecker.py
+/Modules/Utils/Himesamanoyume.py

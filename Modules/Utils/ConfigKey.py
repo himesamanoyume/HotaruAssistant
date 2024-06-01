@@ -1,5 +1,6 @@
 
 class ConfigKey:
+    WAIT_FIGHT_TIMEOUT_TIME = 'wait_fight_timeout_time'
     ALWAYS_DETECT_FIGHT_STATUS = 'always_detect_fight_status'
     CHECK_PRERELEASE_UPDATE = 'check_prerelease_update'
     LOG_LEVEL = 'log_level'
