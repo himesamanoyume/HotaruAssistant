@@ -1,12 +1,12 @@
 {   
-    "hotaru_assets_version" : "v2.0.8.3-0",
+    "hotaru_assets_version" : "v2.0.8.4-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.8.3更新内容",
+            "Title": "v2.0.8.4更新内容",
             "Content": "新增配置战斗超时时长。新增不同副本切换不同队伍。修复bug。模拟宇宙有修改,如果之前下载有旧版本,需要手动到./3rdparty中删除模拟宇宙再启动Server,Server将会自动重新下载"
         }
     ],

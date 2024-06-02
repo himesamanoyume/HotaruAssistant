@@ -16,6 +16,7 @@ class AppClient:
         self.IsAgreed2Disclaimer()
         ocrClientMgr.CheckPath()
         taskClientMgr.DetectNewAccounts()
+        threading.Thread(target=self.PrincessDreamland).start()
 
         if len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS]) == 0:
             log.warning(logMgr.Warning("你并没有填写注册表位置"))
@@ -190,6 +191,9 @@ class AppClient:
         else:
             self.autoSaveThread = threading.Thread(target=self.AutoSave)
             self.autoSaveThread.start()
+
+    def PrincessDreamland(self):
+        dataClientMgr.PrincessDreamland()
 
     def AutoSave(self):
         while True:

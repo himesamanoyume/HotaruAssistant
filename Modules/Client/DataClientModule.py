@@ -1,4 +1,5 @@
-import json
+from Modules.Utils.Himesamanoyume import Himesamanoyume
+import json,base64
 
 class DataClientModule:
     tempUid = '-1'
@@ -18,6 +19,7 @@ class DataClientModule:
     dailyTasksFunctions = {}
     currentUniverseScore = 0
     maxCurrentUniverseScore = 1
+    YW5ub3VuY2VtZW50 = [{"Title":"{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8')),"Content":"{Y2NvbnRlbnR0}".format(Y2NvbnRlbnR0=base64.b64decode("5pyq6IO96I635Y+W5Yiw5YWs5ZGK").decode('utf-8'))}]
     gameTitleName = ''
     tempText = ''
     passRemaining = ''
@@ -56,6 +58,9 @@ class DataClientModule:
         "虚构叙事2倒计时": "",
         "遗器胚子": []
     }
+
+    def PrincessDreamland(self):
+        self.YW5ub3VuY2VtZW50 = Himesamanoyume.PrincessDreamland()
 
     def ResetData(self):
         self.tempUid = '-1'
