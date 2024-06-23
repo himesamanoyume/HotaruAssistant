@@ -26,7 +26,6 @@ class AppClient:
             hotaruLoopThread = threading.Thread(target=self.HotaruAssistantLoop)
             hotaruLoopThread.start()
         
-
         while dataClientMgr.currentGamePid == -1:
             time.sleep(5)
 
@@ -60,7 +59,7 @@ class AppClient:
             
         log.hr(logMgr.Hr("注意:选择轮次后将持续循环该轮次下的配置,不会出现轮次变更,因此建议若有单独轮次的需求可关闭后重新打开助手再进行选择"))
 
-        optionsAction = {"全部轮次:每日任务轮次+模拟宇宙轮次": "all", "单独每日任务轮次": "daily", "单独模拟宇宙轮次": "universe"}
+        optionsAction = {"全部轮次:每日任务轮次+模拟宇宙轮次【模拟宇宙暂时无法使用】": "all", "单独每日任务轮次": "daily", "单独模拟宇宙轮次【暂时无法使用】": "universe"}
 
         actionSelectOption = questionary.select("请选择进行的轮次:\n", list(optionsAction.keys())).ask()
         selectedAction = optionsAction.get(actionSelectOption)
@@ -142,13 +141,15 @@ class AppClient:
                                     dataClientMgr.currentAction = "每日任务流程"
                                     # raise Exception("测试异常")
                                     taskClientMgr.StartDaily()
+                                    taskClientMgr.SendNotify()
+                                    taskClientMgr.QuitGame()
                             elif selectedAction == 'universe':
-                                if taskClientMgr.ClientStartGame():
-                                    dataClientMgr.currentAction = "模拟宇宙流程"
-                                    taskClientMgr.StartUniverse()
-
-                            taskClientMgr.SendNotify()
-                            taskClientMgr.QuitGame()
+                                pass
+                                # if taskClientMgr.ClientStartGame():
+                                #     dataClientMgr.currentAction = "模拟宇宙流程"
+                                #     taskClientMgr.StartUniverse()
+                                    # taskClientMgr.SendNotify()
+                                    # taskClientMgr.QuitGame()
                         else:
                             if turn == 0:
                                 if taskClientMgr.ClientStartGame():
@@ -159,12 +160,13 @@ class AppClient:
                             else:
                                 currentScore, maxScore = configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uidStr2].split('/')
                                 if int(currentScore) < int(maxScore) or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2][0] == '模拟宇宙':
-                                    if taskClientMgr.ClientStartGame():
-                                        dataClientMgr.currentAction = "模拟宇宙流程"
-                                        taskClientMgr.StartUniverse()
+                                    pass
+                                    # if taskClientMgr.ClientStartGame():
+                                    #     dataClientMgr.currentAction = "模拟宇宙流程"
+                                    #     taskClientMgr.StartUniverse()
 
-                                    taskClientMgr.SendNotify()
-                                    taskClientMgr.QuitGame()
+                                    # taskClientMgr.SendNotify()
+                                    # taskClientMgr.QuitGame()
 
                         
                     except Exception as e:

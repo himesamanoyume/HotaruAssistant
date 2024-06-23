@@ -36,6 +36,8 @@ class InitUidConfig:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.FORGOTTENHALL_LEVELS, uid, 0)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.PUREFICTION_STARS, uid, 0)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.PUREFICTION_LEVELS, uid, 0)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.APOCALYPTICSHADOW_STARS, uid, 0)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.APOCALYPTICSHADOW_LEVELS, uid, 0)
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.LAST_RUN_TIMESTAMP, uid)
 

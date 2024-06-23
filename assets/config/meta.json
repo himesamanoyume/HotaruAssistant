@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.0.8.4-0",
+    "hotaru_assets_version" : "v2.0.9-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.0.8.4更新内容",
-            "Content": "新增配置战斗超时时长。新增不同副本切换不同队伍。修复bug。模拟宇宙有修改,如果之前下载有旧版本,需要手动到./3rdparty中删除模拟宇宙再启动Server,Server将会自动重新下载"
+            "Title": "v2.0.9更新内容",
+            "Content": "适配2.3版本，差分宇宙未适配，模拟宇宙停止支持。请尽快开启差分宇宙，否则每日任务轮次将会出错。优化邮件提醒预览内容。"
         }
     ],
     "task_mappings":
@@ -20,7 +20,7 @@
         "遗器等级": "将任意遗器等级提升1次",
         "登录游戏": "登录游戏",
         "累计消耗": "累计消耗120点开拓力",
-        "模拟宇": "完成1次「模拟宇宙」",
+        "模拟宇": "完成1次「差分宇宙」或「模拟宇宙」",
         "万能合成": "使用1次「万能合成机」"
     },
     "task_score_mappings":{
@@ -32,7 +32,7 @@
         "将任意遗器等级提升1次": 100,
         "登录游戏": 100,
         "累计消耗120点开拓力": 200,
-        "完成1次「模拟宇宙」": 500,
+        "完成1次「差分宇宙」或「模拟宇宙」": 500,
         "使用1次「万能合成机」": 100
     },
     "角色":
@@ -51,7 +51,7 @@
         "Hook": "1.0:虎克",
         "JingYuan": "1.0:景元",
         "Natasha": "1.0:娜塔莎",
-        "March7th": "1.0:三月七",
+        "March7th": "1.0:存护三月七",
         "Pela": "1.0:佩拉",
         "Qingque": "1.0:青雀",
         "Sampo": "1.0:桑博",
@@ -89,13 +89,16 @@
         "Aventurine": "2.1:砂金",
         "Robin": "2.2:知更鸟",
         "CaelusHormony": "2.2:同谐虚数男主",
-        "StelleHormony": "2.2:同谐虚数女主"
+        "StelleHormony": "2.2:同谐虚数女主",
+        "Boothill":"2.2:波提欧",
+        "Firefly": "2.3:流萤"
     },
     "未实装角色":
     {
-        "Boothill":"2.2:波提欧",
-        "Firefly": "2.3:流萤",
         "Jade": "2.3:翡翠",
+        "Jiaoqiu": "2.4:椒丘",
+        "March7thSwordmaster": "2.4:巡猎三月七",
+        "Yunli":"2.4:云璃",
         "CaelusNihility": "虚无男主",
         "StelleNihility": "虚无女主",
         "CaelusErudition": "智识男主",
@@ -235,6 +238,10 @@
         "梦潜之径": [
             "死水深潜的先驱/机心戏梦的钟表匠",
             "/images/screen/guide/cavern/mengqian.png"
+        ],
+        "勇骑之径": [
+            "荡除蠹灾的铁骑/风举云飞的勇烈",
+            "/images/screen/guide/cavern/yongqi.png"
         ]
     },
     "历战余响":
@@ -248,39 +255,44 @@
     "模拟宇宙":
     {
         "3": {
-            "名称":"第三世界",
+            "名称":"坚城不倒",
             "遗器":"太空封印站/不老者的仙舟",
             "图片":"/images/screen/guide/universe/universe3relics.png"
         },
         "4": {
-            "名称":"第四世界",
+            "名称":"浴火钢心",
             "遗器":"盗贼公国塔利亚/生命的翁瓦克",
             "图片":"/images/screen/guide/universe/universe4relics.png"
         },
         "5": {
-            "名称":"第五世界",
+            "名称":"温柔话语",
             "遗器":"泛银河商业公司/星体差分机",
             "图片":"/images/screen/guide/universe/universe5relics.png"
         },
         "6": {
-            "名称":"第六世界",
+            "名称":"百年冻土",
             "遗器":"筑城者的贝洛伯格/停转的萨尔索图",
             "图片":"/images/screen/guide/universe/universe6relics.png"
         },
         "7": {
-            "名称":"第七世界",
+            "名称":"孽果盘生",
             "遗器":"繁星竞技场/折断的龙骨",
             "图片":"/images/screen/guide/universe/universe7relics.png"
         },
         "8": {
-            "名称":"第八世界",
+            "名称":"天剑如雨",
             "遗器":"苍穹战线格拉默/梦想之地匹诺康尼",
             "图片":"/images/screen/guide/universe/universe8relics.png"
         },
         "9": {
-            "名称":"第九世界",
+            "名称":"伴你入眠",
             "遗器":"无主荒星茨冈尼亚/出云显世与高天神国",
             "图片":"/images/screen/guide/universe/universe9relics.png"
+        },
+        "10": {
+            "名称":"永恒笑剧",
+            "遗器":"奔狼的都蓝王朝/劫火莲灯铸炼宫",
+            "图片":"/images/screen/guide/universe/universe10relics.png"
         }
     },
     "模拟宇宙难度":

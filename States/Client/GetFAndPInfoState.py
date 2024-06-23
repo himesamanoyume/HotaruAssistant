@@ -9,8 +9,9 @@ class GetFAndPInfoState(BaseClientState):
     mStateName = 'GetFAndPInfoState'
 
     def OnBegin(self):
-        GetFAndPInfoState.GetFPInfo() # "虚构叙事" || "忘却之庭"
-        GetFAndPInfoState.GetFPInfo("虚构叙事") 
+        GetFAndPInfoState.GetFPInfo() # "虚构叙事" || "忘却之庭" || "末日幻影"
+        GetFAndPInfoState.GetFPInfo("虚构叙事")
+        GetFAndPInfoState.GetFPInfo("末日幻影")
 
     def OnRunning(self):
         return False
@@ -86,6 +87,9 @@ class GetFAndPInfoState(BaseClientState):
             if typeStr == "混沌回忆":
                 configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_LEVELS][dataClientMgr.currentUid] = levelList
                 configMgr.mConfig[configMgr.mKey.FORGOTTENHALL_STARS][dataClientMgr.currentUid] = starList
+            elif typeStr == "末日幻影":
+                configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_LEVELS][dataClientMgr.currentUid] = levelList
+                configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_STARS][dataClientMgr.currentUid] = starList
             else:
                 configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid] = levelList
                 configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid] = starList

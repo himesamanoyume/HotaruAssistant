@@ -156,7 +156,7 @@ class Notify:
                                         <ruby>姫様の夢<rt class='ttt' data-rt='Himesamanoyume'></rt></ruby>
                                     </div>
                                     <div class=info-txt style=color:#d9d9d9>
-                                        我现在就要玩蓝色星原
+                                        夏河小俘虏
                                     </div>
                                 </div>
                             </div>
@@ -179,11 +179,14 @@ class Notify:
         return asideContent
 
     @staticmethod
-    def CreateHeadContent(title, dataMgr, configMgr):
-        if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
-            img = f"<section class=post-detail-txt style=color:#d9d9d9><p>流萤秘密基地头图但暂时没有流萤.png</p></section>"
+    def CreateHeadContent(title, dataMgr, configMgr, isNotifyWeb=False):
+        if not isNotifyWeb:
+            if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataMgr.currentUid]:
+                img = f"<img loading='lazy' src='cid:bgHotaru'>"
+            else:
+                img = f"<img loading='lazy' src='cid:bgNoHotaru'>"
         else:
-            img = f"<img loading='lazy' src='cid:bgNoHotaru'>"
+            img = ""
         headContent = f"""
         <div class=body style=background-color:#3a3a3a>
             <style>{dataMgr.htmlStyle}</style>
@@ -219,7 +222,7 @@ class Notify:
         return sendHostEmail
 
     @staticmethod
-    def SendNotifyAll(title, subTitle, content, configMgr, dataMgr):
+    def SendNotifyAll(title, subTitle, content, configMgr, dataMgr, isNotifyWeb=False):
         sendHostEmail = Notify.LoginSMTP(configMgr)
         
         detailContent = content
@@ -232,7 +235,7 @@ class Notify:
             emailObject['From'] = configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM]
 
             htmlStr=f"""
-                {Notify.CreateHeadContent(subTitle, dataMgr)}
+                {Notify.CreateHeadContent(subTitle, dataMgr, isNotifyWeb=isNotifyWeb)}
                                             <section class=post-detail-txt style=color:#d9d9d9>
                                                 {Notify.CreateGithubAnnListContent(dataMgr)}
                                                 {detailContent}
@@ -266,7 +269,7 @@ class Notify:
         sendHostEmail.quit()
 
     @staticmethod
-    def SendNotifySingle(title, subTitle, content, configMgr, dataMgr, uid):
+    def SendNotifySingle(title, subTitle, content, configMgr, dataMgr, uid, previewContent = None, isNotifyWeb = False):
         sendHostEmail = Notify.LoginSMTP(configMgr)
         
         detailContent = content
@@ -280,7 +283,8 @@ class Notify:
         detailContent, universeContent = Notify.CreateConfigContent(detailContent, uid, dataMgr, configMgr)
 
         htmlStr=f"""
-            {Notify.CreateHeadContent(subTitle, dataMgr, configMgr)}
+            <span style="display: none;">{previewContent}</span>
+            {Notify.CreateHeadContent(subTitle, dataMgr, configMgr, isNotifyWeb=isNotifyWeb)}
                                             <section class=post-detail-txt style=color:#d9d9d9>
                                                 {Notify.CreateGithubAnnListContent(dataMgr)}
                                                 <p>{detailContent}{universeContent}</p>
@@ -309,12 +313,11 @@ class Notify:
         html = f"{htmlStr}"
         emailObject.attach(MIMEText(html,'html','utf-8'))
         if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][uid]:
-            pass
-            # with open('./assets/static/img/bg_Hotaru.png', 'rb') as hotaruPng:
-            #     bgHotaru = MIMEImage(hotaruPng.read())
-            #     bgHotaru.add_header('Content-ID', '<bgHotaru>')
-            #     emailObject.attach(bgHotaru)
-            #     hotaruPng.close()
+            with open('./assets/static/images/web/bg_Hotaru.png', 'rb') as hotaruPng:
+                bgHotaru = MIMEImage(hotaruPng.read())
+                bgHotaru.add_header('Content-ID', '<bgHotaru>')
+                emailObject.attach(bgHotaru)
+                hotaruPng.close()
         else:
             with open('./assets/static/images/web/bg_noHotaru.png', 'rb') as noHotaruPng:
                 bgNoHotaru = MIMEImage(noHotaruPng.read())
@@ -322,8 +325,8 @@ class Notify:
                 emailObject.attach(bgNoHotaru)
                 noHotaruPng.close()
 
-        if os.path.exists(f'./screenshots/{dataMgr.currentUid}/daily.png'):
-            with open(f'./screenshots/{dataMgr.currentUid}/daily.png', 'rb') as dailyScreenshotPng:
+        if os.path.exists(f'./screenshots/{uid}/daily.png'):
+            with open(f'./screenshots/{uid}/daily.png', 'rb') as dailyScreenshotPng:
                 dailyScreenshot = MIMEImage(dailyScreenshotPng.read())
                 dailyScreenshot.add_header('Content-ID', '<dailyImg>')
                 emailObject.attach(dailyScreenshot)

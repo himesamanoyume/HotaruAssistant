@@ -13,8 +13,8 @@ class NotifyMgr:
     def SendNotifyAll(self, title, content, configMgr, dataMgr):
         self.notify.SendNotifyAll(title, content, configMgr, dataMgr)
 
-    def SendNotifySingle(self, title, subTitle, content, configMgr, dataMgr, uid):
-        self.notify.SendNotifySingle(title, subTitle, content, configMgr, dataMgr, uid)
+    def SendNotifySingle(self, title, subTitle, content, configMgr, dataMgr, uid, previewContent = None, isNotifyWeb = False):
+        self.notify.SendNotifySingle(title, subTitle, content, configMgr, dataMgr, uid, previewContent, isNotifyWeb)
 
     def CreateUpdateContent(self, dataMgr):
         return self.notify.CreateHotaruUpdateContent(dataMgr)

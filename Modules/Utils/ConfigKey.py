@@ -1,5 +1,7 @@
 
 class ConfigKey:
+    APOCALYPTICSHADOW_STARS = 'apocalypticshadow_stars'
+    APOCALYPTICSHADOW_LEVELS = 'apocalypticshadow_levels'
     WAIT_FIGHT_TIMEOUT_TIME = 'wait_fight_timeout_time'
     ALWAYS_DETECT_FIGHT_STATUS = 'always_detect_fight_status'
     CHECK_PRERELEASE_UPDATE = 'check_prerelease_update'

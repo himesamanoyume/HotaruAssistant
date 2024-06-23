@@ -251,13 +251,10 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                                 raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")
 
 
-                        if instanceType == "侵蚀隧洞":
+                        if instanceType == ("侵蚀隧洞" or "历战余响"):
                             BaseRelicsState.InstanceGetRelics()
                         time.sleep(1)
                         screenClientMgr.ClickElement("./assets/static/images/fight/fight_again.png", "image", 0.9, maxRetries=5)
-                        # if instanceType == "历战余响":
-                        #     time.sleep(1)
-                        #     screenMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=5) 
                         time.sleep(1) 
                 else:
                     if fullCount > 0:
@@ -308,7 +305,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                         log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战斗超时"))
                         raise Exception(f"{nowtime},挑战{instanceName}时战斗超时")
 
-                if instanceType == "侵蚀隧洞":
+                if instanceType == ("侵蚀隧洞" or "历战余响"):
                     BaseRelicsState.InstanceGetRelics()
 
                 if fullCount > 0:

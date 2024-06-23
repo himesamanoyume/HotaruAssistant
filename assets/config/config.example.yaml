@@ -97,6 +97,8 @@ forgottenhall_stars: {} # 忘却之庭星数
 forgottenhall_levels: {} # 忘却之庭通过层数
 purefiction_stars: {} # 虚构叙事星数
 purefiction_levels: {} # 虚构叙事层数
+apocalypticshadow_stars: {} # 末日幻影星数
+apocalypticshadow_levels: {} # 末日幻影层数
 
 hotkey_technique: e # 游戏内设置的秘技按键
 

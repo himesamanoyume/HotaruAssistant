@@ -181,6 +181,45 @@
                 ]
             },
             {
+                "target_screen": "guide5",
+                "actions_list": [
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "./assets/static/images/screen/guide/enter_guide.png",
+                            "image",
+                            0.8
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            1
+                        ]
+                    },
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "./assets/static/images/screen/guide/enter_guide5.png",
+                            "image",
+                            0.85
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
                 "target_screen": "mail",
                 "actions_list": [
                     {
@@ -992,6 +1031,133 @@
                         ]
                     }
                 ]
+            },
+            {
+                "target_screen": "guide5",
+                "actions_list": [
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "./assets/static/images/screen/guide/enter_guide5.png",
+                            "image",
+                            0.85
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "星际和平指南-模拟宇宙",
+        "id": "guide5",
+        "image_path": "./assets/static/images/screen/guide/guide5.png",
+        "actions": [
+            {
+                "target_screen": "menu",
+                "actions_list": [
+                    {
+                        "action": "PressKey",
+                        "args": [
+                            "esc"
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "guide3",
+                "actions_list": [
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "./assets/static/images/screen/guide/enter_guide3.png",
+                            "image",
+                            0.8
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "guide4",
+                "actions_list": [
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "./assets/static/images/screen/guide/enter_guide4.png",
+                            "image",
+                            0.85
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "guide2",
+                "actions_list": [
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "./assets/static/images/screen/guide/enter_guide2.png",
+                            "image",
+                            0.85
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "divergent_universe_main",
+                "actions_list": [
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "差分宇宙",
+                            "text",
+                            "crop=(262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)"
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            1
+                        ]
+                    },
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "前往参与",
+                            "text",
+                            "crop=(1345.0 / 1920, 833.0 / 1080, 304.0 / 1920, 84.0 / 1080)"
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -1050,17 +1216,20 @@
                 ]
             },
             {
-                "target_screen": "universe_main",
+                "target_screen": "guide5",
                 "actions_list": [
                     {
                         "action": "ClickElement",
                         "args": [
-                            "传送",
-                            "min_distance_text",
-                            "crop=(691.0 / 1920, 291.0 / 1080, 968.0 / 1920, 374.0 / 1080)",
-                            "include=True",
-                            "source=\"积分奖励\"",
-                            "sourceType=\"text\""
+                            "./assets/static/images/screen/guide/enter_guide5.png",
+                            "image",
+                            0.85
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
                         ]
                     }
                 ]
@@ -1109,6 +1278,25 @@
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/screen/guide/enter_guide3.png",
+                            "image",
+                            0.8
+                        ]
+                    },
+                    {
+                        "action": "time.sleep",
+                        "args": [
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "target_screen": "guide5",
+                "actions_list": [
+                    {
+                        "action": "ClickElement",
+                        "args": [
+                            "./assets/static/images/screen/guide/enter_guide5.png",
                             "image",
                             0.8
                         ]
@@ -1303,6 +1491,24 @@
         "actions": [
             {
                 "target_screen": "camera",
+                "actions_list": [
+                    {
+                        "action": "PressKey",
+                        "args": [
+                            "esc"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "差分宇宙-主界面",
+        "id": "divergent_universe_main",
+        "image_path": "./assets/static/images/screen/universe/divergent_universe_main.png",
+        "actions": [
+            {
+                "target_screen": "main",
                 "actions_list": [
                     {
                         "action": "PressKey",

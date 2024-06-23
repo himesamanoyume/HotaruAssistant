@@ -86,6 +86,19 @@ class SendEmailState(BaseNotifyState):
 
                 content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][1] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][1]}/12</p></blockquote>"
 
+            content += f"<p><strong>最新一期末日幻影</strong></p><div class=post-txt-container-datetime>注意,脚本不支持末日幻影代打,仅提供信息提示</div><p>距离刷新:{dataClientMgr.notifyContent['末日幻影1倒计时']}</p>"
+
+            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][0] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][0]}/4</p></blockquote>"
+
+            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][0] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][0]}/12</p></blockquote>"
+
+            if not dataClientMgr.notifyContent['末日幻影2层数'] == -1:
+                content += f"<p><strong>上期末日幻影</strong></p><p>距离刷新:{dataClientMgr.notifyContent['末日幻影2倒计时']}</p>"
+
+                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][1] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][1]}/4</p></blockquote>"
+
+                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][1] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][1]}/12</p></blockquote>"
+
             content += f"<p><strong>预计满开拓力时间</strong></p><blockquote><p>{dataClientMgr.notifyContent['开拓力回满时间']}</p></blockquote>"
 
             tempContent = ''
@@ -124,16 +137,42 @@ class SendEmailState(BaseNotifyState):
                     {tempContent}
                 </div>
                 """
+
+            previewContent = f"剩余开拓力:{dataClientMgr.currentPower},当前活跃度:{configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataClientMgr.currentUid]}"
             
             if dataClientMgr.currentAction == "每日任务流程":
                 if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid]:
-                    notifyMgr.SendNotifySingle(title=f"UID:{dataClientMgr.currentUid},每日已完成", subTitle=f"上号详细/{dataClientMgr.currentAction}", content=content, configMgr=configMgr, dataMgr=dataClientMgr, uid=dataClientMgr.currentUid)
+                    notifyMgr.SendNotifySingle(
+                        title=f"每日已完成,UID:{dataClientMgr.currentUid}",
+                        subTitle=f"上号详细/{dataClientMgr.currentAction}", 
+                        content=content,
+                        configMgr=configMgr, 
+                        dataMgr=dataClientMgr, 
+                        uid=dataClientMgr.currentUid,
+                        previewContent=previewContent
+                        )
                     log.info(logMgr.Info("SMTP邮件通知发送完成"))
                 else:
-                    notifyMgr.SendNotifySingle(title=f"UID:{dataClientMgr.currentUid},每日未完成", subTitle=f"上号详细/{dataClientMgr.currentAction}", content=content, configMgr=configMgr, dataMgr=dataClientMgr, uid=dataClientMgr.currentUid)
+                    notifyMgr.SendNotifySingle(
+                        title=f"每日未完成,UID:{dataClientMgr.currentUid}", 
+                        subTitle=f"上号详细/{dataClientMgr.currentAction}", 
+                        content=content, 
+                        configMgr=configMgr, 
+                        dataMgr=dataClientMgr, 
+                        uid=dataClientMgr.currentUid,
+                        previewContent=previewContent
+                        )
                     log.info(logMgr.Info("SMTP邮件通知发送完成"))
             elif dataClientMgr.currentAction == "模拟宇宙流程":
-                notifyMgr.SendNotifySingle(title=f"UID:{dataClientMgr.currentUid},模拟宇宙已结束", subTitle=f"上号详细/{dataClientMgr.currentAction}", content=content, configMgr=configMgr, dataMgr=dataClientMgr, uid=dataClientMgr.currentUid)
+                notifyMgr.SendNotifySingle(
+                    title=f"模拟宇宙已结束,UID:{dataClientMgr.currentUid}", 
+                    subTitle=f"上号详细/{dataClientMgr.currentAction}", 
+                    content=content, 
+                    configMgr=configMgr, 
+                    dataMgr=dataClientMgr, 
+                    uid=dataClientMgr.currentUid,
+                    previewContent=previewContent
+                    )
                 log.info(logMgr.Info("SMTP邮件通知发送完成"))
             else:
                 log.error(logMgr.Error("异常的Action"))
