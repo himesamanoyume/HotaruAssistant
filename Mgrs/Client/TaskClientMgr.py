@@ -38,13 +38,13 @@ class TaskClientMgr(TaskBaseMgr):
         dataClientMgr.loopStartTimestamp = time.time()
         if stateClientMgr.Transition(ClientStartGameState()):
             stateClientMgr.Transition(ClientInitAccountState())
-            return True # 为True时才会进行每日任务流程或模拟宇宙流程
+            return True # 为True时才会进行每日任务流程或差分宇宙流程
         
     def ToolsStartGame(self):
         dataClientMgr.currentAction = "登录流程"
         if stateClientMgr.Transition(ClientStartGameState()):
             stateClientMgr.Transition(ToolsInitAccountState())
-            return True # 为True时才会进行每日任务流程或模拟宇宙流程
+            return True # 为True时才会进行每日任务流程或差分宇宙流程
             
     def QuitGame(self):
         stateClientMgr.Transition(QuitGameState())
@@ -72,7 +72,7 @@ class TaskClientMgr(TaskBaseMgr):
         # InitDailyTasksState返回True时将跳过每日任务流程
         if not stateClientMgr.Transition(InitDailyTasksState()):
             stateClientMgr.Transition(GetPowerInfoState())
-            # 获取模拟宇宙积分/沉浸器信息
+            # 获取差分宇宙积分/沉浸器信息
             stateClientMgr.Transition(GetUniverseRewardAndInfoState())
             if not stateClientMgr.Transition(DailyEchoOfWarState()):
                 # 如果有历战余响可打,打完后需要再获取一次体力信息
@@ -103,7 +103,7 @@ class TaskClientMgr(TaskBaseMgr):
         log.hr(logMgr.Hr(f"进入{dataClientMgr.currentAction}"))
         # 获取遗器,副本倒计时信息
         if not stateClientMgr.Transition(GetRelicsInfoState()):
-            # 如果遗器数量未超标,则进行获取模拟宇宙积分/沉浸器信息,开始模拟宇宙
+            # 如果遗器数量未超标,则进行获取差分宇宙积分/沉浸器信息,开始差分宇宙
             # 获取体力信息
             stateClientMgr.Transition(GetPowerInfoState())
             stateClientMgr.Transition(GetUniverseRewardAndInfoState())
@@ -112,7 +112,7 @@ class TaskClientMgr(TaskBaseMgr):
         stateClientMgr.Transition(GetRewardState())
         # 获取体力信息
         stateClientMgr.Transition(GetPowerInfoState())
-        # 获取模拟宇宙积分信息
+        # 获取差分宇宙积分信息
         stateClientMgr.Transition(GetUniverseRewardAndInfoState())
         # 获取遗器,副本倒计时信息,月卡倒计时信息
         stateClientMgr.Transition(GetRelicsInfoState())

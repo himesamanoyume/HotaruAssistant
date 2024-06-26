@@ -41,14 +41,14 @@ class BaseUniverseState(BaseClientState):
             if dataClientMgr.currentPower >= 40:
                 count = dataClientMgr.currentPower // 40
                 log.info(logMgr.Info(f"开拓力能换{count}个沉浸器"))
-                if screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/immersifiers.png", "image", 0.95, maxRetries=10):
+                if screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/immersifiers.png", "image", 0.95, maxRetries=3):
                     time.sleep(0.5)
                 
                     for i in range(count-1):
-                        screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/plus.png", "image", 0.9, maxRetries=10)
+                        screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/plus.png", "image", 0.9, maxRetries=3)
                         time.sleep(0.5)
 
-                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
                         time.sleep(1)
                         screenClientMgr.PressMouse()
 
@@ -149,22 +149,22 @@ class BaseUniverseState(BaseClientState):
         screenClientMgr.ChangeTo("universe_main")
         time.sleep(2)
         # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
-        if screenClientMgr.FindElement("./assets/static/images/screen/universe/universe_score.png", "image", 0.9, maxRetries=10):
+        if screenClientMgr.FindElement("./assets/static/images/screen/universe/universe_score.png", "image", 0.9, maxRetries=3):
             log.info(logMgr.Info("检测到模拟宇宙本周首次进入界面"))
             time.sleep(1)
             currentScore, maxScore = BaseUniverseState.GetUniverseScore()
-            screenClientMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=10)
+            screenClientMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=3)
 
-        elif screenClientMgr.ClickElement("./assets/static/images/universe/universe_reward.png", "image", 0.9, maxRetries=10):
+        elif screenClientMgr.ClickElement("./assets/static/images/universe/universe_reward.png", "image", 0.9, maxRetries=3):
             log.info(logMgr.Info("正在点开积分界面"))
             time.sleep(1)
             currentScore, maxScore = BaseUniverseState.GetUniverseScore()
-            if screenClientMgr.FindElement("./assets/static/images/universe/one_key_receive.png", "image", 0.9, maxRetries=10):
+            if screenClientMgr.FindElement("./assets/static/images/universe/one_key_receive.png", "image", 0.9, maxRetries=3):
                 time.sleep(0.5)
-                if screenClientMgr.FindElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=10):
+                if screenClientMgr.FindElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=3):
                     time.sleep(0.5)
                     log.info(logMgr.Info("🎉模拟宇宙积分奖励已领取🎉"))
-                    screenClientMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=10)
+                    screenClientMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9, maxRetries=3)
         
         return currentScore, maxScore
 
@@ -176,19 +176,19 @@ class BaseUniverseState(BaseClientState):
             if dataClientMgr.currentPower >= 40:
                 count = dataClientMgr.currentPower // 40
                 log.info(logMgr.Info(f"开拓力能换{count}个沉浸器"))
-                if screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/immersifiers.png", "image", 0.95, maxRetries=10):
+                if screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/immersifiers.png", "image", 0.95, maxRetries=3):
                     time.sleep(0.5)
                 
                     for i in range(count-1):
-                        screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/plus.png", "image", 0.9, maxRetries=10)
+                        screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/plus.png", "image", 0.9, maxRetries=3)
                         time.sleep(0.5)
 
-                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
                         time.sleep(1)
                         screenClientMgr.PressMouse()
 
         if not screenClientMgr.ClickElement("模拟宇宙", "text", crop=instanceTypeCrop):
-            if screenClientMgr.ClickElement("凝滞虚影", "text", maxRetries=10, crop=instanceTypeCrop):
+            if screenClientMgr.ClickElement("凝滞虚影", "text", maxRetries=3, crop=instanceTypeCrop):
                 screenClientMgr.MouseScroll(12, 1)
                 screenClientMgr.ClickElement("模拟宇宙", "text", crop=instanceTypeCrop)
 

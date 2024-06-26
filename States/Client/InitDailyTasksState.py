@@ -29,12 +29,12 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
             log.hr(logMgr.Hr("准备合成材料"), 2)
             screenClientMgr.ChangeTo('material')
             # 筛选规则
-            if screenClientMgr.ClickElement("./assets/static/images/synthesis/filter.png", "image", 0.9, maxRetries=10):
+            if screenClientMgr.ClickElement("./assets/static/images/synthesis/filter.png", "image", 0.9, maxRetries=3):
                 # 等待筛选界面弹出
                 time.sleep(1)
                 if screenClientMgr.ClickElement("通用培养材料", "text", maxRetries=3, crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
                     time.sleep(1)
-                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
                         time.sleep(1)
                         # 多次重试避免选中没反应
                         for i in range(3):
@@ -199,7 +199,7 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
 
         time.sleep(2)
         for i in range(20):
-            if screenClientMgr.FindElement("./assets/static/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=10, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
+            if screenClientMgr.FindElement("./assets/static/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=3, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
                 if screenClientMgr.ClickElement("./assets/static/images/himeko/himeko_skill.png", "image", 0.4, maxRetries=5, crop=(229.0 / 1920, 819.0 / 1080, 109.0 / 1920, 113.0 / 1080)):
                     log.info(logMgr.Info("姬子已开启终结技"))
                     break

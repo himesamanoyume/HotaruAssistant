@@ -200,24 +200,24 @@ class BaseRelicsState(BaseClientState):
                 log.info(logMgr.Info("检测到分解遗器未开启,跳过分解遗器"))
                 return
             screenClientMgr.ChangeTo('bag_relics')
-            if screenClientMgr.ClickElement("分解", "text", maxRetries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
-                if screenClientMgr.ClickElement("分解", "text", maxRetries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
+            if screenClientMgr.ClickElement("分解", "text", maxRetries=3, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
+                if screenClientMgr.ClickElement("分解", "text", maxRetries=3, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
                     time.sleep(1)
-                    if screenClientMgr.ClickElement("./assets/static/images/relics/fast_select.png", "image", 0.9, maxRetries=10):
+                    if screenClientMgr.ClickElement("./assets/static/images/relics/fast_select.png", "image", 0.9, maxRetries=3):
                         # 等待筛选界面弹出
                         time.sleep(1)
                         fastSelectCrop=(439.0 / 1920, 357.0 / 1080, 1018.0 / 1920, 448.0 / 1080)
-                        screenClientMgr.ClickElement("全选已弃置", "text", maxRetries=10, crop=fastSelectCrop)
+                        screenClientMgr.ClickElement("全选已弃置", "text", maxRetries=3, crop=fastSelectCrop)
                         time.sleep(0.5)
-                        screenClientMgr.ClickElement("3星及以下", "text", maxRetries=10, crop=fastSelectCrop)
+                        screenClientMgr.ClickElement("3星及以下", "text", maxRetries=3, crop=fastSelectCrop)
                         time.sleep(0.5)
                         if configMgr.mConfig[configMgr.mKey.RELICS_SALVAGE_4STAR_ENABLE][dataClientMgr.currentUid]:
-                            screenClientMgr.ClickElement("4星及以下", "text", maxRetries=10, crop=fastSelectCrop)
+                            screenClientMgr.ClickElement("4星及以下", "text", maxRetries=3, crop=fastSelectCrop)
                             time.sleep(0.5)
                         if configMgr.mConfig[configMgr.mKey.RELICS_SALVAGE_5STAR_ENABLE][dataClientMgr.currentUid]:
-                            screenClientMgr.ClickElement("5星及以下", "text", maxRetries=10, crop=fastSelectCrop)
+                            screenClientMgr.ClickElement("5星及以下", "text", maxRetries=3, crop=fastSelectCrop)
                             time.sleep(0.5)
-                        if screenClientMgr.ClickElement("确认", "text", maxRetries=10, crop=fastSelectCrop):
+                        if screenClientMgr.ClickElement("确认", "text", maxRetries=3, crop=fastSelectCrop):
                             time.sleep(3)
                             countText = screenClientMgr.GetSingleLineText((616.0 / 1920, 871.0 / 1080, 110.0 / 1920, 37.0 / 1080), [], 5)
                             count = countText.split('/')[0]
@@ -225,16 +225,16 @@ class BaseRelicsState(BaseClientState):
                             time.sleep(0.5)
                             if count != 0:
                                 if configMgr.mConfig[configMgr.mKey.RELICS_SALVAGE_5STAR_ENABLE][dataClientMgr.currentUid] and configMgr.mConfig[configMgr.mKey.RELICS_SALVAGE_5STAR_TO_EXP][dataClientMgr.currentUid]:
-                                    if screenClientMgr.ClickElement("./assets/static/images/relics/relics_exp.png", "image", 0.9, maxRetries=10):
+                                    if screenClientMgr.ClickElement("./assets/static/images/relics/relics_exp.png", "image", 0.9, maxRetries=3):
                                         log.info(logMgr.Info("已点击将5星遗器分解为遗器经验材料"))
                                 time.sleep(1)
-                                if screenClientMgr.ClickElement("./assets/static/images/relics/salvage.png", "image", maxRetries=10):
+                                if screenClientMgr.ClickElement("./assets/static/images/relics/salvage.png", "image", maxRetries=3):
                                     log.info(logMgr.Info(f"已点击分解遗器"))
                                     time.sleep(1)
-                                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
                                         log.info(logMgr.Info(f"已点击确认"))
                                         time.sleep(1)
-                                        if screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10):
+                                        if screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3):
                                             log.info(logMgr.Info(f"已点击关闭窗口"))
                                             time.sleep(1)
                                             log.info(logMgr.Info(f"分解遗器{count}件完成"))
@@ -286,23 +286,23 @@ class BaseRelicsState(BaseClientState):
                 log.info(logMgr.Info("检测到分解遗器未开启,跳过分解遗器"))
                 return True
             screenClientMgr.ChangeTo('bag_relics')
-            if screenClientMgr.ClickElement("分解", "text", maxRetries=10, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
+            if screenClientMgr.ClickElement("分解", "text", maxRetries=3, crop=(1156.0 / 1920, 959.0 / 1080, 199.0 / 1920, 59.0 / 1080)):
                 time.sleep(1)
-                if screenClientMgr.ClickElement("./assets/static/images/relics/fast_select.png", "image", 0.9, maxRetries=10):
+                if screenClientMgr.ClickElement("./assets/static/images/relics/fast_select.png", "image", 0.9, maxRetries=3):
                     # 等待筛选界面弹出
                     time.sleep(1)
                     fast_select_crop=(439.0 / 1920, 357.0 / 1080, 1018.0 / 1920, 448.0 / 1080)
-                    screenClientMgr.ClickElement("全选已弃置", "text", maxRetries=10, crop=fast_select_crop)
+                    screenClientMgr.ClickElement("全选已弃置", "text", maxRetries=3, crop=fast_select_crop)
                     time.sleep(0.5)
-                    screenClientMgr.ClickElement("3星及以下", "text", maxRetries=10, crop=fast_select_crop)
+                    screenClientMgr.ClickElement("3星及以下", "text", maxRetries=3, crop=fast_select_crop)
                     time.sleep(0.5)
                     if configMgr.mConfig[configMgr.mKey.RELICS_SALVAGE_4STAR_ENABLE][dataClientMgr.currentUid]:
-                        screenClientMgr.ClickElement("4星及以下", "text", maxRetries=10, crop=fast_select_crop)
+                        screenClientMgr.ClickElement("4星及以下", "text", maxRetries=3, crop=fast_select_crop)
                         time.sleep(0.5)
                     if configMgr.mConfig[configMgr.mKey.RELICS_SALVAGE_5STAR_ENABLE][dataClientMgr.currentUid]:
-                        screenClientMgr.ClickElement("5星及以下", "text", maxRetries=10, crop=fast_select_crop)
+                        screenClientMgr.ClickElement("5星及以下", "text", maxRetries=3, crop=fast_select_crop)
                         time.sleep(0.5)
-                    if screenClientMgr.ClickElement("确认", "text", maxRetries=10, crop=fast_select_crop):
+                    if screenClientMgr.ClickElement("确认", "text", maxRetries=3, crop=fast_select_crop):
                         time.sleep(3)
                         countText = screenClientMgr.GetSingleLineText((616.0 / 1920, 871.0 / 1080, 110.0 / 1920, 37.0 / 1080), [], 5)
                         count = countText.split('/')[0]
@@ -310,16 +310,16 @@ class BaseRelicsState(BaseClientState):
                         time.sleep(0.5)
                         if count != 0:
                             if configMgr.mConfig[configMgr.mKey.RELICS_SALVAGE_5STAR_ENABLE][dataClientMgr.currentUid] and configMgr.mConfig[configMgr.mKey.RELICS_SALVAGE_5STAR_TO_EXP][dataClientMgr.currentUid]:
-                                if screenClientMgr.ClickElement("./assets/static/images/relics/relics_exp.png", "image", 0.9, maxRetries=10):
+                                if screenClientMgr.ClickElement("./assets/static/images/relics/relics_exp.png", "image", 0.9, maxRetries=3):
                                     log.info(logMgr.Info("已点击将5星遗器分解为遗器经验材料"))
                             time.sleep(1)
-                            if screenClientMgr.ClickElement("./assets/static/images/relics/salvage.png", "image", maxRetries=10):
+                            if screenClientMgr.ClickElement("./assets/static/images/relics/salvage.png", "image", maxRetries=3):
                                 log.info(logMgr.Info(f"已点击分解遗器"))
                                 time.sleep(1)
-                                if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                                if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
                                     log.info(logMgr.Info(f"已点击确认"))
                                     time.sleep(1)
-                                    if screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10):
+                                    if screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3):
                                         log.info(logMgr.Info(f"已点击关闭窗口"))
                                         time.sleep(1)
                                         log.info(logMgr.Info(f"分解遗器{count}件完成"))

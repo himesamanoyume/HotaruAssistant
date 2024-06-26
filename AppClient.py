@@ -49,7 +49,7 @@ class AppClient:
             dataClientMgr.loginDict.update({f'{uidStr}' : f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}'})
             dataClientMgr.loginList.append(f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}')
 
-            tempText = f":活跃度:{configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][uidStr]},模拟宇宙积分:{configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uidStr]}"
+            tempText = f":活跃度:{configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][uidStr]},差分宇宙积分:{configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uidStr]}"
 
             last_run_uidText = "【最后运行的账号】" if configMgr.mConfig[configMgr.mKey.LAST_RUNNING_UID] == uidStr else '' 
             optionsReg.update({("<每日已完成>" + uidStr + tempText + last_run_uidText
@@ -59,7 +59,7 @@ class AppClient:
             
         log.hr(logMgr.Hr("注意:选择轮次后将持续循环该轮次下的配置,不会出现轮次变更,因此建议若有单独轮次的需求可关闭后重新打开助手再进行选择"))
 
-        optionsAction = {"全部轮次:每日任务轮次+模拟宇宙轮次【模拟宇宙暂时无法使用】": "all", "单独每日任务轮次": "daily", "单独模拟宇宙轮次【暂时无法使用】": "universe"}
+        optionsAction = {"全部轮次:每日任务轮次+差分宇宙轮次【差分宇宙暂时无法使用】": "all", "单独每日任务轮次": "daily", "单独差分宇宙轮次【暂时无法使用】": "universe"}
 
         actionSelectOption = questionary.select("请选择进行的轮次:\n", list(optionsAction.keys())).ask()
         selectedAction = optionsAction.get(actionSelectOption)
@@ -146,7 +146,7 @@ class AppClient:
                             elif selectedAction == 'universe':
                                 pass
                                 # if taskClientMgr.ClientStartGame():
-                                #     dataClientMgr.currentAction = "模拟宇宙流程"
+                                #     dataClientMgr.currentAction = "差分宇宙流程"
                                 #     taskClientMgr.StartUniverse()
                                     # taskClientMgr.SendNotify()
                                     # taskClientMgr.QuitGame()
@@ -159,10 +159,10 @@ class AppClient:
                                     taskClientMgr.QuitGame()
                             else:
                                 currentScore, maxScore = configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uidStr2].split('/')
-                                if int(currentScore) < int(maxScore) or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2][0] == '模拟宇宙':
+                                if int(currentScore) < int(maxScore) or configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][uidStr2][0] == '差分宇宙':
                                     pass
                                     # if taskClientMgr.ClientStartGame():
-                                    #     dataClientMgr.currentAction = "模拟宇宙流程"
+                                    #     dataClientMgr.currentAction = "差分宇宙流程"
                                     #     taskClientMgr.StartUniverse()
 
                                     # taskClientMgr.SendNotify()

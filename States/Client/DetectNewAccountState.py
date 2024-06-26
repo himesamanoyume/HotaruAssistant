@@ -20,19 +20,19 @@ class DetectNewAccountState(BaseClientState):
                     input("按下回车跳过该次注册")
                     return
                 if not len(item['universe_team']) == 4:
-                    log.error(logMgr.Error(f"{uid}:新的注册信息中模拟宇宙小队角色未填写满4人或超出4人"))
+                    log.error(logMgr.Error(f"{uid}:新的注册信息中差分宇宙小队角色未填写满4人或超出4人"))
                     input("按下回车跳过该次注册")
                     return
                 if not item['universe_fate'] in [0,1,2,3,4,5,6,7,8]:
-                    log.error(logMgr.Error(f"{uid}:新的注册信息中模拟宇宙命途不合法"))
+                    log.error(logMgr.Error(f"{uid}:新的注册信息中差分宇宙命途不合法"))
                     input("按下回车跳过该次注册")
                     return
                 if not item['universe_number'] in [3,4,5,6,7,8]:
-                    log.error(logMgr.Error(f"{uid}:新的注册信息中模拟宇宙选择的世界不合法"))
+                    log.error(logMgr.Error(f"{uid}:新的注册信息中差分宇宙选择的世界不合法"))
                     input("按下回车跳过该次注册")
                     return
                 if not item['universe_difficulty'] in [1,2,3,4,5]:
-                    log.error(logMgr.Error(f"{uid}:新的注册信息中模拟宇宙难度不合法"))
+                    log.error(logMgr.Error(f"{uid}:新的注册信息中差分宇宙难度不合法"))
                     input("按下回车跳过该次注册")
                     return
 
@@ -50,7 +50,6 @@ class DetectNewAccountState(BaseClientState):
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][uid] = item['universe_difficulty']
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FATE][uid] = item['universe_fate']
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][uid] = item['universe_team']
-                configMgr.mConfig[configMgr.mKey.UNIVERSE_BONUS_ENABLE][uid] = False
 
             del configMgr.mConfig[configMgr.mKey.WANT_REGISTER_ACCOUNTS][uid]
             log.info(logMgr.Info("新注册表激活完成"))

@@ -1156,6 +1156,12 @@
                         "args": [
                             2
                         ]
+                    },
+                    {
+                        "action": "PressKey",
+                        "args": [
+                            "f"
+                        ]
                     }
                 ]
             }

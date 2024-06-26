@@ -90,7 +90,7 @@ class UniverseClearState(BaseUniverseState):
 
         # 传送
         instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
-        screenClientMgr.ClickElement("./assets/static/images/screen/guide/power.png", "image", maxRetries=10)
+        screenClientMgr.ClickElement("./assets/static/images/screen/guide/power.png", "image", maxRetries=3)
         Flag = False
 
         worldNumber = dataClientMgr.meta["模拟宇宙"][f"{configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid]}"]["名称"]
@@ -133,43 +133,9 @@ class UniverseClearState(BaseUniverseState):
         # 用嵌套函数
         self.SelectUniverseDifficulty(d)
 
-        time.sleep(1)
+        time.sleep(1) 
 
-        if screenClientMgr.ClickElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9,maxRetries=5):
-            time.sleep(1)
-            self.ClearTeam(1)
-
-            charCount = 0
-            screenClientMgr.ClickElementWithPos(((70, 300),(70, 300)), action="move")
-            for character in configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][dataClientMgr.currentUid]:
-                time.sleep(0.5)
-                if charCount == 4:
-                    break
-                log.info(logMgr.Info(f"{character}"))
-                if not screenClientMgr.ClickElement(f"./assets/static/images/character/{character}.png","image", 0.85, maxRetries=10, takeScreenshot=True):
-                    time.sleep(0.5)
-                    screenClientMgr.MouseScroll(30, -1)
-                    if not screenClientMgr.ClickElement(f"./assets/static/images/character/{character}.png", "image", 0.85, maxRetries=10, takeScreenshot=True):
-                        time.sleep(0.5)
-                        screenClientMgr.MouseScroll(30, 1)
-                        continue
-                    else:
-                        log.info(logMgr.Info("该角色已选中"))
-                        screenClientMgr.MouseScroll(30, 1)
-                        charCount+=1
-                else:
-                    log.info(logMgr.Info("该角色已选中"))
-                    charCount += 1
-                time.sleep(0.5)
-            if charCount == 4:
-                return False
-            else:
-                log.error(logMgr.Error(f"{nowtime}模拟宇宙未能选中4位配置中的角色,请检查"))
-                raise Exception(f"{nowtime}模拟宇宙未能选中4位配置中的角色,请检查")
-        else:
-            nowtime = time.time()
-            log.error(logMgr.Error(f"{nowtime}模拟宇宙未找到下载角色按钮"))
-            raise Exception(f"{nowtime}模拟宇宙未找到下载角色按钮")
+        BaseClientState.DownloadChar(True)
         
     def SelectUniverseDifficulty(self, d):
         difficultyCrop=(85.0 / 1920, 108.0 / 1080, 94.0 / 1920, 836.0 / 1080)
@@ -187,7 +153,7 @@ class UniverseClearState(BaseUniverseState):
                     # screenMgr.ClickElement_with_pos(((135, 160+(d-1)*110),(135, 160+(d-1)*110)))
                     if screenClientMgr.ClickElement(f"./assets/static/images/universe/on_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
                         time.sleep(0.5)
-                        if screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=10):
+                        if screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=3):
                             time.sleep(0.5)
                             log.info(logMgr.Info(f"已选中难度{d}"))
                             return
@@ -205,7 +171,7 @@ class UniverseClearState(BaseUniverseState):
                     self.SelectUniverseDifficulty(d-1)
                     return
         else:
-            if not screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=10):
+            if not screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=3):
                 time.sleep(0.5)
                 log.warning(logMgr.Warning(f"已选中难度{d},但该难度未解锁,嵌套进入难度{d-1}"))
                 self.SelectUniverseDifficulty(d-1)
@@ -214,21 +180,3 @@ class UniverseClearState(BaseUniverseState):
                 log.info(logMgr.Info(f"已选中难度{d}"))
                 return
     
-    def ClearTeam(self, j):
-        if j == 10:
-            nowtime = time.time()
-            log.error(logMgr.Error(f"{nowtime},模拟宇宙清理队伍失败"))
-            raise Exception(f"{nowtime},模拟宇宙清理队伍失败")
-        
-        point = screenClientMgr.FindElement("下载角色", "text", 0.9, maxRetries=2)
-        downloadCharTopLeftX = point[0][0]
-        downloadCharTopLeftY = point[0][1]
-        for i in range(4):  
-            screenClientMgr.ClickElementWithPos(((downloadCharTopLeftX + 60 + i*105, downloadCharTopLeftY + 80), (downloadCharTopLeftX + 60 + i*105, downloadCharTopLeftY + 80)))
-            time.sleep(1)
-            
-        if screenClientMgr.FindElement("./assets/static/images/universe/all_clear_team.png", "image", 0.95, takeScreenshot=True):
-            log.info(logMgr.Info("队伍已清空"))
-            return
-        else:
-            self.ClearTeam(j+1)

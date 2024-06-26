@@ -337,12 +337,11 @@ class ScreenBaseMgr:
                         # sys.exit(1)
 
                 
-                self.log.info(self.logMgr.Info(f"切换到：{self.green + self.GetName(nextScreen) + self.reset}"))
+                self.log.info(self.logMgr.Info(f"已切换到：{self.green + self.GetName(nextScreen) + self.reset}"))
                 time.sleep(0.5)
             self.currentScreen = targetScreen  # 更新当前界面
             return
 
-        self.log.debug(self.logMgr.Debug(f"无法从 {self.GetName(self.currentScreen)} 切换到 {self.GetName(targetScreen)}"))
         nowtime = time.time()
         self.log.error(self.logMgr.Error(f"{nowtime},无法从 {self.GetName(self.currentScreen)} 切换到 {self.GetName(targetScreen)}"))
         raise Exception (f"{nowtime},无法从 {self.GetName(self.currentScreen)} 切换到 {self.GetName(targetScreen)}")

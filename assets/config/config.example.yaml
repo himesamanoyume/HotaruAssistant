@@ -22,6 +22,11 @@ want_register_accounts: # 启动游戏前先进行注册,111111111为示例,不�
     - Blade
     - JingLiu
     - JingYuan
+    ornament_extraction_team:
+    - Bronya
+    - Blade
+    - JingLiu
+    - JingYuan
     universe_fate: 4
     universe_number: 3
     universe_difficulty: 1
@@ -36,7 +41,7 @@ game_title_name: 崩坏：星穹铁道 # 窗口标题
 game_process_name: StarRail # 进程名
 game_path: D:\Star Rail\Game\StarRail.exe # 游戏路径,注意不是启动器的exe
 
-instance_type: {} # 副本类型: 侵蚀隧洞、凝滞虚影、拟造花萼（金）、拟造花萼（赤）、模拟宇宙
+instance_type: {} # 副本类型: 侵蚀隧洞、凝滞虚影、拟造花萼（金）、拟造花萼（赤）、差分宇宙、饰品提取
 instance_names: {} # 副本名称
 
 power_needs: # 副本所需开拓力
@@ -45,6 +50,7 @@ power_needs: # 副本所需开拓力
   凝滞虚影: 30
   侵蚀隧洞: 40
   历战余响: 30
+  饰品提取: 40
 instance_team_enable: {} # 打副本时自动切换队伍
 instance_team_number: {} # 队伍编号
 use_reserved_trailblaze_power: {} # 使用后备开拓力
@@ -81,17 +87,19 @@ last_run_timestamp: {} # 上次运行日常的时间戳
 
 universe_bonus_enable: {} # 是否领取沉浸奖励
 universe_speed_enable: {} # 是否开启速通模式
-universe_fin: {} # 是否模拟宇宙满分
-universe_score: {} # 模拟宇宙积分
+universe_fin: {} # 是否差分宇宙满分
+universe_score: {} # 差分宇宙积分
 universe_count: 2 # 运行次数,基本弃用
 universe_path: .\3rdparty\Auto_Simulated_Universe # 模拟宇宙路径
 universe_timeout: 0.67 # 模拟宇宙超时（单位小时）
 universe_requirements: false # 是否安装过依赖（更新后会重置为false）
 universe_timestamp: {} # 上次运行模拟宇宙的时间戳（每周运行）
-universe_number: {} # 第几宇宙
+universe_number: {} # 第几差分宇宙
 universe_difficulty: {} # 什么难度
-universe_fate: {} # 什么命途 0存护1记忆2虚无3丰饶4巡猎5毁灭6欢愉7繁育8智识
-universe_team: {} # 阵容
+ornament_extraction_difficulty: {} # 什么难度
+universe_fate: {} # 什么差分宇宙命途 0存护1记忆2虚无3丰饶4巡猎5毁灭6欢愉7繁育8智识
+universe_team: {} # 差分宇宙阵容
+ornament_extraction_team: {} # 饰品提取阵容
 
 forgottenhall_stars: {} # 忘却之庭星数
 forgottenhall_levels: {} # 忘却之庭通过层数

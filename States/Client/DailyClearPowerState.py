@@ -6,7 +6,7 @@ class DailyClearPowerState(BaseFightState, BaseClientState):
     mStateName = 'DailyClearPowerState'
 
     def OnBegin(self):
-        if configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0] == '模拟宇宙':
+        if configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0] == '差分宇宙':
             return True
         else:
             instanceName = configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid][configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]]
@@ -37,6 +37,9 @@ class DailyClearPowerState(BaseFightState, BaseClientState):
         powerNeed = configMgr.mConfig[configMgr.mKey.POWER_NEEDS][configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]]
 
         totalNumber = dataClientMgr.currentPower // powerNeed
+        if instanceType in ['饰品提取']:
+            totalNumber = totalNumber + dataClientMgr.currentImmersifiers
+            
         if totalNumber < 1:
             log.info(logMgr.Info(f"🟣开拓力 < {powerNeed}"))
             return True

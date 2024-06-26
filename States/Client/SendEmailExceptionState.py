@@ -33,9 +33,9 @@ class SendEmailExceptionState(BaseNotifyState):
                         uid=dataClientMgr.currentUid
                         )
                     log.info(logMgr.Info("SMTP邮件通知发送完成"))
-            elif dataClientMgr.currentAction == "模拟宇宙流程":
+            elif dataClientMgr.currentAction == "差分宇宙流程":
                 notifyMgr.SendNotifySingle(
-                    title=f"模拟宇宙异常,UID:{dataClientMgr.currentUid}", 
+                    title=f"差分宇宙异常,UID:{dataClientMgr.currentUid}", 
                     subTitle=f"异常状态/{dataClientMgr.currentAction}", 
                     content=content, 
                     configMgr=configMgr, 

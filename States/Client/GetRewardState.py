@@ -79,11 +79,11 @@ class GetRewardState(object):
         while screenClientMgr.ClickElementQuest("./assets/static/images/quest/receive.png", "image", 0.9, crop=(284.0 / 1920, 785.0 / 1080, 274.0 / 1920, 93.0 / 1080)):
             time.sleep(1)
         # 领取奖励
-        if screenClientMgr.ClickElement("./assets/static/images/quest/gift.png", "image", 0.9, maxRetries=10, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):
+        if screenClientMgr.ClickElement("./assets/static/images/quest/gift.png", "image", 0.9, maxRetries=3, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):
             time.sleep(1)
-            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
+            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3)
         time.sleep(1)
-        screenClientMgr.FindElement("./assets/static/images/screen/guide/guide2.png", "image", 0.9, maxRetries=10)
+        screenClientMgr.FindElement("./assets/static/images/screen/guide/guide2.png", "image", 0.9, maxRetries=3)
         # 判断完成
         BaseClientState.CalcDailyTasksScore()
         screenClientMgr.TakeDailyScreenshot()
@@ -104,7 +104,7 @@ class GetRewardState(object):
         screenClientMgr.ChangeTo('mail')
         if screenClientMgr.ClickElement("./assets/static/images/mail/receive_all.png", "image", 0.9):
             log.info(logMgr.Info("邮件奖励已领取"))
-            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
+            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3)
             return True
         else:
             log.info(logMgr.Info("邮件奖励w未领取"))
@@ -133,8 +133,8 @@ class GetRewardState(object):
         # if not GetRewardState.PerformDispatchAndCheck(crop=(660 / 1920, 280 / 1080, 170 / 1920, 600 / 1080)):
         #     return
 
-        screenClientMgr.ClickElement("./assets/static/images/dispatch/all_receive.png", "image", 0.9, maxRetries=10)
-        screenClientMgr.ClickElement("./assets/static/images/dispatch/again.png", "image", 0.9, maxRetries=10)
+        screenClientMgr.ClickElement("./assets/static/images/dispatch/all_receive.png", "image", 0.9, maxRetries=3)
+        screenClientMgr.ClickElement("./assets/static/images/dispatch/again.png", "image", 0.9, maxRetries=3)
         time.sleep(4)
         return True
             
@@ -183,6 +183,6 @@ class GetRewardState(object):
         time.sleep(1)
         if screenClientMgr.ClickElement("./assets/static/images/pass/one_key_receive.png", "image", 0.8):
             time.sleep(1)
-            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
+            screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3)
             time.sleep(1)
         

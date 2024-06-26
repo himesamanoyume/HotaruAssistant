@@ -104,6 +104,12 @@ class Notify:
         cavernText = ''
         cavernText = dataMgr.meta['侵蚀隧洞'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['侵蚀隧洞']][0]
 
+        ornamentRelicText = ''
+        for key in dataMgr.meta['饰品提取'].keys():
+            if dataMgr.meta['饰品提取'][key]['名称'] == configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['饰品提取']:
+                ornamentRelicText = dataMgr.meta['饰品提取'][key]['遗器']
+                break
+
         echoofwarText = ''
         echoofwarText = dataMgr.meta['历战余响'][configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['历战余响']]
 
@@ -114,6 +120,8 @@ class Notify:
         detailContent += f"<p>凝滞虚影:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{shadowText}<rt class='ttt' style='background-color: unset;' data-rt='{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['凝滞虚影']}'></rt></ruby></span></p>"
 
         detailContent += f"<p>侵蚀隧洞:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{cavernText}<rt class='ttt' style='background-color: unset;' data-rt='{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['侵蚀隧洞']}'></rt></ruby></span></p>"
+
+        detailContent += f"<p>饰品提取:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{ornamentRelicText}<rt class='ttt' style='background-color: unset;' data-rt='{configMgr.mConfig[ConfigKey.INSTANCE_NAMES][uid]['饰品提取']}'></rt></ruby></span></p>"
 
         detailContent += f"<p>是否清空3次历战余响:<span class=important style=background-color:#40405f;color:#66ccff>{'是' if configMgr.mConfig[ConfigKey.ECHO_OF_WAR_ENABLE][uid] else '否'}</span></p>"
 
@@ -129,15 +137,15 @@ class Notify:
 
         detailContent += f"<p>当遗器数量达到何值时触发遗器分解:<span class=important style=background-color:#40405f;color:#66ccff>{configMgr.mConfig[ConfigKey.RELICS_THRESHOLD_COUNT][uid]}</span></p>"
 
-        if configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid] in [3,4,5,6,7,8]:
-            worldNumber = dataMgr.meta['模拟宇宙'][str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid])]['名称']
-            worldRelics = dataMgr.meta['模拟宇宙'][str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid])]['遗器']
+        if str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid]) in dataMgr.meta["饰品提取"].keys():
+            worldNumber = dataMgr.meta['饰品提取'][str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid])]['名称']
+            worldRelics = dataMgr.meta['饰品提取'][str(configMgr.mConfig[ConfigKey.UNIVERSE_NUMBER][uid])]['遗器']
         else:
             worldNumber = '世界选择有误'
             worldRelics = ''
 
         universeContent = ''
-        universeContent += f"<p>模拟宇宙:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{worldRelics}<rt class='ttt' style='background-color: unset;' data-rt='{worldNumber}'></rt></ruby></span></p>"
+        universeContent += f"<p>差分宇宙:<span class=important style=background-color:#40405f;color:#66ccff><ruby>{worldRelics}<rt class='ttt' style='background-color: unset;' data-rt='{worldNumber}'></rt></ruby></span></p>"
 
         return detailContent, universeContent
 

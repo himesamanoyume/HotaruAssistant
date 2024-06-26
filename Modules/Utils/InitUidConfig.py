@@ -20,10 +20,11 @@ class InitUidConfig:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_NUMBER, uid, 3)
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_DIFFICULTY, uid, 1)
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.ORNAMENT_EXTRACTION_DIFFICULTY, uid, 1)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FATE, uid, 4)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_TEAM, uid, {})
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.ORNAMENT_EXTRACTION_TEAM, uid, {})
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SCORE, uid, '0/1')
-            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_BONUS_ENABLE, uid, False)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SPEED_ENABLE, uid, False)
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.BORROW_CHARACTER_ENABLE, uid, False)
@@ -55,6 +56,14 @@ class InitUidConfig:
                 configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['凝滞虚影'] = 0
                 configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['侵蚀隧洞'] = 0
                 configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['历战余响'] = 0
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['饰品提取'] = 0
+            # 如果instance_team_number里没有饰品提取,则添加
+            elif not '饰品提取' in configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]:
+                configMgr.mConfig[configMgr.mKey.INSTANCE_TEAM_NUMBER][uid]['饰品提取'] = 0
+            
+            # 如果power_needs里没有饰品提取,则添加
+            if not '饰品提取' in configMgr.mConfig[configMgr.mKey.POWER_NEEDS]:
+                configMgr.mConfig[configMgr.mKey.POWER_NEEDS]['饰品提取'] = 40
             
             if configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES] == {} or uid not in configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES].keys():
                 configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid] = {}
@@ -63,6 +72,9 @@ class InitUidConfig:
                 configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['凝滞虚影'] = '空海之形'
                 configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['侵蚀隧洞'] = '睿治之径'
                 configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['历战余响'] = '毁灭的开端'
+                configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['饰品提取'] = '坚城不倒'
+            elif not '饰品提取' in configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]:
+                configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][uid]['饰品提取'] = '坚城不倒'
 
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_SCORE, uid, 0)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_FIN, uid, False)

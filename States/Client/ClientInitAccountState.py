@@ -79,7 +79,7 @@ class ClientInitAccountState(BaseClientState):
             if screenClientMgr.FindElement(receive_path, "image", 0.9) or screenClientMgr.FindElement(receive_fin_path, "image", 0.9):
                 log.hr(logMgr.Hr(f"检测到{targetText}奖励"), 2)
                 while screenClientMgr.ClickElement(receive_path, "image", 0.9) or screenClientMgr.ClickElement(receive_fin_path, "image", 0.9):
-                    screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=10)
+                    screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3)
                     time.sleep(1)
                 log.info(logMgr.Info(f"领取{targetText}奖励完成"))
             else:

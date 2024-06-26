@@ -19,23 +19,10 @@ class SendEmailState(BaseNotifyState):
 
             content += f"<p><strong>开拓力去向:</strong>"
 
-            if dataClientMgr.notifyContent['副本情况']['历战余响'] > 0:
-                content += f"<p>历战余响:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid]['历战余响']} - {dataClientMgr.notifyContent['副本情况']['历战余响']}次</p>"
+            for key, value in dataClientMgr.notifyContent['副本情况'].items():
+                if dataClientMgr.notifyContent['副本情况'][key] > 0:
+                    content += f"<p>{key}:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid][key]} - {value}次</p>"
 
-            if dataClientMgr.notifyContent['副本情况']['拟造花萼（赤）'] > 0:
-                content += f"<p>拟造花萼（赤）:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid]['拟造花萼（赤）']} - {dataClientMgr.notifyContent['副本情况']['拟造花萼（赤）']}次</p>"
-
-            if dataClientMgr.notifyContent['副本情况']['拟造花萼（金）'] > 0:
-                content += f"<p>拟造花萼（金）:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid]['拟造花萼（金）']} - {dataClientMgr.notifyContent['副本情况']['拟造花萼（金）']}次</p>"
-
-            if dataClientMgr.notifyContent['副本情况']['凝滞虚影'] > 0:
-                content += f"<p>凝滞虚影:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid]['凝滞虚影']} - {dataClientMgr.notifyContent['副本情况']['凝滞虚影']}次</p>"
-
-            if dataClientMgr.notifyContent['副本情况']['侵蚀隧洞'] > 0:
-                content += f"<p>侵蚀隧洞:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid]['侵蚀隧洞']} - {dataClientMgr.notifyContent['副本情况']['侵蚀隧洞']}次</p>"
-
-            if dataClientMgr.notifyContent['副本情况']['模拟宇宙'] > 0:
-                content += f"<p>模拟宇宙:{dataClientMgr.meta['模拟宇宙'][str(configMgr.mConfig[configMgr.mKey.UNIVERSE_NUMBER][dataClientMgr.currentUid])]['名称']} - {dataClientMgr.notifyContent['副本情况']['模拟宇宙']}次</p>"
 
             content += f"<p>下线时开拓力:<span class=important style=background-color:#40405f;color:#66ccff>{dataClientMgr.currentPower}</span></p></p>"
 
@@ -52,7 +39,7 @@ class SendEmailState(BaseNotifyState):
 
             content += f"<p><strong>当前活跃度</strong></p>"+(f"<blockquote>" if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid] else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataClientMgr.currentUid]}/500</p></blockquote>"
 
-            content += f"<p><strong>当前模拟宇宙积分</strong></p>"+(f"<blockquote>" if configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataClientMgr.currentUid] else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][dataClientMgr.currentUid]}</p></blockquote>"
+            content += f"<p><strong>当前差分宇宙积分</strong></p>"+(f"<blockquote>" if configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][dataClientMgr.currentUid] else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>{configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][dataClientMgr.currentUid]}</p></blockquote>"
 
             content += f"<p>当前沉浸器数量:{dataClientMgr.currentImmersifiers}</p>"
 
@@ -163,9 +150,9 @@ class SendEmailState(BaseNotifyState):
                         previewContent=previewContent
                         )
                     log.info(logMgr.Info("SMTP邮件通知发送完成"))
-            elif dataClientMgr.currentAction == "模拟宇宙流程":
+            elif dataClientMgr.currentAction == "差分宇宙流程":
                 notifyMgr.SendNotifySingle(
-                    title=f"模拟宇宙已结束,UID:{dataClientMgr.currentUid}", 
+                    title=f"差分宇宙已结束,UID:{dataClientMgr.currentUid}", 
                     subTitle=f"上号详细/{dataClientMgr.currentAction}", 
                     content=content, 
                     configMgr=configMgr, 

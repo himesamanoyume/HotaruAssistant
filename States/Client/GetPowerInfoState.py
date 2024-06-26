@@ -13,7 +13,7 @@ class GetPowerInfoState(BaseClientState):
             # 打开开拓力补充界面
             if screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/trailblaze_power.png", "image", 0.9, crop=trailblazePowerCrop):
                 # 等待界面加载
-                if screenClientMgr.FindElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                if screenClientMgr.FindElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
                     # 开启使用后备开拓力
                     if configMgr.mConfig[configMgr.mKey.USE_RESERVED_TRAILBLAZE_POWER][dataClientMgr.currentUid] and screenClientMgr.ClickElement("./assets/static/images/share/trailblaze_power/reserved_trailblaze_power.png", "image", 0.9, scaleRange=(0.95, 0.95)):
                         self.MoveButtonAndConfirm()
@@ -49,8 +49,8 @@ class GetPowerInfoState(BaseClientState):
     
     @staticmethod
     def MoveButtonAndConfirm():
-        if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
-            result = screenClientMgr.FindElement("./assets/static/images/share/trailblaze_power/button.png", "image", 0.9, maxRetries=10)
+        if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
+            result = screenClientMgr.FindElement("./assets/static/images/share/trailblaze_power/button.png", "image", 0.9, maxRetries=3)
             if result:
                 screenClientMgr.ClickElementWithPos(result, action="down")
                 time.sleep(0.5)
@@ -59,7 +59,7 @@ class GetPowerInfoState(BaseClientState):
                     screenClientMgr.ClickElementWithPos(result, action="move")
                     time.sleep(0.5)
                     screenClientMgr.MouseUp()
-                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=10):
+                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
                         time.sleep(1)
                         screenClientMgr.PressKey("esc")
                         if screenClientMgr.CheckScreen("map"):
