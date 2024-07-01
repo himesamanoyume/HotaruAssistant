@@ -8,8 +8,9 @@ class DetectDevScreenSubModule:
 
     def __init__(self):
         self.isDevScreenRunning = False
+        self.rectangles = []
 
-    def ShowDetectArea(self, detectArea):
+    def ShowDetectArea(self, detectArea, duration = 3):
         temp0 = detectArea[0] * 1920
         temp1 = detectArea[1] * 1080
         temp2 = detectArea[2] * 1920
@@ -21,11 +22,18 @@ class DetectDevScreenSubModule:
             upBorder = GameWindow.GetWindowDevBorder(window)
             
             log.debug(logMgr.Debug(f"正在显示检测区域: ({temp0}, {temp1}, {temp2}, {temp3})"))
-            self.canvas.create_rectangle(
+            rectangleId = self.canvas.create_rectangle(
                 detectArea[2] - 3, detectArea[3] + upBorder - 3, detectArea[2] + detectArea[0] + 3, detectArea[3] + detectArea[1] + upBorder + 3, outline="red", width=3
             )
+            self.rectangles.append(rectangleId)
+            self.tk.after((duration + 3) * 1000, self.ClearRectangles)
         else:
             self.isDevScreenRunning = False
+
+    def ClearRectangles(self):
+        if self.rectangles:
+            rectangleId = self.rectangles.pop(0)
+            self.canvas.delete(rectangleId)
         
     def InitDevScreenLoop(self, window):
         if not window is None:

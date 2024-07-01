@@ -1,5 +1,6 @@
 
 class ConfigKey:
+    RELICS_FILTER = 'relics_filter'
     APOCALYPTICSHADOW_STARS = 'apocalypticshadow_stars'
     APOCALYPTICSHADOW_LEVELS = 'apocalypticshadow_levels'
     WAIT_FIGHT_TIMEOUT_TIME = 'wait_fight_timeout_time'
@@ -21,6 +22,8 @@ class ConfigKey:
     SHADOW = '凝滞虚影'
     CORRISION = '侵蚀隧洞'
     ECHO_OF_WAR = '历战余响'
+    ORNAMENT_EXTRACTION = '饰品提取'
+    DIVERGENT_UNIVERSE = '差分宇宙'
     CHECK_UPDATE = 'check_update'
     AGREED_TO_DISCLAIMER = 'agreed_to_disclaimer'
     LAST_RUNNING_UID = 'last_running_uid'

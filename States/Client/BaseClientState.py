@@ -191,6 +191,7 @@ class BaseClientState(BaseState):
     def ThrowException(content):
         nowtime = time.time()
         log.error(logMgr.Error(f"{nowtime},{content}"))
+        screenClientMgr.TakeSpecialScreenshot(isException = True)
         raise Exception(f"{nowtime},{content}")
     
     @staticmethod

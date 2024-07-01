@@ -19,18 +19,18 @@ class ScreenBaseMgr:
         self.reset = "\033[0m"
 
     def TakeScreenshot(self, crop=(0, 0, 0, 0)):
-        t = threading.Thread(target=self.ShowMultiDetectArea, args=(crop,))
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop,))
         t.start()
         return self.mDetect.TakeScreenshot(crop)
     
-    def TakeDailyScreenshot(self, crop=(0, 0, 0, 0)):
-        t = threading.Thread(target=self.ShowMultiDetectArea, args=(crop,))
+    def TakeSpecialScreenshot(self, crop=(0, 0, 0, 0), isException = False):
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop,))
         t.start()
-        return self.mDetect.TakeDailyScreenshot(crop)
+        return self.mDetect.TakeSpecialScreenshot(crop, isException)
 
     def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
         """ 这种老是忘记return结果 """
-        t = threading.Thread(target=self.ShowMultiDetectArea, args=(crop, maxRetries,))
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
         t.start()
         return self.mDetect.GetSingleLineText(crop, blacklist, maxRetries)
 
@@ -46,9 +46,9 @@ class ScreenBaseMgr:
         t.start()
         return self.mDetect.ClickElementQuest(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, offset)
 
-    def FindElementWithShowMultiArea(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
+    def FindElementWithShowArea(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
         """ 这种老是忘记return结果 """
-        t = threading.Thread(target=self.ShowMultiDetectArea, args=(crop, maxRetries,))
+        t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
         t.start()
         return self.mDetect.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, pixelBgr)
     
@@ -89,34 +89,13 @@ class ScreenBaseMgr:
     def StartDevScreen(self):
         self.mScreen.StartDevScreen()
 
-    def ShowDetectArea(self, detectArea, maxRetries=1):
+    def ShowDetectArea(self, detectArea, duration = 3):
         if self.mDevScreen.isDevScreenRunning:
             try:
                 if detectArea == (0,0,0,0):
                     return
                 
-                if not self.mDevScreen.tk is None:
-                    self.mDevScreen.canvas.delete('all')
-
-                self.mDevScreen.ShowDetectArea(detectArea)
-                time.sleep(maxRetries+3)
-
-                if not self.mDevScreen.tk is None:
-                    self.mDevScreen.canvas.delete('all')
-            except Exception as e:
-                self.log.error(self.logMgr.Error(f"canvas删除元素失败,:{e}"))
-
-    def ShowMultiDetectArea(self, detectArea, maxRetries=1):
-        if self.mDevScreen.isDevScreenRunning:
-            try:
-                if detectArea == (0,0,0,0):
-                    return
-                
-                self.mDevScreen.ShowDetectArea(detectArea)
-                time.sleep(maxRetries+3)
-                
-                if not self.mDevScreen.tk is None:
-                    self.mDevScreen.canvas.delete('all')
+                self.mDevScreen.ShowDetectArea(detectArea, duration)
             except Exception as e:
                 self.log.error(self.logMgr.Error(f"canvas删除元素失败:{e}"))
 

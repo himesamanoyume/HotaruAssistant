@@ -8,7 +8,7 @@ from Hotaru.Client.ConfigClientHotaru import configMgr
 from Hotaru.Client.TaskClientHotaru import taskClientMgr
 from Hotaru.Client.DataClientHotaru import dataClientMgr
 from Hotaru.Client.SocketClientHotaru import socketClientMgr
-
+from Modules.Utils.Date import Date
 
 class AppClient:
     def Main(self):
@@ -59,7 +59,7 @@ class AppClient:
             
         log.hr(logMgr.Hr("注意:选择轮次后将持续循环该轮次下的配置,不会出现轮次变更,因此建议若有单独轮次的需求可关闭后重新打开助手再进行选择"))
 
-        optionsAction = {"全部轮次:每日任务轮次+差分宇宙轮次【差分宇宙暂时无法使用】": "all", "单独每日任务轮次": "daily", "单独差分宇宙轮次【暂时无法使用】": "universe"}
+        optionsAction = {"全部轮次:每日任务轮次+差分宇宙轮次【差分宇宙或模拟宇宙暂时停用】": "all", "单独每日任务轮次": "daily", "单独差分宇宙轮次【差分宇宙或模拟宇宙暂时停用】": "universe"}
 
         actionSelectOption = questionary.select("请选择进行的轮次:\n", list(optionsAction.keys())).ask()
         selectedAction = optionsAction.get(actionSelectOption)
@@ -67,7 +67,10 @@ class AppClient:
         regSelectOption = questionary.select("请选择UID进行作为首位启动游戏:\n", list(optionsReg.keys())).ask()
         selectedReg = optionsReg.get(regSelectOption)
 
-        optionsSleep = {"直接开始运行": False, f"先等待{configMgr.mConfig[configMgr.mKey.NEXT_LOOP_TIME]}小时再运行": True}
+        waitTime = Date.GetWaitTimeWithTotalTime(configMgr)
+        futureTime = Date.CalculateFutureTime(waitTime)
+
+        optionsSleep = {"直接开始运行": False, f"预计等待至{futureTime}再运行": True}
 
         sleepSelectOption = questionary.select("请选择直接开始还是先进行等待:\n", list(optionsSleep.keys())).ask()
         selectedSleep = optionsSleep.get(sleepSelectOption)
@@ -219,19 +222,27 @@ class AppTools:
         input("按回车进行下一步")
         title_ = "若已经关闭游戏,用方向键然后回车键选择你要做的:"
         options_reg = dict()
-        options_reg.update({"0:选择获取新的注册表":0})
-        options_reg.update({"1:选择重新导入完整注册表(导入注册表后需要重启游戏才会生效)":1})
-        options_reg.update({"2:进行截图":2})
-        option_ = questionary.select(title_, list(options_reg.keys())).ask()
-        value = options_reg.get(option_)
-        if value == 0:
-            AppTools.RegistryExport()
-        elif value == 1:
-            AppTools.RestoreRegistry()
-        elif value == 2:
-            AppTools.TakeScreenshotFirst()
+        options_reg.update({"0:空值,不会进行任何操作":0})
+        options_reg.update({"1:选择获取新的注册表":1})
+        options_reg.update({"2:选择重新导入完整注册表(导入注册表后需要重启游戏才会生效)":2})
+        options_reg.update({"3:进行截图":3})
+
+        while True:
+            option_ = questionary.select(title_, list(options_reg.keys())).ask()
+            value = options_reg.get(option_)
+            if value == 0:
+                pass
+            elif value == 1:
+                AppTools.RegistryExport()
+                break
+            elif value == 2:
+                AppTools.RestoreRegistry()
+                break
+            elif value == 3:
+                AppTools.TakeScreenshotFirst()
+                break
         
-        input("按回车键关闭窗口. . .")
+        input("请自行关闭窗口. . .")
         sys.exit(0)
     
     def TakeScreenshotFirst():

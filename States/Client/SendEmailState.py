@@ -94,7 +94,7 @@ class SendEmailState(BaseNotifyState):
                 for relicsItem in dataClientMgr.notifyContent['遗器胚子']:
                     
                     tempList = ''
-                    for relicsSubProp in relicsItem['遗器副词条']:
+                    for relicsSubProp in relicsItem['遗器副属性']:
                         tempList += f"<p>{relicsSubProp}</p>"
 
                     tempContent += f"""
@@ -107,7 +107,7 @@ class SendEmailState(BaseNotifyState):
                         <div class='relicsPropContainer'>
                             <p>
                                 <span class=important style=color:#d97d22;background-color:#40405f;font-size:14px>
-                                <strong>{relicsItem['遗器主词条']}</strong>
+                                <strong>{relicsItem['遗器主属性']}</strong>
                                 </span>
                             </p>
                             {tempList}

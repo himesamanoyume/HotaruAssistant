@@ -107,12 +107,12 @@ class ClientInitAccountState(BaseClientState):
         result = ocrClientMgr.mOcr.RecognizeMultiLines(screenClientMgr.mDetect.screenshot)
         for box in result:
             text = box[1][0]
-            for keyword, task_name in dataClientMgr.meta["task_mappings"].items():
+            for keyword, taskName in dataClientMgr.meta["task_mappings"].items():
                 if keyword in text:
-                    if task_name in dataClientMgr.tempDailyTasksList[dataClientMgr.currentUid] and dataClientMgr.tempDailyTasksList[dataClientMgr.currentUid][task_name] == False:
+                    if taskName in dataClientMgr.tempDailyTasksList[dataClientMgr.currentUid] and dataClientMgr.tempDailyTasksList[dataClientMgr.currentUid][taskName] == False:
                         continue
                     else:
-                        dataClientMgr.tempDailyTasksList[dataClientMgr.currentUid][task_name] = True
+                        dataClientMgr.tempDailyTasksList[dataClientMgr.currentUid][taskName] = True
                     break
     
     

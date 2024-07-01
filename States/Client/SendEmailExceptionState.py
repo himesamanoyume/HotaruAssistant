@@ -1,6 +1,7 @@
 from States.Client import *
 from .BaseNotifyState import BaseNotifyState
 from Hotaru.Client.NotifyHotaru import notifyMgr
+import os
 
 class SendEmailExceptionState(BaseNotifyState):
 
@@ -9,8 +10,13 @@ class SendEmailExceptionState(BaseNotifyState):
     def OnBegin(self):
         if configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_ENABLE]:
             self.SetNotifyContent()
+
+            if os.path.exists(f'./screenshots/{dataClientMgr.currentUid}/excepetion.png'):
+                img = f"<img loading='lazy' src='cid:exceptionImg'>"
+            else:
+                img = f"<p>未检测到异常状态截图</p>"
             
-            content = f"<span class=important style=background-color:#40405f;color:#66ccff>{dataClientMgr.tempText}</span>"
+            content = f"<span class=important style=background-color:#40405f;color:#66ccff>{dataClientMgr.tempText}</span>{img}"
             
             if dataClientMgr.currentAction == "每日任务流程":
                 if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid]:

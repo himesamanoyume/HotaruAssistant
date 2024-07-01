@@ -28,12 +28,18 @@ class DetectScreenModule:
             self.screenshot, self.screenshotPos = result
         return result
     
-    def TakeDailyScreenshot(self, crop=(0,0,0,0)):
+    def TakeSpecialScreenshot(self, crop=(0,0,0,0), isException = False):
         result = GameWindow.TakeScreenshot(crop)
         if result:
             if not os.path.exists(f"screenshots/{dataClientMgr.currentUid}"):
                 os.makedirs(f"screenshots/{dataClientMgr.currentUid}")
-            screenshotPath = f"{os.path.abspath('screenshots')}/{dataClientMgr.currentUid}/daily.png"
+            
+            if not isException:
+                pos = "daily" 
+            else:
+                pos = "exception"
+
+            screenshotPath = f"{os.path.abspath('screenshots')}/{dataClientMgr.currentUid}/{pos}.png"
             self.screenshot.save(screenshotPath)
 
     def GetImageInfo(self, image_path):

@@ -86,7 +86,7 @@ class GetRewardState(object):
         screenClientMgr.FindElement("./assets/static/images/screen/guide/guide2.png", "image", 0.9, maxRetries=3)
         # 判断完成
         BaseClientState.CalcDailyTasksScore()
-        screenClientMgr.TakeDailyScreenshot()
+        screenClientMgr.TakeSpecialScreenshot()
         if screenClientMgr.FindElement("./assets/static/images/quest/500.png", "image", 0.95, crop=(415.0 / 1920, 270.0 / 1080, 1252.0 / 1920, 114.0 / 1080)):
             # config.set_value("daily_tasks", {})
             log.info(logMgr.Info("🎉每日实训已完成🎉"))

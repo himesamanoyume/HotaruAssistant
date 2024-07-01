@@ -340,6 +340,13 @@ class Notify:
                 emailObject.attach(dailyScreenshot)
                 dailyScreenshotPng.close()
 
+        if os.path.exists(f'./screenshots/{uid}/excepetion.png'):
+            with open(f'./screenshots/{uid}/excepetion.png', 'rb') as excepetionScreenshotPng:
+                excepetionScreenshot = MIMEImage(excepetionScreenshotPng.read())
+                excepetionScreenshot.add_header('Content-ID', '<exceptionImg>')
+                emailObject.attach(excepetionScreenshot)
+                excepetionScreenshotPng.close()
+
         emailObject['To'] = configMgr.mConfig[ConfigKey.NOTIFY_SMTP_MASTER]
 
         sendHostEmail.sendmail(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_TO][uid], str(emailObject))

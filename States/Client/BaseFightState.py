@@ -13,24 +13,24 @@ class BaseFightState(BaseRelicsState, BaseClientState):
     @staticmethod
     def AlwaysWaitFight(instanceName):
         screenClientMgr.PressKey("w")
-        if screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/fight/fight_again.png", "image", 0.9):
+        if screenClientMgr.FindElementWithShowArea("./assets/static/images/fight/fight_again.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗结束"))
             return True
         
         screenClientMgr.PressKey("w")
-        if screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/fight/fight_fail.png", "image", 0.9):
+        if screenClientMgr.FindElementWithShowArea("./assets/static/images/fight/fight_fail.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗失败/重试"))
             nowtime = time.time()
             log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战败"))
             raise Exception(f"{nowtime},挑战{instanceName}时战败")
         
         screenClientMgr.PressKey("w")
-        if not screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+        if not screenClientMgr.FindElementWithShowArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
             log.info(logMgr.Info("尝试开启二倍速"))
             screenClientMgr.PressKey("b")
 
         screenClientMgr.PressKey("w")
-        if not screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
+        if not screenClientMgr.FindElementWithShowArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
             log.info(logMgr.Info("尝试开启自动战斗"))
             screenClientMgr.PressKey("v")
 
@@ -38,7 +38,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
     def EnableWaitFight(instanceName):
         time.sleep(5)
         for i in range(20):
-            if not screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
+            if not screenClientMgr.FindElementWithShowArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1618.0 / 1920, 49.0 / 1080, 89.0 / 1920, 26.0 / 1080)):
                 log.info(logMgr.Info("尝试开启二倍速"))
                 screenClientMgr.PressKey("b")
             else:
@@ -47,7 +47,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
 
         time.sleep(5)
         for i in range(20):
-            if not screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
+            if not screenClientMgr.FindElementWithShowArea("./assets/static/images/base/2x_speed_on.png", "image", 0.9, crop=(1719.0 / 1920, 51.0 / 1080, 84.0 / 1920, 22.0 / 1080)):
                 log.info(logMgr.Info("尝试开启自动战斗"))
                 screenClientMgr.PressKey("v")
             else:
@@ -60,11 +60,11 @@ class BaseFightState(BaseRelicsState, BaseClientState):
 
     @staticmethod
     def CheckFight(instanceName):
-        if screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/fight/fight_again.png", "image", 0.9):
+        if screenClientMgr.FindElementWithShowArea("./assets/static/images/fight/fight_again.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗结束"))
             return True
         
-        if screenClientMgr.FindElementWithShowMultiArea("./assets/static/images/fight/fight_fail.png", "image", 0.9):
+        if screenClientMgr.FindElementWithShowArea("./assets/static/images/fight/fight_fail.png", "image", 0.9):
             log.info(logMgr.Info("检测到战斗失败/重试"))
             nowtime = time.time()
             log.error(logMgr.Error(f"{nowtime},挑战{instanceName}时战败"))
@@ -155,23 +155,21 @@ class BaseFightState(BaseRelicsState, BaseClientState):
         if not Flag:
             BaseClientState.ThrowException(f"⚠️刷副本未完成 - 没有找到指定副本名称⚠️")
         
-        time.sleep(5)
+        time.sleep(10)
 
         # 验证传送是否成功
         def CheckTeleport(_instanceType, _instanceName):
+            normalCrop = (1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)
             if not _instanceType in ['饰品提取']:
-                if not screenClientMgr.FindElement(_instanceName.replace("1", "").replace("2", "").replace("3", "").replace("4", ""), "text", maxRetries=5, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
-                    if not screenClientMgr.FindElement(instanceMapType, "text", maxRetries=3, include=True, crop=(1172.0 / 1920, 5.0 / 1080, 742.0 / 1920, 636.0 / 1080)):
+                if not screenClientMgr.FindElement(_instanceName.replace("1", "").replace("2", "").replace("3", "").replace("4", ""), "text", 0.9, maxRetries=5, include=True, crop=normalCrop):
+                    if not screenClientMgr.FindElement(instanceMapType, "text", 0.9, maxRetries=3, include=True, crop=normalCrop):
                         BaseClientState.ThrowException(f"⚠️刷副本未完成 - 传送可能失败⚠️")
-                elif not screenClientMgr.FindElement(_instanceName, "text", 0.9, maxRetries=5, crop=(595.0 / 1920, 107.0 / 1080, 132.0 / 1920, 56.0 / 1080)):
-                    BaseClientState.ThrowException(f"⚠️刷副本未完成 - 传送可能失败⚠️")
             else:
-                if not screenClientMgr.FindElement(_instanceName, "text", 0.9, maxRetries=5, crop=(598.0 / 1920, 109.0 / 1080, 129.0 / 1920, 54.0 / 1080)):
-                    BaseClientState.ThrowException(f"⚠️刷副本未完成 - 传送可能失败⚠️")
+                if not screenClientMgr.FindElement(_instanceName, "text", 0.9, maxRetries=5, crop=(598.0 / 1920, 109.0 / 1080, 129.0 / 1920, 54.0 / 1080), takeScreenshot=True):
+                    BaseClientState.ThrowException(f"⚠️刷饰品提取未完成 - 传送可能失败⚠️")
 
         CheckTeleport(instanceType, instanceName)
 
-            
         fullCount = totalCount // 6
         incomplete_count = totalCount - fullCount * 6
 

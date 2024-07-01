@@ -80,6 +80,10 @@ class InitUidConfig:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS_FIN, uid, False)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.DAILY_TASKS, uid, {})
 
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELICS_FILTER, uid, [])
+            if configMgr.mConfig[configMgr.mKey.RELICS_FILTER][uid] == {}:
+                configMgr.mConfig[configMgr.mKey.RELICS_FILTER][uid] = []
+
             if Date.IsNext4AM(configMgr.mConfig[configMgr.mKey.LAST_RUN_TIMESTAMP][uid], False):
                 configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][uid] = 0
                 configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][uid] = False

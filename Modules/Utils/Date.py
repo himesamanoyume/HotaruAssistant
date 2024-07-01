@@ -61,9 +61,9 @@ class Date:
         currentTime = datetime.now()
         futureTime = currentTime + timedelta(seconds=seconds)
         if futureTime.date() == currentTime.date():
-            return f"今天{futureTime.hour}时{futureTime.minute}分"
+            return f"今天{futureTime.hour}点{futureTime.minute}分"
         elif futureTime.date() == currentTime.date() + timedelta(days=1):
-            return f"明天{futureTime.hour}时{futureTime.minute}分"
+            return f"明天{futureTime.hour}点{futureTime.minute}分"
         else:
             return "输入秒数不合法"
 

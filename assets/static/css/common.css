@@ -1766,3 +1766,30 @@
     .option-image{
         height:50px;
     }
+
+    .select2-container--default .select2-selection--multiple{
+        background-color: #40405f;
+        border: none;
+        border-radius: 0;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice{
+        background-color: #40405f;
+        border: 1px solid #66ccff;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+        color: #66ccff;
+    }
+
+    .select2-container--default.select2-container--focus .select2-selection--multiple{
+        border: none;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+        color: #66ccff;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover{
+        color: #405f42;
+    }
