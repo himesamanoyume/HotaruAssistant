@@ -1,10 +1,11 @@
+
+<img src="./assets/screenshot/hotaruassistant_banner.png">
+
 <div>
-<p>
-    <img src="./assets/static/icon/favicon.ico" align="right">
-</p>
 
 <h1>
-HotaruAssistant · 流萤小助手<br>
+    <img src="./assets/static/icon/favicon.ico" align="right">
+    HotaruAssistant · 流萤小助手<br>
 </h1>
 
 <h6>三月七你别再联系了,我怕流萤误会</h6>
@@ -90,8 +91,7 @@ UI|QT客户端|WebUI
 - 差分宇宙适配
 - 模拟宇宙重新支持
 - 遗器筛选器支持只要求主属性满足条件的情况
-- webui配色修改适配流萤?
-- - css颜色优化
+- - ~~css颜色优化~~
 - [低优先级]长期目标:每日执行速度优化,尽可能最快速最少时间完成一次流程
 - [低优先级]新增教程页面
 

@@ -75,16 +75,16 @@ class SendEmailState(BaseNotifyState):
 
             content += f"<p><strong>最新一期末日幻影</strong></p><div class=post-txt-container-datetime>注意,脚本不支持末日幻影代打,仅提供信息提示</div><p>距离刷新:{dataClientMgr.notifyContent['末日幻影1倒计时']}</p>"
 
-            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][0] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][0]}/4</p></blockquote>"
+            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_LEVELS][dataClientMgr.currentUid][0] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_LEVELS][dataClientMgr.currentUid][0]}/4</p></blockquote>"
 
-            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][0] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][0]}/12</p></blockquote>"
+            content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_STARS][dataClientMgr.currentUid][0] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_STARS][dataClientMgr.currentUid][0]}/12</p></blockquote>"
 
             if not dataClientMgr.notifyContent['末日幻影2层数'] == -1:
                 content += f"<p><strong>上期末日幻影</strong></p><p>距离刷新:{dataClientMgr.notifyContent['末日幻影2倒计时']}</p>"
 
-                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][1] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_LEVELS][dataClientMgr.currentUid][1]}/4</p></blockquote>"
+                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_LEVELS][dataClientMgr.currentUid][1] == 4 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>层数:{configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_LEVELS][dataClientMgr.currentUid][1]}/4</p></blockquote>"
 
-                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][1] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.PUREFICTION_STARS][dataClientMgr.currentUid][1]}/12</p></blockquote>"
+                content += (f"<blockquote>" if configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_STARS][dataClientMgr.currentUid][1] == 12 else f"<blockquote style='background-color:#5f4040;box-shadow:3px 0 0 0 #d85959 inset;'>")+f"<p>星数:{configMgr.mConfig[configMgr.mKey.APOCALYPTICSHADOW_STARS][dataClientMgr.currentUid][1]}/12</p></blockquote>"
 
             content += f"<p><strong>预计满开拓力时间</strong></p><blockquote><p>{dataClientMgr.notifyContent['开拓力回满时间']}</p></blockquote>"
 
