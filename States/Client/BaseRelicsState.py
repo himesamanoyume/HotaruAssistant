@@ -127,7 +127,7 @@ class BaseRelicsState(BaseClientState):
             log.info(logMgr.Info("开始运作自定义遗器筛选器规则"))
 
             relicsSetName = FindRelicsSet(relicsName)
-            
+            suitable = False
             if relicsSetName:
                 log.debug(logMgr.Debug(f"发现对应套装遗器:{relicsSetName}"))
                 for filter in configMgr.mConfig[configMgr.mKey.RELICS_FILTER][dataClientMgr.currentUid]:
@@ -161,7 +161,7 @@ class BaseRelicsState(BaseClientState):
 
                         break
                     else:
-                        log.warning(logMgr.Warning(f"未发现匹配的筛选器规则"))
+                        log.debug(logMgr.Debug(f"未发现匹配的筛选器规则"))
             else:
                 log.error(logMgr.Error(f"未找到对应的遗器套装"))
         

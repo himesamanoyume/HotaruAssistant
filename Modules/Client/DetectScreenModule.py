@@ -41,6 +41,7 @@ class DetectScreenModule:
 
             screenshotPath = f"{os.path.abspath('screenshots')}/{dataClientMgr.currentUid}/{pos}.png"
             self.screenshot.save(screenshotPath)
+            log.debug(logMgr.Debug(f"已保存截图:{screenshotPath}"))
 
     def GetImageInfo(self, image_path):
         template = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
