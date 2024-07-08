@@ -23,14 +23,132 @@ class AppClient:
             input("按回车键关闭窗口. . .")
             sys.exit(0)
         else:
-            hotaruLoopThread = threading.Thread(target=self.HotaruAssistantLoop)
+            hotaruLoopThread = threading.Thread(target=self.HotaruAssistantNewLoop)
             hotaruLoopThread.start()
+            # hotaruLoopThread = threading.Thread(target=self.HotaruAssistantLoop)
+            # hotaruLoopThread.start()
         
         while dataClientMgr.currentGamePid == -1:
             time.sleep(5)
 
         screenLoopThread = threading.Thread(target=screenClientMgr.StartDevScreen)
         screenLoopThread.start()
+
+
+    def HotaruAssistantNewLoop(self):
+        dataClientMgr.gameTitleName = configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]
+        log.info(logMgr.Info("开始初始化循环列表"))
+        optionsReg = dict()
+
+        for index in range(len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS])):
+
+            uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index]).split('-')[1][:9]
+            if uidStr in configMgr.mConfig[configMgr.mKey.BLACKLIST_UID]:
+                log.warning(logMgr.Warning(f"{uidStr}【正在黑名单中】"))
+                continue 
+                
+            taskClientMgr.ReadyToStart(uidStr)
+            
+            dataClientMgr.loginDict.update({f'{uidStr}' : f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}'})
+            dataClientMgr.loginList.append(f'{str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index])}')
+
+            tempText = f":活跃度:{configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][uidStr]},差分宇宙积分:{configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uidStr]}"
+
+            last_run_uidText = "【最后运行的账号】" if configMgr.mConfig[configMgr.mKey.LAST_RUNNING_UID] == uidStr else '' 
+            optionsReg.update({("<每日已完成>" + uidStr + tempText + last_run_uidText
+                                if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][uidStr] 
+                                else 
+                                uidStr + tempText + last_run_uidText) : index})
+            
+
+        regSelectOption = questionary.select("请选择UID进行作为首位启动游戏:\n", list(optionsReg.keys())).ask()
+        selectedReg = optionsReg.get(regSelectOption)
+
+        waitTime = Date.GetWaitTimeWithTotalTime(configMgr)
+        futureTime = Date.CalculateFutureTime(waitTime)
+
+        optionsSleep = {"直接开始运行": False, f"预计等待至{futureTime}再运行": True}
+
+        sleepSelectOption = questionary.select("请选择直接开始还是先进行等待:\n", list(optionsSleep.keys())).ask()
+        selectedSleep = optionsSleep.get(sleepSelectOption)
+
+        if selectedSleep:
+            taskClientMgr.WaitForNextLoop()
+            for index in range(len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS])):
+
+                uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index]).split('-')[1][:9]
+                if uidStr in configMgr.mConfig[configMgr.mKey.BLACKLIST_UID]:
+                    log.warning(logMgr.Warning(f"{uidStr}【正在黑名单中】"))
+                    continue 
+                    
+                taskClientMgr.ReadyToStart(uidStr)
+        
+        log.info(logMgr.Info(f"首个启动UID:{regSelectOption}"))
+
+        isFirstTimeLoop = True
+
+        if not os.path.exists("./backup"):
+            os.makedirs("./backup")
+
+        shutil.copy("./config.yaml",f"./backup/{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.config.yaml")
+
+        while True:
+            dataClientMgr.ResetData()
+            
+            lastUID = str(dataClientMgr.loginList[len(dataClientMgr.loginList) - 1]).split('-')[1][:9]
+            log.info(logMgr.Info(f"当前列表最后一个账号UID为:{lastUID}"))
+
+            firstTimeLogin = True
+            jumpValue = ''
+            jumpFin = False
+
+            for regStr in dataClientMgr.loginList:
+                if not firstTimeLogin and not jumpFin:
+                    if not regStr == jumpValue:
+                        continue
+                    else:
+                        jumpFin = True
+
+                uidStr2 = str(regStr).split('-')[1][:9]
+                taskClientMgr.DetectNewAccounts()
+
+                if isFirstTimeLoop:
+                    if firstTimeLogin:
+                        firstTimeLogin = False
+                        jumpValue = dataClientMgr.loginList[selectedReg]
+                        if jumpValue == regStr:
+                            jumpFin = True
+                        else:
+                            continue
+                else:
+                    taskClientMgr.ReadyToStart(uidStr2)
+                
+                log.info(logMgr.Info(f"运行命令: cmd /C REG IMPORT {regStr}"))
+                if os.system(f"cmd /C REG IMPORT {regStr}"):
+                    input("导入注册表出错,检查对应注册表路径和配置是否正确,按回车键退出...")
+                    return False
+                try:
+                    if taskClientMgr.ClientStartGame():
+                        dataClientMgr.currentAction = "每日任务流程"
+                        taskClientMgr.StartNewDaily()
+                        taskClientMgr.SendNotify()
+                        taskClientMgr.QuitGame()
+
+                except Exception as e:
+                    log.error(logMgr.Error(e))
+                    taskClientMgr.SendExceptionNotify(e)
+                    taskClientMgr.QuitGame()
+
+            isFirstTimeLoop = False
+            taskClientMgr.WaitForNextLoop()
+            for index in range(len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS])):
+
+                uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index]).split('-')[1][:9]
+                if uidStr in configMgr.mConfig[configMgr.mKey.BLACKLIST_UID]:
+                    log.warning(logMgr.Warning(f"{uidStr}【正在黑名单中】"))
+                    continue 
+                    
+                taskClientMgr.ReadyToStart(uidStr)
 
     def HotaruAssistantLoop(self):
         dataClientMgr.gameTitleName = configMgr.mConfig[configMgr.mKey.GAME_TITLE_NAME]

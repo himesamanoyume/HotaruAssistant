@@ -94,7 +94,7 @@ class BaseUniverseState(BaseClientState):
 
     @staticmethod
     def GetUniverseReward():
-        screenClientMgr.ChangeTo("universe_main")
+        screenClientMgr.ChangeTo("divergent_universe_main")
         time.sleep(2)
         # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
         if screenClientMgr.FindElement("./assets/static/images/screen/universe/universe_score.png", "image", 0.9, maxRetries=3):

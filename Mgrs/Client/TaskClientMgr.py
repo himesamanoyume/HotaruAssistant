@@ -23,6 +23,7 @@ from States.Client.GetRewardState import GetRewardState
 from States.Client.UniverseClearState import UniverseClearState
 from States.Client.CheckCdkeyState import CheckCdkeyState
 from States.Client.CheckStoreState import CheckStoreState
+from States.Client.DivergentUniverseClearState import DivergentUniverseClearState
 import time
 from Mgrs.Base.TaskBaseMgr import TaskBaseMgr
 
@@ -65,6 +66,41 @@ class TaskClientMgr(TaskBaseMgr):
 
     def WaitForNextLoop(self):
         stateClientMgr.Transition(WaitForNextLoopState())
+
+    @staticmethod
+    def StartNewDaily():
+        # InitDailyTasksState返回True时将跳过每日任务流程
+        if not stateClientMgr.Transition(InitDailyTasksState()):
+            stateClientMgr.Transition(GetPowerInfoState())
+            # 获取差分宇宙积分/沉浸器信息
+            stateClientMgr.Transition(GetUniverseRewardAndInfoState())
+            # 直接进行差分宇宙
+            stateClientMgr.Transition(DivergentUniverseClearState())
+            if not stateClientMgr.Transition(DailyEchoOfWarState()):
+                # 如果有历战余响可打,打完后需要再获取一次体力信息
+                stateClientMgr.Transition(GetPowerInfoState())
+                # 再获取一次历战余响信息
+                stateClientMgr.Transition(DailyEchoOfWarState())
+            # 再次获取差分宇宙积分/沉浸器信息
+            stateClientMgr.Transition(GetUniverseRewardAndInfoState())
+            # 清体力
+            if not stateClientMgr.Transition(DailyClearPowerState()):
+                # 如果有清体力可打,打完后需要再获取一次体力信息
+                stateClientMgr.Transition(GetPowerInfoState())
+                # 领奖励
+                stateClientMgr.Transition(GetRewardState())
+            # 做每日
+            stateClientMgr.Transition(RunningDailyTasksState())
+            # 领奖励
+            stateClientMgr.Transition(GetRewardState())
+            # 检查兑换码
+            stateClientMgr.Transition(CheckCdkeyState())
+            # 获取遗器,副本倒计时,月卡倒计时信息
+            stateClientMgr.Transition(GetRelicsInfoState())
+            stateClientMgr.Transition(GetFAndPInfoState())
+            stateClientMgr.Transition(CheckStoreState())
+        else:
+            pass
     
     @staticmethod
     def StartDaily():

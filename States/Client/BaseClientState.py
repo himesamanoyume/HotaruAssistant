@@ -14,21 +14,21 @@ class BaseClientState(BaseState):
     mStateName = 'BaseClientState'
 
     @staticmethod
-    def DownloadChar(isUniverse=False):
-        if isUniverse:
+    def DownloadChar(instanceType="ornament"):
+        if instanceType == "universe":
             scrollText = "universe"
             scrollTopThreshold = 0.9999
             scrollBottomThreshold = 0.99
             if screenClientMgr.ClickElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9,maxRetries=5):
                 time.sleep(1)
-                BaseClientState.ClearTeam(1, isUniverse)
+                BaseClientState.ClearTeam(0, instanceType)
             else:
-                BaseClientState.ThrowException("差分宇宙未找到下载角色按钮")
+                BaseClientState.ThrowException("模拟宇宙未找到下载角色按钮")
         else:
             scrollText = "ornament"
             scrollTopThreshold = 0.9999
             scrollBottomThreshold = 0.9997
-            BaseClientState.ClearTeam(1, isUniverse)
+            BaseClientState.ClearTeam(0, instanceType)
 
         def SelectChar(charList:list):
 
@@ -88,13 +88,13 @@ class BaseClientState(BaseState):
                 log.info(logMgr.Info(f"{charCount}"))
                 BaseClientState.ThrowException("未能选中4位配置中的角色,请检查")
 
-        if isUniverse:
+        if instanceType == "universe":
             SelectChar(configMgr.mConfig[configMgr.mKey.UNIVERSE_TEAM][dataClientMgr.currentUid])
         else:
             SelectChar(configMgr.mConfig[configMgr.mKey.ORNAMENT_EXTRACTION_TEAM][dataClientMgr.currentUid])
 
     @staticmethod
-    def ClearTeam(j, isUniverse=False):
+    def ClearTeam(j, instanceType="ornament"):
         if j == 3:
             BaseClientState.ThrowException("清理队伍失败")
         
@@ -106,19 +106,21 @@ class BaseClientState(BaseState):
         time.sleep(1)
         
         for i in range(4):  
-            screenClientMgr.ClickElementWithPos(((downloadCharTopLeftX + 60 + i*105, downloadCharTopLeftY + 80), (downloadCharTopLeftX + 60 + i*105, downloadCharTopLeftY + 80)))
+            screenClientMgr.ClickElementWithPos(((downloadCharTopLeftX + 60 + i*92, downloadCharTopLeftY + 80), (downloadCharTopLeftX + 60 + i*92, downloadCharTopLeftY + 80)))
             time.sleep(1)
-        
-        if isUniverse:
-            text = 'universe'
-        else:
-            text = 'ornament'
+            
+        if instanceType == 'universe':
+            pass 
+        elif instanceType in ['ornament', 'divergent']:
+            point2 = screenClientMgr.FindElement("下载角色", "text", 0.9, maxRetries=2)
+            screenClientMgr.MouseMove(point2[0][0], point2[0][1])
 
-        if screenClientMgr.FindElement(f"./assets/static/images/{text}/all_clear_team.png", "image", 0.95, takeScreenshot=True):
+        if screenClientMgr.FindElement(f"./assets/static/images/{instanceType}/all_clear_team.png", "image", 0.95, takeScreenshot=True):
             log.info(logMgr.Info("队伍已清空"))
             return
         else:
-            BaseClientState.ClearTeam(j+1, isUniverse)
+            log.warning(logMgr.Warning("未检测到队伍清空,嵌套再次尝试"))
+            BaseClientState.ClearTeam(j+1, instanceType)
     
     @staticmethod
     def CalcDailyTasksScore():

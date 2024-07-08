@@ -41,7 +41,7 @@ game_title_name: 崩坏：星穹铁道 # 窗口标题
 game_process_name: StarRail # 进程名
 game_path: D:\Star Rail\Game\StarRail.exe # 游戏路径,注意不是启动器的exe
 
-instance_type: {} # 副本类型: 侵蚀隧洞、凝滞虚影、拟造花萼（金）、拟造花萼（赤）、差分宇宙、饰品提取
+instance_type: {} # 副本类型: 侵蚀隧洞、凝滞虚影、拟造花萼（金）、拟造花萼（赤）、饰品提取
 instance_names: {} # 副本名称
 
 power_needs: # 副本所需开拓力

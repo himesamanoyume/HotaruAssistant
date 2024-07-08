@@ -11,6 +11,7 @@ class SendEmailExceptionState(BaseNotifyState):
         if configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_ENABLE]:
             self.SetNotifyContent()
 
+            time.sleep(3)
             if os.path.exists(f'./screenshots/{dataClientMgr.currentUid}/excepetion.png'):
                 img = f"<img loading='lazy' src='cid:exceptionImg'>"
             else:

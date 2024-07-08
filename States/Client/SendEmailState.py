@@ -19,9 +19,16 @@ class SendEmailState(BaseNotifyState):
 
             content += f"<p><strong>开拓力去向:</strong>"
 
-            for key, value in dataClientMgr.notifyContent['副本情况'].items():
-                if dataClientMgr.notifyContent['副本情况'][key] > 0:
-                    content += f"<p>{key}:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid][key]} - {value}次</p>"
+            try:
+                for key, value in dataClientMgr.notifyContent['副本情况'].items():
+                    if dataClientMgr.notifyContent['副本情况'][key] > 0:
+                        if key == '差分宇宙':
+                            content += f"<p>{key}:常规演算 - {value}次</p>"
+                        else:
+                            content += f"<p>{key}:{configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid][key]} - {value}次</p>"
+
+            except Exception as e:
+                BaseClientState.ThrowException(f"SendEmailState副本情况出错:{e}")
 
 
             content += f"<p>下线时开拓力:<span class=important style=background-color:#40405f;color:#66ccff>{dataClientMgr.currentPower}</span></p></p>"
@@ -98,7 +105,7 @@ class SendEmailState(BaseNotifyState):
                         tempList += f"<p>{relicsSubProp}</p>"
 
                     tempContent += f"""
-                    <div class='relics'>
+                    <div class='relics' style='box-shadow: 3px 0 0 0 #d97d22 inset;'>
                         <p>
                             <strong>{relicsItem['遗器名称']}</strong>
                             <br>
