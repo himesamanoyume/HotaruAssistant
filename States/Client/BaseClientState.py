@@ -19,8 +19,7 @@ class BaseClientState(BaseState):
             scrollText = "universe"
             scrollTopThreshold = 0.9999
             scrollBottomThreshold = 0.99
-            if screenClientMgr.ClickElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9,maxRetries=5):
-                time.sleep(1)
+            if screenClientMgr.ClickElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9):
                 BaseClientState.ClearTeam(0, instanceType)
             else:
                 BaseClientState.ThrowException("模拟宇宙未找到下载角色按钮")
@@ -34,9 +33,8 @@ class BaseClientState(BaseState):
 
             # -1为往下,1为往上
             def RepeatScroll(_character):
-                time.sleep(1)
-                if not screenClientMgr.ClickElement(f"./assets/static/images/character/{_character}.png", "image", 0.85, maxRetries=3, takeScreenshot=True):
-                    point = screenClientMgr.FindElement("./assets/static/images/synthesis/filter.png", "image", 0.9, maxRetries=3)
+                if not screenClientMgr.ClickElement(f"./assets/static/images/character/{_character}.png", "image", 0.85, takeScreenshot=True):
+                    point = screenClientMgr.FindElement("./assets/static/images/synthesis/filter.png", "image", 0.9)
 
                     scrollViewTopLeftX = point[0][0]
                     scrollViewTopLeftY = point[0][1]
@@ -46,7 +44,7 @@ class BaseClientState(BaseState):
                     screenClientMgr.MouseScroll(25, -1)
 
                     time.sleep(1)
-                    if not screenClientMgr.ClickElement(f"./assets/static/images/character/{_character}.png", "image", 0.85, maxRetries=3, takeScreenshot=True):
+                    if not screenClientMgr.ClickElement(f"./assets/static/images/character/{_character}.png", "image", 0.85, takeScreenshot=True):
                         if screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollBottom.png", "image", scrollBottomThreshold, crop=(507.0 / 1920, 849.0 / 1080, 108.0 / 1920, 97.0 / 1080)):
                             log.warning(logMgr.Warning("角色列表已到底,仍未选中该角色"))
                             return False
@@ -98,7 +96,7 @@ class BaseClientState(BaseState):
         if j == 3:
             BaseClientState.ThrowException("清理队伍失败")
         
-        point = screenClientMgr.FindElement("下载角色", "text", 0.9, maxRetries=2)
+        point = screenClientMgr.FindElement("下载角色", "text", 0.9)
         downloadCharTopLeftX = point[0][0]
         downloadCharTopLeftY = point[0][1]
 
@@ -112,7 +110,7 @@ class BaseClientState(BaseState):
         if instanceType == 'universe':
             pass 
         elif instanceType in ['ornament', 'divergent']:
-            point2 = screenClientMgr.FindElement("下载角色", "text", 0.9, maxRetries=2)
+            point2 = screenClientMgr.FindElement("下载角色", "text", 0.9)
             screenClientMgr.MouseMove(point2[0][0], point2[0][1])
 
         if screenClientMgr.FindElement(f"./assets/static/images/{instanceType}/all_clear_team.png", "image", 0.95, takeScreenshot=True):
@@ -128,7 +126,6 @@ class BaseClientState(BaseState):
         tempScore = 0
         i=0
         for key, value in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid].items():
-            # Utils._content.update({f'daily_0{i}_score':f'{Utils._task_score_mappings[key]}'})
             i+=1
             if not value:
                 tempScore += dataClientMgr.meta['task_score_mappings'][key]
@@ -149,10 +146,10 @@ class BaseClientState(BaseState):
         screenClientMgr.ChangeTo("configure_team")
 
         def SelectTeam():
-            if screenClientMgr.ClickElement(teamName, "text", maxRetries=3, crop=(311.0 / 1920, 15.0 / 1080, 1376.0 / 1920, 100.0 / 1080)):
+            if screenClientMgr.ClickElement(teamName, "text", crop=(311.0 / 1920, 15.0 / 1080, 1376.0 / 1920, 100.0 / 1080)):
                 # 等待界面切换
                 time.sleep(1)
-                result = screenClientMgr.FindElement(("已启用", "启用队伍", "快速编队", "开始挑战"), "text", maxRetries=3, crop=(1507.0 / 1920, 955.0 / 1080, 336.0 / 1920, 58.0 / 1080))
+                result = screenClientMgr.FindElement(("已启用", "启用队伍", "快速编队", "开始挑战"), "text", crop=(1507.0 / 1920, 955.0 / 1080, 336.0 / 1920, 58.0 / 1080))
                 if result:
                     if screenClientMgr.mDetect.matchedText == "开始挑战":
                         log.info(logMgr.Info(f"正在使用队伍{teamName}进行挑战"))
@@ -163,7 +160,7 @@ class BaseClientState(BaseState):
                         return True
                     elif screenClientMgr.mDetect.matchedText == "启用队伍":
                         screenClientMgr.ClickElementWithPos(result)
-                        if screenClientMgr.FindElement("已启用", "text", maxRetries=3, crop=(1507.0 / 1920, 955.0 / 1080, 336.0 / 1920, 58.0 / 1080)):
+                        if screenClientMgr.FindElement("已启用", "text", crop=(1507.0 / 1920, 955.0 / 1080, 336.0 / 1920, 58.0 / 1080)):
                             log.info(logMgr.Info(f"切换到队伍{teamName}成功"))
                             return True
                     elif screenClientMgr.mDetect.matchedText == "快速编队":
@@ -200,31 +197,30 @@ class BaseClientState(BaseState):
     def BorrowCharacter():
         if not (("使用支援角色并获得战斗胜利1次" in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid]["使用支援角色并获得战斗胜利1次"]) or configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER_ENABLE][dataClientMgr.currentUid]):
             return True
-        if not screenClientMgr.ClickElement("支援", "text", maxRetries=3, crop=(990.0 / 1920, 575.0 / 1080, 900.0 / 1920, 285.0 / 1080)):
+        if not screenClientMgr.ClickElement("支援", "text", crop=(990.0 / 1920, 575.0 / 1080, 900.0 / 1920, 285.0 / 1080)):
             log.error(logMgr.Error("找不到支援按钮"))
             return False
         # 等待界面加载
         time.sleep(0.5)
-        if not screenClientMgr.FindElement("支援列表", "text", maxRetries=3, crop=(243.0 / 1920, 47.0 / 1080, 109.0 / 1920, 100.0 / 1080)):
+        if not screenClientMgr.FindElement("支援列表", "text", crop=(243.0 / 1920, 47.0 / 1080, 109.0 / 1920, 100.0 / 1080)):
             log.error(logMgr.Error("未进入支援列表"))
             return False
 
         try:
             for name in configMgr.mConfig[configMgr.mKey.BORROW_CHARACTER]:
-                if screenClientMgr.ClickElement("./assets/static/images/character/" + name + ".png", "image", 0.5, maxRetries=1, scaleRange=(0.9, 0.9), crop=(37 / 1920, 143 / 1080, 140 / 1920, 814 / 1080)):
-                    if not screenClientMgr.ClickElement("入队", "text", maxRetries=3, crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
+                if screenClientMgr.ClickElement("./assets/static/images/character/" + name + ".png", "image", 0.5, scaleRange=(0.9, 0.9), crop=(37 / 1920, 143 / 1080, 140 / 1920, 814 / 1080)):
+                    if not screenClientMgr.ClickElement("入队", "text", crop=(1518 / 1920, 960 / 1080, 334 / 1920, 61 / 1080)):
                         log.error(logMgr.Error("找不到入队按钮"))
                         return False
                     # 等待界面加载
-                    time.sleep(0.5)
-                    result = screenClientMgr.FindElement(("解除支援", "取消"), "text", maxRetries=3, include=True)
+                    result = screenClientMgr.FindElement(("解除支援", "取消"), "text", include=True)
                     if result:
                         if screenClientMgr.mDetect.matchedText == "解除支援":
                             configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid]["使用支援角色并获得战斗胜利1次"] = False
                             return True
                         elif screenClientMgr.mDetect.matchedText == "取消":
                             screenClientMgr.ClickElementWithPos(result)
-                            screenClientMgr.FindElement("支援列表", "text", maxRetries=3, crop=(234 / 1920, 78 / 1080, 133 / 1920, 57 / 1080))
+                            screenClientMgr.FindElement("支援列表", "text", crop=(234 / 1920, 78 / 1080, 133 / 1920, 57 / 1080))
                             continue
                     else:
                         return False
@@ -232,7 +228,7 @@ class BaseClientState(BaseState):
             log.warning(logMgr.Warning(f"选择支援角色出错： {e}"))
 
         screenClientMgr.PressKey("esc")
-        if screenClientMgr.FindElement("解除支援", "text", maxRetries=2, crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
+        if screenClientMgr.FindElement("解除支援", "text", crop=(1670 / 1920, 700 / 1080, 225 / 1920, 74 / 1080)):
             return True
         else:
             return False

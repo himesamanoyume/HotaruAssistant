@@ -1,6 +1,5 @@
 from States.Client import *
 from .BaseUniverseState import BaseUniverseState
-from Hotaru.Client.ScreenClientHotaru import screenClientMgr
 
 class GetUniverseRewardAndInfoState(BaseUniverseState, BaseClientState):
 

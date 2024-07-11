@@ -68,89 +68,37 @@ class TaskClientMgr(TaskBaseMgr):
         stateClientMgr.Transition(WaitForNextLoopState())
 
     @staticmethod
-    def StartNewDaily():
-        # InitDailyTasksState返回True时将跳过每日任务流程
-        if not stateClientMgr.Transition(InitDailyTasksState()):
-            stateClientMgr.Transition(GetPowerInfoState())
-            # 获取差分宇宙积分/沉浸器信息
-            stateClientMgr.Transition(GetUniverseRewardAndInfoState())
-            # 直接进行差分宇宙
-            stateClientMgr.Transition(DivergentUniverseClearState())
-            if not stateClientMgr.Transition(DailyEchoOfWarState()):
-                # 如果有历战余响可打,打完后需要再获取一次体力信息
-                stateClientMgr.Transition(GetPowerInfoState())
-                # 再获取一次历战余响信息
-                stateClientMgr.Transition(DailyEchoOfWarState())
-            # 再次获取差分宇宙积分/沉浸器信息
-            stateClientMgr.Transition(GetUniverseRewardAndInfoState())
-            # 清体力
-            if not stateClientMgr.Transition(DailyClearPowerState()):
-                # 如果有清体力可打,打完后需要再获取一次体力信息
-                stateClientMgr.Transition(GetPowerInfoState())
-                # 领奖励
-                stateClientMgr.Transition(GetRewardState())
-            # 做每日
-            stateClientMgr.Transition(RunningDailyTasksState())
-            # 领奖励
-            stateClientMgr.Transition(GetRewardState())
-            # 检查兑换码
-            stateClientMgr.Transition(CheckCdkeyState())
-            # 获取遗器,副本倒计时,月卡倒计时信息
-            stateClientMgr.Transition(GetRelicsInfoState())
-            stateClientMgr.Transition(GetFAndPInfoState())
-            stateClientMgr.Transition(CheckStoreState())
-        else:
-            pass
-    
-    @staticmethod
     def StartDaily():
-        log.hr(logMgr.Hr(f"进入{dataClientMgr.currentAction}"))
         # InitDailyTasksState返回True时将跳过每日任务流程
-        if not stateClientMgr.Transition(InitDailyTasksState()):
-            stateClientMgr.Transition(GetPowerInfoState())
-            # 获取差分宇宙积分/沉浸器信息
-            stateClientMgr.Transition(GetUniverseRewardAndInfoState())
-            if not stateClientMgr.Transition(DailyEchoOfWarState()):
+        if not stateClientMgr.Transition(InitDailyTasksState()): 
+            stateClientMgr.Transition(GetPowerInfoState()) 
+            if not stateClientMgr.Transition(DailyEchoOfWarState()): 
                 # 如果有历战余响可打,打完后需要再获取一次体力信息
-                stateClientMgr.Transition(GetPowerInfoState())
+                stateClientMgr.Transition(GetPowerInfoState()) 
                 # 再获取一次历战余响信息
-                stateClientMgr.Transition(DailyEchoOfWarState())
-            # 清体力
-            if not stateClientMgr.Transition(DailyClearPowerState()):
+                stateClientMgr.Transition(DailyEchoOfWarState()) 
+            # 获取差分宇宙积分/沉浸器信息
+            stateClientMgr.Transition(GetUniverseRewardAndInfoState()) 
+            # 直接进行差分宇宙
+            if not stateClientMgr.Transition(DivergentUniverseClearState()): 
+                # 再次获取差分宇宙积分/沉浸器信息
+                stateClientMgr.Transition(GetUniverseRewardAndInfoState()) 
+            # 清体力,检测遗器数量
+            hasBeenDetectedRelicsCountAndPowerHasBeenCleanedUp = False
+            if not stateClientMgr.Transition(DailyClearPowerState()): 
                 # 如果有清体力可打,打完后需要再获取一次体力信息
-                stateClientMgr.Transition(GetPowerInfoState())
+                stateClientMgr.Transition(GetPowerInfoState()) 
                 # 领奖励
-                stateClientMgr.Transition(GetRewardState())
+                stateClientMgr.Transition(GetRewardState()) 
+                hasBeenDetectedRelicsCountAndPowerHasBeenCleanedUp = True
             # 做每日
-            stateClientMgr.Transition(RunningDailyTasksState())
+            stateClientMgr.Transition(RunningDailyTasksState()) 
             # 领奖励
-            stateClientMgr.Transition(GetRewardState())
+            stateClientMgr.Transition(GetRewardState()) 
             # 检查兑换码
-            stateClientMgr.Transition(CheckCdkeyState())
+            stateClientMgr.Transition(CheckCdkeyState()) 
             # 获取遗器,副本倒计时,月卡倒计时信息
-            stateClientMgr.Transition(GetRelicsInfoState())
-            stateClientMgr.Transition(GetFAndPInfoState())
-            stateClientMgr.Transition(CheckStoreState())
-        else:
-            pass
-
-    @staticmethod
-    def StartUniverse():
-        log.hr(logMgr.Hr(f"进入{dataClientMgr.currentAction}"))
-        # 获取遗器,副本倒计时信息
-        if not stateClientMgr.Transition(GetRelicsInfoState()):
-            # 如果遗器数量未超标,则进行获取差分宇宙积分/沉浸器信息,开始差分宇宙
-            # 获取体力信息
-            stateClientMgr.Transition(GetPowerInfoState())
-            stateClientMgr.Transition(GetUniverseRewardAndInfoState())
-            stateClientMgr.Transition(UniverseClearState())
-        # 领奖励
-        stateClientMgr.Transition(GetRewardState())
-        # 获取体力信息
-        stateClientMgr.Transition(GetPowerInfoState())
-        # 获取差分宇宙积分信息
-        stateClientMgr.Transition(GetUniverseRewardAndInfoState())
-        # 获取遗器,副本倒计时信息,月卡倒计时信息
-        stateClientMgr.Transition(GetRelicsInfoState())
-        stateClientMgr.Transition(GetFAndPInfoState())
-        stateClientMgr.Transition(CheckStoreState())
+            if hasBeenDetectedRelicsCountAndPowerHasBeenCleanedUp:
+                stateClientMgr.Transition(GetRelicsInfoState()) 
+            stateClientMgr.Transition(GetFAndPInfoState()) 
+            stateClientMgr.Transition(CheckStoreState()) 

@@ -29,20 +29,17 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
             log.hr(logMgr.Hr("准备合成材料"), 2)
             screenClientMgr.ChangeTo('material')
             # 筛选规则
-            if screenClientMgr.ClickElement("./assets/static/images/synthesis/filter.png", "image", 0.9, maxRetries=3):
+            if screenClientMgr.ClickElement("./assets/static/images/synthesis/filter.png", "image", 0.9):
                 # 等待筛选界面弹出
-                time.sleep(1)
-                if screenClientMgr.ClickElement("通用培养材料", "text", maxRetries=3, crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
-                    time.sleep(1)
-                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
-                        time.sleep(1)
+                if screenClientMgr.ClickElement("通用培养材料", "text", crop=(480 / 1920, 400 / 1080, 963 / 1920, 136 / 1080)):
+                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9):
                         # 多次重试避免选中没反应
                         for i in range(3):
-                            screenClientMgr.ClickElement("./assets/static/images/synthesis/nuclear.png", "image", 0.9, maxRetries=3)
-                            if screenClientMgr.FindElement("./assets/static/images/synthesis/nuclear_selected.png", "image", 0.6, maxRetries=3, crop=(1137.0 / 1920, 327.0 / 1080, 98.0 / 1920, 83.0 / 1080)):
-                                if screenClientMgr.ClickElement("./assets/static/images/synthesis/synthesis_button.png", "image", 0.9, maxRetries=3):
-                                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
-                                        if screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3):
+                            screenClientMgr.ClickElement("./assets/static/images/synthesis/nuclear.png", "image", 0.9)
+                            if screenClientMgr.FindElement("./assets/static/images/synthesis/nuclear_selected.png", "image", 0.6, crop=(1137.0 / 1920, 327.0 / 1080, 98.0 / 1920, 83.0 / 1080)):
+                                if screenClientMgr.ClickElement("./assets/static/images/synthesis/synthesis_button.png", "image", 0.9):
+                                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9):
+                                        if screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9):
                                             log.info(logMgr.Info("合成材料完成"))
                                             return True
                                 break
@@ -229,7 +226,6 @@ class InitDailyTasksState(BaseFightState, BaseClientState):
         else:
             log.info(logMgr.Info("尝试开启二倍速"))
             screenClientMgr.PressKey("b")
-            time.sleep(0.5)
             if screenClientMgr.FindElement("./assets/static/images/fight/fight_again.png", "image", 0.9) or screenClientMgr.FindElement("./assets/static/images/fight/fight_fail.png", "image", 0.9):
                 log.info(logMgr.Info("检测到战斗失败/重试"))
                 return

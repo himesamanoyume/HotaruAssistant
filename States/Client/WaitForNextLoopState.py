@@ -13,7 +13,6 @@ class WaitForNextLoopState(BaseClientState):
         waitTime = Date.GetWaitTimeWithTotalTime(configMgr)
         futureTime = Date.CalculateFutureTime(waitTime)
         log.info(logMgr.Info(f"将在{futureTime}后继续运行"))
-        # time.sleep(20)
         time.sleep(waitTime)
 
     def OnExit(self):

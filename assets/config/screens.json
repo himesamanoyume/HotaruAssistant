@@ -36,12 +36,6 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/warp/stellar_warp.png",
@@ -81,23 +75,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/screen/guide/enter_guide2.png",
                             "image",
                             0.8
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -114,29 +96,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/screen/guide/enter_guide3.png",
                             "image",
                             0.8
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -153,29 +117,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/screen/guide/enter_guide4.png",
                             "image",
                             0.85
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -192,29 +138,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/screen/guide/enter_guide5.png",
                             "image",
                             0.85
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -254,18 +182,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "漫游签证",
                             "text",
                             null,
-                            2,
                             "crop=(1261.0 / 1920, 1.0 / 1080, 552.0 / 1920, 346.0 / 1080)"
                         ]
                     }
@@ -283,18 +204,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "兑换码",
                             "text",
                             null,
-                            2,
                             "crop=(1444.0 / 1920, 262.0 / 1080, 286.0 / 1920, 43.0 / 1080)"
                         ]
                     }
@@ -312,18 +226,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "手机壁纸",
                             "text",
                             null,
-                            2,
                             "crop=(1261.0 / 1920, 1.0 / 1080, 552.0 / 1920, 346.0 / 1080)"
                         ]
                     }
@@ -381,18 +288,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/menu/bag_relics.png",
                             "image",
-                            0.8,
-                            2
+                            0.8
                         ]
                     }
                 ]
@@ -422,18 +322,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/menu/bag_consumables.png",
                             "image",
-                            0.8,
-                            2
+                            0.8
                         ]
                     }
                 ]
@@ -525,12 +418,6 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            4
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/screen/monthly_card.png",
@@ -583,12 +470,6 @@
                             "./assets/static/images/screen/click_enter.png",
                             "image",
                             0.8
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            6
                         ]
                     }
                 ]
@@ -798,18 +679,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/base/confirm.png",
                             "image",
-                            0.9,
-                            10
+                            0.9
                         ]
                     },
                     {
@@ -885,12 +759,6 @@
                             "image",
                             0.8
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -941,12 +809,6 @@
                             "image",
                             0.8
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             }
@@ -966,12 +828,6 @@
                             "./assets/static/images/fight/fight_exit.png",
                             "image",
                             0.8
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -1004,12 +860,6 @@
                             "image",
                             0.8
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -1023,12 +873,6 @@
                             "image",
                             0.85
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -1041,12 +885,6 @@
                             "./assets/static/images/screen/guide/enter_guide5.png",
                             "image",
                             0.85
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -1098,12 +936,6 @@
                             "image",
                             0.85
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -1117,12 +949,6 @@
                             "image",
                             0.85
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -1135,12 +961,6 @@
                             "差分宇宙",
                             "text",
                             "crop=(262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)"
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            1
                         ]
                     },
                     {
@@ -1193,12 +1013,6 @@
                             "image",
                             0.8
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -1212,12 +1026,6 @@
                             "image",
                             0.85
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -1230,12 +1038,6 @@
                             "./assets/static/images/screen/guide/enter_guide5.png",
                             "image",
                             0.85
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -1268,12 +1070,6 @@
                             "image",
                             0.8
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -1286,12 +1082,6 @@
                             "./assets/static/images/screen/guide/enter_guide3.png",
                             "image",
                             0.8
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -1306,12 +1096,6 @@
                             "image",
                             0.8
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             },
@@ -1319,25 +1103,12 @@
                 "target_screen": "memory_of_chaos",
                 "actions_list": [
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "忘却之庭",
                             "text",
                             null,
-                            10,
                             "crop=(262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)"
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            1
                         ]
                     },
                     {
@@ -1346,7 +1117,6 @@
                             "传送",
                             "text",
                             null,
-                            10,
                             "crop=(1499.0 / 1920, 647.0 / 1080, 106.0 / 1920, 38.0 / 1080)"
                         ]
                     },
@@ -1355,8 +1125,7 @@
                         "args": [
                             "./assets/static/images/forgottenhall/memory_of_chaos.png",
                             "image",
-                            0.8,
-                            2
+                            0.8
                         ]
                     }
                 ]
@@ -1364,12 +1133,6 @@
             {
                 "target_screen": "pure_fiction",
                 "actions_list": [
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
                     {
                         "action": "ClickElement",
                         "args": [
@@ -1381,18 +1144,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "传送",
                             "text",
                             null,
-                            10,
                             "crop=(1499.0 / 1920, 647.0 / 1080, 106.0 / 1920, 38.0 / 1080)"
                         ]
                     }
@@ -1877,12 +1633,6 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/base/confirm.png",
@@ -1975,12 +1725,6 @@
                             "image",
                             0.9
                         ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
-                        ]
                     }
                 ]
             }
@@ -2011,12 +1755,6 @@
                             "./assets/static/images/warp/start_try.png",
                             "image",
                             0.9
-                        ]
-                    },
-                    {
-                        "action": "time.sleep",
-                        "args": [
-                            2
                         ]
                     }
                 ]
@@ -2056,18 +1794,11 @@
                         ]
                     },
                     {
-                        "action": "time.sleep",
-                        "args": [
-                            1
-                        ]
-                    },
-                    {
                         "action": "ClickElement",
                         "args": [
                             "./assets/static/images/base/confirm.png",
                             "image",
-                            0.9,
-                            10
+                            0.9
                         ]
                     }
                 ]

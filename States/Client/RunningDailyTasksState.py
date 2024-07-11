@@ -23,7 +23,6 @@ class RunningDailyTasksState(BaseClientState):
                     if dataClientMgr.dailyTasksFunctions[f"{taskName}"]():
                         log.info(logMgr.Info(f"{taskName}已完成"))
                         configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid][taskName] = False
-                        # RunningDailyTasksState.ShowDailyTasksScore(taskName)
                         if taskName in dataClientMgr.meta['task_score_mappings'].keys():
                             log.info(logMgr.Info(f"{taskName}的活跃度为{dataClientMgr.meta['task_score_mappings'][taskName]}"))
                             self.CalcDailyTasksScore()                  
@@ -50,8 +49,3 @@ class RunningDailyTasksState(BaseClientState):
     def OnExit(self):
         return False
     
-    # @staticmethod
-    # def ShowDailyTasksScore(taskName):
-    #     if taskName in dataMgr.meta['task_score_mappings'].keys():
-    #         log.info(logMgr.Info(f"{taskName}的活跃度为{dataMgr.meta['task_score_mappings'][taskName]}"))
-    #         BaseState.CalcDailyTasksScore()

@@ -7,7 +7,7 @@ class ClientInitAccountState(BaseClientState):
     def OnBegin(self):
         uidCrop = (70.0 / 1920, 1039.0 / 1080, 93.0 / 1920, 27.0 / 1080)
         try:
-            dataClientMgr.currentUid = screenClientMgr.GetSingleLineText(crop=uidCrop, blacklist=[], maxRetries=9)
+            dataClientMgr.currentUid = screenClientMgr.GetSingleLineText(crop=uidCrop, blacklist=[])
             if dataClientMgr.currentUid == None:
                 nowtime = time.time()
                 log.error(logMgr.Error(f"未能读取到UID"))
@@ -36,7 +36,6 @@ class ClientInitAccountState(BaseClientState):
             
             # 部分活动在选中情况下 OCR 识别困难
             screenClientMgr.ClickElement("锋芒斩露", "text", None, crop=(53.0 / 1920, 109.0 / 1080, 190.0 / 1920, 846.0 / 1080), include=True)
-            time.sleep(1)
 
             screenClientMgr.TakeScreenshot(crop=(46.0 / 1920, 107.0 / 1080, 222.0 / 1920, 848.0 / 1080))
 
@@ -73,14 +72,12 @@ class ClientInitAccountState(BaseClientState):
         screenClientMgr.ChangeTo('activity')
         
         if screenClientMgr.ClickElement(targetText, "text", None, crop=(46.0 / 1920, 107.0 / 1080, 222.0 / 1920, 848.0 /1080)):
-            time.sleep(1)
             receive_path = "./assets/static/images/activity/giftof/receive.png"
             receive_fin_path = "./assets/static/images/activity/giftof/receive_fin.png"
             if screenClientMgr.FindElement(receive_path, "image", 0.9) or screenClientMgr.FindElement(receive_fin_path, "image", 0.9):
                 log.hr(logMgr.Hr(f"检测到{targetText}奖励"), 2)
                 while screenClientMgr.ClickElement(receive_path, "image", 0.9) or screenClientMgr.ClickElement(receive_fin_path, "image", 0.9):
-                    screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9, maxRetries=3)
-                    time.sleep(1)
+                    screenClientMgr.ClickElement("./assets/static/images/base/click_close.png", "image", 0.9)
                 log.info(logMgr.Info(f"领取{targetText}奖励完成"))
             else:
                 log.warning(logMgr.Warning(f"未能领取{targetText}奖励"))
@@ -97,7 +94,7 @@ class ClientInitAccountState(BaseClientState):
         self.DetectDailyTasks(crop)
         screenClientMgr.ClickElement("./assets/static/images/quest/activity.png", "image", 0.95, crop=crop)
         screenClientMgr.MouseScroll(50, -1)
-        time.sleep(0)
+        time.sleep(1)
         self.DetectDailyTasks(crop)
         dataClientMgr.dailyTasksHasBeenChecked = True
 

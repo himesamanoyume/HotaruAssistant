@@ -6,17 +6,14 @@ class DailyClearPowerState(BaseFightState, BaseClientState):
     mStateName = 'DailyClearPowerState'
 
     def OnBegin(self):
-        if configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0] == '差分宇宙':
+        instanceName = configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid][configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]]
+
+        instanceType = configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]
+
+        if instanceName == "无":
+            log.info(logMgr.Info(f"跳过清体力,{configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]}未开启"))
             return True
-        else:
-            instanceName = configMgr.mConfig[configMgr.mKey.INSTANCE_NAMES][dataClientMgr.currentUid][configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]]
-
-            instanceType = configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]
-
-            if instanceName == "无":
-                log.info(logMgr.Info(f"跳过清体力,{configMgr.mConfig[configMgr.mKey.INSTANCE_TYPE][dataClientMgr.currentUid][0]}未开启"))
-                return True
-        
+            
         self.DetectRelicsCount()
         self.SkipForRelicsCount()
 

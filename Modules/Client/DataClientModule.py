@@ -13,6 +13,7 @@ class DataClientModule:
     loginList = list()
     loopStartTimestamp = 0
     currentAction = "临时流程"
+    currentState = 'TempState'
     currentDailyTasksScore = 0
     dailyTasksHasBeenChecked = False
     tempDailyTasksList = {}
@@ -75,6 +76,7 @@ class DataClientModule:
         self.currentGamePid = -1
         self.loopStartTimestamp = 0
         self.currentAction = "临时流程"
+        self.currentState = 'TempState'
         self.currentPower = 2400
         self.currentImmersifiers = 0
         self.currentRelicsCount = 0

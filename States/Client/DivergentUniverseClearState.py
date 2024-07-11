@@ -26,7 +26,7 @@ class DivergentUniverseClearState(BaseUniverseState):
                 return True
         else:
             log.info(logMgr.Info("当前积分已满,跳过差分宇宙"))
-            return
+            return False
 
     def OnRunning(self):
         return self.RunDivergentUniverse() 
@@ -37,13 +37,10 @@ class DivergentUniverseClearState(BaseUniverseState):
     def RunDivergentUniverse(self):
         log.info(logMgr.Info("进入到执行差分宇宙部分"))
         command = [configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "diver.py"]
-        time.sleep(0.5)
 
         if not dataClientMgr.currentUniverseScore < dataClientMgr.maxCurrentUniverseScore:
             log.info(logMgr.Info("鉴定为分数已满,跳过"))
             return True
-                
-        time.sleep(0.5)
             
         self.SelectUniverse()
 
@@ -85,28 +82,25 @@ class DivergentUniverseClearState(BaseUniverseState):
         # end
     
     def SelectUniverse(self):
-        time.sleep(1)
 
         # 传送
         instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
         instanceTypeCrop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
-        screenClientMgr.ClickElement("差分宇宙", "text", maxRetries=3, crop=instanceTypeCrop)
+        screenClientMgr.ClickElement("差分宇宙", "text", crop=instanceTypeCrop)
         Flag = False
-        time.sleep(2)
 
-        if screenClientMgr.ClickElement("前往参与", "text", crop=instanceNameCrop, maxRetries=5):
-            if "差分宇宙" in screenClientMgr.GetSingleLineText(crop=instanceNameCrop, maxRetries=5):
+        if screenClientMgr.ClickElement("前往参与", "text", crop=instanceNameCrop):
+            if "差分宇宙" in screenClientMgr.GetSingleLineText(crop=instanceNameCrop):
                 screenClientMgr.PressKey("f")
-            if screenClientMgr.ClickElement("开始游戏", "text", crop=(1466.0 / 1920, 924.0 / 1080, 246.0 / 1920, 80.0 / 1080), maxRetries=5):
-                if screenClientMgr.ClickElement("常规演算", "text", crop=(360.0 / 1920, 293.0 / 1080, 333.0 / 1920, 58.0 / 1080), maxRetries=5):
+            # if screenClientMgr.FindElement("「差分宇宙」", "text", crop=instanceNameCrop, takeScreenshot=True):
+            #     screenClientMgr.PressKey("f")
+            if screenClientMgr.ClickElement("开始游戏", "text", crop=(1466.0 / 1920, 924.0 / 1080, 246.0 / 1920, 80.0 / 1080)):
+                if screenClientMgr.ClickElement("常规演算", "text", crop=(360.0 / 1920, 293.0 / 1080, 333.0 / 1920, 58.0 / 1080)):
                     Flag = True
-                    time.sleep(3)
             
         if not Flag:
             log.error(logMgr.Error("⚠️刷差分宇宙未完成 - 没有找到入口⚠️"))
             return True
-
-        time.sleep(3)
         
         # 选择难度,0不是难度
         d = configMgr.mConfig[configMgr.mKey.UNIVERSE_DIFFICULTY][dataClientMgr.currentUid]
@@ -117,8 +111,6 @@ class DivergentUniverseClearState(BaseUniverseState):
         # 用嵌套函数
         self.SelectUniverseDifficulty(d)
 
-        time.sleep(1) 
-
         BaseClientState.DownloadChar("divergent")
         
     def SelectUniverseDifficulty(self, d):
@@ -127,22 +119,17 @@ class DivergentUniverseClearState(BaseUniverseState):
             log.error(logMgr.Error(f"难度{d}不合法"))
             return
 
-        if not screenClientMgr.ClickElement(f"./assets/static/images/universe/on_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
+        if not screenClientMgr.ClickElement(f"./assets/static/images/universe/on_{d}.png","image", 0.9, crop=difficultyCrop):
                 log.info(logMgr.Info(f"未选中难度{d},尝试选择难度{d}"))
-                time.sleep(0.5)
-                if screenClientMgr.ClickElement(f"./assets/static/images/universe/off_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
+                if screenClientMgr.ClickElement(f"./assets/static/images/universe/off_{d}.png","image", 0.9, crop=difficultyCrop):
                     log.info(logMgr.Info(f"检查是否选中难度{d}"))
-                    time.sleep(0.5)
                     # 此处尝试无识别直接点击难度位置
                     # screenMgr.ClickElement_with_pos(((135, 160+(d-1)*110),(135, 160+(d-1)*110)))
-                    if screenClientMgr.ClickElement(f"./assets/static/images/universe/on_{d}.png","image", 0.9, maxRetries=5, crop=difficultyCrop):
-                        time.sleep(0.5)
-                        if screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=3):
-                            time.sleep(0.5)
+                    if screenClientMgr.ClickElement(f"./assets/static/images/universe/on_{d}.png","image", 0.9, crop=difficultyCrop):
+                        if screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9):
                             log.info(logMgr.Info(f"已选中难度{d}"))
                             return
                         else:
-                            time.sleep(0.5)
                             log.warning(logMgr.Warning(f"已选中难度{d},但该难度未解锁,嵌套进入难度{d-1}"))
                             self.SelectUniverseDifficulty(d-1)
                             return
@@ -155,7 +142,6 @@ class DivergentUniverseClearState(BaseUniverseState):
                     self.SelectUniverseDifficulty(d-1)
                     return
         else:
-            time.sleep(0.5)
             log.info(logMgr.Info(f"已选中难度{d}"))
             return
     

@@ -23,13 +23,11 @@ class GetFAndPInfoState(BaseClientState):
     def GetFPInfo(typeStr:str = "忘却之庭"):
         screenClientMgr.ChangeTo('guide4')
         guide4LittleCrop=(250.0 / 1920, 413.0 / 1080, 432.0 / 1920, 488.0 / 1080)
-        if screenClientMgr.ClickElement(typeStr, "text", maxRetries=3, crop=guide4LittleCrop):
-            time.sleep(1)
+        if screenClientMgr.ClickElement(typeStr, "text", crop=guide4LittleCrop):
             if typeStr == "忘却之庭":
                 typeStr = "混沌回忆"
             instanceTypeCrop=(920.0 / 1920, 327.0 / 1080, 155.0 / 1920, 58.0 / 1080)
-            screenClientMgr.ClickElement(typeStr, "text", maxRetries=3, crop=instanceTypeCrop)
-            time.sleep(0.3)
+            screenClientMgr.ClickElement(typeStr, "text", crop=instanceTypeCrop)
             screenClientMgr.MouseScroll(2, -1)
             time.sleep(1)
             
@@ -42,13 +40,12 @@ class GetFAndPInfoState(BaseClientState):
 
             turn = 1
 
-            if screenClientMgr.FindElement("./assets/static/images/screen/guide/check_detail.png", "image", 0.9, maxRetries=1, crop=(693.0 / 1920, 656.0 / 1080, 965.0 / 1920, 287.0 / 1080)):
+            if screenClientMgr.FindElement("./assets/static/images/screen/guide/check_detail.png", "image", 0.9, crop=(693.0 / 1920, 656.0 / 1080, 965.0 / 1920, 287.0 / 1080)):
                 turn = 2
                 cropList.append((area2CountdownCrop, area2LevelStarCrop))
             
             for i in range(turn):
                 try:
-                    time.sleep(1)
 
                     countdownText = screenClientMgr.GetSingleLineText(crop=cropList[i][0], blacklist=[], maxRetries=1)
 

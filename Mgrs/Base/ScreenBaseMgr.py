@@ -28,25 +28,25 @@ class ScreenBaseMgr:
         t.start()
         return self.mDetect.TakeSpecialScreenshot(crop, isException)
 
-    def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
+    def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=5):
         """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
         t.start()
         return self.mDetect.GetSingleLineText(crop, blacklist, maxRetries)
 
-    def FindElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
+    def FindElement(self, target, findType, threshold=None, maxRetries=5, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
         """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
         t.start()
         return self.mDetect.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, sourceType, pixelBgr)
     
-    def ClickElementQuest(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, offset=(0, 0)):
+    def ClickElementQuest(self, target, findType, threshold=None, maxRetries=5, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, offset=(0, 0)):
         """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
         t.start()
         return self.mDetect.ClickElementQuest(target, findType, threshold, maxRetries, crop, takeScreenshot, relative, scaleRange, include, needOcr, source, offset)
 
-    def FindElementWithShowArea(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
+    def FindElementWithShowArea(self, target, findType, threshold=None, maxRetries=5, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, pixelBgr=None):
         """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
         t.start()
@@ -56,7 +56,7 @@ class ScreenBaseMgr:
         """ 这种老是忘记return结果 """
         return self.mDetect.ClickElementWithPos(coordinates, offset, action)
     
-    def ClickElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
+    def ClickElement(self, target, findType, threshold=None, maxRetries=5, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
         """ 这种老是忘记return结果 """
         t = threading.Thread(target=self.ShowDetectArea, args=(crop, maxRetries,))
         t.start()
@@ -141,14 +141,11 @@ class ScreenBaseMgr:
             nowtime = time.time()
             self.logMgr.Error(f"{nowtime}配置文件不存在：{configPath}")
             raise Exception (f"{nowtime},配置文件不存在：{configPath}")
-            # input(_("按回车键关闭窗口. . ."))
-            # sys.exit(1)
+        
         except Exception as e:
             nowtime = time.time()
             self.logMgr.Error(f"{nowtime},配置文件解析失败：{e}")
             raise Exception (f"{nowtime},配置文件解析失败：{e}")
-            # input(_("按回车键关闭窗口. . ."))
-            # sys.exit(1)
         
     def GetName(self, id):
         return self.screenMap[id]["name"]
@@ -252,10 +249,8 @@ class ScreenBaseMgr:
             if autotry:
                 self.log.warning(self.logMgr.Warning("未识别出任何界面，请确保游戏画面干净，按ESC后重试"))
                 self.mDetect.pressKey("esc")
-                time.sleep(1)
                 import random
                 self.mDetect.mouseScroll(5, 1 + -2 * random.randint(0,1))
-                time.sleep(0.2)
             else:
                 self.log.debug(self.logMgr.Debug("未识别出任何界面，请确保游戏画面干净"))
                 break
@@ -283,8 +278,6 @@ class ScreenBaseMgr:
             self.log.info(self.logMgr.Info(f"{nowtime},请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
             self.log.info(self.logMgr.Info("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
             raise Exception (f"{nowtime},检测画面失败")
-            # input(_("按回车键关闭窗口. . ."))
-            # sys.exit(1)
 
         path = self.FindShortestPath(self.currentScreen, targetScreen)
         if path:
@@ -299,8 +292,6 @@ class ScreenBaseMgr:
                     self.log.debug(self.logMgr.Debug(f"等待：{self.GetName(nextScreen)}"))
                     if self.CheckScreen(nextScreen):
                         break
-                    else:
-                        time.sleep(0.5)
 
                 if self.currentScreen != nextScreen:
                     if maxRecursion > 0:
@@ -312,12 +303,9 @@ class ScreenBaseMgr:
                         self.log.info(self.logMgr.Info("请确保游戏画面干净，关闭帧率监控HUD、网速监控等一切可能影响游戏界面截图的组件"))
                         self.log.info(self.logMgr.Info("如果是多显示器，游戏需要放在主显示器运行，且不支持HDR"))
                         raise Exception (f"{nowtime},无法切换到 {self.GetName(nextScreen)},请确保你的账号已经解锁该功能,且不要在配置中选择你未解锁的副本或功能")
-                        # input(_("按回车键关闭窗口. . ."))
-                        # sys.exit(1)
-
                 
                 self.log.info(self.logMgr.Info(f"已切换到：{self.green + self.GetName(nextScreen) + self.reset}"))
-                time.sleep(0.5)
+
             self.currentScreen = targetScreen  # 更新当前界面
             return
 

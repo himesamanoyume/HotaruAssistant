@@ -24,7 +24,7 @@ class ScreenModule:
                     log.warning(logMgr.Warning("未获取到游戏窗口,DevScreen无法开启"))
                         
                 log.info(logMgr.Info("等待窗口..."))
-                time.sleep(5)
+                time.sleep(1)
         else:
             log.info(logMgr.Info("DevScreen配置未启用"))
 

@@ -12,6 +12,8 @@ class UniverseClearState(BaseUniverseState):
     mStateName = 'UniverseClearState'
 
     def OnBegin(self):
+        BaseClientState.ThrowException("本状态已弃用,请检查代码逻辑")
+        return True
         screenClientMgr.ChangeTo('main')
 
         log.info(logMgr.Info("开始校准"))
@@ -32,14 +34,11 @@ class UniverseClearState(BaseUniverseState):
     def RunUniverse(self):
         log.info(logMgr.Info("进入到执行模拟宇宙部分"))
         command = [configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "simul.py"]
-        time.sleep(0.5)
 
         if not dataClientMgr.currentUniverseScore < dataClientMgr.maxCurrentUniverseScore:
             if dataClientMgr.currentImmersifiers < 4:
                 log.info(logMgr.Info("鉴定为沉浸器数量不足,跳过"))
                 return True
-        
-        time.sleep(0.5)
             
         self.SelectUniverse()
 
@@ -87,7 +86,6 @@ class UniverseClearState(BaseUniverseState):
         # end
     
     def SelectUniverse(self):
-        time.sleep(1)
 
         # 传送
         instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
@@ -107,8 +105,6 @@ class UniverseClearState(BaseUniverseState):
         if not Flag:
             log.error(logMgr.Error("⚠️刷模拟宇宙未完成 - 没有找到指定世界名称⚠️"))
             return True
-
-        time.sleep(3)
         
         if not screenClientMgr.FindElement("./assets/static/images/screen/universe/download_char.png", "image", 0.9, maxRetries=3):
             point = screenClientMgr.FindElement(worldNumber, "text", crop=(812.0 / 1920, 514.0 / 1080, 236.0 / 1920, 46.0 / 1080), maxRetries=3)

@@ -49,18 +49,15 @@ class GetPowerInfoState(BaseClientState):
     
     @staticmethod
     def MoveButtonAndConfirm():
-        if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
-            result = screenClientMgr.FindElement("./assets/static/images/share/trailblaze_power/button.png", "image", 0.9, maxRetries=3)
+        if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9):
+            result = screenClientMgr.FindElement("./assets/static/images/share/trailblaze_power/button.png", "image", 0.9)
             if result:
                 screenClientMgr.ClickElementWithPos(result, action="down")
-                time.sleep(0.5)
                 result = screenClientMgr.FindElement("./assets/static/images/share/trailblaze_power/plus.png", "image", 0.9)
                 if result:
                     screenClientMgr.ClickElementWithPos(result, action="move")
-                    time.sleep(0.5)
                     screenClientMgr.MouseUp()
-                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=3):
-                        time.sleep(1)
+                    if screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9):
                         screenClientMgr.PressKey("esc")
                         if screenClientMgr.CheckScreen("map"):
                             return True
@@ -70,11 +67,11 @@ class GetPowerInfoState(BaseClientState):
     def GetPower(crop, type="trailblaze_power"):
         try:
             if type == "trailblaze_power":
-                result = screenClientMgr.GetSingleLineText(crop=crop, blacklist=['+', '米'], maxRetries=3)
+                result = screenClientMgr.GetSingleLineText(crop=crop, blacklist=['+', '米'])
                 power = int(result.replace("1240", "/240").split('/')[0])
                 return power if 0 <= power <= 999 else -1
             elif type == "reserved_trailblaze_power":
-                result = screenClientMgr.GetSingleLineText(crop=crop, blacklist=['+', '米'], maxRetries=3)
+                result = screenClientMgr.GetSingleLineText(crop=crop, blacklist=['+', '米'])
                 power = int(result[0])
                 return power if 0 <= power <= 2400 else -1
         except Exception as e:

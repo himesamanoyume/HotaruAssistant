@@ -18,7 +18,7 @@ class ClientStartGameState(BaseClientState):
             log.info(logMgr.Info("检测到未使用无名路途壁纸"))
             Retry.Re(lambda: screenClientMgr.ChangeTo('wallpaper'))
             if Retry.Re(lambda: screenClientMgr.ClickElement("./assets/static/images/menu/wallpaper/journey.png", "image", 0.8)):
-                Retry.Re(lambda: screenClientMgr.ClickElement("更换", "text", maxRetries=4))
+                Retry.Re(lambda: screenClientMgr.ClickElement("更换", "text"))
                 screenClientMgr.PressKey("esc")
                 log.info(logMgr.Info("更换到无名路途壁纸成功"))
             else:
@@ -61,7 +61,6 @@ class ClientStartGameState(BaseClientState):
         if os.system(f"cmd /C start \"\" \"{configMgr.mConfig[configMgr.mKey.GAME_PATH]}\""):
             return False
             
-        time.sleep(20)
         if not Retry.Re(lambda: screenClientMgr.CheckAndSwitch(dataClientMgr.gameTitleName), 180, 1):
             log.error(logMgr.Error("无法切换到游戏"))
             return False
@@ -71,8 +70,6 @@ class ClientStartGameState(BaseClientState):
         if not Retry.Re(lambda: self.CheckAndClickEnter(), 180, 2):
             log.error(logMgr.Error("无法找到点击进入按钮"))
             return False
-        
-        time.sleep(5)
 
         if not Retry.Re(lambda: screenClientMgr.GetCurrentScreen(), 180, 1):
             log.error(logMgr.Error("无法进入主界面"))

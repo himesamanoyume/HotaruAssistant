@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.1.2-0",
+    "hotaru_assets_version" : "v2.1.3-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.1.2更新内容",
-            "Content": "差分宇宙适配；每日任务轮次与模拟宇宙轮次合并，当模拟宇宙积分未满时将会自动刷差分宇宙；修复BUG。模拟宇宙停用；请尽快开启差分宇宙，否则每日任务轮次将会出错。"
+            "Title": "v2.1.3更新内容",
+            "Content": "优化。模拟宇宙停用；请尽快开启差分宇宙，否则每日任务轮次将会出错。"
         }
     ],
     "task_mappings":
@@ -91,11 +91,11 @@
         "CaelusHormony": "2.2:同谐虚数男主",
         "StelleHormony": "2.2:同谐虚数女主",
         "Boothill":"2.2:波提欧",
-        "Firefly": "2.3:流萤"
+        "Firefly": "2.3:流萤",
+        "Jade": "2.3:翡翠"
     },
     "未实装角色":
     {
-        "Jade": "2.3:翡翠",
         "Jiaoqiu": "2.4:椒丘",
         "March7thSwordmaster": "2.4:巡猎三月七",
         "Yunli":"2.4:云璃",

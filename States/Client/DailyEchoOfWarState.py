@@ -33,11 +33,10 @@ class DailyEchoOfWarState(BaseFightState, BaseClientState):
         screenClientMgr.ChangeTo('guide3')
         guide3Crop = (262.0 / 1920, 289.0 / 1080, 422.0 / 1920, 624.0 / 1080)
         log.info(logMgr.Info(f"开始检测历战余响本周可领取奖励次数"))
-        if screenClientMgr.ClickElement("侵蚀隧洞", "text", maxRetries=3, crop=guide3Crop):
+        if screenClientMgr.ClickElement("侵蚀隧洞", "text", crop=guide3Crop):
             screenClientMgr.MouseScroll(12, -1)
-            time.sleep(1)
-            if screenClientMgr.ClickElement("历战余响", "text", maxRetries=3, crop=guide3Crop):
-                screenClientMgr.FindElement("历战余响", "text", maxRetries=3, crop=(
+            if screenClientMgr.ClickElement("历战余响", "text", crop=guide3Crop):
+                screenClientMgr.FindElement("历战余响", "text", crop=(
                     682.0 / 1920, 275.0 / 1080, 1002.0 / 1920, 184.0 / 1080), include=True)
                 for box in screenClientMgr.mDetect.ocrResult:
                     text = box[1][0]

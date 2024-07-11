@@ -138,7 +138,7 @@ class SendEmailState(BaseNotifyState):
                 if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid]:
                     notifyMgr.SendNotifySingle(
                         title=f"每日已完成,UID:{dataClientMgr.currentUid}",
-                        subTitle=f"上号详细/{dataClientMgr.currentAction}", 
+                        subTitle=f"上号详细", 
                         content=content,
                         configMgr=configMgr, 
                         dataMgr=dataClientMgr, 
@@ -149,7 +149,7 @@ class SendEmailState(BaseNotifyState):
                 else:
                     notifyMgr.SendNotifySingle(
                         title=f"每日未完成,UID:{dataClientMgr.currentUid}", 
-                        subTitle=f"上号详细/{dataClientMgr.currentAction}", 
+                        subTitle=f"上号详细", 
                         content=content, 
                         configMgr=configMgr, 
                         dataMgr=dataClientMgr, 
@@ -157,17 +157,6 @@ class SendEmailState(BaseNotifyState):
                         previewContent=previewContent
                         )
                     log.info(logMgr.Info("SMTP邮件通知发送完成"))
-            elif dataClientMgr.currentAction == "差分宇宙流程":
-                notifyMgr.SendNotifySingle(
-                    title=f"差分宇宙已结束,UID:{dataClientMgr.currentUid}", 
-                    subTitle=f"上号详细/{dataClientMgr.currentAction}", 
-                    content=content, 
-                    configMgr=configMgr, 
-                    dataMgr=dataClientMgr, 
-                    uid=dataClientMgr.currentUid,
-                    previewContent=previewContent
-                    )
-                log.info(logMgr.Info("SMTP邮件通知发送完成"))
             else:
                 log.error(logMgr.Error("异常的Action"))
                 return True

@@ -73,10 +73,10 @@ class DetectScreenModule:
     
     def ClickElementWithPosQuest(self, coordinates, offset=(0, 0), action="click"):
         self.TakeScreenshot(crop=(297.0 / 1920, 478.0 / 1080, 246.0 / 1920, 186.0 / 1080))
-        time.sleep(2)
+        # time.sleep(2)
         result = ocrClientMgr.mOcr.RecognizeMultiLines(self.screenshot)
         result_keyword = result[0][1][0]
-        time.sleep(0.5)
+        # time.sleep(0.5)
         for mappingsKeyword, taskName in dataClientMgr.meta["task_mappings"].items():
             if mappingsKeyword in result_keyword:
                 if taskName in configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid] and configMgr.mConfig[configMgr.mKey.DAILY_TASKS][dataClientMgr.currentUid][taskName] == True:
@@ -119,7 +119,7 @@ class DetectScreenModule:
                 raise ValueError("错误的类型")
 
             if i < maxRetries - 1:
-                time.sleep(1)
+                time.sleep(0.1)
         return None
 
     def FindImageElement(self, target, threshold, scaleRange, relative=False):
@@ -283,7 +283,7 @@ class DetectScreenModule:
             self.mouseMove(x, y)
         return True
 
-    def ClickElement(self, target, findType, threshold=None, maxRetries=1, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
+    def ClickElement(self, target, findType, threshold=None, maxRetries=5, crop=(0, 0, 0, 0), takeScreenshot=True, relative=False, scaleRange=None, include=None, needOcr=True, source=None, sourceType=None, offset=(0, 0), isLog=False):
         coordinates = self.FindElement(target, findType, threshold, maxRetries, crop, takeScreenshot,
                                         relative, scaleRange, include, needOcr, source, sourceType)
         if coordinates:
@@ -294,7 +294,7 @@ class DetectScreenModule:
             log.warning(logMgr.Warning(f"未找到目标!"))
         return False
 
-    def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=3):
+    def GetSingleLineText(self, crop=(0, 0, 0, 0), blacklist=None, maxRetries=5):
         for i in range(maxRetries):
             self.screenshot, self.screenshotPos = self.TakeScreenshot(crop)
             ocrResult = ocrClientMgr.mOcr.RecognizeSingleLine(np.array(self.screenshot), blacklist)
