@@ -13,6 +13,12 @@ class BaseRelicsState(BaseClientState):
         relicsNameCrop=(783.0 / 1920, 318.0 / 1080, 436.0 / 1920, 53.0 / 1080) # 遗器名称
         relicsPropCrop=(831.0 / 1920, 398.0 / 1080, 651.0 / 1920, 181.0 / 1080) # 遗器属性
         log.info(logMgr.Info("开始检测遗器"))
+
+        if dataClientMgr.currentImmersifiers > 0:
+            dataClientMgr.currentImmersifiers = dataClientMgr.currentImmersifiers - 1
+            if dataClientMgr.currentImmersifiers < 0:
+                dataClientMgr.currentImmersifiers = 0
+                
         point = screenClientMgr.FindElement("./assets/static/images/fight/fight_reward.png", "image", 0.9)
         
         successRewardTopLeftX = point[0][0]

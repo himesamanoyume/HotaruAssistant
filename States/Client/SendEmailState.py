@@ -132,7 +132,7 @@ class SendEmailState(BaseNotifyState):
                 </div>
                 """
 
-            previewContent = f"剩余开拓力:{dataClientMgr.currentPower},当前活跃度:{configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataClientMgr.currentUid]}"
+            previewContent = f"剩余开拓力:{dataClientMgr.currentPower},当前活跃度:{configMgr.mConfig[configMgr.mKey.DAILY_TASKS_SCORE][dataClientMgr.currentUid]},本次运行时长:{dataClientMgr.notifyContent['上号时长']}"
             
             if dataClientMgr.currentAction == "每日任务流程":
                 if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid]:

@@ -164,7 +164,7 @@ class Notify:
                                         <ruby>姫様の夢<rt class='ttt' data-rt='Himesamanoyume'></rt></ruby>
                                     </div>
                                     <div class=info-txt style=color:#d9d9d9>
-                                        夏河小俘虏
+                                        夏和小俘虏
                                     </div>
                                 </div>
                             </div>
