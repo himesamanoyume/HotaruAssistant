@@ -2,9 +2,9 @@ import requests,json,base64
 
 class Himesamanoyume:
     def PrincessDreamland():
-        url1 = "{Y2FvbmltYWRl}{ZGFvbWFpZ291}".format(ZGFvbWFpZ291=base64.b64decode("dGh1YnVzZXJjb250ZW50LmNvbS9oaW1lc2FtYW5veXVtZS9Ib3RhcnVBc3Npc3RhbnQvbWFpbi9hc3NldHMvY29uZmlnL21ldGEuanNvbg==").decode('utf-8'),Y2FvbmltYWRl=base64.b64decode("aHR0cHM6Ly9naXRodWIuaGltZXNhbWFub3l1bWUudG9wL2h0dHBzOi8vcmF3Lmdp").decode('utf-8'))
+        url1 = "{Y2FvbmltYWRl}{ZGFvbWFpZ291}".format(ZGFvbWFpZ291=base64.b64decode("dGh1YnVzZXJjb250ZW50LmNvbS9oaW1lc2FtYW5veXVtZS9Ib3RhcnVBc3Npc3RhbnQvbWFpbi9hc3NldHMvY29uZmlnL21ldGEuanNvbg==").decode('utf-8'),Y2FvbmltYWRl=base64.b64decode("aHR0cHM6Ly9naXRodWIucHJpbmNlc3NkcmVhbWxhbmQudG9wL2h0dHBzOi8vcmF3Lmdp").decode('utf-8'))
 
-        url2 = "{Y2FvbmltYWRl}{ZGFvbWFpZ291}".format(ZGFvbWFpZ291=base64.b64decode("dGh1YnVzZXJjb250ZW50LmNvbS9oaW1lc2FtYW5veXVtZS9Ib3RhcnVBc3Npc3RhbnQvbWFpbi9hc3NldHMvY29uZmlnL21ldGEuanNvbg==").decode('utf-8'),Y2FvbmltYWRl=base64.b64decode("aHR0cHM6Ly9naXRodWIuaGltZXNhbWFub3l1bWUudG9wL2h0dHBzOi8vcmF3Lmdp").decode('utf-8'))
+        url2 = "{Y2FvbmltYWRl}{ZGFvbWFpZ291}".format(ZGFvbWFpZ291=base64.b64decode("dGh1YnVzZXJjb250ZW50LmNvbS9oaW1lc2FtYW5veXVtZS9Ib3RhcnVBc3Npc3RhbnQvbWFpbi9hc3NldHMvY29uZmlnL21ldGEuanNvbg==").decode('utf-8'),Y2FvbmltYWRl=base64.b64decode("aHR0cHM6Ly9naXRodWIucHJpbmNlc3NkcmVhbWxhbmQudG9wL2h0dHBzOi8vcmF3Lmdp").decode('utf-8'))
 
         cnJy = requests.get(url1)
         if cnJy.status_code == 200:
