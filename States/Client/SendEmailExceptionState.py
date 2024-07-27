@@ -11,13 +11,13 @@ class SendEmailExceptionState(BaseNotifyState):
         if configMgr.mConfig[configMgr.mKey.NOTIFY_SMTP_ENABLE]:
             self.SetNotifyContent()
 
-            time.sleep(3)
-            if os.path.exists(f'./screenshots/{dataClientMgr.currentUid}/excepetion.png'):
-                img = f"<img loading='lazy' src='cid:exceptionImg'>"
-            else:
-                img = f"<p>未检测到异常状态截图</p>"
+            # time.sleep(3)
+            # if os.path.exists(f'./screenshots/{dataClientMgr.currentUid}/excepetion.png'):
+            #     img = f"<img loading='lazy' src='cid:exceptionImg'>"
+            # else:
+            #     img = f"<p>未检测到异常状态截图</p>"
             
-            content = f"<span class=important style=background-color:#40405f;color:#66ccff>{dataClientMgr.tempText}</span>{img}"
+            content = f"<span class=important style=background-color:#40405f;color:#66ccff>{dataClientMgr.tempText}</span><img loading='lazy' src='cid:exceptionImg'>"
             
             if dataClientMgr.currentAction == "每日任务流程":
                 if configMgr.mConfig[configMgr.mKey.DAILY_TASKS_FIN][dataClientMgr.currentUid]:

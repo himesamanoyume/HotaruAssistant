@@ -39,6 +39,7 @@ class DivergentUniverseClearState(BaseUniverseState):
         command = [configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "diver.py"]
 
         if not dataClientMgr.currentUniverseScore < dataClientMgr.maxCurrentUniverseScore:
+            log.debug(logMgr.Debug(f"当前积分:{dataClientMgr.currentUniverseScore},最大积分:{dataClientMgr.maxCurrentUniverseScore}"))
             log.info(logMgr.Info("鉴定为分数已满,跳过"))
             return True
             

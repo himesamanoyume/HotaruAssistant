@@ -63,6 +63,8 @@ class BaseUniverseState(BaseClientState):
             configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][dataClientMgr.currentUid] = scoreAndMaxScore
 
             currentScore, maxScore = scoreAndMaxScore.split('/')
+            currentScore = int(currentScore)
+            maxScore = int(maxScore)
 
             log.info(logMgr.Info(f"识别到当前积分为:{currentScore}"))
             log.info(logMgr.Info(f"识别到积分上限为:{maxScore}"))
@@ -109,6 +111,8 @@ class BaseUniverseState(BaseClientState):
             configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][dataClientMgr.currentUid] = scoreAndMaxScore
 
             currentScore, maxScore = scoreAndMaxScore.split('/')
+            currentScore = int(currentScore)
+            maxScore = int(maxScore)
 
             log.info(logMgr.Info(f"识别到当前积分为:{currentScore}"))
             log.info(logMgr.Info(f"识别到积分上限为:{maxScore}"))
