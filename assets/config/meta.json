@@ -1,5 +1,5 @@
 {   
-    "hotaru_assets_version" : "v2.1.3.3-0",
+    "hotaru_assets_version" : "v2.1.3.3-1",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
@@ -51,7 +51,7 @@
         "Hook": "1.0:虎克",
         "JingYuan": "1.0:景元",
         "Natasha": "1.0:娜塔莎",
-        "March7th": "1.0:存护三月七",
+        "March7thPreservation": "1.0:存护冰三月七",
         "Pela": "1.0:佩拉",
         "Qingque": "1.0:青雀",
         "Sampo": "1.0:桑博",
@@ -92,13 +92,13 @@
         "StelleHormony": "2.2:同谐虚数女主",
         "Boothill":"2.2:波提欧",
         "Firefly": "2.3:流萤",
-        "Jade": "2.3:翡翠"
+        "Jade": "2.3:翡翠",
+        "Yunli":"2.4:云璃",
+        "March7thTheHunt": "2.4:巡猎虚数三月七"
     },
     "未实装角色":
     {
         "Jiaoqiu": "2.4:椒丘",
-        "March7thSwordmaster": "2.4:巡猎三月七",
-        "Yunli":"2.4:云璃",
         "CaelusNihility": "虚无男主",
         "StelleNihility": "虚无女主",
         "CaelusErudition": "智识男主",
@@ -437,6 +437,10 @@
         "巡猎之蕾2": [
             "逆时一击",
             "/images/screen/guide/crimson/TheHunt2.png"
+        ],
+        "智识之蕾2": [
+            "精致色稿",
+            "/images/screen/guide/crimson/Erudition2.png"
         ]
     },
     "小技巧":
