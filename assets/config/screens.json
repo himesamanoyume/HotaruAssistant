@@ -584,7 +584,7 @@
         "image_path": "./assets/static/images/screen/universe/universe_score.png",
         "actions": [
             {
-                "target_screen": "universe_main",
+                "target_screen": "divergent_universe_main",
                 "actions_list": [
                     {
                         "action": "PressKey",

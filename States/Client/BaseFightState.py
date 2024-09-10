@@ -94,7 +94,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
         # 截图过快会导致结果不可信
         time.sleep(1)
         # 传送
-        instanceNameCrop = (686.0 / 1920, 287.0 / 1080, 980.0 / 1920, 650.0 / 1080)
+        instanceNameCrop=(691.0 / 1920, 285.0 / 1080, 975.0 / 1920, 607.0 / 1080)
         screenClientMgr.ClickElement("./assets/static/images/screen/guide/power.png", "image")
         Flag = False
         instanceMapType = ''
@@ -108,38 +108,34 @@ class BaseFightState(BaseRelicsState, BaseClientState):
             elif screenClientMgr.ClickElement("传送", "min_distance_text", crop=_crop, include=True, source=_source, maxRetries=1, sourceType=_sourceType):
                 return True
             elif needScroll:
-                screenClientMgr.MouseScroll(18, -1)
+                screenClientMgr.MouseScroll(15, -1)
                 # 等待界面完全停止
                 time.sleep(1)
 
         if instanceType in ['拟造花萼（赤）']:
             source = f"./assets/static/{dataClientMgr.meta['拟造花萼（赤）'][instanceName][1]}"
-            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 3)):
+            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4)):
                 Flag = CheckInstance(instanceName, source, instanceNameCrop, "image")
                 if Flag:
                     break
                 
         elif instanceType in ['拟造花萼（金）']:
             instanceMap, instanceMapType = instanceName.split('-')
-            instance_map_name = dataClientMgr.meta['星球'][instanceMap]
+            # instance_map_name = dataClientMgr.meta['星球'][instanceMap]
 
-            for i in range(math.ceil((len(dataClientMgr.meta[instanceType]) / 3) / 3)):
-                if screenClientMgr.ClickElement(f"./assets/static/images/screen/guide/{instance_map_name}_on.png", "image", 0.9) or screenClientMgr.ClickElement(f"./assets/static/images/screen/guide/{instance_map_name}_off.png", "image", 0.9):
-                    Flag = CheckInstance(instanceName, instanceMapType, instanceNameCrop, "text", False)
-                    if Flag:
-                        break
-                else:
-                    # 等待界面完全停止
-                    time.sleep(1)
+            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4)):
+                Flag = CheckInstance(instanceName, instanceMapType, instanceNameCrop, "text", False)
+                if Flag:
+                    break
         else:
-            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 3)):
+            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4)):
                 if instanceType in ['饰品提取']:
                     
                     diffcultText = dataClientMgr.meta['饰品提取难度'][str(configMgr.mConfig[configMgr.mKey.UNIVERSE_DIFFICULTY][dataClientMgr.currentUid])]
                     
-                    if not screenClientMgr.FindElement(diffcultText, 'text', 0.85, crop=(1402.0 / 1920, 382.0 / 1080, 172.0 / 1920, 46.0 / 1080)):
+                    if not screenClientMgr.FindElement(diffcultText, 'text', 0.85, crop=(1402.0 / 1920, 345.0 / 1080, 172.0 / 1920, 46.0 / 1080)):
 
-                        if screenClientMgr.ClickElement("难度", 'text', 0.85, crop=(1402.0 / 1920, 382.0 / 1080, 172.0 / 1920, 46.0 / 1080)):
+                        if screenClientMgr.ClickElement("难度", 'text', 0.85, crop=(1402.0 / 1920, 345.0 / 1080, 172.0 / 1920, 46.0 / 1080)):
 
                             if screenClientMgr.ClickElement(diffcultText, 'text', 0.85, crop=(1360.0 / 1920, 457.0 / 1080, 144.0 / 1920, 408.0 / 1080)):
                                 log.info(logMgr.Info(f'已选择难度{configMgr.mConfig[configMgr.mKey.UNIVERSE_DIFFICULTY][dataClientMgr.currentUid]}'))
@@ -166,7 +162,10 @@ class BaseFightState(BaseRelicsState, BaseClientState):
                 if not screenClientMgr.FindElement(_instanceName, "text", 0.9, crop=(598.0 / 1920, 109.0 / 1080, 129.0 / 1920, 54.0 / 1080), takeScreenshot=True):
                     BaseClientState.ThrowException(f"⚠️刷饰品提取未完成 - 传送可能失败⚠️")
 
-        CheckTeleport(instanceType, instanceName)
+        if instanceType in ['拟造花萼（金）']:
+            CheckTeleport(instanceType, instanceMapType)
+        else:
+            CheckTeleport(instanceType, instanceName)
 
         fullCount = totalCount // 6
         incomplete_count = totalCount - fullCount * 6

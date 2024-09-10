@@ -14,12 +14,12 @@ class BaseUniverseState(BaseClientState):
         # 如果一开始就能检测到积分奖励画面 说明是每周第一次进入界面刷新时
         if screenClientMgr.FindElement("./assets/static/images/screen/universe/universe_score.png", "image", 0.9, maxRetries=1):
             log.info(logMgr.Info("检测到差分宇宙本周首次进入界面"))
-            BaseUniverseState.GetUniverseScore()
+            BaseUniverseState.GetDivergentUniverseScore()
             screenClientMgr.ClickElement("./assets/static/images/himeko/close.png", "image", 0.9)
 
         elif screenClientMgr.ClickElement("./assets/static/images/universe/universe_reward.png", "image", 0.9):
             log.info(logMgr.Info("正在点开积分界面"))
-            BaseUniverseState.GetUniverseScore()
+            BaseUniverseState.GetDivergentUniverseScore()
             if screenClientMgr.ClickElement("./assets/static/images/universe/one_key_receive.png", "image", 0.9):
                 if screenClientMgr.FindElement("./assets/static/images/himeko/close.png", "image", 0.9):
                     log.info(logMgr.Info("🎉差分宇宙积分奖励已领取🎉"))

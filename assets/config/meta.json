@@ -1,12 +1,12 @@
 {   
-    "hotaru_assets_version" : "v2.1.3.3-1",
+    "hotaru_assets_version" : "v2.1.4-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.1.3.3 更新内容",
+            "Title": "v2.1.4 更新内容",
             "Content": "修改更新链接。差分宇宙模块有更新，请删除3rdparty/Auto_Simulated_Universe后再启动Server，将会重新下载最新版。模拟宇宙停用；请尽快开启差分宇宙，否则每日任务轮次将会出错。"
         }
     ],
@@ -94,11 +94,14 @@
         "Firefly": "2.3:流萤",
         "Jade": "2.3:翡翠",
         "Yunli":"2.4:云璃",
-        "March7thTheHunt": "2.4:巡猎虚数三月七"
+        "March7thTheHunt": "2.4:巡猎虚数三月七",
+        "Jiaoqiu": "2.4:椒丘",
+        "Feixiao": "2.5:飞霄"
     },
     "未实装角色":
     {
-        "Jiaoqiu": "2.4:椒丘",
+        "Moze": "2.5:貊泽",
+        "Lingsha": "2.5:灵砂",
         "CaelusNihility": "虚无男主",
         "StelleNihility": "虚无女主",
         "CaelusErudition": "智识男主",
@@ -199,6 +202,14 @@
         "职司之形": [
             "物理3/星际和平工作证",
             "/images/screen/guide/shadow/Physical3.png"
+        ],
+        "今宵之形": [
+            "风3/一杯酩酊的时代",
+            "/images/screen/guide/shadow/Wind3.png"
+        ],
+        "机狼之形": [
+            "雷3/兽棺之钉",
+            "/images/screen/guide/shadow/Lighting3.png"
         ]
     },
     "侵蚀隧洞":
@@ -269,6 +280,8 @@
     },
     "位面饰品":
     {
+        "露莎卡": "沉陆海域露莎卡",
+        "蕉乐园": "奇想蕉乐园",
         "都蓝": "奔狼的都蓝王朝",
         "铸炼宫": "劫火莲灯铸炼宫",
         "黑塔": "太空封印站",
@@ -311,7 +324,8 @@
         "寒潮的落幕": "可可利亚·虚妄之母",
         "不死的神实": "不死神实·幻胧",
         "蛀星的旧靥": "碎星王虫·斯喀拉卡巴兹(拟造)",
-        "尘梦的赞礼": "「齐响诗班」神主日"
+        "尘梦的赞礼": "「齐响诗班」神主日",
+        "心兽的战场": "「飞霄」之影"
     },
     "饰品提取":
     {
@@ -354,6 +368,11 @@
             "名称":"永恒笑剧",
             "遗器":"奔狼的都蓝王朝/劫火莲灯铸炼宫",
             "图片":"/images/screen/guide/universe/universe10relics.png"
+        },
+        "11": {
+            "名称":"蠹役饥肠",
+            "遗器":"沉陆海域露莎卡/奇想蕉乐园",
+            "图片":"/images/screen/guide/universe/universe11relics.png"
         }
     },
     "差分宇宙难度":
