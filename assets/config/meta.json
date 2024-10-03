@@ -1,12 +1,12 @@
 {   
-    "hotaru_assets_version" : "v2.1.4-0",
+    "hotaru_assets_version" : "v2.1.4.1-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.1.4 更新内容",
+            "Title": "v2.1.4.1 更新内容",
             "Content": "修改更新链接。差分宇宙模块有更新，请删除3rdparty/Auto_Simulated_Universe后再启动Server，将会重新下载最新版。模拟宇宙停用；请尽快开启差分宇宙，否则每日任务轮次将会出错。"
         }
     ],
@@ -96,12 +96,13 @@
         "Yunli":"2.4:云璃",
         "March7thTheHunt": "2.4:巡猎虚数三月七",
         "Jiaoqiu": "2.4:椒丘",
-        "Feixiao": "2.5:飞霄"
+        "Feixiao": "2.5:飞霄",
+        "Moze": "2.5:貊泽",
+        "Lingsha": "2.5:灵砂"
     },
     "未实装角色":
     {
-        "Moze": "2.5:貊泽",
-        "Lingsha": "2.5:灵砂",
+        "Rappa": "2.6:乱破",
         "CaelusNihility": "虚无男主",
         "StelleNihility": "虚无女主",
         "CaelusErudition": "智识男主",

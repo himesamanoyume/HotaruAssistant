@@ -74,9 +74,7 @@ class GetFAndPInfoState(BaseClientState):
                     dataClientMgr.notifyContent[f"{typeStr}{i + 1}星数"] = int(star)
 
                 except Exception as e:
-                    nowtime = time.time()
-                    log.error(logMgr.Error(f"{nowtime},识别{typeStr}{i + 1}失败:{e}"))
-                    raise Exception(f"{nowtime},识别{typeStr}{i + 1}失败:{e}")
+                    BaseClientState.ThrowException(f"识别{typeStr}{i + 1}失败:{e}")
 
             levelList = [dataClientMgr.notifyContent[f"{typeStr}1层数"], dataClientMgr.notifyContent[f"{typeStr}2层数"]]
             starList = [dataClientMgr.notifyContent[f"{typeStr}1星数"], dataClientMgr.notifyContent[f"{typeStr}2星数"]]

@@ -364,7 +364,7 @@ class BaseRelicsState(BaseClientState):
                             log.error(logMgr.Error("分解遗器失败: 没有多余的遗器可供分解"))
                             screenClientMgr.ChangeTo('main')
                             return True
-                log.error(logMgr.Error("分解遗器失败"))
+                log.error(logMgr.Error("分解遗器失败。可能的原因1:分解遗器品级只勾选到4星及以下时已无任何可选遗器，这将出现未选中任何遗器因此无法分解任何遗器"))
                 return True
         except Exception as e:
             log.error(logMgr.Error(f"分解遗器失败: {e}"))
@@ -373,6 +373,4 @@ class BaseRelicsState(BaseClientState):
     @staticmethod
     def SkipForRelicsCount():
         if dataClientMgr.currentRelicsCount >= configMgr.mConfig[configMgr.mKey.RELICS_THRESHOLD_COUNT][dataClientMgr.currentUid]:
-            nowtime = time.time()
-            log.error(logMgr.Error(f"{nowtime},检测到遗器数量超过{configMgr.mConfig[configMgr.mKey.RELICS_THRESHOLD_COUNT][dataClientMgr.currentUid]},所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止"))
-            raise Exception(f"{nowtime},检测到遗器数量超过{configMgr.mConfig[configMgr.mKey.RELICS_THRESHOLD_COUNT][dataClientMgr.currentUid]},所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
+            BaseClientState.ThrowException(f"检测到遗器数量超过{configMgr.mConfig[configMgr.mKey.RELICS_THRESHOLD_COUNT][dataClientMgr.currentUid]},所有可能获得遗器的副本全部跳过,出现该致命错误意味着你没有选择开启遗器自动分解开关,若不打算开启,则只能自行上号清理,否则每次上号时遗器数量超标时都会直接中止")
