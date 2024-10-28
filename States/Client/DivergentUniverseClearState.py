@@ -73,8 +73,6 @@ class DivergentUniverseClearState(BaseUniverseState):
             log.info(logMgr.Info("尝试领取一遍积分奖励"))
             self.GetUniverseReward()
             # end
-
-            self.RunDivergentUniverse()
             
             return False
         else:

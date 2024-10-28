@@ -212,6 +212,7 @@ class DetectScreenModule:
                         top_left = (box[0][0][0], box[0][0][1])
                         bottom_right = (box[0][2][0], box[0][2][1])
                     return top_left, bottom_right
+            log.debug(logMgr.Debug(self.ocrResult))
             log.debug(logMgr.Debug(f"目标文字：{', '.join(target)} 未找到，没有识别出匹配文字"))
             return None, None
         except Exception as e:

@@ -57,7 +57,7 @@ class Update:
                     optionsReg.update({f"0:{self.originalDownloadUrl}":self.originalDownloadUrl})
                     optionsReg.update({f"1:https://ghproxy.com/{self.originalDownloadUrl}":f"https://ghproxy.com/{self.originalDownloadUrl}"})
                     optionsReg.update({f"2:https://github.moeyy.xyz/{self.originalDownloadUrl}":f"https://github.moeyy.xyz/{self.originalDownloadUrl}"})
-                    optionsReg.update({f"3:https://github.princessdreamland.top/{self.originalDownloadUrl}":f"https://github.princessdreamland.top/{self.originalDownloadUrl}"})
+                    optionsReg.update({f"3:https://github.tsukiyukimiyako.top/{self.originalDownloadUrl}":f"https://github.tsukiyukimiyako.top/{self.originalDownloadUrl}"})
                     option = questionary.select(title, list(optionsReg.keys())).ask()
                     url = optionsReg.get(option)
                     self.log.info(f"开始下载: {url}")

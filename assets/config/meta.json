@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.1.4.1-0",
+    "hotaru_assets_version" : "v2.1.5-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.1.4.1 更新内容",
-            "Content": "修改更新链接。差分宇宙模块有更新，请删除3rdparty/Auto_Simulated_Universe后再启动Server，将会重新下载最新版。模拟宇宙停用；请尽快开启差分宇宙，否则每日任务轮次将会出错。"
+            "Title": "v2.1.5 更新内容",
+            "Content": "适配2.6。修复bug。【v2.1.5：模拟宇宙模块有更新，请删除/3rdparty/Auto_Simulated_Universe后打开Server重新下载】"
         }
     ],
     "task_mappings":
@@ -98,11 +98,13 @@
         "Jiaoqiu": "2.4:椒丘",
         "Feixiao": "2.5:飞霄",
         "Moze": "2.5:貊泽",
-        "Lingsha": "2.5:灵砂"
+        "Lingsha": "2.5:灵砂",
+        "Rappa": "2.6:乱破"
     },
     "未实装角色":
     {
-        "Rappa": "2.6:乱破",
+        "Sunday": "2.7:星期日",
+        "Fugue": "2.7::忘归人",
         "CaelusNihility": "虚无男主",
         "StelleNihility": "虚无女主",
         "CaelusErudition": "智识男主",
@@ -211,6 +213,10 @@
         "机狼之形": [
             "雷3/兽棺之钉",
             "/images/screen/guide/shadow/Lighting3.png"
+        ],
+        "弦音之形": [
+            "虚数3/一曲合弦的幻景",
+            "/images/screen/guide/shadow/Imaginary3.png"
         ]
     },
     "侵蚀隧洞":
@@ -254,10 +260,16 @@
         "勇骑之径": [
             "荡除蠹灾的铁骑/风举云飞的勇烈",
             "/images/screen/guide/cavern/yongqi.png"
+        ],
+        "迷识之径": [
+            "重循苦旅的司铎/识海迷坠的学者",
+            "/images/screen/guide/cavern/yongqi.png"
         ]
     },
     "隧洞遗器":
     {
+        "司铎": "重循苦旅的司铎",
+        "学者": "识海迷坠的学者",
         "铁骑": "荡除蠹灾的铁骑",
         "勇烈": "风举云飞的勇烈",
         "先驱": "死水深潜的先驱",

@@ -41,21 +41,21 @@ class BaseClientState(BaseState):
                     screenClientMgr.MouseMove(scrollViewTopLeftX, scrollViewTopLeftY - 200)
 
                     time.sleep(0.5)
-                    screenClientMgr.MouseScroll(25, -1)
+                    screenClientMgr.MouseScroll(20, -1)
 
                     time.sleep(1)
                     if not screenClientMgr.ClickElement(f"./assets/static/images/character/{_character}.png", "image", 0.85, takeScreenshot=True):
-                        if screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollBottom.png", "image", scrollBottomThreshold, crop=(507.0 / 1920, 849.0 / 1080, 108.0 / 1920, 97.0 / 1080)):
+                        if screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollBottom.png", "image", scrollBottomThreshold, crop=(507.0 / 1920, 849.0 / 1080, 108.0 / 1920, 170.0 / 1080)):
                             log.warning(logMgr.Warning("角色列表已到底,仍未选中该角色"))
                             return False
                         else:
-                            screenClientMgr.MouseScroll(25, -1)
+                            screenClientMgr.MouseScroll(20, -1)
                             return RepeatScroll(_character)
                     else:
                         log.info(logMgr.Info("该角色已选中"))
                         for i in range(10):
-                            if not screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollTop.png", "image", scrollTopThreshold, crop=(505.0 / 1920, 110.0 / 1080, 84.0 / 1920, 96.0 / 1080)):
-                                screenClientMgr.MouseScroll(25, 1)
+                            if not screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollTop.png", "image", scrollTopThreshold, crop=(505.0 / 1920, 110.0 / 1080, 84.0 / 1920, 170.0 / 1080)):
+                                screenClientMgr.MouseScroll(20, 1)
                             else:
                                 break
 
@@ -63,8 +63,8 @@ class BaseClientState(BaseState):
                 else:
                     log.info(logMgr.Info("该角色已选中"))
                     for j in range(10):
-                        if not screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollTop.png", "image", scrollTopThreshold, crop=(505.0 / 1920, 110.0 / 1080, 84.0 / 1920, 96.0 / 1080)):
-                            screenClientMgr.MouseScroll(25, 1)
+                        if not screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollTop.png", "image", scrollTopThreshold, crop=(505.0 / 1920, 110.0 / 1080, 84.0 / 1920, 170.0 / 1080)):
+                            screenClientMgr.MouseScroll(20, 1)
                         else:
                             break
 

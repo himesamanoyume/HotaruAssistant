@@ -99,15 +99,15 @@ class ClientStartGameState(BaseClientState):
 
     @staticmethod
     def CheckAndClickEnter():
-        if screenClientMgr.FindElement("./assets/static/images/screen/click_enter.png", "image", 0.9):
-            return screenClientMgr.ClickElement("./assets/static/images/screen/click_enter.png", "image", 0.9)
+        if screenClientMgr.FindElement("./assets/static/images/screen/click_enter.png", "image", 0.9, maxRetries=1):
+            return screenClientMgr.ClickElement("./assets/static/images/screen/click_enter.png", "image", 0.9, maxRetries=1)
         else:
-            if screenClientMgr.FindElement("./assets/static/images/base/confirm.png", "image", 0.9):
-                screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9)
-            if screenClientMgr.FindElement("./assets/static/images/base/restart.png", "image", 0.9):
-                screenClientMgr.ClickElement("./assets/static/images/base/restart.png", "image", 0.9)
-            if screenClientMgr.FindElement("./assets/static/images/screen/start_game.png", "image", 0.9):
-                screenClientMgr.ClickElement("./assets/static/images/screen/start_game.png", "image", 0.9)
-            if screenClientMgr.FindElement("./assets/static/images/login/protocol.png", "image", 0.9):
-                screenClientMgr.ClickElement("./assets/static/images/login/protocol_agree.png", "image", 0.9)
+            if screenClientMgr.FindElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=1):
+                screenClientMgr.ClickElement("./assets/static/images/base/confirm.png", "image", 0.9, maxRetries=1)
+            if screenClientMgr.FindElement("./assets/static/images/base/restart.png", "image", 0.9, maxRetries=1):
+                screenClientMgr.ClickElement("./assets/static/images/base/restart.png", "image", 0.9, maxRetries=1)
+            if screenClientMgr.FindElement("./assets/static/images/screen/start_game.png", "image", 0.9, maxRetries=1):
+                screenClientMgr.ClickElement("./assets/static/images/screen/start_game.png", "image", 0.9, maxRetries=1)
+            if screenClientMgr.FindElement("./assets/static/images/login/protocol.png", "image", 0.9, maxRetries=1):
+                screenClientMgr.ClickElement("./assets/static/images/login/protocol_agree.png", "image", 0.9, maxRetries=1)
         return False
