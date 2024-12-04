@@ -14,10 +14,10 @@ class Update:
             cls.log = log
         return cls.mInstance
     
-    def Run(self):
+    def Run(self, isAssetsUpdate = False):
         self.DownloadFile()
         self.ExtractFile()
-        self.CoverFolder()
+        self.CoverFolder(isAssetsUpdate)
         self.CleanUp()
 
     def DownloadWithProgress(self, downloadUrl, savePath):
@@ -85,10 +85,10 @@ class Update:
                 self.log.error(f"解压失败：{e}")
                 input("按回车键重试. . .")
 
-    def CoverFolder(self):
+    def CoverFolder(self, isAssetsUpdate = False):
         while True:
             try:
-                if os.path.exists(os.path.abspath("./assets")):
+                if os.path.exists(os.path.abspath("./assets")) and isAssetsUpdate:
                     shutil.rmtree(os.path.abspath("./assets"))
                 shutil.copytree(self.extractFolderPath, self.coverFolderPath, dirs_exist_ok=True)
                 self.log.info(f"覆盖完成：{self.coverFolderPath}")

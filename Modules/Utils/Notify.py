@@ -225,7 +225,7 @@ class Notify:
     
     @staticmethod
     def LoginSMTP(configMgr):
-        sendHostEmail = smtplib.SMTP(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_HOST], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_PORT])
+        sendHostEmail = smtplib.SMTP_SSL(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_HOST], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_SSL])
         sendHostEmail.login(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_USER], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_PASSWORD])
         return sendHostEmail
 
@@ -350,7 +350,7 @@ class Notify:
         emailObject['To'] = configMgr.mConfig[ConfigKey.NOTIFY_SMTP_MASTER]
 
         sendHostEmail.sendmail(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_TO][uid], str(emailObject))
-        sendHostEmail.sendmail(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_USER], str(emailObject))
+        # sendHostEmail.sendmail(configMgr.mConfig[ConfigKey.NOTIFY_SMTP_FROM], configMgr.mConfig[ConfigKey.NOTIFY_SMTP_USER], str(emailObject))
 
         sendHostEmail.quit()
         return True

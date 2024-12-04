@@ -11,6 +11,28 @@ class InitUidConfig:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELICS_SALVAGE_5STAR_TO_EXP, uid, False)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.RELICS_THRESHOLD_COUNT, uid, 1450)
 
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.STORE_ENABLE, uid, True)
+
+            if configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['星轨专票'] == {} or uid not in configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['星轨专票'].keys():
+                configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['星轨专票'][uid] = True
+                
+            if configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['星轨通票'] == {} or uid not in configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['星轨通票'].keys():
+                configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['星轨通票'][uid] = True
+
+            if configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['命运的足迹'] == {}  or uid not in configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['命运的足迹'].keys():
+                configMgr.mConfig[configMgr.mKey.STORE_PRODUCT_ENABLE]['命运的足迹'][uid] = True
+
+            if configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['星轨专票'] == {} or uid not in configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['星轨专票'].keys():
+                configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['星轨专票'][uid] = 0
+
+            if configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['星轨通票'] == {} or uid not in configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['星轨通票'].keys():
+                configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['星轨通票'][uid] = 0
+
+            if configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['命运的足迹'] == {} or uid not in configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['命运的足迹'].keys():
+                configMgr.mConfig[configMgr.mKey.STORE_SOLDOUT_TIMESTAMP]['命运的足迹'][uid] = 0
+
+            configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.STORE_PRODUCT_PRIORITY, uid, ['星轨专票', '星轨通票', '命运的足迹'])
+
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.ECHO_OF_WAR_ENABLE, uid, False)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.ECHO_OF_WAR_TIMES, uid, 3)
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.ECHO_OF_WAR_TIMESTAMP, uid)
@@ -97,12 +119,12 @@ class InitUidConfig:
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_SCORE, uid, f"0/{maxScore}")
             configMgr.mConfig.DetectKeyIsExist(configMgr.mKey.UNIVERSE_FIN, uid, False)
 
-            if Date.IsNextMon4AM(configMgr.mConfig[configMgr.mKey.UNIVERSE_TIMESTAMP][uid], False):
+            if Date.IsNextWeek4AM(configMgr.mConfig[configMgr.mKey.UNIVERSE_TIMESTAMP][uid], False):
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_SCORE][uid] = f"0/{maxScore}"
                 configMgr.mConfig[configMgr.mKey.UNIVERSE_FIN][uid] = False
 
             return True
 
         except Exception as e:
-            log.error(logMgr.Error(f"发生错误:{e}"))
+            log.error(logMgr.Error(f"发生错误InitUid:{e}"))
             return False

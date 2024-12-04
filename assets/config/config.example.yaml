@@ -31,6 +31,7 @@ want_register_accounts: # 启动游戏前先进行注册,111111111为示例,不�
     universe_number: 3
     universe_difficulty: 1
 
+venv_exe_path: .\3rdparty\Auto_Simulated_Universe\.venv\Scripts\python.exe
 python_exe_path: '' # 示例 C:\Users\i\AppData\Local\Programs\Python\Python311\python.exe
 pypi_mirror_urls: # pypi 镜像列表
 - https://mirrors.cloud.tencent.com/pypi/simple/
@@ -65,6 +66,17 @@ relics_salvage_5star_enable: {} # 若允许分解遗器,是否分解5星遗器
 relics_salvage_4star_enable: {} # 若允许分解遗器,是否分解4星遗器
 relics_salvage_5star_to_exp: {} # 若分解5星遗器,是否分解成遗器经验材料
 relics_threshold_count: {} # 触发遗器超标的数量
+
+store_enable: {} # 是否开启兑换余烬商店
+store_product_enable: # 是否开启兑换对应商品
+  星轨专票: {}
+  星轨通票: {}
+  命运的足迹: {}
+store_soldout_timestamp: # 余烬兑换商品售罄时间戳
+  星轨专票: {}
+  星轨通票: {}
+  命运的足迹: {}
+store_product_priority: {} # 余烬兑换商品优先级
 
 borrow_character_enable: {} # 强制使用支援角色
 borrow_character: # 支援角色优先级

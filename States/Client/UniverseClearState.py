@@ -17,7 +17,7 @@ class UniverseClearState(BaseUniverseState):
         screenClientMgr.ChangeTo('main')
 
         log.info(logMgr.Info("开始校准"))
-        if Command.SubprocessWithTimeout([configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "align_angle.py"], 60, configMgr.mConfig[configMgr.mKey.UNIVERSE_PATH], configMgr.env):
+        if Command.SubprocessWithTimeout([configMgr.mConfig[configMgr.mKey.VENV_EXE_PATH], "align_angle.py"], 60, configMgr.mConfig[configMgr.mKey.UNIVERSE_PATH], configMgr.env):
             
             screenClientMgr.ChangeTo('guide3')
             log.info(logMgr.Info("开始模拟宇宙"))
@@ -33,7 +33,7 @@ class UniverseClearState(BaseUniverseState):
     
     def RunUniverse(self):
         log.info(logMgr.Info("进入到执行模拟宇宙部分"))
-        command = [configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "simul.py"]
+        command = [configMgr.mConfig[configMgr.mKey.VENV_EXE_PATH], "simul.py"]
 
         if not dataClientMgr.currentUniverseScore < dataClientMgr.maxCurrentUniverseScore:
             if dataClientMgr.currentImmersifiers < 4:

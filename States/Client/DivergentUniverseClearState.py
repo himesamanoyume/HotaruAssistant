@@ -17,7 +17,7 @@ class DivergentUniverseClearState(BaseUniverseState):
             screenClientMgr.ChangeTo('main')
 
             log.info(logMgr.Info("开始校准"))
-            if Command.SubprocessWithTimeout([configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "align_angle.py"], 60, configMgr.mConfig[configMgr.mKey.UNIVERSE_PATH], configMgr.env):
+            if Command.SubprocessWithTimeout([configMgr.mConfig[configMgr.mKey.VENV_EXE_PATH], "align_angle.py"], 60, configMgr.mConfig[configMgr.mKey.UNIVERSE_PATH], configMgr.env):
                 
                 screenClientMgr.ChangeTo('guide5')
                 log.info(logMgr.Info("开始差分宇宙"))
@@ -36,7 +36,7 @@ class DivergentUniverseClearState(BaseUniverseState):
     
     def RunDivergentUniverse(self):
         log.info(logMgr.Info("进入到执行差分宇宙部分"))
-        command = [configMgr.mConfig[configMgr.mKey.PYTHON_EXE_PATH], "diver.py"]
+        command = [configMgr.mConfig[configMgr.mKey.VENV_EXE_PATH], "diver.py"]
 
         if not dataClientMgr.currentUniverseScore < dataClientMgr.maxCurrentUniverseScore:
             log.debug(logMgr.Debug(f"当前积分:{dataClientMgr.currentUniverseScore},最大积分:{dataClientMgr.maxCurrentUniverseScore}"))

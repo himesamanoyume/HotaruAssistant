@@ -33,7 +33,7 @@ class AppUpdater:
                     else:
                         url = FastestMirror.GetGithubMirror(latestHotaruDownloadUrl)
                         self.mUpdate.InitUpdateHandler(latestHotaruDownloadUrl, url, os.path.abspath("./"), "./HotaruAssistant")
-                    self.mUpdate.Run()
+                    self.mUpdate.Run(isAssetsUpdate)
                     input("按回车退出程序...")
                     sys.exit(0)
                 elif value == 1:

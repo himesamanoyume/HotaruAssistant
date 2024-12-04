@@ -96,7 +96,8 @@ class OcrBaseModule:
                 "怒之形": "嗔怒之形",
                 "未日幻影": "末日幻影",
                 "时者": "莳者",
-                "役饥肠": "蠹役饥肠"
+                "役饥肠": "蠹役饥肠",
+                "余煜兑换": "余烬兑换"
             }
 
             originalStr = str(originalDict)

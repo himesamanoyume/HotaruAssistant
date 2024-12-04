@@ -19,7 +19,7 @@ class Date:
         return False
     
     @staticmethod
-    def IsNextMon4AM(timestamp, isLog = True):
+    def IsNextWeek4AM(timestamp, isLog = True):
         dtObject = datetime.fromtimestamp(timestamp)
         current_time = datetime.now()
         if dtObject.weekday() == 0 and dtObject.hour < 4:
@@ -33,6 +33,19 @@ class Date:
         # if isLog:
         #     log.info(logMgr.Info(f"时间戳记录日期为{dt_object}"))
         if current_time >= next_monday_4am:
+            return True
+        return False
+    
+    @staticmethod
+    def IsNextMonth4AM(timestamp, isLog = True):
+        dtObject = datetime.fromtimestamp(timestamp)
+        current_time = datetime.now()
+
+        next_month = dtObject.month + 1 if dtObject.month < 12 else 1  
+        next_month_year = dtObject.year if dtObject.month < 12 else dtObject.year + 1  
+        
+        next_month_4am = dtObject.replace(year=next_month_year, month=next_month, day=1, hour=4, minute=0, second=0, microsecond=0) 
+        if current_time >= next_month_4am:
             return True
         return False
     

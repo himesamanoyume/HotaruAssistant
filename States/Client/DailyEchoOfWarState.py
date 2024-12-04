@@ -13,7 +13,7 @@ class DailyEchoOfWarState(BaseFightState, BaseClientState):
             if rewardCount > 0:
                 self.EchoOfWarStart(rewardCount)
             else:
-                if not Date.IsNextMon4AM(configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_TIMESTAMP][dataClientMgr.currentUid], dataClientMgr.currentUid):
+                if not Date.IsNextWeek4AM(configMgr.mConfig[configMgr.mKey.ECHO_OF_WAR_TIMESTAMP][dataClientMgr.currentUid], dataClientMgr.currentUid):
                     log.info(logMgr.Info("历战余响尚\033[91m未刷新\033[0m"))
                     return True
         else:
