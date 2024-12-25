@@ -114,7 +114,7 @@ class BaseFightState(BaseRelicsState, BaseClientState):
 
         if instanceType in ['拟造花萼（赤）']:
             source = f"./assets/static/{dataClientMgr.meta['拟造花萼（赤）'][instanceName][1]}"
-            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4)):
+            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4) + 1):
                 Flag = CheckInstance(instanceName, source, instanceNameCrop, "image")
                 if Flag:
                     break
@@ -123,12 +123,12 @@ class BaseFightState(BaseRelicsState, BaseClientState):
             instanceMap, instanceMapType = instanceName.split('-')
             # instance_map_name = dataClientMgr.meta['星球'][instanceMap]
 
-            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4)):
+            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4) + 1):
                 Flag = CheckInstance(instanceName, instanceMapType, instanceNameCrop, "text", False)
                 if Flag:
                     break
         else:
-            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4)):
+            for i in range(math.ceil(len(dataClientMgr.meta[instanceType]) / 4) + 1):
                 if instanceType in ['饰品提取']:
                     
                     diffcultText = dataClientMgr.meta['饰品提取难度'][str(configMgr.mConfig[configMgr.mKey.UNIVERSE_DIFFICULTY][dataClientMgr.currentUid])]

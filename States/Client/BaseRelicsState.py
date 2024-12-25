@@ -34,7 +34,7 @@ class BaseRelicsState(BaseClientState):
                         )
                     )
 
-                    if not screenClientMgr.FindElement("./assets/static/images/fight/relics_info_close.png", "image", 0.9):
+                    if not screenClientMgr.FindElement("./assets/static/images/fight/relics_info_close.png", "image", 0.9, maxRetries=2):
                         screenClientMgr.ClickElementWithPos(
                             (
                                 (successRewardTopLeftX -380 + j *120, successRewardTopLeftY + 40 + i * 120),
@@ -42,7 +42,7 @@ class BaseRelicsState(BaseClientState):
                             )
                         )
                         
-                    if not screenClientMgr.FindElement("./assets/static/images/fight/5star.png", "image", 0.9, maxRetries=2):
+                    if not screenClientMgr.FindElement("./assets/static/images/fight/5star.png", "image", 0.8, maxRetries=1):
                         if screenClientMgr.ClickElement("./assets/static/images/fight/relics_info_close.png", "image", 0.9):
                             time.sleep(0.5)
                             if i == 1 and j == 6:
@@ -111,7 +111,7 @@ class BaseRelicsState(BaseClientState):
     
     @staticmethod
     def IsGoodRelics(relicsName, relicsPart, relicsPropList, propCount, usefulPropCount, mainPropName):
-        log.info(logMgr.Info("开始检测遗器"))
+        log.info(logMgr.Info("开始判断遗器词条"))
         relicsSubPropList = relicsPropList.copy()
         del relicsSubPropList[0]
         processed = False

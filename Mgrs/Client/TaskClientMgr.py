@@ -64,8 +64,8 @@ class TaskClientMgr(TaskBaseMgr):
         dataClientMgr.tempUid = uid
         stateClientMgr.Transition(InitState())
 
-    def WaitForNextLoop(self):
-        stateClientMgr.Transition(WaitForNextLoopState())
+    def WaitForNextLoop(self, customWaitTime = 0):
+        stateClientMgr.Transition(WaitForNextLoopState(customWaitTime))
 
     @staticmethod
     def StartDaily():

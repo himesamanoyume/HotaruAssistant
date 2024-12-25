@@ -62,16 +62,37 @@ class AppClient:
         regSelectOption = questionary.select("请选择UID进行作为首位启动游戏:\n", list(optionsReg.keys())).ask()
         selectedReg = optionsReg.get(regSelectOption)
 
-        waitTime = Date.GetWaitTimeWithTotalTime(configMgr)
-        futureTime = Date.CalculateFutureTime(waitTime)
+        def InputDetect():
+            while True:  
+                userInput = input("请输入一个数字（范围 0-24）：")  
+                try:  
+                    value = float(userInput)  
+                    roundedValue = round(value)  
+                    if 0 <= roundedValue <= 24:  
+                        return roundedValue  
+                    else:  
+                        print("错误：四舍五入后整数必须在 0 到 24 之间。")  
+                except ValueError:  
+                    print("错误：输入无效。请确保输入的是一个数字。")  
 
-        optionsSleep = {"直接开始运行": False, f"预计等待至{futureTime}再运行": True}
-
+        optionsSleep = {
+            "直接开始运行": 0,
+            f"预计等待至{Date.CalculateFutureTime(Date.GetWaitTimeWithTotalTime(configMgr.mConfig[configMgr.mKey.NEXT_LOOP_TIME]))}再运行": configMgr.mConfig[configMgr.mKey.NEXT_LOOP_TIME],
+            f"直接等待至下一次服务器刷新时间:{Date.CalculateFutureTime(Date.GetWaitTimeWithTotalTime(24))},再运行": 24,
+            "等待自定义小时后再运行":-1
+            }
+        
+        
         sleepSelectOption = questionary.select("请选择直接开始还是先进行等待:\n", list(optionsSleep.keys())).ask()
         selectedSleep = optionsSleep.get(sleepSelectOption)
 
-        if selectedSleep:
-            taskClientMgr.WaitForNextLoop()
+        if selectedSleep != 0:
+            if selectedSleep == -1:
+                _time = InputDetect()
+                taskClientMgr.WaitForNextLoop(_time)
+            else:
+                taskClientMgr.WaitForNextLoop(selectedSleep)
+                
             for index in range(len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS])):
 
                 uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index]).split('-')[1][:9]
@@ -138,7 +159,7 @@ class AppClient:
                     taskClientMgr.QuitGame()
 
             isFirstTimeLoop = False
-            taskClientMgr.WaitForNextLoop()
+            taskClientMgr.WaitForNextLoop(configMgr.mConfig[configMgr.mKey.NEXT_LOOP_TIME])
             for index in range(len(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS])):
 
                 uidStr = str(configMgr.mConfig[configMgr.mKey.MULTI_LOGIN_ACCOUNTS][index]).split('-')[1][:9]
