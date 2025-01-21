@@ -1,13 +1,13 @@
 {   
-    "hotaru_assets_version" : "v2.1.7-0",
+    "hotaru_assets_version" : "v2.1.8-0",
     "announcement": [
         {
             "Title": "本软件免费开源,如果您购买了本软件,说明您被骗了!",
             "Content": "请尽快举报投诉退款卖家"
         },
         {
-            "Title": "v2.1.7 更新内容",
-            "Content": "脚本等待启动时间自定义 | 适配2.7;适配QQ邮箱新规;新增每月进行余烬兑换(实验性:测试的机会太少了);模拟宇宙板块改用虚拟环境安装依赖。修复bug。【对于v2.1.5之前：模拟宇宙模块有更新，请删除./3rdparty/Auto_Simulated_Universe后打开Server重新下载】"
+            "Title": "v2.1.8 更新内容",
+            "Content": "适配3.0新副本新角色。适配拥有时装的角色。修复bug。【对于v2.1.5之前：模拟宇宙模块有更新，请删除./3rdparty/Auto_Simulated_Universe后打开Server重新下载】"
         }
     ],
     "task_mappings":
@@ -101,14 +101,16 @@
         "Lingsha": "2.5:灵砂",
         "Rappa": "2.6:乱破",
         "Sunday": "2.7:星期日",
-        "Fugue": "2.7:忘归人"
+        "Fugue": "2.7:忘归人",
+        "TheHerta": "3.0:大黑塔",
+        "CaelusRemembrance": "3.0:记忆男主",
+        "StelleRemembrance": "3.0:记忆女主"
     },
     "未实装角色":
     {
-        "TheHerta": "3.0:大黑塔",
         "Aglaea": "3.0:阿格莱雅",
-        "CaelusRemembrance": "3.0:记忆男主",
-        "StelleRemembrance": "3.0:记忆女主",
+        "Mydei": "3.1:万敌",
+        "Tribbie": "3.1:缇宝",
         "CaelusNihility": "虚无男主",
         "StelleNihility": "虚无女主",
         "CaelusErudition": "智识男主",
@@ -268,6 +270,10 @@
         "迷识之径": [
             "重循苦旅的司铎/识海迷坠的学者",
             "/images/screen/guide/cavern/yongqi.png"
+        ],
+        "弦歌之径": [
+            "凯歌祝捷的英豪/哀歌覆国的诗人",
+            "/images/screen/guide/cavern/xiange.png"
         ]
     },
     "隧洞遗器":
@@ -293,7 +299,9 @@
         "拳王": "街头出身的拳王",
         "怪盗": "流星追迹的怪盗",
         "雪猎": "密林卧雪的猎人",
-        "翔鹰": "晨昏交界的翔鹰"
+        "翔鹰": "晨昏交界的翔鹰",
+        "英豪": "凯歌祝捷的英豪",
+        "诗人": "哀歌覆国的诗人"
     },
     "位面饰品":
     {
@@ -477,7 +485,14 @@
         "智识之蕾2": [
             "精致色稿",
             "/images/screen/guide/crimson/Erudition2.png"
+        ],
+        "记忆之蕾1": [
+            "阿赖耶华",
+            "/images/screen/guide/crimson/Remembrance1.png"
         ]
+    },
+    "时装":{
+        "March7thPreservation":[1, 2]
     },
     "小技巧":
     [

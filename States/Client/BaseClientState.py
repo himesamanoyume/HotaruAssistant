@@ -32,43 +32,59 @@ class BaseClientState(BaseState):
         def SelectChar(charList:list):
 
             # -1为往下,1为往上
-            def RepeatScroll(_character):
-                if not screenClientMgr.ClickElement(f"./assets/static/images/character/{_character}.png", "image", 0.85, takeScreenshot=True):
-                    point = screenClientMgr.FindElement("./assets/static/images/synthesis/filter.png", "image", 0.9)
+            def RepeatScroll(character):
 
-                    scrollViewTopLeftX = point[0][0]
-                    scrollViewTopLeftY = point[0][1]
-                    screenClientMgr.MouseMove(scrollViewTopLeftX, scrollViewTopLeftY - 200)
-
-                    time.sleep(0.5)
-                    screenClientMgr.MouseScroll(20, -1)
-
-                    time.sleep(1)
+                def Select(_character):
                     if not screenClientMgr.ClickElement(f"./assets/static/images/character/{_character}.png", "image", 0.85, takeScreenshot=True):
-                        if screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollBottom.png", "image", scrollBottomThreshold, crop=(507.0 / 1920, 849.0 / 1080, 108.0 / 1920, 170.0 / 1080)):
-                            log.warning(logMgr.Warning("角色列表已到底,仍未选中该角色"))
-                            return False
+                        point = screenClientMgr.FindElement("./assets/static/images/synthesis/filter.png", "image", 0.9)
+
+                        scrollViewTopLeftX = point[0][0]
+                        scrollViewTopLeftY = point[0][1]
+                        screenClientMgr.MouseMove(scrollViewTopLeftX, scrollViewTopLeftY - 200)
+
+                        time.sleep(0.5)
+                        screenClientMgr.MouseScroll(20, -1)
+
+                        time.sleep(1)
+                        if not screenClientMgr.ClickElement(f"./assets/static/images/character/{_character}.png", "image", 0.85, takeScreenshot=True):
+                            if screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollBottom.png", "image", scrollBottomThreshold, crop=(507.0 / 1920, 849.0 / 1080, 108.0 / 1920, 170.0 / 1080)):
+                                log.warning(logMgr.Warning("角色列表已到底,仍未选中该角色"))
+                                for i in range(10):
+                                    if not screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollTop.png", "image", scrollTopThreshold, crop=(505.0 / 1920, 110.0 / 1080, 84.0 / 1920, 170.0 / 1080)):
+                                        screenClientMgr.MouseScroll(20, 1)
+                                    else:
+                                        break
+                                return False
+                            else:
+                                screenClientMgr.MouseScroll(20, -1)
+                                return RepeatScroll(_character)
                         else:
-                            screenClientMgr.MouseScroll(20, -1)
-                            return RepeatScroll(_character)
+                            log.info(logMgr.Info("该角色已选中"))
+                            for i in range(10):
+                                if not screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollTop.png", "image", scrollTopThreshold, crop=(505.0 / 1920, 110.0 / 1080, 84.0 / 1920, 170.0 / 1080)):
+                                    screenClientMgr.MouseScroll(20, 1)
+                                else:
+                                    break
+
+                            return True
                     else:
                         log.info(logMgr.Info("该角色已选中"))
-                        for i in range(10):
+                        for j in range(10):
                             if not screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollTop.png", "image", scrollTopThreshold, crop=(505.0 / 1920, 110.0 / 1080, 84.0 / 1920, 170.0 / 1080)):
                                 screenClientMgr.MouseScroll(20, 1)
                             else:
                                 break
 
                         return True
+                
+                if character in dataClientMgr.meta["时装"]:
+                    log.info(logMgr.Info(f"检测到{dataClientMgr.meta['角色'][character]}拥有时装"))
+                    for number in dataClientMgr.meta["时装"][character]:
+                        tempChar = f"{character}{number}"
+                        log.info(logMgr.Info(f"尝试搜索{tempChar}"))
+                        Select(tempChar)
                 else:
-                    log.info(logMgr.Info("该角色已选中"))
-                    for j in range(10):
-                        if not screenClientMgr.FindElement(f"./assets/static/images/screen/{scrollText}_scrollTop.png", "image", scrollTopThreshold, crop=(505.0 / 1920, 110.0 / 1080, 84.0 / 1920, 170.0 / 1080)):
-                            screenClientMgr.MouseScroll(20, 1)
-                        else:
-                            break
-
-                    return True
+                    Select(character)
 
             charCount = 0
             for character in charList:
