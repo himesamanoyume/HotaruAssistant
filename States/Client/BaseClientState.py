@@ -77,14 +77,20 @@ class BaseClientState(BaseState):
 
                         return True
                 
+                tempBool = False
                 if character in dataClientMgr.meta["时装"]:
                     log.info(logMgr.Info(f"检测到{dataClientMgr.meta['角色'][character]}拥有时装"))
+                    
                     for number in dataClientMgr.meta["时装"][character]:
                         tempChar = f"{character}{number}"
                         log.info(logMgr.Info(f"尝试搜索{tempChar}"))
-                        Select(tempChar)
+                        if Select(tempChar):
+                            tempBool = True
                 else:
-                    Select(character)
+                    if Select(character):
+                        tempBool = True
+
+                return tempBool
 
             charCount = 0
             for character in charList:
@@ -99,7 +105,7 @@ class BaseClientState(BaseState):
             if charCount == 4:
                 return False
             else:
-                log.info(logMgr.Info(f"{charCount}"))
+                log.info(logMgr.Info(f"总计选中{charCount}位角色"))
                 BaseClientState.ThrowException("未能选中4位配置中的角色,请检查")
 
         if instanceType == "universe":
